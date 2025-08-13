@@ -2,7 +2,15 @@
   "name": "@fullstack-dev/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start nestjs api": "nx serve backebd --watch",
+    "prisma:generate": "npx prisma generate --schema libs/prisma-schema-one/prisma && npx prisma generate --schema libs/prisma-schema-two/prisma",
+    "prisma-migrate": "dotenv -e ../.env -- npx prisma migrate dev --schema libs/prisma-schema-one/prisma && npx prisma migrate dev --schema libs/prisma-schema-two/prisma",
+    "pnpm-instal": "pnpm install --no-frozen-lockfile",
+    "pnpm-auto-update": "pnpm update",
+    "nxupdate": "nx migrate latest",
+    "nxmigrate": "nx migrate --run-migrations"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^11.0.0",
