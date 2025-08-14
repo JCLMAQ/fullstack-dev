@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start nestjs api": "nx serve backebd --watch",
-    "prisma:generate": "npx prisma generate --schema libs/prisma-schema-one/prisma && npx prisma generate --schema libs/prisma-schema-two/prisma",
-    "prisma-migrate": "dotenv -e ../.env -- npx prisma migrate dev --schema libs/prisma-schema-one/prisma && npx prisma migrate dev --schema libs/prisma-schema-two/prisma",
+    "prisma:generate": "npx prisma generate --schema libs/prisma-schema/prisma/schema.prisma",
+    "prisma-migrate": "dotenv -e ../.env -- npx prisma migrate dev --schema libs/prisma-schema/prisma/schema.prisma",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "nxupdate": "nx migrate latest",
@@ -13,17 +13,20 @@
   },
   "private": true,
   "dependencies": {
-    "@nestjs/common": "^11.0.0",
-    "@nestjs/core": "^11.0.0",
-    "@nestjs/platform-express": "^11.0.0",
-    "axios": "^1.6.0",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
+    "@nestjs/common": "^11.1.6",
+    "@nestjs/core": "^11.1.6",
+    "@nestjs/platform-express": "^11.1.6",
+    "@prisma/client": "^6.14.0",
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "dotenv-cli": "10.0.0",
+    "reflect-metadata": "^0.1.14",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.8.0",
-    "@nestjs/schematics": "^11.0.0",
-    "@nestjs/testing": "^11.0.0",
+    "@eslint/js": "^9.33.0",
+    "@nestjs/schematics": "^11.0.7",
+    "@nestjs/testing": "^11.1.6",
     "@nx/eslint": "21.3.11",
     "@nx/eslint-plugin": "21.3.11",
     "@nx/js": "21.3.11",
@@ -32,20 +35,18 @@
     "@nx/web": "21.3.11",
     "@nx/webpack": "21.3.11",
     "@nx/workspace": "21.3.11",
-    "@swc-node/register": "~1.9.1",
-    "@swc/core": "~1.5.7",
-    "@swc/helpers": "~0.5.11",
-    "@types/node": "~18.16.9",
-    "eslint": "^9.8.0",
-    "eslint-config-prettier": "^10.0.0",
+    "@swc-node/register": "~1.9.2",
+    "@swc/core": "~1.5.29",
+    "@swc/helpers": "~0.5.17",
+    "@types/node": "~18.16.20",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
     "nx": "21.3.11",
-    "prettier": "^2.6.2",
-    "tslib": "^2.3.0",
-    "typescript": "~5.8.2",
-    "typescript-eslint": "^8.29.0",
+    "prettier": "^2.8.8",
+    "prisma": "^6.14.0",
+    "tslib": "^2.8.1",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
     "webpack-cli": "^5.1.4"
-  },
-  "workspaces": [
-    "apps/*"
-  ]
+  }
 }

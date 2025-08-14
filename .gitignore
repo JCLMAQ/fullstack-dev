@@ -42,3 +42,11 @@ Thumbs.db
 .nx/workspace-data
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+# Prisma
+# Keep the generated Prisma Client + query engine out of version control
+/src/generated/prisma
+
+# Environment variables
+.env
+# This file is used to set environment variables for the application.
