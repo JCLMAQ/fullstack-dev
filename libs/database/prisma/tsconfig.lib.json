@@ -7,5 +7,5 @@
     "module": "nodenext",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"]
+   "include": ["src/**/*.ts", "../../../libs/database/prisma/src/**/*.ts"]
 }

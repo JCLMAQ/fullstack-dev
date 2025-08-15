@@ -18,7 +18,10 @@
     "target": "es2022",
     "customConditions": ["development"],
     "paths": {
-      "@db/prisma": ["libs/database/prisma/src/index.ts"]
+      "@db/prisma": ["../../../libs/database/prisma/src/index.ts"],
+      "@fullstack-dev/prisma-client": [
+        "libs/backend/prisma-client/src/index.ts"
+      ]
     }
   }
 }
