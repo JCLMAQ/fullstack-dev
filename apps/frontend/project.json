@@ -52,7 +52,7 @@
       "executor": "@angular/build:dev-server",
       "options": {
         "port": 4600,
-        "proxyConfig": "apps/frontend/proxy.conf.json"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "production": {
@@ -62,8 +62,7 @@
           "buildTarget": "devapp:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "dependsOn": ["devnestjs:serve"]
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",

@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start nestjs api": "nx serve devnestjs --watch",
+    "start devapp": "nx serve devapp --host 127.0.0.1 --port 4150",
     "prisma:generate": "npx prisma generate",
     "prisma-migrate": "dotenv -e ./.env -- npx prisma migrate dev",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
