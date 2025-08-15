@@ -50,3 +50,5 @@ Thumbs.db
 # Environment variables
 .env
 # This file is used to set environment variables for the application.
+
+.angular
