@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start nestjs api": "nx serve backend --watch",
+    "start nestjs api": "nx serve devnestjs --watch",
     "prisma:generate": "npx prisma generate",
     "prisma-migrate": "dotenv -e ./.env -- npx prisma migrate dev",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
