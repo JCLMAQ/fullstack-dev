@@ -87,6 +87,9 @@ importers:
       '@nestjs/testing':
         specifier: ^11.1.6
         version: 11.1.6(@nestjs/common@11.1.6(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/platform-express@11.1.6)
+      '@nx-tools/nx-prisma':
+        specifier: ^6.8.2
+        version: 6.8.2(@nx/devkit@21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))))(prisma@6.14.0(typescript@5.8.3))(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.17))(@types/node@18.16.20)(typescript@5.8.3))(tslib@2.8.1)
       '@nx/angular':
         specifier: 21.3.11
         version: 21.3.11(qgibtqammplpcj75y4oopftxzu)
@@ -212,6 +215,12 @@ importers:
         version: 5.1.4(webpack@5.99.9)
 
 packages:
+
+  '@actions/exec@1.1.1':
+    resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
+
+  '@actions/io@1.1.3':
+    resolution: {integrity: sha512-wi9JjgKLYS7U/z8PPbco+PvTb/nRWjeoFlJ1Qer83k/3C5PHQi28hiVdeE2kHXmIL99mQFawx8qt/JPjZilJ8Q==}
 
   '@algolia/client-abtesting@5.32.0':
     resolution: {integrity: sha512-HG/6Eib6DnJYm/B2ijWFXr4txca/YOuA4K7AsEU0JBrOZSB+RU7oeDyNBPi3c0v0UDDqlkBqM3vBU/auwZlglA==}
@@ -2168,6 +2177,24 @@ packages:
     engines: {node: ^14.18.0 || >=16.10.0, npm: '>=5.10.0'}
     hasBin: true
 
+  '@nx-tools/core@6.8.2':
+    resolution: {integrity: sha512-dM5UtHs4J+aRMGM7GsLSg/F6w7qezpRv6N4FOpRYmGMep4MX/2Bj/xnWrr87NQKQ8+Gm7WvX97tZGNevjeHyOQ==}
+    peerDependencies:
+      '@nx/devkit': ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+      tslib: ^2.5.0
+
+  '@nx-tools/nx-prisma@6.8.2':
+    resolution: {integrity: sha512-OtSpXUvyDLoDAHGl64UwCgTUHXpQc5awYAZuK8cA7tJwDq+kQD7bWznPnJwOpbXwg/aL84sNb2teyOV2uhA7kQ==}
+    peerDependencies:
+      '@nx/devkit': ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
+      prisma: ^5.0.0 || ^6.0.0
+      ts-node: ^10.0.0
+      tslib: ^2.5.0
+      tsx: ^4.0.0
+    peerDependenciesMeta:
+      tsx:
+        optional: true
+
   '@nx/angular@21.3.11':
     resolution: {integrity: sha512-cpNZP65YrxKDJD3zR1jMDNz4iGNMt7RL68uTB7oNwUHkXUihfhxSgNEuR06jl70XEPoTFXNHZezb1ckA+GcGyg==}
     peerDependencies:
@@ -3879,6 +3906,9 @@ packages:
   cssstyle@4.6.0:
     resolution: {integrity: sha512-2z+rWdzbbSZv6/rhtvzvqeZQHrBaqgogqt85sqFNbabZOuFbCVFb8kPeEtZjiKkbrm395irpNKiYeFeLiQnFPg==}
     engines: {node: '>=18'}
+
+  csv-parse@5.6.0:
+    resolution: {integrity: sha512-l3nz3euub2QMg5ouu5U09Ew9Wf6/wQ8I++ch1loQ0ljmzhmfZYrH9fflS22i/PQEvsPvxCwxgz5q7UB8K1JO4Q==}
 
   data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
@@ -7729,6 +7759,12 @@ packages:
 
 snapshots:
 
+  '@actions/exec@1.1.1':
+    dependencies:
+      '@actions/io': 1.1.3
+
+  '@actions/io@1.1.3': {}
+
   '@algolia/client-abtesting@5.32.0':
     dependencies:
       '@algolia/client-common': 5.32.0
@@ -10130,6 +10166,24 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
+  '@nx-tools/core@6.8.2(@nx/devkit@21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))))(tslib@2.8.1)':
+    dependencies:
+      '@actions/exec': 1.1.1
+      '@actions/io': 1.1.3
+      '@nx/devkit': 21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))
+      chalk: 4.1.2
+      ci-info: 4.3.0
+      csv-parse: 5.6.0
+      tslib: 2.8.1
+
+  '@nx-tools/nx-prisma@6.8.2(@nx/devkit@21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))))(prisma@6.14.0(typescript@5.8.3))(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.17))(@types/node@18.16.20)(typescript@5.8.3))(tslib@2.8.1)':
+    dependencies:
+      '@nx-tools/core': 6.8.2(@nx/devkit@21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17))))(tslib@2.8.1)
+      '@nx/devkit': 21.3.11(nx@21.3.11(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.24)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))
+      prisma: 6.14.0(typescript@5.8.3)
+      ts-node: 10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.17))(@types/node@18.16.20)(typescript@5.8.3)
+      tslib: 2.8.1
+
   '@nx/angular@21.3.11(qgibtqammplpcj75y4oopftxzu)':
     dependencies:
       '@angular-devkit/core': 20.1.6(chokidar@4.0.3)
@@ -12248,6 +12302,8 @@ snapshots:
     dependencies:
       '@asamuzakjp/css-color': 3.2.0
       rrweb-cssom: 0.8.0
+
+  csv-parse@5.6.0: {}
 
   data-urls@5.0.0:
     dependencies:
