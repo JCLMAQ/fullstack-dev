@@ -168,6 +168,9 @@ importers:
       jest-environment-jsdom:
         specifier: ^30.0.2
         version: 30.0.5
+      jest-environment-node:
+        specifier: ^30.0.2
+        version: 30.0.5
       jest-preset-angular:
         specifier: ~15.0.0
         version: 15.0.0(@angular/compiler-cli@20.1.7(@angular/compiler@20.1.7)(typescript@5.8.3))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser-dynamic@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/compiler@20.1.7)(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@20.1.7(@angular/common@20.1.7(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@20.1.7(@angular/compiler@20.1.7)(rxjs@7.8.2)(zone.js@0.15.1))))(@babel/core@7.28.0)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.0))(jest-environment-jsdom@30.0.5)(jest@30.0.5(@types/node@18.16.20)(babel-plugin-macros@3.1.0)(ts-node@10.9.1(@swc/core@1.5.29(@swc/helpers@0.5.17))(@types/node@18.16.20)(typescript@5.8.3)))(jsdom@26.1.0)(typescript@5.8.3)

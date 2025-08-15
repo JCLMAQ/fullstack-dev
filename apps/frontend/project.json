@@ -62,7 +62,8 @@
           "buildTarget": "devapp:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": ["devnestjs:serve"]
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",

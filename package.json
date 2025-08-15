@@ -68,6 +68,7 @@
     "eslint-plugin-playwright": "^1.6.2",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
+    "jest-environment-node": "^30.0.2",
     "jest-preset-angular": "~15.0.0",
     "jest-util": "^30.0.2",
     "nx": "21.3.11",
