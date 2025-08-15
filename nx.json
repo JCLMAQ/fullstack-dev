@@ -28,7 +28,7 @@
           "watchDepsName": "watch-deps"
         }
       },
-      "exclude": ["libs/prisma-schema/*"]
+      "exclude": ["libs/prisma-schema/*", "libs/database/prisma/*"]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -48,7 +48,7 @@
     },
     {
       "plugin": "@nx/js/typescript",
-      "include": ["libs/prisma-schema/*"],
+      "include": ["libs/prisma-schema/*", "libs/database/prisma/*"],
       "options": {
         "typecheck": {
           "targetName": "typecheck"
