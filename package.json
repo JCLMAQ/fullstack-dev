@@ -4,14 +4,15 @@
   "license": "MIT",
   "scripts": {
     "start nestjs api": "pnpm run configproxy && nx serve devnestjs --watch",
-    "start devapp": "nx serve devapp --proxy-config ./proxy.config.json --host 127.0.0.1 --port 4150",
+    "start devapp": "pnpm run configangular && nx serve devapp --proxy-config ./proxy.config.json --host 127.0.0.1 --port 4150",
     "prisma:generate": "npx prisma generate",
     "prisma-migrate": "dotenv -e ./.env -- npx prisma migrate dev",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "nxupdate": "nx migrate latest",
     "nxmigrate": "nx migrate --run-migrations",
-    "configproxy": "dotenv -e ../.env ts-node ./scripts/setproxyconfig.ts"
+    "configproxy": "dotenv -e ../.env ts-node ./scripts/setproxyconfig.ts",
+    "configangular": "dotenv -e ../.env npx tsx ./scripts/setenv.ts"
   },
   "private": true,
 
