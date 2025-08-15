@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start nestjs api": "nx serve backend --watch",
-    "prisma:generate": "npx prisma generate --schema libs/prisma-schema/prisma/schema.prisma",
-    "prisma-migrate": "dotenv -e ../.env -- npx prisma migrate dev --schema libs/prisma-schema/prisma/schema.prisma",
+    "prisma:generate": "npx prisma generate",
+    "prisma-migrate": "dotenv -e ./.env -- npx prisma migrate dev",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "nxupdate": "nx migrate latest",
