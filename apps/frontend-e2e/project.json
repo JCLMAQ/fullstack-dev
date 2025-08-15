@@ -1,0 +1,9 @@
+{
+  "name": "devapp-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend-e2e/src",
+  "implicitDependencies": ["devapp"],
+  "// targets": "to see all targets run: nx show project devapp-e2e --web",
+  "targets": {}
+}
