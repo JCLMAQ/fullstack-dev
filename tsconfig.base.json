@@ -19,9 +19,8 @@
     "customConditions": ["development"],
     "paths": {
       "@db/prisma": ["libs/database/prisma/src/index.ts"],
-      "@db/prisma-client": [
-        "libs/backend/prisma-client/src/index.ts"
-      ]
+      "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+      "@fe/layout": ["libs/frontend/layout/src/index.ts"]
     }
   }
 }
