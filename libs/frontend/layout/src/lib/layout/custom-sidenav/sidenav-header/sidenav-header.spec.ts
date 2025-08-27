@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Header } from './sidenav-header';
+import { SidenavHeader } from './sidenav-header';
 
-describe('Header', () => {
-  let component: Header;
-  let fixture: ComponentFixture<Header>;
+describe('SidenavHeader', () => {
+  let component: SidenavHeader;
+  let fixture: ComponentFixture<SidenavHeader>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Header],
+      imports: [SidenavHeader],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Header);
+    fixture = TestBed.createComponent(SidenavHeader);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

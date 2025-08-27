@@ -20,7 +20,10 @@
     "paths": {
       "@db/prisma": ["libs/database/prisma/src/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
-      "@fe/layout": ["libs/frontend/layout/src/index.ts"]
+      "@fe/layout": ["libs/frontend/layout/src/index.ts"],
+      "@fe/services": ["libs/frontend/services/src/index.ts"],
+      "@fe/flag": ["libs/frontend/components/src/index.ts"],
+      "@fe/store-features": ["libs/frontend/store-features/src/index.ts"]
     }
   }
 }
