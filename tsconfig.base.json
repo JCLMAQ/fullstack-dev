@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "composite": false,
     "declarationMap": false,
     "emitDeclarationOnly": false,
@@ -20,8 +21,8 @@
     "paths": {
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
-      "@fullstack-dev/posts": ["libs/backend/data-access/posts/src/index.ts"],
-      "@fullstack-dev/users": ["libs/backend/data-access/users/src/index.ts"]
+      "@db/posts": ["libs/backend/data-access/posts/src/index.ts"],
+      "@db/users": ["libs/backend/data-access/users/src/index.ts"]
     }
   }
 }
