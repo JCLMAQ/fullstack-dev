@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve nestjs-app --watch",
+    "start-nestjs-app": "nx serve nestjs-app --watch",
+    "start-dev-app": "nx serve dev-app --watch",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "pnpm approve-builds scripts": "pnpm approve-builds",
