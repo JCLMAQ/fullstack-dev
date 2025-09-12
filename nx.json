@@ -27,7 +27,12 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      }
+      },
+      "exclude": [
+        "libs/backend/prisma-client/*",
+        "libs/backend/data-access/users/*",
+        "libs/backend/data-access/posts/*"
+      ]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -60,6 +65,19 @@
       "plugin": "@nx/playwright/plugin",
       "options": {
         "targetName": "e2e"
+      }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": [
+        "libs/backend/prisma-client/*",
+        "libs/backend/data-access/users/*",
+        "libs/backend/data-access/posts/*"
+      ],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        }
       }
     }
   ],

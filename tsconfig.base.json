@@ -16,6 +16,12 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@fullstack-dev/source"]
+    "customConditions": ["@fullstack-dev/source"],
+    "paths": {
+      "@db/prisma": ["libs/db/index.ts"],
+      "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+      "@fullstack-dev/posts": ["libs/backend/data-access/posts/src/index.ts"],
+      "@fullstack-dev/users": ["libs/backend/data-access/users/src/index.ts"]
+    }
   }
 }
