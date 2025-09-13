@@ -21,7 +21,12 @@
             "input": "apps/frontend/dev-app/public"
           }
         ],
-        "styles": ["apps/frontend/dev-app/src/styles.scss"]
+        "styles": [
+          "apps/frontend/dev-app/src/styles.scss",
+          "node_modules/material-icons/iconfont/material-icons.css",
+          "node_modules/material-symbols/index.scss",
+          "node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
+        ]
       },
       "configurations": {
         "production": {
