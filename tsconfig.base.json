@@ -19,10 +19,13 @@
     "target": "es2022",
     "customConditions": ["@fullstack-dev/source"],
     "paths": {
+      "@db/posts": ["libs/backend/data-access/posts/src/index.ts"],
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
-      "@db/posts": ["libs/backend/data-access/posts/src/index.ts"],
-      "@db/users": ["libs/backend/data-access/users/src/index.ts"]
+      "@db/users": ["libs/backend/data-access/users/src/index.ts"],
+      "@fe/date-utilities": [
+        "libs/frontend/utilities/date-utilities/src/index.ts"
+      ]
     }
   }
 }
