@@ -27,7 +27,7 @@ importers:
         specifier: ^21.0.0-next.5
         version: 21.0.0-next.5(@angular/common@21.0.0-next.5(@angular/core@21.0.0-next.5(@angular/compiler@21.0.0-next.5)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.0.0-next.5(@angular/compiler@21.0.0-next.5)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.0.0-next.5(@angular/common@21.0.0-next.5(@angular/core@21.0.0-next.5(@angular/compiler@21.0.0-next.5)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.0.0-next.5(@angular/compiler@21.0.0-next.5)(rxjs@7.8.2)(zone.js@0.15.1)))(@standard-schema/spec@1.0.0)(rxjs@7.8.2)
       '@angular/material':
-        specifier: ^21.0.0-next.4
+        specifier: ^21.0.0-next.5
         version: 21.0.0-next.5(3c7b9556f80d2deb7e20a147fe231780)
       '@angular/platform-browser':
         specifier: ^21.0.0-next.5
