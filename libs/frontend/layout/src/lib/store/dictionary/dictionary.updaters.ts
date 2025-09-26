@@ -1,5 +1,5 @@
+import { Dictionary } from "@fe/app/data";
 import { PartialStateUpdater } from "@ngrx/signals";
-import { Dictionary } from "../../../../apps/frontend/dev-app/src/app/data/dictionaries";
 import { DictionarySlice } from "./dictionary.slice";
 
 export function changeLanguageDictionary(languages: string[]): PartialStateUpdater<DictionarySlice> {

@@ -1,5 +1,6 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import {
   patchState,
   signalStore,
@@ -8,11 +9,10 @@ import {
   withProps,
   withState,
 } from '@ngrx/signals';
-import { Dictionary } from '../../../../apps/frontend/dev-app/src/app/data/dictionaries';
 import { DictionaryService } from '../../services/dictionaries/dictionary-service';
 import { NotificationService } from '../../services/notifications/notification-service';
-import { DICTIONARIES_TOKEN } from '../../tokens/dictionaries.token';
 import { withBusy } from '../custom-store-features/with-busy/with-busy.feature';
+import { Dictionary } from './dictionary.model';
 import { initialDictionarySlice } from './dictionary.slice';
 import {
   changeLanguageDictionary,

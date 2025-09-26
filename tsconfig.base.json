@@ -27,7 +27,9 @@
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
       "@fe/layout": ["libs/frontend/layout/src/index.ts"],
-      "@fe/tokens": ["libs/frontend/layout/src/lib/tokens/index.ts"],
+      "@fe/tokens": ["libs/frontend/tokens/index.ts"],
+      "@fe/user": ["libs/frontend/user/src/index.ts"],
+      "@fe/app/data": ["apps/frontend/dev-app/src/app/data"]
     }
   }
 }

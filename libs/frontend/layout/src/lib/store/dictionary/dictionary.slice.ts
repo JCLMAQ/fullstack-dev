@@ -1,4 +1,4 @@
-import { Dictionary } from "../../../../apps/frontend/dev-app/src/app/data/dictionaries";
+import { Dictionary } from "./dictionary.model";
 ;
 
 export interface DictionarySlice {

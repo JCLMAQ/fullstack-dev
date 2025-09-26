@@ -6,9 +6,9 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ResponsiveService } from '../../../../../services/responsive/responsive-service';
-import { ThemeService } from '../../../../../services/themes/theme-service';
-import { DictionaryStore } from '../../dictionary/dictionary.store';
+import { ResponsiveService } from '../../services/responsive/responsive-service';
+import { ThemeService } from '../../services/themes/theme-service';
+import { DictionaryStore } from '../../store/dictionary/dictionary.store';
 
 @Component({
   selector: 'lib-header',
@@ -28,7 +28,7 @@ import { DictionaryStore } from '../../dictionary/dictionary.store';
   styleUrl: './header.scss',
 })
 export class Header {
-dictionaryStore = inject(DictionaryStore);
+  dictionaryStore = inject(DictionaryStore);
   ngxtranslateService = inject(TranslateService);
   themeService = inject(ThemeService);
   responsiveService = inject(ResponsiveService);

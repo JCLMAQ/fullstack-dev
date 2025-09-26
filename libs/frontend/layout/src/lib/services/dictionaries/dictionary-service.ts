@@ -1,15 +1,15 @@
 import { inject, Injectable } from '@angular/core';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { TranslateService } from '@ngx-translate/core';
-import { Dictionary } from 'apps/frontend/dev-app/src/app/data/dictionaries';
-import { DICTIONARIES_TOKEN } from 'libs/frontend/layout/src/lib/tokens/dictionaries.token';
 import { getDictionaryHelper } from "../../store/dictionary/dictionary.helpers";
+import { Dictionary } from '../../store/dictionary/dictionary.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DictionaryService {
 
-     readonly ngxtranslateService = inject(TranslateService);
+    readonly ngxtranslateService = inject(TranslateService);
 
     readonly #dictionaries = inject(DICTIONARIES_TOKEN);
 

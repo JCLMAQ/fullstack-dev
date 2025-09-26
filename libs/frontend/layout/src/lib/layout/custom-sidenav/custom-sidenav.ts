@@ -3,8 +3,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
-import { ResponsiveService } from '../../../../services/responsive/responsive-service';
-import { menuItems } from '../menu-items';
+import { ResponsiveService } from '../../services/responsive/responsive-service';
+// import { menuItems } from '../menu-items';
+import { MENU_ITEMS } from '@fe/tokens';
+import { MenuItems } from '../../menu.model';
 import { MenuItem } from './menu-item/menu-item';
 import { SidenavHeader } from './sidenav-header/sidenav-header';
 
@@ -22,11 +24,14 @@ import { SidenavHeader } from './sidenav-header/sidenav-header';
   styleUrl: './custom-sidenav.scss',
 })
 export class CustomSidenav {
+
+  public menuItems = inject(MENU_ITEMS) as MenuItems[];
+
   responsiveService = inject(ResponsiveService);
 
   collapsed = computed(() => this.responsiveService.isCollapsed());
 
-  menuItems = menuItems;
+  // menuItems = menuItems;
 
 
 }
