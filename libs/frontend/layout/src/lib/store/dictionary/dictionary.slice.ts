@@ -1,4 +1,5 @@
-import { Dictionary } from "../data/dictionaries";
+import { Dictionary } from "../../../../apps/frontend/dev-app/src/app/data/dictionaries";
+;
 
 export interface DictionarySlice {
     readonly selectedLanguage: string;

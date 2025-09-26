@@ -1,11 +1,8 @@
-export type MenuItem = {
-  icon: string;
-  label: string;
-  route?: string;
-  subItems?: MenuItem[];
-};
+import { MenuItems } from "@fe/layout";
 
-export const menuItems: MenuItem[] = [
+
+  // Use the MenuItems type here
+  export const APP_MENU_ITEMS: MenuItems[] = [
   {
     icon: 'home',
     label: 'SideNavMenu.Home',
@@ -108,4 +105,6 @@ export const menuItems: MenuItem[] = [
     label: 'SideNavMenu.Comments',
     route: 'comments',
   },
-];
+  ];
+});
+

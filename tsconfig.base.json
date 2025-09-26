@@ -26,7 +26,8 @@
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
-      "@fullstack-dev/layout": ["libs/frontend/layout/src/index.ts"]
+      "@fe/layout": ["libs/frontend/layout/src/index.ts"],
+      "@fe/tokens": ["libs/frontend/layout/src/lib/tokens/index.ts"],
     }
   }
 }

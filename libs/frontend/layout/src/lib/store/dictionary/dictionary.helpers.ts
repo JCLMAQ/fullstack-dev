@@ -1,5 +1,5 @@
-import { Dictionaries, Dictionary } from "../data/dictionaries";
 
+import { Dictionaries, Dictionary } from "../../../lib/store/dictionary/dictionary.store";
 export function getDictionaryHelper(language: string, dictionaries: Dictionaries): Dictionary {
   // Return the dictionary of the selected language
     return dictionaries[language] ?? Object.values(dictionaries)[0];

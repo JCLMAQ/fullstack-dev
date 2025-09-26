@@ -21,5 +21,10 @@
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/test-setup.ts"
+  ],
+  "references": [
+    {
+      "path": "../../../libs/frontend/layout"
+    }
   ]
 }

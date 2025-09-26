@@ -26,5 +26,8 @@
             "externalTemplate": true
         }
     },
-    "vs-browser.url": "http://localhost:4200"
+    "vs-browser.url": "http://localhost:4200",
+    "i18n-ally.localesPaths": [
+        "apps/frontend/dev-app/public/i18n"
+    ]
 }

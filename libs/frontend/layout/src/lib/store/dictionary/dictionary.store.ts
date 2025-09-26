@@ -8,11 +8,11 @@ import {
   withProps,
   withState,
 } from '@ngrx/signals';
+import { Dictionary } from '../../../../apps/frontend/dev-app/src/app/data/dictionaries';
+import { DictionaryService } from '../../services/dictionaries/dictionary-service';
+import { NotificationService } from '../../services/notifications/notification-service';
 import { DICTIONARIES_TOKEN } from '../../tokens/dictionaries.token';
 import { withBusy } from '../custom-store-features/with-busy/with-busy.feature';
-import { Dictionary } from '../data/dictionaries';
-import { DictionariesService } from '../services/dictionaries.service';
-import { NotificationsService } from '../services/notifications.service';
 import { initialDictionarySlice } from './dictionary.slice';
 import {
   changeLanguageDictionary,
@@ -25,7 +25,7 @@ export const DictionaryStore = signalStore(
   withState(initialDictionarySlice),
   withBusy(),
   withProps((_) => {
-    const _dictionariesService = inject(DictionariesService);
+    const _dictionariesService = inject(DictionaryService);
     const _languages = _dictionariesService.languages;
     const _dictionaries = inject(DICTIONARIES_TOKEN);
 
@@ -33,7 +33,7 @@ export const DictionaryStore = signalStore(
       _dictionariesService,
       _dictionaries,
       _languages,
-      _notifications: inject(NotificationsService),
+      _notifications: inject(NotificationService),
     };
   }),
   withMethods((store) => {
