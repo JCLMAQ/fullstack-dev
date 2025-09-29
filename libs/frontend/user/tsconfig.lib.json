@@ -4,9 +4,11 @@
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true,
+    "inlineSourceMap": true,
+    "sourceMap": true,
     "types": []
   },
+  "composite": true,
   "exclude": [
     "src/**/*.spec.ts",
     "src/test-setup.ts",
