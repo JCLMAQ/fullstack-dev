@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
 // import { menuItems } from '../menu-items';
 import { MENU_ITEMS } from '@fe/tokens';
-import { MenuItems } from '../../menu.model';
 import { MenuItem } from './menu-item/menu-item';
 import { SidenavHeader } from './sidenav-header/sidenav-header';
 
@@ -25,13 +24,14 @@ import { SidenavHeader } from './sidenav-header/sidenav-header';
 })
 export class CustomSidenav {
 
-  public menuItems = inject(MENU_ITEMS) as MenuItems[];
+  // public menuItems = inject(MENU_ITEMS) as MenuItems[];
+
+
+  public menuItems = inject(MENU_ITEMS);
+
 
   responsiveService = inject(ResponsiveService);
 
   collapsed = computed(() => this.responsiveService.isCollapsed());
-
-  // menuItems = menuItems;
-
 
 }

@@ -1,6 +1,11 @@
-import { Dictionary } from "@fe/app/data";
+// import { Dictionary } from "@fe/app/data";
 import { PartialStateUpdater } from "@ngrx/signals";
 import { DictionarySlice } from "./dictionary.slice";
+
+
+export interface Dictionary {
+    [key: string]: string;
+}
 
 export function changeLanguageDictionary(languages: string[]): PartialStateUpdater<DictionarySlice> {
   // select the next language in the list one after another

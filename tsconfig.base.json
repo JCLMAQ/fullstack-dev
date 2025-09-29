@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "baseUrl": ".",
     "composite": false,
     "declarationMap": false,
@@ -23,13 +24,14 @@
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/users": ["libs/backend/data-access/users/src/index.ts"],
+      "@fe/app/data": ["apps/frontend/dev-app/src/app/data"],
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
       "@fe/layout": ["libs/frontend/layout/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fe/app/data": ["apps/frontend/dev-app/src/app/data"]
+      "@fe/pages": ["libs/frontend/pages/src/index.ts"]
     }
   }
 }

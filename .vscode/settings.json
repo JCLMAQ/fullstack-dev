@@ -29,5 +29,6 @@
     "vs-browser.url": "http://localhost:4200",
     "i18n-ally.localesPaths": [
         "apps/frontend/dev-app/public/i18n"
-    ]
+    ],
+    "postman.settings.dotenv-detection-notification-visibility": false
 }

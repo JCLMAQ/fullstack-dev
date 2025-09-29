@@ -1,8 +1,9 @@
-import { MenuItems } from "@fe/layout";
-
+// import { MenuItems } from "@fe/layout";
+// import { MenuItems } from "./menu.model";
 
   // Use the MenuItems type here
-  export const APP_MENU_ITEMS: MenuItems[] = [
+  export const APP_MENU_ITEMS = [
+    //  export const APP_MENU_ITEMS: MenuItems[] = [
   {
     icon: 'home',
     label: 'SideNavMenu.Home',

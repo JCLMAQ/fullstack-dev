@@ -1,8 +1,7 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { MENU_ITEMS } from '@fe/tokens';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MenuItems } from '../../../menu.model';
 
@@ -19,13 +18,8 @@ import { MenuItems } from '../../../menu.model';
   styleUrl: './menu-item.scss',
 })
 
-
-
-
 export class MenuItem {
-  public menuItems = inject(MENU_ITEMS) as MenuItems[];
-
-
+  // public menuItems = inject(MENU_ITEMS) as MenuItems[];
 
   item = input.required<MenuItems>();
   collapsed = input.required<boolean>();
