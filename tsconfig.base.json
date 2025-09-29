@@ -31,7 +31,10 @@
       "@fe/layout": ["libs/frontend/layout/src/index.ts"],
       "@fe/pages": ["libs/frontend/pages/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/index.ts"],
-      "@fe/user": ["libs/frontend/user/src/index.ts"]
+      "@fe/user": ["libs/frontend/user/src/index.ts"],
+      "@fe/signalformutilities": [
+        "libs/frontend/utilities/signalformutilities/src/index.ts"
+      ]
     }
   }
 }

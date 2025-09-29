@@ -12,8 +12,8 @@
   {
     icon: 'supervised_user_circle', // person
     //  icon: 'face', // person
-    label: 'SideNavMenu.UserProfile',
-    route: 'userprofile',
+    label: 'SideNavMenu.Users',
+    route: 'users',
     subItems: [
       {
         icon: 'person', // person

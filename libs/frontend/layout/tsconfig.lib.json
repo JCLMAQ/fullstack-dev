@@ -18,6 +18,7 @@
     "src/**/*.ts",
       "../../../libs/frontend/pages/src/index.ts",
       "../tokens/index.ts",
+      "../user/src/index.ts",
     "**/*.ts"
 , "../../../apps/frontend/dev-app/translate.helpers.ts"  ]
 }

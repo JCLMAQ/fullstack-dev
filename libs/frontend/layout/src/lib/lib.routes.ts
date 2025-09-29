@@ -9,6 +9,10 @@ export const layoutRoutes: Route[] = [
       {
         path: '',
         loadChildren: () => import('@fe/pages').then(m => m.pagesRoutes)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('@fe/user').then(m => m.userRoutes)
       }
     ]
   }
