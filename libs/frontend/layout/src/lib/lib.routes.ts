@@ -6,14 +6,15 @@ export const layoutRoutes: Route[] = [
     path: '',
     component: Layout,
     children: [
-      {
-        path: '',
-        loadChildren: () => import('@fe/pages').then(m => m.pagesRoutes)
-      },
+
       {
         path: 'users',
         loadChildren: () => import('@fe/user').then(m => m.userRoutes)
-      }
+      },
+       {
+        path: '',
+        loadChildren: () => import('@fe/pages').then(m => m.pagesRoutes)
+      },
     ]
   }
 ];
