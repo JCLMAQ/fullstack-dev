@@ -17,6 +17,7 @@
   "include": [
     "src/**/*.ts",
       "../../../libs/frontend/pages/src/index.ts",
+      "../tokens/index.ts",
     "**/*.ts"
   ]
 }

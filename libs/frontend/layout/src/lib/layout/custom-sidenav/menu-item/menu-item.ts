@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MenuItems } from '../../../menu.model';
+import { MenuItems } from '../../../models/menu.model';
 
 @Component({
   selector: 'lib-menu-item',

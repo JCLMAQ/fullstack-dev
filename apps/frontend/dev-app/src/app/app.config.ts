@@ -8,7 +8,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { DICTIONARIES_TOKEN, MENU_ITEMS } from 'libs/frontend/tokens-old';
+import { DICTIONARIES_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
 
   { provide: DICTIONARIES_TOKEN, useValue: DICTIONARIES },
-  { provide: MENU_ITEMS, useValue: APP_MENU_ITEMS }
+  { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS }
 
   ],
 };

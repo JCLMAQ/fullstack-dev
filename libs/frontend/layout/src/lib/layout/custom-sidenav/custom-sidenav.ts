@@ -3,9 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
+import { MENU_ITEMS_TOKEN } from '@fe/tokens';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
-// import { menuItems } from '../menu-items';
-import { MENU_ITEMS } from 'libs/frontend/tokens-old';
 import { MenuItem } from './menu-item/menu-item';
 import { SidenavHeader } from './sidenav-header/sidenav-header';
 
@@ -27,7 +26,7 @@ export class CustomSidenav {
   // public menuItems = inject(MENU_ITEMS) as MenuItems[];
 
 
-  public menuItems = inject(MENU_ITEMS);
+  public menuItems = inject(MENU_ITEMS_TOKEN);
 
 
   responsiveService = inject(ResponsiveService);

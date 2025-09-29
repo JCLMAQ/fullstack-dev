@@ -32,6 +32,7 @@
     "@nestjs/platform-express": "^11.1.6",
     "@ngrx/signals": "^20.0.1",
     "@ngrx/store": "^20.0.1",
+    "@ngrx/operators": "20.0.1",
     "@ngrx/store-devtools": "^20.0.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
