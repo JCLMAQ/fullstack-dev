@@ -8,6 +8,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { DICTIONARIES_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
@@ -20,6 +21,13 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(appRoutes, withComponentInputBinding()),
 
+    provideHttpClient(
+          withFetch(),
+          withInterceptors([
+            // AuthInterceptor,
+            // LoggingInterceptor,
+          ]),
+        ),
 
     provideTranslateService({
       fallbackLang: 'en',
