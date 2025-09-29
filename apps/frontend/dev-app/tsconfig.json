@@ -18,6 +18,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../../libs/frontend/layout"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

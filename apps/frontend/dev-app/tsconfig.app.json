@@ -24,7 +24,7 @@
   ],
   "references": [
     {
-      "path": "../../../libs/frontend/layout"
+      "path": "../../../libs/frontend/layout/tsconfig.lib.json"
     }
   ]
 }

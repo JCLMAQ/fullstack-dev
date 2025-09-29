@@ -8,7 +8,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { DICTIONARIES_TOKEN, MENU_ITEMS } from '@fe/tokens';
+import { DICTIONARIES_TOKEN, MENU_ITEMS } from 'libs/frontend/tokens-old';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';

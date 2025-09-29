@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
 // import { menuItems } from '../menu-items';
-import { MENU_ITEMS } from '@fe/tokens';
+import { MENU_ITEMS } from 'libs/frontend/tokens-old';
 import { MenuItem } from './menu-item/menu-item';
 import { SidenavHeader } from './sidenav-header/sidenav-header';
 
