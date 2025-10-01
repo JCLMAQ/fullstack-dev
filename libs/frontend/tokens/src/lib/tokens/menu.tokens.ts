@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import { MenuItems } from '../layout/src/lib/models/menu.model';
+import { MenuItems } from '@fe/layout';
 
 export const MENU_ITEMS_TOKEN = new InjectionToken<MenuItems[]>('MENU_ITEMS');
