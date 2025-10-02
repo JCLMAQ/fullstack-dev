@@ -20,13 +20,13 @@
     "target": "es2022",
     "customConditions": ["@fullstack-dev/source"],
     "paths": {
+      "@be/posts": ["libs/backend/data-access/posts/src/index.ts"],
+      "@be/users": ["libs/backend/data-access/users/src/index.ts"],
       "@db/posts": ["libs/backend/data-access/posts/src/index.ts"],
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/users": ["libs/backend/data-access/users/src/index.ts"],
       "@fe/app/data": ["apps/frontend/dev-app/src/app/data"],
-      "@be/posts": ["libs/backend/data-access/posts/src/index.ts"],
-      "@be/users": ["libs/backend/data-access/users/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
@@ -35,8 +35,10 @@
       "@fe/signalformutilities": [
         "libs/frontend/utilities/signalformutilities/src/index.ts"
       ],
+      "@fe/stores": ["libs/frontend/stores/src/index.ts"],
+      "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fe/tokens": ["libs/frontend/tokens/src/index.ts"]
+      "@fe/material": ["libs/frontend/shared/material/src/index.ts"]
     }
   }
 }

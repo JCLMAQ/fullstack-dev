@@ -42,9 +42,11 @@ export const appConfig: ApplicationConfig = {
     }),
 
     provideNativeDateAdapter(),
-
+  // Provide the translaton dictionary for the dictionary store
   { provide: DICTIONARIES_TOKEN, useValue: DICTIONARIES },
+  // Provide the menu items for the left menu
   { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS },
+  // Provide the environment configuration for the API URL and other settings
   { provide: ENVIRONMENT_TOKEN, useValue: ENVIRONMENT_DATA},
 
   ],
