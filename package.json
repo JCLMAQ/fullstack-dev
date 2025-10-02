@@ -41,6 +41,8 @@
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@prisma/client": "^6.16.3",
+    "animate-css-grid": "^1.5.1",
+    "chart.js": "^4.5.0",
     "axios": "^1.12.2",
     "dotenv": "^17.2.3",
     "dotenv-cli": "10.0.0",

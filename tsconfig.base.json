@@ -31,6 +31,7 @@
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
       "@fe/layout": ["libs/frontend/layout/src/index.ts"],
+      "@fe/material": ["libs/frontend/shared/material/src/index.ts"],
       "@fe/pages": ["libs/frontend/pages/src/index.ts"],
       "@fe/signalformutilities": [
         "libs/frontend/utilities/signalformutilities/src/index.ts"
@@ -38,7 +39,9 @@
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fe/material": ["libs/frontend/shared/material/src/index.ts"]
+      "@fullstack-dev/components": [
+        "libs/frontend/shared/components/src/index.ts"
+      ]
     }
   }
 }
