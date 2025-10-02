@@ -9,10 +9,12 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { DICTIONARIES_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
+import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
+
+import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,7 +44,8 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
 
   { provide: DICTIONARIES_TOKEN, useValue: DICTIONARIES },
-  { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS }
+  { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS },
+  { provide: ENVIRONMENT_TOKEN, useValue: ENVIRONMENT_DATA},
 
   ],
 };
