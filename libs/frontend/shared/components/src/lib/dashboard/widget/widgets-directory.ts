@@ -1,4 +1,4 @@
-import { Widget } from '../../shared/models/dashboard';
+import { WidgetDashboard } from '../models/dashboard';
 import ChannelAnalyticsComponent from './widgets/channel-analytics.component';
 import { IdeasComponent } from './widgets/ideas.component';
 import LatestCommentsComponent from './widgets/latest-comments.component';
@@ -10,7 +10,7 @@ import { TrafficSourcesComponent } from './widgets/traffic-sources.component';
 import { ViewsComponent } from './widgets/views.component';
 import { WatchTimeComponent } from './widgets/watch-time.component';
 
-export const widgetsDirectory: Widget[] = [
+export const widgetsDirectory: WidgetDashboard[] = [
   {
     id: 1,
     label: 'Channel Analytics',

@@ -16,9 +16,9 @@ import {
 } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap } from 'rxjs';
-import { widgetsDirectory } from '../../widget/widgets-directory';
-import { Widget } from '../models/dashboard';
+import { WidgetDashboard } from '../models/dashboard';
 import { DashboardService } from '../services/dashboard.service';
+import { widgetsDirectory } from '../widget/widgets-directory';
 
 type DashboardState = {
   order: number[];
@@ -34,7 +34,7 @@ const initialState: DashboardState = {
 
 export const DashboardStore = signalStore(
   withState(initialState),
-  withEntities<Widget>(),
+  withEntities<WidgetDashboard>(),
   withComputed(({ entities, order, entityMap }) => ({
     widgetsToAdd: computed(() => {
       const addedIds = entities().map((w) => w.id);
@@ -67,7 +67,7 @@ export const DashboardStore = signalStore(
       // Add the widget and update the order array
       patchState(store, addEntity({ ...widgetToAdd }), { order });
     },
-    updateWidget(id: number, data: Partial<Widget>) {
+    updateWidget(id: number, data: Partial<WidgetDashboard>) {
       patchState(store, updateEntity({ id, changes: { ...data } }));
     },
     removeWidget(id: number) {
@@ -91,7 +91,7 @@ export const DashboardStore = signalStore(
     setMode(mode: 'view' | 'edit') {
       patchState(store, { settings: { mode } });
     },
-    saveWidgets: rxMethod<Widget[]>(
+    saveWidgets: rxMethod<WidgetDashboard[]>(
       pipe(switchMap((widgets) => dataService.saveWidgets(widgets)))
     ),
     saveOrder: rxMethod<number[]>(

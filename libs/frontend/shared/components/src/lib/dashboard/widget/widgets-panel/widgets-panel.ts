@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { DashboardStore } from '../../dashboard/stores/dashboard.store';
+import { DashboardStore } from '../../stores/dashboard.store';
 
 @Component({
   selector: 'lib-widgets-panel',

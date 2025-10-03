@@ -1,8 +1,8 @@
 import { CdkDrag, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
 import { NgComponentOutlet } from '@angular/common';
 import { Component, inject, input, signal } from '@angular/core';
-import { WidgetDashboard } from '../dashboard/models/dashboard';
-import { DashboardStore } from '../dashboard/stores/dashboard.store';
+import { WidgetDashboard } from '../models/dashboard';
+import { DashboardStore } from '../stores/dashboard.store';
 import { WidgetHeader } from './widget-header/widget-header';
 import { WidgetOptions } from './widget-options/widget-options';
 

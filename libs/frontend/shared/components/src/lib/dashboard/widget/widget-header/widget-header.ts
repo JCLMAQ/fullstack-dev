@@ -1,8 +1,8 @@
 import { Component, inject, input, model } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { Widget } from '../../dashboard/models/dashboard';
-import { DashboardStore } from '../../dashboard/stores/dashboard.store';
+import { WidgetDashboard } from '../../models/dashboard';
+import { DashboardStore } from '../../stores/dashboard.store';
 
 @Component({
   selector: 'lib-widget-header',
@@ -15,7 +15,7 @@ import { DashboardStore } from '../../dashboard/stores/dashboard.store';
 })
 export class WidgetHeader {
 
-  data = input.required<Widget>();
+  data = input.required<WidgetDashboard>();
   showOptions = model.required<boolean>();
   store = inject(DashboardStore);
 

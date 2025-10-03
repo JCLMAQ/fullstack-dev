@@ -1,10 +1,11 @@
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { MessagesService } from "@fe/home";
+// TODO Circular dependency issue
+import { MessagesService } from "@fe/components";
+import { AuthService } from "@fe/services";
 import { patchState, SignalStoreFeature, signalStoreFeature, withMethods, withProps, withState } from "@ngrx/signals";
-import { AuthService } from "../features/auth/Services/auth.service";
-import { initialAppSlice } from "./app.slice";
+import { initialAppSlice } from "../../app-store/app.slice";
 
 
 /* tslint:disable:object-literal-type */
