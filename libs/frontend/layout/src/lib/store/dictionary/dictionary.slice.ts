@@ -1,4 +1,4 @@
-import { Dictionary } from "./dictionary.model";
+import { Dictionary } from "./dictionary-token.model";
 ;
 
 export interface DictionarySlice {

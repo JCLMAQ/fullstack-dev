@@ -1,7 +1,6 @@
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ResponsiveService } from '@fe/layout';
-// TODO Circular dependency
 import { AppStore } from '@fe/stores';
 import { wrapGrid } from 'animate-css-grid';
 import { Chart } from 'chart.js/auto';

@@ -25,7 +25,7 @@
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@fe/app/data": ["apps/frontend/dev-app/src/app/data"],
-      "@fe/components": ["libs/frontend/shared/components/src/index.ts"],
+      "@fe/dashboard": ["libs/frontend/shared/dashboard/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],

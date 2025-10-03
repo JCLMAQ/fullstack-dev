@@ -12,7 +12,7 @@ import { AuthService } from '@fe/services';
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { MessagesService } from '@fe/utilities';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
-import { withDictionariesFeatures } from '../store-features/dictionaries-feauture/dictionaries.features';
+import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
 import { initialAppSlice } from './app.slice';
 
 export const AppStore = signalStore(

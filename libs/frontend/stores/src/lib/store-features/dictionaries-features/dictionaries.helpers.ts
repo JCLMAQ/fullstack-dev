@@ -1,4 +1,4 @@
-import { Dictionaries, Dictionary } from "../../data/dictionaries";
+import { Dictionaries, Dictionary } from "./dictionary.model";
 
 export function getDictionary(language: string, dictionaries: Dictionaries): Dictionary {
   return dictionaries[language] ?? Object.values(dictionaries)[0];

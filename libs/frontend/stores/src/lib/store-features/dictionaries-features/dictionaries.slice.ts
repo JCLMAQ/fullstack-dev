@@ -1,4 +1,4 @@
-import { Dictionary } from "../../data/dictionaries";
+import { Dictionary } from "./dictionary.model";
 
 export type DictionariesSlice = {
   readonly selectedLanguage: string;
