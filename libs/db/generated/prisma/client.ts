@@ -39,6 +39,9 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-darwin.dylib.node")
+path.join(process.cwd(), "libs/db/generated/prisma/libquery_engine-darwin.dylib.node")
 
 /**
  * Model Post

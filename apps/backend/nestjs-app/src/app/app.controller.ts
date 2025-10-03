@@ -1,5 +1,5 @@
-import { PostsService } from '@db/posts';
-import { UsersService } from '@db/users';
+import { PostsService } from '@be/posts';
+import { UsersService } from '@be/users';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
 
