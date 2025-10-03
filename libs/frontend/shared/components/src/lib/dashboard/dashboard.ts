@@ -1,12 +1,12 @@
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { ResponsiveService } from '@fe/layout';
+import { AppStore } from '@fe/stores';
 import { wrapGrid } from 'animate-css-grid';
 import { Chart } from 'chart.js/auto';
-import { AppStore } from '../../store/app.store';
-import { Widget } from '../widget/widget';
 import { DashboardHeader } from './dashboard-header/dashboard-header';
 import { DashboardStore } from './stores/dashboard.store';
+import { Widget } from './widget/widget';
 
 @Component({
   selector: 'lib-dashboard',

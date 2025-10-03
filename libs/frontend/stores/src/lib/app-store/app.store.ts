@@ -1,19 +1,19 @@
 import { computed, inject } from '@angular/core';
 import {
-    signalStore,
-    withComputed,
-    withProps,
-    withState
+  signalStore,
+  withComputed,
+  withProps,
+  withState
 } from '@ngrx/signals';
 // import { User } from '@prisma/prisma-client';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MessagesService } from '@fe/home';
+import { MessagesService } from '@fe/components';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { AuthService } from '../features/auth/Services/auth.service';
-import { DICTIONARIES_TOKEN } from '../tokens/dictionaries.token';
+import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
+import { withDictionariesFeatures } from '../store-features/dictionaries-feauture/dictionaries.features';
 import { initialAppSlice } from './app.slice';
-import { withAppAuthFeatures } from './authentication.features';
-import { withDictionariesFeatures } from './dictionaries-feauture/dictionaries.features';
 
 export const AppStore = signalStore(
   { providedIn: 'root' },

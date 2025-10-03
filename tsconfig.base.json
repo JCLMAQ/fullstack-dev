@@ -27,6 +27,7 @@
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/users": ["libs/backend/data-access/users/src/index.ts"],
       "@fe/app/data": ["apps/frontend/dev-app/src/app/data"],
+      "@fe/components": ["libs/frontend/shared/components/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
@@ -39,9 +40,7 @@
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fullstack-dev/components": [
-        "libs/frontend/shared/components/src/index.ts"
-      ]
+      "@fe": ["libs/frontend/services/src/index.ts"]
     }
   }
 }
