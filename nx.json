@@ -58,7 +58,9 @@
       },
       "exclude": [
         "apps/backend/nestjs-app-e2e/**/*",
-        "apps/backend/nestjs-app-e2e/**/*"
+        "apps/backend/nestjs-app-e2e/**/*",
+        "apps/backend/nestjs-bis-e2e/**/*",
+        "apps/backend/nest-app-e2e/**/*"
       ]
     },
     {
