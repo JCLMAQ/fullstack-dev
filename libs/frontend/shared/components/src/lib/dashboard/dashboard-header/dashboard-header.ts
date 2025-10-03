@@ -4,8 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { WidgetsPanel } from '../../widget/widgets-panel/widgets-panel';
 import { DashboardStore } from '../stores/dashboard.store';
+import { WidgetsPanel } from '../widget/widgets-panel/widgets-panel';
 
 @Component({
   selector: 'lib-dashboard-header',

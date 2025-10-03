@@ -40,7 +40,7 @@
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fe": ["libs/frontend/services/src/index.ts"]
+      "@fe/services": ["libs/frontend/services/src/index.ts"]
     }
   }
 }
