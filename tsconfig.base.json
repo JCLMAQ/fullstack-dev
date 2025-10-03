@@ -38,7 +38,10 @@
       ],
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
-      "@fe/user": ["libs/frontend/user/src/index.ts"]
+      "@fe/user": ["libs/frontend/user/src/index.ts"],
+      "@fe/utilities": [
+        "libs/frontend/shared/utilities/src/index.ts"
+      ]
     }
   }
 }

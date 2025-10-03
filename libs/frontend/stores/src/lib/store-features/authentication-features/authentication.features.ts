@@ -1,9 +1,8 @@
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-// TODO Circular dependency issue
-import { MessagesService } from "@fe/components";
 import { AuthService } from "@fe/services";
+import { MessagesService } from "@fe/utilities";
 import { patchState, SignalStoreFeature, signalStoreFeature, withMethods, withProps, withState } from "@ngrx/signals";
 import { initialAppSlice } from "../../app-store/app.slice";
 

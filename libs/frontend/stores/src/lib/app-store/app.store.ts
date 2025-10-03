@@ -8,9 +8,9 @@ import {
 // import { User } from '@prisma/prisma-client';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MessagesService } from '@fe/components';
 import { AuthService } from '@fe/services';
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
+import { MessagesService } from '@fe/utilities';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
 import { withDictionariesFeatures } from '../store-features/dictionaries-feauture/dictionaries.features';
 import { initialAppSlice } from './app.slice';
