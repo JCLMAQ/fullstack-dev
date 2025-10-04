@@ -12,17 +12,147 @@
  * 🟢 You can import this file directly.
  */
 
-import * as Prisma from './internal/prismaNamespaceBrowser.js'
+import * as Prisma from './internal/prismaNamespaceBrowser.ts'
 export { Prisma }
-export * as $Enums from './enums.js'
-export * from './enums.js';
+export * as $Enums from './enums.ts'
+export * from './enums.ts';
+/**
+ * Model Organization
+ * 
+ */
+export type Organization = Prisma.OrganizationModel
+/**
+ * Model OrgEmail
+ * 
+ */
+export type OrgEmail = Prisma.OrgEmailModel
+/**
+ * Model OrgDomain
+ * 
+ */
+export type OrgDomain = Prisma.OrgDomainModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model UserSecret
+ * 
+ */
+export type UserSecret = Prisma.UserSecretModel
+/**
+ * Model Profile
+ * 
+ */
+export type Profile = Prisma.ProfileModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel
+/**
+ * Model Todo
+ * 
+ */
+export type Todo = Prisma.TodoModel
+/**
+ * Model UserTodoLink
+ * 
+ */
+export type UserTodoLink = Prisma.UserTodoLinkModel
+/**
+ * Model Task
+ * 
+ */
+export type Task = Prisma.TaskModel
+/**
+ * Model UserTaskLink
+ * 
+ */
+export type UserTaskLink = Prisma.UserTaskLinkModel
 /**
  * Model Post
  * 
  */
 export type Post = Prisma.PostModel
 /**
- * Model User
+ * Model Category
  * 
  */
-export type User = Prisma.UserModel
+export type Category = Prisma.CategoryModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel
+/**
+ * Model UserFollower
+ * 
+ */
+export type UserFollower = Prisma.UserFollowerModel
+/**
+ * Model PostLike
+ * 
+ */
+export type PostLike = Prisma.PostLikeModel
+/**
+ * Model Story
+ * 
+ */
+export type Story = Prisma.StoryModel
+/**
+ * Model Image
+ * 
+ */
+export type Image = Prisma.ImageModel
+/**
+ * Model ConfigParam
+ * 
+ */
+export type ConfigParam = Prisma.ConfigParamModel
+/**
+ * Model OrgEmailUseTo
+ * 
+ */
+export type OrgEmailUseTo = Prisma.OrgEmailUseToModel
+/**
+ * Model AppEmailDomain
+ * 
+ */
+export type AppEmailDomain = Prisma.AppEmailDomainModel
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel
+/**
+ * Model ApiKey
+ * 
+ */
+export type ApiKey = Prisma.ApiKeyModel
+/**
+ * Model Scope
+ * 
+ */
+export type Scope = Prisma.ScopeModel
+/**
+ * Model Token
+ * 
+ */
+export type Token = Prisma.TokenModel
+/**
+ * Model ChangesTracking
+ * 
+ */
+export type ChangesTracking = Prisma.ChangesTrackingModel
+/**
+ * Model AccountValidation
+ * 
+ */
+export type AccountValidation = Prisma.AccountValidationModel
