@@ -1,6 +1,5 @@
-// host {
-//     '[style.grid-area]':
-//       '"span " + (data().rows ?? 1) + "/ span " + (data().columns ?? 1)',
-//     class: 'block rounded-2xl'
-//     }
+:host {
+  display: block;
+  border-radius: 1rem; /* rounded-2xl equivalent */
+}
 
