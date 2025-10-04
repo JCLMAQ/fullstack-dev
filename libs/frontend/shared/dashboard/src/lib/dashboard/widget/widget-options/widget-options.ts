@@ -11,14 +11,13 @@ import { DashboardStore } from '../../stores/dashboard.store';
     MatButtonToggleModule,
     MatIcon,
     MatButtonModule
-
   ],
   templateUrl: './widget-options.html',
   styleUrl: './widget-options.scss',
 })
 export class WidgetOptions {
 
- data = input.required<WidgetDashboard>();
+  data = input.required<WidgetDashboard>();
   showOptions = model.required<boolean>();
   store = inject(DashboardStore);
 
