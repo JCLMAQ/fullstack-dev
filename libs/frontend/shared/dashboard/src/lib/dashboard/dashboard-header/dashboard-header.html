@@ -15,20 +15,22 @@
           ><mat-icon>edit</mat-icon></mat-button-toggle
         >
       </mat-button-toggle-group>
-      @if (widgetsOpen()) {
-      <lib-widgets-panel
-        cdkDropList
-        cdkDropListOrientation="vertical"
-        (cdkDropListDropped)="widgetDroppedInPanel($event)"
-        class="mat-elevation-z8"
-        cdkDrag
-      />
-      }
-      <button mat-flat-button (click)="widgetsOpen.set(!widgetsOpen())">
-        @if(widgetsOpen()) {
-        <mat-icon>close</mat-icon>
-        } @else {
-        <mat-icon>add_circle</mat-icon>
-        } Widgets
-      </button>
+      <div class="relative">
+        @if (widgetsOpen()) {
+        <lib-widgets-panel
+          cdkDropList
+          cdkDropListOrientation="vertical"
+          (cdkDropListDropped)="widgetDroppedInPanel($event)"
+          class="mat-elevation-z8"
+          cdkDrag
+        />
+        }
+        <button mat-flat-button (click)="widgetsOpen.set(!widgetsOpen())">
+          @if(widgetsOpen()) {
+          <mat-icon>close</mat-icon>
+          } @else {
+          <mat-icon>add_circle</mat-icon>
+          } Widgets
+        </button>
+      </div>
 </div>
