@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { widgetsDirectory } from '../../widget/widgets-directory';
-import { Widget } from '../models/dashboard';
+import { WidgetDashboard } from '../models/dashboard';
+import { widgetsDirectory } from '../widget/widgets-directory';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
-  fetchWidgets(): Widget[] {
+  fetchWidgets(): WidgetDashboard[] {
     const widgetsAsString = localStorage.getItem('dashboardWidgets');
 
     if (!widgetsAsString) {
       return [];
     }
 
-    const widgets = JSON.parse(widgetsAsString) as Widget[];
+    const widgets = JSON.parse(widgetsAsString) as WidgetDashboard[];
     widgets.forEach((widget) => {
       const content = widgetsDirectory.find((w) => w.id === widget.id)?.content;
       if (content) {
@@ -29,8 +29,8 @@ export class DashboardService {
     return JSON.parse(orderAsString) as number[];
   }
 
-  saveWidgets(widgets: Widget[]): Promise<void> {
-    const widgetsWithoutContent: Partial<Widget>[] = widgets.map((w) => ({
+  saveWidgets(widgets: WidgetDashboard[]): Promise<void> {
+    const widgetsWithoutContent: Partial<WidgetDashboard>[] = widgets.map((w) => ({
       ...w,
     }));
     widgetsWithoutContent.forEach((w) => {

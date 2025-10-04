@@ -17,7 +17,7 @@ export const layoutRoutes: Route[] = [
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('../../../shared/dashboard').then(m => m.dashboardRoutes)
+        loadChildren: () => import('@fe/dashboard').then(m => m.dashboardRoutes)
       }
     ]
   }

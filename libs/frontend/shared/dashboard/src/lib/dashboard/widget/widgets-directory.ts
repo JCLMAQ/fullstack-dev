@@ -1,14 +1,14 @@
 import { WidgetDashboard } from '../models/dashboard';
-import ChannelAnalyticsComponent from './widgets/channel-analytics.component';
-import { IdeasComponent } from './widgets/ideas.component';
-import LatestCommentsComponent from './widgets/latest-comments.component';
-import LatestVideoComponent from './widgets/latest-video.component';
-import { PublishedVideosComponent } from './widgets/published-videos.component';
-import { RevenueComponent } from './widgets/revenue.component';
-import { SubscribersComponent } from './widgets/subscribers.component';
-import { TrafficSourcesComponent } from './widgets/traffic-sources.component';
-import { ViewsComponent } from './widgets/views.component';
-import { WatchTimeComponent } from './widgets/watch-time.component';
+import ChannelAnalyticsComponent from '../widgets/channel-analytics.component';
+import { IdeasComponent } from '../widgets/ideas.component';
+import LatestCommentsComponent from '../widgets/latest-comments.component';
+import LatestVideoComponent from '../widgets/latest-video.component';
+import { PublishedVideosComponent } from '../widgets/published-videos.component';
+import { RevenueComponent } from '../widgets/revenue.component';
+import { SubscribersComponent } from '../widgets/subscribers.component';
+import { TrafficSourcesComponent } from '../widgets/traffic-sources.component';
+import { ViewsComponent } from '../widgets/views.component';
+import { WatchTimeComponent } from '../widgets/watch-time.component';
 
 export const widgetsDirectory: WidgetDashboard[] = [
   {

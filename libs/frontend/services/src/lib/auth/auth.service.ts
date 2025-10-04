@@ -117,7 +117,7 @@ export class AuthService {
   async fetchUser(): Promise<IUserLogged | undefined | null> {
 
     //  get user data from backend with authToken
-    const apiUrl = "api/auths/auth/loggedUser/";
+    // const apiUrl = "api/auths/auth/loggedUser/";
     const authToken = this.authToken();
     if (authToken) {
       const decodedJwt: IJwt = jwtDecode(authToken);
