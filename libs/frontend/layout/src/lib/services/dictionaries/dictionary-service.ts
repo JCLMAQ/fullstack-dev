@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 // TODO Circular dependency
-import { DICTIONARIES_TOKEN } from '@fe/tokens';
+import { DICTIONARIES_TOKEN, Dictionary } from '@fe/tokens';
 import { TranslateService } from '@ngx-translate/core';
-import { Dictionary } from '../../models/dictionary-token.model';
 import { getDictionaryHelper } from "../../store/dictionary/dictionary.helpers";
 
 @Injectable({

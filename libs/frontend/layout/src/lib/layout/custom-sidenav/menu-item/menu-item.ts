@@ -1,9 +1,9 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLinkActive, RouterModule } from '@angular/router';
+import { MENU_ITEMS_TOKEN, MenuItems } from '@fe/tokens';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MenuItems } from '../../../models/menu-token.model';
 
 @Component({
   selector: 'lib-menu-item',
@@ -19,7 +19,7 @@ import { MenuItems } from '../../../models/menu-token.model';
 })
 
 export class MenuItem {
-  // public menuItems = inject(MENU_ITEMS) as MenuItems[];
+  public menuItems = inject(MENU_ITEMS_TOKEN);
 
   item = input.required<MenuItems>();
   collapsed = input.required<boolean>();

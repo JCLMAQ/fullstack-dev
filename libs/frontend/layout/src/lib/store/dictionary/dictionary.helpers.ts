@@ -1,5 +1,5 @@
 
-import { Dictionaries, Dictionary } from "./dictionary-token.model";
+import { Dictionaries, Dictionary } from "@fe/tokens";
 export function getDictionaryHelper(language: string, dictionaries: Dictionaries): Dictionary {
   // Return the dictionary of the selected language
     return dictionaries[language] ?? Object.values(dictionaries)[0];

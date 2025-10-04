@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@fe/services';
+// TODO Circular dependency
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { MessagesService } from '@fe/utilities';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';

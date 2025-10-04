@@ -1,7 +1,7 @@
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, inject, viewChild } from '@angular/core';
-import { ResponsiveService } from '@fe/layout';
 import { AppStore } from '@fe/stores';
+import { ResponsiveService } from '@fe/tokens';
 import { wrapGrid } from 'animate-css-grid';
 import { Chart } from 'chart.js/auto';
 import { DashboardHeader } from './dashboard-header/dashboard-header';

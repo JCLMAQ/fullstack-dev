@@ -4,7 +4,10 @@
     "outDir": "../../../dist/out-tsc",
     "types": []
   },
-  "include": ["src/**/*.ts", "../../../libs/frontend/layout/src/lib/store/dictionary/translate.helpers.ts"],
+  "include": [
+    "src/**/*.ts",
+    "../../../libs/frontend/layout/src/lib/store/dictionary/translate.helpers.ts"
+  ],
   "exclude": [
     "jest.config.ts",
     "src/test-setup.ts",
@@ -25,6 +28,9 @@
   "references": [
     {
       "path": "../../../libs/frontend/layout/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../libs/frontend/tokens"
     }
   ]
 }

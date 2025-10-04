@@ -1,2 +1,2 @@
-export type Dictionary = Record<string, string>;
-export type Dictionaries = Record<string, Dictionary>;
+export type { Dictionaries, Dictionary } from '@fe/tokens';
+

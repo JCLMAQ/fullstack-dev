@@ -1,5 +1,4 @@
-import { Dictionary } from "./dictionary-token.model";
-;
+import { Dictionary } from "@fe/tokens";
 
 export interface DictionarySlice {
     readonly selectedLanguage: string;

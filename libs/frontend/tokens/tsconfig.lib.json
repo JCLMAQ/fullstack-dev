@@ -14,5 +14,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../layout/src/lib/models/dictionary-token.model.ts", "../layout/src/lib/models/environment-token.model.ts", "../layout/src/lib/models/menu-token.model.ts"]
+  "include": ["src/**/*.ts"]
 }
