@@ -18,6 +18,9 @@
   "include": [],
   "references": [
     {
+      "path": "../shared/dashboard"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

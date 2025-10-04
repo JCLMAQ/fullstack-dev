@@ -5,7 +5,6 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "sourceMap": true,
     "inlineSourceMap": true,
     "types": []
   },
