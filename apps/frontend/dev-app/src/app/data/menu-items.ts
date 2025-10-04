@@ -7,7 +7,7 @@
   {
     icon: 'home',
     label: 'SideNavMenu.Home',
-    route: 'home',
+    route: 'pages/home',
   },
   {
     icon: 'supervised_user_circle', // person

@@ -19,7 +19,7 @@ export class AppController {
 
   @Get('post/:id')
   async getPostById(@Param('id') id: string) {
-    return this.postsService.post({ id: Number(id) });
+    return this.postsService.post({ id: id });
   }
 
 
@@ -51,23 +51,27 @@ export class AppController {
 
   @Post('post')
   async createdDraft(
-    @Body() postData: { title: string; content?: string; authorEmail: string }
+    @Body() postData: { title: string; content?: string; ownerEmail: string; orgId: string }
   ) {
-    const { title, content, authorEmail } = postData;
+    const { title, content, ownerEmail, orgId } = postData;
     return this.postsService.createPost({
       title,
       content,
-      author: {
-        connect: { email: authorEmail },
+      owner: {
+        connect: { email: ownerEmail },
+      },
+      org: {
+        connect: { id: orgId },
       },
     });
   }
 
   @Post('user')
-  async createUser(@Body() userData: { name?: string; email: string }) {
-    const { name, email } = userData;
+  async createUser(@Body() userData: { firstName?: string; lastName?: string; email: string }) {
+    const { firstName, lastName, email } = userData;
     return this.usersService.createUser({
-      name,
+      firstName,
+      lastName,
       email,
     });
   }
@@ -75,7 +79,7 @@ export class AppController {
   @Put('publish/:id')
   async publishPost(@Param('id') id: string) {
     return this.postsService.updatePost({
-      where: { id: Number(id) },
+      where: { id: id },
       data: { published: true },
     });
   }
@@ -83,7 +87,7 @@ export class AppController {
 
   @Delete('post/:id')
   async deletePost(@Param('id') id: string) {
-    return this.postsService.deletePost({ id: Number(id) });
+    return this.postsService.deletePost({ id: id });
   }
 
 

@@ -1,5 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-// TODO Circular dependency
 import { DICTIONARIES_TOKEN, Dictionary } from '@fe/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { getDictionaryHelper } from "../../store/dictionary/dictionary.helpers";

@@ -1,6 +1,5 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
-// TODO Circular dependency
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import {
   patchState,
