@@ -25,7 +25,8 @@
       "@db/prisma": ["libs/db/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@fe/app/data": ["apps/frontend/dev-app/src/app/data"],
-      "@fe/dashboard": ["libs/frontend/ui/src/index.ts"],
+      "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
+      "@fe/dashboard": ["libs/frontend/shared/components/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
@@ -36,12 +37,11 @@
       "@fe/signalformutilities": [
         "libs/frontend/utilities/signalformutilities/src/index.ts"
       ],
-      "@fe/stores": ["libs/frontend/stores/src/index.ts"],
-      "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
-      "@fe/ui": ["libs/frontend/ui/ui/src/index.ts"],
-      "@fe/user": ["libs/frontend/user/src/index.ts"],
-      "@fe/utilities": ["libs/frontend/shared/utilities/src/index.ts"],
-      "@fullstack-dev/auth": ["libs/frontend/core/auth/src/index.ts"]
+      "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
+      "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
+      "@fe/ui": ["libs/frontend/shared/components/ui/src/index.ts"],
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
+      "@fe/utilities": ["libs/frontend/shared/utilities/src/index.ts"]
     }
   }
 }
