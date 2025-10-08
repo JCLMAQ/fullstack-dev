@@ -2,7 +2,7 @@ export default {
   displayName: 'auth',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../../coverage/libs/frontent/core/auth',
+  coverageDirectory: '../../../../coverage/libs/frontend/core/auth',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

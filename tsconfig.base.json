@@ -41,7 +41,7 @@
       "@fe/ui": ["libs/frontend/ui/ui/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
       "@fe/utilities": ["libs/frontend/shared/utilities/src/index.ts"],
-      "@fullstack-dev/auth": ["libs/frontent/core/auth/src/index.ts"]
+      "@fullstack-dev/auth": ["libs/frontend/core/auth/src/index.ts"]
     }
   }
 }
