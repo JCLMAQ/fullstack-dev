@@ -10,7 +10,7 @@ import {
   schema,
   validate,
 } from '@angular/forms/signals';
-import { FieldError } from '@fe/signalformutilities';
+import { FieldError } from 'libs/frontend/shared/utils/signalformutilities/src';
 import { PersonalInfo } from '../models/personal-info';
 
 const passwordSchema = schema<{ password: string; confirmPassword: string }>(

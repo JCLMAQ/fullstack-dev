@@ -1,8 +1,8 @@
 export default {
-  displayName: 'services',
-  preset: '../../../jest.preset.js',
+  displayName: 'pages',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/frontend/services',
+  coverageDirectory: '../../../../coverage/libs/frontend/core/pages',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

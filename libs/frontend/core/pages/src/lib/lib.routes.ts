@@ -6,5 +6,5 @@ export const pagesRoutes: Route[] = [
   { path: 'home', component: Home },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'page-not-found', component: PageNotFound },
-  { path: '**', component: PageNotFound }
+  { path: '**', component: PageNotFound },
 ];
