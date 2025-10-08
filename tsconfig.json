@@ -7,7 +7,7 @@
       "path": "./libs/frontend/layout"
     },
     {
-      "path": "./libs/frontend/shared/dashboard"
+      "path": "./libs/frontend/ui"
     }
   ]
 }

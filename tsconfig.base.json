@@ -29,7 +29,7 @@
       "@fe/date-utilities": [
         "libs/frontend/utilities/date-utilities/src/index.ts"
       ],
-      "@fe/layout": ["libs/frontend/layout/src/index.ts"],
+      "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/material": ["libs/frontend/shared/material/src/index.ts"],
       "@fe/pages": ["libs/frontend/pages/src/index.ts"],
       "@fe/services": ["libs/frontend/services/src/index.ts"],
@@ -38,9 +38,10 @@
       ],
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/tokens/src/index.ts"],
+      "@fe/ui": ["libs/frontend/ui/ui/src/index.ts"],
       "@fe/user": ["libs/frontend/user/src/index.ts"],
       "@fe/utilities": ["libs/frontend/shared/utilities/src/index.ts"],
-      "@fullstack-dev/ui": ["libs/frontend/ui/ui/src/index.ts"]
+      "@fullstack-dev/auth": ["libs/frontent/core/auth/src/index.ts"]
     }
   }
 }

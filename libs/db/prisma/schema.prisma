@@ -10,6 +10,31 @@ generator client {
   importFileExtension    = "ts"
 }
 
+generator nestjsDto {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../generated/nestjs-dto"
+  prismaClientImportPath          = ""
+  outputToNestJsResourceStructure = "ftrue"
+  flatResourceStructure           = "false"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "true"
+  generateFileTypes               = "all"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  entityPrefix                    = ""
+  entitySuffix                    = "Entity"
+  classValidation                 = "false"
+  fileNamingStyle                 = "camel"
+  noDependencies                  = "false"
+  outputType                      = "class"
+  definiteAssignmentAssertion     = "false"
+  requiredResponseApiProperty     = "true"
+  prettier                        = "false"
+  wrapRelationsAsType             = "false"
+  showDefaultValues               = "false"
+}
+
 enum TaskState {
   CREATION
   STANDBY
