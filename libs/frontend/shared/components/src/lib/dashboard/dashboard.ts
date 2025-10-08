@@ -3,7 +3,7 @@ import {
   CdkDropList,
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { AppStore } from '@fe/stores';
 import { ResponsiveService } from '@fe/tokens';
 import { wrapGrid } from 'animate-css-grid';
@@ -19,7 +19,7 @@ import { Widget } from './widget/widget';
   styleUrl: './dashboard.scss',
   providers: [DashboardStore],
 })
-export class Dashboard {
+export class Dashboard implements OnInit, OnDestroy {
   appStore = inject(AppStore);
 
   reponsiveService = inject(ResponsiveService);
