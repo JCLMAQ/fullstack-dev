@@ -32,7 +32,7 @@ const proxyFileContent = `
   }
 `;
 // write the content to the respective file
-writeFile(proxyconfPath, proxyFileContent, function (err) {
+writeFile(proxyconfPath, proxyFileContent, function (err: NodeJS.ErrnoException | null) {
   if (err) {
     console.log(err);
   }
