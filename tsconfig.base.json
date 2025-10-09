@@ -30,11 +30,11 @@
         "libs/frontend/shared/components/dashboard/src/index.ts"
       ],
       "@fe/image-uploader": [
-        "libs/frontend/shared/components/dashboard/image-uploader/src/index.ts"
+        "libs/frontend/shared/components/image-uploader/src/index.ts"
       ],
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/loading-container": [
-        "libs/frontend/shared/components/dashboard/loading-container/src/index.ts"
+        "libs/frontend/shared/components/loading-container/src/index.ts"
       ],
       "@fe/material": ["libs/frontend/shared/material/src/index.ts"],
       "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],

@@ -1,1 +1,53 @@
-<p>ImageUploader works!</p>
+
+<div
+  class="file-upload-wrapper"
+  [class.success]="uploadSuccess"
+  [class.error]="uploadError"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+>
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onFileChange($event)"
+    hidden
+    #fileInput
+  />
+  <div
+    class="file-dropper"
+    (click)="fileInput.click()"
+    (keyup.enter)="fileInput.click()"
+    tabindex="0"
+  >
+    <mat-icon>upload</mat-icon>
+    <p>{{ "ACTIONS.UPLOAD_PLACEHOLDER" | translate }}</p>
+    @if(imageName()) {
+    <div >
+      @if(selectedFile || imagePreview()) {
+        <!-- Display the image preview and file name -->
+      <div class="image-preview-container">
+        <img
+          [src]="imagePreview()"
+          alt="Image Preview"
+          class="image-preview"
+        />
+        <p>
+          <span class="image-name">{{ imageName() }}</span> ({{
+            fileSize()
+          }} KB)
+        </p>
+        <mat-icon
+          class="delete-icon"
+          (click)="removeImage()"
+          (keyup.enter)="removeImage()"
+          tabindex="0"
+        >
+          delete
+        </mat-icon>
+      </div>
+    }
+    </div>
+  }
+
+  </div>
+</div>
