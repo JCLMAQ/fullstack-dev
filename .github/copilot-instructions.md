@@ -3,56 +3,90 @@ You are an expert in TypeScript, Angular, NestJS, and this fullstack Nx monorepo
 ## Nx Monorepo Architecture
 
 This is a fullstack monorepo with strict separation:
-- **Frontend**: Angular 21+ with signals and standalone components
-- **Backend**: NestJS with Prisma ORM
-- **Database**: PostgreSQL with Prisma schema in `libs/db/`
+- **Frontend**: Angular 21+ with signals, standalone components, and zoneless change detection
+- **Backend**: NestJS with Prisma ORM and domain-specific service layers
+- **Database**: PostgreSQL with Prisma schema and code generation
 
 ### Path Aliases (Critical)
 Always use these import aliases from `tsconfig.base.json`:
-- `@fe/*` - Frontend libraries (layout, services, stores, tokens, ui, user, utilities)
-- `@be/*` - Backend data access layers (posts, users) 
-- `@db/*` - Database types and Prisma client
-- Applications have specific paths like `@fe/app/data`
+- `@fe/*` - Frontend libraries (auth, layout, services, stores, tokens, shared/components, user)
+- `@be/*` - Backend data access layers (posts, users)
+- `@db/*` - Database types and Prisma client (`@db/prisma`, `@db/prisma-client`)
+- App-specific: `@fe/app/data` for application configuration
 
 ### Project Structure
-- `apps/frontend/dev-app` - Main Angular application
-- `apps/backend/nest-app` - NestJS API server  
-- `libs/frontend/*` - Shared Angular libraries organized by domain
-- `libs/backend/data-access/*` - Domain-specific service layers
-- `libs/db/` - Prisma schema, migrations, and generated types
+```
+apps/
+├── frontend/dev-app/          # Main Angular application
+└── backend/nest-app/          # NestJS API server
+
+libs/
+├── frontend/
+│   ├── core/                  # Core Angular functionality
+│   │   ├── auth/              # Authentication service & components
+│   │   ├── layout/            # Layout components with sidenav/header
+│   │   ├── pages/             # Static pages (home, 404)
+│   │   ├── services/          # Core business services
+│   │   ├── stores/            # @ngrx/signals state management
+│   │   └── tokens/            # Dependency injection tokens
+│   ├── domains/user/          # User domain features
+│   └── shared/                # Reusable UI components & utilities
+├── backend/data-access/       # NestJS domain services (posts, users)
+└── db/                        # Prisma schema & generated types
+```
 
 ## Angular Patterns (Project-Specific)
 
+### Component Architecture (Critical Rules)
+- **Standalone components only**: Never use NgModules, `standalone` is default (don't specify)
+- **Signal-based**: Use `signal()`, `computed()`, `effect()` for all state
+- **Modern APIs**: `inject()` over constructor injection, `input()`/`output()` over decorators
+- **Control Flow**: Use `@if`, `@for`, `@switch` instead of `*ngIf`, `*ngFor`, `*ngSwitch`
+- **Zoneless**: Project uses `provideZonelessChangeDetection()`, optimize for this
+
 ### Dependency Injection Tokens
-Use injection tokens for configuration and shared data:
+Configuration via injection tokens (critical pattern):
 ```typescript
-// From @fe/tokens
+// In app.config.ts - provide tokens
 import { MENU_ITEMS_TOKEN, ENVIRONMENT_TOKEN, DICTIONARIES_TOKEN } from '@fe/tokens';
-// Provided in app.config.ts
 { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS }
+
+// In components - inject tokens  
+menuItems = inject(MENU_ITEMS_TOKEN);
+environment = inject(ENVIRONMENT_TOKEN);
 ```
 
-### Component Architecture
-- Always use standalone components (default, no `standalone: true` needed)
-- Use `inject()` function, not constructor injection
-- Use `input()`, `output()`, `computed()` for reactive patterns
-- Import from `@angular/material` for UI components
-
-### Service Organization
-- `@fe/services` - Core business logic services
-- `@fe/stores` - Signal-based state management 
-- Services use `providedIn: 'root'` and `inject()` pattern
-
-### Signal Store Pattern
-The project uses @ngrx/signals for state management:
+### Routing Architecture  
+Lazy loading with feature-based routing:
 ```typescript
-// Example from AppStore
+// Main app routes (apps/frontend/dev-app/src/app/app.routes.ts)
+{ path: '', loadChildren: () => import('@fe/layout').then(m => m.layoutRoutes) }
+
+// Layout routes with children (libs/frontend/core/layout/src/lib/lib.routes.ts)
+{
+  path: '', component: Layout,
+  children: [
+    { path: 'pages', loadChildren: () => import('@fe/pages').then(m => m.pagesRoutes) },
+    { path: 'users', loadChildren: () => import('@fe/user').then(m => m.userRoutes) },
+  ]
+}
+```
+
+### Signal Store Pattern (@ngrx/signals)
+Central state management with features:
+```typescript
+// libs/frontend/core/stores/src/lib/app-store/app.store.ts
 export const AppStore = signalStore(
   { providedIn: 'root' },
   withState(initialAppSlice),
-  withProps(() => ({ _service: inject(Service) })),
-  withComputed((store) => ({ user: computed(() => store._authService.user()) })),
-  withFeatures() // Add features like withAppAuthFeatures()
+  withProps(() => ({ 
+    _authService: inject(AuthService),
+    _dictionaries: inject(DICTIONARIES_TOKEN) 
+  })),
+  withComputed((store) => ({ 
+    user: computed(() => store._authService.user()) 
+  })),
+  withAppAuthFeatures(), // Custom features for modular functionality
 );
 ```
 
