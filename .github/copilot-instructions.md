@@ -9,7 +9,8 @@ This is a fullstack monorepo with strict separation:
 
 ### Path Aliases (Critical)
 Always use these import aliases from `tsconfig.base.json`:
-- `@fe/*` - Frontend libraries (auth, layout, services, stores, tokens, shared/components, user)
+- `@fe/*` - Frontend libraries (auth, layout, pages, services, stores, tokens, user)
+- `@fe/shared/*` - Shared components and utilities (`@fe/shared/components`, `@fe/shared/utilities`, `@fe/material`)
 - `@be/*` - Backend data access layers (posts, users)
 - `@db/*` - Database types and Prisma client (`@db/prisma`, `@db/prisma-client`)
 - App-specific: `@fe/app/data` for application configuration
@@ -31,6 +32,10 @@ libs/
 │   │   └── tokens/            # Dependency injection tokens
 │   ├── domains/user/          # User domain features
 │   └── shared/                # Reusable UI components & utilities
+│       ├── components/        # Dashboard, loading, messages, image-uploader
+│       ├── material/          # Angular Material exports
+│       ├── pipes/             # Shared pipes
+│       └── utils/             # Utility functions & services
 ├── backend/data-access/       # NestJS domain services (posts, users)
 └── db/                        # Prisma schema & generated types
 ```

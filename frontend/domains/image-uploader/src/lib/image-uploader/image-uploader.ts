@@ -1,0 +1,9 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'lib-image-uploader',
+  imports: [],
+  templateUrl: './image-uploader.html',
+  styleUrl: './image-uploader.scss',
+})
+export class ImageUploader {}

@@ -30,14 +30,20 @@
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/material": ["libs/frontend/shared/material/src/index.ts"],
       "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],
-  "@fe/services": ["libs/frontend/core/services/src/index.ts"],
+      "@fe/services": ["libs/frontend/core/services/src/index.ts"],
       "@fe/shared/components": ["libs/frontend/shared/components/src/index.ts"],
       "@fe/shared/components/*": ["libs/frontend/shared/components/src/*"],
       "@fe/shared/utilities": ["libs/frontend/shared/utils/src/index.ts"],
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/ui/src/index.ts"],
-      "@fe/user": ["libs/frontend/domains/user/src/index.ts"]
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
+      "@fullstack-dev/image-uploader": [
+        "frontend/domains/image-uploader/src/index.ts"
+      ],
+      "@fullstack-dev/loading-container": [
+        "frontend/domains/loading-container/src/index.ts"
+      ]
     }
   }
 }

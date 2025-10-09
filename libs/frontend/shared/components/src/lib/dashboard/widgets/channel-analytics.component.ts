@@ -6,8 +6,8 @@ import {
   viewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { LoadingContainer } from '@fullstack-dev/loading-container';
 import Chart from 'chart.js/auto';
-import { LoadingContainer } from '../../loading-container/loading-container';
 
 @Component({
   selector: 'lib-channel-analytics',
