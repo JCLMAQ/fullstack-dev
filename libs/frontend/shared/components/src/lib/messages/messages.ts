@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MessagesService } from './messages.service';
+import { MessagesService } from '@fe/services';
 
 @Component({
   selector: 'lib-messages',

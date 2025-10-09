@@ -3,12 +3,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@fe/auth';
 import {
-  patchState,
-  SignalStoreFeature,
-  signalStoreFeature,
-  withMethods,
-  withProps,
-  withState,
+    patchState,
+    SignalStoreFeature,
+    signalStoreFeature,
+    withMethods,
+    withProps,
+    withState,
 } from '@ngrx/signals';
 import { initialAppSlice } from '../../app-store/app.slice';
 

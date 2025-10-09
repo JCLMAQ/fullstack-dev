@@ -3,9 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
     "declaration": true,
-    "declarationMap": true,
-    "inlineSources": true,
-    "inlineSourceMap": true,
+  "declarationMap": true,
     "types": []
   },
   "exclude": [
@@ -14,10 +12,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"],
-  "references": [
-    {
-      "path": "../../shared/components/tsconfig.lib.json"
-    }
-  ]
+  "include": ["src/**/*.ts"]
 }

@@ -27,10 +27,10 @@
   ],
   "references": [
     {
-      "path": "../../../libs/frontend/layout/tsconfig.lib.json"
+      "path": "../../../libs/frontend/core/layout/tsconfig.lib.json"
     },
     {
-      "path": "../../../libs/frontend/tokens"
+      "path": "../../../libs/frontend/core/tokens"
     }
   ]
 }
