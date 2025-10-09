@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@fe/auth';
-import { MessagesService } from '@fe/shared/components';
 import {
   patchState,
   SignalStoreFeature,
@@ -18,7 +17,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withState(initialAppSlice),
     withProps(() => ({
-      _messagesService: inject(MessagesService),
       _authService: inject(AuthService),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
@@ -27,10 +25,10 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       login: async (email: string, password: string) => {
         try {
           if (!email || !password) {
-            store._messagesService.showMessage(
-              'Enter an email and password.',
-              'error',
-            );
+            store._snackbar.open('Enter an email and password.', 'Close', {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            });
             return;
           }
 
@@ -49,10 +47,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             horizontalPosition: 'right',
           });
           console.error(error);
-          // messagesService.showMessage(
-          //   "Login failed, please try again",
-          //   "error"
-          // )
+          // Optional: track error
         }
       },
 
@@ -69,9 +64,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       ) => {
         try {
           if (!email || !password || !confirmPassword) {
-            store._messagesService.showMessage(
+            store._snackbar.open(
               'Enter an email and password + confirm password.',
-              'error',
+              'Close',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'right',
+              },
             );
             return;
           }
@@ -82,10 +81,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             verticalPosition: 'top',
             horizontalPosition: 'right',
           });
-          // messagesService.showMessage(
-          //   response.email ? "Registration successful" : "Registration failed, please try again",
-          //   response.email ? "success" : "error"
-          // )
+          // Optional: track success
 
           store._router.navigate(['/login']);
         } catch (error) {
@@ -98,10 +94,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             },
           );
           console.error(error);
-          // messagesService.showMessage(
-          //   "Registration failed, please try again",
-          //   "error"
-          // )
+          // Optional: track error
         }
       },
     })),

@@ -43,6 +43,19 @@ import { MENU_ITEMS_TOKEN, ENVIRONMENT_TOKEN, DICTIONARIES_TOKEN } from '@fe/tok
 - `@fe/stores` - Signal-based state management 
 - Services use `providedIn: 'root'` and `inject()` pattern
 
+### Signal Store Pattern
+The project uses @ngrx/signals for state management:
+```typescript
+// Example from AppStore
+export const AppStore = signalStore(
+  { providedIn: 'root' },
+  withState(initialAppSlice),
+  withProps(() => ({ _service: inject(Service) })),
+  withComputed((store) => ({ user: computed(() => store._authService.user()) })),
+  withFeatures() // Add features like withAppAuthFeatures()
+);
+```
+
 ## Database & Backend
 
 ### Prisma Integration
@@ -55,6 +68,8 @@ import { MENU_ITEMS_TOKEN, ENVIRONMENT_TOKEN, DICTIONARIES_TOKEN } from '@fe/tok
 - Data access layers in `libs/backend/data-access/{posts,users}`
 - Each depends on `@db/prisma-client` library
 - API prefix: `/api` (set in `main.ts`)
+- Services extend pattern: `constructor(private prisma: PrismaClientService)`
+- Use Prisma types: `Prisma.UserWhereUniqueInput`, `Prisma.UserCreateInput`
 
 ## Development Workflows
 
@@ -80,7 +95,13 @@ nx graph                        # Visualize dependencies
 
 ### Configuration Files
 - Environment setup: `scripts/setenv.ts` (run via `configangular`)
-- Proxy config: `proxy.config.json` for API routing
+- Proxy config: `proxy.config.json` for API routing (`/api` → `http://localhost:3000`)
 - Custom Nx plugins configured for TypeScript, Webpack, ESLint, Jest, Playwright
+
+### Angular Configuration
+- Uses zoneless change detection (`provideZonelessChangeDetection()`)
+- Internationalization with @ngx-translate
+- Material Design components with `@angular/material`
+- Configuration via injection tokens in `app.config.ts`
 
 Use `nx show project <name>` to see available targets for any project.

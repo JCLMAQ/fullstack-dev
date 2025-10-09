@@ -33,6 +33,9 @@
       "@fe/shared/components": [
         "libs/frontend/shared/components/src/index.ts"
       ],
+      "@fe/shared/components/*": [
+        "libs/frontend/shared/components/src/*"
+      ],
       "@fe/shared/utilities": [
         "libs/frontend/shared/utils/src/index.ts"
       ],

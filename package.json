@@ -6,6 +6,7 @@
     "start-nest-app": "nx serve nest-app --watch",
     "start-dev-app": "nx serve dev-app --watch",
     "start:frontend:dev": "pnpm run configangular -- --environment=dev && nx serve dev-app --proxy-config ./proxy.config.json --host 127.0.0.1 --port 4200",
+    "dep:cycles": "npx -y madge --circular --extensions ts,tsx --ts-config tsconfig.base.json apps libs",
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "pnpm approve-builds scripts": "pnpm approve-builds",
