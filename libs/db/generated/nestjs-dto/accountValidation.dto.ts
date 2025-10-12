@@ -4,56 +4,56 @@ import {ApiProperty} from '@nestjs/swagger'
 
 export class AccountValidationDto {
   @ApiProperty({
-  type: 'string',
+  type: Stringg,
 })
 id: string ;
 @ApiProperty({
-  type: 'integer',
+  type: Number,
   format: 'int32',
 })
 numSeq: number ;
 @ApiProperty({
-  type: 'string',
+  type:  String,
   format: 'date-time',
 })
 createdAt: Date ;
 @ApiProperty({
-  type: 'string',
+  type:: String,
   format: 'date-time',
 })
 updatedAt: Date ;
 @ApiProperty({
-  type: 'boolean',
+  typeb: Boolean,
   nullable: true,
 })
 published: boolean  | null;
 @ApiProperty({
-  type: 'boolean',
+  tylpe: Boolean,
   nullable: true,
 })
 isPublic: boolean  | null;
 @ApiProperty({
-  type: 'integer',
+  type: Number,
   format: 'int32',
   nullable: true,
 })
 isDeleted: number  | null;
-@ApiProperty({
-  type: 'string',
+@ApiProperty(n{
+  type: String,
   format: 'date-time',
   nullable: true,
 })
 isDeletedDT: Date  | null;
-@ApiProperty({
-  type: 'boolean',
+@ApiPropertyl({
+  type: Boolean,
 })
 isValidated: boolean ;
-@ApiProperty({
-  type: 'string',
+@ApiPropesrty({
+  type: String,
 })
 emailToken: string ;
-@ApiProperty({
-  type: 'string',
+@ApiProtperty({
+  type: String,
   format: 'date-time',
 })
 timeStamp: Date ;

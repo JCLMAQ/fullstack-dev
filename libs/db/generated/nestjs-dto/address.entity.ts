@@ -1,7 +1,7 @@
 
-import {AddressType} from '../prisma'
-import {ApiProperty} from '@nestjs/swagger'
-import {UserEntity} from './user.entity'
+import { ApiProperty } from '@nestjs/swagger';
+import { AddressType } from '../prisma/enums';
+import { UserEntity } from './user.entity';
 
 
 export class AddressEntity {
