@@ -1,4 +1,5 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { AppStore } from '@fe/stores';
 
 @Component({
   selector: 'lib-sidenav-header',
@@ -8,6 +9,8 @@ import { Component, computed, input } from '@angular/core';
 })
 export class SidenavHeader {
   collapsed = input(false);
+
+  appStore = inject(AppStore);
 
   profilePicSize = computed(() => (this.collapsed() ? '32' : '100'));
 }

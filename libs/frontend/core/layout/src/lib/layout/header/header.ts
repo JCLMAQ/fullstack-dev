@@ -1,10 +1,12 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
+import { AppStore } from '@fe/stores';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
 import { ThemeService } from '../../services/themes/theme-service';
@@ -17,7 +19,7 @@ import { DictionaryStore } from '../../store/dictionary/dictionary.store';
     MatIcon,
     MatButtonModule,
     MatMenuModule,
-    // MatDivider,
+    MatDivider,
     // TitleCasePipe,
     TranslatePipe,
     // FlagComponent
@@ -30,6 +32,7 @@ export class Header {
   ngxtranslateService = inject(TranslateService);
   themeService = inject(ThemeService);
   responsiveService = inject(ResponsiveService);
+  appStore = inject(AppStore);
   router = inject(Router);
 
   readonly sidenav = viewChild.required(MatSidenav);
@@ -56,6 +59,10 @@ export class Header {
         this.collapsed.set(!this.collapsed());
       }
     }
+  }
+
+    login() {
+    this.router.navigate(['/login']);
   }
 
   navigate(route: string) {

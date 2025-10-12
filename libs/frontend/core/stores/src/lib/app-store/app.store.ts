@@ -4,7 +4,6 @@ import { signalStore, withComputed, withProps, withState } from '@ngrx/signals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@fe/auth';
-// import { MessagesService } from '@fe/services';
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
 import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
@@ -14,7 +13,6 @@ export const AppStore = signalStore(
   { providedIn: 'root' },
   withState(initialAppSlice),
   withProps(() => ({
-  // _messagesService: inject(MessagesService),
     _authService: inject(AuthService),
     _router: inject(Router),
     _snackbar: inject(MatSnackBar),
