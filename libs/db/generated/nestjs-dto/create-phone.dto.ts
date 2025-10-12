@@ -1,0 +1,31 @@
+
+import {PhoneType} from '../prisma'
+import {ApiProperty} from '@nestjs/swagger'
+
+
+
+
+export class CreatePhoneDto {
+  @ApiProperty({
+  type: 'string',
+})
+countryCode: string ;
+@ApiProperty({
+  type: 'string',
+})
+number: string ;
+@ApiProperty({
+  type: 'string',
+  required: false,
+  nullable: true,
+})
+extension?: string  | null;
+@ApiProperty({
+  enum: PhoneType,
+  enumName: 'PhoneType',
+  default: 'Mobile',
+  required: false,
+  nullable: true,
+})
+phoneType?: PhoneType  | null;
+}

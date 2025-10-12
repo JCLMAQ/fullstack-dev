@@ -52,6 +52,8 @@ export const ModelName = {
   OrgEmail: 'OrgEmail',
   OrgDomain: 'OrgDomain',
   User: 'User',
+  Phone: 'Phone',
+  Address: 'Address',
   UserSecret: 'UserSecret',
   Profile: 'Profile',
   Group: 'Group',
@@ -164,8 +166,12 @@ export const UserScalarFieldEnum = {
   social: 'social',
   Language: 'Language',
   photoUrl: 'photoUrl',
-  dob: 'dob',
-  address: 'address',
+  dateOfBirth: 'dateOfBirth',
+  hasEmergencyContact: 'hasEmergencyContact',
+  emergencyContactName: 'emergencyContactName',
+  emergencyContactPhone: 'emergencyContactPhone',
+  position: 'position',
+  jobTitle: 'jobTitle',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
   managerId: 'managerId',
@@ -177,6 +183,38 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const PhoneScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  countryCode: 'countryCode',
+  number: 'number',
+  extension: 'extension',
+  phoneType: 'phoneType',
+  isPrimary: 'isPrimary'
+} as const
+
+export type PhoneScalarFieldEnum = (typeof PhoneScalarFieldEnum)[keyof typeof PhoneScalarFieldEnum]
+
+
+export const AddressScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  zipCode: 'zipCode',
+  country: 'country',
+  addressType: 'addressType',
+  isPrimary: 'isPrimary'
+} as const
+
+export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
 
 
 export const UserSecretScalarFieldEnum = {

@@ -1,32 +1,13 @@
 // Create the "environment files" for the Angular app
-import dotenv from 'dotenv';
+import '@dotenvx/dotenvx/config';
 import { writeFile } from 'fs';
 import path from 'path';
-// Use require for dotenv-expand to avoid type dependency
-const dotenvExpand = require('dotenv-expand');
 
-// Resolve env file: prefer .env at repo root, fallback to copy.env
+// dotenvx gère automatiquement l'expansion des variables d'environnement
 const repoRoot = process.cwd();
-const explicitPath = process.env.DOTENV_CONFIG_PATH;
-const candidatePaths = [
-  explicitPath,
-  path.join(repoRoot, '.env'),
-  path.join(repoRoot, 'copy.env'),
-].filter(Boolean) as string[];
+const loadedPath = path.join(repoRoot, '.env');
 
-let loadedPath: string | undefined;
-for (const p of candidatePaths) {
-  const result = dotenv.config({ path: p });
-  if (!result.error) {
-    dotenvExpand.expand(result);
-    loadedPath = p;
-    break;
-  }
-}
-
-if (!loadedPath) {
-  console.warn('No .env found. Create a .env at repo root or provide DOTENV_CONFIG_PATH. Using current process.env values.');
-}
+console.log(`Using dotenvx with .env file: ${loadedPath}`);
 
 const environment = process.env.NODE_ENV || 'dev';
 const isProduction = environment === 'prod';

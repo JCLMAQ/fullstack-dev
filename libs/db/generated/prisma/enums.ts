@@ -50,10 +50,32 @@ export type Title = (typeof Title)[keyof typeof Title]
 export const Position = {
   Manager: 'Manager',
   Member: 'Member',
+  Individual: 'Individual',
   Secretary: 'Secretary'
 } as const
 
 export type Position = (typeof Position)[keyof typeof Position]
+
+
+export const PhoneType = {
+  Mobile: 'Mobile',
+  Home: 'Home',
+  Work: 'Work',
+  Organisation: 'Organisation',
+  Other: 'Other'
+} as const
+
+export type PhoneType = (typeof PhoneType)[keyof typeof PhoneType]
+
+
+export const AddressType = {
+  Home: 'Home',
+  Work: 'Work',
+  Organisation: 'Organisation',
+  Other: 'Other'
+} as const
+
+export type AddressType = (typeof AddressType)[keyof typeof AddressType]
 
 
 export const Language = {

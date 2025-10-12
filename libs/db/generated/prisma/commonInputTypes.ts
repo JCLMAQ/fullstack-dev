@@ -286,6 +286,13 @@ export type EnumLanguageNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel> | $Enums.Language | null
 }
 
+export type EnumPositionNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Position | Prisma.EnumPositionFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel> | $Enums.Position | null
+}
+
 export type EnumTitleNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Title | Prisma.EnumTitleFieldRefInput<$PrismaModel> | null
   in?: $Enums.Title[] | Prisma.ListEnumTitleFieldRefInput<$PrismaModel> | null
@@ -314,6 +321,50 @@ export type EnumLanguageNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel>
+}
+
+export type EnumPositionNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Position | Prisma.EnumPositionFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPositionNullableWithAggregatesFilter<$PrismaModel> | $Enums.Position | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel>
+}
+
+export type EnumPhoneTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PhoneType | Prisma.EnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel> | $Enums.PhoneType | null
+}
+
+export type EnumPhoneTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PhoneType | Prisma.EnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPhoneTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PhoneType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel>
+}
+
+export type EnumAddressTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddressType | Prisma.EnumAddressTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel> | $Enums.AddressType | null
+}
+
+export type EnumAddressTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddressType | Prisma.EnumAddressTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAddressTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AddressType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel>
 }
 
 export type EnumTodoStateFilter<$PrismaModel = never> = {
@@ -677,6 +728,13 @@ export type NestedEnumLanguageNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel> | $Enums.Language | null
 }
 
+export type NestedEnumPositionNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Position | Prisma.EnumPositionFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel> | $Enums.Position | null
+}
+
 export type NestedEnumTitleNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Title | Prisma.EnumTitleFieldRefInput<$PrismaModel> | null
   in?: $Enums.Title[] | Prisma.ListEnumTitleFieldRefInput<$PrismaModel> | null
@@ -705,6 +763,50 @@ export type NestedEnumLanguageNullableWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLanguageNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumPositionNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Position | Prisma.EnumPositionFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Position[] | Prisma.ListEnumPositionFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPositionNullableWithAggregatesFilter<$PrismaModel> | $Enums.Position | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPositionNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumPhoneTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PhoneType | Prisma.EnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel> | $Enums.PhoneType | null
+}
+
+export type NestedEnumPhoneTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PhoneType | Prisma.EnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PhoneType[] | Prisma.ListEnumPhoneTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPhoneTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PhoneType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPhoneTypeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumAddressTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddressType | Prisma.EnumAddressTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel> | $Enums.AddressType | null
+}
+
+export type NestedEnumAddressTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AddressType | Prisma.EnumAddressTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.AddressType[] | Prisma.ListEnumAddressTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumAddressTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AddressType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAddressTypeNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumTodoStateFilter<$PrismaModel = never> = {

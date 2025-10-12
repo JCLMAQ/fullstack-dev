@@ -37,6 +37,16 @@ export type OrgDomain = Prisma.OrgDomainModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Phone
+ * 
+ */
+export type Phone = Prisma.PhoneModel
+/**
+ * Model Address
+ * 
+ */
+export type Address = Prisma.AddressModel
+/**
  * Model UserSecret
  * 
  */

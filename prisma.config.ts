@@ -1,6 +1,8 @@
-import "dotenv/config";
+import "@dotenvx/dotenvx/config";
 import path from "node:path";
 import { defineConfig } from "prisma/config";
+
+// dotenvx gère automatiquement l'expansion des variables
 
 export default defineConfig({
   schema: path.join("libs/db/prisma", "schema.prisma"),
