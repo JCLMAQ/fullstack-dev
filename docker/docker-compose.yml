@@ -11,8 +11,8 @@ services:
             - postgres:/var/lib/postgresql/data
         # Uncomment the next two lines to connect to your your database from outside the Docker environment, e.g. using a database GUI like Postico
         ports:
-            # - "${DATABASE_PORT}:5432"
-            - "5450:5432"
+            - "${DATABASE_PORT}:5432"
+            # - "5450:5432"
         # network_mode: "host"
         networks:
             postgres:
