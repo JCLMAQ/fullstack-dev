@@ -1,9 +1,3 @@
-packages:
-  - apps/*
-  - apps/backend/*
-
-autoInstallPeers: true
-
 onlyBuiltDependencies:
   - '@nestjs/core'
   - '@parcel/watcher'
@@ -16,8 +10,5 @@ onlyBuiltDependencies:
   - lmdb
   - msgpackr-extract
   - nx
-  - oxc-resolver
   - prisma
   - unrs-resolver
-
-strictPeerDependencies: false

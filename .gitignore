@@ -52,3 +52,7 @@ vitest.config.*.timestamp*
 
 # Local environment files
 .env
+
+# Prisma files
+libs/db/migrations/
+libs/db/generated/

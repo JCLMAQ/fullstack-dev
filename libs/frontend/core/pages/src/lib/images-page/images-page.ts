@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ImageManagementComponent } from '@fe/shared/components/image-mgt';
+import { ImageManagementComponent } from '@fe/shared/image-mgt';
 
 @Component({
   selector: 'lib-images-page',
