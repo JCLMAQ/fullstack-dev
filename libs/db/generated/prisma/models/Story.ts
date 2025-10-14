@@ -260,6 +260,7 @@ export type StoryWhereInput = {
   caption?: Prisma.StringFilter<"Story"> | string
   user_id?: Prisma.StringFilter<"Story"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  Images?: Prisma.ImageListRelationFilter
 }
 
 export type StoryOrderByWithRelationInput = {
@@ -274,6 +275,7 @@ export type StoryOrderByWithRelationInput = {
   caption?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  Images?: Prisma.ImageOrderByRelationAggregateInput
 }
 
 export type StoryWhereUniqueInput = Prisma.AtLeast<{
@@ -291,6 +293,7 @@ export type StoryWhereUniqueInput = Prisma.AtLeast<{
   caption?: Prisma.StringFilter<"Story"> | string
   user_id?: Prisma.StringFilter<"Story"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  Images?: Prisma.ImageListRelationFilter
 }, "id">
 
 export type StoryOrderByWithAggregationInput = {
@@ -338,6 +341,7 @@ export type StoryCreateInput = {
   isDeletedDT?: Date | string | null
   caption: string
   user: Prisma.UserCreateNestedOneWithoutStoriesInput
+  Images?: Prisma.ImageCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUncheckedCreateInput = {
@@ -351,6 +355,7 @@ export type StoryUncheckedCreateInput = {
   isDeletedDT?: Date | string | null
   caption: string
   user_id: string
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUpdateInput = {
@@ -364,6 +369,7 @@ export type StoryUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutStoriesNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateInput = {
@@ -377,6 +383,7 @@ export type StoryUncheckedUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryCreateManyInput = {
@@ -476,6 +483,11 @@ export type StorySumOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
 }
 
+export type StoryNullableScalarRelationFilter = {
+  is?: Prisma.StoryWhereInput | null
+  isNot?: Prisma.StoryWhereInput | null
+}
+
 export type StoryCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.StoryCreateWithoutUserInput, Prisma.StoryUncheckedCreateWithoutUserInput> | Prisma.StoryCreateWithoutUserInput[] | Prisma.StoryUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.StoryCreateOrConnectWithoutUserInput | Prisma.StoryCreateOrConnectWithoutUserInput[]
@@ -518,6 +530,22 @@ export type StoryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.StoryScalarWhereInput | Prisma.StoryScalarWhereInput[]
 }
 
+export type StoryCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.StoryCreateWithoutImagesInput, Prisma.StoryUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.StoryCreateOrConnectWithoutImagesInput
+  connect?: Prisma.StoryWhereUniqueInput
+}
+
+export type StoryUpdateOneWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.StoryCreateWithoutImagesInput, Prisma.StoryUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.StoryCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.StoryUpsertWithoutImagesInput
+  disconnect?: Prisma.StoryWhereInput | boolean
+  delete?: Prisma.StoryWhereInput | boolean
+  connect?: Prisma.StoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StoryUpdateToOneWithWhereWithoutImagesInput, Prisma.StoryUpdateWithoutImagesInput>, Prisma.StoryUncheckedUpdateWithoutImagesInput>
+}
+
 export type StoryCreateWithoutUserInput = {
   id?: string
   numSeq?: number
@@ -528,6 +556,7 @@ export type StoryCreateWithoutUserInput = {
   isDeleted?: number | null
   isDeletedDT?: Date | string | null
   caption: string
+  Images?: Prisma.ImageCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUncheckedCreateWithoutUserInput = {
@@ -540,6 +569,7 @@ export type StoryUncheckedCreateWithoutUserInput = {
   isDeleted?: number | null
   isDeletedDT?: Date | string | null
   caption: string
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutStoryInput
 }
 
 export type StoryCreateOrConnectWithoutUserInput = {
@@ -584,6 +614,74 @@ export type StoryScalarWhereInput = {
   user_id?: Prisma.StringFilter<"Story"> | string
 }
 
+export type StoryCreateWithoutImagesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  caption: string
+  user: Prisma.UserCreateNestedOneWithoutStoriesInput
+}
+
+export type StoryUncheckedCreateWithoutImagesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  caption: string
+  user_id: string
+}
+
+export type StoryCreateOrConnectWithoutImagesInput = {
+  where: Prisma.StoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoryCreateWithoutImagesInput, Prisma.StoryUncheckedCreateWithoutImagesInput>
+}
+
+export type StoryUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.StoryUpdateWithoutImagesInput, Prisma.StoryUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.StoryCreateWithoutImagesInput, Prisma.StoryUncheckedCreateWithoutImagesInput>
+  where?: Prisma.StoryWhereInput
+}
+
+export type StoryUpdateToOneWithWhereWithoutImagesInput = {
+  where?: Prisma.StoryWhereInput
+  data: Prisma.XOR<Prisma.StoryUpdateWithoutImagesInput, Prisma.StoryUncheckedUpdateWithoutImagesInput>
+}
+
+export type StoryUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  caption?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneRequiredWithoutStoriesNestedInput
+}
+
+export type StoryUncheckedUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  caption?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type StoryCreateManyUserInput = {
   id?: string
   numSeq?: number
@@ -606,6 +704,7 @@ export type StoryUpdateWithoutUserInput = {
   isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
+  Images?: Prisma.ImageUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateWithoutUserInput = {
@@ -618,6 +717,7 @@ export type StoryUncheckedUpdateWithoutUserInput = {
   isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateManyWithoutUserInput = {
@@ -633,6 +733,35 @@ export type StoryUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type StoryCountOutputType
+ */
+
+export type StoryCountOutputType = {
+  Images: number
+}
+
+export type StoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Images?: boolean | StoryCountOutputTypeCountImagesArgs
+}
+
+/**
+ * StoryCountOutputType without action
+ */
+export type StoryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StoryCountOutputType
+   */
+  select?: Prisma.StoryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StoryCountOutputType without action
+ */
+export type StoryCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ImageWhereInput
+}
+
 
 export type StorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -646,6 +775,8 @@ export type StorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   caption?: boolean
   user_id?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  Images?: boolean | Prisma.Story$ImagesArgs<ExtArgs>
+  _count?: boolean | Prisma.StoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["story"]>
 
 export type StorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -692,6 +823,8 @@ export type StorySelectScalar = {
 export type StoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "caption" | "user_id", ExtArgs["result"]["story"]>
 export type StoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  Images?: boolean | Prisma.Story$ImagesArgs<ExtArgs>
+  _count?: boolean | Prisma.StoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -704,6 +837,7 @@ export type $StoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Story"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    Images: Prisma.$ImagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1111,6 +1245,7 @@ readonly fields: StoryFieldRefs;
 export interface Prisma__StoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Images<T extends Prisma.Story$ImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Story$ImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1543,6 +1678,30 @@ export type StoryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Stories to delete.
    */
   limit?: number
+}
+
+/**
+ * Story.Images
+ */
+export type Story$ImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Image
+   */
+  select?: Prisma.ImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Image
+   */
+  omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  where?: Prisma.ImageWhereInput
+  orderBy?: Prisma.ImageOrderByWithRelationInput | Prisma.ImageOrderByWithRelationInput[]
+  cursor?: Prisma.ImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ImageScalarFieldEnum | Prisma.ImageScalarFieldEnum[]
 }
 
 /**

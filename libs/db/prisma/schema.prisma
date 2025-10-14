@@ -136,6 +136,7 @@ model Organization {
   Files        File[]
   Tasks        Task[]
   Todos        Todo[]
+  Images       Image[]        @relation("OrgImages")
 }
 
 model OrgEmail {
@@ -222,6 +223,10 @@ model User {
   followings    UserFollower[]    @relation("followings")
   posts_liked   PostLike[]
   passWordFaker String?
+
+  // Image relations
+  uploadedImages Image[]          @relation("ImageUploads")
+  profileImages  Image[]          @relation("UserProfileImages")
 }
 model Phone {
   id          Int      @id() @default(autoincrement())
@@ -394,6 +399,7 @@ model Post {
   Categories  Category[]   @relation("PostsCategory")
   Comments    Comment[]
   LikedBys    PostLike[]
+  Images      Image[]      @relation("PostImages")
 }
 
 model Category {
@@ -483,20 +489,75 @@ model Story {
   caption     String
   user_id     String
   user        User      @relation(fields: [user_id], references: [id])
+  Images      Image[]   @relation("StoryImages")
 }
 
 model Image {
-  id            Int       @id() @default(autoincrement())
+  id            String    @id() @default(uuid(7))
+  numSeq        Int       @default(autoincrement())
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt()
   published     Boolean   @default(true)
   isPublic      Boolean   @default(true)
   isDeleted     Int       @default(0)
   isDeletedDT   DateTime?
-  type          String
-  url           String
-  associated_id String
-  sequence      Int
+
+  // Image metadata
+  filename      String
+  originalName  String
+  mimeType      String
+  fileSize      Int       // Size in bytes
+  width         Int?      // Image width in pixels
+  height        Int?      // Image height in pixels
+
+  // Storage information
+  storageType   String    @default("local") // "local", "s3", "cloudinary", etc.
+  storagePath   String?   // Local file path or cloud storage path
+  storageUrl    String?   // Public URL to access the image
+  bucketName    String?   // For cloud storage (S3, GCS, etc.)
+
+  // Image processing
+  isProcessed   Boolean   @default(false)
+  thumbnailUrl  String?   // URL for thumbnail version
+  variants      Json?     @db.Json() // Store different image variants (sizes, formats)
+
+  // Image classification and tagging
+  tags          String[]  // Array of tags for categorization
+  altText       String?   // Alt text for accessibility
+  description   String?   // Image description
+
+  // Relations and associations
+  uploadedBy    User      @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: Cascade)
+  uploadedById  String
+
+  // Generic association system
+  associatedId  String?   // ID of associated entity (Post, User, Organization, etc.)
+  associationType String? // Type of associated entity ("post", "user", "organization", etc.)
+  sequence      Int       @default(0) // Order in a collection
+
+  // Organization context
+  org           Organization? @relation("OrgImages", fields: [orgId], references: [id], onDelete: SetNull)
+  orgId         String?
+
+  // Post association
+  post          Post?     @relation("PostImages", fields: [postId], references: [id], onDelete: SetNull)
+  postId        String?
+
+  // User profile association (for profile pictures, etc.)
+  profileUser   User?     @relation("UserProfileImages", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUserId String?
+
+  // Story association
+  story         Story?    @relation("StoryImages", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId       String?
+
+  // Indexing for performance
+  @@index([uploadedById])
+  @@index([associatedId, associationType])
+  @@index([orgId])
+  @@index([createdAt])
+  @@index([mimeType])
+  @@index([isDeleted])
 }
 
 model ConfigParam {

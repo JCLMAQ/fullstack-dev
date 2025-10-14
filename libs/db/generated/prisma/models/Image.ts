@@ -26,113 +26,243 @@ export type AggregateImage = {
 }
 
 export type ImageAvgAggregateOutputType = {
-  id: number | null
+  numSeq: number | null
   isDeleted: number | null
+  fileSize: number | null
+  width: number | null
+  height: number | null
   sequence: number | null
 }
 
 export type ImageSumAggregateOutputType = {
-  id: number | null
+  numSeq: number | null
   isDeleted: number | null
+  fileSize: number | null
+  width: number | null
+  height: number | null
   sequence: number | null
 }
 
 export type ImageMinAggregateOutputType = {
-  id: number | null
+  id: string | null
+  numSeq: number | null
   createdAt: Date | null
   updatedAt: Date | null
   published: boolean | null
   isPublic: boolean | null
   isDeleted: number | null
   isDeletedDT: Date | null
-  type: string | null
-  url: string | null
-  associated_id: string | null
+  filename: string | null
+  originalName: string | null
+  mimeType: string | null
+  fileSize: number | null
+  width: number | null
+  height: number | null
+  storageType: string | null
+  storagePath: string | null
+  storageUrl: string | null
+  bucketName: string | null
+  isProcessed: boolean | null
+  thumbnailUrl: string | null
+  altText: string | null
+  description: string | null
+  uploadedById: string | null
+  associatedId: string | null
+  associationType: string | null
   sequence: number | null
+  orgId: string | null
+  postId: string | null
+  profileUserId: string | null
+  storyId: string | null
 }
 
 export type ImageMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
+  numSeq: number | null
   createdAt: Date | null
   updatedAt: Date | null
   published: boolean | null
   isPublic: boolean | null
   isDeleted: number | null
   isDeletedDT: Date | null
-  type: string | null
-  url: string | null
-  associated_id: string | null
+  filename: string | null
+  originalName: string | null
+  mimeType: string | null
+  fileSize: number | null
+  width: number | null
+  height: number | null
+  storageType: string | null
+  storagePath: string | null
+  storageUrl: string | null
+  bucketName: string | null
+  isProcessed: boolean | null
+  thumbnailUrl: string | null
+  altText: string | null
+  description: string | null
+  uploadedById: string | null
+  associatedId: string | null
+  associationType: string | null
   sequence: number | null
+  orgId: string | null
+  postId: string | null
+  profileUserId: string | null
+  storyId: string | null
 }
 
 export type ImageCountAggregateOutputType = {
   id: number
+  numSeq: number
   createdAt: number
   updatedAt: number
   published: number
   isPublic: number
   isDeleted: number
   isDeletedDT: number
-  type: number
-  url: number
-  associated_id: number
+  filename: number
+  originalName: number
+  mimeType: number
+  fileSize: number
+  width: number
+  height: number
+  storageType: number
+  storagePath: number
+  storageUrl: number
+  bucketName: number
+  isProcessed: number
+  thumbnailUrl: number
+  variants: number
+  tags: number
+  altText: number
+  description: number
+  uploadedById: number
+  associatedId: number
+  associationType: number
   sequence: number
+  orgId: number
+  postId: number
+  profileUserId: number
+  storyId: number
   _all: number
 }
 
 
 export type ImageAvgAggregateInputType = {
-  id?: true
+  numSeq?: true
   isDeleted?: true
+  fileSize?: true
+  width?: true
+  height?: true
   sequence?: true
 }
 
 export type ImageSumAggregateInputType = {
-  id?: true
+  numSeq?: true
   isDeleted?: true
+  fileSize?: true
+  width?: true
+  height?: true
   sequence?: true
 }
 
 export type ImageMinAggregateInputType = {
   id?: true
+  numSeq?: true
   createdAt?: true
   updatedAt?: true
   published?: true
   isPublic?: true
   isDeleted?: true
   isDeletedDT?: true
-  type?: true
-  url?: true
-  associated_id?: true
+  filename?: true
+  originalName?: true
+  mimeType?: true
+  fileSize?: true
+  width?: true
+  height?: true
+  storageType?: true
+  storagePath?: true
+  storageUrl?: true
+  bucketName?: true
+  isProcessed?: true
+  thumbnailUrl?: true
+  altText?: true
+  description?: true
+  uploadedById?: true
+  associatedId?: true
+  associationType?: true
   sequence?: true
+  orgId?: true
+  postId?: true
+  profileUserId?: true
+  storyId?: true
 }
 
 export type ImageMaxAggregateInputType = {
   id?: true
+  numSeq?: true
   createdAt?: true
   updatedAt?: true
   published?: true
   isPublic?: true
   isDeleted?: true
   isDeletedDT?: true
-  type?: true
-  url?: true
-  associated_id?: true
+  filename?: true
+  originalName?: true
+  mimeType?: true
+  fileSize?: true
+  width?: true
+  height?: true
+  storageType?: true
+  storagePath?: true
+  storageUrl?: true
+  bucketName?: true
+  isProcessed?: true
+  thumbnailUrl?: true
+  altText?: true
+  description?: true
+  uploadedById?: true
+  associatedId?: true
+  associationType?: true
   sequence?: true
+  orgId?: true
+  postId?: true
+  profileUserId?: true
+  storyId?: true
 }
 
 export type ImageCountAggregateInputType = {
   id?: true
+  numSeq?: true
   createdAt?: true
   updatedAt?: true
   published?: true
   isPublic?: true
   isDeleted?: true
   isDeletedDT?: true
-  type?: true
-  url?: true
-  associated_id?: true
+  filename?: true
+  originalName?: true
+  mimeType?: true
+  fileSize?: true
+  width?: true
+  height?: true
+  storageType?: true
+  storagePath?: true
+  storageUrl?: true
+  bucketName?: true
+  isProcessed?: true
+  thumbnailUrl?: true
+  variants?: true
+  tags?: true
+  altText?: true
+  description?: true
+  uploadedById?: true
+  associatedId?: true
+  associationType?: true
   sequence?: true
+  orgId?: true
+  postId?: true
+  profileUserId?: true
+  storyId?: true
   _all?: true
 }
 
@@ -223,17 +353,38 @@ export type ImageGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 export type ImageGroupByOutputType = {
-  id: number
+  id: string
+  numSeq: number
   createdAt: Date
   updatedAt: Date
   published: boolean
   isPublic: boolean
   isDeleted: number
   isDeletedDT: Date | null
-  type: string
-  url: string
-  associated_id: string
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width: number | null
+  height: number | null
+  storageType: string
+  storagePath: string | null
+  storageUrl: string | null
+  bucketName: string | null
+  isProcessed: boolean
+  thumbnailUrl: string | null
+  variants: runtime.JsonValue | null
+  tags: string[]
+  altText: string | null
+  description: string | null
+  uploadedById: string
+  associatedId: string | null
+  associationType: string | null
   sequence: number
+  orgId: string | null
+  postId: string | null
+  profileUserId: string | null
+  storyId: string | null
   _count: ImageCountAggregateOutputType | null
   _avg: ImageAvgAggregateOutputType | null
   _sum: ImageSumAggregateOutputType | null
@@ -260,62 +411,161 @@ export type ImageWhereInput = {
   AND?: Prisma.ImageWhereInput | Prisma.ImageWhereInput[]
   OR?: Prisma.ImageWhereInput[]
   NOT?: Prisma.ImageWhereInput | Prisma.ImageWhereInput[]
-  id?: Prisma.IntFilter<"Image"> | number
+  id?: Prisma.StringFilter<"Image"> | string
+  numSeq?: Prisma.IntFilter<"Image"> | number
   createdAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   published?: Prisma.BoolFilter<"Image"> | boolean
   isPublic?: Prisma.BoolFilter<"Image"> | boolean
   isDeleted?: Prisma.IntFilter<"Image"> | number
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Image"> | Date | string | null
-  type?: Prisma.StringFilter<"Image"> | string
-  url?: Prisma.StringFilter<"Image"> | string
-  associated_id?: Prisma.StringFilter<"Image"> | string
+  filename?: Prisma.StringFilter<"Image"> | string
+  originalName?: Prisma.StringFilter<"Image"> | string
+  mimeType?: Prisma.StringFilter<"Image"> | string
+  fileSize?: Prisma.IntFilter<"Image"> | number
+  width?: Prisma.IntNullableFilter<"Image"> | number | null
+  height?: Prisma.IntNullableFilter<"Image"> | number | null
+  storageType?: Prisma.StringFilter<"Image"> | string
+  storagePath?: Prisma.StringNullableFilter<"Image"> | string | null
+  storageUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  bucketName?: Prisma.StringNullableFilter<"Image"> | string | null
+  isProcessed?: Prisma.BoolFilter<"Image"> | boolean
+  thumbnailUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  variants?: Prisma.JsonNullableFilter<"Image">
+  tags?: Prisma.StringNullableListFilter<"Image">
+  altText?: Prisma.StringNullableFilter<"Image"> | string | null
+  description?: Prisma.StringNullableFilter<"Image"> | string | null
+  uploadedById?: Prisma.StringFilter<"Image"> | string
+  associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
+  associationType?: Prisma.StringNullableFilter<"Image"> | string | null
   sequence?: Prisma.IntFilter<"Image"> | number
+  orgId?: Prisma.StringNullableFilter<"Image"> | string | null
+  postId?: Prisma.StringNullableFilter<"Image"> | string | null
+  profileUserId?: Prisma.StringNullableFilter<"Image"> | string | null
+  storyId?: Prisma.StringNullableFilter<"Image"> | string | null
+  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
+  profileUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  story?: Prisma.XOR<Prisma.StoryNullableScalarRelationFilter, Prisma.StoryWhereInput> | null
 }
 
 export type ImageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   published?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
-  url?: Prisma.SortOrder
-  associated_id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalName?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  storageType?: Prisma.SortOrder
+  storagePath?: Prisma.SortOrderInput | Prisma.SortOrder
+  storageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  bucketName?: Prisma.SortOrderInput | Prisma.SortOrder
+  isProcessed?: Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  variants?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  altText?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
+  associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
+  associationType?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
+  postId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  storyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  uploadedBy?: Prisma.UserOrderByWithRelationInput
+  org?: Prisma.OrganizationOrderByWithRelationInput
+  post?: Prisma.PostOrderByWithRelationInput
+  profileUser?: Prisma.UserOrderByWithRelationInput
+  story?: Prisma.StoryOrderByWithRelationInput
 }
 
 export type ImageWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.ImageWhereInput | Prisma.ImageWhereInput[]
   OR?: Prisma.ImageWhereInput[]
   NOT?: Prisma.ImageWhereInput | Prisma.ImageWhereInput[]
+  numSeq?: Prisma.IntFilter<"Image"> | number
   createdAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Image"> | Date | string
   published?: Prisma.BoolFilter<"Image"> | boolean
   isPublic?: Prisma.BoolFilter<"Image"> | boolean
   isDeleted?: Prisma.IntFilter<"Image"> | number
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Image"> | Date | string | null
-  type?: Prisma.StringFilter<"Image"> | string
-  url?: Prisma.StringFilter<"Image"> | string
-  associated_id?: Prisma.StringFilter<"Image"> | string
+  filename?: Prisma.StringFilter<"Image"> | string
+  originalName?: Prisma.StringFilter<"Image"> | string
+  mimeType?: Prisma.StringFilter<"Image"> | string
+  fileSize?: Prisma.IntFilter<"Image"> | number
+  width?: Prisma.IntNullableFilter<"Image"> | number | null
+  height?: Prisma.IntNullableFilter<"Image"> | number | null
+  storageType?: Prisma.StringFilter<"Image"> | string
+  storagePath?: Prisma.StringNullableFilter<"Image"> | string | null
+  storageUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  bucketName?: Prisma.StringNullableFilter<"Image"> | string | null
+  isProcessed?: Prisma.BoolFilter<"Image"> | boolean
+  thumbnailUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  variants?: Prisma.JsonNullableFilter<"Image">
+  tags?: Prisma.StringNullableListFilter<"Image">
+  altText?: Prisma.StringNullableFilter<"Image"> | string | null
+  description?: Prisma.StringNullableFilter<"Image"> | string | null
+  uploadedById?: Prisma.StringFilter<"Image"> | string
+  associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
+  associationType?: Prisma.StringNullableFilter<"Image"> | string | null
   sequence?: Prisma.IntFilter<"Image"> | number
+  orgId?: Prisma.StringNullableFilter<"Image"> | string | null
+  postId?: Prisma.StringNullableFilter<"Image"> | string | null
+  profileUserId?: Prisma.StringNullableFilter<"Image"> | string | null
+  storyId?: Prisma.StringNullableFilter<"Image"> | string | null
+  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
+  profileUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  story?: Prisma.XOR<Prisma.StoryNullableScalarRelationFilter, Prisma.StoryWhereInput> | null
 }, "id">
 
 export type ImageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   published?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
-  url?: Prisma.SortOrder
-  associated_id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalName?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  storageType?: Prisma.SortOrder
+  storagePath?: Prisma.SortOrderInput | Prisma.SortOrder
+  storageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  bucketName?: Prisma.SortOrderInput | Prisma.SortOrder
+  isProcessed?: Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  variants?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  altText?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
+  associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
+  associationType?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
+  postId?: Prisma.SortOrderInput | Prisma.SortOrder
+  profileUserId?: Prisma.SortOrderInput | Prisma.SortOrder
+  storyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ImageCountOrderByAggregateInput
   _avg?: Prisma.ImageAvgOrderByAggregateInput
   _max?: Prisma.ImageMaxOrderByAggregateInput
@@ -327,243 +577,2046 @@ export type ImageScalarWhereWithAggregatesInput = {
   AND?: Prisma.ImageScalarWhereWithAggregatesInput | Prisma.ImageScalarWhereWithAggregatesInput[]
   OR?: Prisma.ImageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ImageScalarWhereWithAggregatesInput | Prisma.ImageScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Image"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  numSeq?: Prisma.IntWithAggregatesFilter<"Image"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Image"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Image"> | Date | string
   published?: Prisma.BoolWithAggregatesFilter<"Image"> | boolean
   isPublic?: Prisma.BoolWithAggregatesFilter<"Image"> | boolean
   isDeleted?: Prisma.IntWithAggregatesFilter<"Image"> | number
   isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"Image"> | Date | string | null
-  type?: Prisma.StringWithAggregatesFilter<"Image"> | string
-  url?: Prisma.StringWithAggregatesFilter<"Image"> | string
-  associated_id?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  filename?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  originalName?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  mimeType?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  fileSize?: Prisma.IntWithAggregatesFilter<"Image"> | number
+  width?: Prisma.IntNullableWithAggregatesFilter<"Image"> | number | null
+  height?: Prisma.IntNullableWithAggregatesFilter<"Image"> | number | null
+  storageType?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  storagePath?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  storageUrl?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  bucketName?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  isProcessed?: Prisma.BoolWithAggregatesFilter<"Image"> | boolean
+  thumbnailUrl?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  variants?: Prisma.JsonNullableWithAggregatesFilter<"Image">
+  tags?: Prisma.StringNullableListFilter<"Image">
+  altText?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  description?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  uploadedById?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  associatedId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  associationType?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
   sequence?: Prisma.IntWithAggregatesFilter<"Image"> | number
+  orgId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  postId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  profileUserId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
+  storyId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
 }
 
 export type ImageCreateInput = {
+  id?: string
+  numSeq?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   published?: boolean
   isPublic?: boolean
   isDeleted?: number
   isDeletedDT?: Date | string | null
-  type: string
-  url: string
-  associated_id: string
-  sequence: number
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
+  post?: Prisma.PostCreateNestedOneWithoutImagesInput
+  profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
+  story?: Prisma.StoryCreateNestedOneWithoutImagesInput
 }
 
 export type ImageUncheckedCreateInput = {
-  id?: number
+  id?: string
+  numSeq?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   published?: boolean
   isPublic?: boolean
   isDeleted?: number
   isDeletedDT?: Date | string | null
-  type: string
-  url: string
-  associated_id: string
-  sequence: number
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
 }
 
 export type ImageUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  associated_id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
+  post?: Prisma.PostUpdateOneWithoutImagesNestedInput
+  profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
 }
 
 export type ImageUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  associated_id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ImageCreateManyInput = {
-  id?: number
+  id?: string
+  numSeq?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   published?: boolean
   isPublic?: boolean
   isDeleted?: number
   isDeletedDT?: Date | string | null
-  type: string
-  url: string
-  associated_id: string
-  sequence: number
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
 }
 
 export type ImageUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  associated_id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ImageUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  type?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  associated_id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageListRelationFilter = {
+  every?: Prisma.ImageWhereInput
+  some?: Prisma.ImageWhereInput
+  none?: Prisma.ImageWhereInput
+}
+
+export type ImageOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type ImageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   published?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isDeletedDT?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  url?: Prisma.SortOrder
-  associated_id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalName?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  storageType?: Prisma.SortOrder
+  storagePath?: Prisma.SortOrder
+  storageUrl?: Prisma.SortOrder
+  bucketName?: Prisma.SortOrder
+  isProcessed?: Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrder
+  variants?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  altText?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
+  associatedId?: Prisma.SortOrder
+  associationType?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
+  orgId?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  profileUserId?: Prisma.SortOrder
+  storyId?: Prisma.SortOrder
 }
 
 export type ImageAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
 }
 
 export type ImageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   published?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isDeletedDT?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  url?: Prisma.SortOrder
-  associated_id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalName?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  storageType?: Prisma.SortOrder
+  storagePath?: Prisma.SortOrder
+  storageUrl?: Prisma.SortOrder
+  bucketName?: Prisma.SortOrder
+  isProcessed?: Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrder
+  altText?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
+  associatedId?: Prisma.SortOrder
+  associationType?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
+  orgId?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  profileUserId?: Prisma.SortOrder
+  storyId?: Prisma.SortOrder
 }
 
 export type ImageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   published?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isDeletedDT?: Prisma.SortOrder
-  type?: Prisma.SortOrder
-  url?: Prisma.SortOrder
-  associated_id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalName?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
+  storageType?: Prisma.SortOrder
+  storagePath?: Prisma.SortOrder
+  storageUrl?: Prisma.SortOrder
+  bucketName?: Prisma.SortOrder
+  isProcessed?: Prisma.SortOrder
+  thumbnailUrl?: Prisma.SortOrder
+  altText?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrder
+  associatedId?: Prisma.SortOrder
+  associationType?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
+  orgId?: Prisma.SortOrder
+  postId?: Prisma.SortOrder
+  profileUserId?: Prisma.SortOrder
+  storyId?: Prisma.SortOrder
 }
 
 export type ImageSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  numSeq?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  fileSize?: Prisma.SortOrder
+  width?: Prisma.SortOrder
+  height?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
+}
+
+export type ImageCreateNestedManyWithoutOrgInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput> | Prisma.ImageCreateWithoutOrgInput[] | Prisma.ImageUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutOrgInput | Prisma.ImageCreateOrConnectWithoutOrgInput[]
+  createMany?: Prisma.ImageCreateManyOrgInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUncheckedCreateNestedManyWithoutOrgInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput> | Prisma.ImageCreateWithoutOrgInput[] | Prisma.ImageUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutOrgInput | Prisma.ImageCreateOrConnectWithoutOrgInput[]
+  createMany?: Prisma.ImageCreateManyOrgInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUpdateManyWithoutOrgNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput> | Prisma.ImageCreateWithoutOrgInput[] | Prisma.ImageUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutOrgInput | Prisma.ImageCreateOrConnectWithoutOrgInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutOrgInput | Prisma.ImageUpsertWithWhereUniqueWithoutOrgInput[]
+  createMany?: Prisma.ImageCreateManyOrgInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutOrgInput | Prisma.ImageUpdateWithWhereUniqueWithoutOrgInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutOrgInput | Prisma.ImageUpdateManyWithWhereWithoutOrgInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUncheckedUpdateManyWithoutOrgNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput> | Prisma.ImageCreateWithoutOrgInput[] | Prisma.ImageUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutOrgInput | Prisma.ImageCreateOrConnectWithoutOrgInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutOrgInput | Prisma.ImageUpsertWithWhereUniqueWithoutOrgInput[]
+  createMany?: Prisma.ImageCreateManyOrgInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutOrgInput | Prisma.ImageUpdateWithWhereUniqueWithoutOrgInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutOrgInput | Prisma.ImageUpdateManyWithWhereWithoutOrgInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageCreateNestedManyWithoutUploadedByInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput> | Prisma.ImageCreateWithoutUploadedByInput[] | Prisma.ImageUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutUploadedByInput | Prisma.ImageCreateOrConnectWithoutUploadedByInput[]
+  createMany?: Prisma.ImageCreateManyUploadedByInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageCreateNestedManyWithoutProfileUserInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput> | Prisma.ImageCreateWithoutProfileUserInput[] | Prisma.ImageUncheckedCreateWithoutProfileUserInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutProfileUserInput | Prisma.ImageCreateOrConnectWithoutProfileUserInput[]
+  createMany?: Prisma.ImageCreateManyProfileUserInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUncheckedCreateNestedManyWithoutUploadedByInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput> | Prisma.ImageCreateWithoutUploadedByInput[] | Prisma.ImageUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutUploadedByInput | Prisma.ImageCreateOrConnectWithoutUploadedByInput[]
+  createMany?: Prisma.ImageCreateManyUploadedByInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUncheckedCreateNestedManyWithoutProfileUserInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput> | Prisma.ImageCreateWithoutProfileUserInput[] | Prisma.ImageUncheckedCreateWithoutProfileUserInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutProfileUserInput | Prisma.ImageCreateOrConnectWithoutProfileUserInput[]
+  createMany?: Prisma.ImageCreateManyProfileUserInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUpdateManyWithoutUploadedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput> | Prisma.ImageCreateWithoutUploadedByInput[] | Prisma.ImageUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutUploadedByInput | Prisma.ImageCreateOrConnectWithoutUploadedByInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutUploadedByInput | Prisma.ImageUpsertWithWhereUniqueWithoutUploadedByInput[]
+  createMany?: Prisma.ImageCreateManyUploadedByInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.ImageUpdateWithWhereUniqueWithoutUploadedByInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutUploadedByInput | Prisma.ImageUpdateManyWithWhereWithoutUploadedByInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUpdateManyWithoutProfileUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput> | Prisma.ImageCreateWithoutProfileUserInput[] | Prisma.ImageUncheckedCreateWithoutProfileUserInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutProfileUserInput | Prisma.ImageCreateOrConnectWithoutProfileUserInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutProfileUserInput | Prisma.ImageUpsertWithWhereUniqueWithoutProfileUserInput[]
+  createMany?: Prisma.ImageCreateManyProfileUserInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutProfileUserInput | Prisma.ImageUpdateWithWhereUniqueWithoutProfileUserInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutProfileUserInput | Prisma.ImageUpdateManyWithWhereWithoutProfileUserInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUncheckedUpdateManyWithoutUploadedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput> | Prisma.ImageCreateWithoutUploadedByInput[] | Prisma.ImageUncheckedCreateWithoutUploadedByInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutUploadedByInput | Prisma.ImageCreateOrConnectWithoutUploadedByInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutUploadedByInput | Prisma.ImageUpsertWithWhereUniqueWithoutUploadedByInput[]
+  createMany?: Prisma.ImageCreateManyUploadedByInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.ImageUpdateWithWhereUniqueWithoutUploadedByInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutUploadedByInput | Prisma.ImageUpdateManyWithWhereWithoutUploadedByInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUncheckedUpdateManyWithoutProfileUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput> | Prisma.ImageCreateWithoutProfileUserInput[] | Prisma.ImageUncheckedCreateWithoutProfileUserInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutProfileUserInput | Prisma.ImageCreateOrConnectWithoutProfileUserInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutProfileUserInput | Prisma.ImageUpsertWithWhereUniqueWithoutProfileUserInput[]
+  createMany?: Prisma.ImageCreateManyProfileUserInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutProfileUserInput | Prisma.ImageUpdateWithWhereUniqueWithoutProfileUserInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutProfileUserInput | Prisma.ImageUpdateManyWithWhereWithoutProfileUserInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageCreateNestedManyWithoutPostInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput> | Prisma.ImageCreateWithoutPostInput[] | Prisma.ImageUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutPostInput | Prisma.ImageCreateOrConnectWithoutPostInput[]
+  createMany?: Prisma.ImageCreateManyPostInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUncheckedCreateNestedManyWithoutPostInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput> | Prisma.ImageCreateWithoutPostInput[] | Prisma.ImageUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutPostInput | Prisma.ImageCreateOrConnectWithoutPostInput[]
+  createMany?: Prisma.ImageCreateManyPostInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUpdateManyWithoutPostNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput> | Prisma.ImageCreateWithoutPostInput[] | Prisma.ImageUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutPostInput | Prisma.ImageCreateOrConnectWithoutPostInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutPostInput | Prisma.ImageUpsertWithWhereUniqueWithoutPostInput[]
+  createMany?: Prisma.ImageCreateManyPostInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutPostInput | Prisma.ImageUpdateWithWhereUniqueWithoutPostInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutPostInput | Prisma.ImageUpdateManyWithWhereWithoutPostInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUncheckedUpdateManyWithoutPostNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput> | Prisma.ImageCreateWithoutPostInput[] | Prisma.ImageUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutPostInput | Prisma.ImageCreateOrConnectWithoutPostInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutPostInput | Prisma.ImageUpsertWithWhereUniqueWithoutPostInput[]
+  createMany?: Prisma.ImageCreateManyPostInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutPostInput | Prisma.ImageUpdateWithWhereUniqueWithoutPostInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutPostInput | Prisma.ImageUpdateManyWithWhereWithoutPostInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageCreateNestedManyWithoutStoryInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput> | Prisma.ImageCreateWithoutStoryInput[] | Prisma.ImageUncheckedCreateWithoutStoryInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoryInput | Prisma.ImageCreateOrConnectWithoutStoryInput[]
+  createMany?: Prisma.ImageCreateManyStoryInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUncheckedCreateNestedManyWithoutStoryInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput> | Prisma.ImageCreateWithoutStoryInput[] | Prisma.ImageUncheckedCreateWithoutStoryInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoryInput | Prisma.ImageCreateOrConnectWithoutStoryInput[]
+  createMany?: Prisma.ImageCreateManyStoryInputEnvelope
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+}
+
+export type ImageUpdateManyWithoutStoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput> | Prisma.ImageCreateWithoutStoryInput[] | Prisma.ImageUncheckedCreateWithoutStoryInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoryInput | Prisma.ImageCreateOrConnectWithoutStoryInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutStoryInput | Prisma.ImageUpsertWithWhereUniqueWithoutStoryInput[]
+  createMany?: Prisma.ImageCreateManyStoryInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutStoryInput | Prisma.ImageUpdateWithWhereUniqueWithoutStoryInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutStoryInput | Prisma.ImageUpdateManyWithWhereWithoutStoryInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageUncheckedUpdateManyWithoutStoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput> | Prisma.ImageCreateWithoutStoryInput[] | Prisma.ImageUncheckedCreateWithoutStoryInput[]
+  connectOrCreate?: Prisma.ImageCreateOrConnectWithoutStoryInput | Prisma.ImageCreateOrConnectWithoutStoryInput[]
+  upsert?: Prisma.ImageUpsertWithWhereUniqueWithoutStoryInput | Prisma.ImageUpsertWithWhereUniqueWithoutStoryInput[]
+  createMany?: Prisma.ImageCreateManyStoryInputEnvelope
+  set?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  disconnect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  delete?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  connect?: Prisma.ImageWhereUniqueInput | Prisma.ImageWhereUniqueInput[]
+  update?: Prisma.ImageUpdateWithWhereUniqueWithoutStoryInput | Prisma.ImageUpdateWithWhereUniqueWithoutStoryInput[]
+  updateMany?: Prisma.ImageUpdateManyWithWhereWithoutStoryInput | Prisma.ImageUpdateManyWithWhereWithoutStoryInput[]
+  deleteMany?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+}
+
+export type ImageCreatetagsInput = {
+  set: string[]
+}
+
+export type ImageUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type ImageCreateWithoutOrgInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  post?: Prisma.PostCreateNestedOneWithoutImagesInput
+  profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
+  story?: Prisma.StoryCreateNestedOneWithoutImagesInput
+}
+
+export type ImageUncheckedCreateWithoutOrgInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageCreateOrConnectWithoutOrgInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput>
+}
+
+export type ImageCreateManyOrgInputEnvelope = {
+  data: Prisma.ImageCreateManyOrgInput | Prisma.ImageCreateManyOrgInput[]
+  skipDuplicates?: boolean
+}
+
+export type ImageUpsertWithWhereUniqueWithoutOrgInput = {
+  where: Prisma.ImageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutOrgInput, Prisma.ImageUncheckedUpdateWithoutOrgInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutOrgInput, Prisma.ImageUncheckedCreateWithoutOrgInput>
+}
+
+export type ImageUpdateWithWhereUniqueWithoutOrgInput = {
+  where: Prisma.ImageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutOrgInput, Prisma.ImageUncheckedUpdateWithoutOrgInput>
+}
+
+export type ImageUpdateManyWithWhereWithoutOrgInput = {
+  where: Prisma.ImageScalarWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateManyMutationInput, Prisma.ImageUncheckedUpdateManyWithoutOrgInput>
+}
+
+export type ImageScalarWhereInput = {
+  AND?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+  OR?: Prisma.ImageScalarWhereInput[]
+  NOT?: Prisma.ImageScalarWhereInput | Prisma.ImageScalarWhereInput[]
+  id?: Prisma.StringFilter<"Image"> | string
+  numSeq?: Prisma.IntFilter<"Image"> | number
+  createdAt?: Prisma.DateTimeFilter<"Image"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Image"> | Date | string
+  published?: Prisma.BoolFilter<"Image"> | boolean
+  isPublic?: Prisma.BoolFilter<"Image"> | boolean
+  isDeleted?: Prisma.IntFilter<"Image"> | number
+  isDeletedDT?: Prisma.DateTimeNullableFilter<"Image"> | Date | string | null
+  filename?: Prisma.StringFilter<"Image"> | string
+  originalName?: Prisma.StringFilter<"Image"> | string
+  mimeType?: Prisma.StringFilter<"Image"> | string
+  fileSize?: Prisma.IntFilter<"Image"> | number
+  width?: Prisma.IntNullableFilter<"Image"> | number | null
+  height?: Prisma.IntNullableFilter<"Image"> | number | null
+  storageType?: Prisma.StringFilter<"Image"> | string
+  storagePath?: Prisma.StringNullableFilter<"Image"> | string | null
+  storageUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  bucketName?: Prisma.StringNullableFilter<"Image"> | string | null
+  isProcessed?: Prisma.BoolFilter<"Image"> | boolean
+  thumbnailUrl?: Prisma.StringNullableFilter<"Image"> | string | null
+  variants?: Prisma.JsonNullableFilter<"Image">
+  tags?: Prisma.StringNullableListFilter<"Image">
+  altText?: Prisma.StringNullableFilter<"Image"> | string | null
+  description?: Prisma.StringNullableFilter<"Image"> | string | null
+  uploadedById?: Prisma.StringFilter<"Image"> | string
+  associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
+  associationType?: Prisma.StringNullableFilter<"Image"> | string | null
+  sequence?: Prisma.IntFilter<"Image"> | number
+  orgId?: Prisma.StringNullableFilter<"Image"> | string | null
+  postId?: Prisma.StringNullableFilter<"Image"> | string | null
+  profileUserId?: Prisma.StringNullableFilter<"Image"> | string | null
+  storyId?: Prisma.StringNullableFilter<"Image"> | string | null
+}
+
+export type ImageCreateWithoutUploadedByInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
+  post?: Prisma.PostCreateNestedOneWithoutImagesInput
+  profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
+  story?: Prisma.StoryCreateNestedOneWithoutImagesInput
+}
+
+export type ImageUncheckedCreateWithoutUploadedByInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageCreateOrConnectWithoutUploadedByInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput>
+}
+
+export type ImageCreateManyUploadedByInputEnvelope = {
+  data: Prisma.ImageCreateManyUploadedByInput | Prisma.ImageCreateManyUploadedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type ImageCreateWithoutProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
+  post?: Prisma.PostCreateNestedOneWithoutImagesInput
+  story?: Prisma.StoryCreateNestedOneWithoutImagesInput
+}
+
+export type ImageUncheckedCreateWithoutProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  storyId?: string | null
+}
+
+export type ImageCreateOrConnectWithoutProfileUserInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput>
+}
+
+export type ImageCreateManyProfileUserInputEnvelope = {
+  data: Prisma.ImageCreateManyProfileUserInput | Prisma.ImageCreateManyProfileUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ImageUpsertWithWhereUniqueWithoutUploadedByInput = {
+  where: Prisma.ImageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutUploadedByInput, Prisma.ImageUncheckedUpdateWithoutUploadedByInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutUploadedByInput, Prisma.ImageUncheckedCreateWithoutUploadedByInput>
+}
+
+export type ImageUpdateWithWhereUniqueWithoutUploadedByInput = {
+  where: Prisma.ImageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutUploadedByInput, Prisma.ImageUncheckedUpdateWithoutUploadedByInput>
+}
+
+export type ImageUpdateManyWithWhereWithoutUploadedByInput = {
+  where: Prisma.ImageScalarWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateManyMutationInput, Prisma.ImageUncheckedUpdateManyWithoutUploadedByInput>
+}
+
+export type ImageUpsertWithWhereUniqueWithoutProfileUserInput = {
+  where: Prisma.ImageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutProfileUserInput, Prisma.ImageUncheckedUpdateWithoutProfileUserInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutProfileUserInput, Prisma.ImageUncheckedCreateWithoutProfileUserInput>
+}
+
+export type ImageUpdateWithWhereUniqueWithoutProfileUserInput = {
+  where: Prisma.ImageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutProfileUserInput, Prisma.ImageUncheckedUpdateWithoutProfileUserInput>
+}
+
+export type ImageUpdateManyWithWhereWithoutProfileUserInput = {
+  where: Prisma.ImageScalarWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateManyMutationInput, Prisma.ImageUncheckedUpdateManyWithoutProfileUserInput>
+}
+
+export type ImageCreateWithoutPostInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
+  profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
+  story?: Prisma.StoryCreateNestedOneWithoutImagesInput
+}
+
+export type ImageUncheckedCreateWithoutPostInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageCreateOrConnectWithoutPostInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput>
+}
+
+export type ImageCreateManyPostInputEnvelope = {
+  data: Prisma.ImageCreateManyPostInput | Prisma.ImageCreateManyPostInput[]
+  skipDuplicates?: boolean
+}
+
+export type ImageUpsertWithWhereUniqueWithoutPostInput = {
+  where: Prisma.ImageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutPostInput, Prisma.ImageUncheckedUpdateWithoutPostInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutPostInput, Prisma.ImageUncheckedCreateWithoutPostInput>
+}
+
+export type ImageUpdateWithWhereUniqueWithoutPostInput = {
+  where: Prisma.ImageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutPostInput, Prisma.ImageUncheckedUpdateWithoutPostInput>
+}
+
+export type ImageUpdateManyWithWhereWithoutPostInput = {
+  where: Prisma.ImageScalarWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateManyMutationInput, Prisma.ImageUncheckedUpdateManyWithoutPostInput>
+}
+
+export type ImageCreateWithoutStoryInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
+  post?: Prisma.PostCreateNestedOneWithoutImagesInput
+  profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
+}
+
+export type ImageUncheckedCreateWithoutStoryInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+}
+
+export type ImageCreateOrConnectWithoutStoryInput = {
+  where: Prisma.ImageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput>
+}
+
+export type ImageCreateManyStoryInputEnvelope = {
+  data: Prisma.ImageCreateManyStoryInput | Prisma.ImageCreateManyStoryInput[]
+  skipDuplicates?: boolean
+}
+
+export type ImageUpsertWithWhereUniqueWithoutStoryInput = {
+  where: Prisma.ImageWhereUniqueInput
+  update: Prisma.XOR<Prisma.ImageUpdateWithoutStoryInput, Prisma.ImageUncheckedUpdateWithoutStoryInput>
+  create: Prisma.XOR<Prisma.ImageCreateWithoutStoryInput, Prisma.ImageUncheckedCreateWithoutStoryInput>
+}
+
+export type ImageUpdateWithWhereUniqueWithoutStoryInput = {
+  where: Prisma.ImageWhereUniqueInput
+  data: Prisma.XOR<Prisma.ImageUpdateWithoutStoryInput, Prisma.ImageUncheckedUpdateWithoutStoryInput>
+}
+
+export type ImageUpdateManyWithWhereWithoutStoryInput = {
+  where: Prisma.ImageScalarWhereInput
+  data: Prisma.XOR<Prisma.ImageUpdateManyMutationInput, Prisma.ImageUncheckedUpdateManyWithoutStoryInput>
+}
+
+export type ImageCreateManyOrgInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageUpdateWithoutOrgInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  post?: Prisma.PostUpdateOneWithoutImagesNestedInput
+  profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutOrgInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUncheckedUpdateManyWithoutOrgInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageCreateManyUploadedByInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageCreateManyProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  storyId?: string | null
+}
+
+export type ImageUpdateWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
+  post?: Prisma.PostUpdateOneWithoutImagesNestedInput
+  profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUncheckedUpdateManyWithoutUploadedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUpdateWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
+  post?: Prisma.PostUpdateOneWithoutImagesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUncheckedUpdateManyWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageCreateManyPostInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  profileUserId?: string | null
+  storyId?: string | null
+}
+
+export type ImageUpdateWithoutPostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
+  profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutPostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUncheckedUpdateManyWithoutPostInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageCreateManyStoryInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  width?: number | null
+  height?: number | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  isProcessed?: boolean
+  thumbnailUrl?: string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageCreatetagsInput | string[]
+  altText?: string | null
+  description?: string | null
+  uploadedById: string
+  associatedId?: string | null
+  associationType?: string | null
+  sequence?: number
+  orgId?: string | null
+  postId?: string | null
+  profileUserId?: string | null
+}
+
+export type ImageUpdateWithoutStoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
+  post?: Prisma.PostUpdateOneWithoutImagesNestedInput
+  profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
+}
+
+export type ImageUncheckedUpdateWithoutStoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ImageUncheckedUpdateManyWithoutStoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variants?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.ImageUpdatetagsInput | string[]
+  altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
 
 export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  numSeq?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   published?: boolean
   isPublic?: boolean
   isDeleted?: boolean
   isDeletedDT?: boolean
-  type?: boolean
-  url?: boolean
-  associated_id?: boolean
+  filename?: boolean
+  originalName?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  width?: boolean
+  height?: boolean
+  storageType?: boolean
+  storagePath?: boolean
+  storageUrl?: boolean
+  bucketName?: boolean
+  isProcessed?: boolean
+  thumbnailUrl?: boolean
+  variants?: boolean
+  tags?: boolean
+  altText?: boolean
+  description?: boolean
+  uploadedById?: boolean
+  associatedId?: boolean
+  associationType?: boolean
   sequence?: boolean
+  orgId?: boolean
+  postId?: boolean
+  profileUserId?: boolean
+  storyId?: boolean
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
 }, ExtArgs["result"]["image"]>
 
 export type ImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  numSeq?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   published?: boolean
   isPublic?: boolean
   isDeleted?: boolean
   isDeletedDT?: boolean
-  type?: boolean
-  url?: boolean
-  associated_id?: boolean
+  filename?: boolean
+  originalName?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  width?: boolean
+  height?: boolean
+  storageType?: boolean
+  storagePath?: boolean
+  storageUrl?: boolean
+  bucketName?: boolean
+  isProcessed?: boolean
+  thumbnailUrl?: boolean
+  variants?: boolean
+  tags?: boolean
+  altText?: boolean
+  description?: boolean
+  uploadedById?: boolean
+  associatedId?: boolean
+  associationType?: boolean
   sequence?: boolean
+  orgId?: boolean
+  postId?: boolean
+  profileUserId?: boolean
+  storyId?: boolean
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
 }, ExtArgs["result"]["image"]>
 
 export type ImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  numSeq?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   published?: boolean
   isPublic?: boolean
   isDeleted?: boolean
   isDeletedDT?: boolean
-  type?: boolean
-  url?: boolean
-  associated_id?: boolean
+  filename?: boolean
+  originalName?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  width?: boolean
+  height?: boolean
+  storageType?: boolean
+  storagePath?: boolean
+  storageUrl?: boolean
+  bucketName?: boolean
+  isProcessed?: boolean
+  thumbnailUrl?: boolean
+  variants?: boolean
+  tags?: boolean
+  altText?: boolean
+  description?: boolean
+  uploadedById?: boolean
+  associatedId?: boolean
+  associationType?: boolean
   sequence?: boolean
+  orgId?: boolean
+  postId?: boolean
+  profileUserId?: boolean
+  storyId?: boolean
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
 }, ExtArgs["result"]["image"]>
 
 export type ImageSelectScalar = {
   id?: boolean
+  numSeq?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   published?: boolean
   isPublic?: boolean
   isDeleted?: boolean
   isDeletedDT?: boolean
-  type?: boolean
-  url?: boolean
-  associated_id?: boolean
+  filename?: boolean
+  originalName?: boolean
+  mimeType?: boolean
+  fileSize?: boolean
+  width?: boolean
+  height?: boolean
+  storageType?: boolean
+  storagePath?: boolean
+  storageUrl?: boolean
+  bucketName?: boolean
+  isProcessed?: boolean
+  thumbnailUrl?: boolean
+  variants?: boolean
+  tags?: boolean
+  altText?: boolean
+  description?: boolean
+  uploadedById?: boolean
+  associatedId?: boolean
+  associationType?: boolean
   sequence?: boolean
+  orgId?: boolean
+  postId?: boolean
+  profileUserId?: boolean
+  storyId?: boolean
 }
 
-export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "type" | "url" | "associated_id" | "sequence", ExtArgs["result"]["image"]>
+export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "filename" | "originalName" | "mimeType" | "fileSize" | "width" | "height" | "storageType" | "storagePath" | "storageUrl" | "bucketName" | "isProcessed" | "thumbnailUrl" | "variants" | "tags" | "altText" | "description" | "uploadedById" | "associatedId" | "associationType" | "sequence" | "orgId" | "postId" | "profileUserId" | "storyId", ExtArgs["result"]["image"]>
+export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
+}
+export type ImageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
+}
+export type ImageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Image$orgArgs<ExtArgs>
+  post?: boolean | Prisma.Image$postArgs<ExtArgs>
+  profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
+  story?: boolean | Prisma.Image$storyArgs<ExtArgs>
+}
 
 export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Image"
-  objects: {}
+  objects: {
+    uploadedBy: Prisma.$UserPayload<ExtArgs>
+    org: Prisma.$OrganizationPayload<ExtArgs> | null
+    post: Prisma.$PostPayload<ExtArgs> | null
+    profileUser: Prisma.$UserPayload<ExtArgs> | null
+    story: Prisma.$StoryPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
+    numSeq: number
     createdAt: Date
     updatedAt: Date
     published: boolean
     isPublic: boolean
     isDeleted: number
     isDeletedDT: Date | null
-    type: string
-    url: string
-    associated_id: string
+    filename: string
+    originalName: string
+    mimeType: string
+    fileSize: number
+    width: number | null
+    height: number | null
+    storageType: string
+    storagePath: string | null
+    storageUrl: string | null
+    bucketName: string | null
+    isProcessed: boolean
+    thumbnailUrl: string | null
+    variants: runtime.JsonValue | null
+    tags: string[]
+    altText: string | null
+    description: string | null
+    uploadedById: string
+    associatedId: string | null
+    associationType: string | null
     sequence: number
+    orgId: string | null
+    postId: string | null
+    profileUserId: string | null
+    storyId: string | null
   }, ExtArgs["result"]["image"]>
   composites: {}
 }
@@ -958,6 +3011,11 @@ readonly fields: ImageFieldRefs;
  */
 export interface Prisma__ImageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  uploadedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.Image$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  post<T extends Prisma.Image$postArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$postArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  profileUser<T extends Prisma.Image$profileUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$profileUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  story<T extends Prisma.Image$storyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$storyArgs<ExtArgs>>): Prisma.Prisma__StoryClient<runtime.Types.Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -987,17 +3045,38 @@ export interface Prisma__ImageClient<T, Null = never, ExtArgs extends runtime.Ty
  * Fields of the Image model
  */
 export interface ImageFieldRefs {
-  readonly id: Prisma.FieldRef<"Image", 'Int'>
+  readonly id: Prisma.FieldRef<"Image", 'String'>
+  readonly numSeq: Prisma.FieldRef<"Image", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Image", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Image", 'DateTime'>
   readonly published: Prisma.FieldRef<"Image", 'Boolean'>
   readonly isPublic: Prisma.FieldRef<"Image", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"Image", 'Int'>
   readonly isDeletedDT: Prisma.FieldRef<"Image", 'DateTime'>
-  readonly type: Prisma.FieldRef<"Image", 'String'>
-  readonly url: Prisma.FieldRef<"Image", 'String'>
-  readonly associated_id: Prisma.FieldRef<"Image", 'String'>
+  readonly filename: Prisma.FieldRef<"Image", 'String'>
+  readonly originalName: Prisma.FieldRef<"Image", 'String'>
+  readonly mimeType: Prisma.FieldRef<"Image", 'String'>
+  readonly fileSize: Prisma.FieldRef<"Image", 'Int'>
+  readonly width: Prisma.FieldRef<"Image", 'Int'>
+  readonly height: Prisma.FieldRef<"Image", 'Int'>
+  readonly storageType: Prisma.FieldRef<"Image", 'String'>
+  readonly storagePath: Prisma.FieldRef<"Image", 'String'>
+  readonly storageUrl: Prisma.FieldRef<"Image", 'String'>
+  readonly bucketName: Prisma.FieldRef<"Image", 'String'>
+  readonly isProcessed: Prisma.FieldRef<"Image", 'Boolean'>
+  readonly thumbnailUrl: Prisma.FieldRef<"Image", 'String'>
+  readonly variants: Prisma.FieldRef<"Image", 'Json'>
+  readonly tags: Prisma.FieldRef<"Image", 'String[]'>
+  readonly altText: Prisma.FieldRef<"Image", 'String'>
+  readonly description: Prisma.FieldRef<"Image", 'String'>
+  readonly uploadedById: Prisma.FieldRef<"Image", 'String'>
+  readonly associatedId: Prisma.FieldRef<"Image", 'String'>
+  readonly associationType: Prisma.FieldRef<"Image", 'String'>
   readonly sequence: Prisma.FieldRef<"Image", 'Int'>
+  readonly orgId: Prisma.FieldRef<"Image", 'String'>
+  readonly postId: Prisma.FieldRef<"Image", 'String'>
+  readonly profileUserId: Prisma.FieldRef<"Image", 'String'>
+  readonly storyId: Prisma.FieldRef<"Image", 'String'>
 }
     
 
@@ -1014,6 +3093,10 @@ export type ImageFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Image
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
   /**
    * Filter, which Image to fetch.
    */
@@ -1033,6 +3116,10 @@ export type ImageFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  /**
    * Filter, which Image to fetch.
    */
   where: Prisma.ImageWhereUniqueInput
@@ -1050,6 +3137,10 @@ export type ImageFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Image
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
   /**
    * Filter, which Image to fetch.
    */
@@ -1099,6 +3190,10 @@ export type ImageFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  /**
    * Filter, which Image to fetch.
    */
   where?: Prisma.ImageWhereInput
@@ -1147,6 +3242,10 @@ export type ImageFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  /**
    * Filter, which Images to fetch.
    */
   where?: Prisma.ImageWhereInput
@@ -1190,6 +3289,10 @@ export type ImageCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  /**
    * The data needed to create a Image.
    */
   data: Prisma.XOR<Prisma.ImageCreateInput, Prisma.ImageUncheckedCreateInput>
@@ -1223,6 +3326,10 @@ export type ImageCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    */
   data: Prisma.ImageCreateManyInput | Prisma.ImageCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1237,6 +3344,10 @@ export type ImageUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Image
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
   /**
    * The data needed to update a Image.
    */
@@ -1289,6 +3400,10 @@ export type ImageUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many Images to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1303,6 +3418,10 @@ export type ImageUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Image
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
   /**
    * The filter to search for the Image to update in case it exists.
    */
@@ -1330,6 +3449,10 @@ export type ImageDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  /**
    * Filter which Image to delete.
    */
   where: Prisma.ImageWhereUniqueInput
@@ -1350,6 +3473,82 @@ export type ImageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Image.org
+ */
+export type Image$orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
+}
+
+/**
+ * Image.post
+ */
+export type Image$postArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Post
+   */
+  select?: Prisma.PostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Post
+   */
+  omit?: Prisma.PostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+}
+
+/**
+ * Image.profileUser
+ */
+export type Image$profileUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Image.story
+ */
+export type Image$storyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Story
+   */
+  select?: Prisma.StorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Story
+   */
+  omit?: Prisma.StoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StoryInclude<ExtArgs> | null
+  where?: Prisma.StoryWhereInput
+}
+
+/**
  * Image without action
  */
 export type ImageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1361,4 +3560,8 @@ export type ImageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Image
    */
   omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
 }

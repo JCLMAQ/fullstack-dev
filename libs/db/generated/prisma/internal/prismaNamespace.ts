@@ -3045,16 +3045,37 @@ export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof St
 
 export const ImageScalarFieldEnum = {
   id: 'id',
+  numSeq: 'numSeq',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   published: 'published',
   isPublic: 'isPublic',
   isDeleted: 'isDeleted',
   isDeletedDT: 'isDeletedDT',
-  type: 'type',
-  url: 'url',
-  associated_id: 'associated_id',
-  sequence: 'sequence'
+  filename: 'filename',
+  originalName: 'originalName',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  width: 'width',
+  height: 'height',
+  storageType: 'storageType',
+  storagePath: 'storagePath',
+  storageUrl: 'storageUrl',
+  bucketName: 'bucketName',
+  isProcessed: 'isProcessed',
+  thumbnailUrl: 'thumbnailUrl',
+  variants: 'variants',
+  tags: 'tags',
+  altText: 'altText',
+  description: 'description',
+  uploadedById: 'uploadedById',
+  associatedId: 'associatedId',
+  associationType: 'associationType',
+  sequence: 'sequence',
+  orgId: 'orgId',
+  postId: 'postId',
+  profileUserId: 'profileUserId',
+  storyId: 'storyId'
 } as const
 
 export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]

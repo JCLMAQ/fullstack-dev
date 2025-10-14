@@ -297,6 +297,7 @@ export type OrganizationWhereInput = {
   Files?: Prisma.FileListRelationFilter
   Tasks?: Prisma.TaskListRelationFilter
   Todos?: Prisma.TodoListRelationFilter
+  Images?: Prisma.ImageListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -324,6 +325,7 @@ export type OrganizationOrderByWithRelationInput = {
   Files?: Prisma.FileOrderByRelationAggregateInput
   Tasks?: Prisma.TaskOrderByRelationAggregateInput
   Todos?: Prisma.TodoOrderByRelationAggregateInput
+  Images?: Prisma.ImageOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -354,6 +356,7 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   Files?: Prisma.FileListRelationFilter
   Tasks?: Prisma.TaskListRelationFilter
   Todos?: Prisma.TodoListRelationFilter
+  Images?: Prisma.ImageListRelationFilter
 }, "id" | "name">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -422,6 +425,7 @@ export type OrganizationCreateInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -448,6 +452,7 @@ export type OrganizationUncheckedCreateInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUpdateInput = {
@@ -474,6 +479,7 @@ export type OrganizationUpdateInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -500,6 +506,7 @@ export type OrganizationUncheckedUpdateInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -865,6 +872,22 @@ export type OrganizationUpdateOneRequiredWithoutFilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutFilesInput, Prisma.OrganizationUpdateWithoutFilesInput>, Prisma.OrganizationUncheckedUpdateWithoutFilesInput>
 }
 
+export type OrganizationCreateNestedOneWithoutImagesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutImagesInput, Prisma.OrganizationUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutImagesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneWithoutImagesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutImagesInput, Prisma.OrganizationUncheckedCreateWithoutImagesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutImagesInput
+  upsert?: Prisma.OrganizationUpsertWithoutImagesInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutImagesInput, Prisma.OrganizationUpdateWithoutImagesInput>, Prisma.OrganizationUncheckedUpdateWithoutImagesInput>
+}
+
 export type OrganizationCreateWithoutOrgEntityInput = {
   id?: string
   numSeq?: number
@@ -888,6 +911,7 @@ export type OrganizationCreateWithoutOrgEntityInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutOrgEntityInput = {
@@ -913,6 +937,7 @@ export type OrganizationUncheckedCreateWithoutOrgEntityInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutOrgEntityInput = {
@@ -943,6 +968,7 @@ export type OrganizationCreateWithoutMainOrgInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutMainOrgInput = {
@@ -968,6 +994,7 @@ export type OrganizationUncheckedCreateWithoutMainOrgInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutMainOrgInput = {
@@ -1014,6 +1041,7 @@ export type OrganizationUpdateWithoutOrgEntityInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOrgEntityInput = {
@@ -1039,6 +1067,7 @@ export type OrganizationUncheckedUpdateWithoutOrgEntityInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUpsertWithWhereUniqueWithoutMainOrgInput = {
@@ -1100,6 +1129,7 @@ export type OrganizationCreateWithoutOrgEmailsInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutOrgEmailsInput = {
@@ -1125,6 +1155,7 @@ export type OrganizationUncheckedCreateWithoutOrgEmailsInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutOrgEmailsInput = {
@@ -1166,6 +1197,7 @@ export type OrganizationUpdateWithoutOrgEmailsInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOrgEmailsInput = {
@@ -1191,6 +1223,7 @@ export type OrganizationUncheckedUpdateWithoutOrgEmailsInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutOrgDomainsInput = {
@@ -1216,6 +1249,7 @@ export type OrganizationCreateWithoutOrgDomainsInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutOrgDomainsInput = {
@@ -1241,6 +1275,7 @@ export type OrganizationUncheckedCreateWithoutOrgDomainsInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutOrgDomainsInput = {
@@ -1282,6 +1317,7 @@ export type OrganizationUpdateWithoutOrgDomainsInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOrgDomainsInput = {
@@ -1307,6 +1343,7 @@ export type OrganizationUncheckedUpdateWithoutOrgDomainsInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutMembersInput = {
@@ -1332,6 +1369,7 @@ export type OrganizationCreateWithoutMembersInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutMembersInput = {
@@ -1357,6 +1395,7 @@ export type OrganizationUncheckedCreateWithoutMembersInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutMembersInput = {
@@ -1403,6 +1442,7 @@ export type OrganizationCreateWithoutGroupsInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutGroupsInput = {
@@ -1428,6 +1468,7 @@ export type OrganizationUncheckedCreateWithoutGroupsInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutGroupsInput = {
@@ -1469,6 +1510,7 @@ export type OrganizationUpdateWithoutGroupsInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutGroupsInput = {
@@ -1494,6 +1536,7 @@ export type OrganizationUncheckedUpdateWithoutGroupsInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutTodosInput = {
@@ -1519,6 +1562,7 @@ export type OrganizationCreateWithoutTodosInput = {
   Groups?: Prisma.GroupCreateNestedManyWithoutOrgInput
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutTodosInput = {
@@ -1544,6 +1588,7 @@ export type OrganizationUncheckedCreateWithoutTodosInput = {
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutOrgInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutTodosInput = {
@@ -1585,6 +1630,7 @@ export type OrganizationUpdateWithoutTodosInput = {
   Groups?: Prisma.GroupUpdateManyWithoutOrgNestedInput
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutTodosInput = {
@@ -1610,6 +1656,7 @@ export type OrganizationUncheckedUpdateWithoutTodosInput = {
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutOrgNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutTasksInput = {
@@ -1635,6 +1682,7 @@ export type OrganizationCreateWithoutTasksInput = {
   Groups?: Prisma.GroupCreateNestedManyWithoutOrgInput
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutTasksInput = {
@@ -1660,6 +1708,7 @@ export type OrganizationUncheckedCreateWithoutTasksInput = {
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutOrgInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutTasksInput = {
@@ -1701,6 +1750,7 @@ export type OrganizationUpdateWithoutTasksInput = {
   Groups?: Prisma.GroupUpdateManyWithoutOrgNestedInput
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutTasksInput = {
@@ -1726,6 +1776,7 @@ export type OrganizationUncheckedUpdateWithoutTasksInput = {
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutOrgNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutPostsInput = {
@@ -1751,6 +1802,7 @@ export type OrganizationCreateWithoutPostsInput = {
   Files?: Prisma.FileCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutPostsInput = {
@@ -1776,6 +1828,7 @@ export type OrganizationUncheckedCreateWithoutPostsInput = {
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutPostsInput = {
@@ -1817,6 +1870,7 @@ export type OrganizationUpdateWithoutPostsInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutPostsInput = {
@@ -1842,6 +1896,7 @@ export type OrganizationUncheckedUpdateWithoutPostsInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutFilesInput = {
@@ -1867,6 +1922,7 @@ export type OrganizationCreateWithoutFilesInput = {
   Groups?: Prisma.GroupCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutFilesInput = {
@@ -1892,6 +1948,7 @@ export type OrganizationUncheckedCreateWithoutFilesInput = {
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutOrgInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutFilesInput = {
@@ -1933,6 +1990,7 @@ export type OrganizationUpdateWithoutFilesInput = {
   Groups?: Prisma.GroupUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutFilesInput = {
@@ -1956,6 +2014,127 @@ export type OrganizationUncheckedUpdateWithoutFilesInput = {
   Members?: Prisma.UserUncheckedUpdateManyWithoutOrgsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOrgNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutOrgNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationCreateWithoutImagesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  name: string
+  description?: string | null
+  address?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  emailITAdmin: string
+  webSite?: string | null
+  OrgEmails?: Prisma.OrgEmailCreateNestedManyWithoutOrgInput
+  OrgDomains?: Prisma.OrgDomainCreateNestedManyWithoutOrgInput
+  mainOrg?: Prisma.OrganizationCreateNestedOneWithoutOrgEntityInput
+  OrgEntity?: Prisma.OrganizationCreateNestedManyWithoutMainOrgInput
+  Members?: Prisma.UserCreateNestedManyWithoutOrgsInput
+  Posts?: Prisma.PostCreateNestedManyWithoutOrgInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutOrgInput
+  Files?: Prisma.FileCreateNestedManyWithoutOrgInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutOrgInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationUncheckedCreateWithoutImagesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  name: string
+  description?: string | null
+  address?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  emailITAdmin: string
+  webSite?: string | null
+  mainOrgId?: string | null
+  OrgEmails?: Prisma.OrgEmailUncheckedCreateNestedManyWithoutOrgInput
+  OrgDomains?: Prisma.OrgDomainUncheckedCreateNestedManyWithoutOrgInput
+  OrgEntity?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMainOrgInput
+  Members?: Prisma.UserUncheckedCreateNestedManyWithoutOrgsInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOrgInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutOrgInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOrgInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutOrgInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationCreateOrConnectWithoutImagesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutImagesInput, Prisma.OrganizationUncheckedCreateWithoutImagesInput>
+}
+
+export type OrganizationUpsertWithoutImagesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutImagesInput, Prisma.OrganizationUncheckedUpdateWithoutImagesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutImagesInput, Prisma.OrganizationUncheckedCreateWithoutImagesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutImagesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutImagesInput, Prisma.OrganizationUncheckedUpdateWithoutImagesInput>
+}
+
+export type OrganizationUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  emailITAdmin?: Prisma.StringFieldUpdateOperationsInput | string
+  webSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  OrgEmails?: Prisma.OrgEmailUpdateManyWithoutOrgNestedInput
+  OrgDomains?: Prisma.OrgDomainUpdateManyWithoutOrgNestedInput
+  mainOrg?: Prisma.OrganizationUpdateOneWithoutOrgEntityNestedInput
+  OrgEntity?: Prisma.OrganizationUpdateManyWithoutMainOrgNestedInput
+  Members?: Prisma.UserUpdateManyWithoutOrgsNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutOrgNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutOrgNestedInput
+  Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutImagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  emailITAdmin?: Prisma.StringFieldUpdateOperationsInput | string
+  webSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mainOrgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  OrgEmails?: Prisma.OrgEmailUncheckedUpdateManyWithoutOrgNestedInput
+  OrgDomains?: Prisma.OrgDomainUncheckedUpdateManyWithoutOrgNestedInput
+  OrgEntity?: Prisma.OrganizationUncheckedUpdateManyWithoutMainOrgNestedInput
+  Members?: Prisma.UserUncheckedUpdateManyWithoutOrgsNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutOrgNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutOrgNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
 }
@@ -1999,6 +2178,7 @@ export type OrganizationUpdateWithoutMainOrgInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutMainOrgInput = {
@@ -2024,6 +2204,7 @@ export type OrganizationUncheckedUpdateWithoutMainOrgInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateManyWithoutMainOrgInput = {
@@ -2065,6 +2246,7 @@ export type OrganizationUpdateWithoutMembersInput = {
   Files?: Prisma.FileUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutMembersInput = {
@@ -2090,6 +2272,7 @@ export type OrganizationUncheckedUpdateWithoutMembersInput = {
   Files?: Prisma.FileUncheckedUpdateManyWithoutOrgNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutOrgNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutOrgNestedInput
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateManyWithoutMembersInput = {
@@ -2124,6 +2307,7 @@ export type OrganizationCountOutputType = {
   Files: number
   Tasks: number
   Todos: number
+  Images: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2136,6 +2320,7 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   Files?: boolean | OrganizationCountOutputTypeCountFilesArgs
   Tasks?: boolean | OrganizationCountOutputTypeCountTasksArgs
   Todos?: boolean | OrganizationCountOutputTypeCountTodosArgs
+  Images?: boolean | OrganizationCountOutputTypeCountImagesArgs
 }
 
 /**
@@ -2211,6 +2396,13 @@ export type OrganizationCountOutputTypeCountTodosArgs<ExtArgs extends runtime.Ty
   where?: Prisma.TodoWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ImageWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2237,6 +2429,7 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   Files?: boolean | Prisma.Organization$FilesArgs<ExtArgs>
   Tasks?: boolean | Prisma.Organization$TasksArgs<ExtArgs>
   Todos?: boolean | Prisma.Organization$TodosArgs<ExtArgs>
+  Images?: boolean | Prisma.Organization$ImagesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -2305,6 +2498,7 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   Files?: boolean | Prisma.Organization$FilesArgs<ExtArgs>
   Tasks?: boolean | Prisma.Organization$TasksArgs<ExtArgs>
   Todos?: boolean | Prisma.Organization$TodosArgs<ExtArgs>
+  Images?: boolean | Prisma.Organization$ImagesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2327,6 +2521,7 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     Files: Prisma.$FilePayload<ExtArgs>[]
     Tasks: Prisma.$TaskPayload<ExtArgs>[]
     Todos: Prisma.$TodoPayload<ExtArgs>[]
+    Images: Prisma.$ImagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2747,6 +2942,7 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   Files<T extends Prisma.Organization$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tasks<T extends Prisma.Organization$TasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$TasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Todos<T extends Prisma.Organization$TodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$TodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Images<T extends Prisma.Organization$ImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$ImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3418,6 +3614,30 @@ export type Organization$TodosArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.TodoScalarFieldEnum | Prisma.TodoScalarFieldEnum[]
+}
+
+/**
+ * Organization.Images
+ */
+export type Organization$ImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Image
+   */
+  select?: Prisma.ImageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Image
+   */
+  omit?: Prisma.ImageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ImageInclude<ExtArgs> | null
+  where?: Prisma.ImageWhereInput
+  orderBy?: Prisma.ImageOrderByWithRelationInput | Prisma.ImageOrderByWithRelationInput[]
+  cursor?: Prisma.ImageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ImageScalarFieldEnum | Prisma.ImageScalarFieldEnum[]
 }
 
 /**
