@@ -334,7 +334,7 @@ export class ImageManagementComponent {
     }
   }
 
-  onImageSelected(_image: Image): void {
+  onImageSelected(): void {
     // Action lors de la sélection d'une image (ex: ouvrir dans un viewer)
   }
 
@@ -369,7 +369,7 @@ export class ImageManagementComponent {
     this.activeTab.set(0);
   }
 
-  onUploadProgress(_progress: number): void {
+  onUploadProgress(): void {
     // Gérer la progression d'upload si nécessaire
   }
 

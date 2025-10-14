@@ -67,6 +67,10 @@ import { ImageService } from '../services/image.service';
           *ngFor="let image of images(); trackBy: trackByImageId"
           [class.selected]="isSelected(image.id)"
           (click)="onImageClick(image)"
+          (keyup.enter)="onImageClick(image)"
+          (keyup.space)="onImageClick(image)"
+          tabindex="0"
+          [attr.aria-label]="'Select image: ' + image.originalName"
         >
           <!-- Checkbox de sélection -->
           <div class="selection-overlay" *ngIf="selectionMode()">
@@ -113,7 +117,7 @@ import { ImageService } from '../services/image.service';
 
                 <!-- Menu d'actions -->
                 <mat-menu #imageMenu="matMenu">
-                  <button mat-menu-item (click)="editImage(image)">
+                  <button mat-menu-item (click)="editImage()">
                     <mat-icon>edit</mat-icon>
                     <span>{{ 'IMAGE_GALLERY.EDIT' | translate }}</span>
                   </button>
@@ -246,7 +250,7 @@ export class ImageGalleryComponent {
     });
   }
 
-  editImage(image: Image): void {
+  editImage(): void {
     // TODO: Ouvrir le dialogue d'édition
     this.snackBar.open('Fonctionnalité d\'édition à implémenter', 'Fermer', { duration: 3000 });
   }

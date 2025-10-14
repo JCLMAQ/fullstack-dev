@@ -98,7 +98,12 @@ export interface ImageViewerData {
       <div class="viewer-content" mat-dialog-content>
         <div class="image-container"
              [class.zoomed]="isZoomed()"
-             (click)="toggleZoom()">
+             (click)="toggleZoom()"
+             (keyup.enter)="toggleZoom()"
+             (keyup.space)="toggleZoom()"
+             tabindex="0"
+             role="button"
+             [attr.aria-label]="isZoomed() ? ('IMAGE_VIEWER.ZOOM_OUT' | translate) : ('IMAGE_VIEWER.ZOOM_IN' | translate)">
 
           <!-- Chargement -->
           <div class="loading-overlay" *ngIf="imageLoading()">
@@ -114,6 +119,9 @@ export interface ImageViewerData {
             (load)="onImageLoad()"
             (error)="onImageError($event)"
             (click)="$event.stopPropagation()"
+            (keyup.enter)="$event.stopPropagation()"
+            (keyup.space)="$event.stopPropagation()"
+            tabindex="0"
           />
         </div>
       </div>

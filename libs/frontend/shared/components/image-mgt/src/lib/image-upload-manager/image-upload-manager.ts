@@ -56,7 +56,12 @@ interface FileData {
              (dragover)="onDragOver($event)"
              (dragleave)="onDragLeave($event)"
              (drop)="onFileDrop($event)"
-             (click)="openFileDialog()">
+             (click)="openFileDialog()"
+             (keyup.enter)="openFileDialog()"
+             (keyup.space)="openFileDialog()"
+             tabindex="0"
+             role="button"
+             [attr.aria-label]="'IMAGE_UPLOAD.DROP_ZONE_TITLE' | translate">
 
           <input type="file"
                  #fileInput
@@ -359,7 +364,7 @@ export class ImageUploadManagerComponent {
     this.overallProgress.set(0);
   }
 
-  addTag(event: any): void {
+  addTag(event: { value: string; chipInput: { clear(): void } }): void {
     const value = event.value?.trim();
     if (value) {
       const currentTags = this.tags();

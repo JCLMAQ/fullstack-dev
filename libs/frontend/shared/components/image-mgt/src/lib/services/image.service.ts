@@ -177,7 +177,7 @@ export class ImageService {
     );
   }
 
-  deleteImage(id: string, soft: boolean = true): Observable<Image> {
+  deleteImage(id: string, soft = true): Observable<Image> {
     const params = new HttpParams().set('soft', soft.toString());
 
     return this.http.delete<ImageResponse>(`${this.baseUrl}/${id}`, { params }).pipe(
@@ -203,7 +203,7 @@ export class ImageService {
     );
   }
 
-  bulkDeleteImages(ids: string[], soft: boolean = true): Observable<number> {
+  bulkDeleteImages(ids: string[], soft = true): Observable<number> {
     return this.http.delete<BulkResponse>(`${this.baseUrl}/bulk/delete`, {
       body: { ids, soft }
     }).pipe(
@@ -301,7 +301,7 @@ export class ImageService {
     );
   }
 
-  associateWithUser(imageIds: string[], userId: string, asProfile: boolean = false): Observable<number> {
+  associateWithUser(imageIds: string[], userId: string, asProfile = false): Observable<number> {
     return this.http.put<BulkResponse>(`${this.baseUrl}/associate/user`, {
       imageIds,
       targetId: userId,

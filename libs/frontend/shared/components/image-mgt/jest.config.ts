@@ -1,9 +1,9 @@
 export default {
-  displayName: 'image-uploader',
+  displayName: 'image-mgt',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../coverage/libs/frontend/shared/components/image-uploader',
+    '../../../../../coverage/libs/frontend/shared/components/image-mgt',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
