@@ -47,7 +47,8 @@
         "libs/backend/data-access/stories/*",
         "libs/backend/data-access/configParams/*",
         "libs/backend/data-access/orgEmailUseTos/*",
-        "libs/backend/data-access/appEmailDomains/*"
+        "libs/backend/data-access/appEmailDomains/*",
+        "libs/backend/data-access/tasks/*"
       ]
     },
     {
@@ -106,7 +107,8 @@
         "libs/backend/data-access/stories/*",
         "libs/backend/data-access/configParams/*",
         "libs/backend/data-access/orgEmailUseTos/*",
-        "libs/backend/data-access/appEmailDomains/*"
+        "libs/backend/data-access/appEmailDomains/*",
+        "libs/backend/data-access/tasks/*"
       ],
       "options": {
         "typecheck": {

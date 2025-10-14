@@ -45,6 +45,7 @@
       "@be/posts": ["libs/backend/data-access/posts/src/index.ts"],
       "@be/profiles": ["libs/backend/data-access/profiles/src/index.ts"],
       "@be/stories": ["libs/backend/data-access/stories/src/index.ts"],
+      "@be/tasks": ["libs/backend/data-access/tasks/src/index.ts"],
       "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@be/userFollowers": [
         "libs/backend/data-access/userFollowers/src/index.ts"
@@ -73,7 +74,8 @@
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
-      "@fe/user": ["libs/frontend/domains/user/src/index.ts"]
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
+      "@fullstack-dev/tasks": ["libs/backend/data-access/tasks/src/index.ts"]
     }
   }
 }
