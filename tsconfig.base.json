@@ -31,6 +31,7 @@
       "@be/configParams": [
         "libs/backend/data-access/configParams/src/index.ts"
       ],
+      "@be/files": ["libs/backend/data-access/files/src/index.ts"],
       "@be/groups": ["libs/backend/data-access/groups/src/index.ts"],
       "@be/orgDomains": ["libs/backend/data-access/orgDomains/src/index.ts"],
       "@be/orgEmailUseTos": [
@@ -61,6 +62,9 @@
       "@fe/image-uploader": [
         "libs/frontend/shared/components/image-uploader/src/index.ts"
       ],
+      "@fe/shared/components/image-mgt": [
+        "libs/frontend/shared/components/image-mgt/src/index.ts"
+      ],
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/loading-container": [
         "libs/frontend/shared/components/loading-container/src/index.ts"
@@ -74,9 +78,7 @@
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
-      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
-      "@fullstack-dev/files": ["libs/backend/data-access/files/src/index.ts"],
-      "@fullstack-dev/tasks": ["libs/backend/data-access/tasks/src/index.ts"]
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"]
     }
   }
 }

@@ -66,7 +66,15 @@ export class Header {
   }
 
   navigate(route: string) {
-    this.router.navigate([`/${route}`]);
+    // Routes qui sont sous pages/
+    const pageRoutes = ['picto', 'carousselpicture', 'picture', 'choice'];
+
+    if (pageRoutes.includes(route)) {
+      this.router.navigate([`/pages/${route}`]);
+    } else {
+      // Routes directes (comme users)
+      this.router.navigate([`/${route}`]);
+    }
   }
 
   toggleDarkMode() {
