@@ -48,7 +48,8 @@
         "libs/backend/data-access/configParams/*",
         "libs/backend/data-access/orgEmailUseTos/*",
         "libs/backend/data-access/appEmailDomains/*",
-        "libs/backend/data-access/tasks/*"
+        "libs/backend/data-access/tasks/*",
+        "libs/backend/data-access/files/*"
       ]
     },
     {
@@ -108,7 +109,8 @@
         "libs/backend/data-access/configParams/*",
         "libs/backend/data-access/orgEmailUseTos/*",
         "libs/backend/data-access/appEmailDomains/*",
-        "libs/backend/data-access/tasks/*"
+        "libs/backend/data-access/tasks/*",
+        "libs/backend/data-access/files/*"
       ],
       "options": {
         "typecheck": {

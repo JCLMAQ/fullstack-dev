@@ -75,6 +75,7 @@
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
+      "@fullstack-dev/files": ["libs/backend/data-access/files/src/index.ts"],
       "@fullstack-dev/tasks": ["libs/backend/data-access/tasks/src/index.ts"]
     }
   }
