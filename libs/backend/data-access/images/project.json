@@ -1,40 +1,9 @@
 {
-  "name": "backend-data-access-images",
+  "name": "images",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/data-access/images/src",
   "projectType": "library",
-  "tags": ["be:lib:data"],
-  "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/backend/data-access/images",
-        "main": "libs/backend/data-access/images/src/index.ts",
-        "tsConfig": "libs/backend/data-access/images/tsconfig.lib.json",
-        "assets": []
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/backend/data-access/images/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/backend/data-access/images/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "coverage": true
-        }
-      }
-    }
-  }
+  "tags": [],
+  "// targets": "to see all targets run: nx show project images --web",
+  "targets": {}
 }

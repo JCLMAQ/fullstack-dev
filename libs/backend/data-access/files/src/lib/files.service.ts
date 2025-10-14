@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException, BadRequestException, ConflictException, InternalServerErrorException } from '@nestjs/common';
-import { PrismaClientService } from '@be/prisma-client';
 import { File, Prisma } from '@db/prisma';
+import { PrismaClientService } from '@db/prisma-client';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 
 export interface FileMetadata {
   [key: string]: string | number | boolean | null;

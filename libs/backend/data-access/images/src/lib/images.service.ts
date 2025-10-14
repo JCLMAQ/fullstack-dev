@@ -1,5 +1,5 @@
-import { PrismaClientService } from '@be/prisma-client';
 import { Image, Prisma } from '@db/prisma';
+import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 
 export interface ImageCreateData {
@@ -90,7 +90,7 @@ export class ImagesService {
         storageUrl: data.storageUrl,
         bucketName: data.bucketName,
         thumbnailUrl: data.thumbnailUrl,
-        variants: data.variants as Prisma.JsonValue,
+        variants: data.variants as Prisma.InputJsonValue,
         tags: data.tags || [],
         altText: data.altText,
         description: data.description,
@@ -222,15 +222,29 @@ export class ImagesService {
     });
   }
 
+  private cleanUpdateData(data: Partial<Omit<Image, 'id' | 'numSeq' | 'createdAt' | 'updatedAt' | 'uploadedById'>>) {
+    const cleaned: Record<string, unknown> = { ...data };
+
+    // Convert null values to undefined for Prisma compatibility
+    Object.keys(cleaned).forEach(key => {
+      if (cleaned[key] === null) {
+        cleaned[key] = undefined;
+      }
+    });
+
+    return cleaned;
+  }
+
   async updateImage(
     id: string,
     data: Partial<Omit<Image, 'id' | 'numSeq' | 'createdAt' | 'updatedAt' | 'uploadedById'>>
   ): Promise<Image> {
     try {
+      const cleanedData = this.cleanUpdateData(data);
       return await this.prisma.image.update({
         where: { id },
         data: {
-          ...data,
+          ...cleanedData,
           updatedAt: new Date()
         }
       });
@@ -258,13 +272,14 @@ export class ImagesService {
 
   // Bulk Operations
   async bulkUpdateImages(data: ImageBulkUpdateData): Promise<{ count: number }> {
+    const cleanedUpdates = this.cleanUpdateData(data.updates);
     const result = await this.prisma.image.updateMany({
       where: {
         id: { in: data.ids },
         isDeleted: 0
       },
       data: {
-        ...data.updates,
+        ...cleanedUpdates,
         updatedAt: new Date()
       }
     });

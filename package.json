@@ -5,20 +5,26 @@
   "scripts": {
     "start:backend:nest-app": "dotenvx run -- nx serve nest-app --watch",
     "start:frontend:with-project-config": "pnpm run configangular -- --environment=dev && pnpm run update-project-port && dotenvx run -- nx serve dev-app --proxy-config ./proxy.config.json",
-    "update-project-port": "dotenvx run -- npx tsx ./scripts/update-project-port.ts",
+    "start:prisma": "pnpm run prisma:generate && pnpm run prisma-migrate",
+
     "db:docker:up": "dotenvx run -- docker compose -f './docker/docker-compose.yml' up -d --build",
     "db:docker:down": "dotenvx run -- docker compose -f './docker/docker-compose.yml' down",
     "db:docker:restart": "dotenvx run -- docker compose -f './docker/docker-compose.yml' restart",
+
     "pnpm-instal": "pnpm install --no-frozen-lockfile",
     "pnpm-auto-update": "pnpm update",
     "pnpm approve-builds scripts": "pnpm approve-builds",
+
     "nxupdate": "nx migrate latest",
     "nxmigrate": "nx migrate --run-migrations",
-    "start:prisma": "pnpm run prisma:generate && pnpm run prisma-migrate",
+
     "prisma:generate": "dotenvx run -- pnpm exec prisma generate",
     "prisma:generate:watch": "dotenvx run -- pnpm exec prisma generate --watch",
     "prisma-migrate": "dotenvx run -- pnpm exec prisma migrate dev",
+    "prisma-reset": "pnpm exec prisma migrate reset",
+
     "configangular": "dotenvx run -- npx tsx ./scripts/setenv.ts",
+    "update-project-port": "dotenvx run -- npx tsx ./scripts/update-project-port.ts",
     "configproxy": "dotenvx run -- ts-node ./scripts/setproxyconfig.ts",
     "debug nestjs": "nx run-many -t typecheck",
     "dep:cycles": "npx -y madge --circular --extensions ts,tsx --ts-config tsconfig.base.json apps libs"

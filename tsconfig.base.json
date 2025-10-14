@@ -33,6 +33,7 @@
       ],
       "@be/files": ["libs/backend/data-access/files/src/index.ts"],
       "@be/groups": ["libs/backend/data-access/groups/src/index.ts"],
+      "@be/images": ["libs/backend/data-access/images/src/index.ts"],
       "@be/orgDomains": ["libs/backend/data-access/orgDomains/src/index.ts"],
       "@be/orgEmailUseTos": [
         "libs/backend/data-access/orgEmailUseTos/src/index.ts"
@@ -59,11 +60,8 @@
       "@fe/dashboard": [
         "libs/frontend/shared/components/dashboard/src/index.ts"
       ],
-      "@fe/image-uploader": [
+      "@fe/image": [
         "libs/frontend/shared/components/image-uploader/src/index.ts"
-      ],
-      "@fe/shared/components/image-mgt": [
-        "libs/frontend/shared/components/image-mgt/src/index.ts"
       ],
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/loading-container": [
@@ -74,6 +72,9 @@
       "@fe/services": ["libs/frontend/core/services/src/index.ts"],
       "@fe/shared/components": ["libs/frontend/shared/components/src/index.ts"],
       "@fe/shared/components/*": ["libs/frontend/shared/components/src/*"],
+      "@fe/shared/components/image-mgt/src/index": [
+        "libs/frontend/shared/components/image-mgt/src/index.ts"
+      ],
       "@fe/shared/utilities": ["libs/frontend/shared/utils/index.ts"],
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
