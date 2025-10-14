@@ -13,5 +13,16 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../../../libs/backend/data-access/users"
+    },
+    {
+      "path": "../../../libs/backend/data-access/posts"
+    },
+    {
+      "path": "../../../libs/backend/data-access/comments"
+    }
+  ]
 }

@@ -4,10 +4,10 @@
   "files": [],
   "references": [
     {
-      "path": "./libs/frontend/shared/components"
+      "path": "./libs/frontend/core/layout"
     },
     {
-      "path": "./libs/frontend/core/layout"
+      "path": "./libs/frontend/shared/components/dashboard"
     }
   ]
 }

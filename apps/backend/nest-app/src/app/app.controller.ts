@@ -1,95 +1,15 @@
-import { PostsService } from '@be/posts';
-import { UsersService } from '@be/users';
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
- constructor(
-    private readonly appService: AppService,
-    private readonly usersService: UsersService,
-    private readonly postsService: PostsService,
-
+constructor(
+    private readonly appService: AppService
   ) {}
 
   @Get()
   getData() {
     return this.appService.getData();
   }
-
-  @Get('post/:id')
-  async getPostById(@Param('id') id: string) {
-    return this.postsService.post({ id: id });
-  }
-
-
-  @Get('filter/:searchString')
-  async getFilteredPosts(@Param('searchString') searchString: string) {
-    const posts = this.postsService.posts({
-      where: {
-        OR: [
-          {
-            title: {
-              contains: searchString,
-            },
-          },
-          {
-            content: {
-              contains: searchString,
-            },
-          },
-        ],
-      },
-    });
-
-
-    return Promise.all([posts]).then(([posts]) => [
-      ...posts,
-
-    ]);
-  }
-
-  @Post('post')
-  async createdDraft(
-    @Body() postData: { title: string; content?: string; ownerEmail: string; orgId: string }
-  ) {
-    const { title, content, ownerEmail, orgId } = postData;
-    return this.postsService.createPost({
-      title,
-      content,
-      owner: {
-        connect: { email: ownerEmail },
-      },
-      org: {
-        connect: { id: orgId },
-      },
-    });
-  }
-
-  @Post('user')
-  async createUser(@Body() userData: { firstName?: string; lastName?: string; email: string }) {
-    const { firstName, lastName, email } = userData;
-    return this.usersService.createUser({
-      firstName,
-      lastName,
-      email,
-    });
-  }
-
-  @Put('publish/:id')
-  async publishPost(@Param('id') id: string) {
-    return this.postsService.updatePost({
-      where: { id: id },
-      data: { published: true },
-    });
-  }
-
-
-  @Delete('post/:id')
-  async deletePost(@Param('id') id: string) {
-    return this.postsService.deletePost({ id: id });
-  }
-
-
 
 }

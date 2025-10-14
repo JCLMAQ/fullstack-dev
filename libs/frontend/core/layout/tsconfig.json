@@ -18,7 +18,7 @@
   "include": [],
   "references": [
     {
-      "path": "../../shared/components"
+      "path": "../../shared/components/dashboard"
     },
     {
       "path": "./tsconfig.lib.json"
