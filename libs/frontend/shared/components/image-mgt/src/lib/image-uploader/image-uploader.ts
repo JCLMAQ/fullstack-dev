@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 // According: "Custom File Uploader Angular 18"
 // https://medium.com/@paul.pietzko/custom-file-uploader-angular-18-ca566131f128
@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ImageUploader {
 
  private snackBar = inject(MatSnackBar);
+  private translate = inject(TranslateService);
 
 
   imageName = signal('');
@@ -30,8 +31,9 @@ export class ImageUploader {
 
 
   // Handler for file input change
-  onFileChange(event: any): void {
-    const file = event.target.files[0] as File | null;
+  onFileChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0] || null;
     this.uploadFile(file);
   }
 
@@ -65,10 +67,14 @@ export class ImageUploader {
     } else {
       this.uploadSuccess = false;
       this.uploadError = true;
-      this.snackBar.open('Only image files are supported!', 'Close', {
-        duration: 3000,
-        panelClass: 'error',
-      });
+      this.snackBar.open(
+        this.translate.instant('Image-uploader.ERROR.ONLY_IMAGES'),
+        this.translate.instant('Image-uploader.CLOSE'),
+        {
+          duration: 3000,
+          panelClass: 'error',
+        }
+      );
     }
   }
 
