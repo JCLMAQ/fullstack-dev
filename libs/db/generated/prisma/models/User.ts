@@ -429,7 +429,9 @@ export type UserWhereInput = {
   TodosAuthor?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.UserTaskLinkListRelationFilter
   TasksAuthor?: Prisma.TaskListRelationFilter
-  Files?: Prisma.FileListRelationFilter
+  ownedFiles?: Prisma.FileListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  profileFiles?: Prisma.FileListRelationFilter
   ChangesLogs?: Prisma.ChangesTrackingListRelationFilter
   Tokens?: Prisma.TokenListRelationFilter
   ApiKeys?: Prisma.ApiKeyListRelationFilter
@@ -487,7 +489,9 @@ export type UserOrderByWithRelationInput = {
   TodosAuthor?: Prisma.TodoOrderByRelationAggregateInput
   Tasks?: Prisma.UserTaskLinkOrderByRelationAggregateInput
   TasksAuthor?: Prisma.TaskOrderByRelationAggregateInput
-  Files?: Prisma.FileOrderByRelationAggregateInput
+  ownedFiles?: Prisma.FileOrderByRelationAggregateInput
+  uploadedFiles?: Prisma.FileOrderByRelationAggregateInput
+  profileFiles?: Prisma.FileOrderByRelationAggregateInput
   ChangesLogs?: Prisma.ChangesTrackingOrderByRelationAggregateInput
   Tokens?: Prisma.TokenOrderByRelationAggregateInput
   ApiKeys?: Prisma.ApiKeyOrderByRelationAggregateInput
@@ -548,7 +552,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   TodosAuthor?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.UserTaskLinkListRelationFilter
   TasksAuthor?: Prisma.TaskListRelationFilter
-  Files?: Prisma.FileListRelationFilter
+  ownedFiles?: Prisma.FileListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  profileFiles?: Prisma.FileListRelationFilter
   ChangesLogs?: Prisma.ChangesTrackingListRelationFilter
   Tokens?: Prisma.TokenListRelationFilter
   ApiKeys?: Prisma.ApiKeyListRelationFilter
@@ -681,7 +687,9 @@ export type UserCreateInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -738,7 +746,9 @@ export type UserUncheckedCreateInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -795,7 +805,9 @@ export type UserUpdateInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -852,7 +864,9 @@ export type UserUncheckedUpdateInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -1439,18 +1453,50 @@ export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
 }
 
-export type UserCreateNestedOneWithoutFilesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+export type UserCreateNestedOneWithoutOwnedFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedFilesInput, Prisma.UserUncheckedCreateWithoutOwnedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedFilesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutFilesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
-  upsert?: Prisma.UserUpsertWithoutFilesInput
+export type UserCreateNestedOneWithoutUploadedFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedFilesInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
+}
+
+export type UserCreateNestedOneWithoutProfileFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOwnedFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedFilesInput, Prisma.UserUncheckedCreateWithoutOwnedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedFilesInput
+  upsert?: Prisma.UserUpsertWithoutOwnedFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedFilesInput, Prisma.UserUpdateWithoutOwnedFilesInput>, Prisma.UserUncheckedUpdateWithoutOwnedFilesInput>
+}
+
+export type UserUpdateOneWithoutUploadedFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedFilesInput
+  upsert?: Prisma.UserUpsertWithoutUploadedFilesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedFilesInput, Prisma.UserUpdateWithoutUploadedFilesInput>, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+}
+
+export type UserUpdateOneWithoutProfileFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileFilesInput
+  upsert?: Prisma.UserUpsertWithoutProfileFilesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileFilesInput, Prisma.UserUpdateWithoutProfileFilesInput>, Prisma.UserUncheckedUpdateWithoutProfileFilesInput>
 }
 
 export type UserCreateNestedOneWithoutFollowersInput = {
@@ -1625,7 +1671,9 @@ export type UserCreateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -1681,7 +1729,9 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -1795,7 +1845,9 @@ export type UserCreateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -1851,7 +1903,9 @@ export type UserUncheckedCreateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -1912,7 +1966,9 @@ export type UserCreateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -1968,7 +2024,9 @@ export type UserUncheckedCreateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2045,7 +2103,9 @@ export type UserUpdateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2101,7 +2161,9 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2173,7 +2235,9 @@ export type UserCreateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2229,7 +2293,9 @@ export type UserUncheckedCreateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2301,7 +2367,9 @@ export type UserUpdateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2357,7 +2425,9 @@ export type UserUncheckedUpdateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2413,7 +2483,9 @@ export type UserCreateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2469,7 +2541,9 @@ export type UserUncheckedCreateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2541,7 +2615,9 @@ export type UserUpdateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2597,7 +2673,9 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2654,7 +2732,9 @@ export type UserCreateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2710,7 +2790,9 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2782,7 +2864,9 @@ export type UserUpdateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2838,7 +2922,9 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2893,7 +2979,9 @@ export type UserCreateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2949,7 +3037,9 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3026,7 +3116,9 @@ export type UserCreateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3082,7 +3174,9 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3159,7 +3253,9 @@ export type UserCreateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3215,7 +3311,9 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3287,7 +3385,9 @@ export type UserUpdateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3343,7 +3443,9 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -3399,7 +3501,9 @@ export type UserCreateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3455,7 +3559,9 @@ export type UserUncheckedCreateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3527,7 +3633,9 @@ export type UserUpdateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3583,7 +3691,9 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -3639,7 +3749,9 @@ export type UserCreateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3695,7 +3807,9 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3767,7 +3881,9 @@ export type UserUpdateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3823,7 +3939,9 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -3879,7 +3997,9 @@ export type UserCreateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3935,7 +4055,9 @@ export type UserUncheckedCreateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4007,7 +4129,9 @@ export type UserUpdateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4063,7 +4187,9 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4119,7 +4245,9 @@ export type UserCreateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4175,7 +4303,9 @@ export type UserUncheckedCreateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4247,7 +4377,9 @@ export type UserUpdateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4303,7 +4435,9 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4359,7 +4493,9 @@ export type UserCreateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4415,7 +4551,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4487,7 +4625,9 @@ export type UserUpdateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4543,7 +4683,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4555,7 +4697,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
 
-export type UserCreateWithoutFilesInput = {
+export type UserCreateWithoutOwnedFilesInput = {
   id?: string
   numSeq?: number
   createdAt?: Date | string
@@ -4600,6 +4742,8 @@ export type UserCreateWithoutFilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4611,7 +4755,7 @@ export type UserCreateWithoutFilesInput = {
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
 
-export type UserUncheckedCreateWithoutFilesInput = {
+export type UserUncheckedCreateWithoutOwnedFilesInput = {
   id?: string
   numSeq?: number
   createdAt?: Date | string
@@ -4656,6 +4800,8 @@ export type UserUncheckedCreateWithoutFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4667,23 +4813,265 @@ export type UserUncheckedCreateWithoutFilesInput = {
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
 
-export type UserCreateOrConnectWithoutFilesInput = {
+export type UserCreateOrConnectWithoutOwnedFilesInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedFilesInput, Prisma.UserUncheckedCreateWithoutOwnedFilesInput>
 }
 
-export type UserUpsertWithoutFilesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+export type UserCreateWithoutUploadedFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: $Enums.Language | null
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
+  address?: Prisma.AddressCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
+  manager?: Prisma.UserCreateNestedOneWithoutTeamInput
+  Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
+  ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
+  followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
+  followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserUncheckedCreateWithoutUploadedFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: $Enums.Language | null
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  managerId?: string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
+  Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
+  followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
+  followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserCreateOrConnectWithoutUploadedFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+}
+
+export type UserCreateWithoutProfileFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: $Enums.Language | null
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
+  address?: Prisma.AddressCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
+  manager?: Prisma.UserCreateNestedOneWithoutTeamInput
+  Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
+  followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
+  followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserUncheckedCreateWithoutProfileFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: $Enums.Language | null
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  managerId?: string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
+  Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
+  followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
+  followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserCreateOrConnectWithoutProfileFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
+}
+
+export type UserUpsertWithoutOwnedFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedFilesInput, Prisma.UserUncheckedUpdateWithoutOwnedFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedFilesInput, Prisma.UserUncheckedCreateWithoutOwnedFilesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutFilesInput = {
+export type UserUpdateToOneWithWhereWithoutOwnedFilesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedFilesInput, Prisma.UserUncheckedUpdateWithoutOwnedFilesInput>
 }
 
-export type UserUpdateWithoutFilesInput = {
+export type UserUpdateWithoutOwnedFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4728,6 +5116,8 @@ export type UserUpdateWithoutFilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4739,7 +5129,7 @@ export type UserUpdateWithoutFilesInput = {
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutFilesInput = {
+export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   numSeq?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4784,6 +5174,262 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
+  followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
+  followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUpsertWithoutUploadedFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUploadedFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUploadedFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUploadedFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedFilesInput>
+}
+
+export type UserUpdateWithoutUploadedFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
+  address?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
+  Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
+  followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
+  followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUploadedFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
+  Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
+  followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
+  followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUpsertWithoutProfileFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileFilesInput, Prisma.UserUncheckedUpdateWithoutProfileFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfileFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileFilesInput, Prisma.UserUncheckedUpdateWithoutProfileFilesInput>
+}
+
+export type UserUpdateWithoutProfileFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
+  address?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
+  Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
+  followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
+  followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
+  Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4840,7 +5486,9 @@ export type UserCreateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4896,7 +5544,9 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4957,7 +5607,9 @@ export type UserCreateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5013,7 +5665,9 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5085,7 +5739,9 @@ export type UserUpdateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5141,7 +5797,9 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5208,7 +5866,9 @@ export type UserUpdateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5264,7 +5924,9 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5320,7 +5982,9 @@ export type UserCreateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5376,7 +6040,9 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5448,7 +6114,9 @@ export type UserUpdateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5504,7 +6172,9 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5559,7 +6229,9 @@ export type UserCreateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5615,7 +6287,9 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5687,7 +6361,9 @@ export type UserUpdateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5743,7 +6419,9 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5800,7 +6478,9 @@ export type UserCreateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5856,7 +6536,9 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5917,7 +6599,9 @@ export type UserCreateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5973,7 +6657,9 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -6045,7 +6731,9 @@ export type UserUpdateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -6101,7 +6789,9 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -6168,7 +6858,9 @@ export type UserUpdateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -6224,7 +6916,9 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -6280,7 +6974,9 @@ export type UserCreateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
@@ -6336,7 +7032,9 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
@@ -6408,7 +7106,9 @@ export type UserUpdateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
@@ -6464,7 +7164,9 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
@@ -6520,7 +7222,9 @@ export type UserCreateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
@@ -6576,7 +7280,9 @@ export type UserUncheckedCreateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
@@ -6648,7 +7354,9 @@ export type UserUpdateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
@@ -6704,7 +7412,9 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
@@ -6760,7 +7470,9 @@ export type UserCreateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
@@ -6816,7 +7528,9 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  Files?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
@@ -6888,7 +7602,9 @@ export type UserUpdateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
@@ -6944,7 +7660,9 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
@@ -6999,7 +7717,9 @@ export type UserUpdateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7055,7 +7775,9 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7178,7 +7900,9 @@ export type UserUpdateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7234,7 +7958,9 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7323,7 +8049,9 @@ export type UserUpdateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7379,7 +8107,9 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7469,7 +8199,9 @@ export type UserUpdateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7525,7 +8257,9 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  Files?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7590,7 +8324,9 @@ export type UserCountOutputType = {
   TodosAuthor: number
   Tasks: number
   TasksAuthor: number
-  Files: number
+  ownedFiles: number
+  uploadedFiles: number
+  profileFiles: number
   ChangesLogs: number
   Tokens: number
   ApiKeys: number
@@ -7615,7 +8351,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   TodosAuthor?: boolean | UserCountOutputTypeCountTodosAuthorArgs
   Tasks?: boolean | UserCountOutputTypeCountTasksArgs
   TasksAuthor?: boolean | UserCountOutputTypeCountTasksAuthorArgs
-  Files?: boolean | UserCountOutputTypeCountFilesArgs
+  ownedFiles?: boolean | UserCountOutputTypeCountOwnedFilesArgs
+  uploadedFiles?: boolean | UserCountOutputTypeCountUploadedFilesArgs
+  profileFiles?: boolean | UserCountOutputTypeCountProfileFilesArgs
   ChangesLogs?: boolean | UserCountOutputTypeCountChangesLogsArgs
   Tokens?: boolean | UserCountOutputTypeCountTokensArgs
   ApiKeys?: boolean | UserCountOutputTypeCountApiKeysArgs
@@ -7730,7 +8468,21 @@ export type UserCountOutputTypeCountTasksAuthorArgs<ExtArgs extends runtime.Type
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountOwnedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProfileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FileWhereInput
 }
 
@@ -7837,7 +8589,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   TodosAuthor?: boolean | Prisma.User$TodosAuthorArgs<ExtArgs>
   Tasks?: boolean | Prisma.User$TasksArgs<ExtArgs>
   TasksAuthor?: boolean | Prisma.User$TasksAuthorArgs<ExtArgs>
-  Files?: boolean | Prisma.User$FilesArgs<ExtArgs>
+  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   ChangesLogs?: boolean | Prisma.User$ChangesLogsArgs<ExtArgs>
   Tokens?: boolean | Prisma.User$TokensArgs<ExtArgs>
   ApiKeys?: boolean | Prisma.User$ApiKeysArgs<ExtArgs>
@@ -7970,7 +8724,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   TodosAuthor?: boolean | Prisma.User$TodosAuthorArgs<ExtArgs>
   Tasks?: boolean | Prisma.User$TasksArgs<ExtArgs>
   TasksAuthor?: boolean | Prisma.User$TasksAuthorArgs<ExtArgs>
-  Files?: boolean | Prisma.User$FilesArgs<ExtArgs>
+  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   ChangesLogs?: boolean | Prisma.User$ChangesLogsArgs<ExtArgs>
   Tokens?: boolean | Prisma.User$TokensArgs<ExtArgs>
   ApiKeys?: boolean | Prisma.User$ApiKeysArgs<ExtArgs>
@@ -8006,7 +8762,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     TodosAuthor: Prisma.$TodoPayload<ExtArgs>[]
     Tasks: Prisma.$UserTaskLinkPayload<ExtArgs>[]
     TasksAuthor: Prisma.$TaskPayload<ExtArgs>[]
-    Files: Prisma.$FilePayload<ExtArgs>[]
+    ownedFiles: Prisma.$FilePayload<ExtArgs>[]
+    uploadedFiles: Prisma.$FilePayload<ExtArgs>[]
+    profileFiles: Prisma.$FilePayload<ExtArgs>[]
     ChangesLogs: Prisma.$ChangesTrackingPayload<ExtArgs>[]
     Tokens: Prisma.$TokenPayload<ExtArgs>[]
     ApiKeys: Prisma.$ApiKeyPayload<ExtArgs>[]
@@ -8457,7 +9215,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   TodosAuthor<T extends Prisma.User$TodosAuthorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TodosAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tasks<T extends Prisma.User$TasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTaskLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   TasksAuthor<T extends Prisma.User$TasksAuthorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TasksAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Files<T extends Prisma.User$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedFiles<T extends Prisma.User$ownedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedFiles<T extends Prisma.User$uploadedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileFiles<T extends Prisma.User$profileFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ChangesLogs<T extends Prisma.User$ChangesLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ChangesLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChangesTrackingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tokens<T extends Prisma.User$TokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ApiKeys<T extends Prisma.User$ApiKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ApiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9254,9 +10014,57 @@ export type User$TasksAuthorArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * User.Files
+ * User.ownedFiles
  */
-export type User$FilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$ownedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedFiles
+ */
+export type User$uploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * User.profileFiles
+ */
+export type User$profileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the File
    */

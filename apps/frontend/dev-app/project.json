@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/frontend/dev-app",
         "browser": "apps/frontend/dev-app/src/main.ts",
@@ -65,7 +67,10 @@
           "buildTarget": "dev-app:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4800
+      }
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
@@ -78,7 +83,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../../coverage/apps/frontend/dev-app"
       }
@@ -88,7 +95,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "dev-app:build",
-        "port": 4200,
+        "port": 4800,
         "staticFilePath": "dist/apps/frontend/dev-app/browser",
         "spa": true
       }

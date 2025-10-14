@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start:backend:nest-app": "dotenvx run -- nx serve nest-app --watch",
-    "start:frontend:dev-angular": "pnpm run configangular -- --environment=dev && dotenvx run -- nx serve dev-app --proxy-config ./proxy.config.json --host 127.0.0.1 --port 4200",
+    "start:frontend:with-project-config": "pnpm run configangular -- --environment=dev && pnpm run update-project-port && dotenvx run -- nx serve dev-app --proxy-config ./proxy.config.json",
+    "update-project-port": "dotenvx run -- npx tsx ./scripts/update-project-port.ts",
     "db:docker:up": "dotenvx run -- docker compose -f './docker/docker-compose.yml' up -d --build",
     "db:docker:down": "dotenvx run -- docker compose -f './docker/docker-compose.yml' down",
     "db:docker:restart": "dotenvx run -- docker compose -f './docker/docker-compose.yml' restart",

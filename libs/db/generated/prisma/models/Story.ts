@@ -261,6 +261,7 @@ export type StoryWhereInput = {
   user_id?: Prisma.StringFilter<"Story"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   Images?: Prisma.ImageListRelationFilter
+  Files?: Prisma.FileListRelationFilter
 }
 
 export type StoryOrderByWithRelationInput = {
@@ -276,6 +277,7 @@ export type StoryOrderByWithRelationInput = {
   user_id?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   Images?: Prisma.ImageOrderByRelationAggregateInput
+  Files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type StoryWhereUniqueInput = Prisma.AtLeast<{
@@ -294,6 +296,7 @@ export type StoryWhereUniqueInput = Prisma.AtLeast<{
   user_id?: Prisma.StringFilter<"Story"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   Images?: Prisma.ImageListRelationFilter
+  Files?: Prisma.FileListRelationFilter
 }, "id">
 
 export type StoryOrderByWithAggregationInput = {
@@ -342,6 +345,7 @@ export type StoryCreateInput = {
   caption: string
   user: Prisma.UserCreateNestedOneWithoutStoriesInput
   Images?: Prisma.ImageCreateNestedManyWithoutStoryInput
+  Files?: Prisma.FileCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUncheckedCreateInput = {
@@ -356,6 +360,7 @@ export type StoryUncheckedCreateInput = {
   caption: string
   user_id: string
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutStoryInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUpdateInput = {
@@ -370,6 +375,7 @@ export type StoryUpdateInput = {
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutStoriesNestedInput
   Images?: Prisma.ImageUpdateManyWithoutStoryNestedInput
+  Files?: Prisma.FileUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateInput = {
@@ -384,6 +390,7 @@ export type StoryUncheckedUpdateInput = {
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   Images?: Prisma.ImageUncheckedUpdateManyWithoutStoryNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryCreateManyInput = {
@@ -432,6 +439,11 @@ export type StoryListRelationFilter = {
 
 export type StoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StoryNullableScalarRelationFilter = {
+  is?: Prisma.StoryWhereInput | null
+  isNot?: Prisma.StoryWhereInput | null
 }
 
 export type StoryCountOrderByAggregateInput = {
@@ -483,11 +495,6 @@ export type StorySumOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
 }
 
-export type StoryNullableScalarRelationFilter = {
-  is?: Prisma.StoryWhereInput | null
-  isNot?: Prisma.StoryWhereInput | null
-}
-
 export type StoryCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.StoryCreateWithoutUserInput, Prisma.StoryUncheckedCreateWithoutUserInput> | Prisma.StoryCreateWithoutUserInput[] | Prisma.StoryUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.StoryCreateOrConnectWithoutUserInput | Prisma.StoryCreateOrConnectWithoutUserInput[]
@@ -530,6 +537,22 @@ export type StoryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.StoryScalarWhereInput | Prisma.StoryScalarWhereInput[]
 }
 
+export type StoryCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.StoryCreateWithoutFilesInput, Prisma.StoryUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.StoryCreateOrConnectWithoutFilesInput
+  connect?: Prisma.StoryWhereUniqueInput
+}
+
+export type StoryUpdateOneWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.StoryCreateWithoutFilesInput, Prisma.StoryUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.StoryCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.StoryUpsertWithoutFilesInput
+  disconnect?: Prisma.StoryWhereInput | boolean
+  delete?: Prisma.StoryWhereInput | boolean
+  connect?: Prisma.StoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StoryUpdateToOneWithWhereWithoutFilesInput, Prisma.StoryUpdateWithoutFilesInput>, Prisma.StoryUncheckedUpdateWithoutFilesInput>
+}
+
 export type StoryCreateNestedOneWithoutImagesInput = {
   create?: Prisma.XOR<Prisma.StoryCreateWithoutImagesInput, Prisma.StoryUncheckedCreateWithoutImagesInput>
   connectOrCreate?: Prisma.StoryCreateOrConnectWithoutImagesInput
@@ -557,6 +580,7 @@ export type StoryCreateWithoutUserInput = {
   isDeletedDT?: Date | string | null
   caption: string
   Images?: Prisma.ImageCreateNestedManyWithoutStoryInput
+  Files?: Prisma.FileCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUncheckedCreateWithoutUserInput = {
@@ -570,6 +594,7 @@ export type StoryUncheckedCreateWithoutUserInput = {
   isDeletedDT?: Date | string | null
   caption: string
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutStoryInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutStoryInput
 }
 
 export type StoryCreateOrConnectWithoutUserInput = {
@@ -614,6 +639,78 @@ export type StoryScalarWhereInput = {
   user_id?: Prisma.StringFilter<"Story"> | string
 }
 
+export type StoryCreateWithoutFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  caption: string
+  user: Prisma.UserCreateNestedOneWithoutStoriesInput
+  Images?: Prisma.ImageCreateNestedManyWithoutStoryInput
+}
+
+export type StoryUncheckedCreateWithoutFilesInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  caption: string
+  user_id: string
+  Images?: Prisma.ImageUncheckedCreateNestedManyWithoutStoryInput
+}
+
+export type StoryCreateOrConnectWithoutFilesInput = {
+  where: Prisma.StoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.StoryCreateWithoutFilesInput, Prisma.StoryUncheckedCreateWithoutFilesInput>
+}
+
+export type StoryUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.StoryUpdateWithoutFilesInput, Prisma.StoryUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.StoryCreateWithoutFilesInput, Prisma.StoryUncheckedCreateWithoutFilesInput>
+  where?: Prisma.StoryWhereInput
+}
+
+export type StoryUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.StoryWhereInput
+  data: Prisma.XOR<Prisma.StoryUpdateWithoutFilesInput, Prisma.StoryUncheckedUpdateWithoutFilesInput>
+}
+
+export type StoryUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  caption?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneRequiredWithoutStoriesNestedInput
+  Images?: Prisma.ImageUpdateManyWithoutStoryNestedInput
+}
+
+export type StoryUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  caption?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  Images?: Prisma.ImageUncheckedUpdateManyWithoutStoryNestedInput
+}
+
 export type StoryCreateWithoutImagesInput = {
   id?: string
   numSeq?: number
@@ -625,6 +722,7 @@ export type StoryCreateWithoutImagesInput = {
   isDeletedDT?: Date | string | null
   caption: string
   user: Prisma.UserCreateNestedOneWithoutStoriesInput
+  Files?: Prisma.FileCreateNestedManyWithoutStoryInput
 }
 
 export type StoryUncheckedCreateWithoutImagesInput = {
@@ -638,6 +736,7 @@ export type StoryUncheckedCreateWithoutImagesInput = {
   isDeletedDT?: Date | string | null
   caption: string
   user_id: string
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutStoryInput
 }
 
 export type StoryCreateOrConnectWithoutImagesInput = {
@@ -667,6 +766,7 @@ export type StoryUpdateWithoutImagesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutStoriesNestedInput
+  Files?: Prisma.FileUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateWithoutImagesInput = {
@@ -680,6 +780,7 @@ export type StoryUncheckedUpdateWithoutImagesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  Files?: Prisma.FileUncheckedUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryCreateManyUserInput = {
@@ -705,6 +806,7 @@ export type StoryUpdateWithoutUserInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   Images?: Prisma.ImageUpdateManyWithoutStoryNestedInput
+  Files?: Prisma.FileUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateWithoutUserInput = {
@@ -718,6 +820,7 @@ export type StoryUncheckedUpdateWithoutUserInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   caption?: Prisma.StringFieldUpdateOperationsInput | string
   Images?: Prisma.ImageUncheckedUpdateManyWithoutStoryNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutStoryNestedInput
 }
 
 export type StoryUncheckedUpdateManyWithoutUserInput = {
@@ -739,10 +842,12 @@ export type StoryUncheckedUpdateManyWithoutUserInput = {
 
 export type StoryCountOutputType = {
   Images: number
+  Files: number
 }
 
 export type StoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Images?: boolean | StoryCountOutputTypeCountImagesArgs
+  Files?: boolean | StoryCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -762,6 +867,13 @@ export type StoryCountOutputTypeCountImagesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.ImageWhereInput
 }
 
+/**
+ * StoryCountOutputType without action
+ */
+export type StoryCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
 
 export type StorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -776,6 +888,7 @@ export type StorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   user_id?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   Images?: boolean | Prisma.Story$ImagesArgs<ExtArgs>
+  Files?: boolean | Prisma.Story$FilesArgs<ExtArgs>
   _count?: boolean | Prisma.StoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["story"]>
 
@@ -824,6 +937,7 @@ export type StoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type StoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   Images?: boolean | Prisma.Story$ImagesArgs<ExtArgs>
+  Files?: boolean | Prisma.Story$FilesArgs<ExtArgs>
   _count?: boolean | Prisma.StoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -838,6 +952,7 @@ export type $StoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     Images: Prisma.$ImagePayload<ExtArgs>[]
+    Files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1246,6 +1361,7 @@ export interface Prisma__StoryClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   Images<T extends Prisma.Story$ImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Story$ImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Files<T extends Prisma.Story$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Story$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1702,6 +1818,30 @@ export type Story$ImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ImageScalarFieldEnum | Prisma.ImageScalarFieldEnum[]
+}
+
+/**
+ * Story.Files
+ */
+export type Story$FilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

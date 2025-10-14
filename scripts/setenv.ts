@@ -10,7 +10,6 @@ const loadedPath = path.join(repoRoot, '.env');
 console.log(`Using dotenvx with .env file: ${loadedPath}`);
 
 const environment = process.env.NODE_ENV || 'dev';
-const isProduction = environment === 'prod';
 
 const required = [
   'API_FRONTEND',
@@ -34,18 +33,19 @@ if (missing.length) {
   process.exit(-1);
 }
 
-const targetPath = isProduction
-  ? `./apps/frontend/dev-app/environments/environment.prod.ts`
-  : `./apps/frontend/dev-app/environments/environment.ts`;
+// Fonction pour générer le contenu d'un fichier d'environnement
+function generateEnvironmentContent(isProduction: boolean): string {
+  // Utiliser la variable d'environnement API_FRONTEND_PORT
+  const frontendPort = process.env.API_FRONTEND_PORT || '4200';
 
-const environmentFileContent = `
+  return `
     export const ENVIRONMENT_DATA = {
         production: ${isProduction},
         API_BACKEND_URL: "http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}",
         API_BACKEND_PREFIX: "${process.env.API_BACKEND_PREFIX}",
-        API_FRONTEND_URL: "http://${process.env.API_FRONTEND}:${process.env.API_FRONTEND_PORT}",
+        API_FRONTEND_URL: "http://${process.env.API_FRONTEND}:${frontendPort}",
         API_FRONTEND: "${process.env.API_FRONTEND}",
-        API_FRONTEND_PORT: "${process.env.API_FRONTEND_PORT}",
+        API_FRONTEND_PORT: "${frontendPort}",
         API_SECRET: "${process.env.API_SECRET}",
         AUTO_REGISTRATION_ENABLE: "${process.env.AUTO_REGISTRATION_ENABLE}",
         REGISTRATION_VALIDATION: "${process.env.REGISTRATION_VALIDATION}",
@@ -53,11 +53,40 @@ const environmentFileContent = `
         defaultLanguage: "${process.env.DEFAULT_LANGUAGE}",
         supportedLanguages: ${process.env.SUPPORTED_LANGUAGE}
     };`;
+}
 
-writeFile(targetPath, environmentFileContent, function (err?: NodeJS.ErrnoException | null) {
-  if (err) {
-    console.error(err);
-    process.exit(-1);
+// Configuration des fichiers à générer
+const environments = [
+  {
+    name: 'development',
+    path: './apps/frontend/dev-app/environments/environment.ts',
+    isProduction: false
+  },
+  {
+    name: 'production',
+    path: './apps/frontend/dev-app/environments/environment.prod.ts',
+    isProduction: true
   }
-  console.log(`Wrote variables to ${targetPath}${loadedPath ? ` (from ${loadedPath})` : ''}`);
+];
+
+// Génération des fichiers d'environnement
+let filesWritten = 0;
+const totalFiles = environments.length;
+
+environments.forEach(env => {
+  const environmentFileContent = generateEnvironmentContent(env.isProduction);
+
+  writeFile(env.path, environmentFileContent, function (err?: NodeJS.ErrnoException | null) {
+    if (err) {
+      console.error(`ERROR writing ${env.name} environment file:`, err);
+      process.exit(-1);
+    }
+
+    console.log(`✅ Wrote ${env.name} variables to ${env.path}${loadedPath ? ` (from ${loadedPath})` : ''}`);
+
+    filesWritten++;
+    if (filesWritten === totalFiles) {
+      console.log(`\n🎉 Successfully generated ${totalFiles} environment files!`);
+    }
+  });
 });
