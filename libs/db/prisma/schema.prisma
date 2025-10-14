@@ -133,7 +133,7 @@ model Organization {
   Members      User[]
   Posts        Post[]
   Groups       Group[]
-  Files        File[]
+  Files        File[]          @relation("OrganizationFiles")
   Tasks        Task[]
   Todos        Todo[]
   Images       Image[]        @relation("OrgImages")
@@ -210,7 +210,12 @@ model User {
   TodosAuthor   Todo[]
   Tasks         UserTaskLink[]
   TasksAuthor   Task[]
-  Files         File[]
+
+  // File relations
+  ownedFiles    File[]           @relation("FilesOwned")
+  uploadedFiles File[]           @relation("FilesUploaded")
+  profileFiles  File[]           @relation("UserProfileFiles")
+
   ChangesLogs   ChangesTracking[]
   Roles         Role[]
   Permissions   PermissionClaim[]
@@ -400,6 +405,7 @@ model Post {
   Comments    Comment[]
   LikedBys    PostLike[]
   Images      Image[]      @relation("PostImages")
+  Files       File[]       @relation("PostFiles")
 }
 
 model Category {
@@ -431,28 +437,106 @@ model Comment {
   postId       String
   author       User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId     String
+  Files        File[]    @relation("CommentFiles")
 }
 
 model File {
-  id          String       @id() @default(uuid(7))
-  numSeq      Int          @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now()) @updatedAt()
-  published   Boolean      @default(true)
-  isDeleted   Int          @default(0)
-  isDeletedDT DateTime?
-  isPublic    Boolean      @default(false)
-  owner       User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId     String
-  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  orgId       String
-  groups      Group[]
-  name        String
-  storageName String       @unique()
-  type        String?
-  data        String?
-  size        Int?
-  isArchived  DateTime?
+  id                String    @id @default(uuid())
+  numSeq            Int       @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @default(now()) @updatedAt()
+  published         Boolean   @default(true)
+  isPublic          Boolean   @default(false)
+  isDeleted         Int       @default(0)
+  isDeletedDT       DateTime?
+
+  // File identification and metadata
+  filename          String                 // Current filename in storage
+  originalName      String                 // Original filename as uploaded
+  mimeType          String                 // MIME type (application/pdf, text/plain, etc.)
+  fileSize          Int                    // Size in bytes
+  extension         String?                // File extension (.pdf, .doc, .txt, etc.)
+  encoding          String?                // File encoding (UTF-8, etc.)
+
+  // Storage information
+  storageType       String    @default("local")  // 'local', 's3', 'azure', 'gcs', etc.
+  storagePath       String?                // Path where file is stored
+  storageUrl        String?                // Public URL if available
+  bucketName        String?                // Bucket/container name for cloud storage
+  storageName       String?   @unique      // Unique storage identifier
+
+  // File categorization and metadata
+  category          String?                // Document category (pdf, document, spreadsheet, etc.)
+  tags              String[]   @default([]) // Array of tags for categorization
+  description       String?                // File description
+  version           String?    @default("1.0") // File version
+
+  // File processing and validation
+  checksum          String?                // File checksum for integrity
+  isProcessed       Boolean    @default(false) // Whether file has been processed
+  processingStatus  String?    @default("pending") // processing, completed, failed
+  virusScanStatus   String?    @default("pending") // clean, infected, scanning, failed
+  ocrText           String?                // Extracted text content (for searchable documents)
+
+  // Access control and permissions
+  isPublicDownload  Boolean    @default(false) // Whether file can be downloaded publicly
+  downloadCount     Int        @default(0)     // Number of times file was downloaded
+  lastAccessedAt    DateTime?              // Last time file was accessed
+  expiresAt         DateTime?              // Expiration date for temporary files
+  isArchived        DateTime?              // Archive timestamp
+
+  // Legacy compatibility
+  name              String?                // Legacy name field
+  type              String?                // Legacy type field
+  data              String?                // Legacy data field
+  size              Int?                   // Legacy size field (use fileSize instead)
+
+  // Associations - owner and uploader
+  owner             User       @relation("FilesOwned", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId           String
+  uploadedBy        User?      @relation("FilesUploaded", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById      String?
+
+  // Generic association fields for flexible linking
+  associatedId      String?                // ID of associated entity
+  associationType   String?                // Type of association (post, user, organization, etc.)
+
+  // Organization association
+  org               Organization @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
+  orgId             String
+
+  // Groups association (many-to-many)
+  groups            Group[]
+
+  // Post association (documents attached to posts)
+  post              Post?      @relation("PostFiles", fields: [postId], references: [id], onDelete: SetNull)
+  postId            String?
+
+  // Story association (files attached to stories)
+  story             Story?     @relation("StoryFiles", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId           String?
+
+  // User association (profile documents, CV, etc.)
+  profileUser       User?      @relation("UserProfileFiles", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUserId     String?
+
+  // Comment association (files attached to comments)
+  comment           Comment?   @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
+  commentId         String?
+
+  // Indexing for performance
+  @@index([ownerId])
+  @@index([uploadedById])
+  @@index([associatedId, associationType])
+  @@index([orgId])
+  @@index([createdAt])
+  @@index([mimeType])
+  @@index([category])
+  @@index([isDeleted])
+  @@index([checksum])
+  @@index([processingStatus])
+  @@index([virusScanStatus])
+  @@index([tags])
 }
 
 model UserFollower {
@@ -490,6 +574,7 @@ model Story {
   user_id     String
   user        User      @relation(fields: [user_id], references: [id])
   Images      Image[]   @relation("StoryImages")
+  Files       File[]    @relation("StoryFiles")
 }
 
 model Image {
