@@ -57,6 +57,3 @@ vitest.config.*.timestamp*
 libs/db/migrations/
 libs/db/generated/
 
-# Package manager files
-pnpm-lock.yaml
-pnpm-workspace.yaml
