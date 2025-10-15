@@ -35,7 +35,8 @@
         "libs/backend/utilities/mails/*",
         "libs/backend/utilities/time-util/*",
         "libs/backend/utilities/changestracking/*",
-        "libs/backend/utilities/exeption-filter/*"
+        "libs/backend/utilities/exeption-filter/*",
+        "libs/backend/utilities/files-utilities/*"
       ]
     },
     {
@@ -101,7 +102,8 @@
         "libs/backend/utilities/mails/*",
         "libs/backend/utilities/time-util/*",
         "libs/backend/utilities/changestracking/*",
-        "libs/backend/utilities/exeption-filter/*"
+        "libs/backend/utilities/exeption-filter/*",
+        "libs/backend/utilities/files-utilities/*"
       ],
       "options": {
         "typecheck": {

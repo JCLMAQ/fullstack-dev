@@ -27,11 +27,17 @@
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
       "@be/categories": ["libs/backend/data-access/categories/src/index.ts"],
+      "@be/changestracking": [
+        "libs/backend/utilities/changestracking/src/index.ts"
+      ],
       "@be/comments": ["libs/backend/data-access/comments/src/index.ts"],
       "@be/configParams": [
         "libs/backend/data-access/configParams/src/index.ts"
       ],
       "@be/db-config": ["libs/backend/utilities/db-config/src/index.ts"],
+      "@be/exception-filter": [
+        "libs/backend/utilities/exception-filter/src/index.ts"
+      ],
       "@be/files": ["libs/backend/data-access/files/src/index.ts"],
       "@be/groups": ["libs/backend/data-access/groups/src/index.ts"],
       "@be/images": ["libs/backend/data-access/images/src/index.ts"],
@@ -50,6 +56,7 @@
       "@be/profiles": ["libs/backend/data-access/profiles/src/index.ts"],
       "@be/stories": ["libs/backend/data-access/stories/src/index.ts"],
       "@be/tasks": ["libs/backend/data-access/tasks/src/index.ts"],
+      "@be/time-util": ["libs/backend/utilities/time-util/src/index.ts"],
       "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@be/userFollowers": [
         "libs/backend/data-access/userFollowers/src/index.ts"
@@ -82,14 +89,8 @@
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
-      "@be/changestracking": [
-        "libs/backend/utilities/changestracking/src/index.ts"
-      ],
-      "@be/exception-filter": [
-        "libs/backend/utilities/exception-filter/src/index.ts"
-      ],
-      "@be/time-util": [
-        "libs/backend/utilities/time-util/src/index.ts"
+      "@fullstack-dev/files-utilities": [
+        "libs/backend/utilities/files-utilities/src/index.ts"
       ]
     }
   }
