@@ -31,7 +31,11 @@
       "exclude": [
         "libs/backend/prisma-client/*",
         "libs/backend/data-access/files/*",
-        "libs/backend/utilities/db-config/*"
+        "libs/backend/utilities/db-config/*",
+        "libs/backend/utilities/mails/*",
+        "libs/backend/utilities/time-util/*",
+        "libs/backend/utilities/changestracking/*",
+        "libs/backend/utilities/exeption-filter/*"
       ]
     },
     {
@@ -93,7 +97,11 @@
         "libs/backend/data-access/appEmailDomains/*",
         "libs/backend/data-access/tasks/*",
         "libs/backend/data-access/files/*",
-        "libs/backend/utilities/db-config/*"
+        "libs/backend/utilities/db-config/*",
+        "libs/backend/utilities/mails/*",
+        "libs/backend/utilities/time-util/*",
+        "libs/backend/utilities/changestracking/*",
+        "libs/backend/utilities/exeption-filter/*"
       ],
       "options": {
         "typecheck": {

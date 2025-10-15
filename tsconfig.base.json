@@ -31,9 +31,11 @@
       "@be/configParams": [
         "libs/backend/data-access/configParams/src/index.ts"
       ],
+      "@be/db-config": ["libs/backend/utilities/db-config/src/index.ts"],
       "@be/files": ["libs/backend/data-access/files/src/index.ts"],
       "@be/groups": ["libs/backend/data-access/groups/src/index.ts"],
       "@be/images": ["libs/backend/data-access/images/src/index.ts"],
+      "@be/mails": ["libs/backend/utilities/mails/src/index.ts"],
       "@be/orgDomains": ["libs/backend/data-access/orgDomains/src/index.ts"],
       "@be/orgEmailUseTos": [
         "libs/backend/data-access/orgEmailUseTos/src/index.ts"
@@ -80,8 +82,14 @@
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
-      "@be/db-config": [
-        "libs/backend/utilities/db-config/src/index.ts"
+      "@be/changestracking": [
+        "libs/backend/utilities/changestracking/src/index.ts"
+      ],
+      "@be/exception-filter": [
+        "libs/backend/utilities/exception-filter/src/index.ts"
+      ],
+      "@be/time-util": [
+        "libs/backend/utilities/time-util/src/index.ts"
       ]
     }
   }

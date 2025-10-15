@@ -76,7 +76,8 @@
     "CLEANUP_UNUSED": "Cleanup Unused Images",
     "FIND_DUPLICATES": "Find Duplicates",
     "EXPORT_LIST": "Export Images List",
-    "FILTERS": "Images Management Filters"
+    "FILTERS": "Images Management Filters",
+    "DESCRIPTION": "Manage your images effectively with our powerful tools."
 
 
   },

@@ -75,7 +75,8 @@
       "CLEANUP_UNUSED": "Nettoyer Images Inutilisées",
       "FIND_DUPLICATES": "Trouver les Doublons",
       "EXPORT_LIST": "Exporter la Liste",
-      "FILTERS": "Filtres de Gestion des Images"
+      "FILTERS": "Filtres de Gestion des Images",
+      "DESCRIPTION": "Gérez vos images efficacement avec nos outils puissants."
     },
     "IMAGE_GALLERY": {
       "SELECT_ALL": "Tout Sélectionner",

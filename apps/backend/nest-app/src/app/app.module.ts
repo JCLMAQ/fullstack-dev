@@ -4,9 +4,12 @@ import { AppEmailDomainsModule } from '@be/appEmailDomains';
 import { CategoriesModule } from '@be/categories';
 import { CommentsModule } from '@be/comments';
 import { ConfigParamsModule } from '@be/configParams';
+import { TimeUtilModule } from '@be/time-util';
 // import { FilesModule } from '@be/files';
+import { DbConfigModule } from '@be/db-config';
 import { GroupsModule } from '@be/groups';
 import { ImagesModule } from '@be/images';
+import { MailsModule } from '@be/mails';
 import { OrganizationsModule } from '@be/organizations';
 import { OrgDomainsModule } from '@be/orgDomains';
 import { OrgEmailsModule } from '@be/orgEmails';
@@ -93,17 +96,20 @@ import path = require('path');
     }),
 
     ConfigModule,
+    MailsModule,
     PostsModule,
     UsersModule,
     CommentsModule,
     ImagesModule,
     AddressModule,
     UserFollowersModule,
+    TimeUtilModule,
     // AuthModule,
     PrismaClientModule,
     AppEmailDomainsModule,
     CategoriesModule,
     ConfigParamsModule,
+    DbConfigModule,
     // FilesModule,
     GroupsModule,
     OrganizationsModule,
