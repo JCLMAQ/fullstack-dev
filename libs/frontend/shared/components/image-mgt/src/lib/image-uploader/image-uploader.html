@@ -1,53 +1,70 @@
 
-<div
-  class="file-upload-wrapper"
-  [class.success]="uploadSuccess"
-  [class.error]="uploadError"
-  (drop)="onFileDrop($event)"
-  (dragover)="onDragOver($event)"
->
-  <input
-    type="file"
-    accept="image/*"
-    (change)="onFileChange($event)"
-    hidden
-    #fileInput
-  />
+<div class="image-uploader">
   <div
-    class="file-dropper"
-    (click)="fileInput.click()"
-    (keyup.enter)="fileInput.click()"
-    tabindex="0"
+    class="upload-area"
+    [class.success]="uploadSuccess"
+    [class.error]="uploadError"
+    [class.drag-over]="isDragOver"
+    (drop)="onFileDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
   >
-    <mat-icon>upload</mat-icon>
-    <p>{{ "ACTIONS.UPLOAD_PLACEHOLDER" | translate }}</p>
-    @if(imageName()) {
-    <div >
-      @if(selectedFile || imagePreview()) {
-        <!-- Display the image preview and file name -->
-      <div class="image-preview-container">
-        <img
-          [src]="imagePreview()"
-          alt="Image Preview"
-          class="image-preview"
-        />
-        <p>
-          <span class="image-name">{{ imageName() }}</span> ({{
-            fileSize()
-          }} KB)
-        </p>
-        <mat-icon
-          class="delete-icon"
-          (click)="removeImage()"
-          (keyup.enter)="removeImage()"
-          tabindex="0"
+    <input
+      type="file"
+      accept="image/*"
+      (change)="onFileChange($event)"
+      hidden
+      #fileInput
+    />
+
+    <!-- Zone de drop -->
+    <div
+      class="drop-zone"
+      (click)="fileInput.click()"
+      (keyup.enter)="fileInput.click()"
+      tabindex="0"
+    >
+      <div class="upload-content">
+        <mat-icon class="upload-icon">cloud_upload</mat-icon>
+        <h3 class="upload-title">{{ "IMAGE_UPLOADER.TITLE" | translate }}</h3>
+        <p class="upload-description">{{ "IMAGE_UPLOADER.DESCRIPTION" | translate }}</p>
+        <button
+          type="button"
+          class="upload-button"
         >
-          delete
-        </mat-icon>
+          {{ "IMAGE_UPLOADER.SELECT_FILE" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Prévisualisation de l'image -->
+    @if(imageName()) {
+      <div class="image-preview-section">
+        @if(selectedFile || imagePreview()) {
+          <div class="preview-container">
+            <div class="preview-image-wrapper">
+              <img
+                [src]="imagePreview()"
+                alt="Image Preview"
+                class="preview-image"
+              />
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removeImage()"
+                [attr.aria-label]="'IMAGE_UPLOADER.REMOVE' | translate"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            <div class="preview-info">
+              <h4 class="file-name">{{ imageName() }}</h4>
+              <p class="file-size">{{ fileSize() }} KB</p>
+            </div>
+          </div>
+        }
       </div>
     }
-    </div>
-  }
-
   </div>
 </div>

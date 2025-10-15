@@ -196,3 +196,6 @@ Validation automatique avec ValidationPipe
 Gestion d'erreurs complète avec messages en français
 Types stricts TypeScript pour toutes les réponses
 📡 Format de Réponse Standard
+
+# Integration avec Multer
+

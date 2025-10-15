@@ -101,6 +101,7 @@ export class ImageService {
   private environment = inject(ENVIRONMENT_TOKEN);
 
   private readonly baseUrl = `${this.environment.API_BACKEND_URL}/images`;
+  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/upload`;
 
   // State management
   private imagesSubject = new BehaviorSubject<Image[]>([]);
@@ -339,27 +340,92 @@ export class ImageService {
   // Utility Methods
 
   uploadFile(file: File, metadata: Partial<CreateImageDto>): Observable<Image> {
+    this.loadingSubject.next(true);
     const formData = new FormData();
     formData.append('file', file);
 
-    // Ajouter les métadonnées
+    // Ajouter les métadonnées en tant que string pour Multer
     Object.keys(metadata).forEach(key => {
       const value = metadata[key as keyof CreateImageDto];
       if (value !== undefined && value !== null) {
         if (Array.isArray(value)) {
-          formData.append(key, JSON.stringify(value));
+          // Pour les tags, joindre avec des virgules
+          formData.append(key, value.join(','));
         } else {
           formData.append(key, value.toString());
         }
       }
     });
 
-    return this.http.post<ImageResponse>(`${this.baseUrl}/upload`, formData).pipe(
+    return this.http.post<ImageResponse>(`${this.uploadUrl}/image`, formData).pipe(
       map(response => {
+        this.loadingSubject.next(false);
         // Ajouter la nouvelle image à la liste
         const currentImages = this.imagesSubject.value;
         this.imagesSubject.next([response.data, ...currentImages]);
         return response.data;
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        throw error;
+      })
+    );
+  }
+
+  uploadMultipleFiles(files: FileList, metadata: Partial<CreateImageDto>): Observable<Image[]> {
+    this.loadingSubject.next(true);
+    const formData = new FormData();
+
+    // Ajouter tous les fichiers
+    Array.from(files).forEach(file => {
+      formData.append('files', file);
+    });
+
+    // Ajouter les métadonnées
+    Object.keys(metadata).forEach(key => {
+      const value = metadata[key as keyof CreateImageDto];
+      if (value !== undefined && value !== null) {
+        if (Array.isArray(value)) {
+          formData.append(key, value.join(','));
+        } else {
+          formData.append(key, value.toString());
+        }
+      }
+    });
+
+    return this.http.post<{ data: Image[]; count: number; message: string }>(`${this.uploadUrl}/images`, formData).pipe(
+      map(response => {
+        this.loadingSubject.next(false);
+        // Ajouter les nouvelles images à la liste
+        const currentImages = this.imagesSubject.value;
+        this.imagesSubject.next([...response.data, ...currentImages]);
+        return response.data;
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        throw error;
+      })
+    );
+  }
+
+  uploadAvatar(file: File, uploadedById: string, profileUserId: string): Observable<Image> {
+    this.loadingSubject.next(true);
+    const formData = new FormData();
+    formData.append('avatar', file);
+    formData.append('uploadedById', uploadedById);
+    formData.append('profileUserId', profileUserId);
+
+    return this.http.post<ImageResponse>(`${this.uploadUrl}/avatar`, formData).pipe(
+      map(response => {
+        this.loadingSubject.next(false);
+        // Ajouter la nouvelle image à la liste
+        const currentImages = this.imagesSubject.value;
+        this.imagesSubject.next([response.data, ...currentImages]);
+        return response.data;
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        throw error;
       })
     );
   }

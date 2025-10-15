@@ -75,7 +75,10 @@
     "MAINTENANCE": "Maintenance",
     "CLEANUP_UNUSED": "Cleanup Unused Images",
     "FIND_DUPLICATES": "Find Duplicates",
-    "EXPORT_LIST": "Export Images List"
+    "EXPORT_LIST": "Export Images List",
+    "FILTERS": "Images Management Filters"
+
+
   },
   "IMAGE_GALLERY": {
     "SELECT_ALL": "Select All",

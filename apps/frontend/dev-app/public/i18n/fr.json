@@ -74,7 +74,8 @@
       "MAINTENANCE": "Maintenance",
       "CLEANUP_UNUSED": "Nettoyer Images Inutilisées",
       "FIND_DUPLICATES": "Trouver les Doublons",
-      "EXPORT_LIST": "Exporter la Liste"
+      "EXPORT_LIST": "Exporter la Liste",
+      "FILTERS": "Filtres de Gestion des Images"
     },
     "IMAGE_GALLERY": {
       "SELECT_ALL": "Tout Sélectionner",

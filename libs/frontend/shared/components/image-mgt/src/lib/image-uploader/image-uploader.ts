@@ -24,6 +24,7 @@ export class ImageUploader {
   fileSize = signal(0);
   uploadProgress = signal(0);
   imagePreview = signal('');
+  isDragOver = signal(false);
   readonly fileInput = viewChild<ElementRef>('fileInput');
   selectedFile: File | null = null;
   uploadSuccess = false;
@@ -40,6 +41,7 @@ export class ImageUploader {
   // Handler for file drop
   onFileDrop(event: DragEvent): void {
     event.preventDefault();
+    this.isDragOver.set(false);
     const file = event.dataTransfer?.files[0] as File | null;
     this.uploadFile(file);
   }
@@ -47,6 +49,13 @@ export class ImageUploader {
   // Prevent default dragover behavior
   onDragOver(event: DragEvent): void {
     event.preventDefault();
+    this.isDragOver.set(true);
+  }
+
+  // Handler for drag leave
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragOver.set(false);
   }
 
   // Method to handle file upload

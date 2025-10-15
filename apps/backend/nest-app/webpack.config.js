@@ -9,6 +9,7 @@ module.exports = {
       // Backend libs
       '@be/posts': resolve(__dirname, '../../../libs/backend/data-access/posts/src/index.ts'),
       '@be/users': resolve(__dirname, '../../../libs/backend/data-access/users/src/index.ts'),
+      '@be/images': resolve(__dirname, '../../../libs/backend/data-access/images/src/index.ts'),
       // DB libs
       '@db/prisma': resolve(__dirname, '../../../libs/db/index.ts'),
       '@db/prisma-client': resolve(

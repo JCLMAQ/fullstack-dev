@@ -39,185 +39,7 @@ interface FileData {
     MatProgressBarModule,
     TranslateModule
   ],
-  template: `
-    <mat-card class="upload-manager">
-      <mat-card-header>
-        <mat-card-title>{{ 'IMAGE_UPLOAD.TITLE' | translate }}</mat-card-title>
-        <mat-card-subtitle *ngIf="multiple()">
-          {{ 'IMAGE_UPLOAD.MULTIPLE_DESCRIPTION' | translate }}
-        </mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <!-- Zone de drop -->
-        <div class="drop-zone"
-             [class.dragover]="isDragOver()"
-             [class.has-files]="selectedFiles().length > 0"
-             (dragover)="onDragOver($event)"
-             (dragleave)="onDragLeave($event)"
-             (drop)="onFileDrop($event)"
-             (click)="openFileDialog()"
-             (keyup.enter)="openFileDialog()"
-             (keyup.space)="openFileDialog()"
-             tabindex="0"
-             role="button"
-             [attr.aria-label]="'IMAGE_UPLOAD.DROP_ZONE_TITLE' | translate">
-
-          <input type="file"
-                 #fileInput
-                 [accept]="acceptedTypes"
-                 [multiple]="multiple()"
-                 (change)="onFileSelect($event)"
-                 style="display: none;">
-
-          <div class="drop-content" *ngIf="selectedFiles().length === 0">
-            <mat-icon class="upload-icon">cloud_upload</mat-icon>
-            <h3>{{ 'IMAGE_UPLOAD.DROP_ZONE_TITLE' | translate }}</h3>
-            <p>{{ 'IMAGE_UPLOAD.DROP_ZONE_DESCRIPTION' | translate }}</p>
-            <button mat-raised-button color="primary" type="button">
-              {{ 'IMAGE_UPLOAD.BROWSE_FILES' | translate }}
-            </button>
-          </div>
-
-          <!-- Aperçu des fichiers sélectionnés -->
-          <div class="files-preview" *ngIf="selectedFiles().length > 0">
-            <div class="file-item" *ngFor="let fileData of selectedFiles(); trackBy: trackByFileName">
-              <div class="file-preview">
-                <img [src]="fileData.preview" [alt]="fileData.file.name" class="thumbnail">
-              </div>
-
-              <div class="file-info">
-                <span class="file-name">{{ fileData.file.name }}</span>
-                <span class="file-size">{{ formatFileSize(fileData.file.size) }}</span>
-                <span class="file-dimensions" *ngIf="fileData.dimensions">
-                  {{ fileData.dimensions.width }}x{{ fileData.dimensions.height }}
-                </span>
-              </div>
-
-              <div class="file-actions">
-                <button mat-icon-button
-                        color="warn"
-                        (click)="removeFile(fileData.file.name)"
-                        [attr.aria-label]="'IMAGE_UPLOAD.REMOVE_FILE' | translate">
-                  <mat-icon>close</mat-icon>
-                </button>
-              </div>
-
-              <!-- Barre de progression pour ce fichier -->
-              <mat-progress-bar
-                *ngIf="fileData.uploading"
-                mode="determinate"
-                [value]="fileData.progress"
-                class="file-progress">
-              </mat-progress-bar>
-            </div>
-          </div>
-        </div>
-
-        <!-- Formulaire de métadonnées -->
-        <form [formGroup]="metadataForm" class="metadata-form" *ngIf="selectedFiles().length > 0">
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="flex-1">
-              <mat-label>{{ 'IMAGE_UPLOAD.ALT_TEXT' | translate }}</mat-label>
-              <input matInput formControlName="altText" [placeholder]="'IMAGE_UPLOAD.ALT_TEXT_PLACEHOLDER' | translate">
-              <mat-hint>{{ 'IMAGE_UPLOAD.ALT_TEXT_HINT' | translate }}</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="flex-1">
-              <mat-label>{{ 'IMAGE_UPLOAD.STORAGE_TYPE' | translate }}</mat-label>
-              <mat-select formControlName="storageType">
-                <mat-option value="local">{{ 'IMAGE_UPLOAD.STORAGE_LOCAL' | translate }}</mat-option>
-                <mat-option value="s3">{{ 'IMAGE_UPLOAD.STORAGE_S3' | translate }}</mat-option>
-                <mat-option value="cloudinary">{{ 'IMAGE_UPLOAD.STORAGE_CLOUDINARY' | translate }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>{{ 'IMAGE_UPLOAD.DESCRIPTION' | translate }}</mat-label>
-            <textarea matInput
-                      formControlName="description"
-                      rows="3"
-                      [placeholder]="'IMAGE_UPLOAD.DESCRIPTION_PLACEHOLDER' | translate">
-            </textarea>
-          </mat-form-field>
-
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="flex-1">
-              <mat-label>{{ 'IMAGE_UPLOAD.TAGS' | translate }}</mat-label>
-              <mat-chip-grid #chipGrid>
-                <mat-chip-row *ngFor="let tag of tags()"
-                              (removed)="removeTag(tag)"
-                              [removable]="true">
-                  {{ tag }}
-                  <button matChipRemove>
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip-row>
-              </mat-chip-grid>
-              <input matInput
-                     [matChipInputFor]="chipGrid"
-                     (matChipInputTokenEnd)="addTag($event)"
-                     [placeholder]="'IMAGE_UPLOAD.TAGS_PLACEHOLDER' | translate">
-              <mat-hint>{{ 'IMAGE_UPLOAD.TAGS_HINT' | translate }}</mat-hint>
-            </mat-form-field>
-
-            <div class="form-switches">
-              <mat-slide-toggle formControlName="isPublic">
-                {{ 'IMAGE_UPLOAD.PUBLIC' | translate }}
-              </mat-slide-toggle>
-            </div>
-          </div>
-
-          <!-- Associations optionnelles -->
-          <div class="associations" *ngIf="showAssociations()">
-            <h4>{{ 'IMAGE_UPLOAD.ASSOCIATIONS' | translate }}</h4>
-
-            <div class="form-row">
-              <mat-form-field appearance="outline" *ngIf="associationType() === 'post' || !associationType()">
-                <mat-label>{{ 'IMAGE_UPLOAD.POST_ID' | translate }}</mat-label>
-                <input matInput formControlName="postId">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" *ngIf="associationType() === 'user' || !associationType()">
-                <mat-label>{{ 'IMAGE_UPLOAD.USER_ID' | translate }}</mat-label>
-                <input matInput formControlName="profileUserId">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" *ngIf="associationType() === 'organization' || !associationType()">
-                <mat-label>{{ 'IMAGE_UPLOAD.ORG_ID' | translate }}</mat-label>
-                <input matInput formControlName="orgId">
-              </mat-form-field>
-            </div>
-          </div>
-        </form>
-      </mat-card-content>
-
-      <mat-card-actions class="upload-actions">
-        <button mat-button
-                (click)="clearFiles()"
-                [disabled]="selectedFiles().length === 0 || uploading()">
-          {{ 'IMAGE_UPLOAD.CLEAR' | translate }}
-        </button>
-
-        <button mat-raised-button
-                color="primary"
-                (click)="uploadFiles()"
-                [disabled]="selectedFiles().length === 0 || uploading() || metadataForm.invalid">
-          <mat-icon *ngIf="uploading()">hourglass_empty</mat-icon>
-          {{ uploading() ? ('IMAGE_UPLOAD.UPLOADING' | translate) : ('IMAGE_UPLOAD.UPLOAD' | translate) }}
-        </button>
-      </mat-card-actions>
-
-      <!-- Barre de progression globale -->
-      <mat-progress-bar
-        *ngIf="uploading()"
-        mode="determinate"
-        [value]="overallProgress()"
-        class="global-progress">
-      </mat-progress-bar>
-    </mat-card>
-  `,
+  templateUrl: './image-upload-manager.html',
   styleUrl: './image-upload-manager.scss'
 })
 export class ImageUploadManagerComponent {
@@ -373,6 +195,17 @@ export class ImageUploadManagerComponent {
       }
     }
     event.chipInput.clear();
+  }
+
+  addTagFromInput(input: HTMLInputElement): void {
+    const value = input.value?.trim();
+    if (value) {
+      const currentTags = this.tags();
+      if (!currentTags.includes(value)) {
+        this.tags.set([...currentTags, value]);
+      }
+      input.value = '';
+    }
   }
 
   removeTag(tag: string): void {

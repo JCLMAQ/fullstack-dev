@@ -1,164 +1,119 @@
-.upload-manager {
-  max-width: 800px;
-  margin: 0 auto;
+// Image Upload Manager Component Styles - Inspired by user-profile design
+.drop-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
 
-  .drop-zone {
-    border: 2px dashed var(--mat-app-outline-variant);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: var(--mat-app-surface-variant);
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &:hover {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+
+  &.dragover {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+    transform: scale(1.02);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  }
+
+  &.has-files {
+    text-align: left;
+    padding: 1rem;
+  }
+}
+
+// File preview styling consistent with user-profile forms
+.files-preview {
+  .file-item {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.2s;
 
     &:hover {
-      border-color: var(--mat-app-primary);
-      background: var(--mat-app-primary-container);
+      background-color: #f3f4f6;
+    }
+  }
+}
+
+// Form elements consistency with user-profile
+.metadata-form {
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+
+    &::placeholder {
+      color: #9ca3af;
     }
 
-    &.dragover {
-      border-color: var(--mat-app-primary);
-      background: var(--mat-app-primary-container);
-      transform: scale(1.02);
-    }
-
-    &.has-files {
-      text-align: left;
-      padding: 1rem;
-
-      .files-preview {
-        width: 100%;
-
-        .file-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 0.75rem;
-          background: var(--mat-app-surface);
-          border-radius: 8px;
-          margin-bottom: 0.5rem;
-          position: relative;
-
-          .file-preview {
-            .thumbnail {
-              width: 60px;
-              height: 60px;
-              object-fit: cover;
-              border-radius: 6px;
-            }
-          }
-
-          .file-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-
-            .file-name {
-              font-weight: 500;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              max-width: 300px;
-            }
-
-            .file-size,
-            .file-dimensions {
-              font-size: 0.75rem;
-              color: var(--mat-app-on-surface-variant);
-            }
-          }
-
-          .file-actions {
-            display: flex;
-            gap: 0.5rem;
-          }
-
-          .file-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            border-radius: 0 0 8px 8px;
-          }
-        }
-      }
-    }
-
-    .drop-content {
-      .upload-icon {
-        font-size: 3rem;
-        width: 3rem;
-        height: 3rem;
-        color: var(--mat-app-primary);
-        margin-bottom: 1rem;
-      }
-
-      h3 {
-        margin: 0 0 0.5rem 0;
-        color: var(--mat-app-on-surface);
-      }
-
-      p {
-        margin: 0 0 1.5rem 0;
-        color: var(--mat-app-on-surface-variant);
-      }
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
     }
   }
 
-  .metadata-form {
-    margin-bottom: 1rem;
-
-    .form-row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      align-items: flex-start;
-
-      .flex-1 {
-        flex: 1;
-      }
-
-      .form-switches {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        min-width: 150px;
-        justify-content: center;
-      }
-    }
-
-    .full-width {
-      width: 100%;
-    }
-
-    .associations {
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--mat-app-outline-variant);
-
-      h4 {
-        margin: 0 0 1rem 0;
-        color: var(--mat-app-on-surface-variant);
-        font-weight: 400;
-      }
-    }
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
   }
 
-  .upload-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  // Checkbox styling
+  input[type="checkbox"] {
+    height: 1rem;
+    width: 1rem;
+    color: #2563eb;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+  }
+}
+
+// Button styling consistent with user-profile
+button {
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
   }
 
-  .global-progress {
-    margin-top: 1rem;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .drop-zone {
+    padding: 1.5rem;
+  }
+
+  .files-preview {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
   }
 }
 
