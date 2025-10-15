@@ -111,6 +111,11 @@
             <span>{{"ToolBarMenu.Images" | translate}}</span>
           </button>
           <mat-divider></mat-divider>
+        <button mat-menu-item (click)="navigate('file')">
+            <mat-icon>task</mat-icon>
+            <span>{{"ToolBarMenu.Files" | translate}}</span>
+          </button>
+          <mat-divider></mat-divider>
           <button mat-menu-item (click)="navigate('users')">
               <mat-icon>supervised_user_circle</mat-icon>
               <span>{{"ToolBarMenu.Users" | translate}}</span>
