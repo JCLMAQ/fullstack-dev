@@ -1,194 +1,200 @@
-// Image Management Component Styles - Inspired by user-profile design
-.image-management {
-  // Override Material tabs to match our design
-  .management-tabs {
-    ::ng-deep {
-      .mat-mdc-tab-group {
-        .mat-mdc-tab-header {
-          border-bottom: 1px solid #e5e7eb;
+// Image Management Component Styles - Pure Angular Material Design
 
-          .mat-mdc-tab {
-            min-width: 120px;
+// Container Styles
+.image-management-container {
+  padding: 24px;
+  min-height: 100vh;
+  background-color: var(--mat-app-background-color, #fafafa);
 
-            .mdc-tab__text-label {
-              color: #6b7280;
-              font-weight: 500;
-            }
+  .header-card {
+    margin-bottom: 24px;
+    text-align: center;
 
-            &.mdc-tab--active .mdc-tab__text-label {
-              color: #2563eb;
-            }
-          }
+    mat-card-header {
+      justify-content: center;
 
-          .mat-mdc-tab-ink-bar {
-            background-color: #2563eb;
-          }
-        }
+      mat-card-title {
+        margin-bottom: 8px;
       }
     }
   }
 
-  // Form elements consistency with user-profile
-  input[type="text"],
-  input[type="search"],
-  select {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.2s;
+  .main-content {
+    display: flex;
+    justify-content: center;
 
-    &::placeholder {
-      color: #9ca3af;
+    .main-card {
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px;
     }
+  }
+}
 
-    &:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+// Filters Section
+.filters-card {
+  margin-bottom: 24px;
+
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+
+    .full-width {
+      width: 100%;
     }
   }
 
-  label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #374151;
-    margin-bottom: 0.5rem;
-  }
+  .actions-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 24px;
 
-  button {
-    transition: all 0.2s;
+    button {
+      min-width: 120px;
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+      mat-icon {
+        margin-right: 8px;
+      }
     }
 
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
+    mat-button-toggle-group {
+      margin-left: auto;
 
-  // Pagination styling
-  .gallery-paginator {
-    margin-top: 1.5rem;
-
-    ::ng-deep {
-      .mat-mdc-paginator {
-        background: transparent;
-        border-top: 1px solid #e5e7eb;
-        border-radius: 0 0 0.5rem 0.5rem;
+      mat-button-toggle {
+        min-width: 48px;
       }
     }
   }
+}
 
-  // Responsive design adjustments
-  @media (max-width: 768px) {
-    .stats-grid {
-      grid-template-columns: 1fr !important;
-      gap: 1rem;
-    }
+// Stats Section
+.stats-card {
+  margin-bottom: 24px;
 
-    .filter-row {
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    text-align: center;
+
+    .stat-item {
+      display: flex;
       flex-direction: column;
-      align-items: stretch !important;
+      align-items: center;
+      gap: 8px;
+
+      .text-primary {
+        color: var(--mat-primary-500);
+      }
+
+      .text-muted {
+        color: var(--mat-text-secondary-on-background);
+      }
     }
   }
 }
 
-// Loading State
-.loading-state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
+// Gallery Section
+.gallery-paginator {
+  margin-top: 24px;
 
-  .mat-mdc-progress-spinner {
-    margin-right: 16px;
+  ::ng-deep .mat-mdc-paginator {
+    background: transparent;
   }
 }
 
-// Empty State
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  color: #666;
+// Admin Section
+.admin-content {
+  padding-top: 24px;
 
-  .mat-icon {
-    font-size: 48px;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 16px;
-    opacity: 0.5;
-  }
+  .maintenance-card {
+    .admin-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
 
-  h3 {
-    margin: 0 0 8px 0;
-    font-weight: 400;
-  }
+      button {
+        min-height: 56px;
 
-  p {
-    margin: 0;
-    opacity: 0.7;
-  }
-}
-
-// Material Overrides
-::ng-deep {
-  .mat-mdc-tab-group {
-    &.management-tabs {
-      .mat-mdc-tab-header {
-        background: white;
-        border-bottom: 1px solid #e0e0e0;
-      }
-
-      .mat-mdc-tab-label {
-        min-width: 120px;
-
-        &.mdc-tab--active {
-          .mdc-tab__text-label {
-            color: #1976d2;
-          }
+        mat-icon {
+          margin-right: 8px;
         }
       }
     }
   }
+}
 
-  .mat-mdc-form-field {
-    &.search-field,
-    &.filter-field {
-      .mat-mdc-text-field-wrapper {
-        background: white;
-        border-radius: 4px;
-      }
+// Tab Content
+.management-tabs {
+  ::ng-deep {
+    .mat-mdc-tab-body-content {
+      overflow: visible;
+    }
 
-      .mat-mdc-form-field-focus-overlay {
-        background-color: transparent;
-      }
+    .mat-mdc-tab-body-wrapper {
+      flex: 1;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .image-management-container {
+    padding: 16px;
+
+    .main-card {
+      padding: 16px;
     }
   }
 
-  .mat-mdc-button-toggle-group {
-    &.view-mode {
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      overflow: hidden;
+  .filters-grid {
+    grid-template-columns: 1fr !important;
+  }
 
-      .mat-mdc-button-toggle {
-        border: none;
+  .actions-toolbar {
+    flex-direction: column;
+    align-items: stretch;
 
-        &.mat-mdc-button-toggle-checked {
-          background-color: #e3f2fd;
-          color: #1976d2;
-        }
-      }
+    mat-button-toggle-group {
+      margin-left: 0;
+      align-self: center;
     }
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-actions {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+// Material Theme Integration
+:host {
+  display: block;
+
+  // Ensure proper spacing with Material components
+  .mat-mdc-card + .mat-mdc-card {
+    margin-top: 24px;
+  }
+
+  // Custom cursor for interactive icons
+  .cursor-pointer {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  // Ensure form fields are full width when needed
+  .full-width .mat-mdc-form-field {
+    width: 100%;
   }
 }

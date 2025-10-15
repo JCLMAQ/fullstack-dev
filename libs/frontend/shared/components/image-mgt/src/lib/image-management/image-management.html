@@ -1,123 +1,100 @@
-<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="text-center mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-2">
-      {{ 'IMAGE_MANAGEMENT.TITLE' | translate }}
-    </h1>
-    <p class="text-gray-600">
-      {{ 'IMAGE_MANAGEMENT.DESCRIPTION' | translate }}
-    </p>
-  </div>
+<div class="image-management-container">
+  <mat-card class="header-card">
+    <mat-card-header class="text-center">
+      <mat-card-title class="mat-headline-4">
+        {{ 'IMAGE_MANAGEMENT.TITLE' | translate }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ 'IMAGE_MANAGEMENT.DESCRIPTION' | translate }}
+      </mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
 
-  <div class="flex justify-center">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-6xl">
+  <div class="main-content">
+    <mat-card class="main-card">
       <!-- Section Filtres et Recherche -->
-      <div class="border-b border-gray-200 pb-6 mb-6">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">
-          {{ 'IMAGE_MANAGEMENT.FILTERS' | translate }}
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <!-- Recherche -->
-          <div>
-            <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ 'IMAGE_MANAGEMENT.SEARCH' | translate }}
-            </label>
-            <div class="relative">
+      <mat-card class="filters-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ 'IMAGE_MANAGEMENT.FILTERS' | translate }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="filters-grid">
+            <!-- Recherche -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'IMAGE_MANAGEMENT.SEARCH' | translate }}</mat-label>
               <input
-                id="search"
+                matInput
                 type="text"
                 [(ngModel)]="searchQuery"
                 (keyup.enter)="performSearch()"
                 [placeholder]="'IMAGE_MANAGEMENT.SEARCH_PLACEHOLDER' | translate"
-                class="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
-              <button
-                (click)="performSearch()"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors duration-200"
+              <mat-icon matSuffix (click)="performSearch()" class="cursor-pointer">search</mat-icon>
+            </mat-form-field>
+
+            <!-- Filtre Type -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'IMAGE_MANAGEMENT.FILTER_TYPE' | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="selectedMimeType"
+                (selectionChange)="applyFilters()"
               >
-                <mat-icon class="h-5 w-5">search</mat-icon>
-              </button>
-            </div>
+                <mat-option value="">{{ 'IMAGE_MANAGEMENT.ALL_TYPES' | translate }}</mat-option>
+                <mat-option value="image/jpeg">JPEG</mat-option>
+                <mat-option value="image/png">PNG</mat-option>
+                <mat-option value="image/gif">GIF</mat-option>
+                <mat-option value="image/webp">WebP</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Filtre Visibilité -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'IMAGE_MANAGEMENT.VISIBILITY' | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="selectedVisibility"
+                (selectionChange)="applyFilters()"
+              >
+                <mat-option [value]="null">{{ 'IMAGE_MANAGEMENT.ALL_VISIBILITY' | translate }}</mat-option>
+                <mat-option [value]="true">{{ 'IMAGE_MANAGEMENT.PUBLIC' | translate }}</mat-option>
+                <mat-option [value]="false">{{ 'IMAGE_MANAGEMENT.PRIVATE' | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
-          <!-- Filtre Type -->
-          <div>
-            <label for="typeFilter" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ 'IMAGE_MANAGEMENT.FILTER_TYPE' | translate }}
-            </label>
-            <select
-              id="typeFilter"
-              [(ngModel)]="selectedMimeType"
-              (change)="applyFilters()"
-              class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            >
-              <option value="">{{ 'IMAGE_MANAGEMENT.ALL_TYPES' | translate }}</option>
-              <option value="image/jpeg">JPEG</option>
-              <option value="image/png">PNG</option>
-              <option value="image/gif">GIF</option>
-              <option value="image/webp">WebP</option>
-            </select>
-          </div>
-
-          <!-- Filtre Visibilité -->
-          <div>
-            <label for="visibilityFilter" class="block text-sm font-medium text-gray-700 mb-2">
-              {{ 'IMAGE_MANAGEMENT.VISIBILITY' | translate }}
-            </label>
-            <select
-              id="visibilityFilter"
-              [(ngModel)]="selectedVisibility"
-              (change)="applyFilters()"
-              class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            >
-              <option [value]="null">{{ 'IMAGE_MANAGEMENT.ALL_VISIBILITY' | translate }}</option>
-              <option [value]="true">{{ 'IMAGE_MANAGEMENT.PUBLIC' | translate }}</option>
-              <option [value]="false">{{ 'IMAGE_MANAGEMENT.PRIVATE' | translate }}</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Actions globales -->
-        <div class="flex flex-wrap gap-3 items-center">
-          <button
-            type="button"
-            (click)="toggleSelectionMode()"
-            [class]="selectionMode() ? 'bg-accent-600 hover:bg-accent-700 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
-            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
-          >
-            <mat-icon class="mr-2">{{ selectionMode() ? 'close' : 'checklist' }}</mat-icon>
-            {{ selectionMode() ? ('IMAGE_MANAGEMENT.EXIT_SELECTION' | translate) : ('IMAGE_MANAGEMENT.ENTER_SELECTION' | translate) }}
-          </button>
-
-          <button
-            type="button"
-            (click)="refreshImages()"
-            [disabled]="loading()"
-            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-          >
-            <mat-icon class="mr-2">refresh</mat-icon>
-            {{ 'IMAGE_MANAGEMENT.REFRESH' | translate }}
-          </button>
-
-          <!-- Mode d'affichage -->
-          <div class="flex border border-gray-300 rounded-md">
+          <!-- Actions globales -->
+          <div class="actions-toolbar">
             <button
-              (click)="viewMode = 'gallery'"
-              [class]="viewMode === 'gallery' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium border-r border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+              mat-raised-button
+              [color]="selectionMode() ? 'accent' : 'primary'"
+              (click)="toggleSelectionMode()"
             >
-              <mat-icon>view_module</mat-icon>
+              <mat-icon>{{ selectionMode() ? 'close' : 'checklist' }}</mat-icon>
+              {{ selectionMode() ? ('IMAGE_MANAGEMENT.EXIT_SELECTION' | translate) : ('IMAGE_MANAGEMENT.ENTER_SELECTION' | translate) }}
             </button>
+
             <button
-              (click)="viewMode = 'list'"
-              [class]="viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+              mat-raised-button
+              (click)="refreshImages()"
+              [disabled]="loading()"
             >
-              <mat-icon>view_list</mat-icon>
+              <mat-icon>refresh</mat-icon>
+              {{ 'IMAGE_MANAGEMENT.REFRESH' | translate }}
             </button>
+
+            <!-- Mode d'affichage -->
+            <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="Mode d'affichage">
+              <mat-button-toggle value="gallery">
+                <mat-icon>view_module</mat-icon>
+              </mat-button-toggle>
+              <mat-button-toggle value="list">
+                <mat-icon>view_list</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
           </div>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
 
       <!-- Onglets -->
       <mat-tab-group [(selectedIndex)]="activeTab" class="management-tabs">
@@ -125,22 +102,24 @@
         <mat-tab [label]="'IMAGE_MANAGEMENT.GALLERY_TAB' | translate">
           <div class="pt-6 space-y-6">
             <!-- Statistiques -->
-            <div class="bg-gray-50 rounded-lg p-4" *ngIf="!loading()">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div class="stat-item">
-                  <div class="text-2xl font-bold text-gray-900">{{ totalImages() }}</div>
-                  <div class="text-sm text-gray-600">{{ 'IMAGE_MANAGEMENT.TOTAL_IMAGES' | translate }}</div>
+            <mat-card class="stats-card" *ngIf="!loading()">
+              <mat-card-content>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <div class="mat-headline-3">{{ totalImages() }}</div>
+                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_IMAGES' | translate }}</div>
+                  </div>
+                  <div class="stat-item" *ngIf="selectedImages().length > 0">
+                    <div class="mat-headline-3 text-primary">{{ selectedImages().length }}</div>
+                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.SELECTED' | translate }}</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="mat-headline-3">{{ formatFileSize(totalSize()) }}</div>
+                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_SIZE' | translate }}</div>
+                  </div>
                 </div>
-                <div class="stat-item" *ngIf="selectedImages().length > 0">
-                  <div class="text-2xl font-bold text-blue-600">{{ selectedImages().length }}</div>
-                  <div class="text-sm text-gray-600">{{ 'IMAGE_MANAGEMENT.SELECTED' | translate }}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="text-2xl font-bold text-gray-900">{{ formatFileSize(totalSize()) }}</div>
-                  <div class="text-sm text-gray-600">{{ 'IMAGE_MANAGEMENT.TOTAL_SIZE' | translate }}</div>
-                </div>
-              </div>
-            </div>
+              </mat-card-content>
+            </mat-card>
 
             <!-- Galerie d'images -->
             <lib-image-gallery
@@ -183,44 +162,46 @@
 
         <!-- Onglet Administration (optionnel) -->
         <mat-tab [label]="'IMAGE_MANAGEMENT.ADMIN_TAB' | translate" *ngIf="showAdminTab()">
-          <div class="pt-6">
-            <div class="border-b border-gray-200 pb-6">
-              <h2 class="text-lg font-semibold text-gray-900 mb-4">
-                {{ 'IMAGE_MANAGEMENT.MAINTENANCE' | translate }}
-              </h2>
+          <div class="admin-content">
+            <mat-card class="maintenance-card">
+              <mat-card-header>
+                <mat-card-title>
+                  {{ 'IMAGE_MANAGEMENT.MAINTENANCE' | translate }}
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="admin-actions">
+                  <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="cleanupUnusedImages()"
+                  >
+                    <mat-icon>delete_sweep</mat-icon>
+                    {{ 'IMAGE_MANAGEMENT.CLEANUP_UNUSED' | translate }}
+                  </button>
 
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button
-                  type="button"
-                  (click)="cleanupUnusedImages()"
-                  class="inline-flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
-                >
-                  <mat-icon class="mr-2">delete_sweep</mat-icon>
-                  {{ 'IMAGE_MANAGEMENT.CLEANUP_UNUSED' | translate }}
-                </button>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    (click)="findDuplicates()"
+                  >
+                    <mat-icon>content_copy</mat-icon>
+                    {{ 'IMAGE_MANAGEMENT.FIND_DUPLICATES' | translate }}
+                  </button>
 
-                <button
-                  type="button"
-                  (click)="findDuplicates()"
-                  class="inline-flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200"
-                >
-                  <mat-icon class="mr-2">content_copy</mat-icon>
-                  {{ 'IMAGE_MANAGEMENT.FIND_DUPLICATES' | translate }}
-                </button>
-
-                <button
-                  type="button"
-                  (click)="exportImagesList()"
-                  class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
-                >
-                  <mat-icon class="mr-2">download</mat-icon>
-                  {{ 'IMAGE_MANAGEMENT.EXPORT_LIST' | translate }}
-                </button>
-              </div>
-            </div>
+                  <button
+                    mat-raised-button
+                    (click)="exportImagesList()"
+                  >
+                    <mat-icon>download</mat-icon>
+                    {{ 'IMAGE_MANAGEMENT.EXPORT_LIST' | translate }}
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
           </div>
         </mat-tab>
       </mat-tab-group>
-    </div>
+    </mat-card>
   </div>
 </div>

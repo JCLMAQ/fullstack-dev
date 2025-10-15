@@ -465,6 +465,9 @@ model File {
   bucketName        String?                // Bucket/container name for cloud storage
   storageName       String?   @unique      // Unique storage identifier
 
+  // Binary data storage (for database storage mode)
+  binaryData        Bytes?                 // File content stored as binary data in database
+
   // File categorization and metadata
   category          String?                // Document category (pdf, document, spreadsheet, etc.)
   tags              String[]   @default([]) // Array of tags for categorization
