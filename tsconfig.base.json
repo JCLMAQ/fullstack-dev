@@ -91,7 +91,7 @@
       "@fe/shared/utilities": ["libs/frontend/shared/utils/index.ts"],
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
-      "@fe/ui": ["libs/frontend/shared/components/dashboard/ui/src/index.ts"],
+      "@fe/ui": ["libs/frontend/shared/components/dashboard/src/index.ts"],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
       "@be/iam": ["libs/backend/iam/src/index.ts"]
     }
