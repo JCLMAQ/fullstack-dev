@@ -1,51 +1,49 @@
 import { File, Prisma } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
-import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-
-export interface FileMetadata {
-  [key: string]: string | number | boolean | null;
-}
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 
 export interface FileCreateDto {
   filename: string;
   originalName: string;
   mimeType: string;
   fileSize: number;
-  path?: string;
-  url?: string;
-  storageProvider?: string;
-  bucket?: string;
-  thumbnailUrl?: string;
-  previewUrl?: string;
-  downloadUrl?: string;
-  metadata?: FileMetadata;
-  tags?: string[];
+  extension?: string;
+  encoding?: string;
+  storageType?: string;
+  storagePath?: string;
+  storageUrl?: string;
+  bucketName?: string;
+  storageName?: string;
   category?: string;
-  isPublic?: boolean;
+  tags?: string[];
+  description?: string;
+  version?: string;
+  isPublicDownload?: boolean;
   expiresAt?: Date;
 
   // Relations
   ownerId: string;
-  uploaderId?: string;
-  orgId?: string;
+  uploadedById?: string;
+  orgId: string;
   postId?: string;
   storyId?: string;
-  commentId?: string;
   profileUserId?: string;
 }
 
 export interface FileUpdateDto {
   filename?: string;
   mimeType?: string;
-  isPublic?: boolean;
+  isPublicDownload?: boolean;
   processingStatus?: string;
-  virusStatus?: string;
-  metadata?: FileMetadata;
+  virusScanStatus?: string;
   tags?: string[];
   category?: string;
-  expiresAt?: Date;
+  description?: string;
+  version?: string;
   ocrText?: string;
   downloadCount?: number;
+  lastAccessedAt?: Date;
+  expiresAt?: Date;
 }
 
 export interface FileSearchOptions {
@@ -53,25 +51,22 @@ export interface FileSearchOptions {
   mimeType?: string;
   category?: string;
   tags?: string[];
-  storageProvider?: string;
+  storageType?: string;
   processingStatus?: string;
-  virusStatus?: string;
+  virusScanStatus?: string;
   ownerId?: string;
   orgId?: string;
-  isPublic?: boolean;
+  isPublicDownload?: boolean;
   minSize?: number;
   maxSize?: number;
   createdAfter?: Date;
   createdBefore?: Date;
-  expiresAfter?: Date;
-  expiresBefore?: Date;
 }
 
 @Injectable()
 export class FilesService {
   constructor(private readonly prisma: PrismaClientService) {}
 
-  // Create operations
   async create(data: FileCreateDto): Promise<File> {
     try {
       return await this.prisma.file.create({
@@ -80,510 +75,190 @@ export class FilesService {
           originalName: data.originalName,
           mimeType: data.mimeType,
           fileSize: data.fileSize,
-          path: data.path,
-          url: data.url,
-          storageProvider: data.storageProvider || 'local',
-          bucket: data.bucket,
-          thumbnailUrl: data.thumbnailUrl,
-          previewUrl: data.previewUrl,
-          downloadUrl: data.downloadUrl,
-          metadata: data.metadata,
-          tags: data.tags || [],
+          extension: data.extension,
+          encoding: data.encoding,
+          storageType: data.storageType || 'local',
+          storagePath: data.storagePath,
+          storageUrl: data.storageUrl,
+          bucketName: data.bucketName,
+          storageName: data.storageName,
           category: data.category,
-          isPublic: data.isPublic ?? true,
+          tags: data.tags || [],
+          description: data.description,
+          version: data.version || '1.0',
+          isPublicDownload: data.isPublicDownload ?? false,
+          downloadCount: 0,
           expiresAt: data.expiresAt,
 
           // Relations
           owner: { connect: { id: data.ownerId } },
-          ...(data.uploaderId && { uploader: { connect: { id: data.uploaderId } } }),
-          ...(data.orgId && { org: { connect: { id: data.orgId } } }),
+          ...(data.uploadedById && { uploadedBy: { connect: { id: data.uploadedById } } }),
+          org: { connect: { id: data.orgId } },
           ...(data.postId && { post: { connect: { id: data.postId } } }),
           ...(data.storyId && { story: { connect: { id: data.storyId } } }),
-          ...(data.commentId && { comment: { connect: { id: data.commentId } } }),
           ...(data.profileUserId && { profileUser: { connect: { id: data.profileUserId } } }),
         },
         include: {
-          owner: { select: { id: true, fullname: true, email: true } },
-          uploader: { select: { id: true, fullname: true, email: true } },
+          owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+          uploadedBy: { select: { id: true, firstName: true, lastName: true, email: true } },
           org: { select: { id: true, name: true } },
           post: { select: { id: true, title: true } },
           story: { select: { id: true, caption: true } },
-          comment: { select: { id: true, content: true } },
-          profileUser: { select: { id: true, fullname: true } },
+          profileUser: { select: { id: true, firstName: true, lastName: true } },
         },
       });
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ConflictException('File with this name already exists');
-        }
-        if (error.code === 'P2003') {
-          throw new BadRequestException('Referenced entity does not exist');
-        }
-      }
-      throw new InternalServerErrorException('Failed to create file');
+      throw new BadRequestException(`Failed to create file: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
   async createBulk(files: FileCreateDto[]): Promise<File[]> {
     const results: File[] = [];
-
     for (const fileData of files) {
-      try {
-        const file = await this.create(fileData);
-        results.push(file);
-      } catch (error) {
-        // Log error but continue with other files
-        console.error(`Failed to create file ${fileData.filename}:`, error);
-      }
+      const result = await this.create(fileData);
+      results.push(result);
     }
-
     return results;
   }
 
-  // Read operations
   async findById(id: string): Promise<File | null> {
     return await this.prisma.file.findUnique({
-      where: { id },
+      where: { id, isDeleted: 0 },
       include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-        uploader: { select: { id: true, fullname: true, email: true } },
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        uploadedBy: { select: { id: true, firstName: true, lastName: true, email: true } },
         org: { select: { id: true, name: true } },
         post: { select: { id: true, title: true } },
         story: { select: { id: true, caption: true } },
-        comment: { select: { id: true, content: true } },
-        profileUser: { select: { id: true, fullname: true } },
+        profileUser: { select: { id: true, firstName: true, lastName: true } },
       },
     });
   }
 
-  async findByIdOrThrow(id: string): Promise<File> {
-    const file = await this.findById(id);
-    if (!file) {
-      throw new NotFoundException(`File with ID ${id} not found`);
-    }
-    return file;
-  }
-
-  async findAll(
-    skip = 0,
-    take = 10,
-    orderBy: Prisma.FileOrderByWithRelationInput = { createdAt: 'desc' }
-  ): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      skip,
-      take,
-      orderBy,
-      where: { isDeleted: 0 },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-        uploader: { select: { id: true, fullname: true, email: true } },
-        org: { select: { id: true, name: true } },
-      },
-    });
-  }
-
-  async search(
-    options: FileSearchOptions,
-    skip = 0,
-    take = 10,
-    orderBy: Prisma.FileOrderByWithRelationInput = { createdAt: 'desc' }
-  ): Promise<File[]> {
+  async findAll(options: FileSearchOptions = {}): Promise<File[]> {
     const where: Prisma.FileWhereInput = {
       isDeleted: 0,
       ...(options.filename && { filename: { contains: options.filename, mode: 'insensitive' } }),
-      ...(options.mimeType && { mimeType: { contains: options.mimeType } }),
+      ...(options.mimeType && { mimeType: options.mimeType }),
       ...(options.category && { category: options.category }),
       ...(options.tags && options.tags.length > 0 && { tags: { hasSome: options.tags } }),
-      ...(options.storageProvider && { storageProvider: options.storageProvider }),
+      ...(options.storageType && { storageType: options.storageType }),
       ...(options.processingStatus && { processingStatus: options.processingStatus }),
-      ...(options.virusStatus && { virusStatus: options.virusStatus }),
+      ...(options.virusScanStatus && { virusScanStatus: options.virusScanStatus }),
       ...(options.ownerId && { ownerId: options.ownerId }),
       ...(options.orgId && { orgId: options.orgId }),
-      ...(options.isPublic !== undefined && { isPublic: options.isPublic }),
+      ...(options.isPublicDownload !== undefined && { isPublicDownload: options.isPublicDownload }),
       ...(options.minSize && { fileSize: { gte: options.minSize } }),
       ...(options.maxSize && { fileSize: { lte: options.maxSize } }),
       ...(options.createdAfter && { createdAt: { gte: options.createdAfter } }),
       ...(options.createdBefore && { createdAt: { lte: options.createdBefore } }),
-      ...(options.expiresAfter && { expiresAt: { gte: options.expiresAfter } }),
-      ...(options.expiresBefore && { expiresAt: { lte: options.expiresBefore } }),
     };
 
     return await this.prisma.file.findMany({
       where,
-      skip,
-      take,
-      orderBy,
       include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-        uploader: { select: { id: true, fullname: true, email: true } },
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        uploadedBy: { select: { id: true, firstName: true, lastName: true, email: true } },
         org: { select: { id: true, name: true } },
       },
-    });
-  }
-
-  async searchWithOCR(
-    searchText: string,
-    skip = 0,
-    take = 10
-  ): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: {
-        isDeleted: 0,
-        OR: [
-          { filename: { contains: searchText, mode: 'insensitive' } },
-          { originalName: { contains: searchText, mode: 'insensitive' } },
-          { ocrText: { contains: searchText, mode: 'insensitive' } },
-          { tags: { hasSome: [searchText] } },
-        ],
-      },
-      skip,
-      take,
       orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async update(id: string, data: FileUpdateDto): Promise<File> {
+    const existingFile = await this.findById(id);
+    if (!existingFile) {
+      throw new NotFoundException(`File with ID ${id} not found`);
+    }
+
+    const updateData: Prisma.FileUpdateInput = {};
+    if (data.filename !== undefined) updateData.filename = data.filename;
+    if (data.mimeType !== undefined) updateData.mimeType = data.mimeType;
+    if (data.isPublicDownload !== undefined) updateData.isPublicDownload = data.isPublicDownload;
+    if (data.processingStatus !== undefined) updateData.processingStatus = data.processingStatus;
+    if (data.virusScanStatus !== undefined) updateData.virusScanStatus = data.virusScanStatus;
+    if (data.tags !== undefined) updateData.tags = data.tags;
+    if (data.category !== undefined) updateData.category = data.category;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.version !== undefined) updateData.version = data.version;
+    if (data.ocrText !== undefined) updateData.ocrText = data.ocrText;
+    if (data.downloadCount !== undefined) updateData.downloadCount = data.downloadCount;
+    if (data.lastAccessedAt !== undefined) updateData.lastAccessedAt = data.lastAccessedAt;
+    if (data.expiresAt !== undefined) updateData.expiresAt = data.expiresAt;
+
+    return await this.prisma.file.update({
+      where: { id },
+      data: updateData,
       include: {
-        owner: { select: { id: true, fullname: true, email: true } },
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        uploadedBy: { select: { id: true, firstName: true, lastName: true, email: true } },
         org: { select: { id: true, name: true } },
       },
     });
   }
 
-  // Update operations
-  async update(id: string, data: FileUpdateDto): Promise<File> {
-    await this.findByIdOrThrow(id);
-
-    try {
-      const updateData: Prisma.FileUpdateInput = {};
-
-      if (data.filename !== undefined) updateData.filename = data.filename;
-      if (data.mimeType !== undefined) updateData.mimeType = data.mimeType;
-      if (data.isPublic !== undefined) updateData.isPublic = data.isPublic;
-      if (data.processingStatus !== undefined) updateData.processingStatus = data.processingStatus;
-      if (data.virusStatus !== undefined) updateData.virusStatus = data.virusStatus;
-      if (data.metadata !== undefined) updateData.metadata = data.metadata;
-      if (data.tags !== undefined) updateData.tags = data.tags;
-      if (data.category !== undefined) updateData.category = data.category;
-      if (data.expiresAt !== undefined) updateData.expiresAt = data.expiresAt;
-      if (data.ocrText !== undefined) updateData.ocrText = data.ocrText;
-      if (data.downloadCount !== undefined) updateData.downloadCount = data.downloadCount;
-
-      return await this.prisma.file.update({
-        where: { id },
-        data: updateData,
-        include: {
-          owner: { select: { id: true, fullname: true, email: true } },
-          uploader: { select: { id: true, fullname: true, email: true } },
-          org: { select: { id: true, name: true } },
-        },
-      });
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ConflictException('File with this name already exists');
-        }
-      }
-      throw new InternalServerErrorException('Failed to update file');
+  async remove(id: string): Promise<void> {
+    const existingFile = await this.findById(id);
+    if (!existingFile) {
+      throw new NotFoundException(`File with ID ${id} not found`);
     }
+
+    await this.prisma.file.update({
+      where: { id },
+      data: { isDeleted: 1, isDeletedDT: new Date() },
+    });
+  }
+
+  async findByOwner(ownerId: string): Promise<File[]> {
+    return await this.prisma.file.findMany({
+      where: { ownerId, isDeleted: 0 },
+      include: {
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        org: { select: { id: true, name: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async findByOrganization(orgId: string): Promise<File[]> {
+    return await this.prisma.file.findMany({
+      where: { orgId, isDeleted: 0 },
+      include: {
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        org: { select: { id: true, name: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async findByStorageType(storageType: string): Promise<File[]> {
+    return await this.prisma.file.findMany({
+      where: { storageType, isDeleted: 0 },
+      include: {
+        owner: { select: { id: true, firstName: true, lastName: true, email: true } },
+        org: { select: { id: true, name: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async updateProcessingStatus(id: string, status: string): Promise<File> {
+    return await this.update(id, { processingStatus: status });
+  }
+
+  async updateVirusScanStatus(id: string, status: string): Promise<File> {
+    return await this.update(id, { virusScanStatus: status });
   }
 
   async incrementDownloadCount(id: string): Promise<File> {
-    return await this.prisma.file.update({
-      where: { id },
-      data: { downloadCount: { increment: 1 } },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async updateProcessingStatus(id: string, status: string, metadata?: FileMetadata): Promise<File> {
-    return await this.update(id, {
-      processingStatus: status,
-      ...(metadata && { metadata })
-    });
-  }
-
-  async updateVirusStatus(id: string, status: string): Promise<File> {
-    return await this.update(id, { virusStatus: status });
-  }
-
-  async addOCRText(id: string, ocrText: string): Promise<File> {
-    return await this.update(id, { ocrText });
-  }
-
-  // Delete operations
-  async softDelete(id: string): Promise<File> {
-    await this.findByIdOrThrow(id);
-
-    return await this.prisma.file.update({
-      where: { id },
-      data: {
-        isDeleted: 1,
-        isDeletedDT: new Date(),
-      },
-    });
-  }
-
-  async restore(id: string): Promise<File> {
-    return await this.prisma.file.update({
-      where: { id },
-      data: {
-        isDeleted: 0,
-        isDeletedDT: null,
-      },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async hardDelete(id: string): Promise<void> {
-    await this.findByIdOrThrow(id);
-
-    await this.prisma.file.delete({
-      where: { id },
-    });
-  }
-
-  // Association operations
-  async findByOwner(
-    ownerId: string,
-    skip = 0,
-    take = 10
-  ): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { ownerId, isDeleted: 0 },
-      skip,
-      take,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async findByOrganization(
-    orgId: string,
-    skip = 0,
-    take = 10
-  ): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { orgId, isDeleted: 0 },
-      skip,
-      take,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-        org: { select: { id: true, name: true } },
-      },
-    });
-  }
-
-  async findByPost(postId: string): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { postId, isDeleted: 0 },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async findByStory(storyId: string): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { storyId, isDeleted: 0 },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async findByComment(commentId: string): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { commentId, isDeleted: 0 },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async findProfileFiles(userId: string): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { profileUserId: userId, isDeleted: 0 },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  // Analytics and stats
-  async getFileStats(): Promise<{
-    totalFiles: number;
-    totalSize: number;
-    averageSize: number;
-    filesByType: { mimeType: string; count: number }[];
-    processingStats: { status: string; count: number }[];
-  }> {
-    const [totalFiles, sizeStats, filesByType, processingStats] = await Promise.all([
-      this.prisma.file.count({ where: { isDeleted: 0 } }),
-
-      this.prisma.file.aggregate({
-        where: { isDeleted: 0 },
-        _sum: { fileSize: true },
-        _avg: { fileSize: true },
-      }),
-
-      this.prisma.file.groupBy({
-        by: ['mimeType'],
-        where: { isDeleted: 0 },
-        _count: { id: true },
-        orderBy: { _count: { id: 'desc' } },
-      }),
-
-      this.prisma.file.groupBy({
-        by: ['processingStatus'],
-        where: { isDeleted: 0 },
-        _count: { id: true },
-      }),
-    ]);
-
-    return {
-      totalFiles,
-      totalSize: sizeStats._sum.fileSize || 0,
-      averageSize: sizeStats._avg.fileSize || 0,
-      filesByType: filesByType.map(item => ({
-        mimeType: item.mimeType,
-        count: item._count.id,
-      })),
-      processingStats: processingStats.map(item => ({
-        status: item.processingStatus || 'unknown',
-        count: item._count.id,
-      })),
-    };
-  }
-
-  async getUserFileStats(userId: string): Promise<{
-    totalFiles: number;
-    totalSize: number;
-    filesByCategory: { category: string; count: number }[];
-  }> {
-    const [totalFiles, sizeStats, filesByCategory] = await Promise.all([
-      this.prisma.file.count({
-        where: { ownerId: userId, isDeleted: 0 }
-      }),
-
-      this.prisma.file.aggregate({
-        where: { ownerId: userId, isDeleted: 0 },
-        _sum: { fileSize: true },
-      }),
-
-      this.prisma.file.groupBy({
-        by: ['category'],
-        where: { ownerId: userId, isDeleted: 0 },
-        _count: { id: true },
-      }),
-    ]);
-
-    return {
-      totalFiles,
-      totalSize: sizeStats._sum.fileSize || 0,
-      filesByCategory: filesByCategory.map(item => ({
-        category: item.category || 'uncategorized',
-        count: item._count.id,
-      })),
-    };
-  }
-
-  async getExpiredFiles(): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: {
-        isDeleted: 0,
-        expiresAt: { lte: new Date() },
-      },
-      include: {
-        owner: { select: { id: true, fullname: true, email: true } },
-      },
-    });
-  }
-
-  async cleanupExpiredFiles(): Promise<number> {
-    const expiredFiles = await this.getExpiredFiles();
-
-    for (const file of expiredFiles) {
-      await this.softDelete(file.id);
+    const file = await this.findById(id);
+    if (!file) {
+      throw new NotFoundException(`File with ID ${id} not found`);
     }
 
-    return expiredFiles.length;
-  }
-
-  // Bulk operations
-  async bulkUpdateCategory(fileIds: string[], category: string): Promise<number> {
-    const result = await this.prisma.file.updateMany({
-      where: { id: { in: fileIds }, isDeleted: 0 },
-      data: { category },
-    });
-
-    return result.count;
-  }
-
-  async bulkUpdateTags(fileIds: string[], tags: string[]): Promise<number> {
-    const result = await this.prisma.file.updateMany({
-      where: { id: { in: fileIds }, isDeleted: 0 },
-      data: { tags },
-    });
-
-    return result.count;
-  }
-
-  async bulkSoftDelete(fileIds: string[]): Promise<number> {
-    const result = await this.prisma.file.updateMany({
-      where: { id: { in: fileIds }, isDeleted: 0 },
-      data: {
-        isDeleted: 1,
-        isDeletedDT: new Date(),
-      },
-    });
-
-    return result.count;
-  }
-
-  async bulkRestore(fileIds: string[]): Promise<number> {
-    const result = await this.prisma.file.updateMany({
-      where: { id: { in: fileIds }, isDeleted: 1 },
-      data: {
-        isDeleted: 0,
-        isDeletedDT: null,
-      },
-    });
-
-    return result.count;
-  }
-
-  // Storage management
-  async findByStorageProvider(provider: string): Promise<File[]> {
-    return await this.prisma.file.findMany({
-      where: { storageProvider: provider, isDeleted: 0 },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
-
-  async updateStorageInfo(
-    id: string,
-    storageProvider: string,
-    bucket?: string,
-    path?: string,
-    url?: string
-  ): Promise<File> {
-    return await this.prisma.file.update({
-      where: { id },
-      data: {
-        storageProvider,
-        bucket,
-        path,
-        url,
-      },
+    return await this.update(id, {
+      downloadCount: file.downloadCount + 1,
+      lastAccessedAt: new Date()
     });
   }
 }

@@ -30,7 +30,7 @@
               <input
                 id="firstName"
                 type="text"
-                [control]="personalForm.firstName"
+                [Control]="personalForm.firstName"
                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Enter your first name"
               />
@@ -48,7 +48,7 @@
               <input
                 id="lastName"
                 type="text"
-                [control]="personalForm.lastName"
+                [Control]="personalForm.lastName"
                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Enter your last name"
               />
@@ -67,7 +67,7 @@
             <input
               id="dateOfBirth"
               type="date"
-              [control]="personalForm.dateOfBirth"
+              [Control]="personalForm.dateOfBirth"
               class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
             <lib-field-error [field]="personalForm.dateOfBirth()" />
@@ -92,7 +92,7 @@
               <input
                 id="password"
                 type="password"
-                [control]="personalForm.password"
+                [Control]="personalForm.password"
                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Enter a strong password"
               />
@@ -110,7 +110,7 @@
               <input
                 id="confirmPassword"
                 type="password"
-                [control]="personalForm.confirmPassword"
+                [Control]="personalForm.confirmPassword"
                 class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Confirm your password"
               />
@@ -134,7 +134,7 @@
                 id="hasEmergencyContact"
                 type="checkbox"
                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                [control]="personalForm.hasEmergencyContact"
+                [Control]="personalForm.hasEmergencyContact"
               />
               <label
                 for="hasEmergencyContact"
@@ -155,7 +155,7 @@
                 <input
                   id="emergencyContactName"
                   type="text"
-                  [control]="personalForm.emergencyContactName"
+                  [Control]="personalForm.emergencyContactName"
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   placeholder="Enter emergency contact name"
                 />
@@ -174,7 +174,7 @@
                 <input
                   id="emergencyContactPhone"
                   type="tel"
-                  [control]="personalForm.emergencyContactPhone"
+                  [Control]="personalForm.emergencyContactPhone"
                   class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   placeholder="Enter emergency contact phone"
                 />

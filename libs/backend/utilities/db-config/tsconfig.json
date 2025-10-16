@@ -16,6 +16,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../prisma-client"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

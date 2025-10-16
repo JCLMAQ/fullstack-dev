@@ -1,8 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { Control } from '@angular/forms';
 import {
   apply,
-  Control,
   customError,
   disabled,
   form,
@@ -35,7 +35,12 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
 
 @Component({
   selector: 'lib-user-profile',
-  imports: [Control, JsonPipe, FieldError],
+  imports: [
+    JsonPipe,
+    FieldError,
+    Control
+
+  ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss',
 })

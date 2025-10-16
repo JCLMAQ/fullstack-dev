@@ -27,7 +27,7 @@ export const layoutRoutes: Route[] = [
       {
         path: 'files',
         loadChildren: () =>
-          import('@fe/shared/components/file-mgt').then((m) => m.fileRoutes),
+          import('@fe/shared/file-mgt').then((m) => m.fileRoutes),
       },
     ],
   },

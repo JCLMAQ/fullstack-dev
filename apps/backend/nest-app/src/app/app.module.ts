@@ -4,12 +4,11 @@ import { AppEmailDomainsModule } from '@be/appEmailDomains';
 import { CategoriesModule } from '@be/categories';
 import { CommentsModule } from '@be/comments';
 import { ConfigParamsModule } from '@be/configParams';
-import { TimeUtilModule } from '@be/time-util';
-// import { FilesModule } from '@be/files';
 import { DbConfigModule } from '@be/db-config';
+import { FilesModule } from '@be/files';
 import { GroupsModule } from '@be/groups';
 import { ImagesModule } from '@be/images';
-import { MailsModule } from '@be/mails';
+import { MailsSimpleModule } from '@be/mails';
 import { OrganizationsModule } from '@be/organizations';
 import { OrgDomainsModule } from '@be/orgDomains';
 import { OrgEmailsModule } from '@be/orgEmails';
@@ -20,6 +19,7 @@ import { PostsModule } from '@be/posts';
 import { ProfilesModule } from '@be/profiles';
 import { StoriesModule } from '@be/stories';
 import { TasksModule } from '@be/tasks';
+import { TimeUtilModule } from '@be/time-util';
 import { TodosModule } from '@be/todos';
 import { UserFollowersModule } from '@be/userFollowers';
 import { UsersModule } from '@be/users';
@@ -96,7 +96,7 @@ import path = require('path');
     }),
 
     ConfigModule,
-    MailsModule,
+    MailsSimpleModule,
     PostsModule,
     UsersModule,
     CommentsModule,
@@ -110,7 +110,7 @@ import path = require('path');
     CategoriesModule,
     ConfigParamsModule,
     DbConfigModule,
-    // FilesModule,
+    FilesModule,
     GroupsModule,
     OrganizationsModule,
     OrgDomainsModule,
