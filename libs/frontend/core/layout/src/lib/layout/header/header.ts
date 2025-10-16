@@ -71,6 +71,9 @@ export class Header {
 
     if (pageRoutes.includes(route)) {
       this.router.navigate([`/pages/${route}`]);
+    } else if (route === 'file') {
+      // Route spécifique pour les fichiers
+      this.router.navigate(['/files']);
     } else {
       // Routes directes (comme users)
       this.router.navigate([`/${route}`]);

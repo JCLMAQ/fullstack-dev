@@ -24,6 +24,11 @@ export const layoutRoutes: Route[] = [
         loadChildren: () =>
           import('@fe/dashboard').then((m) => m.dashboardRoutes),
       },
+      {
+        path: 'files',
+        loadChildren: () =>
+          import('@fe/shared/components/file-mgt').then((m) => m.fileRoutes),
+      },
     ],
   },
 ];
