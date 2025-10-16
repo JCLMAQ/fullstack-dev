@@ -95,7 +95,9 @@
       "PUBLIC": "Publique",
       "PRIVATE": "Privée",
       "NO_IMAGES": "Aucune Image",
-      "NO_IMAGES_DESCRIPTION": "Uploadez des images pour commencer"
+      "NO_IMAGES_DESCRIPTION": "Uploadez des images pour commencer",
+      "NO_FILES": "No Files",
+      "NO_FILES_DESC": "No files found in the selected folder."
     },
     "IMAGE_UPLOAD": {
       "TITLE": "Upload d'Images",
@@ -123,7 +125,9 @@
       "ORG_ID": "ID Organisation",
       "CLEAR": "Vider",
       "UPLOAD": "Upload",
-      "UPLOADING": "Upload en cours..."
+      "UPLOADING": "Upload en cours...",
+      "SELECT_FILES": "Sélectionner des Fichiers",
+      "METADATA": "Métadonnées"
     },
     "IMAGE_VIEWER": {
       "PREVIOUS": "Image Précédente",
@@ -188,7 +192,12 @@
       "FIND_DUPLICATES": "Trouver les Doublons",
       "EXPORT_LIST": "Exporter la Liste",
       "FILTERS": "Filtres de Gestion des Fichiers",
-      "DESCRIPTION": "Gérez vos fichiers efficacement avec nos outils puissants."
+      "DESCRIPTION": "Gérez vos fichiers efficacement avec nos outils puissants.",
+      "NO_FILES": "Pas de Fichiers",
+      "NO_FILES_DESC": "Pas de fichiers disponibles.",
+      "DRAG_DROP": "Glissez-déposez des fichiers ici ou cliquez pour sélectionner.",
+      "OR": "Ou",
+      "SELECT_FILES": "Sélectionner un Fichier"
     },
     "FILE_GALLERY": {
       "SELECT_ALL": "Tout Sélectionner",

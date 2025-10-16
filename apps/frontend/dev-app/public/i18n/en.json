@@ -80,7 +80,6 @@
     "FILTERS": "Images Management Filters",
     "DESCRIPTION": "Manage your images effectively with our powerful tools."
 
-
   },
   "IMAGE_GALLERY": {
     "SELECT_ALL": "Select All",
@@ -126,7 +125,8 @@
     "ORG_ID": "Organization ID",
     "CLEAR": "Clear",
     "UPLOAD": "Upload",
-    "UPLOADING": "Uploading..."
+    "SELECT_FILES": "Select Files",
+    "METADATA": "Metadata"
   },
   "IMAGE_VIEWER": {
     "PREVIOUS": "Previous Image",
@@ -191,7 +191,12 @@
     "FIND_DUPLICATES": "Find Duplicates",
     "EXPORT_LIST": "Export Files List",
     "FILTERS": "File Management Filters",
-    "DESCRIPTION": "Manage your files effectively with our powerful tools."
+    "DESCRIPTION": "Manage your files effectively with our powerful tools.",
+    "NO_FILES": "No Files",
+    "NO_FILES_DESC": "No files found in the selected folder.",
+    "DRAG_DROP": "Drag and drop files here or click to select.",
+    "OR": "Or",
+    "SELECT_FILES": "Select File"
   },
   "FILE_GALLERY": {
     "SELECT_ALL": "Select All",
