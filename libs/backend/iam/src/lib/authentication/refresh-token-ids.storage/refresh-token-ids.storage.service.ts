@@ -1,4 +1,5 @@
-import { type Prisma, PrismaClientService, type RefreshToken } from '@db/prisma-client';
+import { Prisma, RefreshToken } from '@db/prisma';
+import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
