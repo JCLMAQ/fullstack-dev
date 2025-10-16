@@ -7,6 +7,7 @@ import { ConfigParamsModule } from '@be/configParams';
 import { DbConfigModule } from '@be/db-config';
 import { FilesModule } from '@be/files';
 import { GroupsModule } from '@be/groups';
+import { IamModule } from '@be/iam';
 import { ImagesModule } from '@be/images';
 import { MailsSimpleModule } from '@be/mails';
 import { OrganizationsModule } from '@be/organizations';
@@ -104,7 +105,7 @@ import path = require('path');
     AddressModule,
     UserFollowersModule,
     TimeUtilModule,
-    // AuthModule,
+    IamModule,
     PrismaClientModule,
     AppEmailDomainsModule,
     CategoriesModule,
