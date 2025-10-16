@@ -1,7 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { Control } from '@angular/forms';
+
 import {
+  Control,
   apply,
   customError,
   disabled,
@@ -39,7 +40,6 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
     JsonPipe,
     FieldError,
     Control
-
   ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss',
