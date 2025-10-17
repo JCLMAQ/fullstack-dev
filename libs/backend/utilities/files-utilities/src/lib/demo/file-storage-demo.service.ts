@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EnhancedFilesService, FileUploadDto } from '../services/enhanced-files.service';
+import { EnhancedFilesService, FileUploadDto } from '../services/enhanced-files-simple.service';
 import { FileStorageService } from '../services/file-storage.service';
 
 /**

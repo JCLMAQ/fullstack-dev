@@ -10,7 +10,7 @@ export * from './lib/providers/database-storage.provider';
 export * from './lib/providers/filesystem-storage.provider';
 
 // Services
-export * from './lib/services/enhanced-files.service';
+export * from './lib/services/enhanced-files-simple.service';
 export * from './lib/services/file-storage.service';
 
 // Modules

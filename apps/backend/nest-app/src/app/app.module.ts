@@ -6,6 +6,7 @@ import { CommentsModule } from '@be/comments';
 import { ConfigParamsModule } from '@be/configParams';
 import { DbConfigModule } from '@be/db-config';
 import { FilesModule } from '@be/files';
+import { FilesUtilitiesModule } from '@be/files-utilities';
 import { GroupsModule } from '@be/groups';
 import { IamModule } from '@be/iam';
 import { ImagesModule } from '@be/images';
@@ -112,6 +113,7 @@ import path = require('path');
     ConfigParamsModule,
     DbConfigModule,
     FilesModule,
+    FilesUtilitiesModule,
     GroupsModule,
     OrganizationsModule,
     OrgDomainsModule,

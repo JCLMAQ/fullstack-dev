@@ -15,9 +15,17 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-// Utilisation du type Response de NestJS
-import { EnhancedFilesService, FileUploadDto } from '../services/enhanced-files.service';
+import { EnhancedFilesService, type FileUploadDto } from '../services/enhanced-files-simple.service';
 import { FileStorageService } from '../services/file-storage.service';
+
+// Interface temporaire pour les fichiers uploadés
+interface UploadedFileType {
+  buffer: Buffer;
+  originalname: string;
+  mimetype: string;
+  size: number;
+  encoding?: string;
+}
 
 @Controller('dual-storage')
 export class DualStorageController {
@@ -43,7 +51,7 @@ export class DualStorageController {
           }),
         ],
       }),
-    ) file: Express.Multer.File,
+    ) file: UploadedFileType,
     @Body() uploadData: {
       ownerId: string;
       uploaderId?: string;
@@ -100,15 +108,19 @@ export class DualStorageController {
     @Response() res: any
   ) {
     try {
-      const fileData = await this.enhancedFilesService.downloadFile(fileId);
+      const { file, content } = await this.enhancedFilesService.getFile(fileId);
+
+      if (!content) {
+        throw new BadRequestException('File content not available');
+      }
 
       res.set({
-        'Content-Type': fileData.mimeType,
-        'Content-Disposition': `attachment; filename="${fileData.filename}"`,
-        'Content-Length': fileData.size.toString()
+        'Content-Type': file.mimeType,
+        'Content-Disposition': `attachment; filename="${file.originalName}"`,
+        'Content-Length': file.fileSize.toString()
       });
 
-      res.send(fileData.buffer);
+      res.send(content);
     } catch (error) {
       this.logger.error(`Download failed for file ${fileId}:`, error);
       throw error;
@@ -139,7 +151,7 @@ export class DualStorageController {
   @Get('exists/:fileId')
   async fileExists(@Param('fileId') fileId: string) {
     try {
-      const exists = await this.enhancedFilesService.fileExists(fileId);
+      const exists = await this.fileStorageService.exists(fileId);
 
       return {
         exists,
@@ -157,7 +169,7 @@ export class DualStorageController {
   @Get('stats')
   async getStorageStats() {
     try {
-      const stats = await this.enhancedFilesService.getStorageStats();
+      const stats = await this.fileStorageService.getStats();
 
       return {
         success: true,
@@ -193,53 +205,7 @@ export class DualStorageController {
     }
   }
 
-  /**
-   * Migration d'un fichier entre systèmes de stockage
-   */
-  @Post('migrate/:fileId/:targetStorage')
-  async migrateFile(
-    @Param('fileId') fileId: string,
-    @Param('targetStorage') targetStorage: string
-  ) {
-    try {
-      if (targetStorage !== 'database' && targetStorage !== 'filesystem') {
-        throw new BadRequestException('Target storage must be "database" or "filesystem"');
-      }
 
-      await this.enhancedFilesService.migrateFileStorage(
-        fileId,
-        targetStorage as 'database' | 'filesystem'
-      );
-
-      return {
-        success: true,
-        message: `File migrated to ${targetStorage} storage`,
-        newStorageType: targetStorage
-      };
-    } catch (error) {
-      this.logger.error(`Migration failed for file ${fileId}:`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Nettoyage des fichiers orphelins
-   */
-  @Post('cleanup')
-  async cleanupOrphanedFiles() {
-    try {
-      const result = await this.enhancedFilesService.cleanupOrphanedFiles();
-
-      return {
-        success: true,
-        cleanedCount: result.cleanedCount,
-        errors: result.errors
-      };
-    } catch (error) {
-      this.logger.error('Cleanup failed:', error);
-      throw error;
-    }
-  }
 
   /**
    * Sauvegarde des fichiers (si supporté)

@@ -44,6 +44,9 @@ export interface FileUpdateDto {
   downloadCount?: number;
   lastAccessedAt?: Date;
   expiresAt?: Date;
+  storageType?: string;
+  storagePath?: string;
+  storageUrl?: string;
 }
 
 export interface FileSearchOptions {
@@ -185,6 +188,9 @@ export class FilesService {
     if (data.downloadCount !== undefined) updateData.downloadCount = data.downloadCount;
     if (data.lastAccessedAt !== undefined) updateData.lastAccessedAt = data.lastAccessedAt;
     if (data.expiresAt !== undefined) updateData.expiresAt = data.expiresAt;
+    if (data.storageType !== undefined) updateData.storageType = data.storageType;
+    if (data.storagePath !== undefined) updateData.storagePath = data.storagePath;
+    if (data.storageUrl !== undefined) updateData.storageUrl = data.storageUrl;
 
     return await this.prisma.file.update({
       where: { id },
@@ -260,5 +266,42 @@ export class FilesService {
       downloadCount: file.downloadCount + 1,
       lastAccessedAt: new Date()
     });
+  }
+
+  async getFileStats(): Promise<{
+    totalFiles: number;
+    totalSize: number;
+    storageTypes: Record<string, number>;
+    categories: Record<string, number>;
+  }> {
+    const files = await this.prisma.file.findMany({
+      where: { isDeleted: 0 },
+      select: {
+        fileSize: true,
+        storageType: true,
+        category: true,
+      },
+    });
+
+    const totalFiles = files.length;
+    const totalSize = files.reduce((sum, file) => sum + file.fileSize, 0);
+
+    const storageTypes: Record<string, number> = {};
+    const categories: Record<string, number> = {};
+
+    files.forEach(file => {
+      const storageType = file.storageType || 'unknown';
+      const category = file.category || 'uncategorized';
+
+      storageTypes[storageType] = (storageTypes[storageType] || 0) + 1;
+      categories[category] = (categories[category] || 0) + 1;
+    });
+
+    return {
+      totalFiles,
+      totalSize,
+      storageTypes,
+      categories,
+    };
   }
 }
