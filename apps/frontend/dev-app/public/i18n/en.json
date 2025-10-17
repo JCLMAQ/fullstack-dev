@@ -97,7 +97,8 @@
     "PUBLIC": "Public",
     "PRIVATE": "Private",
     "NO_IMAGES": "No Images",
-    "NO_IMAGES_DESCRIPTION": "Upload images to get started"
+    "NO_IMAGES_DESCRIPTION": "Upload images to get started",
+    "IMAGE_GALLERY.DESELECT_ALL": "Deselect All"
   },
   "IMAGE_UPLOAD": {
     "TITLE": "Image Upload",
@@ -196,7 +197,9 @@
     "NO_FILES_DESC": "No files found in the selected folder.",
     "DRAG_DROP": "Drag and drop files here or click to select.",
     "OR": "Or",
-    "SELECT_FILES": "Select File"
+    "SELECT_FILES": "Select File",
+    "UPLOAD_TITLE": "Upload your files"
+
   },
   "FILE_GALLERY": {
     "SELECT_ALL": "Select All",

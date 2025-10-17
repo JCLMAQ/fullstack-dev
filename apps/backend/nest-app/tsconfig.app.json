@@ -67,6 +67,9 @@
       "path": "../../../libs/backend/data-access/images/tsconfig.lib.json"
     },
     {
+      "path": "../../../libs/backend/iam"
+    },
+    {
       "path": "../../../libs/backend/data-access/groups/tsconfig.lib.json"
     },
     {

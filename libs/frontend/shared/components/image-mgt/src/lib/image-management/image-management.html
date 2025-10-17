@@ -102,24 +102,28 @@
         <mat-tab [label]="'IMAGE_MANAGEMENT.GALLERY_TAB' | translate">
           <div class="pt-6 space-y-6">
             <!-- Statistiques -->
-            <mat-card class="stats-card" *ngIf="!loading()">
-              <mat-card-content>
-                <div class="stats-grid">
-                  <div class="stat-item">
-                    <div class="mat-headline-3">{{ totalImages() }}</div>
-                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_IMAGES' | translate }}</div>
+            @if (!loading()) {
+              <mat-card class="stats-card">
+                <mat-card-content>
+                  <div class="stats-grid">
+                    <div class="stat-item">
+                      <div class="mat-headline-3">{{ totalImages() }}</div>
+                      <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_IMAGES' | translate }}</div>
+                    </div>
+                    @if (selectedImages().length > 0) {
+                      <div class="stat-item">
+                        <div class="mat-headline-3 text-primary">{{ selectedImages().length }}</div>
+                        <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.SELECTED' | translate }}</div>
+                      </div>
+                    }
+                    <div class="stat-item">
+                      <div class="mat-headline-3">{{ formatFileSize(totalSize()) }}</div>
+                      <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_SIZE' | translate }}</div>
+                    </div>
                   </div>
-                  <div class="stat-item" *ngIf="selectedImages().length > 0">
-                    <div class="mat-headline-3 text-primary">{{ selectedImages().length }}</div>
-                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.SELECTED' | translate }}</div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="mat-headline-3">{{ formatFileSize(totalSize()) }}</div>
-                    <div class="mat-body-2 text-muted">{{ 'IMAGE_MANAGEMENT.TOTAL_SIZE' | translate }}</div>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
+                </mat-card-content>
+              </mat-card>
+            }
 
             <!-- Galerie d'images -->
             <lib-image-gallery
@@ -134,15 +138,16 @@
             </lib-image-gallery>
 
             <!-- Pagination -->
-            <mat-paginator
-              *ngIf="!loading() && totalImages() > pageSize"
-              [length]="totalImages()"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="pageSizeOptions"
-              [pageIndex]="currentPage"
-              (page)="onPageChange($event)"
-              class="gallery-paginator">
-            </mat-paginator>
+            @if (!loading() && totalImages() > pageSize) {
+              <mat-paginator
+                [length]="totalImages()"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="currentPage"
+                (page)="onPageChange($event)"
+                class="gallery-paginator">
+              </mat-paginator>
+            }
           </div>
         </mat-tab>
 
@@ -161,13 +166,14 @@
         </mat-tab>
 
         <!-- Onglet Administration (optionnel) -->
-        <mat-tab [label]="'IMAGE_MANAGEMENT.ADMIN_TAB' | translate" *ngIf="showAdminTab()">
-          <div class="admin-content">
-            <mat-card class="maintenance-card">
-              <mat-card-header>
-                <mat-card-title>
-                  {{ 'IMAGE_MANAGEMENT.MAINTENANCE' | translate }}
-                </mat-card-title>
+        @if (showAdminTab()) {
+          <mat-tab [label]="'IMAGE_MANAGEMENT.ADMIN_TAB' | translate">
+            <div class="admin-content">
+              <mat-card class="maintenance-card">
+                <mat-card-header>
+                  <mat-card-title>
+                    {{ 'IMAGE_MANAGEMENT.MAINTENANCE' | translate }}
+                  </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <div class="admin-actions">
@@ -200,7 +206,8 @@
               </mat-card-content>
             </mat-card>
           </div>
-        </mat-tab>
+          </mat-tab>
+        }
       </mat-tab-group>
     </mat-card>
   </div>

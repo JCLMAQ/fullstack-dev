@@ -43,6 +43,7 @@
         "libs/backend/utilities/files-utilities/src/index.ts"
       ],
       "@be/groups": ["libs/backend/data-access/groups/src/index.ts"],
+      "@be/iam": ["libs/backend/iam/src/index.ts"],
       "@be/images": ["libs/backend/data-access/images/src/index.ts"],
       "@be/mails": ["libs/backend/utilities/mails/src/index.ts"],
       "@be/orgDomains": ["libs/backend/data-access/orgDomains/src/index.ts"],
@@ -92,8 +93,7 @@
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/ui": ["libs/frontend/shared/components/dashboard/src/index.ts"],
-      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
-      "@be/iam": ["libs/backend/iam/src/index.ts"]
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"]
     }
   }
 }

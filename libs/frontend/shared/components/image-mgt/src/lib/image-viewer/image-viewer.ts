@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconButton } from '@angular/material/button';
+import { MatChip, MatChipSet } from '@angular/material/chips';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Image } from '@db/prisma';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -17,12 +18,16 @@ export interface ImageViewerData {
 @Component({
   selector: 'lib-image-viewer',
   imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatIconButton,
+    MatIcon,
+    MatTooltip,
+    MatProgressSpinner,
+    MatChipSet,
+    MatChip,
+    DatePipe,
     TranslateModule
   ],
   template: `
@@ -33,32 +38,38 @@ export interface ImageViewerData {
           <h2>{{ currentImage().originalName }}</h2>
           <p class="image-details">
             {{ formatFileSize(currentImage().fileSize) }}
-            <span *ngIf="currentImage().width && currentImage().height">
-              • {{ currentImage().width }}x{{ currentImage().height }}
-            </span>
-            <span *ngIf="currentImage().mimeType">
-              • {{ currentImage().mimeType }}
-            </span>
+            @if (currentImage().width && currentImage().height) {
+              <span>
+                • {{ currentImage().width }}x{{ currentImage().height }}
+              </span>
+            }
+            @if (currentImage().mimeType) {
+              <span>
+                • {{ currentImage().mimeType }}
+              </span>
+            }
           </p>
         </div>
 
         <div class="viewer-actions">
           <!-- Navigation si plusieurs images -->
-          <div class="navigation" *ngIf="hasMultipleImages()">
-            <button mat-icon-button
-                    (click)="previousImage()"
-                    [disabled]="currentIndex() === 0"
-                    matTooltip="{{ 'IMAGE_VIEWER.PREVIOUS' | translate }}">
-              <mat-icon>chevron_left</mat-icon>
-            </button>
-            <span class="image-counter">{{ currentIndex() + 1 }} / {{ totalImages() }}</span>
-            <button mat-icon-button
-                    (click)="nextImage()"
-                    [disabled]="currentIndex() === totalImages() - 1"
-                    matTooltip="{{ 'IMAGE_VIEWER.NEXT' | translate }}">
-              <mat-icon>chevron_right</mat-icon>
-            </button>
-          </div>
+          @if (hasMultipleImages()) {
+            <div class="navigation">
+              <button mat-icon-button
+                      (click)="previousImage()"
+                      [disabled]="currentIndex() === 0"
+                      matTooltip="{{ 'IMAGE_VIEWER.PREVIOUS' | translate }}">
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+              <span class="image-counter">{{ currentIndex() + 1 }} / {{ totalImages() }}</span>
+              <button mat-icon-button
+                      (click)="nextImage()"
+                      [disabled]="currentIndex() === totalImages() - 1"
+                      matTooltip="{{ 'IMAGE_VIEWER.NEXT' | translate }}">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          }
 
           <!-- Actions sur l'image -->
           <button mat-icon-button
@@ -106,9 +117,11 @@ export interface ImageViewerData {
              [attr.aria-label]="isZoomed() ? ('IMAGE_VIEWER.ZOOM_OUT' | translate) : ('IMAGE_VIEWER.ZOOM_IN' | translate)">
 
           <!-- Chargement -->
-          <div class="loading-overlay" *ngIf="imageLoading()">
-            <mat-progress-spinner diameter="50"></mat-progress-spinner>
-          </div>
+          @if (imageLoading()) {
+            <div class="loading-overlay">
+              <mat-progress-spinner diameter="50"></mat-progress-spinner>
+            </div>
+          }
 
           <!-- Image principale -->
           <img
@@ -129,23 +142,35 @@ export interface ImageViewerData {
       <!-- Footer avec métadonnées -->
       <div class="viewer-footer" mat-dialog-actions>
         <div class="image-metadata">
-          <!-- Description -->
-          <div class="metadata-item" *ngIf="currentImage().description">
-            <strong>{{ 'IMAGE_VIEWER.DESCRIPTION' | translate }}:</strong>
-            <span>{{ currentImage().description }}</span>
-          </div>
+                    <!-- Description -->
+          @if (currentImage().description) {
+            <div class="metadata-item">
+              <strong>{{ 'IMAGE_VIEWER.DESCRIPTION' | translate }}:</strong>
+              {{ currentImage().description }}
+            </div>
+          }
 
           <!-- Texte alternatif -->
-          <div class="metadata-item" *ngIf="currentImage().altText">
-            <strong>{{ 'IMAGE_VIEWER.ALT_TEXT' | translate }}:</strong>
-            <span>{{ currentImage().altText }}</span>
-          </div>
+          @if (currentImage().altText) {
+            <div class="metadata-item">
+              <strong>{{ 'IMAGE_VIEWER.ALT_TEXT' | translate }}:</strong>
+              {{ currentImage().altText }}
+            </div>
+          }
 
           <!-- Tags -->
-          <div class="metadata-item" *ngIf="currentImage().tags && currentImage().tags.length > 0">
-            <strong>{{ 'IMAGE_VIEWER.TAGS' | translate }}:</strong>
-            <span class="tags">{{ currentImage().tags.join(', ') }}</span>
-          </div>
+          @if (currentImage().tags && currentImage().tags.length > 0) {
+            <div class="metadata-item">
+              <strong>{{ 'IMAGE_VIEWER.TAGS' | translate }}:</strong>
+              <div class="tags-container">
+                <mat-chip-set>
+                  @for (tag of currentImage().tags; track tag) {
+                    <mat-chip>{{ tag }}</mat-chip>
+                  }
+                </mat-chip-set>
+              </div>
+            </div>
+          }
 
           <!-- Dates -->
           <div class="metadata-dates">
@@ -153,10 +178,16 @@ export interface ImageViewerData {
               <strong>{{ 'IMAGE_VIEWER.UPLOADED' | translate }}:</strong>
               <span>{{ formatDate(currentImage().createdAt) }}</span>
             </div>
-            <div class="metadata-item" *ngIf="currentImage().updatedAt !== currentImage().createdAt">
-              <strong>{{ 'IMAGE_VIEWER.MODIFIED' | translate }}:</strong>
-              <span>{{ formatDate(currentImage().updatedAt) }}</span>
+                        <div class="date-info">
+              <strong>{{ 'IMAGE_VIEWER.CREATED_AT' | translate }}:</strong>
+              {{ currentImage().createdAt | date : 'medium' }}
             </div>
+            @if (currentImage().updatedAt !== currentImage().createdAt) {
+              <div class="metadata-item">
+                <strong>{{ 'IMAGE_VIEWER.UPDATED_AT' | translate }}:</strong>
+                {{ currentImage().updatedAt | date : 'medium' }}
+              </div>
+            }
           </div>
 
           <!-- Statut -->

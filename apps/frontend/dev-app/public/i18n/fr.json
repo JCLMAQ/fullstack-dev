@@ -97,7 +97,8 @@
       "NO_IMAGES": "Aucune Image",
       "NO_IMAGES_DESCRIPTION": "Uploadez des images pour commencer",
       "NO_FILES": "No Files",
-      "NO_FILES_DESC": "No files found in the selected folder."
+      "NO_FILES_DESC": "No files found in the selected folder.",
+      "IMAGE_GALLERY.DESELECT_ALL": "Désélectionner Tout"
     },
     "IMAGE_UPLOAD": {
       "TITLE": "Upload d'Images",
@@ -197,7 +198,8 @@
       "NO_FILES_DESC": "Pas de fichiers disponibles.",
       "DRAG_DROP": "Glissez-déposez des fichiers ici ou cliquez pour sélectionner.",
       "OR": "Ou",
-      "SELECT_FILES": "Sélectionner un Fichier"
+      "SELECT_FILES": "Sélectionner un Fichier",
+      "UPLOAD_TITLE": "Upload vos fichiers"
     },
     "FILE_GALLERY": {
       "SELECT_ALL": "Tout Sélectionner",
@@ -232,6 +234,7 @@
       "PUBLIC": "Publique",
       "CLEAR": "Vider",
       "UPLOAD": "Upload",
-      "UPLOADING": "Upload en cours..."
+      "UPLOADING": "Upload en cours...",
+      "SELECT_FILES": "Sélectionner des Fichiers"
     }
 }

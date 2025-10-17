@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +22,6 @@ import { ImageService, SearchImagesDto } from '../services/image.service';
 @Component({
   selector: 'lib-image-management',
   imports: [
-    CommonModule,
     FormsModule,
     MatTabsModule,
     MatCardModule,
