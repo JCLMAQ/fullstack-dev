@@ -96,9 +96,12 @@
       "PRIVATE": "Privée",
       "NO_IMAGES": "Aucune Image",
       "NO_IMAGES_DESCRIPTION": "Uploadez des images pour commencer",
-      "NO_FILES": "No Files",
-      "NO_FILES_DESC": "No files found in the selected folder.",
-      "IMAGE_GALLERY.DESELECT_ALL": "Désélectionner Tout"
+      "NO_FILES": "Aucun Fichier",
+      "NO_FILES_DESC": "Aucun fichier trouvé dans le dossier sélectionné.",
+      "DESELECT_ALL": "Désélectionner Tout",
+      "DELETE_SUCCESS": "Suppression de l'image",
+      "DELETE_ERROR": "Une erreur s'est produite lors de la suppression de l'image",
+      "DOWNLOAD_SELECTED": "Télécharger la Sélection"
     },
     "IMAGE_UPLOAD": {
       "TITLE": "Upload d'Images",

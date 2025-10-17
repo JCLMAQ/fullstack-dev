@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,6 +36,7 @@ interface FileData {
     MatChipsModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    DecimalPipe,
     TranslateModule
   ],
   templateUrl: './image-upload-manager.html',

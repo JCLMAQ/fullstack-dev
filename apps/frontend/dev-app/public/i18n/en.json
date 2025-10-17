@@ -98,7 +98,11 @@
     "PRIVATE": "Private",
     "NO_IMAGES": "No Images",
     "NO_IMAGES_DESCRIPTION": "Upload images to get started",
-    "IMAGE_GALLERY.DESELECT_ALL": "Deselect All"
+    "DESELECT_ALL": "Deselect All",
+    "DELETE_SUCCESS": "Suppression de l'image",
+    "DELETE_ERROR": "Une erreur s'est produite lors de la suppression de l'image",
+    "DOWNLOAD_SELECTED": "Download Selected"
+
   },
   "IMAGE_UPLOAD": {
     "TITLE": "Image Upload",
