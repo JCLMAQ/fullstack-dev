@@ -59,6 +59,14 @@ export class ImageGalleryComponent {
     return image.id;
   }
 
+  hasSelectedImages(): boolean {
+    return this.selectedImages().length > 0;
+  }
+
+  getSelectedCount(): number {
+    return this.selectedImages().length;
+  }
+
   isSelected(imageId: string): boolean {
     return this.selectedImageIds().includes(imageId);
   }
@@ -93,6 +101,39 @@ export class ImageGalleryComponent {
   clearSelection(): void {
     this.selectedImages.set([]);
     this.selectionChanged.emit([]);
+  }
+
+  deselectAll(): void {
+    this.clearSelection();
+  }
+
+  downloadSelected(): void {
+    const selectedImages = this.selectedImages();
+    if (selectedImages.length === 0) {
+      this.snackBar.open('Aucune image sélectionnée', 'Fermer', { duration: 2000 });
+      return;
+    }
+
+    selectedImages.forEach((image, index) => {
+      const url = image.storageUrl;
+      if (url) {
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = image.originalName;
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, index * 100); // Délai pour éviter de bloquer le navigateur
+      }
+    });
+
+    this.snackBar.open(
+      `Téléchargement de ${selectedImages.length} image(s) en cours...`,
+      'Fermer',
+      { duration: 3000 }
+    );
   }
 
   viewImage(image: Image, event?: Event): void {
