@@ -5,6 +5,36 @@ import { randomUUID } from 'crypto';
 import { StorageFile } from '../interfaces/storage.interfaces';
 import { FileStorageService } from './file-storage.service';
 
+// Interface temporaire locale - à remplacer par l'import depuis @be/files une fois que l'export fonctionne
+interface FileUpdateDto {
+  filename?: string;
+  mimeType?: string;
+  isPublicDownload?: boolean;
+  processingStatus?: string;
+  virusScanStatus?: string;
+  tags?: string[];
+  category?: string;
+  description?: string;
+  version?: string;
+  ocrText?: string;
+  downloadCount?: number;
+  lastAccessedAt?: Date;
+  expiresAt?: Date;
+  storageType?: string;
+  storagePath?: string;
+  storageUrl?: string;
+}
+
+// Interface étendue pour inclure la méthode getFileStats
+interface ExtendedFilesService extends FilesService {
+  getFileStats(): Promise<{
+    totalFiles: number;
+    totalSize: number;
+    storageTypes: Record<string, number>;
+    categories: Record<string, number>;
+  }>;
+}
+
 export interface FileUploadDto {
   buffer: Buffer;
   originalName: string;
@@ -264,7 +294,7 @@ export class EnhancedFilesService {
   }> {
     try {
       // Statistiques depuis la base de données
-      const dbStats = await this.filesService.getFileStats();
+      const dbStats = await (this.filesService as ExtendedFilesService).getFileStats();
 
       // Statistiques depuis le stockage physique
       const storageStats = await this.fileStorageService.getStats();
@@ -272,8 +302,8 @@ export class EnhancedFilesService {
       return {
         combined: {
           storageType: this.fileStorageService.getProviderType(),
-          totalFiles: dbStats.totalFiles || 0,
-          totalSize: dbStats.totalSize || 0,
+          totalFiles: dbStats.totalFiles,
+          totalSize: dbStats.totalSize,
         },
         storage: storageStats
       };
@@ -339,11 +369,12 @@ export class EnhancedFilesService {
         }
 
         // 7. Mise à jour des métadonnées en base
-        await this.filesService.update(fileId, {
+        const updateData: FileUpdateDto = {
           storageType: targetStorage,
           storagePath: newStorageResult.path,
           storageUrl: newStorageResult.url,
-        });
+        };
+        await this.filesService.update(fileId, updateData);
 
         // 8. Suppression de l'ancien stockage
         this.fileStorageService.switchProvider(currentProviderType === 'database');

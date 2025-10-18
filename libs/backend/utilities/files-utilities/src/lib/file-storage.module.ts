@@ -13,13 +13,20 @@ import { FileStorageService } from './services/file-storage.service';
   ],
   providers: [
     DatabaseStorageProvider,
-    FilesystemStorageProvider,
+    {
+      provide: FilesystemStorageProvider,
+      useFactory: (configService: ConfigService) => {
+        const basePath = configService.get<string>('FILES_STORAGE_DEST') || './files';
+        return new FilesystemStorageProvider(basePath);
+      },
+      inject: [ConfigService]
+    },
     FileStorageService,
     {
       provide: 'STORAGE_CONFIG',
       useFactory: (configService: ConfigService) => {
         const useDatabase = configService.get<string>('FILES_STORAGE_DB') === '1' ||
-                           configService.get<string>('FILES_STORAGE_DB')?.toLowerCase() === 'true';
+                          configService.get<string>('FILES_STORAGE_DB')?.toLowerCase() === 'true';
 
         const basePath = configService.get<string>('FILES_STORAGE_DEST') || './files';
 
