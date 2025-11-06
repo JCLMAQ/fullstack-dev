@@ -1,4 +1,4 @@
-import { Gender, Language, Role, Title, User } from '@db/prisma';
+import { Gender, Language, Role, Title, User } from '@fullstack-dev/prisma';
 
 export interface IUserRegister {
   email: string;
@@ -17,16 +17,15 @@ export interface IUserRegister {
 export interface IUserLogged {
   email: string;
   lastName: string | null | undefined;
-  firstName: string| null;
-  nickName: string| null;
-  title: Title| null;
-  Gender: Gender| null;
-  Roles: Role[]| null;
-  Language: Language| null;
+  firstName: string | null;
+  nickName: string | null;
+  title: Title | null;
+  Gender: Gender | null;
+  Roles: Role[] | null;
+  Language: Language | null;
   fullName: string | null | undefined;
   photoUrl: string;
 }
-
 
 export interface ICurrentUser {
   user?: User;
@@ -61,4 +60,3 @@ export interface IChangePwdResponse {
   message: string;
   success: boolean;
 }
-

@@ -1,9 +1,9 @@
 {
-  "name": "db",
+  "name": "prisma",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/db/src",
+  "sourceRoot": "libs/prisma/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project db --web",
+  "// targets": "to see all targets run: nx show project prisma --web",
   "targets": {}
 }

@@ -1,4 +1,4 @@
-import { User } from '@db/prisma';
+import { User } from '@fullstack-dev/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -7,7 +7,7 @@ import { authenticator } from 'otplib';
 export class OtpAuthenticationService {
   constructor(
     private readonly configService: ConfigService,
-    private readonly prisma: PrismaClientService
+    private readonly prisma: PrismaClientService,
   ) {}
 
   async generateSecret(email: string) {
@@ -34,13 +34,13 @@ export class OtpAuthenticationService {
     });
     const userbis: User = await this.prisma.user.update({
       where: {
-        id: user.id
+        id: user.id,
       },
       data: {
         tfaSecret: secret,
         isTfaEnable: true,
-      }
+      },
     });
-    userbis
+    userbis;
   }
 }

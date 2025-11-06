@@ -1,4 +1,4 @@
-import { TokenType } from '@db/prisma';
+import { TokenType } from '@fullstack-dev/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
@@ -9,22 +9,25 @@ import { AuthResponse } from '../dto/account-validation.dto/account-validation.d
 export class AccountValidationService {
   constructor(
     private readonly prisma: PrismaClientService,
-    private readonly i18n: I18nService
+    private readonly i18n: I18nService,
   ) {}
 
   /**
    * Send account validation email with token
    */
-  async sendAccountValidationEmail(email: string, lang = 'en'): Promise<AuthResponse> {
+  async sendAccountValidationEmail(
+    email: string,
+    lang = 'en',
+  ): Promise<AuthResponse> {
     // Find user by email
     const user = await this.prisma.user.findUnique({
-      where: { email: email.toLowerCase() }
+      where: { email: email.toLowerCase() },
     });
 
     if (!user) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang })
+        message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
       };
     }
 
@@ -32,7 +35,10 @@ export class AccountValidationService {
     if (user.isValidated) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_ALREADY_DONE', { lang })
+        message: await this.i18n.translate(
+          'auths.ACCOUNT_VALIDATION_ALREADY_DONE',
+          { lang },
+        ),
       };
     }
 
@@ -49,8 +55,8 @@ export class AccountValidationService {
           type: TokenType.ACCOUNT,
           userId: user.id,
           expiration: expiresAt,
-          valid: true
-        }
+          valid: true,
+        },
       });
 
       // TODO: Send email with validation link
@@ -59,12 +65,18 @@ export class AccountValidationService {
 
       return {
         success: true,
-        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_EMAIL_SENT', { lang })
+        message: await this.i18n.translate(
+          'auths.ACCOUNT_VALIDATION_EMAIL_SENT',
+          { lang },
+        ),
       };
     } catch {
       return {
         success: false,
-        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_EMAIL_NOT_SENT', { lang })
+        message: await this.i18n.translate(
+          'auths.ACCOUNT_VALIDATION_EMAIL_NOT_SENT',
+          { lang },
+        ),
       };
     }
   }
@@ -81,41 +93,48 @@ export class AccountValidationService {
           type: TokenType.ACCOUNT,
           valid: true,
           expiration: {
-            gte: new Date()
-          }
+            gte: new Date(),
+          },
         },
         include: {
-          user: true
-        }
+          user: true,
+        },
       });
 
       if (!tokenRecord) {
         return {
           success: false,
-          message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_INVALID_TOKEN', { lang })
+          message: await this.i18n.translate(
+            'auths.ACCOUNT_VALIDATION_INVALID_TOKEN',
+            { lang },
+          ),
         };
       }
 
       // Update user validation status
       await this.prisma.user.update({
         where: { id: tokenRecord.userId },
-        data: { isValidated: new Date() }
+        data: { isValidated: new Date() },
       });
 
       // Mark token as used
       await this.prisma.token.update({
         where: { id: tokenRecord.id },
-        data: { valid: false }
+        data: { valid: false },
       });
 
       return {
         success: true,
-        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_SUCCESS', { lang })
+        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_SUCCESS', {
+          lang,
+        }),
       };
     } catch {
       return {
         success: false,
-        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_FAIL', { lang })
+        message: await this.i18n.translate('auths.ACCOUNT_VALIDATION_FAIL', {
+          lang,
+        }),
       };
     }
   }

@@ -1,7 +1,7 @@
-import { PermissionClaim } from '@db/prisma';
+import { PermissionClaim } from '@fullstack-dev/prisma';
 
 export const Permission = {
-    ...PermissionClaim,
-  };
+  ...PermissionClaim,
+};
 
 export type PermissionType = PermissionClaim; // | ...other permission enums

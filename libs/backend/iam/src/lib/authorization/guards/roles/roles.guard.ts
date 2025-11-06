@@ -1,5 +1,5 @@
 import { ActiveUserData, REQUEST_USER_KEY } from '@be/common';
-import { Role } from '@db/prisma';
+import { Role } from '@fullstack-dev/prisma';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -24,8 +24,12 @@ export class RolesGuard implements CanActivate {
       REQUEST_USER_KEY
     ];
     // TODO : To be supress
-    const verifAuth = contextRoles.some((role) => user.role.find((element) => element === role))
-    console.log("From Roles Guards: ", verifAuth)
-    return contextRoles.some((role) => user.role.find((element) => element === role));
+    const verifAuth = contextRoles.some((role) =>
+      user.role.find((element) => element === role),
+    );
+    console.log('From Roles Guards: ', verifAuth);
+    return contextRoles.some((role) =>
+      user.role.find((element) => element === role),
+    );
   }
 }

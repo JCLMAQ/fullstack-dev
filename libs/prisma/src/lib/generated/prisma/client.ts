@@ -39,7 +39,7 @@ export { Prisma }
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node")
-path.join(process.cwd(), "libs/db/src/lib/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "libs/prisma/src/lib/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 
 /**
  * Model Organization

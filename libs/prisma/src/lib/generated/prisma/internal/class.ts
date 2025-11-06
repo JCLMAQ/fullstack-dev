@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/jean-claudemaquinay/Programmation/fullstack-dev/libs/db/src/lib/generated/prisma",
+      "value": "/Users/jean-claudemaquinay/Programmation/fullstack-dev/libs/prisma/src/lib/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -38,7 +38,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/jean-claudemaquinay/Programmation/fullstack-dev/libs/db/src/lib/prisma/schema.prisma",
+    "sourceFilePath": "/Users/jean-claudemaquinay/Programmation/fullstack-dev/libs/prisma/src/lib/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",

@@ -1,16 +1,16 @@
 import { GeneratedApiKeyPayload, HashingService } from '@be/common';
-import { ApiKey } from '@db/prisma';
+import { ApiKey } from '@fullstack-dev/prisma';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-
-
 
 import { ApiKeysRepository } from './api-key.repository';
 
 @Injectable()
 export class ApiKeysService {
-  constructor(private readonly hashingService: HashingService,
-    private readonly apiKeyRepository: ApiKeysRepository) {}
+  constructor(
+    private readonly hashingService: HashingService,
+    private readonly apiKeyRepository: ApiKeysRepository,
+  ) {}
 
   async createAndHash(id: string): Promise<GeneratedApiKeyPayload> {
     const apiKey = this.generateApiKey(id);
@@ -38,25 +38,34 @@ export class ApiKeysService {
     const data = {
       uuid: randomUUID(),
       key: payload.hashedKey,
-      user: { connect: {id: userId}}
-    }
-    const apiUserKey = await this.apiKeyRepository.createApiKey(data)
+      user: { connect: { id: userId } },
+    };
+    const apiUserKey = await this.apiKeyRepository.createApiKey(data);
     return apiUserKey;
   }
 
   async deleteAllApiKeyOfOneUser(userId: string): Promise<boolean> {
     // Delete all the ApiKey related to the specified User
     const done = await this.apiKeyRepository.deleteApiKeys(userId);
-    return done
+    return done;
   }
 
-  async deleteOneSpecificApiKeyOfOneUser( userId: string, apiKey: string) : Promise<boolean> {
+  async deleteOneSpecificApiKeyOfOneUser(
+    userId: string,
+    apiKey: string,
+  ): Promise<boolean> {
     // Search for the apiKey
-    const allApiKeys: ApiKey[]= await this.apiKeyRepository.findAllApiKeyforOneUser(userId);
-    const apiKeyToDelete = allApiKeys.find(element => (this.validate(apiKey, element.key)));
-    if(!apiKeyToDelete)  return false
+    const allApiKeys: ApiKey[] =
+      await this.apiKeyRepository.findAllApiKeyforOneUser(userId);
+    const apiKeyToDelete = allApiKeys.find((element) =>
+      this.validate(apiKey, element.key),
+    );
+    if (!apiKeyToDelete) return false;
     // Delete the ApiKey
-    const done = await this.apiKeyRepository.deleteOneApiKey(userId, apiKeyToDelete.id)
-    return done
+    const done = await this.apiKeyRepository.deleteOneApiKey(
+      userId,
+      apiKeyToDelete.id,
+    );
+    return done;
   }
 }

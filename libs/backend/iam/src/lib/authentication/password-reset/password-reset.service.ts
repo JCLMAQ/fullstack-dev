@@ -1,5 +1,5 @@
 import { HashingService } from '@be/common';
-import { TokenType } from '@db/prisma';
+import { TokenType } from '@fullstack-dev/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
@@ -11,22 +11,25 @@ export class PasswordResetService {
   constructor(
     private readonly prisma: PrismaClientService,
     private readonly hashingService: HashingService,
-    private readonly i18n: I18nService
+    private readonly i18n: I18nService,
   ) {}
 
   /**
    * Send forgot password email with reset token
    */
-  async sendForgotPasswordEmail(email: string, lang = 'en'): Promise<AuthResponse> {
+  async sendForgotPasswordEmail(
+    email: string,
+    lang = 'en',
+  ): Promise<AuthResponse> {
     // Find user by email
     const user = await this.prisma.user.findUnique({
-      where: { email: email.toLowerCase() }
+      where: { email: email.toLowerCase() },
     });
 
     if (!user) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang })
+        message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
       };
     }
 
@@ -34,7 +37,7 @@ export class PasswordResetService {
     if (user.isDeleted || user.isDeletedDT) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.USER_DELETED', { lang })
+        message: await this.i18n.translate('auths.USER_DELETED', { lang }),
       };
     }
 
@@ -44,9 +47,9 @@ export class PasswordResetService {
         where: {
           userId: user.id,
           type: TokenType.FORGOT,
-          valid: true
+          valid: true,
         },
-        data: { valid: false }
+        data: { valid: false },
       });
 
       // Generate new reset token
@@ -61,8 +64,8 @@ export class PasswordResetService {
           type: TokenType.FORGOT,
           userId: user.id,
           expiration: expiresAt,
-          valid: true
-        }
+          valid: true,
+        },
       });
 
       // TODO: Send email with reset link
@@ -71,12 +74,16 @@ export class PasswordResetService {
 
       return {
         success: true,
-        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', {
+          lang,
+        }),
       };
     } catch {
       return {
         success: false,
-        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+          lang,
+        }),
       };
     }
   }
@@ -84,7 +91,10 @@ export class PasswordResetService {
   /**
    * Verify reset token validity
    */
-  async verifyResetToken(token: string, lang = 'en'): Promise<{ valid: boolean; userId?: string; message: string }> {
+  async verifyResetToken(
+    token: string,
+    lang = 'en',
+  ): Promise<{ valid: boolean; userId?: string; message: string }> {
     try {
       const tokenRecord = await this.prisma.token.findFirst({
         where: {
@@ -92,27 +102,29 @@ export class PasswordResetService {
           type: TokenType.FORGOT,
           valid: true,
           expiration: {
-            gte: new Date()
-          }
-        }
+            gte: new Date(),
+          },
+        },
       });
 
       if (!tokenRecord) {
         return {
           valid: false,
-          message: await this.i18n.translate('auths.FORGOT_PWD_BAD_TOKEN', { lang })
+          message: await this.i18n.translate('auths.FORGOT_PWD_BAD_TOKEN', {
+            lang,
+          }),
         };
       }
 
       return {
         valid: true,
         userId: tokenRecord.userId,
-        message: 'Token valid'
+        message: 'Token valid',
       };
     } catch {
       return {
         valid: false,
-        message: await this.i18n.translate('auths.FORGOT_PWD_ERROR', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_ERROR', { lang }),
       };
     }
   }
@@ -124,13 +136,15 @@ export class PasswordResetService {
     token: string,
     newPassword: string,
     verifyPassword: string,
-    lang = 'en'
+    lang = 'en',
   ): Promise<AuthResponse> {
     // Verify passwords match
     if (newPassword !== verifyPassword) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.FORGOT_PWD_BAD_PWD', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_BAD_PWD', {
+          lang,
+        }),
       };
     }
 
@@ -139,7 +153,7 @@ export class PasswordResetService {
     if (!tokenVerification.valid || !tokenVerification.userId) {
       return {
         success: false,
-        message: tokenVerification.message
+        message: tokenVerification.message,
       };
     }
 
@@ -150,7 +164,7 @@ export class PasswordResetService {
       // Update user password
       await this.prisma.userSecret.update({
         where: { userId: tokenVerification.userId },
-        data: { pwdHash: hashedPassword }
+        data: { pwdHash: hashedPassword },
       });
 
       // Invalidate the token
@@ -158,19 +172,21 @@ export class PasswordResetService {
         where: {
           tokenId: token,
           type: TokenType.FORGOT,
-          valid: true
+          valid: true,
         },
-        data: { valid: false }
+        data: { valid: false },
       });
 
       return {
         success: true,
-        message: await this.i18n.translate('auths.FORGOT_PWD_NEW_PWD_OK', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_NEW_PWD_OK', {
+          lang,
+        }),
       };
     } catch {
       return {
         success: false,
-        message: await this.i18n.translate('auths.FORGOT_PWD_ERROR', { lang })
+        message: await this.i18n.translate('auths.FORGOT_PWD_ERROR', { lang }),
       };
     }
   }
@@ -183,26 +199,26 @@ export class PasswordResetService {
     oldPassword: string,
     newPassword: string,
     verifyPassword: string,
-    lang = 'en'
+    lang = 'en',
   ): Promise<AuthResponse> {
     // Verify passwords match
     if (newPassword !== verifyPassword) {
       return {
         success: false,
-        message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang })
+        message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang }),
       };
     }
 
     try {
       // Get user with current password
       const userSecret = await this.prisma.userSecret.findUnique({
-        where: { userId }
+        where: { userId },
       });
 
       if (!userSecret) {
         return {
           success: false,
-          message: await this.i18n.translate('auths.USER_NOT_FOUND', { lang })
+          message: await this.i18n.translate('auths.USER_NOT_FOUND', { lang }),
         };
       }
 
@@ -210,19 +226,23 @@ export class PasswordResetService {
       if (!userSecret.pwdHash) {
         return {
           success: false,
-          message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang })
+          message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', {
+            lang,
+          }),
         };
       }
 
       const isCurrentPasswordValid = await this.hashingService.compare(
         oldPassword,
-        userSecret.pwdHash
+        userSecret.pwdHash,
       );
 
       if (!isCurrentPasswordValid) {
         return {
           success: false,
-          message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang })
+          message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', {
+            lang,
+          }),
         };
       }
 
@@ -232,17 +252,19 @@ export class PasswordResetService {
       // Update password
       await this.prisma.userSecret.update({
         where: { userId },
-        data: { pwdHash: hashedPassword }
+        data: { pwdHash: hashedPassword },
       });
 
       return {
         success: true,
-        message: await this.i18n.translate('auths.CHANGE_PWD_SUCCESS', { lang })
+        message: await this.i18n.translate('auths.CHANGE_PWD_SUCCESS', {
+          lang,
+        }),
       };
     } catch {
       return {
         success: false,
-        message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang })
+        message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang }),
       };
     }
   }

@@ -31,7 +31,6 @@
       "@be/users": ["libs/backend/users/src/index.ts"],
       "@be/common": ["libs/backend/common/src/index.ts"],
       "@be/jwtconfig": ["libs/backend/common/src/lib/config/jwt.config"],
-      "@db/prisma": ["libs/db/src/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -42,14 +41,18 @@
       "@fe/dashboard": [
         "libs/frontend/shared-misc/components/dashboard/src/index.ts"
       ],
-      "@fe/file-mgt": ["libs/frontend/shared-misc/components/file-mgt/src/index.ts"],
+      "@fe/file-mgt": [
+        "libs/frontend/shared-misc/components/file-mgt/src/index.ts"
+      ],
       "@fe/image-mgt": [
         "libs/frontend/shared-misc/components/image-mgt/src/index.ts"
       ],
       "@fe/loading-container": [
         "libs/frontend/shared-misc/components/loading-container/src/index.ts"
       ],
-      "@fe/messages": ["libs/frontend/shared-misc/components/messages/src/index.ts"],
+      "@fe/messages": [
+        "libs/frontend/shared-misc/components/messages/src/index.ts"
+      ],
       "@fe/material": ["libs/frontend/shared-misc/material/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/shared-misc/utils/date-utilities/src/index.ts"
@@ -64,7 +67,8 @@
       "@fe/user-avatar-editor": [
         "libs/frontend/shared-misc/components/user-avatar-editor/src/index.ts"
       ],
-      "@fe/shared": ["libs/frontend/core/shared/src/index.ts"]
+      "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
+      "@fullstack-dev/prisma": ["libs/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

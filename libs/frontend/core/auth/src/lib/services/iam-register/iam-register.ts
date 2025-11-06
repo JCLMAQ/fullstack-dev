@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '@db/prisma';
+import { User } from '@fullstack-dev/prisma';
 import { firstValueFrom, Observable } from 'rxjs';
 /**
  * 🆕 SERVICE D'INSCRIPTION IAM - Migration AUTHS → IAM
@@ -9,10 +9,9 @@ import { firstValueFrom, Observable } from 'rxjs';
  * Utilise maintenant l'endpoint IAM /api/authentication/register-extended
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IamRegisterService {
-
   httpClient = inject(HttpClient);
 
   async register(body: User): Promise<User> {
@@ -31,7 +30,7 @@ export class IamRegisterService {
    */
   userRegister(user: User): Observable<User> {
     // 🆕 Utilisation du nouvel endpoint IAM étendu
-    const pathUrl = "api/authentication/register-extended";
+    const pathUrl = 'api/authentication/register-extended';
     // 🆕 Utilisation du nouvel endpoint IAM étendu
     return this.httpClient.post<User>(`${pathUrl}`, user);
   }

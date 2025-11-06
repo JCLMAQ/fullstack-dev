@@ -1,10 +1,10 @@
 // import { IUserLogged } from '@fe/shared';
 
-import { User } from "@db/prisma";
+import { User } from '@fullstack-dev/prisma';
 
 export type AppSlice = {
   readonly user: User | undefined;
-    // readonly user: IUserLogged | undefined;
+  // readonly user: IUserLogged | undefined;
   readonly authToken: string | undefined;
   // readonly selectedLanguage: string;
   // readonly possibleLanguages: string[];

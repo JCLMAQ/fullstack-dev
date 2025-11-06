@@ -1,8 +1,7 @@
-import { RefreshToken } from '@db/prisma';
-import { ApiProperty } from "@nestjs/swagger";
+import { RefreshToken } from '@fullstack-dev/prisma';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class RefreshTokenEntity implements RefreshToken {
-
   constructor(partial: Partial<RefreshTokenEntity>) {
     Object.assign(this, partial);
   }
@@ -10,7 +9,7 @@ export class RefreshTokenEntity implements RefreshToken {
   // Propriétés requises par l'interface RefreshToken de Prisma
   @ApiProperty({
     description: 'Identifiant unique du refresh token',
-    example: 1
+    example: 1,
   })
   id!: number;
 
@@ -22,14 +21,14 @@ export class RefreshTokenEntity implements RefreshToken {
   isDeletedDT!: Date | null;
 
   @ApiProperty({
-    description: 'ID de l\'utilisateur propriétaire du token',
-    example: 'user-123'
+    description: "ID de l'utilisateur propriétaire du token",
+    example: 'user-123',
   })
   userId!: string;
 
   @ApiProperty({
     description: 'Identifiant unique du token',
-    example: 'token-abc-123'
+    example: 'token-abc-123',
   })
   tokenId!: string;
 }

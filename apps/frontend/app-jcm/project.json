@@ -69,7 +69,7 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4500
+        "port": 4000
       }
     },
     "extract-i18n": {
@@ -96,7 +96,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "frontend/app-jcm:build",
-        "port": 4500,
+        "port": 4000,
         "staticFilePath": "dist/apps/frontend/app-jcm/browser",
         "spa": true
       }

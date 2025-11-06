@@ -1,16 +1,15 @@
 import { ActiveUserData, HashingService } from '@be/common';
-import { Gender, Language, Role, User } from '@db/prisma';
+import { Gender, Language, Role, User } from '@fullstack-dev/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
   ConflictException,
   Inject,
   Injectable,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
-
 
 // import jwtConfig from '@be/common';
 import jwtConfig from '@be/jwtconfig';
@@ -49,19 +48,18 @@ export class AuthenticationService {
         userSecret: {
           create: {
             pwdHash: password,
-          }
+          },
         },
         ApiKeys: {
           create: {
             key: key,
             uuid: uuid,
-          }
-        } ,
-      }
+          },
+        },
+      };
       await this.prisma.user.create({ data });
-        const apiUserKey = payload.apiKey;
-        return { apiUserKey };
-
+      const apiUserKey = payload.apiKey;
+      return { apiUserKey };
     } catch (err) {
       const pgUniqueViolationErrorCode = '23505';
       if (err.code === pgUniqueViolationErrorCode) {
@@ -83,7 +81,7 @@ export class AuthenticationService {
     nickName?: string;
     Gender?: Gender;
     Language?: Language;
-    Roles?: Role[]
+    Roles?: Role[];
   }) {
     try {
       // Verify password confirmation
@@ -105,15 +103,15 @@ export class AuthenticationService {
         userSecret: {
           create: {
             pwdHash: password,
-          }
+          },
         },
         ApiKeys: {
           create: {
             key: key,
             uuid: uuid,
-          }
+          },
         },
-      }
+      };
 
       // TODO: Add Gender, Language, and Roles after fixing Prisma types
 
@@ -123,9 +121,8 @@ export class AuthenticationService {
       return {
         user: user.id,
         apiUserKey,
-        success: true
+        success: true,
       };
-
     } catch (err: any) {
       const pgUniqueViolationErrorCode = '23505';
       if (err.code === pgUniqueViolationErrorCode) {
@@ -137,11 +134,11 @@ export class AuthenticationService {
 
   async signIn(signInDto: SignInDto) {
     const user = await this.prisma.user.findUnique({
-      where: {email: signInDto.email},
+      where: { email: signInDto.email },
       include: {
         userSecret: true, // Return all fields
       },
-    })
+    });
     if (!user) {
       throw new UnauthorizedException('User does not exists');
     }
@@ -149,7 +146,6 @@ export class AuthenticationService {
       signInDto.password,
       user.userSecret?.pwdHash,
     );
-
 
     if (!isEqual) {
       throw new UnauthorizedException('Password does not match');
@@ -173,7 +169,7 @@ export class AuthenticationService {
       this.signToken<Partial<ActiveUserData>>(
         user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.email , role: user.Roles},
+        { email: user.email, role: user.Roles },
       ),
       this.signToken(user.id, this.jwtConfiguration.refreshTokenTtl, {
         refreshTokenId,
@@ -196,8 +192,8 @@ export class AuthenticationService {
         issuer: this.jwtConfiguration.issuer,
       });
       const user = await this.prisma.user.findUnique({
-          where: {id: sub,}
-        });
+        where: { id: sub },
+      });
       const isValid = await this.refreshTokenIdsStorage.validate(
         user!.id,
         refreshTokenId,
@@ -211,9 +207,13 @@ export class AuthenticationService {
     } catch (err) {
       if (err instanceof InvalidatedRefreshTokenError) {
         // Take action: notify user that his refresh token might have been stolen?
-        throw new UnauthorizedException('Access denied, contact the Adminitrator');
+        throw new UnauthorizedException(
+          'Access denied, contact the Adminitrator',
+        );
       }
-      throw new UnauthorizedException('Refresh token problem, contact the Adminitrator');
+      throw new UnauthorizedException(
+        'Refresh token problem, contact the Adminitrator',
+      );
     }
   }
 
