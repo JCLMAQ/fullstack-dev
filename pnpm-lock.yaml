@@ -216,6 +216,9 @@ importers:
       '@nx/jest':
         specifier: 22.0.2
         version: 22.0.2(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17))(@types/node@24.10.0)(babel-plugin-macros@3.1.0)(nx@22.0.2(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17)))(ts-node@10.9.2(@swc/core@1.15.0(@swc/helpers@0.5.17))(@types/node@24.10.0)(typescript@5.9.3))(typescript@5.9.3)
+      '@nx/js':
+        specifier: 22.0.2
+        version: 22.0.2(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17))(nx@22.0.2(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17)))
       '@nx/nest':
         specifier: 22.0.2
         version: 22.0.2(@babel/traverse@7.28.5)(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17))(@types/node@24.10.0)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(chokidar@4.0.3)(eslint@9.39.1(jiti@2.6.1))(nx@22.0.2(@swc-node/register@1.11.1(@swc/core@1.15.0(@swc/helpers@0.5.17))(@swc/types@0.1.25)(typescript@5.9.3))(@swc/core@1.15.0(@swc/helpers@0.5.17)))(ts-node@10.9.2(@swc/core@1.15.0(@swc/helpers@0.5.17))(@types/node@24.10.0)(typescript@5.9.3))(typescript@5.9.3)
