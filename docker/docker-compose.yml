@@ -1,7 +1,7 @@
 
 services:
     postgres:
-        container_name: postgres-dev-db-3000
+        container_name: postgres-db
         image: postgres:latest
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
@@ -20,7 +20,7 @@ services:
         restart: unless-stopped
 
     pgadmin:
-        container_name: pgadmin-dev-db-3000
+        container_name: pgadmin
         image: dpage/pgadmin4:latest
         environment:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}

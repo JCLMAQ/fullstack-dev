@@ -22,6 +22,7 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({
       // envFilePath: '../.development.env', // Look for .env file in the main directory and not in the backend directory
       envFilePath: '.env', // Look for .env file in the main directory
+      // envFilePath: `.${process.env.NODE_ENV || 'development'}.env`,
       isGlobal: true, // No need to import ConfigModule in each module
       expandVariables: true, // Allow expanded variable = ${VARIABLE_NAME}
       cache: true, // To accelarate the env variables loading

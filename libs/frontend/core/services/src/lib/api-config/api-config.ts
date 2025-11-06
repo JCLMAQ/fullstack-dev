@@ -8,7 +8,7 @@ export class ApiConfig {
   ;
   private readonly environment = inject(ENVIRONMENT_TOKEN);
 
-  private readonly apiUrl: string = this.environment.API_BACKEND_URL || 'http://localhost:3500';
+  private readonly apiUrl: string = this.environment.API_BACKEND_URL || 'http://localhost:3000';
 
   getApiUrl(): string {
     return this.apiUrl;

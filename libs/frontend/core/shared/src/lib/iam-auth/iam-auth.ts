@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
+import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt, ILoginResponse, IRegisterResponse } from '../models/auth.model';
@@ -28,6 +29,8 @@ const AUTH_TOKEN_STORAGE_KEY = 'authJwtToken';
 export class IamAuth {
   httpClient = inject(HttpClient);
   router = inject(Router);
+
+  private readonly environment = inject(ENVIRONMENT_TOKEN);
 
   #userSignal = signal<User | undefined>(undefined);
   user = this.#userSignal.asReadonly();
@@ -150,8 +153,8 @@ export class IamAuth {
   async updateUserPhoto(
     photoUrl: string,
   ): Promise<{ success: boolean; message: string; photoUrl?: string }> {
-    const pathUrl = 'http://localhost:3500/api/authentication/update-photo';
-
+    // const pathUrl = 'http://localhost:3000/api/authentication/update-photo';
+    const pathUrl: string = this.environment.API_BACKEND_URL + '/' + this.environment.API_BACKEND_GLOBAL_PREFIX + '/authentication/update-photo' || 'http://localhost:3000/api/authentication/update-photo';
     try {
       console.log("🔐 Token d'authentification:", this.authToken());
       console.log('👤 Utilisateur actuel:', this.user());
