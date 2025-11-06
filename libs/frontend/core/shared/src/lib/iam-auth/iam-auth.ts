@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@fullstack-dev/prisma';
+import { User } from '@db/prisma';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt, ILoginResponse, IRegisterResponse } from '../models/auth.model';

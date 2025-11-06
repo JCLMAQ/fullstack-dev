@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '@fullstack-dev/prisma';
+import { User } from '@db/prisma';
 import { firstValueFrom, Observable } from 'rxjs';
 /**
  * 🆕 SERVICE D'INSCRIPTION IAM - Migration AUTHS → IAM

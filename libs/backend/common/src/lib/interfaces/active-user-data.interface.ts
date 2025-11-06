@@ -1,4 +1,4 @@
-import { PermissionClaim, Role } from '@fullstack-dev/prisma';
+import { PermissionClaim, Role } from '@db/prisma';
 
 export interface ActiveUserData {
   /**

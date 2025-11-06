@@ -1,6 +1,6 @@
 import "@dotenvx/dotenvx/config";
 import path from "node:path";
-import { defineConfig } from "prisma/config";
+import { defineConfig, env } from "prisma/config";
 
 // dotenvx gère automatiquement l'expansion des variables
 
@@ -14,5 +14,9 @@ export default defineConfig({
   },
   typedSql: {
     path: path.join("libs/prisma/src/lib/queries", "queries"),
-  }
+  },
+  engine: "classic",
+  datasource: {
+    url: env("DATABASE_URL"),
+  },
 });

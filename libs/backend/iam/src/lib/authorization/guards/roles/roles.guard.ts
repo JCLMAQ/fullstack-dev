@@ -1,5 +1,5 @@
 import { ActiveUserData, REQUEST_USER_KEY } from '@be/common';
-import { Role } from '@fullstack-dev/prisma';
+import { Role } from '@db/prisma';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';

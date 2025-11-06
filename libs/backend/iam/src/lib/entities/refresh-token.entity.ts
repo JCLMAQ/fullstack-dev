@@ -1,4 +1,4 @@
-import { RefreshToken } from '@fullstack-dev/prisma';
+import { RefreshToken } from '@db/prisma';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RefreshTokenEntity implements RefreshToken {

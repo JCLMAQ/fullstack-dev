@@ -1,4 +1,4 @@
-import { Prisma } from '@fullstack-dev/prisma';
+import { Prisma } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { InvalidatedRefreshTokenError } from './invalid-refresh-token.error';

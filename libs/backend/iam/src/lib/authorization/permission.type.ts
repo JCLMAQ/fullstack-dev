@@ -1,4 +1,4 @@
-import { PermissionClaim } from '@fullstack-dev/prisma';
+import { PermissionClaim } from '@db/prisma';
 
 export const Permission = {
   ...PermissionClaim,

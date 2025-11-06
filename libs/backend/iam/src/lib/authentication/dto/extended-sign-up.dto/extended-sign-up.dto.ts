@@ -1,13 +1,13 @@
-import { Gender, Language, Role } from '@fullstack-dev/prisma';
+import { Gender, Language, Role } from '@db/prisma';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsArray,
-  IsEnum,
-  IsOptional,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
+    IsArray,
+    IsEnum,
+    IsOptional,
+    IsString,
+    Matches,
+    MaxLength,
+    MinLength,
 } from 'class-validator';
 import { SignUpDto } from '../sign-up.dto/sign-up.dto';
 

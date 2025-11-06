@@ -1,4 +1,4 @@
-import { Token, TokenType, User } from '@fullstack-dev/prisma';
+import { Token, TokenType, User } from '@db/prisma';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class TokenEntity implements Token {

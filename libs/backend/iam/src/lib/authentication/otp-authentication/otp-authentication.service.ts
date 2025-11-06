@@ -1,4 +1,4 @@
-import { User } from '@fullstack-dev/prisma';
+import { User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

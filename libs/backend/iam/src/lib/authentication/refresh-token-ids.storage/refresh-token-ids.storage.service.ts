@@ -1,4 +1,4 @@
-import { Prisma, RefreshToken } from '@fullstack-dev/prisma';
+import { Prisma, RefreshToken } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 

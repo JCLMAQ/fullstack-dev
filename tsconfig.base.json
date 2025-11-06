@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "ignoreDeprecations": "5.0",
     "paths": {
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
@@ -68,7 +69,7 @@
         "libs/frontend/shared-misc/components/user-avatar-editor/src/index.ts"
       ],
       "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
-      "@fullstack-dev/prisma": ["libs/prisma/src/index.ts"]
+      "@db/prisma": ["libs/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
