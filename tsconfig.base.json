@@ -1,0 +1,71 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@be/changestracking": [
+        "libs/backend/utilities/changestracking/src/index.ts"
+      ],
+      "@be/db-config": ["libs/backend/utilities/db-config/src/index.ts"],
+      "@be/exception-filter": [
+        "libs/backend/utilities/exception-filter/src/index.ts"
+      ],
+      "@be/mails": ["libs/backend/utilities/mails/src/index.ts"],
+      "@be/time-util": ["libs/backend/utilities/time-util/src/index.ts"],
+      "@be/files-utilities": [
+        "libs/backend/utilities/files-utilities/src/index.ts"
+      ],
+      "@be/iam": ["libs/backend/iam/src/index.ts"],
+      "@be/users": ["libs/backend/users/src/index.ts"],
+      "@be/common": ["libs/backend/common/src/index.ts"],
+      "@be/jwtconfig": ["libs/backend/common/src/lib/config/jwt.config"],
+      "@db/prisma": ["libs/db/src/index.ts"],
+      "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+      "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
+      "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
+      "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],
+      "@fe/services": ["libs/frontend/core/services/src/index.ts"],
+      "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
+      "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
+      "@fe/dashboard": [
+        "libs/frontend/shared-misc/components/dashboard/src/index.ts"
+      ],
+      "@fe/file-mgt": ["libs/frontend/shared-misc/components/file-mgt/src/index.ts"],
+      "@fe/image-mgt": [
+        "libs/frontend/shared-misc/components/image-mgt/src/index.ts"
+      ],
+      "@fe/loading-container": [
+        "libs/frontend/shared-misc/components/loading-container/src/index.ts"
+      ],
+      "@fe/messages": ["libs/frontend/shared-misc/components/messages/src/index.ts"],
+      "@fe/material": ["libs/frontend/shared-misc/material/src/index.ts"],
+      "@fe/date-utilities": [
+        "libs/frontend/shared-misc/utils/date-utilities/src/index.ts"
+      ],
+      "@fe/signalform-utilities": [
+        "libs/frontend/shared-misc/utils/signalform-utilities/src/index.ts"
+      ],
+      "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
+      "@fe/user-avatar": [
+        "libs/frontend/shared-misc/components/user-avatar/src/index.ts"
+      ],
+      "@fe/user-avatar-editor": [
+        "libs/frontend/shared-misc/components/user-avatar-editor/src/index.ts"
+      ],
+      "@fe/shared": ["libs/frontend/core/shared/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

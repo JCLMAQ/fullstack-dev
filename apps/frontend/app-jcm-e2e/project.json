@@ -1,0 +1,24 @@
+{
+  "name": "frontend/app-jcm-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend/app-jcm-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/frontend/app-jcm-e2e"],
+      "options": {
+        "config": "apps/frontend/app-jcm-e2e/playwright.config.ts"
+      },
+      "configurations": {
+        "ci": {
+          "ci": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "implicitDependencies": ["frontend/app-jcm"]
+}
