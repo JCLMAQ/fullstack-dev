@@ -2,7 +2,7 @@
     export const ENVIRONMENT_DATA = {
         production: false,
         API_BACKEND_URL: "http://localhost:3000",
-        API_BACKEND_GLOBAL_PREFIX: "api",
+        API_BACKEND_PREFIX: "api",
         API_FRONTEND_URL: "http://localhost:4000",
         API_FRONTEND: "localhost",
         API_FRONTEND_PORT: "4000",
