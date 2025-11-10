@@ -1,12 +1,10 @@
-import { Prisma, User } from '@db/prisma';
+import * as Prisma from '@db/prisma';
+import { User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
-
-
 @Injectable()
 export class UsersService {
-
-constructor(private prisma: PrismaClientService) {}
+  constructor(private prisma: PrismaClientService) {}
 
 
 
@@ -57,5 +55,4 @@ constructor(private prisma: PrismaClientService) {}
       where,
     });
   }
-
 }

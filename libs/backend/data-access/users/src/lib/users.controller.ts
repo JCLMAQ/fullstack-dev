@@ -1,23 +1,24 @@
-
-import { Prisma, User } from '@db/prisma';
+import * as Prisma from '@db/prisma';
+import { User } from '@db/prisma';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Query
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Post,
+    Put,
+    Query
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
- /**
+  /**
    * Récupère tous les utilisateurs avec pagination et filtres optionnels
    */
   @Get()
@@ -338,5 +339,4 @@ export class UsersController {
       );
     }
   }
-
 }

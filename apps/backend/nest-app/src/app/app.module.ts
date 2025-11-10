@@ -1,8 +1,19 @@
 import { AddressModule } from '@be/address';
+import { AppEmailDomainsModule } from '@be/appEmailDomains';
+import { CategoriesModule } from '@be/categories';
 import { CommentsModule } from '@be/comments';
+import { ConfigParamsModule } from '@be/configParams';
 import { DbConfigModule } from '@be/db-config';
 import { AllExceptionsFilter, ExceptionFilterModule } from '@be/exception-filter';
+import { FilesModule } from '@be/files';
+import { GroupsModule } from '@be/groups';
 import { IamModule } from '@be/iam';
+import { ImagesModule } from '@be/images';
+import { OrganizationsModule } from '@be/organizations';
+import { OrgDomainsModule } from '@be/orgDomains';
+import { OrgEmailsModule } from '@be/orgEmails';
+import { OrgEmailUseTosModule } from '@be/orgEmailUseTos';
+import { PhonesModule } from '@be/phones';
 import { PostLikesModule } from '@be/postLikes';
 import { PostsModule } from '@be/posts';
 import { ProfilesModule } from '@be/profiles';
@@ -88,7 +99,8 @@ import { AppService } from './app.service';
     ExceptionFilterModule,
     TimeUtilModule,
     IamModule,
-      AddressModule,
+    AddressModule,
+    AppEmailDomainsModule,
     UsersModule,
     TodosModule,
     TasksModule,
@@ -97,7 +109,26 @@ import { AppService } from './app.service';
     PostsModule,
     CommentsModule,
     PostLikesModule,
-    UserFollowersModule
+
+    CategoriesModule,
+    CommentsModule,
+    ConfigParamsModule,
+    FilesModule,
+    GroupsModule,
+    ImagesModule,
+    OrganizationsModule,
+    OrgDomainsModule,
+    OrgEmailsModule,
+    OrgEmailUseTosModule,
+    PhonesModule,
+    PostLikesModule,
+    PostsModule,
+    ProfilesModule,
+    StoriesModule,
+    TasksModule,
+    TodosModule,
+    UserFollowersModule,
+    UsersModule,
 
   ],
   controllers: [AppController],

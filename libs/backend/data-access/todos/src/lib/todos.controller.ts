@@ -1,16 +1,16 @@
 import { Prisma, TodoState } from '@db/prisma';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Patch,
+    Post,
+    Put,
+    Query,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 
@@ -21,8 +21,7 @@ function getErrorMessage(error: unknown): string {
 
 @Controller('todos')
 export class TodosController {
-
- constructor(private todosService: TodosService) {}
+  constructor(private todosService: TodosService) {}
 
   /**
    * Récupère tous les todos avec pagination et filtres
@@ -411,5 +410,4 @@ export class TodosController {
       );
     }
   }
-
 }
