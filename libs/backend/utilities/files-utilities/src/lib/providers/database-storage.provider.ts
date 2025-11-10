@@ -2,10 +2,10 @@ import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
 import {
-    FileRetrievalResult,
-    IStorageProvider,
-    StorageFile,
-    StorageResult
+  FileRetrievalResult,
+  IStorageProvider,
+  StorageFile,
+  StorageResult
 } from '../interfaces/storage.interfaces';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class DatabaseStorageProvider implements IStorageProvider {
       await this.prisma.file.update({
         where: { id: fileId },
         data: {
-          binaryData: file.buffer,
+          binaryData: new Uint8Array(file.buffer),
           checksum: checksum,
           storageType: 'database',
           isProcessed: true,

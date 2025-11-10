@@ -19,79 +19,10 @@
       "path": "../../../libs/backend/prisma-client/tsconfig.lib.json"
     },
     {
-      "path": "../../../libs/backend/data-access/users/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/userFollowers/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/todos/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/utilities/time-util/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/tasks/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/stories/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/profiles/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/posts/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/postLikes/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/phones/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/orgEmailUseTos/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/orgEmails/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/orgDomains/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/organizations/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/utilities/mails/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/images/tsconfig.lib.json"
-    },
-    {
       "path": "../../../libs/backend/iam"
     },
     {
-      "path": "../../../libs/backend/data-access/groups/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/files/tsconfig.lib.json"
-    },
-    {
       "path": "../../../libs/backend/utilities/db-config/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/configParams/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/comments/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/categories/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/appEmailDomains/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../libs/backend/data-access/address/tsconfig.lib.json"
     }
   ]
 }

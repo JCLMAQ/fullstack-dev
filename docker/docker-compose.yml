@@ -1,26 +1,27 @@
 
 services:
     postgres:
-        container_name: postgres-3000
+        container_name: postgres
         image: postgres:latest
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DB}
         volumes:
-            - postgres:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql
         # Uncomment the next two lines to connect to your your database from outside the Docker environment, e.g. using a database GUI like Postico
         ports:
             - "${DATABASE_PORT}:5432"
             # - "5450:5432"
         # network_mode: "host"
         networks:
-            postgres:
+          - fullstack-dev-1-network-3001
+            # postgres:
         #         ipv4_address: 172.16.238.10
         restart: unless-stopped
 
     pgadmin:
-        container_name: pgadmin-3000
+        container_name: pgadmin
         image: dpage/pgadmin4:latest
         environment:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
@@ -31,7 +32,7 @@ services:
             - "${PGADMIN_PORT}:80"
             # - "5050:80"
         networks:
-            - postgres
+            - fullstack-dev-1-network-3001
         restart: unless-stopped
 
     # nest-api:
@@ -49,13 +50,14 @@ services:
     #       - ./.env
 
 networks:
-    postgres:
+  fullstack-dev-1-network-3001:
+    # postgres:
 
 volumes:
     postgres:
-        name: basedev-db-3000
+        name: basedev-db-postgres-3001
     pgadmin:
-        name: pgadmin-db-3000
+        name: pgadmin-db-3001
 
 # container_name:  this is what we will call our container- for simplicity have it match the service name.
 # image if we are downloading an image from docker hub, we will put it here.
