@@ -2,12 +2,12 @@
 
 ## Architecture du Projet
 
-Cette application est un **monorepo Nx** avec une architecture fullstack basée sur **ZenStack + Prisma + NestJS + Angular**.
+Cette application est un **monorepo Nx** avec une architecture fullstack basée sur **Prisma + NestJS + Angular**.
 
 ### Structure Clé
 - **Apps** : `apps/backend/nestjs` (NestJS) + `apps/frontend/jcm-app` (Angular)
 - **Libs** : Bibliothèques partagées par domaine (`libs/backend/*`, `libs/frontend/*`)
-- **ZModel** : Schéma de base de données centralisé dans `zmodel/schema.zmodel`
+- **Prisma** : Schéma de base de données centralisé dans `libs/prisma/src/lib/prisma/schema.prisma`
 - **Scripts** : Utilitaires de configuration dans `scripts/`
 
 ## Stack Technique Spécifique
@@ -44,8 +44,8 @@ pnpm run start:frontend:dev
 ```
 
 ### Modifications Schema
-1. Modifier `zmodel/schema.zmodel`
-2. `pnpm run start:zenstack-prisma` (génère + migre)
+1. Modifier `libs/prisma/src/lib/prisma/schema.prisma`
+2. `pnpm run start:prisma` (génère + migre)
 3. Redémarrer les services
 
 ### Seeding
@@ -57,7 +57,7 @@ pnpm run start:frontend:dev
 
 ### Structure des Modules
 - **Repository Pattern** : Services utilisent des repositories (ex: `TasksRepository`)
-- **CRUD Services** : Services générés automatiquement dans `zmodel/prisma/generated/`
+- **CRUD Services** : Services générés automatiquement dans `libs/prisma/src/lib/generated/`
 - **Validation** : `class-validator` + `ValidationPipe` global
 - **Sérialisation** : `ClassSerializerInterceptor` global
 
@@ -80,10 +80,9 @@ Headers requis : `x-user-id`, `x-user-role`
 
 ### Services Prisma
 - `PrismaService` : Service de base
-- `EnhancedPrismaService` : Avec politiques ZenStack (recommandé)
-- Import : `@prisma/prisma` pour le service, `@prisma/client` pour les types
+- Import : `@db/prisma-client` pour le service, `@db/prisma` pour les types
 
 ### Configuration Environment
 Variables critiques à définir dans `.env` :
 - `DATABASE_URL`, `API_*`, `NEST_SERVER_*`
-- Utiliser `dotenv -e ./.env` pour les commandes de base
+- Utiliser `dotenvx` pour les commandes de base

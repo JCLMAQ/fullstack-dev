@@ -18,6 +18,9 @@
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "ngx-mcp-server": {
+      "url": "https://www.dolmen.tools/api/angular/mcp"
     }
   }
 }
