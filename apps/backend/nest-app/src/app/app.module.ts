@@ -1,7 +1,17 @@
+import { AddressModule } from '@be/address';
+import { CommentsModule } from '@be/comments';
 import { DbConfigModule } from '@be/db-config';
 import { AllExceptionsFilter, ExceptionFilterModule } from '@be/exception-filter';
 import { IamModule } from '@be/iam';
+import { PostLikesModule } from '@be/postLikes';
+import { PostsModule } from '@be/posts';
+import { ProfilesModule } from '@be/profiles';
+import { StoriesModule } from '@be/stories';
+import { TasksModule } from '@be/tasks';
 import { TimeUtilModule, TimeUtilService } from '@be/time-util';
+import { TodosModule } from '@be/todos';
+import { UserFollowersModule } from '@be/userFollowers';
+import { UsersModule } from '@be/users';
 import { PrismaClientModule } from '@db/prisma-client';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -77,7 +87,17 @@ import { AppService } from './app.service';
     DbConfigModule,
     ExceptionFilterModule,
     TimeUtilModule,
-    IamModule
+    IamModule,
+      AddressModule,
+    UsersModule,
+    TodosModule,
+    TasksModule,
+    StoriesModule,
+    ProfilesModule,
+    PostsModule,
+    CommentsModule,
+    PostLikesModule,
+    UserFollowersModule
 
   ],
   controllers: [AppController],

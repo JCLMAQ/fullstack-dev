@@ -154,7 +154,7 @@ export class IamAuth {
     photoUrl: string,
   ): Promise<{ success: boolean; message: string; photoUrl?: string }> {
     // const pathUrl = 'http://localhost:3000/api/authentication/update-photo';
-    const pathUrl: string = this.environment.API_BACKEND_URL + '/' + this.environment.API_BACKEND_GLOBAL_PREFIX + '/authentication/update-photo' || 'http://localhost:3000/api/authentication/update-photo';
+    const pathUrl: string = this.environment.API_BACKEND_URL + '/' + this.environment.API_BACKEND_PREFIX + '/authentication/update-photo' || 'http://localhost:3000/api/authentication/update-photo';
     try {
       console.log("🔐 Token d'authentification:", this.authToken());
       console.log('👤 Utilisateur actuel:', this.user());
