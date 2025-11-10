@@ -1,3 +1,4 @@
+import { AddressModule } from '@be/address';
 import { CommentsModule } from '@be/comments';
 import { DbConfigModule } from '@be/db-config';
 import { AllExceptionsFilter, ExceptionFilterModule } from '@be/exception-filter';
@@ -87,7 +88,7 @@ import { AppService } from './app.service';
     ExceptionFilterModule,
     TimeUtilModule,
     IamModule,
-
+      AddressModule,
     UsersModule,
     TodosModule,
     TasksModule,
