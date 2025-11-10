@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -12,14 +15,21 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml"
+    ]
   },
-  "nxCloudId": "68f91705ac134d856d5fb7b7",
+  "nxCloudId": "690d0597053cd614d9b0bea1",
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "@nx/eslint:lint": {
       "cache": true,
@@ -32,21 +42,47 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": { "passWithNoTests": true },
-      "configurations": { "ci": { "ci": true, "codeCoverage": true } }
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ],
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     },
     "@nx/playwright:playwright": {
       "cache": false,
-      "inputs": ["default", "^production"],
-      "options": { "skipServe": false }
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "skipServe": false
+      }
     }
   },
   "plugins": [
     {
       "plugin": "@nx/playwright/plugin",
-      "exclude": ["apps/frontend/app-jcm-e2e/**/*"],
-      "options": { "targetName": "e2e" }
+      "exclude": [
+        "apps/frontend/app-jcm-e2e/**/*"
+      ],
+      "options": {
+        "targetName": "e2e"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
     },
     { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
