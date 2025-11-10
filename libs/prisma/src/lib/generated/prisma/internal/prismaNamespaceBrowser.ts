@@ -52,7 +52,6 @@ export const ModelName = {
   Organization: 'Organization',
   OrgEmail: 'OrgEmail',
   OrgDomain: 'OrgDomain',
-  OrgEmailUseTo: 'OrgEmailUseTo',
   User: 'User',
   Phone: 'Phone',
   Address: 'Address',
@@ -72,13 +71,14 @@ export const ModelName = {
   Story: 'Story',
   Image: 'Image',
   ConfigParam: 'ConfigParam',
+  OrgEmailUseTo: 'OrgEmailUseTo',
   AppEmailDomain: 'AppEmailDomain',
   RefreshToken: 'RefreshToken',
   ApiKey: 'ApiKey',
   Scope: 'Scope',
   Token: 'Token',
-  AccountValidation: 'AccountValidation',
-  ChangesTracking: 'ChangesTracking'
+  ChangesTracking: 'ChangesTracking',
+  AccountValidation: 'AccountValidation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -149,22 +149,6 @@ export const OrgDomainScalarFieldEnum = {
 export type OrgDomainScalarFieldEnum = (typeof OrgDomainScalarFieldEnum)[keyof typeof OrgDomainScalarFieldEnum]
 
 
-export const OrgEmailUseToScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  published: 'published',
-  isPublic: 'isPublic',
-  isDeleted: 'isDeleted',
-  isDeletedDT: 'isDeletedDT',
-  useTo: 'useTo',
-  isActiv: 'isActiv',
-  emailOrgId: 'emailOrgId'
-} as const
-
-export type OrgEmailUseToScalarFieldEnum = (typeof OrgEmailUseToScalarFieldEnum)[keyof typeof OrgEmailUseToScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   numSeq: 'numSeq',
@@ -183,13 +167,12 @@ export const UserScalarFieldEnum = {
   social: 'social',
   Language: 'Language',
   photoUrl: 'photoUrl',
-  avatarFileId: 'avatarFileId',
   dateOfBirth: 'dateOfBirth',
   hasEmergencyContact: 'hasEmergencyContact',
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
-  jobTitle: 'jobTitle',
   position: 'position',
+  jobTitle: 'jobTitle',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
   managerId: 'managerId',
@@ -501,8 +484,6 @@ export const ImageScalarFieldEnum = {
   isPublic: 'isPublic',
   isDeleted: 'isDeleted',
   isDeletedDT: 'isDeletedDT',
-  url: 'url',
-  type: 'type',
   filename: 'filename',
   originalName: 'originalName',
   mimeType: 'mimeType',
@@ -546,6 +527,22 @@ export const ConfigParamScalarFieldEnum = {
 } as const
 
 export type ConfigParamScalarFieldEnum = (typeof ConfigParamScalarFieldEnum)[keyof typeof ConfigParamScalarFieldEnum]
+
+
+export const OrgEmailUseToScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  useTo: 'useTo',
+  isActiv: 'isActiv',
+  emailOrgId: 'emailOrgId'
+} as const
+
+export type OrgEmailUseToScalarFieldEnum = (typeof OrgEmailUseToScalarFieldEnum)[keyof typeof OrgEmailUseToScalarFieldEnum]
 
 
 export const AppEmailDomainScalarFieldEnum = {
@@ -627,23 +624,6 @@ export const TokenScalarFieldEnum = {
 export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof TokenScalarFieldEnum]
 
 
-export const AccountValidationScalarFieldEnum = {
-  id: 'id',
-  numSeq: 'numSeq',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  published: 'published',
-  isPublic: 'isPublic',
-  isDeleted: 'isDeleted',
-  isDeletedDT: 'isDeletedDT',
-  isValidated: 'isValidated',
-  emailToken: 'emailToken',
-  timeStamp: 'timeStamp'
-} as const
-
-export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
-
-
 export const ChangesTrackingScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -662,6 +642,23 @@ export const ChangesTrackingScalarFieldEnum = {
 } as const
 
 export type ChangesTrackingScalarFieldEnum = (typeof ChangesTrackingScalarFieldEnum)[keyof typeof ChangesTrackingScalarFieldEnum]
+
+
+export const AccountValidationScalarFieldEnum = {
+  id: 'id',
+  numSeq: 'numSeq',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  isValidated: 'isValidated',
+  emailToken: 'emailToken',
+  timeStamp: 'timeStamp'
+} as const
+
+export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
 
 
 export const SortOrder = {

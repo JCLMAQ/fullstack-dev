@@ -58,11 +58,6 @@ export type OrgEmail = Prisma.OrgEmailModel
  */
 export type OrgDomain = Prisma.OrgDomainModel
 /**
- * Model OrgEmailUseTo
- * 
- */
-export type OrgEmailUseTo = Prisma.OrgEmailUseToModel
-/**
  * Model User
  * 
  */
@@ -158,6 +153,11 @@ export type Image = Prisma.ImageModel
  */
 export type ConfigParam = Prisma.ConfigParamModel
 /**
+ * Model OrgEmailUseTo
+ * 
+ */
+export type OrgEmailUseTo = Prisma.OrgEmailUseToModel
+/**
  * Model AppEmailDomain
  * 
  */
@@ -183,12 +183,12 @@ export type Scope = Prisma.ScopeModel
  */
 export type Token = Prisma.TokenModel
 /**
- * Model AccountValidation
- * 
- */
-export type AccountValidation = Prisma.AccountValidationModel
-/**
  * Model ChangesTracking
  * 
  */
 export type ChangesTracking = Prisma.ChangesTrackingModel
+/**
+ * Model AccountValidation
+ * 
+ */
+export type AccountValidation = Prisma.AccountValidationModel

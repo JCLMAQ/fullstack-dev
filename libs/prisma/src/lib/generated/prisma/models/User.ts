@@ -53,13 +53,12 @@ export type UserMinAggregateOutputType = {
   Gender: $Enums.Gender | null
   Language: $Enums.Language | null
   photoUrl: string | null
-  avatarFileId: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean | null
   emergencyContactName: string | null
   emergencyContactPhone: string | null
-  jobTitle: string | null
   position: $Enums.Position | null
+  jobTitle: string | null
   isValidated: Date | null
   isSuspended: Date | null
   managerId: string | null
@@ -85,13 +84,12 @@ export type UserMaxAggregateOutputType = {
   Gender: $Enums.Gender | null
   Language: $Enums.Language | null
   photoUrl: string | null
-  avatarFileId: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean | null
   emergencyContactName: string | null
   emergencyContactPhone: string | null
-  jobTitle: string | null
   position: $Enums.Position | null
+  jobTitle: string | null
   isValidated: Date | null
   isSuspended: Date | null
   managerId: string | null
@@ -118,13 +116,12 @@ export type UserCountAggregateOutputType = {
   social: number
   Language: number
   photoUrl: number
-  avatarFileId: number
   dateOfBirth: number
   hasEmergencyContact: number
   emergencyContactName: number
   emergencyContactPhone: number
-  jobTitle: number
   position: number
+  jobTitle: number
   isValidated: number
   isSuspended: number
   managerId: number
@@ -164,13 +161,12 @@ export type UserMinAggregateInputType = {
   Gender?: true
   Language?: true
   photoUrl?: true
-  avatarFileId?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
   emergencyContactName?: true
   emergencyContactPhone?: true
-  jobTitle?: true
   position?: true
+  jobTitle?: true
   isValidated?: true
   isSuspended?: true
   managerId?: true
@@ -196,13 +192,12 @@ export type UserMaxAggregateInputType = {
   Gender?: true
   Language?: true
   photoUrl?: true
-  avatarFileId?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
   emergencyContactName?: true
   emergencyContactPhone?: true
-  jobTitle?: true
   position?: true
+  jobTitle?: true
   isValidated?: true
   isSuspended?: true
   managerId?: true
@@ -229,13 +224,12 @@ export type UserCountAggregateInputType = {
   social?: true
   Language?: true
   photoUrl?: true
-  avatarFileId?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
   emergencyContactName?: true
   emergencyContactPhone?: true
-  jobTitle?: true
   position?: true
+  jobTitle?: true
   isValidated?: true
   isSuspended?: true
   managerId?: true
@@ -351,13 +345,12 @@ export type UserGroupByOutputType = {
   social: runtime.JsonValue | null
   Language: $Enums.Language | null
   photoUrl: string | null
-  avatarFileId: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean
   emergencyContactName: string | null
   emergencyContactPhone: string | null
-  jobTitle: string | null
   position: $Enums.Position | null
+  jobTitle: string | null
   isValidated: Date | null
   isSuspended: Date | null
   managerId: string | null
@@ -409,13 +402,12 @@ export type UserWhereInput = {
   social?: Prisma.JsonNullableFilter<"User">
   Language?: Prisma.EnumLanguageNullableFilter<"User"> | $Enums.Language | null
   photoUrl?: Prisma.StringNullableFilter<"User"> | string | null
-  avatarFileId?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
-  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -424,14 +416,12 @@ export type UserWhereInput = {
   isTfaEnable?: Prisma.BoolFilter<"User"> | boolean
   tfaSecret?: Prisma.StringNullableFilter<"User"> | string | null
   passWordFaker?: Prisma.StringNullableFilter<"User"> | string | null
-  avatarFile?: Prisma.XOR<Prisma.FileNullableScalarRelationFilter, Prisma.FileWhereInput> | null
   phone?: Prisma.PhoneListRelationFilter
   address?: Prisma.AddressListRelationFilter
-  Profiles?: Prisma.ProfileListRelationFilter
-  profileFiles?: Prisma.FileListRelationFilter
   Orgs?: Prisma.OrganizationListRelationFilter
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   Team?: Prisma.UserListRelationFilter
+  Profiles?: Prisma.ProfileListRelationFilter
   Groups?: Prisma.GroupListRelationFilter
   Posts?: Prisma.PostListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
@@ -440,6 +430,9 @@ export type UserWhereInput = {
   TodosAuthor?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.UserTaskLinkListRelationFilter
   TasksAuthor?: Prisma.TaskListRelationFilter
+  ownedFiles?: Prisma.FileListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  profileFiles?: Prisma.FileListRelationFilter
   ChangesLogs?: Prisma.ChangesTrackingListRelationFilter
   Tokens?: Prisma.TokenListRelationFilter
   ApiKeys?: Prisma.ApiKeyListRelationFilter
@@ -447,8 +440,6 @@ export type UserWhereInput = {
   followers?: Prisma.UserFollowerListRelationFilter
   followings?: Prisma.UserFollowerListRelationFilter
   posts_liked?: Prisma.PostLikeListRelationFilter
-  ownedFiles?: Prisma.FileListRelationFilter
-  uploadedFiles?: Prisma.FileListRelationFilter
   uploadedImages?: Prisma.ImageListRelationFilter
   profileImages?: Prisma.ImageListRelationFilter
 }
@@ -471,13 +462,12 @@ export type UserOrderByWithRelationInput = {
   social?: Prisma.SortOrderInput | Prisma.SortOrder
   Language?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  avatarFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
   emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
-  jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -486,14 +476,12 @@ export type UserOrderByWithRelationInput = {
   isTfaEnable?: Prisma.SortOrder
   tfaSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   passWordFaker?: Prisma.SortOrderInput | Prisma.SortOrder
-  avatarFile?: Prisma.FileOrderByWithRelationInput
   phone?: Prisma.PhoneOrderByRelationAggregateInput
   address?: Prisma.AddressOrderByRelationAggregateInput
-  Profiles?: Prisma.ProfileOrderByRelationAggregateInput
-  profileFiles?: Prisma.FileOrderByRelationAggregateInput
   Orgs?: Prisma.OrganizationOrderByRelationAggregateInput
   manager?: Prisma.UserOrderByWithRelationInput
   Team?: Prisma.UserOrderByRelationAggregateInput
+  Profiles?: Prisma.ProfileOrderByRelationAggregateInput
   Groups?: Prisma.GroupOrderByRelationAggregateInput
   Posts?: Prisma.PostOrderByRelationAggregateInput
   Comments?: Prisma.CommentOrderByRelationAggregateInput
@@ -502,6 +490,9 @@ export type UserOrderByWithRelationInput = {
   TodosAuthor?: Prisma.TodoOrderByRelationAggregateInput
   Tasks?: Prisma.UserTaskLinkOrderByRelationAggregateInput
   TasksAuthor?: Prisma.TaskOrderByRelationAggregateInput
+  ownedFiles?: Prisma.FileOrderByRelationAggregateInput
+  uploadedFiles?: Prisma.FileOrderByRelationAggregateInput
+  profileFiles?: Prisma.FileOrderByRelationAggregateInput
   ChangesLogs?: Prisma.ChangesTrackingOrderByRelationAggregateInput
   Tokens?: Prisma.TokenOrderByRelationAggregateInput
   ApiKeys?: Prisma.ApiKeyOrderByRelationAggregateInput
@@ -509,8 +500,6 @@ export type UserOrderByWithRelationInput = {
   followers?: Prisma.UserFollowerOrderByRelationAggregateInput
   followings?: Prisma.UserFollowerOrderByRelationAggregateInput
   posts_liked?: Prisma.PostLikeOrderByRelationAggregateInput
-  ownedFiles?: Prisma.FileOrderByRelationAggregateInput
-  uploadedFiles?: Prisma.FileOrderByRelationAggregateInput
   uploadedImages?: Prisma.ImageOrderByRelationAggregateInput
   profileImages?: Prisma.ImageOrderByRelationAggregateInput
 }
@@ -518,7 +507,6 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
-  avatarFileId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -541,8 +529,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
-  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -551,14 +539,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isTfaEnable?: Prisma.BoolFilter<"User"> | boolean
   tfaSecret?: Prisma.StringNullableFilter<"User"> | string | null
   passWordFaker?: Prisma.StringNullableFilter<"User"> | string | null
-  avatarFile?: Prisma.XOR<Prisma.FileNullableScalarRelationFilter, Prisma.FileWhereInput> | null
   phone?: Prisma.PhoneListRelationFilter
   address?: Prisma.AddressListRelationFilter
-  Profiles?: Prisma.ProfileListRelationFilter
-  profileFiles?: Prisma.FileListRelationFilter
   Orgs?: Prisma.OrganizationListRelationFilter
   manager?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   Team?: Prisma.UserListRelationFilter
+  Profiles?: Prisma.ProfileListRelationFilter
   Groups?: Prisma.GroupListRelationFilter
   Posts?: Prisma.PostListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
@@ -567,6 +553,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   TodosAuthor?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.UserTaskLinkListRelationFilter
   TasksAuthor?: Prisma.TaskListRelationFilter
+  ownedFiles?: Prisma.FileListRelationFilter
+  uploadedFiles?: Prisma.FileListRelationFilter
+  profileFiles?: Prisma.FileListRelationFilter
   ChangesLogs?: Prisma.ChangesTrackingListRelationFilter
   Tokens?: Prisma.TokenListRelationFilter
   ApiKeys?: Prisma.ApiKeyListRelationFilter
@@ -574,11 +563,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   followers?: Prisma.UserFollowerListRelationFilter
   followings?: Prisma.UserFollowerListRelationFilter
   posts_liked?: Prisma.PostLikeListRelationFilter
-  ownedFiles?: Prisma.FileListRelationFilter
-  uploadedFiles?: Prisma.FileListRelationFilter
   uploadedImages?: Prisma.ImageListRelationFilter
   profileImages?: Prisma.ImageListRelationFilter
-}, "id" | "email" | "avatarFileId">
+}, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -598,13 +585,12 @@ export type UserOrderByWithAggregationInput = {
   social?: Prisma.SortOrderInput | Prisma.SortOrder
   Language?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  avatarFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
   emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
-  jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -641,13 +627,12 @@ export type UserScalarWhereWithAggregatesInput = {
   social?: Prisma.JsonNullableWithAggregatesFilter<"User">
   Language?: Prisma.EnumLanguageNullableWithAggregatesFilter<"User"> | $Enums.Language | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  avatarFileId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   emergencyContactName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  jobTitle?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableWithAggregatesFilter<"User"> | $Enums.Position | null
+  jobTitle?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -680,8 +665,8 @@ export type UserCreateInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -689,14 +674,12 @@ export type UserCreateInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -705,6 +688,9 @@ export type UserCreateInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -712,8 +698,6 @@ export type UserCreateInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -736,13 +720,12 @@ export type UserUncheckedCreateInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -753,10 +736,9 @@ export type UserUncheckedCreateInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -765,6 +747,9 @@ export type UserUncheckedCreateInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -772,8 +757,6 @@ export type UserUncheckedCreateInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -800,8 +783,8 @@ export type UserUpdateInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -809,14 +792,12 @@ export type UserUpdateInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -825,6 +806,9 @@ export type UserUpdateInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -832,8 +816,6 @@ export type UserUpdateInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -856,13 +838,12 @@ export type UserUncheckedUpdateInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -873,10 +854,9 @@ export type UserUncheckedUpdateInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -885,6 +865,9 @@ export type UserUncheckedUpdateInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -892,8 +875,6 @@ export type UserUncheckedUpdateInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -916,13 +897,12 @@ export type UserCreateManyInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -955,8 +935,8 @@ export type UserUpdateManyMutationInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -984,13 +964,12 @@ export type UserUncheckedUpdateManyInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1050,13 +1029,12 @@ export type UserCountOrderByAggregateInput = {
   social?: Prisma.SortOrder
   Language?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  avatarFileId?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
   emergencyContactName?: Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrder
-  jobTitle?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   isValidated?: Prisma.SortOrder
   isSuspended?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
@@ -1089,13 +1067,12 @@ export type UserMaxOrderByAggregateInput = {
   Gender?: Prisma.SortOrder
   Language?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  avatarFileId?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
   emergencyContactName?: Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrder
-  jobTitle?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   isValidated?: Prisma.SortOrder
   isSuspended?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
@@ -1121,13 +1098,12 @@ export type UserMinOrderByAggregateInput = {
   Gender?: Prisma.SortOrder
   Language?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
-  avatarFileId?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
   emergencyContactName?: Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrder
-  jobTitle?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  jobTitle?: Prisma.SortOrder
   isValidated?: Prisma.SortOrder
   isSuspended?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
@@ -1478,12 +1454,6 @@ export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
 }
 
-export type UserCreateNestedOneWithoutAvatarFileInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvatarFileInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
 export type UserCreateNestedOneWithoutOwnedFilesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedFilesInput, Prisma.UserUncheckedCreateWithoutOwnedFilesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedFilesInput
@@ -1500,22 +1470,6 @@ export type UserCreateNestedOneWithoutProfileFilesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileFilesInput
   connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUncheckedCreateNestedOneWithoutAvatarFileInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvatarFileInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutAvatarFileNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvatarFileInput
-  upsert?: Prisma.UserUpsertWithoutAvatarFileInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAvatarFileInput, Prisma.UserUpdateWithoutAvatarFileInput>, Prisma.UserUncheckedUpdateWithoutAvatarFileInput>
 }
 
 export type UserUpdateOneRequiredWithoutOwnedFilesNestedInput = {
@@ -1544,16 +1498,6 @@ export type UserUpdateOneWithoutProfileFilesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileFilesInput, Prisma.UserUpdateWithoutProfileFilesInput>, Prisma.UserUncheckedUpdateWithoutProfileFilesInput>
-}
-
-export type UserUncheckedUpdateOneWithoutAvatarFileNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvatarFileInput
-  upsert?: Prisma.UserUpsertWithoutAvatarFileInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAvatarFileInput, Prisma.UserUpdateWithoutAvatarFileInput>, Prisma.UserUncheckedUpdateWithoutAvatarFileInput>
 }
 
 export type UserCreateNestedOneWithoutFollowersInput = {
@@ -1706,8 +1650,8 @@ export type UserCreateWithoutOrgsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -1715,13 +1659,11 @@ export type UserCreateWithoutOrgsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -1730,6 +1672,9 @@ export type UserCreateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -1737,8 +1682,6 @@ export type UserCreateWithoutOrgsInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -1761,13 +1704,12 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -1778,9 +1720,8 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -1789,6 +1730,9 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -1796,8 +1740,6 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -1844,13 +1786,12 @@ export type UserScalarWhereInput = {
   social?: Prisma.JsonNullableFilter<"User">
   Language?: Prisma.EnumLanguageNullableFilter<"User"> | $Enums.Language | null
   photoUrl?: Prisma.StringNullableFilter<"User"> | string | null
-  avatarFileId?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
-  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1883,8 +1824,8 @@ export type UserCreateWithoutTeamInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -1892,13 +1833,11 @@ export type UserCreateWithoutTeamInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -1907,6 +1846,9 @@ export type UserCreateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -1914,8 +1856,6 @@ export type UserCreateWithoutTeamInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -1938,13 +1878,12 @@ export type UserUncheckedCreateWithoutTeamInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -1955,9 +1894,8 @@ export type UserUncheckedCreateWithoutTeamInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -1966,6 +1904,9 @@ export type UserUncheckedCreateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -1973,8 +1914,6 @@ export type UserUncheckedCreateWithoutTeamInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -2006,8 +1945,8 @@ export type UserCreateWithoutManagerInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2015,13 +1954,11 @@ export type UserCreateWithoutManagerInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -2030,6 +1967,9 @@ export type UserCreateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2037,8 +1977,6 @@ export type UserCreateWithoutManagerInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -2061,13 +1999,12 @@ export type UserUncheckedCreateWithoutManagerInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2077,10 +2014,9 @@ export type UserUncheckedCreateWithoutManagerInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -2089,6 +2025,9 @@ export type UserUncheckedCreateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2096,8 +2035,6 @@ export type UserUncheckedCreateWithoutManagerInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -2145,8 +2082,8 @@ export type UserUpdateWithoutTeamInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2154,13 +2091,11 @@ export type UserUpdateWithoutTeamInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -2169,6 +2104,9 @@ export type UserUpdateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2176,8 +2114,6 @@ export type UserUpdateWithoutTeamInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -2200,13 +2136,12 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2217,9 +2152,8 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2228,6 +2162,9 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2235,8 +2172,6 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -2279,8 +2214,8 @@ export type UserCreateWithoutPhoneInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2288,13 +2223,11 @@ export type UserCreateWithoutPhoneInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -2303,6 +2236,9 @@ export type UserCreateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2310,8 +2246,6 @@ export type UserCreateWithoutPhoneInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -2334,13 +2268,12 @@ export type UserUncheckedCreateWithoutPhoneInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2350,10 +2283,9 @@ export type UserUncheckedCreateWithoutPhoneInput = {
   tfaSecret?: string | null
   passWordFaker?: string | null
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -2362,6 +2294,9 @@ export type UserUncheckedCreateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2369,8 +2304,6 @@ export type UserUncheckedCreateWithoutPhoneInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -2413,8 +2346,8 @@ export type UserUpdateWithoutPhoneInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2422,13 +2355,11 @@ export type UserUpdateWithoutPhoneInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -2437,6 +2368,9 @@ export type UserUpdateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2444,8 +2378,6 @@ export type UserUpdateWithoutPhoneInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -2468,13 +2400,12 @@ export type UserUncheckedUpdateWithoutPhoneInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2484,10 +2415,9 @@ export type UserUncheckedUpdateWithoutPhoneInput = {
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2496,6 +2426,9 @@ export type UserUncheckedUpdateWithoutPhoneInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2503,8 +2436,6 @@ export type UserUncheckedUpdateWithoutPhoneInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -2531,8 +2462,8 @@ export type UserCreateWithoutAddressInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2540,13 +2471,11 @@ export type UserCreateWithoutAddressInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -2555,6 +2484,9 @@ export type UserCreateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2562,8 +2494,6 @@ export type UserCreateWithoutAddressInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -2586,13 +2516,12 @@ export type UserUncheckedCreateWithoutAddressInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2602,10 +2531,9 @@ export type UserUncheckedCreateWithoutAddressInput = {
   tfaSecret?: string | null
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -2614,6 +2542,9 @@ export type UserUncheckedCreateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2621,8 +2552,6 @@ export type UserUncheckedCreateWithoutAddressInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -2665,8 +2594,8 @@ export type UserUpdateWithoutAddressInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2674,13 +2603,11 @@ export type UserUpdateWithoutAddressInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -2689,6 +2616,9 @@ export type UserUpdateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2696,8 +2626,6 @@ export type UserUpdateWithoutAddressInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -2720,13 +2648,12 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2736,10 +2663,9 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -2748,6 +2674,9 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2755,8 +2684,6 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -2783,8 +2710,8 @@ export type UserCreateWithoutUserSecretInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2792,14 +2719,12 @@ export type UserCreateWithoutUserSecretInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -2808,14 +2733,15 @@ export type UserCreateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -2838,13 +2764,12 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2855,10 +2780,9 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -2867,14 +2791,15 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -2917,8 +2842,8 @@ export type UserUpdateWithoutUserSecretInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2926,14 +2851,12 @@ export type UserUpdateWithoutUserSecretInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -2942,14 +2865,15 @@ export type UserUpdateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -2972,13 +2896,12 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2989,10 +2912,9 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3001,14 +2923,15 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -3035,8 +2958,8 @@ export type UserCreateWithoutProfilesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3044,10 +2967,8 @@ export type UserCreateWithoutProfilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
@@ -3059,6 +2980,9 @@ export type UserCreateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3066,8 +2990,6 @@ export type UserCreateWithoutProfilesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -3090,13 +3012,12 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3107,7 +3028,6 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
@@ -3118,6 +3038,9 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3125,8 +3048,6 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -3174,8 +3095,8 @@ export type UserCreateWithoutGroupsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3183,14 +3104,12 @@ export type UserCreateWithoutGroupsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
@@ -3198,6 +3117,9 @@ export type UserCreateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3205,8 +3127,6 @@ export type UserCreateWithoutGroupsInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -3229,13 +3149,12 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3246,10 +3165,9 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
@@ -3257,6 +3175,9 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3264,8 +3185,6 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -3313,8 +3232,8 @@ export type UserCreateWithoutTodosAuthorInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3322,14 +3241,12 @@ export type UserCreateWithoutTodosAuthorInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -3337,6 +3254,9 @@ export type UserCreateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3344,8 +3264,6 @@ export type UserCreateWithoutTodosAuthorInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -3368,13 +3286,12 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3385,10 +3302,9 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -3396,6 +3312,9 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3403,8 +3322,6 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -3447,8 +3364,8 @@ export type UserUpdateWithoutTodosAuthorInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -3456,14 +3373,12 @@ export type UserUpdateWithoutTodosAuthorInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -3471,6 +3386,9 @@ export type UserUpdateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3478,8 +3396,6 @@ export type UserUpdateWithoutTodosAuthorInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -3502,13 +3418,12 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3519,10 +3434,9 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3530,6 +3444,9 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -3537,8 +3454,6 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -3565,8 +3480,8 @@ export type UserCreateWithoutTodoInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3574,14 +3489,12 @@ export type UserCreateWithoutTodoInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -3589,6 +3502,9 @@ export type UserCreateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3596,8 +3512,6 @@ export type UserCreateWithoutTodoInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -3620,13 +3534,12 @@ export type UserUncheckedCreateWithoutTodoInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3637,10 +3550,9 @@ export type UserUncheckedCreateWithoutTodoInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -3648,6 +3560,9 @@ export type UserUncheckedCreateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3655,8 +3570,6 @@ export type UserUncheckedCreateWithoutTodoInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -3699,8 +3612,8 @@ export type UserUpdateWithoutTodoInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -3708,14 +3621,12 @@ export type UserUpdateWithoutTodoInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -3723,6 +3634,9 @@ export type UserUpdateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3730,8 +3644,6 @@ export type UserUpdateWithoutTodoInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -3754,13 +3666,12 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3771,10 +3682,9 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -3782,6 +3692,9 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -3789,8 +3702,6 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -3817,8 +3728,8 @@ export type UserCreateWithoutTasksAuthorInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3826,14 +3737,12 @@ export type UserCreateWithoutTasksAuthorInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -3841,6 +3750,9 @@ export type UserCreateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -3848,8 +3760,6 @@ export type UserCreateWithoutTasksAuthorInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -3872,13 +3782,12 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3889,10 +3798,9 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -3900,6 +3808,9 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -3907,8 +3818,6 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -3951,8 +3860,8 @@ export type UserUpdateWithoutTasksAuthorInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -3960,14 +3869,12 @@ export type UserUpdateWithoutTasksAuthorInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -3975,6 +3882,9 @@ export type UserUpdateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -3982,8 +3892,6 @@ export type UserUpdateWithoutTasksAuthorInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -4006,13 +3914,12 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4023,10 +3930,9 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4034,6 +3940,9 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4041,8 +3950,6 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -4069,8 +3976,8 @@ export type UserCreateWithoutTasksInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4078,14 +3985,12 @@ export type UserCreateWithoutTasksInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -4093,6 +3998,9 @@ export type UserCreateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4100,8 +4008,6 @@ export type UserCreateWithoutTasksInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -4124,13 +4030,12 @@ export type UserUncheckedCreateWithoutTasksInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4141,10 +4046,9 @@ export type UserUncheckedCreateWithoutTasksInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -4152,6 +4056,9 @@ export type UserUncheckedCreateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4159,8 +4066,6 @@ export type UserUncheckedCreateWithoutTasksInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -4203,8 +4108,8 @@ export type UserUpdateWithoutTasksInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4212,14 +4117,12 @@ export type UserUpdateWithoutTasksInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -4227,6 +4130,9 @@ export type UserUpdateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4234,8 +4140,6 @@ export type UserUpdateWithoutTasksInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -4258,13 +4162,12 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4275,10 +4178,9 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4286,6 +4188,9 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4293,8 +4198,6 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -4321,8 +4224,8 @@ export type UserCreateWithoutPostsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4330,14 +4233,12 @@ export type UserCreateWithoutPostsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
@@ -4345,6 +4246,9 @@ export type UserCreateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4352,8 +4256,6 @@ export type UserCreateWithoutPostsInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -4376,13 +4278,12 @@ export type UserUncheckedCreateWithoutPostsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4393,10 +4294,9 @@ export type UserUncheckedCreateWithoutPostsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
@@ -4404,6 +4304,9 @@ export type UserUncheckedCreateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4411,8 +4314,6 @@ export type UserUncheckedCreateWithoutPostsInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -4455,8 +4356,8 @@ export type UserUpdateWithoutPostsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4464,14 +4365,12 @@ export type UserUpdateWithoutPostsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
@@ -4479,6 +4378,9 @@ export type UserUpdateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4486,8 +4388,6 @@ export type UserUpdateWithoutPostsInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -4510,13 +4410,12 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4527,10 +4426,9 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
@@ -4538,6 +4436,9 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4545,8 +4446,6 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -4573,8 +4472,8 @@ export type UserCreateWithoutCommentsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4582,14 +4481,12 @@ export type UserCreateWithoutCommentsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
@@ -4597,6 +4494,9 @@ export type UserCreateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4604,8 +4504,6 @@ export type UserCreateWithoutCommentsInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -4628,13 +4526,12 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4645,10 +4542,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
@@ -4656,6 +4552,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -4663,8 +4562,6 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -4707,8 +4604,8 @@ export type UserUpdateWithoutCommentsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4716,14 +4613,12 @@ export type UserUpdateWithoutCommentsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
@@ -4731,6 +4626,9 @@ export type UserUpdateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -4738,8 +4636,6 @@ export type UserUpdateWithoutCommentsInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -4762,13 +4658,12 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4779,10 +4674,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
@@ -4790,6 +4684,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -4797,133 +4694,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
-}
-
-export type UserCreateWithoutAvatarFileInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean | null
-  isPublic?: boolean | null
-  isDeleted?: number | null
-  isDeletedDT?: Date | string | null
-  email: string
-  lastName?: string | null
-  firstName?: string | null
-  title?: $Enums.Title | null
-  nickName?: string | null
-  Gender?: $Enums.Gender | null
-  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
-  photoUrl?: string | null
-  dateOfBirth?: Date | string | null
-  hasEmergencyContact?: boolean
-  emergencyContactName?: string | null
-  emergencyContactPhone?: string | null
-  jobTitle?: string | null
-  position?: $Enums.Position | null
-  isValidated?: Date | string | null
-  isSuspended?: Date | string | null
-  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
-  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
-  isTfaEnable?: boolean
-  tfaSecret?: string | null
-  passWordFaker?: string | null
-  phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
-  Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
-  manager?: Prisma.UserCreateNestedOneWithoutTeamInput
-  Team?: Prisma.UserCreateNestedManyWithoutManagerInput
-  Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
-  Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
-  Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
-  Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
-  Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
-  TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
-  Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
-  TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
-  ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
-  Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
-  ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
-  userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
-  followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
-  followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
-  posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
-  uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
-  profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
-}
-
-export type UserUncheckedCreateWithoutAvatarFileInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean | null
-  isPublic?: boolean | null
-  isDeleted?: number | null
-  isDeletedDT?: Date | string | null
-  email: string
-  lastName?: string | null
-  firstName?: string | null
-  title?: $Enums.Title | null
-  nickName?: string | null
-  Gender?: $Enums.Gender | null
-  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
-  photoUrl?: string | null
-  dateOfBirth?: Date | string | null
-  hasEmergencyContact?: boolean
-  emergencyContactName?: string | null
-  emergencyContactPhone?: string | null
-  jobTitle?: string | null
-  position?: $Enums.Position | null
-  isValidated?: Date | string | null
-  isSuspended?: Date | string | null
-  managerId?: string | null
-  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
-  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
-  isTfaEnable?: boolean
-  tfaSecret?: string | null
-  passWordFaker?: string | null
-  phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
-  Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
-  Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
-  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
-  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
-  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
-  Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
-  Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
-  TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
-  Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
-  TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
-  ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
-  Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
-  ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
-  userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
-  followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
-  followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
-  posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
-  uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
-  profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
-}
-
-export type UserCreateOrConnectWithoutAvatarFileInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
 }
 
 export type UserCreateWithoutOwnedFilesInput = {
@@ -4948,8 +4720,8 @@ export type UserCreateWithoutOwnedFilesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4957,14 +4729,12 @@ export type UserCreateWithoutOwnedFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -4973,6 +4743,8 @@ export type UserCreateWithoutOwnedFilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -4980,7 +4752,6 @@ export type UserCreateWithoutOwnedFilesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -5003,13 +4774,12 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5020,10 +4790,9 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5032,6 +4801,8 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5039,7 +4810,6 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -5071,8 +4841,8 @@ export type UserCreateWithoutUploadedFilesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5080,14 +4850,12 @@ export type UserCreateWithoutUploadedFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -5096,6 +4864,8 @@ export type UserCreateWithoutUploadedFilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5103,7 +4873,6 @@ export type UserCreateWithoutUploadedFilesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -5126,13 +4895,12 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5143,10 +4911,9 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5155,6 +4922,8 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5162,7 +4931,6 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -5194,8 +4962,8 @@ export type UserCreateWithoutProfileFilesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5203,13 +4971,12 @@ export type UserCreateWithoutProfileFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -5218,6 +4985,8 @@ export type UserCreateWithoutProfileFilesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5225,8 +4994,6 @@ export type UserCreateWithoutProfileFilesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -5249,13 +5016,12 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5266,9 +5032,9 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5277,6 +5043,8 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -5284,8 +5052,6 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -5293,135 +5059,6 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
 export type UserCreateOrConnectWithoutProfileFilesInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutProfileFilesInput, Prisma.UserUncheckedCreateWithoutProfileFilesInput>
-}
-
-export type UserUpsertWithoutAvatarFileInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAvatarFileInput, Prisma.UserUncheckedUpdateWithoutAvatarFileInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAvatarFileInput, Prisma.UserUncheckedCreateWithoutAvatarFileInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutAvatarFileInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAvatarFileInput, Prisma.UserUncheckedUpdateWithoutAvatarFileInput>
-}
-
-export type UserUpdateWithoutAvatarFileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
-  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
-  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
-  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
-  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
-  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
-  Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
-  manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
-  Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
-  Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
-  Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
-  Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
-  Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
-  Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
-  TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
-  Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
-  TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
-  ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
-  Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
-  ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
-  userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
-  followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
-  followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
-  posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
-  uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
-  profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAvatarFileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
-  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
-  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
-  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
-  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
-  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
-  Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
-  Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
-  Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
-  Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
-  Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
-  Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
-  Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
-  TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
-  Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
-  TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
-  ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
-  Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
-  ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
-  userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
-  followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
-  followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
-  posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
-  uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
-  profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
 
 export type UserUpsertWithoutOwnedFilesInput = {
@@ -5457,8 +5094,8 @@ export type UserUpdateWithoutOwnedFilesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5466,14 +5103,12 @@ export type UserUpdateWithoutOwnedFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -5482,6 +5117,8 @@ export type UserUpdateWithoutOwnedFilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5489,7 +5126,6 @@ export type UserUpdateWithoutOwnedFilesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -5512,13 +5148,12 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5529,10 +5164,9 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5541,6 +5175,8 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5548,7 +5184,6 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -5586,8 +5221,8 @@ export type UserUpdateWithoutUploadedFilesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5595,14 +5230,12 @@ export type UserUpdateWithoutUploadedFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -5611,6 +5244,8 @@ export type UserUpdateWithoutUploadedFilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5618,7 +5253,6 @@ export type UserUpdateWithoutUploadedFilesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -5641,13 +5275,12 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5658,10 +5291,9 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5670,6 +5302,8 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5677,7 +5311,6 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -5715,8 +5348,8 @@ export type UserUpdateWithoutProfileFilesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5724,13 +5357,12 @@ export type UserUpdateWithoutProfileFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -5739,6 +5371,8 @@ export type UserUpdateWithoutProfileFilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -5746,8 +5380,6 @@ export type UserUpdateWithoutProfileFilesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -5770,13 +5402,12 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5787,9 +5418,9 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5798,6 +5429,8 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -5805,8 +5438,6 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -5833,8 +5464,8 @@ export type UserCreateWithoutFollowersInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5842,14 +5473,12 @@ export type UserCreateWithoutFollowersInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -5858,14 +5487,15 @@ export type UserCreateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -5888,13 +5518,12 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5905,10 +5534,9 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -5917,14 +5545,15 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -5956,8 +5585,8 @@ export type UserCreateWithoutFollowingsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5965,14 +5594,12 @@ export type UserCreateWithoutFollowingsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -5981,14 +5608,15 @@ export type UserCreateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -6011,13 +5639,12 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6028,10 +5655,9 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6040,14 +5666,15 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -6090,8 +5717,8 @@ export type UserUpdateWithoutFollowersInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6099,14 +5726,12 @@ export type UserUpdateWithoutFollowersInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -6115,14 +5740,15 @@ export type UserUpdateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -6145,13 +5771,12 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6162,10 +5787,9 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6174,14 +5798,15 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -6219,8 +5844,8 @@ export type UserUpdateWithoutFollowingsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6228,14 +5853,12 @@ export type UserUpdateWithoutFollowingsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -6244,14 +5867,15 @@ export type UserUpdateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -6274,13 +5898,12 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6291,10 +5914,9 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6303,14 +5925,15 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -6337,8 +5960,8 @@ export type UserCreateWithoutPosts_likedInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6346,14 +5969,12 @@ export type UserCreateWithoutPosts_likedInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -6362,14 +5983,15 @@ export type UserCreateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -6392,13 +6014,12 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6409,10 +6030,9 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6421,14 +6041,15 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -6471,8 +6092,8 @@ export type UserUpdateWithoutPosts_likedInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6480,14 +6101,12 @@ export type UserUpdateWithoutPosts_likedInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -6496,14 +6115,15 @@ export type UserUpdateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -6526,13 +6146,12 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6543,10 +6162,9 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6555,14 +6173,15 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -6589,8 +6208,8 @@ export type UserCreateWithoutStoriesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6598,14 +6217,12 @@ export type UserCreateWithoutStoriesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -6613,6 +6230,9 @@ export type UserCreateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -6620,8 +6240,6 @@ export type UserCreateWithoutStoriesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -6644,13 +6262,12 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6661,10 +6278,9 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6672,6 +6288,9 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -6679,8 +6298,6 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -6723,8 +6340,8 @@ export type UserUpdateWithoutStoriesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6732,14 +6349,12 @@ export type UserUpdateWithoutStoriesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -6747,6 +6362,9 @@ export type UserUpdateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -6754,8 +6372,6 @@ export type UserUpdateWithoutStoriesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -6778,13 +6394,12 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6795,10 +6410,9 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6806,6 +6420,9 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -6813,8 +6430,6 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -6841,8 +6456,8 @@ export type UserCreateWithoutUploadedImagesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6850,14 +6465,12 @@ export type UserCreateWithoutUploadedImagesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -6866,6 +6479,9 @@ export type UserCreateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -6873,8 +6489,6 @@ export type UserCreateWithoutUploadedImagesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
 
@@ -6896,13 +6510,12 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6913,10 +6526,9 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -6925,6 +6537,9 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -6932,8 +6547,6 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
 
@@ -6964,8 +6577,8 @@ export type UserCreateWithoutProfileImagesInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6973,14 +6586,12 @@ export type UserCreateWithoutProfileImagesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -6989,6 +6600,9 @@ export type UserCreateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -6996,8 +6610,6 @@ export type UserCreateWithoutProfileImagesInput = {
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
 }
 
@@ -7019,13 +6631,12 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7036,10 +6647,9 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7048,6 +6658,9 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -7055,8 +6668,6 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
@@ -7098,8 +6709,8 @@ export type UserUpdateWithoutUploadedImagesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7107,14 +6718,12 @@ export type UserUpdateWithoutUploadedImagesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -7123,6 +6732,9 @@ export type UserUpdateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7130,8 +6742,6 @@ export type UserUpdateWithoutUploadedImagesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
 
@@ -7153,13 +6763,12 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7170,10 +6779,9 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7182,6 +6790,9 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7189,8 +6800,6 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
 
@@ -7227,8 +6836,8 @@ export type UserUpdateWithoutProfileImagesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7236,14 +6845,12 @@ export type UserUpdateWithoutProfileImagesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -7252,6 +6859,9 @@ export type UserUpdateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -7259,8 +6869,6 @@ export type UserUpdateWithoutProfileImagesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
 }
 
@@ -7282,13 +6890,12 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7299,10 +6906,9 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7311,6 +6917,9 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7318,8 +6927,6 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
@@ -7345,8 +6952,8 @@ export type UserCreateWithoutApiKeysInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7354,14 +6961,12 @@ export type UserCreateWithoutApiKeysInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -7370,14 +6975,15 @@ export type UserCreateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -7400,13 +7006,12 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7417,10 +7022,9 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7429,14 +7033,15 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -7479,8 +7084,8 @@ export type UserUpdateWithoutApiKeysInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7488,14 +7093,12 @@ export type UserUpdateWithoutApiKeysInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -7504,14 +7107,15 @@ export type UserUpdateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -7534,13 +7138,12 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7551,10 +7154,9 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7563,14 +7165,15 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -7597,8 +7200,8 @@ export type UserCreateWithoutTokensInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7606,14 +7209,12 @@ export type UserCreateWithoutTokensInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -7622,14 +7223,15 @@ export type UserCreateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -7652,13 +7254,12 @@ export type UserUncheckedCreateWithoutTokensInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7669,10 +7270,9 @@ export type UserUncheckedCreateWithoutTokensInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7681,14 +7281,15 @@ export type UserUncheckedCreateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -7731,8 +7332,8 @@ export type UserUpdateWithoutTokensInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7740,14 +7341,12 @@ export type UserUpdateWithoutTokensInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -7756,14 +7355,15 @@ export type UserUpdateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -7786,13 +7386,12 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7803,10 +7402,9 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -7815,14 +7413,15 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -7849,8 +7448,8 @@ export type UserCreateWithoutChangesLogsInput = {
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7858,14 +7457,12 @@ export type UserCreateWithoutChangesLogsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
-  avatarFile?: Prisma.FileCreateNestedOneWithoutUserAvatarInput
   phone?: Prisma.PhoneCreateNestedManyWithoutUserInput
   address?: Prisma.AddressCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
   Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
@@ -7874,14 +7471,15 @@ export type UserCreateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
   Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
 }
@@ -7904,13 +7502,12 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7921,10 +7518,9 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   passWordFaker?: string | null
   phone?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
   address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
-  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
   Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -7933,14 +7529,15 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
   Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
   TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
   Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
   ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
   followers?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutUserInput
   followings?: Prisma.UserFollowerUncheckedCreateNestedManyWithoutFollowerInput
   posts_liked?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
-  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
-  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
   uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
   profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
 }
@@ -7983,8 +7580,8 @@ export type UserUpdateWithoutChangesLogsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7992,14 +7589,12 @@ export type UserUpdateWithoutChangesLogsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -8008,14 +7603,15 @@ export type UserUpdateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -8038,13 +7634,12 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8055,10 +7650,9 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8067,14 +7661,15 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -8101,8 +7696,8 @@ export type UserUpdateWithoutOrgsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8110,13 +7705,11 @@ export type UserUpdateWithoutOrgsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -8125,6 +7718,9 @@ export type UserUpdateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8132,8 +7728,6 @@ export type UserUpdateWithoutOrgsInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -8156,13 +7750,12 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8173,9 +7766,8 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8184,6 +7776,9 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8191,8 +7786,6 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -8215,13 +7808,12 @@ export type UserUncheckedUpdateManyWithoutOrgsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8250,13 +7842,12 @@ export type UserCreateManyManagerInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: $Enums.Language | null
   photoUrl?: string | null
-  avatarFileId?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
-  jobTitle?: string | null
   position?: $Enums.Position | null
+  jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -8288,8 +7879,8 @@ export type UserUpdateWithoutManagerInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8297,13 +7888,11 @@ export type UserUpdateWithoutManagerInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
@@ -8312,6 +7901,9 @@ export type UserUpdateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8319,8 +7911,6 @@ export type UserUpdateWithoutManagerInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -8343,13 +7933,12 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8359,10 +7948,9 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -8371,6 +7959,9 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8378,8 +7969,6 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -8402,13 +7991,12 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8440,8 +8028,8 @@ export type UserUpdateWithoutProfilesInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8449,10 +8037,8 @@ export type UserUpdateWithoutProfilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
@@ -8464,6 +8050,9 @@ export type UserUpdateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8471,8 +8060,6 @@ export type UserUpdateWithoutProfilesInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -8495,13 +8082,12 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8512,7 +8098,6 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
@@ -8523,6 +8108,9 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8530,8 +8118,6 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -8554,13 +8140,12 @@ export type UserUncheckedUpdateManyWithoutProfilesInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8593,8 +8178,8 @@ export type UserUpdateWithoutGroupsInput = {
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8602,14 +8187,12 @@ export type UserUpdateWithoutGroupsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFile?: Prisma.FileUpdateOneWithoutUserAvatarNestedInput
   phone?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
   Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
@@ -8617,6 +8200,9 @@ export type UserUpdateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8624,8 +8210,6 @@ export type UserUpdateWithoutGroupsInput = {
   followers?: Prisma.UserFollowerUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
 }
@@ -8648,13 +8232,12 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8665,10 +8248,9 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
   address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
-  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
   Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
@@ -8676,6 +8258,9 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
   Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
   TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
   ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
   Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
   ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8683,8 +8268,6 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   followers?: Prisma.UserFollowerUncheckedUpdateManyWithoutUserNestedInput
   followings?: Prisma.UserFollowerUncheckedUpdateManyWithoutFollowerNestedInput
   posts_liked?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
-  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
-  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
   uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
@@ -8707,13 +8290,12 @@ export type UserUncheckedUpdateManyWithoutGroupsInput = {
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8732,10 +8314,9 @@ export type UserUncheckedUpdateManyWithoutGroupsInput = {
 export type UserCountOutputType = {
   phone: number
   address: number
-  Profiles: number
-  profileFiles: number
   Orgs: number
   Team: number
+  Profiles: number
   Groups: number
   Posts: number
   Comments: number
@@ -8744,14 +8325,15 @@ export type UserCountOutputType = {
   TodosAuthor: number
   Tasks: number
   TasksAuthor: number
+  ownedFiles: number
+  uploadedFiles: number
+  profileFiles: number
   ChangesLogs: number
   Tokens: number
   ApiKeys: number
   followers: number
   followings: number
   posts_liked: number
-  ownedFiles: number
-  uploadedFiles: number
   uploadedImages: number
   profileImages: number
 }
@@ -8759,10 +8341,9 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   phone?: boolean | UserCountOutputTypeCountPhoneArgs
   address?: boolean | UserCountOutputTypeCountAddressArgs
-  Profiles?: boolean | UserCountOutputTypeCountProfilesArgs
-  profileFiles?: boolean | UserCountOutputTypeCountProfileFilesArgs
   Orgs?: boolean | UserCountOutputTypeCountOrgsArgs
   Team?: boolean | UserCountOutputTypeCountTeamArgs
+  Profiles?: boolean | UserCountOutputTypeCountProfilesArgs
   Groups?: boolean | UserCountOutputTypeCountGroupsArgs
   Posts?: boolean | UserCountOutputTypeCountPostsArgs
   Comments?: boolean | UserCountOutputTypeCountCommentsArgs
@@ -8771,14 +8352,15 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   TodosAuthor?: boolean | UserCountOutputTypeCountTodosAuthorArgs
   Tasks?: boolean | UserCountOutputTypeCountTasksArgs
   TasksAuthor?: boolean | UserCountOutputTypeCountTasksAuthorArgs
+  ownedFiles?: boolean | UserCountOutputTypeCountOwnedFilesArgs
+  uploadedFiles?: boolean | UserCountOutputTypeCountUploadedFilesArgs
+  profileFiles?: boolean | UserCountOutputTypeCountProfileFilesArgs
   ChangesLogs?: boolean | UserCountOutputTypeCountChangesLogsArgs
   Tokens?: boolean | UserCountOutputTypeCountTokensArgs
   ApiKeys?: boolean | UserCountOutputTypeCountApiKeysArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   followings?: boolean | UserCountOutputTypeCountFollowingsArgs
   posts_liked?: boolean | UserCountOutputTypeCountPosts_likedArgs
-  ownedFiles?: boolean | UserCountOutputTypeCountOwnedFilesArgs
-  uploadedFiles?: boolean | UserCountOutputTypeCountUploadedFilesArgs
   uploadedImages?: boolean | UserCountOutputTypeCountUploadedImagesArgs
   profileImages?: boolean | UserCountOutputTypeCountProfileImagesArgs
 }
@@ -8810,20 +8392,6 @@ export type UserCountOutputTypeCountAddressArgs<ExtArgs extends runtime.Types.Ex
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProfileWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountProfileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FileWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountOrgsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrganizationWhereInput
 }
@@ -8833,6 +8401,13 @@ export type UserCountOutputTypeCountOrgsArgs<ExtArgs extends runtime.Types.Exten
  */
 export type UserCountOutputTypeCountTeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProfileWhereInput
 }
 
 /**
@@ -8894,6 +8469,27 @@ export type UserCountOutputTypeCountTasksAuthorArgs<ExtArgs extends runtime.Type
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountOwnedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProfileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountChangesLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ChangesTrackingWhereInput
 }
@@ -8936,20 +8532,6 @@ export type UserCountOutputTypeCountPosts_likedArgs<ExtArgs extends runtime.Type
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountOwnedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FileWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountUploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.FileWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountUploadedImagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ImageWhereInput
 }
@@ -8980,13 +8562,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   social?: boolean
   Language?: boolean
   photoUrl?: boolean
-  avatarFileId?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
-  jobTitle?: boolean
   position?: boolean
+  jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -8995,14 +8576,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   phone?: boolean | Prisma.User$phoneArgs<ExtArgs>
   address?: boolean | Prisma.User$addressArgs<ExtArgs>
-  Profiles?: boolean | Prisma.User$ProfilesArgs<ExtArgs>
-  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   Orgs?: boolean | Prisma.User$OrgsArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   Team?: boolean | Prisma.User$TeamArgs<ExtArgs>
+  Profiles?: boolean | Prisma.User$ProfilesArgs<ExtArgs>
   Groups?: boolean | Prisma.User$GroupsArgs<ExtArgs>
   Posts?: boolean | Prisma.User$PostsArgs<ExtArgs>
   Comments?: boolean | Prisma.User$CommentsArgs<ExtArgs>
@@ -9011,6 +8590,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   TodosAuthor?: boolean | Prisma.User$TodosAuthorArgs<ExtArgs>
   Tasks?: boolean | Prisma.User$TasksArgs<ExtArgs>
   TasksAuthor?: boolean | Prisma.User$TasksAuthorArgs<ExtArgs>
+  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   ChangesLogs?: boolean | Prisma.User$ChangesLogsArgs<ExtArgs>
   Tokens?: boolean | Prisma.User$TokensArgs<ExtArgs>
   ApiKeys?: boolean | Prisma.User$ApiKeysArgs<ExtArgs>
@@ -9018,8 +8600,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   followings?: boolean | Prisma.User$followingsArgs<ExtArgs>
   posts_liked?: boolean | Prisma.User$posts_likedArgs<ExtArgs>
-  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
-  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
   uploadedImages?: boolean | Prisma.User$uploadedImagesArgs<ExtArgs>
   profileImages?: boolean | Prisma.User$profileImagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -9043,13 +8623,12 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   social?: boolean
   Language?: boolean
   photoUrl?: boolean
-  avatarFileId?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
-  jobTitle?: boolean
   position?: boolean
+  jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9058,7 +8637,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -9080,13 +8658,12 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   social?: boolean
   Language?: boolean
   photoUrl?: boolean
-  avatarFileId?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
-  jobTitle?: boolean
   position?: boolean
+  jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9095,7 +8672,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -9117,13 +8693,12 @@ export type UserSelectScalar = {
   social?: boolean
   Language?: boolean
   photoUrl?: boolean
-  avatarFileId?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
-  jobTitle?: boolean
   position?: boolean
+  jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9134,16 +8709,14 @@ export type UserSelectScalar = {
   passWordFaker?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "Language" | "photoUrl" | "avatarFileId" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "jobTitle" | "position" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "Language" | "photoUrl" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "position" | "jobTitle" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   phone?: boolean | Prisma.User$phoneArgs<ExtArgs>
   address?: boolean | Prisma.User$addressArgs<ExtArgs>
-  Profiles?: boolean | Prisma.User$ProfilesArgs<ExtArgs>
-  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   Orgs?: boolean | Prisma.User$OrgsArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
   Team?: boolean | Prisma.User$TeamArgs<ExtArgs>
+  Profiles?: boolean | Prisma.User$ProfilesArgs<ExtArgs>
   Groups?: boolean | Prisma.User$GroupsArgs<ExtArgs>
   Posts?: boolean | Prisma.User$PostsArgs<ExtArgs>
   Comments?: boolean | Prisma.User$CommentsArgs<ExtArgs>
@@ -9152,6 +8725,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   TodosAuthor?: boolean | Prisma.User$TodosAuthorArgs<ExtArgs>
   Tasks?: boolean | Prisma.User$TasksArgs<ExtArgs>
   TasksAuthor?: boolean | Prisma.User$TasksAuthorArgs<ExtArgs>
+  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
+  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
+  profileFiles?: boolean | Prisma.User$profileFilesArgs<ExtArgs>
   ChangesLogs?: boolean | Prisma.User$ChangesLogsArgs<ExtArgs>
   Tokens?: boolean | Prisma.User$TokensArgs<ExtArgs>
   ApiKeys?: boolean | Prisma.User$ApiKeysArgs<ExtArgs>
@@ -9159,32 +8735,26 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   followings?: boolean | Prisma.User$followingsArgs<ExtArgs>
   posts_liked?: boolean | Prisma.User$posts_likedArgs<ExtArgs>
-  ownedFiles?: boolean | Prisma.User$ownedFilesArgs<ExtArgs>
-  uploadedFiles?: boolean | Prisma.User$uploadedFilesArgs<ExtArgs>
   uploadedImages?: boolean | Prisma.User$uploadedImagesArgs<ExtArgs>
   profileImages?: boolean | Prisma.User$profileImagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  avatarFile?: boolean | Prisma.User$avatarFileArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    avatarFile: Prisma.$FilePayload<ExtArgs> | null
     phone: Prisma.$PhonePayload<ExtArgs>[]
     address: Prisma.$AddressPayload<ExtArgs>[]
-    Profiles: Prisma.$ProfilePayload<ExtArgs>[]
-    profileFiles: Prisma.$FilePayload<ExtArgs>[]
     Orgs: Prisma.$OrganizationPayload<ExtArgs>[]
     manager: Prisma.$UserPayload<ExtArgs> | null
     Team: Prisma.$UserPayload<ExtArgs>[]
+    Profiles: Prisma.$ProfilePayload<ExtArgs>[]
     Groups: Prisma.$GroupPayload<ExtArgs>[]
     Posts: Prisma.$PostPayload<ExtArgs>[]
     Comments: Prisma.$CommentPayload<ExtArgs>[]
@@ -9193,6 +8763,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     TodosAuthor: Prisma.$TodoPayload<ExtArgs>[]
     Tasks: Prisma.$UserTaskLinkPayload<ExtArgs>[]
     TasksAuthor: Prisma.$TaskPayload<ExtArgs>[]
+    ownedFiles: Prisma.$FilePayload<ExtArgs>[]
+    uploadedFiles: Prisma.$FilePayload<ExtArgs>[]
+    profileFiles: Prisma.$FilePayload<ExtArgs>[]
     ChangesLogs: Prisma.$ChangesTrackingPayload<ExtArgs>[]
     Tokens: Prisma.$TokenPayload<ExtArgs>[]
     ApiKeys: Prisma.$ApiKeyPayload<ExtArgs>[]
@@ -9200,8 +8773,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     followers: Prisma.$UserFollowerPayload<ExtArgs>[]
     followings: Prisma.$UserFollowerPayload<ExtArgs>[]
     posts_liked: Prisma.$PostLikePayload<ExtArgs>[]
-    ownedFiles: Prisma.$FilePayload<ExtArgs>[]
-    uploadedFiles: Prisma.$FilePayload<ExtArgs>[]
     uploadedImages: Prisma.$ImagePayload<ExtArgs>[]
     profileImages: Prisma.$ImagePayload<ExtArgs>[]
   }
@@ -9223,13 +8794,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     social: runtime.JsonValue | null
     Language: $Enums.Language | null
     photoUrl: string | null
-    avatarFileId: string | null
     dateOfBirth: Date | null
     hasEmergencyContact: boolean
     emergencyContactName: string | null
     emergencyContactPhone: string | null
-    jobTitle: string | null
     position: $Enums.Position | null
+    jobTitle: string | null
     isValidated: Date | null
     isSuspended: Date | null
     managerId: string | null
@@ -9632,14 +9202,12 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  avatarFile<T extends Prisma.User$avatarFileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$avatarFileArgs<ExtArgs>>): Prisma.Prisma__FileClient<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   phone<T extends Prisma.User$phoneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$phoneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PhonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   address<T extends Prisma.User$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$addressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Profiles<T extends Prisma.User$ProfilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  profileFiles<T extends Prisma.User$profileFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Orgs<T extends Prisma.User$OrgsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$OrgsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   manager<T extends Prisma.User$managerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Team<T extends Prisma.User$TeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TeamArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Profiles<T extends Prisma.User$ProfilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Groups<T extends Prisma.User$GroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$GroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Posts<T extends Prisma.User$PostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$PostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Comments<T extends Prisma.User$CommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$CommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9648,6 +9216,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   TodosAuthor<T extends Prisma.User$TodosAuthorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TodosAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tasks<T extends Prisma.User$TasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTaskLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   TasksAuthor<T extends Prisma.User$TasksAuthorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TasksAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedFiles<T extends Prisma.User$ownedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedFiles<T extends Prisma.User$uploadedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileFiles<T extends Prisma.User$profileFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ChangesLogs<T extends Prisma.User$ChangesLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ChangesLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChangesTrackingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tokens<T extends Prisma.User$TokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ApiKeys<T extends Prisma.User$ApiKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ApiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9655,8 +9226,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followings<T extends Prisma.User$followingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   posts_liked<T extends Prisma.User$posts_likedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$posts_likedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ownedFiles<T extends Prisma.User$ownedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  uploadedFiles<T extends Prisma.User$uploadedFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedImages<T extends Prisma.User$uploadedImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileImages<T extends Prisma.User$profileImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -9705,13 +9274,12 @@ export interface UserFieldRefs {
   readonly social: Prisma.FieldRef<"User", 'Json'>
   readonly Language: Prisma.FieldRef<"User", 'Language'>
   readonly photoUrl: Prisma.FieldRef<"User", 'String'>
-  readonly avatarFileId: Prisma.FieldRef<"User", 'String'>
   readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
   readonly hasEmergencyContact: Prisma.FieldRef<"User", 'Boolean'>
   readonly emergencyContactName: Prisma.FieldRef<"User", 'String'>
   readonly emergencyContactPhone: Prisma.FieldRef<"User", 'String'>
-  readonly jobTitle: Prisma.FieldRef<"User", 'String'>
   readonly position: Prisma.FieldRef<"User", 'Position'>
+  readonly jobTitle: Prisma.FieldRef<"User", 'String'>
   readonly isValidated: Prisma.FieldRef<"User", 'DateTime'>
   readonly isSuspended: Prisma.FieldRef<"User", 'DateTime'>
   readonly managerId: Prisma.FieldRef<"User", 'String'>
@@ -10116,25 +9684,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.avatarFile
- */
-export type User$avatarFileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the File
-   */
-  select?: Prisma.FileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the File
-   */
-  omit?: Prisma.FileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FileInclude<ExtArgs> | null
-  where?: Prisma.FileWhereInput
-}
-
-/**
  * User.phone
  */
 export type User$phoneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10180,54 +9729,6 @@ export type User$addressArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.AddressScalarFieldEnum | Prisma.AddressScalarFieldEnum[]
-}
-
-/**
- * User.Profiles
- */
-export type User$ProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Profile
-   */
-  select?: Prisma.ProfileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Profile
-   */
-  omit?: Prisma.ProfileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProfileInclude<ExtArgs> | null
-  where?: Prisma.ProfileWhereInput
-  orderBy?: Prisma.ProfileOrderByWithRelationInput | Prisma.ProfileOrderByWithRelationInput[]
-  cursor?: Prisma.ProfileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProfileScalarFieldEnum | Prisma.ProfileScalarFieldEnum[]
-}
-
-/**
- * User.profileFiles
- */
-export type User$profileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the File
-   */
-  select?: Prisma.FileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the File
-   */
-  omit?: Prisma.FileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FileInclude<ExtArgs> | null
-  where?: Prisma.FileWhereInput
-  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
-  cursor?: Prisma.FileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**
@@ -10295,6 +9796,30 @@ export type User$TeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * User.Profiles
+ */
+export type User$ProfilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Profile
+   */
+  select?: Prisma.ProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Profile
+   */
+  omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  where?: Prisma.ProfileWhereInput
+  orderBy?: Prisma.ProfileOrderByWithRelationInput | Prisma.ProfileOrderByWithRelationInput[]
+  cursor?: Prisma.ProfileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProfileScalarFieldEnum | Prisma.ProfileScalarFieldEnum[]
 }
 
 /**
@@ -10490,6 +10015,78 @@ export type User$TasksAuthorArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * User.ownedFiles
+ */
+export type User$ownedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedFiles
+ */
+export type User$uploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
+ * User.profileFiles
+ */
+export type User$profileFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
+}
+
+/**
  * User.ChangesLogs
  */
 export type User$ChangesLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10650,54 +10247,6 @@ export type User$posts_likedArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.PostLikeScalarFieldEnum | Prisma.PostLikeScalarFieldEnum[]
-}
-
-/**
- * User.ownedFiles
- */
-export type User$ownedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the File
-   */
-  select?: Prisma.FileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the File
-   */
-  omit?: Prisma.FileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FileInclude<ExtArgs> | null
-  where?: Prisma.FileWhereInput
-  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
-  cursor?: Prisma.FileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
-}
-
-/**
- * User.uploadedFiles
- */
-export type User$uploadedFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the File
-   */
-  select?: Prisma.FileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the File
-   */
-  omit?: Prisma.FileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FileInclude<ExtArgs> | null
-  where?: Prisma.FileWhereInput
-  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
-  cursor?: Prisma.FileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

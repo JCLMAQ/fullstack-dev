@@ -393,7 +393,6 @@ export const ModelName = {
   Organization: 'Organization',
   OrgEmail: 'OrgEmail',
   OrgDomain: 'OrgDomain',
-  OrgEmailUseTo: 'OrgEmailUseTo',
   User: 'User',
   Phone: 'Phone',
   Address: 'Address',
@@ -413,13 +412,14 @@ export const ModelName = {
   Story: 'Story',
   Image: 'Image',
   ConfigParam: 'ConfigParam',
+  OrgEmailUseTo: 'OrgEmailUseTo',
   AppEmailDomain: 'AppEmailDomain',
   RefreshToken: 'RefreshToken',
   ApiKey: 'ApiKey',
   Scope: 'Scope',
   Token: 'Token',
-  AccountValidation: 'AccountValidation',
-  ChangesTracking: 'ChangesTracking'
+  ChangesTracking: 'ChangesTracking',
+  AccountValidation: 'AccountValidation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -435,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "orgEmail" | "orgDomain" | "orgEmailUseTo" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollower" | "postLike" | "story" | "image" | "configParam" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "accountValidation" | "changesTracking"
+    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollower" | "postLike" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -658,80 +658,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.OrgDomainCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.OrgDomainCountAggregateOutputType> | number
-        }
-      }
-    }
-    OrgEmailUseTo: {
-      payload: Prisma.$OrgEmailUseToPayload<ExtArgs>
-      fields: Prisma.OrgEmailUseToFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.OrgEmailUseToFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.OrgEmailUseToFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        findFirst: {
-          args: Prisma.OrgEmailUseToFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.OrgEmailUseToFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        findMany: {
-          args: Prisma.OrgEmailUseToFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
-        }
-        create: {
-          args: Prisma.OrgEmailUseToCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        createMany: {
-          args: Prisma.OrgEmailUseToCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.OrgEmailUseToCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
-        }
-        delete: {
-          args: Prisma.OrgEmailUseToDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        update: {
-          args: Prisma.OrgEmailUseToUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        deleteMany: {
-          args: Prisma.OrgEmailUseToDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.OrgEmailUseToUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.OrgEmailUseToUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
-        }
-        upsert: {
-          args: Prisma.OrgEmailUseToUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
-        }
-        aggregate: {
-          args: Prisma.OrgEmailUseToAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateOrgEmailUseTo>
-        }
-        groupBy: {
-          args: Prisma.OrgEmailUseToGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OrgEmailUseToGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.OrgEmailUseToCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OrgEmailUseToCountAggregateOutputType> | number
         }
       }
     }
@@ -2141,6 +2067,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrgEmailUseTo: {
+      payload: Prisma.$OrgEmailUseToPayload<ExtArgs>
+      fields: Prisma.OrgEmailUseToFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrgEmailUseToFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrgEmailUseToFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        findFirst: {
+          args: Prisma.OrgEmailUseToFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrgEmailUseToFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        findMany: {
+          args: Prisma.OrgEmailUseToFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
+        }
+        create: {
+          args: Prisma.OrgEmailUseToCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        createMany: {
+          args: Prisma.OrgEmailUseToCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrgEmailUseToCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
+        }
+        delete: {
+          args: Prisma.OrgEmailUseToDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        update: {
+          args: Prisma.OrgEmailUseToUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        deleteMany: {
+          args: Prisma.OrgEmailUseToDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrgEmailUseToUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrgEmailUseToUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>[]
+        }
+        upsert: {
+          args: Prisma.OrgEmailUseToUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgEmailUseToPayload>
+        }
+        aggregate: {
+          args: Prisma.OrgEmailUseToAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrgEmailUseTo>
+        }
+        groupBy: {
+          args: Prisma.OrgEmailUseToGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrgEmailUseToGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrgEmailUseToCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrgEmailUseToCountAggregateOutputType> | number
+        }
+      }
+    }
     AppEmailDomain: {
       payload: Prisma.$AppEmailDomainPayload<ExtArgs>
       fields: Prisma.AppEmailDomainFieldRefs
@@ -2511,80 +2511,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    AccountValidation: {
-      payload: Prisma.$AccountValidationPayload<ExtArgs>
-      fields: Prisma.AccountValidationFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.AccountValidationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.AccountValidationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        findFirst: {
-          args: Prisma.AccountValidationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.AccountValidationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        findMany: {
-          args: Prisma.AccountValidationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
-        }
-        create: {
-          args: Prisma.AccountValidationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        createMany: {
-          args: Prisma.AccountValidationCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.AccountValidationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
-        }
-        delete: {
-          args: Prisma.AccountValidationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        update: {
-          args: Prisma.AccountValidationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        deleteMany: {
-          args: Prisma.AccountValidationDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.AccountValidationUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AccountValidationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
-        }
-        upsert: {
-          args: Prisma.AccountValidationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
-        }
-        aggregate: {
-          args: Prisma.AccountValidationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAccountValidation>
-        }
-        groupBy: {
-          args: Prisma.AccountValidationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AccountValidationGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.AccountValidationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AccountValidationCountAggregateOutputType> | number
-        }
-      }
-    }
     ChangesTracking: {
       payload: Prisma.$ChangesTrackingPayload<ExtArgs>
       fields: Prisma.ChangesTrackingFieldRefs
@@ -2656,6 +2582,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ChangesTrackingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ChangesTrackingCountAggregateOutputType> | number
+        }
+      }
+    }
+    AccountValidation: {
+      payload: Prisma.$AccountValidationPayload<ExtArgs>
+      fields: Prisma.AccountValidationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AccountValidationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AccountValidationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        findFirst: {
+          args: Prisma.AccountValidationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AccountValidationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        findMany: {
+          args: Prisma.AccountValidationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
+        }
+        create: {
+          args: Prisma.AccountValidationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        createMany: {
+          args: Prisma.AccountValidationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AccountValidationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
+        }
+        delete: {
+          args: Prisma.AccountValidationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        update: {
+          args: Prisma.AccountValidationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        deleteMany: {
+          args: Prisma.AccountValidationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AccountValidationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AccountValidationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>[]
+        }
+        upsert: {
+          args: Prisma.AccountValidationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AccountValidationPayload>
+        }
+        aggregate: {
+          args: Prisma.AccountValidationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAccountValidation>
+        }
+        groupBy: {
+          args: Prisma.AccountValidationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountValidationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AccountValidationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AccountValidationCountAggregateOutputType> | number
         }
       }
     }
@@ -2750,22 +2750,6 @@ export const OrgDomainScalarFieldEnum = {
 export type OrgDomainScalarFieldEnum = (typeof OrgDomainScalarFieldEnum)[keyof typeof OrgDomainScalarFieldEnum]
 
 
-export const OrgEmailUseToScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  published: 'published',
-  isPublic: 'isPublic',
-  isDeleted: 'isDeleted',
-  isDeletedDT: 'isDeletedDT',
-  useTo: 'useTo',
-  isActiv: 'isActiv',
-  emailOrgId: 'emailOrgId'
-} as const
-
-export type OrgEmailUseToScalarFieldEnum = (typeof OrgEmailUseToScalarFieldEnum)[keyof typeof OrgEmailUseToScalarFieldEnum]
-
-
 export const UserScalarFieldEnum = {
   id: 'id',
   numSeq: 'numSeq',
@@ -2784,13 +2768,12 @@ export const UserScalarFieldEnum = {
   social: 'social',
   Language: 'Language',
   photoUrl: 'photoUrl',
-  avatarFileId: 'avatarFileId',
   dateOfBirth: 'dateOfBirth',
   hasEmergencyContact: 'hasEmergencyContact',
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
-  jobTitle: 'jobTitle',
   position: 'position',
+  jobTitle: 'jobTitle',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
   managerId: 'managerId',
@@ -3102,8 +3085,6 @@ export const ImageScalarFieldEnum = {
   isPublic: 'isPublic',
   isDeleted: 'isDeleted',
   isDeletedDT: 'isDeletedDT',
-  url: 'url',
-  type: 'type',
   filename: 'filename',
   originalName: 'originalName',
   mimeType: 'mimeType',
@@ -3147,6 +3128,22 @@ export const ConfigParamScalarFieldEnum = {
 } as const
 
 export type ConfigParamScalarFieldEnum = (typeof ConfigParamScalarFieldEnum)[keyof typeof ConfigParamScalarFieldEnum]
+
+
+export const OrgEmailUseToScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  useTo: 'useTo',
+  isActiv: 'isActiv',
+  emailOrgId: 'emailOrgId'
+} as const
+
+export type OrgEmailUseToScalarFieldEnum = (typeof OrgEmailUseToScalarFieldEnum)[keyof typeof OrgEmailUseToScalarFieldEnum]
 
 
 export const AppEmailDomainScalarFieldEnum = {
@@ -3228,23 +3225,6 @@ export const TokenScalarFieldEnum = {
 export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof TokenScalarFieldEnum]
 
 
-export const AccountValidationScalarFieldEnum = {
-  id: 'id',
-  numSeq: 'numSeq',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  published: 'published',
-  isPublic: 'isPublic',
-  isDeleted: 'isDeleted',
-  isDeletedDT: 'isDeletedDT',
-  isValidated: 'isValidated',
-  emailToken: 'emailToken',
-  timeStamp: 'timeStamp'
-} as const
-
-export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
-
-
 export const ChangesTrackingScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -3263,6 +3243,23 @@ export const ChangesTrackingScalarFieldEnum = {
 } as const
 
 export type ChangesTrackingScalarFieldEnum = (typeof ChangesTrackingScalarFieldEnum)[keyof typeof ChangesTrackingScalarFieldEnum]
+
+
+export const AccountValidationScalarFieldEnum = {
+  id: 'id',
+  numSeq: 'numSeq',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  isValidated: 'isValidated',
+  emailToken: 'emailToken',
+  timeStamp: 'timeStamp'
+} as const
+
+export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3653,7 +3650,6 @@ export type GlobalOmitConfig = {
   organization?: Prisma.OrganizationOmit
   orgEmail?: Prisma.OrgEmailOmit
   orgDomain?: Prisma.OrgDomainOmit
-  orgEmailUseTo?: Prisma.OrgEmailUseToOmit
   user?: Prisma.UserOmit
   phone?: Prisma.PhoneOmit
   address?: Prisma.AddressOmit
@@ -3673,13 +3669,14 @@ export type GlobalOmitConfig = {
   story?: Prisma.StoryOmit
   image?: Prisma.ImageOmit
   configParam?: Prisma.ConfigParamOmit
+  orgEmailUseTo?: Prisma.OrgEmailUseToOmit
   appEmailDomain?: Prisma.AppEmailDomainOmit
   refreshToken?: Prisma.RefreshTokenOmit
   apiKey?: Prisma.ApiKeyOmit
   scope?: Prisma.ScopeOmit
   token?: Prisma.TokenOmit
-  accountValidation?: Prisma.AccountValidationOmit
   changesTracking?: Prisma.ChangesTrackingOmit
+  accountValidation?: Prisma.AccountValidationOmit
 }
 
 /* Types for Logging */

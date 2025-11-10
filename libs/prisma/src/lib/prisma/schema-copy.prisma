@@ -10,31 +10,6 @@ generator client {
   importFileExtension    = "ts"
 }
 
-// generator nestjsDto {
-//   provider                        = "prisma-generator-nestjs-dto"
-//   output                          = "../generated/nestjs-dto"
-//   prismaClientImportPath          = ""
-//   outputToNestJsResourceStructure = "ftrue"
-//   flatResourceStructure           = "false"
-//   exportRelationModifierClasses   = "true"
-//   reExport                        = "true"
-//   generateFileTypes               = "all"
-//   createDtoPrefix                 = "Create"
-//   updateDtoPrefix                 = "Update"
-//   dtoSuffix                       = "Dto"
-//   entityPrefix                    = ""
-//   entitySuffix                    = "Entity"
-//   classValidation                 = "false"
-//   fileNamingStyle                 = "camel"
-//   noDependencies                  = "false"
-//   outputType                      = "class"
-//   definiteAssignmentAssertion     = "false"
-//   requiredResponseApiProperty     = "true"
-//   prettier                        = "false"
-//   wrapRelationsAsType             = "false"
-//   showDefaultValues               = "false"
-// }
-
 enum TaskState {
   CREATION
   STANDBY
@@ -111,6 +86,7 @@ enum TokenType {
   REFREZH
 }
 
+// Organization Model and related models (org)
 model Organization {
   id           String         @id() @default(uuid(7))
   numSeq       Int            @default(autoincrement())
@@ -133,7 +109,7 @@ model Organization {
   Members      User[]
   Posts        Post[]
   Groups       Group[]
-  Files        File[]          @relation("OrganizationFiles")
+  Files        File[]          @relation("OrgFiles")
   Tasks        Task[]
   Todos        Todo[]
   Images       Image[]        @relation("OrgImages")
@@ -168,6 +144,21 @@ model OrgDomain {
   orgId       String
 }
 
+model OrgEmailUseTo {
+  id          Int       @id() @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean   @default(true)
+  isPublic    Boolean   @default(true)
+  isDeleted   Int       @default(0)
+  isDeletedDT DateTime?
+  useTo       String
+  isActiv     Boolean
+  emailOrg    OrgEmail  @relation(fields: [emailOrgId], references: [id])
+  emailOrgId  Int
+}
+
+// User Model and related models
 model User {
   id            String            @id() @default(uuid(7))
   numSeq        Int               @default(autoincrement())
@@ -185,23 +176,37 @@ model User {
   Gender        Gender?           @default(UNKNOWN)
   social        Json?             @db.Json()
   Language      Language?         @default(en)
+  // Image profile
   photoUrl      String?
+  avatarFile    File?             @relation("UserAvatar", fields: [avatarFileId], references: [id])
+  avatarFileId  String?           @unique()
+
+
   dateOfBirth   DateTime?
+  // Emergency Contact Info
   hasEmergencyContact Boolean   @default(false)
   emergencyContactName String?
   emergencyContactPhone String?
-  phone         Phone[]
-  position      Position?         @default(Individual)
-  address       Address[]
   jobTitle      String?
+  position      Position?         @default(Individual)
 
+  phone         Phone[]
+  address       Address[]
+
+  Profiles      Profile[]         @relation("UsersProfiles")
+  profileFiles  File[]           @relation("UserProfileFiles")
+
+  // Registration validated
   isValidated   DateTime?
   isSuspended   DateTime?
+
+// User Relations
   Orgs          Organization[]
+  // Team  and Manager Relation
   manager       User?             @relation("ManagerTeams", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   managerId     String?
   Team          User[]            @relation("ManagerTeams")
-  Profiles      Profile[]         @relation("UsersProfiles")
+
   Groups        Group[]
   Posts         Post[]
   Comments      Comment[]
@@ -211,11 +216,7 @@ model User {
   Tasks         UserTaskLink[]
   TasksAuthor   Task[]
 
-  // File relations
-  ownedFiles    File[]           @relation("FilesOwned")
-  uploadedFiles File[]           @relation("FilesUploaded")
-  profileFiles  File[]           @relation("UserProfileFiles")
-
+// Security and Access Control
   ChangesLogs   ChangesTracking[]
   Roles         Role[]
   Permissions   PermissionClaim[]
@@ -224,15 +225,22 @@ model User {
   isTfaEnable   Boolean           @default(false)
   tfaSecret     String?
   userSecret    UserSecret?
+  passWordFaker String?
+
+  // User Followers
   followers     UserFollower[]    @relation("followers")
   followings    UserFollower[]    @relation("followings")
   posts_liked   PostLike[]
-  passWordFaker String?
+
+  // File relations
+  ownedFiles    File[]           @relation("FilesOwned")
+  uploadedFiles File[]           @relation("FilesUploaded")
 
   // Image relations
   uploadedImages Image[]          @relation("ImageUploads")
   profileImages  Image[]          @relation("UserProfileImages")
 }
+
 model Phone {
   id          Int      @id() @default(autoincrement())
   createdAt   DateTime @default(now())
@@ -260,6 +268,7 @@ model Address {
   addressType AddressType? @default(Home)
   isPrimary   Boolean      @default(false)
 }
+
 model UserSecret {
   id        Int      @id() @default(autoincrement())
   createdAt DateTime @default(now())
@@ -449,6 +458,8 @@ model File {
   isPublic          Boolean   @default(false)
   isDeleted         Int       @default(0)
   isDeletedDT       DateTime?
+  // User Avatar association
+  UserAvatar        User?        @relation("UserAvatar")
 
   // File identification and metadata
   filename          String                 // Current filename in storage
@@ -505,7 +516,7 @@ model File {
   associationType   String?                // Type of association (post, user, organization, etc.)
 
   // Organization association
-  org               Organization @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
+  org               Organization @relation("OrgFiles", fields: [orgId], references: [id], onDelete: Cascade)
   orgId             String
 
   // Groups association (many-to-many)
@@ -589,6 +600,8 @@ model Image {
   isPublic      Boolean   @default(true)
   isDeleted     Int       @default(0)
   isDeletedDT   DateTime?
+  url           String    // Public URL or identifier
+  type          String?   // Image type or category
 
   // Image metadata
   filename      String
@@ -599,7 +612,7 @@ model Image {
   height        Int?      // Image height in pixels
 
   // Storage information
-  storageType   String    @default("local") // "local", "s3", "cloudinary", etc.
+  storageType   String    @default("local") // "local" or db storage
   storagePath   String?   // Local file path or cloud storage path
   storageUrl    String?   // Public URL to access the image
   bucketName    String?   // For cloud storage (S3, GCS, etc.)
@@ -648,6 +661,7 @@ model Image {
   @@index([isDeleted])
 }
 
+// Application Configuration Parameters
 model ConfigParam {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -661,20 +675,7 @@ model ConfigParam {
   utility     String
 }
 
-model OrgEmailUseTo {
-  id          Int       @id() @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt()
-  published   Boolean   @default(true)
-  isPublic    Boolean   @default(true)
-  isDeleted   Int       @default(0)
-  isDeletedDT DateTime?
-  useTo       String
-  isActiv     Boolean
-  emailOrg    OrgEmail  @relation(fields: [emailOrgId], references: [id])
-  emailOrgId  Int
-}
-
+// Application Email Domains
 model AppEmailDomain {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -687,6 +688,7 @@ model AppEmailDomain {
   allowed     Boolean
 }
 
+// Security Models
 model RefreshToken {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -743,6 +745,21 @@ model Token {
   userId      String
 }
 
+model AccountValidation {
+  id          String    @id() @default(uuid(7))
+  numSeq      Int       @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean?  @default(false)
+  isPublic    Boolean?  @default(true)
+  isDeleted   Int?      @default(0)
+  isDeletedDT DateTime?
+  isValidated Boolean   @default(false)
+  emailToken  String    @unique()
+  timeStamp   DateTime
+}
+
+// Changes Tracking Model
 model ChangesTracking {
   id           Int       @id() @default(autoincrement())
   createdAt    DateTime  @default(now())
@@ -761,16 +778,3 @@ model ChangesTracking {
   oldData      Json
 }
 
-model AccountValidation {
-  id          String    @id() @default(uuid(7))
-  numSeq      Int       @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt()
-  published   Boolean?  @default(false)
-  isPublic    Boolean?  @default(true)
-  isDeleted   Int?      @default(0)
-  isDeletedDT DateTime?
-  isValidated Boolean   @default(false)
-  emailToken  String    @unique()
-  timeStamp   DateTime
-}

@@ -564,7 +564,6 @@ export type FileWhereInput = {
   storyId?: Prisma.StringNullableFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"File"> | string | null
   commentId?: Prisma.StringNullableFilter<"File"> | string | null
-  UserAvatar?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -623,7 +622,6 @@ export type FileOrderByWithRelationInput = {
   storyId?: Prisma.SortOrderInput | Prisma.SortOrder
   profileUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   commentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  UserAvatar?: Prisma.UserOrderByWithRelationInput
   owner?: Prisma.UserOrderByWithRelationInput
   uploadedBy?: Prisma.UserOrderByWithRelationInput
   org?: Prisma.OrganizationOrderByWithRelationInput
@@ -685,7 +683,6 @@ export type FileWhereUniqueInput = Prisma.AtLeast<{
   storyId?: Prisma.StringNullableFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"File"> | string | null
   commentId?: Prisma.StringNullableFilter<"File"> | string | null
-  UserAvatar?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -845,7 +842,6 @@ export type FileCreateInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
@@ -904,7 +900,6 @@ export type FileUncheckedCreateInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -949,7 +944,6 @@ export type FileUpdateInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
@@ -1008,7 +1002,6 @@ export type FileUncheckedUpdateInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -1163,11 +1156,6 @@ export type FileListRelationFilter = {
 
 export type FileOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type FileNullableScalarRelationFilter = {
-  is?: Prisma.FileWhereInput | null
-  isNot?: Prisma.FileWhereInput | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -1384,19 +1372,6 @@ export type FileUncheckedUpdateManyWithoutOrgNestedInput = {
   deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
 }
 
-export type FileCreateNestedOneWithoutUserAvatarInput = {
-  create?: Prisma.XOR<Prisma.FileCreateWithoutUserAvatarInput, Prisma.FileUncheckedCreateWithoutUserAvatarInput>
-  connectOrCreate?: Prisma.FileCreateOrConnectWithoutUserAvatarInput
-  connect?: Prisma.FileWhereUniqueInput
-}
-
-export type FileCreateNestedManyWithoutProfileUserInput = {
-  create?: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput> | Prisma.FileCreateWithoutProfileUserInput[] | Prisma.FileUncheckedCreateWithoutProfileUserInput[]
-  connectOrCreate?: Prisma.FileCreateOrConnectWithoutProfileUserInput | Prisma.FileCreateOrConnectWithoutProfileUserInput[]
-  createMany?: Prisma.FileCreateManyProfileUserInputEnvelope
-  connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
-}
-
 export type FileCreateNestedManyWithoutOwnerInput = {
   create?: Prisma.XOR<Prisma.FileCreateWithoutOwnerInput, Prisma.FileUncheckedCreateWithoutOwnerInput> | Prisma.FileCreateWithoutOwnerInput[] | Prisma.FileUncheckedCreateWithoutOwnerInput[]
   connectOrCreate?: Prisma.FileCreateOrConnectWithoutOwnerInput | Prisma.FileCreateOrConnectWithoutOwnerInput[]
@@ -1411,7 +1386,7 @@ export type FileCreateNestedManyWithoutUploadedByInput = {
   connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
 }
 
-export type FileUncheckedCreateNestedManyWithoutProfileUserInput = {
+export type FileCreateNestedManyWithoutProfileUserInput = {
   create?: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput> | Prisma.FileCreateWithoutProfileUserInput[] | Prisma.FileUncheckedCreateWithoutProfileUserInput[]
   connectOrCreate?: Prisma.FileCreateOrConnectWithoutProfileUserInput | Prisma.FileCreateOrConnectWithoutProfileUserInput[]
   createMany?: Prisma.FileCreateManyProfileUserInputEnvelope
@@ -1432,28 +1407,11 @@ export type FileUncheckedCreateNestedManyWithoutUploadedByInput = {
   connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
 }
 
-export type FileUpdateOneWithoutUserAvatarNestedInput = {
-  create?: Prisma.XOR<Prisma.FileCreateWithoutUserAvatarInput, Prisma.FileUncheckedCreateWithoutUserAvatarInput>
-  connectOrCreate?: Prisma.FileCreateOrConnectWithoutUserAvatarInput
-  upsert?: Prisma.FileUpsertWithoutUserAvatarInput
-  disconnect?: Prisma.FileWhereInput | boolean
-  delete?: Prisma.FileWhereInput | boolean
-  connect?: Prisma.FileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.FileUpdateToOneWithWhereWithoutUserAvatarInput, Prisma.FileUpdateWithoutUserAvatarInput>, Prisma.FileUncheckedUpdateWithoutUserAvatarInput>
-}
-
-export type FileUpdateManyWithoutProfileUserNestedInput = {
+export type FileUncheckedCreateNestedManyWithoutProfileUserInput = {
   create?: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput> | Prisma.FileCreateWithoutProfileUserInput[] | Prisma.FileUncheckedCreateWithoutProfileUserInput[]
   connectOrCreate?: Prisma.FileCreateOrConnectWithoutProfileUserInput | Prisma.FileCreateOrConnectWithoutProfileUserInput[]
-  upsert?: Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput | Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput[]
   createMany?: Prisma.FileCreateManyProfileUserInputEnvelope
-  set?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
-  disconnect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
-  delete?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
   connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
-  update?: Prisma.FileUpdateWithWhereUniqueWithoutProfileUserInput | Prisma.FileUpdateWithWhereUniqueWithoutProfileUserInput[]
-  updateMany?: Prisma.FileUpdateManyWithWhereWithoutProfileUserInput | Prisma.FileUpdateManyWithWhereWithoutProfileUserInput[]
-  deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
 }
 
 export type FileUpdateManyWithoutOwnerNestedInput = {
@@ -1484,7 +1442,7 @@ export type FileUpdateManyWithoutUploadedByNestedInput = {
   deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
 }
 
-export type FileUncheckedUpdateManyWithoutProfileUserNestedInput = {
+export type FileUpdateManyWithoutProfileUserNestedInput = {
   create?: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput> | Prisma.FileCreateWithoutProfileUserInput[] | Prisma.FileUncheckedCreateWithoutProfileUserInput[]
   connectOrCreate?: Prisma.FileCreateOrConnectWithoutProfileUserInput | Prisma.FileCreateOrConnectWithoutProfileUserInput[]
   upsert?: Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput | Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput[]
@@ -1523,6 +1481,20 @@ export type FileUncheckedUpdateManyWithoutUploadedByNestedInput = {
   connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
   update?: Prisma.FileUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.FileUpdateWithWhereUniqueWithoutUploadedByInput[]
   updateMany?: Prisma.FileUpdateManyWithWhereWithoutUploadedByInput | Prisma.FileUpdateManyWithWhereWithoutUploadedByInput[]
+  deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
+}
+
+export type FileUncheckedUpdateManyWithoutProfileUserNestedInput = {
+  create?: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput> | Prisma.FileCreateWithoutProfileUserInput[] | Prisma.FileUncheckedCreateWithoutProfileUserInput[]
+  connectOrCreate?: Prisma.FileCreateOrConnectWithoutProfileUserInput | Prisma.FileCreateOrConnectWithoutProfileUserInput[]
+  upsert?: Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput | Prisma.FileUpsertWithWhereUniqueWithoutProfileUserInput[]
+  createMany?: Prisma.FileCreateManyProfileUserInputEnvelope
+  set?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
+  disconnect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
+  delete?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
+  connect?: Prisma.FileWhereUniqueInput | Prisma.FileWhereUniqueInput[]
+  update?: Prisma.FileUpdateWithWhereUniqueWithoutProfileUserInput | Prisma.FileUpdateWithWhereUniqueWithoutProfileUserInput[]
+  updateMany?: Prisma.FileUpdateManyWithWhereWithoutProfileUserInput | Prisma.FileUpdateManyWithWhereWithoutProfileUserInput[]
   deleteMany?: Prisma.FileScalarWhereInput | Prisma.FileScalarWhereInput[]
 }
 
@@ -1744,7 +1716,6 @@ export type FileCreateWithoutOrgInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
@@ -1801,7 +1772,6 @@ export type FileUncheckedCreateWithoutOrgInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -1884,225 +1854,6 @@ export type FileScalarWhereInput = {
   commentId?: Prisma.StringNullableFilter<"File"> | string | null
 }
 
-export type FileCreateWithoutUserAvatarInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean
-  isPublic?: boolean
-  isDeleted?: number
-  isDeletedDT?: Date | string | null
-  filename: string
-  originalName: string
-  mimeType: string
-  fileSize: number
-  extension?: string | null
-  encoding?: string | null
-  storageType?: string
-  storagePath?: string | null
-  storageUrl?: string | null
-  bucketName?: string | null
-  storageName?: string | null
-  binaryData?: runtime.Bytes | null
-  category?: string | null
-  tags?: Prisma.FileCreatetagsInput | string[]
-  description?: string | null
-  version?: string | null
-  checksum?: string | null
-  isProcessed?: boolean
-  processingStatus?: string | null
-  virusScanStatus?: string | null
-  ocrText?: string | null
-  isPublicDownload?: boolean
-  downloadCount?: number
-  lastAccessedAt?: Date | string | null
-  expiresAt?: Date | string | null
-  isArchived?: Date | string | null
-  name?: string | null
-  type?: string | null
-  data?: string | null
-  size?: number | null
-  associatedId?: string | null
-  associationType?: string | null
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
-  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
-  groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
-  post?: Prisma.PostCreateNestedOneWithoutFilesInput
-  story?: Prisma.StoryCreateNestedOneWithoutFilesInput
-  profileUser?: Prisma.UserCreateNestedOneWithoutProfileFilesInput
-  comment?: Prisma.CommentCreateNestedOneWithoutFilesInput
-}
-
-export type FileUncheckedCreateWithoutUserAvatarInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean
-  isPublic?: boolean
-  isDeleted?: number
-  isDeletedDT?: Date | string | null
-  filename: string
-  originalName: string
-  mimeType: string
-  fileSize: number
-  extension?: string | null
-  encoding?: string | null
-  storageType?: string
-  storagePath?: string | null
-  storageUrl?: string | null
-  bucketName?: string | null
-  storageName?: string | null
-  binaryData?: runtime.Bytes | null
-  category?: string | null
-  tags?: Prisma.FileCreatetagsInput | string[]
-  description?: string | null
-  version?: string | null
-  checksum?: string | null
-  isProcessed?: boolean
-  processingStatus?: string | null
-  virusScanStatus?: string | null
-  ocrText?: string | null
-  isPublicDownload?: boolean
-  downloadCount?: number
-  lastAccessedAt?: Date | string | null
-  expiresAt?: Date | string | null
-  isArchived?: Date | string | null
-  name?: string | null
-  type?: string | null
-  data?: string | null
-  size?: number | null
-  ownerId: string
-  uploadedById?: string | null
-  associatedId?: string | null
-  associationType?: string | null
-  orgId: string
-  postId?: string | null
-  storyId?: string | null
-  profileUserId?: string | null
-  commentId?: string | null
-  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
-}
-
-export type FileCreateOrConnectWithoutUserAvatarInput = {
-  where: Prisma.FileWhereUniqueInput
-  create: Prisma.XOR<Prisma.FileCreateWithoutUserAvatarInput, Prisma.FileUncheckedCreateWithoutUserAvatarInput>
-}
-
-export type FileCreateWithoutProfileUserInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean
-  isPublic?: boolean
-  isDeleted?: number
-  isDeletedDT?: Date | string | null
-  filename: string
-  originalName: string
-  mimeType: string
-  fileSize: number
-  extension?: string | null
-  encoding?: string | null
-  storageType?: string
-  storagePath?: string | null
-  storageUrl?: string | null
-  bucketName?: string | null
-  storageName?: string | null
-  binaryData?: runtime.Bytes | null
-  category?: string | null
-  tags?: Prisma.FileCreatetagsInput | string[]
-  description?: string | null
-  version?: string | null
-  checksum?: string | null
-  isProcessed?: boolean
-  processingStatus?: string | null
-  virusScanStatus?: string | null
-  ocrText?: string | null
-  isPublicDownload?: boolean
-  downloadCount?: number
-  lastAccessedAt?: Date | string | null
-  expiresAt?: Date | string | null
-  isArchived?: Date | string | null
-  name?: string | null
-  type?: string | null
-  data?: string | null
-  size?: number | null
-  associatedId?: string | null
-  associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
-  owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
-  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
-  groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
-  post?: Prisma.PostCreateNestedOneWithoutFilesInput
-  story?: Prisma.StoryCreateNestedOneWithoutFilesInput
-  comment?: Prisma.CommentCreateNestedOneWithoutFilesInput
-}
-
-export type FileUncheckedCreateWithoutProfileUserInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean
-  isPublic?: boolean
-  isDeleted?: number
-  isDeletedDT?: Date | string | null
-  filename: string
-  originalName: string
-  mimeType: string
-  fileSize: number
-  extension?: string | null
-  encoding?: string | null
-  storageType?: string
-  storagePath?: string | null
-  storageUrl?: string | null
-  bucketName?: string | null
-  storageName?: string | null
-  binaryData?: runtime.Bytes | null
-  category?: string | null
-  tags?: Prisma.FileCreatetagsInput | string[]
-  description?: string | null
-  version?: string | null
-  checksum?: string | null
-  isProcessed?: boolean
-  processingStatus?: string | null
-  virusScanStatus?: string | null
-  ocrText?: string | null
-  isPublicDownload?: boolean
-  downloadCount?: number
-  lastAccessedAt?: Date | string | null
-  expiresAt?: Date | string | null
-  isArchived?: Date | string | null
-  name?: string | null
-  type?: string | null
-  data?: string | null
-  size?: number | null
-  ownerId: string
-  uploadedById?: string | null
-  associatedId?: string | null
-  associationType?: string | null
-  orgId: string
-  postId?: string | null
-  storyId?: string | null
-  commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
-  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
-}
-
-export type FileCreateOrConnectWithoutProfileUserInput = {
-  where: Prisma.FileWhereUniqueInput
-  create: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput>
-}
-
-export type FileCreateManyProfileUserInputEnvelope = {
-  data: Prisma.FileCreateManyProfileUserInput | Prisma.FileCreateManyProfileUserInput[]
-  skipDuplicates?: boolean
-}
-
 export type FileCreateWithoutOwnerInput = {
   id?: string
   numSeq?: number
@@ -2144,7 +1895,6 @@ export type FileCreateWithoutOwnerInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
@@ -2201,7 +1951,6 @@ export type FileUncheckedCreateWithoutOwnerInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -2256,7 +2005,6 @@ export type FileCreateWithoutUploadedByInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
@@ -2313,7 +2061,6 @@ export type FileUncheckedCreateWithoutUploadedByInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -2327,133 +2074,114 @@ export type FileCreateManyUploadedByInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type FileUpsertWithoutUserAvatarInput = {
-  update: Prisma.XOR<Prisma.FileUpdateWithoutUserAvatarInput, Prisma.FileUncheckedUpdateWithoutUserAvatarInput>
-  create: Prisma.XOR<Prisma.FileCreateWithoutUserAvatarInput, Prisma.FileUncheckedCreateWithoutUserAvatarInput>
-  where?: Prisma.FileWhereInput
+export type FileCreateWithoutProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  extension?: string | null
+  encoding?: string | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  storageName?: string | null
+  binaryData?: runtime.Bytes | null
+  category?: string | null
+  tags?: Prisma.FileCreatetagsInput | string[]
+  description?: string | null
+  version?: string | null
+  checksum?: string | null
+  isProcessed?: boolean
+  processingStatus?: string | null
+  virusScanStatus?: string | null
+  ocrText?: string | null
+  isPublicDownload?: boolean
+  downloadCount?: number
+  lastAccessedAt?: Date | string | null
+  expiresAt?: Date | string | null
+  isArchived?: Date | string | null
+  name?: string | null
+  type?: string | null
+  data?: string | null
+  size?: number | null
+  associatedId?: string | null
+  associationType?: string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
+  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
+  post?: Prisma.PostCreateNestedOneWithoutFilesInput
+  story?: Prisma.StoryCreateNestedOneWithoutFilesInput
+  comment?: Prisma.CommentCreateNestedOneWithoutFilesInput
 }
 
-export type FileUpdateToOneWithWhereWithoutUserAvatarInput = {
-  where?: Prisma.FileWhereInput
-  data: Prisma.XOR<Prisma.FileUpdateWithoutUserAvatarInput, Prisma.FileUncheckedUpdateWithoutUserAvatarInput>
+export type FileUncheckedCreateWithoutProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  extension?: string | null
+  encoding?: string | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  storageName?: string | null
+  binaryData?: runtime.Bytes | null
+  category?: string | null
+  tags?: Prisma.FileCreatetagsInput | string[]
+  description?: string | null
+  version?: string | null
+  checksum?: string | null
+  isProcessed?: boolean
+  processingStatus?: string | null
+  virusScanStatus?: string | null
+  ocrText?: string | null
+  isPublicDownload?: boolean
+  downloadCount?: number
+  lastAccessedAt?: Date | string | null
+  expiresAt?: Date | string | null
+  isArchived?: Date | string | null
+  name?: string | null
+  type?: string | null
+  data?: string | null
+  size?: number | null
+  ownerId: string
+  uploadedById?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  orgId: string
+  postId?: string | null
+  storyId?: string | null
+  commentId?: string | null
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
-export type FileUpdateWithoutUserAvatarInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
-  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageType?: Prisma.StringFieldUpdateOperationsInput | string
-  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.FileUpdatetagsInput | string[]
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
-  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
-  groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
-  post?: Prisma.PostUpdateOneWithoutFilesNestedInput
-  story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
-  profileUser?: Prisma.UserUpdateOneWithoutProfileFilesNestedInput
-  comment?: Prisma.CommentUpdateOneWithoutFilesNestedInput
-}
-
-export type FileUncheckedUpdateWithoutUserAvatarInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
-  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageType?: Prisma.StringFieldUpdateOperationsInput | string
-  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.FileUpdatetagsInput | string[]
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
-  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
-}
-
-export type FileUpsertWithWhereUniqueWithoutProfileUserInput = {
+export type FileCreateOrConnectWithoutProfileUserInput = {
   where: Prisma.FileWhereUniqueInput
-  update: Prisma.XOR<Prisma.FileUpdateWithoutProfileUserInput, Prisma.FileUncheckedUpdateWithoutProfileUserInput>
   create: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput>
 }
 
-export type FileUpdateWithWhereUniqueWithoutProfileUserInput = {
-  where: Prisma.FileWhereUniqueInput
-  data: Prisma.XOR<Prisma.FileUpdateWithoutProfileUserInput, Prisma.FileUncheckedUpdateWithoutProfileUserInput>
-}
-
-export type FileUpdateManyWithWhereWithoutProfileUserInput = {
-  where: Prisma.FileScalarWhereInput
-  data: Prisma.XOR<Prisma.FileUpdateManyMutationInput, Prisma.FileUncheckedUpdateManyWithoutProfileUserInput>
+export type FileCreateManyProfileUserInputEnvelope = {
+  data: Prisma.FileCreateManyProfileUserInput | Prisma.FileCreateManyProfileUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type FileUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -2486,6 +2214,22 @@ export type FileUpdateWithWhereUniqueWithoutUploadedByInput = {
 export type FileUpdateManyWithWhereWithoutUploadedByInput = {
   where: Prisma.FileScalarWhereInput
   data: Prisma.XOR<Prisma.FileUpdateManyMutationInput, Prisma.FileUncheckedUpdateManyWithoutUploadedByInput>
+}
+
+export type FileUpsertWithWhereUniqueWithoutProfileUserInput = {
+  where: Prisma.FileWhereUniqueInput
+  update: Prisma.XOR<Prisma.FileUpdateWithoutProfileUserInput, Prisma.FileUncheckedUpdateWithoutProfileUserInput>
+  create: Prisma.XOR<Prisma.FileCreateWithoutProfileUserInput, Prisma.FileUncheckedCreateWithoutProfileUserInput>
+}
+
+export type FileUpdateWithWhereUniqueWithoutProfileUserInput = {
+  where: Prisma.FileWhereUniqueInput
+  data: Prisma.XOR<Prisma.FileUpdateWithoutProfileUserInput, Prisma.FileUncheckedUpdateWithoutProfileUserInput>
+}
+
+export type FileUpdateManyWithWhereWithoutProfileUserInput = {
+  where: Prisma.FileScalarWhereInput
+  data: Prisma.XOR<Prisma.FileUpdateManyMutationInput, Prisma.FileUncheckedUpdateManyWithoutProfileUserInput>
 }
 
 export type FileCreateWithoutGroupsInput = {
@@ -2529,7 +2273,6 @@ export type FileCreateWithoutGroupsInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
@@ -2587,7 +2330,6 @@ export type FileUncheckedCreateWithoutGroupsInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
 }
 
 export type FileCreateOrConnectWithoutGroupsInput = {
@@ -2652,7 +2394,6 @@ export type FileCreateWithoutPostInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
@@ -2709,7 +2450,6 @@ export type FileUncheckedCreateWithoutPostInput = {
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -2780,7 +2520,6 @@ export type FileCreateWithoutCommentInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
@@ -2837,7 +2576,6 @@ export type FileUncheckedCreateWithoutCommentInput = {
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -2908,7 +2646,6 @@ export type FileCreateWithoutStoryInput = {
   size?: number | null
   associatedId?: string | null
   associationType?: string | null
-  UserAvatar?: Prisma.UserCreateNestedOneWithoutAvatarFileInput
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
   org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
@@ -2965,7 +2702,6 @@ export type FileUncheckedCreateWithoutStoryInput = {
   postId?: string | null
   profileUserId?: string | null
   commentId?: string | null
-  UserAvatar?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarFileInput
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutFilesInput
 }
 
@@ -3085,7 +2821,6 @@ export type FileUpdateWithoutOrgInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
@@ -3142,7 +2877,6 @@ export type FileUncheckedUpdateWithoutOrgInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -3193,55 +2927,6 @@ export type FileUncheckedUpdateManyWithoutOrgInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type FileCreateManyProfileUserInput = {
-  id?: string
-  numSeq?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  published?: boolean
-  isPublic?: boolean
-  isDeleted?: number
-  isDeletedDT?: Date | string | null
-  filename: string
-  originalName: string
-  mimeType: string
-  fileSize: number
-  extension?: string | null
-  encoding?: string | null
-  storageType?: string
-  storagePath?: string | null
-  storageUrl?: string | null
-  bucketName?: string | null
-  storageName?: string | null
-  binaryData?: runtime.Bytes | null
-  category?: string | null
-  tags?: Prisma.FileCreatetagsInput | string[]
-  description?: string | null
-  version?: string | null
-  checksum?: string | null
-  isProcessed?: boolean
-  processingStatus?: string | null
-  virusScanStatus?: string | null
-  ocrText?: string | null
-  isPublicDownload?: boolean
-  downloadCount?: number
-  lastAccessedAt?: Date | string | null
-  expiresAt?: Date | string | null
-  isArchived?: Date | string | null
-  name?: string | null
-  type?: string | null
-  data?: string | null
-  size?: number | null
-  ownerId: string
-  uploadedById?: string | null
-  associatedId?: string | null
-  associationType?: string | null
-  orgId: string
-  postId?: string | null
-  storyId?: string | null
-  commentId?: string | null
 }
 
 export type FileCreateManyOwnerInput = {
@@ -3342,155 +3027,53 @@ export type FileCreateManyUploadedByInput = {
   commentId?: string | null
 }
 
-export type FileUpdateWithoutProfileUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
-  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageType?: Prisma.StringFieldUpdateOperationsInput | string
-  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.FileUpdatetagsInput | string[]
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
-  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
-  groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
-  post?: Prisma.PostUpdateOneWithoutFilesNestedInput
-  story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
-  comment?: Prisma.CommentUpdateOneWithoutFilesNestedInput
-}
-
-export type FileUncheckedUpdateWithoutProfileUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
-  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageType?: Prisma.StringFieldUpdateOperationsInput | string
-  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.FileUpdatetagsInput | string[]
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
-  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
-  groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
-}
-
-export type FileUncheckedUpdateManyWithoutProfileUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
-  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  filename?: Prisma.StringFieldUpdateOperationsInput | string
-  originalName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
-  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageType?: Prisma.StringFieldUpdateOperationsInput | string
-  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.FileUpdatetagsInput | string[]
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
-  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+export type FileCreateManyProfileUserInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  filename: string
+  originalName: string
+  mimeType: string
+  fileSize: number
+  extension?: string | null
+  encoding?: string | null
+  storageType?: string
+  storagePath?: string | null
+  storageUrl?: string | null
+  bucketName?: string | null
+  storageName?: string | null
+  binaryData?: runtime.Bytes | null
+  category?: string | null
+  tags?: Prisma.FileCreatetagsInput | string[]
+  description?: string | null
+  version?: string | null
+  checksum?: string | null
+  isProcessed?: boolean
+  processingStatus?: string | null
+  virusScanStatus?: string | null
+  ocrText?: string | null
+  isPublicDownload?: boolean
+  downloadCount?: number
+  lastAccessedAt?: Date | string | null
+  expiresAt?: Date | string | null
+  isArchived?: Date | string | null
+  name?: string | null
+  type?: string | null
+  data?: string | null
+  size?: number | null
+  ownerId: string
+  uploadedById?: string | null
+  associatedId?: string | null
+  associationType?: string | null
+  orgId: string
+  postId?: string | null
+  storyId?: string | null
+  commentId?: string | null
 }
 
 export type FileUpdateWithoutOwnerInput = {
@@ -3534,7 +3117,6 @@ export type FileUpdateWithoutOwnerInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
@@ -3591,7 +3173,6 @@ export type FileUncheckedUpdateWithoutOwnerInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -3685,7 +3266,6 @@ export type FileUpdateWithoutUploadedByInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
@@ -3742,7 +3322,6 @@ export type FileUncheckedUpdateWithoutUploadedByInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -3795,6 +3374,155 @@ export type FileUncheckedUpdateManyWithoutUploadedByInput = {
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+export type FileUpdateWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.FileUpdatetagsInput | string[]
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
+  post?: Prisma.PostUpdateOneWithoutFilesNestedInput
+  story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
+  comment?: Prisma.CommentUpdateOneWithoutFilesNestedInput
+}
+
+export type FileUncheckedUpdateWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.FileUpdatetagsInput | string[]
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
+}
+
+export type FileUncheckedUpdateManyWithoutProfileUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalName?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  fileSize?: Prisma.IntFieldUpdateOperationsInput | number
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  encoding?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageType?: Prisma.StringFieldUpdateOperationsInput | string
+  storagePath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bucketName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  binaryData?: Prisma.NullableBytesFieldUpdateOperationsInput | runtime.Bytes | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.FileUpdatetagsInput | string[]
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isProcessed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  processingStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  virusScanStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ocrText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublicDownload?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  downloadCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAccessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isArchived?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  data?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type FileUpdateWithoutGroupsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   numSeq?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3836,7 +3564,6 @@ export type FileUpdateWithoutGroupsInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
@@ -3894,7 +3621,6 @@ export type FileUncheckedUpdateWithoutGroupsInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
 }
 
 export type FileUncheckedUpdateManyWithoutGroupsInput = {
@@ -4037,7 +3763,6 @@ export type FileUpdateWithoutPostInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
@@ -4094,7 +3819,6 @@ export type FileUncheckedUpdateWithoutPostInput = {
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -4237,7 +3961,6 @@ export type FileUpdateWithoutCommentInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
@@ -4294,7 +4017,6 @@ export type FileUncheckedUpdateWithoutCommentInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -4437,7 +4159,6 @@ export type FileUpdateWithoutStoryInput = {
   size?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUpdateOneWithoutAvatarFileNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
@@ -4494,7 +4215,6 @@ export type FileUncheckedUpdateWithoutStoryInput = {
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  UserAvatar?: Prisma.UserUncheckedUpdateOneWithoutAvatarFileNestedInput
   groups?: Prisma.GroupUncheckedUpdateManyWithoutFilesNestedInput
 }
 
@@ -4626,7 +4346,6 @@ export type FileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   storyId?: boolean
   profileUserId?: boolean
   commentId?: boolean
-  UserAvatar?: boolean | Prisma.File$UserAvatarArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -4804,7 +4523,6 @@ export type FileSelectScalar = {
 
 export type FileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "filename" | "originalName" | "mimeType" | "fileSize" | "extension" | "encoding" | "storageType" | "storagePath" | "storageUrl" | "bucketName" | "storageName" | "binaryData" | "category" | "tags" | "description" | "version" | "checksum" | "isProcessed" | "processingStatus" | "virusScanStatus" | "ocrText" | "isPublicDownload" | "downloadCount" | "lastAccessedAt" | "expiresAt" | "isArchived" | "name" | "type" | "data" | "size" | "ownerId" | "uploadedById" | "associatedId" | "associationType" | "orgId" | "postId" | "storyId" | "profileUserId" | "commentId", ExtArgs["result"]["file"]>
 export type FileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  UserAvatar?: boolean | Prisma.File$UserAvatarArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -4837,7 +4555,6 @@ export type FileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "File"
   objects: {
-    UserAvatar: Prisma.$UserPayload<ExtArgs> | null
     owner: Prisma.$UserPayload<ExtArgs>
     uploadedBy: Prisma.$UserPayload<ExtArgs> | null
     org: Prisma.$OrganizationPayload<ExtArgs>
@@ -5289,7 +5006,6 @@ readonly fields: FileFieldRefs;
  */
 export interface Prisma__FileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  UserAvatar<T extends Prisma.File$UserAvatarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$UserAvatarArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   uploadedBy<T extends Prisma.File$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -5767,25 +5483,6 @@ export type FileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Files to delete.
    */
   limit?: number
-}
-
-/**
- * File.UserAvatar
- */
-export type File$UserAvatarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
 }
 
 /**
