@@ -4,9 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug @fullstack-dev/nestjs-app with Nx",
+      "name": "Debug @-1/nestjs-app with Nx",
       "runtimeExecutable": "pnpm exec",
-      "runtimeArgs": ["nx", "serve", "@fullstack-dev/nestjs-app"],
+      "runtimeArgs": ["nx", "serve", "@fullstack-dev-1/nestjs-app"],
       "env": {
         "NODE_OPTIONS": "--inspect=9229"
       },

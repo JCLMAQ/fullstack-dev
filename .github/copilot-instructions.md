@@ -134,8 +134,8 @@ nx graph                        # Visualize dependencies
 
 ### Configuration Files
 - Environment setup: `scripts/setenv.ts` (run via `configangular`)
-- Proxy config: `proxy.config.json` for API routing (`/api` → `http://localhost:3000`)
-- Custom Nx plugins configured for TypeScript, Webpack, ESLint, Jest, Playwright
+- Proxy config: `proxy.config.json` for API routing (`/api` → `http://localhost:3001`)
+- Custom Nx plugins configured for TypeScript, Webpack, ESLint, Jest, Playwright:3001
 
 ### Angular Configuration
 - Uses zoneless change detection (`provideZonelessChangeDetection()`)
