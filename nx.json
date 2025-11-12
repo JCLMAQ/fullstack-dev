@@ -1,10 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -15,21 +12,14 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "nxCloudId": "690d0597053cd614d9b0bea1",
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "@nx/eslint:lint": {
       "cache": true,
@@ -42,11 +32,7 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "options": {
         "passWithNoTests": true
       },
@@ -59,10 +45,7 @@
     },
     "@nx/playwright:playwright": {
       "cache": false,
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "skipServe": false
       }
@@ -71,9 +54,7 @@
   "plugins": [
     {
       "plugin": "@nx/playwright/plugin",
-      "exclude": [
-        "apps/frontend/app-jcm-e2e/**/*"
-      ],
+      "exclude": ["apps/frontend/app-jcm-e2e/**/*"],
       "options": {
         "targetName": "e2e"
       }
@@ -84,7 +65,12 @@
         "targetName": "lint"
       }
     },
-    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
     {
       "plugin": "@nx/webpack/plugin",
       "options": {
@@ -104,7 +90,12 @@
       "style": "scss",
       "unitTestRunner": "jest"
     },
-    "@nx/angular:library": { "linter": "eslint", "unitTestRunner": "jest" },
-    "@nx/angular:component": { "style": "scss" }
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nx/angular:component": {
+      "style": "scss"
+    }
   }
 }

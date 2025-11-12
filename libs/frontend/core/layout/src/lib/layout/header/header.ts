@@ -72,7 +72,7 @@ export class Header {
 
   navigate(route: string) {
     // Routes qui sont sous pages/
-    const pageRoutes = ['picto', 'carousselpicture', 'picture', 'choice'];
+    const pageRoutes = ['picto', 'carousselpicture', 'picture', 'choice', 'file'];
 
     if (pageRoutes.includes(route)) {
       this.router.navigate([`/pages/${route}`]);

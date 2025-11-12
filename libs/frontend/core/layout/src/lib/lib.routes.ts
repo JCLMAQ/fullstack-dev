@@ -28,6 +28,13 @@ children: [
           import('@fe/dashboard').then((m) => m.dashboardRoutes),
           // canActivate: [isUserAuthenticated],
       },
+      // {
+      //   path: 'files',
+      //   loadChildren: () =>
+      //     import('@fe/file-mgt').then(
+      //       (m) => m.fileMgtRoutes
+      //     ),
+      // }
     ],
   }
 

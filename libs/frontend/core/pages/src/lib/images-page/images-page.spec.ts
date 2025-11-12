@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SignalformUtilities } from './signalform-utilities';
+import { ImagesPage } from './images-page';
 
-describe('SignalformUtilities', () => {
-  let component: SignalformUtilities;
-  let fixture: ComponentFixture<SignalformUtilities>;
+describe('ImagesPage', () => {
+  let component: ImagesPage;
+  let fixture: ComponentFixture<ImagesPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignalformUtilities],
+      imports: [ImagesPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignalformUtilities);
+    fixture = TestBed.createComponent(ImagesPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

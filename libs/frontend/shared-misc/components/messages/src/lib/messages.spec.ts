@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DateUtilities } from './date-utilities';
+import { Messages } from './messages';
 
-describe('DateUtilities', () => {
-  let component: DateUtilities;
-  let fixture: ComponentFixture<DateUtilities>;
+describe('Messages', () => {
+  let component: Messages;
+  let fixture: ComponentFixture<Messages>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DateUtilities],
+      imports: [Messages],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DateUtilities);
+    fixture = TestBed.createComponent(Messages);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
