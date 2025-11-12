@@ -44,10 +44,21 @@ export class IamAuth {
   private adminRole = false;
 
   constructor() {
-    this.#authTokenSignal.set(
-      localStorage.getItem(AUTH_TOKEN_STORAGE_KEY) || undefined,
-    );
+    // Charger le token depuis localStorage
+    const storedToken = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
+    if (storedToken) {
+      console.log('🔄 Loading auth token from localStorage');
+      this.#authTokenSignal.set(storedToken);
+    }
+
+    // Charger l'utilisateur depuis localStorage
     this.loadUserFromStorage();
+
+    console.log('🚀 IamAuth initialized');
+    console.log('👤 User loaded:', this.user()?.email || 'undefined');
+    console.log('🔐 Token loaded:', this.authToken() ? '***' : 'undefined');
+
+    // Effect pour synchroniser automatiquement avec localStorage
     effect(() => {
       const user = this.user();
       if (user) {
