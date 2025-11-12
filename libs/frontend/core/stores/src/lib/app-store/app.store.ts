@@ -2,8 +2,9 @@ import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { withAuthSync } from '@fe/shared';
 import { IAM_AUTH_TOKEN } from '@fe/tokens';
-import { patchState, signalStore, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
 import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
 import { initialAppSlice } from './app.slice';
 
@@ -118,21 +119,6 @@ withMethods((store) => ({
           // Optional: track error
         }
       },
-
-      // Méthode utilitaire pour forcer la synchronisation depuis localStorage
-      syncFromStorage: () => {
-        const user = store._authService.user();
-        const authToken = store._authService.authToken();
-
-        console.log('🔄 Syncing AppStore from localStorage');
-        console.log('👤 User from storage:', user);
-        console.log('🔐 Auth token from storage:', authToken ? '***' : 'undefined');
-
-        patchState(store, {
-          user: user,
-          authToken: authToken,
-        });
-      },
     })),
 
   // Auth part
@@ -141,23 +127,6 @@ withMethods((store) => ({
   // Languages part
   withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
-  // Initialize store with data from localStorage on startup
-  withHooks({
-    onInit(store) {
-      // Restore user and auth token from service (which loads from localStorage)
-      const user = store._authService.user();
-      const authToken = store._authService.authToken();
-
-      if (user || authToken) {
-        console.log('🔄 Initializing AppStore with data from localStorage');
-        console.log('👤 User:', user);
-        console.log('🔐 Auth Token:', authToken ? '***' : 'undefined');
-
-        patchState(store, {
-          user: user,
-          authToken: authToken,
-        });
-      }
-    },
-  }),
+  // 🔄 Synchronisation avec service d'authentification (Option 2 - Recommandée)
+  withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
 );
