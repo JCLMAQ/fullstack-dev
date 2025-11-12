@@ -8,5 +8,7 @@ export * from './lib/models/personal-info';
 export * from './lib/store-features/custom-store-features/with-auth-sync/with-auth-sync.feature';
 export * from './lib/store-features/custom-store-features/with-busy/with-busy.feature';
 export * from './lib/store-features/custom-store-features/with-local-storage/with-local-storage.feature';
+export * from './lib/utilities/local-storage-cleaner.service';
+export * from './lib/utilities/local-storage-test.service';
 
 

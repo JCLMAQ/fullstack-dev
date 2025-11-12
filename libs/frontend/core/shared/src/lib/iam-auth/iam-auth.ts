@@ -6,6 +6,7 @@ import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt, ILoginResponse, IRegisterResponse } from '../models/auth.model';
+import { LocalStorageCleanerService } from '../utilities/local-storage-cleaner.service';
 
 const USER_STORAGE_KEY = 'user';
 const AUTH_TOKEN_STORAGE_KEY = 'authJwtToken';
@@ -29,6 +30,7 @@ const AUTH_TOKEN_STORAGE_KEY = 'authJwtToken';
 export class IamAuth {
   httpClient = inject(HttpClient);
   router = inject(Router);
+  private localStorageCleaner = inject(LocalStorageCleanerService);
 
   private readonly environment = inject(ENVIRONMENT_TOKEN);
 
@@ -150,15 +152,20 @@ export class IamAuth {
   }
 
   async logout() {
-    localStorage.removeItem(USER_STORAGE_KEY);
-    localStorage.removeItem('authJwtToken');
+    // Utiliser le service de nettoyage centralisé pour supprimer toutes les données
+    this.localStorageCleaner.clearAllUserData();
+
+    // Réinitialiser les signaux
     this.#authTokenSignal.set(undefined);
     this.#userSignal.set(undefined);
 
+    console.log('🧹 Complete logout - All localStorage cleared via service');
     console.log('User logged out: ', this.user());
 
     this.logoutAsUserOrAdmin();
   }
+
+
 
   // Todo Update user photo both backend and frontend signal : chifter vezrs un service spécifique ?
   async updateUserPhoto(

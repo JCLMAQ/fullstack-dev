@@ -2,7 +2,7 @@ import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { withAuthSync } from '@fe/shared';
+import { LocalStorageTestService, withAuthSync } from '@fe/shared';
 import { IAM_AUTH_TOKEN } from '@fe/tokens';
 import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
 import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
@@ -15,6 +15,7 @@ export const AppStore= signalStore(
     _authService: inject(IAM_AUTH_TOKEN),
     _router: inject(Router),
     _snackbar: inject(MatSnackBar),
+    _testService: inject(LocalStorageTestService),
     // _dictionaries: inject(DICTIONARIES_TOKEN)
   })),
 
@@ -24,6 +25,22 @@ export const AppStore= signalStore(
   // })),
 withDevtools('AppStore'),
 withMethods((store) => ({
+      // 🔍 Debug method to check localStorage state
+      debugLocalStorage: () => {
+        console.log('🔍 === DEBUG LOCALSTORAGE ===');
+        const allKeys = Object.keys(localStorage);
+        console.log(`📊 Total keys: ${allKeys.length}`);
+        allKeys.forEach(key => {
+          const value = localStorage.getItem(key);
+          const size = value ? value.length : 0;
+          console.log(`  - ${key}: ${size} chars`);
+          if (key.includes('dashboard') || key.includes('app') || key.includes('user') || key.includes('auth')) {
+            console.log(`    Value preview: ${value?.substring(0, 100)}...`);
+          }
+        });
+        console.log('🔍 =========================');
+      },
+
       login: async (email: string, password: string) => {
 
         try {
@@ -74,6 +91,51 @@ withMethods((store) => ({
 
         console.log('🚪 User logged out - Store cleared');
         store._router.navigate(['pages/home']);
+      },
+
+      // 🧪 Test method for localStorage cleanup validation
+      testLogoutCleanup: async () => {
+        console.log('🧪 Testing localStorage cleanup...');
+
+        // Peupler les données de test
+        store._testService.populateTestData();
+
+        // Exécuter le logout via le service d'authentification
+        await store._authService.logout();
+
+        // Réinitialiser l'état du store
+        patchState(store, {
+          user: undefined,
+          authToken: undefined
+        });
+
+        // Valider le nettoyage
+        await new Promise(resolve => setTimeout(resolve, 100)); // Attendre un peu
+        const result = store._testService.validateCleanup();
+
+        if (result.success) {
+          store._snackbar.open('✅ Logout cleanup test PASSED', 'Close', {
+            verticalPosition: 'top',
+            horizontalPosition: 'right',
+            duration: 3000
+          });
+        } else {
+          store._snackbar.open(
+            `❌ Logout cleanup test FAILED - ${result.remainingKeys.length} keys remaining`,
+            'Close',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+              duration: 5000
+            }
+          );
+          console.error('Remaining keys:', result.remainingKeys);
+        }
+
+        // Naviguer vers la page d'accueil
+        store._router.navigate(['pages/home']);
+
+        return result;
       },
 
       register: async (

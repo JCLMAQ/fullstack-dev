@@ -51,4 +51,14 @@ export class DashboardService {
     localStorage.setItem('dashboardWidgetsOrder', JSON.stringify(order));
     return Promise.resolve();
   }
+
+  /**
+   * Nettoie toutes les données du dashboard du localStorage
+   * Utilisé lors du logout pour s'assurer qu'aucune donnée utilisateur ne persiste
+   */
+  clearDashboardData(): void {
+    localStorage.removeItem('dashboardWidgets');
+    localStorage.removeItem('dashboardWidgetsOrder');
+    console.log('🧹 Dashboard data cleared from localStorage');
+  }
 }
