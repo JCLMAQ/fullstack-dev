@@ -201,6 +201,14 @@ export class IamAuth {
   }
 
   /**
+   * Met à jour les données utilisateur localement
+   * @param userData - Nouvelles données utilisateur
+   */
+  updateUserData(userData: User): void {
+    this.#userSignal.set(userData);
+  }
+
+  /**
    * 👤 FETCH USER avec nouvel endpoint IAM
    * AUTHS: GET /api/auths/auth/loggedUser/:email
    * IAM:   GET /api/authentication/user/:email ✅
