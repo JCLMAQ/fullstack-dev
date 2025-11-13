@@ -2,10 +2,10 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
-import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt, ILoginResponse, IRegisterResponse } from '../models/auth.model';
+import { ENVIRONMENT_TOKEN } from '../tokens/tokens/environement.token';
 import { LocalStorageCleanerService } from '../utilities/local-storage-cleaner.service';
 
 const USER_STORAGE_KEY = 'user';

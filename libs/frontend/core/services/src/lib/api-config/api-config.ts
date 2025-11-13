@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ENVIRONMENT_TOKEN } from '@fe/tokens';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 
 @Injectable({
   providedIn: 'root'

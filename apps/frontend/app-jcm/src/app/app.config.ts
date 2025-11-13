@@ -9,12 +9,11 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, MENU_ITEMS_TOKEN } from '@fe/shared';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
-
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 // import { AppStore } from '@fe/stores';
 import { AuthInterceptor, IamAuth, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';

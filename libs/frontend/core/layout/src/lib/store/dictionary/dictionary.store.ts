@@ -1,23 +1,22 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
-import { withBusy } from '@fe/shared';
-import { DICTIONARIES_TOKEN } from '@fe/tokens';
+import { DICTIONARIES_TOKEN, withBusy } from '@fe/shared';
 import {
-  patchState,
-  signalStore,
-  withHooks,
-  withMethods,
-  withProps,
-  withState,
+    patchState,
+    signalStore,
+    withHooks,
+    withMethods,
+    withProps,
+    withState,
 } from '@ngrx/signals';
 import { DictionaryService } from '../../services/dictionaries/dictionary-service';
 import { NotificationService } from '../../services/notifications/notification-service';
 import { Dictionary } from './dictionary-token.model';
 import { initialDictionarySlice } from './dictionary.slice';
 import {
-  changeLanguageDictionary,
-  resetLanguagesDictionaries,
-  switchLanguageDictionary,
+    changeLanguageDictionary,
+    resetLanguagesDictionaries,
+    switchLanguageDictionary,
 } from './dictionary.updaters';
 
 export const DictionaryStore = signalStore(

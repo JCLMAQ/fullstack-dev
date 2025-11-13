@@ -1,4 +1,4 @@
-import { Dictionaries, Dictionary } from '@fe/tokens';
+import { Dictionaries, Dictionary } from '@fe/shared';
 export function getDictionaryHelper(
   language: string,
   dictionaries: Dictionaries,

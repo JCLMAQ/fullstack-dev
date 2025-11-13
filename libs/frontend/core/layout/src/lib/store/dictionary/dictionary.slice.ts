@@ -1,4 +1,4 @@
-import { Dictionary } from '@fe/tokens';
+import { Dictionary } from '@fe/shared';
 
 export interface DictionarySlice {
   readonly selectedLanguage: string;

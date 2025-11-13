@@ -1,14 +1,14 @@
 import { computed, inject } from '@angular/core';
-import { DICTIONARIES_TOKEN } from '@fe/tokens';
+import { DICTIONARIES_TOKEN } from '@fe/shared';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withComputed,
-  withHooks,
-  withMethods,
-  withProps,
-  withState,
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withComputed,
+    withHooks,
+    withMethods,
+    withProps,
+    withState,
 } from '@ngrx/signals';
 import { getDictionary } from './dictionaries.helpers';
 import { initialDictionariesSlice } from './dictionaries.slice';

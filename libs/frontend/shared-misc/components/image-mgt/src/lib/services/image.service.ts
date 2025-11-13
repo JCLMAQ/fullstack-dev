@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import type { Image } from '@db/prisma';
-import { ENVIRONMENT_TOKEN } from '@fe/tokens';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 // Interface pour la réponse du dual-storage controller
