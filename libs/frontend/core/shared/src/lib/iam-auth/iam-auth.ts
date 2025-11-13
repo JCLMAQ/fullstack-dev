@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
@@ -41,6 +41,41 @@ export class IamAuth {
   authToken = this.#authTokenSignal.asReadonly();
 
   isLoggedIn = computed(() => !!this.user());
+
+  // 🆕 Signal pour gérer les données d'enregistrement avec httpResource
+  private registerData = signal<{
+    email: string;
+    password: string;
+    verifyPassword: string;
+  } | null>(null);
+
+  /**
+   * ⚠️ EXPERIMENTAL: httpResource pour l'enregistrement
+   * Se déclenche automatiquement quand registerData change
+   */
+  private registrationResource = httpResource(() => {
+    const data = this.registerData();
+    if (!data) return undefined;
+
+    return {
+      url: 'api/authentication/register-extended',
+      method: 'POST',
+      body: data,
+    };
+  });
+
+  // Accesseurs pour l'état de l'enregistrement
+  get isRegistering() {
+    return this.registrationResource.isLoading();
+  }
+
+  get registerError() {
+    return this.registrationResource.error();
+  }
+
+  get registerResult() {
+    return this.registrationResource.value() as IRegisterResponse | undefined;
+  }
 
   private authenticated = false;
   private adminRole = false;
@@ -110,16 +145,68 @@ export class IamAuth {
   }
 
   /**
-   * 📝 REGISTER avec nouvel endpoint IAM étendu
+   * 📝 REGISTER avec nouvel endpoint IAM étendu (Moderne avec httpResource)
    * AUTHS: POST /api/auths/auth/registerwithpwd
    * IAM:   POST /api/authentication/register-extended ✅
+   *
+   * ⚠️ EXPERIMENTAL: Utilise httpResource (Angular 19+)
+   * Cette méthode déclenche automatiquement l'appel HTTP via httpResource
+   *
+   * @returns Promise qui se résout quand l'enregistrement est terminé
    */
   async register(
     email: string,
     password: string,
     confirmPassword: string,
+  ): Promise<IRegisterResponse> {
+    // Déclencher l'appel HTTP via le signal
+    this.registerData.set({
+      email,
+      password,
+      verifyPassword: confirmPassword,
+    });
+
+    console.log('🔄 Registering User with httpResource (IAM)...', { email });
+
+    // Attendre que la requête se termine
+    return new Promise((resolve, reject) => {
+      const checkResult = () => {
+        // Vérifier si on a un résultat
+        const result = this.registerResult;
+        if (result) {
+          console.log('✅ Registration successful (IAM):', result);
+          this.registerData.set(null); // Réinitialiser
+          resolve(result);
+          return;
+        }
+
+        // Vérifier si on a une erreur
+        const error = this.registerError;
+        if (error) {
+          console.error('❌ Registration failed (IAM):', error);
+          this.registerData.set(null); // Réinitialiser
+          reject(error);
+          return;
+        }
+
+        // Si ni résultat ni erreur, réessayer dans 100ms
+        setTimeout(checkResult, 100);
+      };
+
+      // Démarrer la vérification
+      setTimeout(checkResult, 100);
+    });
+  }
+
+  /**
+   * 📝 REGISTER LEGACY - Version classique avec HttpClient
+   * À utiliser si vous préférez l'ancienne méthode ou si httpResource pose problème
+   */
+  async registerLegacy(
+    email: string,
+    password: string,
+    confirmPassword: string,
   ): Promise<IRegisterResponse | Error> {
-    // 🆕 Utilisation du nouvel endpoint IAM étendu
     const pathUrl = 'api/authentication/register-extended';
 
     const payload: {
@@ -138,7 +225,7 @@ export class IamAuth {
       verifyPassword: confirmPassword,
     };
 
-    console.log('Registering User Payload (IAM): ', payload);
+    console.log('Registering User Payload (IAM - Legacy): ', payload);
 
     const register$ = this.httpClient.post<IRegisterResponse>(
       `${pathUrl}`,
@@ -146,7 +233,7 @@ export class IamAuth {
     );
     const response = await firstValueFrom(register$);
 
-    console.log('Registering User Response (IAM): ', response);
+    console.log('Registering User Response (IAM - Legacy): ', response);
 
     return response;
   }
