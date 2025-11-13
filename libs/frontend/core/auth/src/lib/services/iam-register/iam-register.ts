@@ -57,3 +57,23 @@ export class IamRegisterService {
     this.userToRegister.set(user);
   }
 }
+
+/* Exemple d'utilisation dans un composant:
+
+constructor(private iamRegister: IamRegisterService) {}
+
+onRegister(user: User) {
+  this.iamRegister.register(user);
+
+  // Accès à l'état
+  effect(() => {
+    if (this.iamRegister.result()) {
+      console.log('Succès!', this.iamRegister.result());
+    }
+    if (this.iamRegister.error()) {
+      console.error('Erreur:', this.iamRegister.error());
+    }
+  });
+}s
+
+*/
