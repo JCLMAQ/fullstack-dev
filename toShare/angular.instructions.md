@@ -10,9 +10,9 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 ## Project Context
 - Latest Angular version (use standalone components by default)
 - TypeScript for type safety
-- Angular CLI for project setup and scaffolding
+- Angular CLI for project setup and scaffolding through NX
 - Follow Angular Style Guide (https://angular.dev/style-guide)
-- Use Angular Material or other modern UI libraries for consistent styling (if specified)
+- Use Angular Material  for consistent styling 
 
 ## Development Standards
 
@@ -29,31 +29,70 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Use type guards and union types for robust type checking
 - Implement proper error handling with RxJS operators (e.g., `catchError`)
 - Use typed forms (e.g., `FormGroup`, `FormControl`) for reactive forms
+- Use strict type checking
+- Prefer type inference when the type is obvious
+- Avoid the `any` type; use `unknown` when type is uncertain
 
-### Component Design
+### Angular Best Practices
+- Always use standalone components over NgModules
+- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- Use signals for state management
+- Implement lazy loading for feature routes
+- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
+- Use `NgOptimizedImage` for all static images.
+  - `NgOptimizedImage` does not work for inline base64 images.
+
+### Components
 - Follow Angular's component lifecycle hooks best practices
-- When using Angular >= 19, Use `input()` `output()`, `viewChild()`, `viewChildren()`, `contentChild()` and `contentChildren()` functions instead of decorators; otherwise use decorators
+- Use `input()` `output()`, `viewChild()`, `viewChildren()`, `contentChild()` and `contentChildren()` functions instead of decorators; otherwise use decorators
 - Leverage Angular's change detection strategy (default or `OnPush` for performance)
 - Keep templates clean and logic in component classes or services
 - Use Angular directives and pipes for reusable functionality
+- Keep components small and focused on a single responsibility
+- Use `computed()` for derived state
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
+- Prefer Signal forms instead of Reactive or Template-driven ones when Angular Signal Forms are available
+- Do NOT use `ngClass`, use `class` bindings instead
+- Do NOT use `ngStyle`, use `style` bindings instead
+- When using external templates/styles, use paths relative to the component TS file.
+
+## Services
+- Design services around a single responsibility
+- Use the `providedIn: 'root'` option for singleton services
+- Use the `inject()` function instead of constructor injection
+
+### Templates
+- Keep templates simple and avoid complex logic
+- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use the async pipe to handle observables, prefer signals where possible
+- Do not assume globals like (`new Date()`) are available.
+- Do not write arrow functions in templates (they are not supported).
+- Do not write Regular expressions in templates (they are not supported).
 
 ### Styling
 - Use Angular's component-level CSS encapsulation (default: ViewEncapsulation.Emulated)
 - Prefer SCSS for styling with consistent theming
 - Implement responsive design using CSS Grid, Flexbox, or Angular CDK Layout utilities
-- Follow Angular Material's theming guidelines if used
+- Follow Angular Material's theming guidelines
 - Maintain accessibility (a11y) with ARIA attributes and semantic HTML
 
 ### State Management
 - Use Angular Signals for reactive state management in components and services
+- Use NGRX Signals Store if needed for complex state management across the application
 - Leverage `signal()`, `computed()`, and `effect()` for reactive state updates
 - Use writable signals for mutable state and computed signals for derived state
+- Use linkedSignals for sharing state between components
 - Handle loading and error states with signals and proper UI feedback
 - Use Angular's `AsyncPipe` to handle observables in templates when combining signals with RxJS
+- Use signals for local component state
+- Use `computed()` for derived state
+- Keep state transformations pure and predictable
+- Do NOT use `mutate` on signals, use `update` or `set` instead
 
 ### Data Fetching
-- Use Angular's `HttpClient` for API calls with proper typing
-- Implement RxJS operators for data transformation and error handling
+- Use Angular's `HttpClient` for API calls with proper typing or `httpResource`s for resource management
+- Implement RxJS operators for data transformation and error handling if necessary, if not prefer signals
+- Avoid Observable subscriptions in components; use the async pipe or signals instead
 - Use Angular's `inject()` function for dependency injection in standalone components
 - Implement caching strategies (e.g., `shareReplay` for observables)
 - Store API response data in signals for reactive updates
@@ -84,10 +123,10 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 ## Implementation Process
 1. Plan project structure and feature modules
 2. Define TypeScript interfaces and models
-3. Scaffold components, services, and pipes using Angular CLI
-4. Implement data services and API integrations with signal-based state
+3. Scaffold components, services, and pipes using Angular CLI or NX within monorepo
+4. Implement data services and API integrations with signal-based state or NGRX Signals Store
 5. Build reusable components with clear inputs and outputs
-6. Add reactive forms and validation
+6. Add signals forms and validation
 7. Apply styling with SCSS and responsive design
 8. Implement lazy-loaded routes and guards
 9. Add error handling and loading states using signals
@@ -99,6 +138,17 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Use Angular CLI commands for generating boilerplate code
 - Document components and services with clear JSDoc comments
 - Ensure accessibility compliance (WCAG 2.1) where applicable
-- Use Angular's built-in i18n for internationalization (if specified)
+- Use Angular's built-in i18n for internationalization (if specified) and ngx-translate for dynamic translations
 - Keep code DRY by creating reusable utilities and shared modules
 - Use signals consistently for state management to ensure reactive updates
+
+<!-- ## Accessibility Requirements
+- It MUST pass all AXE checks.
+- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes. -->
+
+
+
+
+
+
+
