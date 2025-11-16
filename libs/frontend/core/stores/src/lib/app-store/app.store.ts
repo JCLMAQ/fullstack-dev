@@ -17,6 +17,7 @@ export const AppStore= signalStore(
     _testService: inject(LocalStorageTestService),
     // _dictionaries: inject(DICTIONARIES_TOKEN)
   })),
+  withDevtools('AppStore State Init'),
 
   // withComputed((store) => ({
   //   user: computed(() => store._authService.user()),
