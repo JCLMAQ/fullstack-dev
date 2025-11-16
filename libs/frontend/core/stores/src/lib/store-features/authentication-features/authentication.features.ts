@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IamAuth } from '@fe/shared';
+import { IAM_AUTH_TOKEN } from '@fe/shared';
 import {
   patchState,
-  SignalStoreFeature,
   signalStoreFeature,
+  SignalStoreFeature,
   withMethods,
   withProps,
   withState,
@@ -19,7 +19,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withState(initialAppSlice),
     withProps(() => ({
-      _authService: inject(IamAuth),
+      _authService: inject(IAM_AUTH_TOKEN),
+      // _authService: inject(IamAuth),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
@@ -44,11 +45,14 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           const loginResponse = await store._authService.login(email, password);
           console.log('user after login (from authentication feature): ', loginResponse);
 
+       // Le service IamAuth gère déjà la sauvegarde dans localStorage
+          // On synchronise juste l'état du store
           const user = store._authService.user();
+          const authToken = store._authService.authToken();
 
           patchState(store, {
             user: user,
-            authToken: loginResponse.accessToken,
+            authToken: authToken,
           });
 
           store._router.navigate(['/dashboard']);
@@ -64,7 +68,14 @@ export function withAppAuthFeatures(): SignalStoreFeature {
 
       logout: async () => {
         await store._authService.logout();
+
+        // Le service IamAuth gère déjà la suppression du localStorage
+        // On synchronise juste l'état du store
         patchState(store, { user: undefined });
+        store._router.navigate(['pages/home']);
+
+        console.log('🚪 User logged out - Store cleared');
+
         store._router.navigate(['pages/home']);
       },
 

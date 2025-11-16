@@ -254,7 +254,7 @@ export class IamAuth {
 
 
 
-  // Todo Update user photo both backend and frontend signal : chifter vezrs un service spécifique ?
+  // Todo Update user photo both backend and frontend signal : chifter vers un service spécifique ?
   async updateUserPhoto(
     photoUrl: string,
   ): Promise<{ success: boolean; message: string; photoUrl?: string }> {
@@ -315,7 +315,6 @@ export class IamAuth {
 
   /**
    * 👤 FETCH USER avec nouvel endpoint IAM
-   * AUTHS: GET /api/auths/auth/loggedUser/:email
    * IAM:   GET /api/authentication/user/:email ✅
    */
   async fetchUser(): Promise<User | undefined | null> {
@@ -336,22 +335,8 @@ export class IamAuth {
           );
           console.log("Profil récupéré depuis l'API:", response);
           if ('success' in response) {
-            // console.error(response.message);
             return null;
           }
-
-          // const user: User = {
-          //   email: response.user.email || '',
-          //   lastName: response.user.lastName || null,
-          //   firstName: response.user.firstName || null,
-          //   nickName: response.user.nickName || null,
-          //   title: response.user.title || null,
-          //   Gender: response.user.Gender || null,
-          //   Roles: response.user.Roles || [],
-          //   Language: response.user.Language || null,
-          //   // fullName: response.fullName || null,
-          //   photoUrl: response.user.photoUrl || ''  // ✅ Récupère la vraie photoUrl depuis la DB
-          // };
           const user = response.user;
           return user;
         } catch (error) {
@@ -360,30 +345,6 @@ export class IamAuth {
           // Fallback : utiliser les infos du JWT si l'API échoue
           const decodedJwt: IJwt = jwtDecode(authToken);
           console.log('Fallback - Decoded JWT: ', decodedJwt);
-
-          // const user: User = {
-          //            const user: User = {
-          //   id: null,
-          //   numSeq: null,
-          //   createdAt: null,
-          //   updatedAt: null,
-          //   published: null,
-          //   isPublic: null,
-          //   isDeleted: null,
-          //   isDeletedDT: null,
-          //   email: decodedJwt.email || '',
-          //   lastName: null,
-          //   firstName: null,
-          //   nickName: null,
-          //   title: null,
-          //   Gender: null,
-          //   Roles: decodedJwt.role || [],
-          //   Language: null,
-          //   photoUrl: decodedJwt.photoUrl || '',
-          // };
-          // };
-
-          // return user;
         }
       }
     }
@@ -393,7 +354,6 @@ export class IamAuth {
 
   /**
    * ✅ VÉRIFICATION CREDENTIALS avec nouvel endpoint IAM
-   * AUTHS: POST /api/auths/checkCredential/ avec body { emailToCheck }
    * IAM:   POST /api/authentication/check-credentials/:email ✅
    */
   async checkUserCredentials(
