@@ -12,9 +12,17 @@ import { firstValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class IamRegisterService {
+export class RegisterService {
   private httpClient = inject(HttpClient);
   private registerEndPoint = 'api/authentication/register-extended';
+  private emailCheckEndPoint = 'api/authentication/email-check';
+
+  async emailExists(email: string): Promise<boolean> {
+    console.log('🔄 Checking if email exists (IAM):', { email });
+    return await firstValueFrom(
+      this.httpClient.post<boolean>(this.emailCheckEndPoint, email)
+    );
+  }
 
   /**
    * 📝 USER REGISTER avec nouvel endpoint IAM

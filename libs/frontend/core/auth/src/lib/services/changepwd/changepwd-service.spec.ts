@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ChangepwdService } from './changepwd.service';
+import { ChangepwdService } from './changepwd-service';
 
 describe('ChangepwdService', () => {
   let service: ChangepwdService;

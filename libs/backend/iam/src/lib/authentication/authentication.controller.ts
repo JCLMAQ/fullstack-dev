@@ -44,7 +44,11 @@ export class AuthenticationController {
   async signUp(@Body() signUpDto: SignUpDto) {
     return await this.authenticationService.signUp(signUpDto);
   }
-
+ @Post('email-check')
+  async emailCheck(@Body() email: string) {
+// true if the email already exists
+    return await this.authenticationService.emailCheck(email);
+  }
 
   @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)
   @Post('sign-in')

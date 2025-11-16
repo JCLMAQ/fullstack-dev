@@ -2,10 +2,10 @@ import { ActiveUserData, HashingService } from '@be/common';
 import { Gender, Language, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
-    ConflictException,
-    Inject,
-    Injectable,
-    UnauthorizedException,
+  ConflictException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -34,6 +34,19 @@ export class AuthenticationService {
     private readonly otpAuthService: OtpAuthenticationService,
     private readonly prisma: PrismaClientService,
   ) {}
+
+
+  async emailCheck(email: string): Promise<boolean> {
+      try {
+        const user = await this.prisma.user.findUnique({
+          where: { email: email.toLowerCase() }
+        });
+
+        return !!user;
+      } catch {
+        return false;
+      }
+    }
 
   async signUp(signUpDto: SignUpDto) {
     try {
