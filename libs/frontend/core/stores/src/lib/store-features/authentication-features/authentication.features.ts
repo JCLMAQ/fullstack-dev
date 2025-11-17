@@ -8,22 +8,18 @@ import {
   signalStoreFeature,
   SignalStoreFeature,
   withMethods,
-  withProps,
-  withState,
+  withProps
 } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
-import { initialAppSlice } from '../../app-store/app.slice';
 
 /* tslint:disable:object-literal-type */
 export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
-    withState(initialAppSlice),
     withProps(() => ({
       _authService: inject(IAM_AUTH_TOKEN),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
-
     })),
      // withComputed((store) => ({
   //   user: computed(() => store._authService.user()),
@@ -101,9 +97,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             verticalPosition: 'top',
             horizontalPosition: 'right',
           });
-          // Optional: track success
-          console.log('AppStore user computed: ', store.user());
-          console.log('AppStore authToken computed:  ', store.authToken());
 
 
           store._router.navigate(['/auth/login']);

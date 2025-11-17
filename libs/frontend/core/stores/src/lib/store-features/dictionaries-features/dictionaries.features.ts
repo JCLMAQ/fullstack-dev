@@ -1,24 +1,25 @@
 import { computed, inject } from '@angular/core';
 import { DICTIONARIES_TOKEN } from '@fe/shared';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withComputed,
-    withHooks,
-    withMethods,
-    withProps,
-    withState,
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withComputed,
+  withHooks,
+  withMethods,
+  withProps,
+  withState
 } from '@ngrx/signals';
 import { getDictionary } from './dictionaries.helpers';
-import { initialDictionariesSlice } from './dictionaries.slice';
-import { changeLanguage } from './dictionaries.updaters';
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
 
 export function withDictionariesFeatures(): SignalStoreFeature {
   return signalStoreFeature(
-    withState(initialDictionariesSlice),
+    withState(() => ({
+      possibleLanguages: [] as string[],
+      selectedLanguage: '' as string,
+    })),
     withProps(() => ({
       _dictionaries: inject(DICTIONARIES_TOKEN),
     })),
@@ -32,7 +33,12 @@ export function withDictionariesFeatures(): SignalStoreFeature {
     withMethods((store) => {
       const languages = Object.keys(store._dictionaries);
       return {
-        changeLanguage: () => patchState(store, changeLanguage(languages)),
+      changeLanguage: () => {
+          const currentIndex = languages.indexOf(store.selectedLanguage());
+          const nextIndex = (currentIndex + 1) % languages.length;
+          const nextLanguage = languages[nextIndex];
+          patchState(store, { selectedLanguage: nextLanguage });
+        },
       };
     }),
     withHooks((store) => ({
