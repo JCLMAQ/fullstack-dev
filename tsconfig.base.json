@@ -32,10 +32,12 @@
       "@be/users": ["libs/backend/data-access/users/src/index.ts"],
       "@be/common": ["libs/backend/common/src/index.ts"],
       "@be/jwtconfig": ["libs/backend/common/src/lib/config/jwt.config"],
+
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
-      "@frontend/core/auth": ["libs/frontend/core/auth/src/index.ts"],
+      "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],
       "@fe/services": ["libs/frontend/core/services/src/index.ts"],
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],

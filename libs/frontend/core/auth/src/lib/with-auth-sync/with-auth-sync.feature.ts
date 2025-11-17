@@ -1,11 +1,11 @@
 import { effect, inject } from '@angular/core';
+import { IamAuth } from '@fe/core/auth';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withHooks,
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withHooks,
 } from '@ngrx/signals';
-import { IamAuth } from '@frontend/core/auth';
 
 /**
  * 🔐 Feature NgRx Signals pour synchroniser le store avec le service d'authentification
