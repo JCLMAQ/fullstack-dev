@@ -1,395 +1,132 @@
-import { HttpClient, httpResource } from '@angular/common/http';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
-import { jwtDecode } from 'jwt-decode';
-import { firstValueFrom } from 'rxjs';
-import { IJwt, ILoginResponse, IRegisterResponse } from '../models/auth.model';
-import { ENVIRONMENT_TOKEN } from '../tokens/tokens/environement.token';
+import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { LocalStorageCleanerService } from '../utilities/local-storage-cleaner.service';
-
-const USER_STORAGE_KEY = 'user';
-const AUTH_TOKEN_STORAGE_KEY = 'authJwtToken';
+import { LoginService } from './services/login/login-service';
+import { RegisterService } from './services/register/register-service';
+import { TokenStorageService } from './services/token-storage/token-storage-service';
+import { UserFetchService } from './services/user-fetch/user-fetch-service';
+import { UserProfileService } from './services/user-profile/user-profile-service';
+import { UserStorageService } from './services/user-storage/user-storage-service';
 
 /**
- * 🆕 SERVICE IAM MODERNE - Migration AUTHS → IAM
+ * 🆕 SERVICE IAM MODERNE - Facade Pattern
  *
- * Ce service utilise les nouveaux endpoints IAM (/api/authentication/*)
- * au lieu des anciens endpoints AUTHS (/api/auths/*)
+ * Ce service sert de point d'entrée unique pour toutes les opérations IAM
+ * en déléguant les responsabilités à des services spécialisés :
+ *
+ * - 🔐 TokenStorageService : Gestion du JWT
+ * - 👤 UserStorageService : Gestion des données utilisateur
+ * - 🔑 LoginService : Authentification et vérification des credentials
+ * - 📝 RegisterService : Inscription des nouveaux utilisateurs
+ * - 🔄 UserFetchService : Récupération et rafraîchissement du profil
+ * - 📸 UserProfileService : Mise à jour du profil (photo, etc.)
  *
  * Avantages :
- * - 🔒 Sécurité renforcée avec Guards automatiques
- * - ⚡ Architecture moderne et optimisée
- * - 🧪 Testabilité améliorée
- * - 🚀 Support 2FA et API Keys
+ * - ✅ Séparation des responsabilités (SRP)
+ * - ✅ Testabilité améliorée
+ * - ✅ Code modulaire et maintenable
+ * - ✅ Réutilisabilité des services
  */
 
 @Injectable({
   providedIn: 'root',
 })
 export class IamAuth {
-  httpClient = inject(HttpClient);
-  router = inject(Router);
+  private router = inject(Router);
   private localStorageCleaner = inject(LocalStorageCleanerService);
 
-  private readonly environment = inject(ENVIRONMENT_TOKEN);
+  // 🔧 Services spécialisés injectés
+  private loginService = inject(LoginService);
+  private registerService = inject(RegisterService);
+  private userFetchService = inject(UserFetchService);
+  private tokenStorage = inject(TokenStorageService);
+  private userStorage = inject(UserStorageService);
+  private profileService = inject(UserProfileService);
 
-  #userSignal = signal<User | undefined>(undefined);
-  user = this.#userSignal.asReadonly();
-
-  #authTokenSignal = signal<string | undefined>(undefined);
-  authToken = this.#authTokenSignal.asReadonly();
-
+  // 📡 Exposer les signaux depuis les services spécialisés
+  user = this.userStorage.user;
+  authToken = this.tokenStorage.authToken;
   isLoggedIn = computed(() => !!this.user());
 
-  // 🆕 Signal pour gérer les données d'enregistrement avec httpResource
-  private registerData = signal<{
-    email: string;
-    password: string;
-    verifyPassword: string;
-  } | null>(null);
-
-  /**
-   * ⚠️ EXPERIMENTAL: httpResource pour l'enregistrement
-   * Se déclenche automatiquement quand registerData change
-   */
-  private registrationResource = httpResource(() => {
-    const data = this.registerData();
-    if (!data) return undefined;
-
-    return {
-      url: 'api/authentication/register-extended',
-      method: 'POST',
-      body: data,
-    };
-  });
-
-  // Accesseurs pour l'état de l'enregistrement
-  get isRegistering() {
-    return this.registrationResource.isLoading();
-  }
-
-  get registerError() {
-    return this.registrationResource.error();
-  }
-
-  get registerResult() {
-    return this.registrationResource.value() as IRegisterResponse | undefined;
-  }
-
+  // État d'authentification (compatibilité)
   private authenticated = false;
   private adminRole = false;
 
   constructor() {
-    // Charger le token depuis localStorage
-    const storedToken = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
-    if (storedToken) {
-      console.log('🔄 Loading auth token from localStorage');
-      this.#authTokenSignal.set(storedToken);
-    }
-
-    // Charger l'utilisateur depuis localStorage
-    this.loadUserFromStorage();
-
-    console.log('🚀 IamAuth initialized');
+    console.log('🚀 IamAuth initialized (Facade Pattern)');
     console.log('👤 User loaded:', this.user()?.email || 'undefined');
     console.log('🔐 Token loaded:', this.authToken() ? '***' : 'undefined');
-
-    // Effect pour synchroniser automatiquement avec localStorage
-    effect(() => {
-      const user = this.user();
-      if (user) {
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-      }
-      const authToken = this.authToken();
-      if (authToken) {
-        localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, authToken);
-      }
-    });
-  }
-
-  loadUserFromStorage() {
-    const json = localStorage.getItem(USER_STORAGE_KEY);
-    if (json) {
-      const user = JSON.parse(json);
-      this.#userSignal.set(user);
-    }
   }
 
   /**
    * 🔐 LOGIN avec nouvel endpoint IAM
-   * AUTHS: POST /api/auths/auth/loginwithpwd
-   * IAM:   POST /api/authentication/sign-in ✅
+   * IAM: POST /api/authentication/sign-in ✅
    */
   async login(email: string, password: string): Promise<ILoginResponse> {
-    // 🆕 Utilisation du nouvel endpoint IAM
-    const pathUrl = 'api/authentication/sign-in';
-
-    const login$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, {
-      email,
-      password,
-    });
-
-    const response = await firstValueFrom(login$);
-
-    this.#authTokenSignal.set(response.accessToken);
-    localStorage.setItem('authJwtToken', response.accessToken);
-
-    const userLogged = await this.fetchUser();
-    console.log('User logged in (IAM): ', userLogged);
-    if (userLogged) {
-      this.#userSignal.set(userLogged);
-    }
+    const response = await this.loginService.login(email, password);
     this.loginAsUser();
     return response;
   }
 
   /**
-   * 📝 REGISTER avec nouvel endpoint IAM étendu (Moderne avec httpResource)
-   * AUTHS: POST /api/auths/auth/registerwithpwd
-   * IAM:   POST /api/authentication/register-extended ✅
-   *
-   * ⚠️ EXPERIMENTAL: Utilise httpResource (Angular 19+)
-   * Cette méthode déclenche automatiquement l'appel HTTP via httpResource
-   *
-   * @returns Promise qui se résout quand l'enregistrement est terminé
+   * 📝 REGISTER avec nouvel endpoint IAM
+   * IAM: POST /api/authentication/register-extended ✅
    */
   async register(
     email: string,
     password: string,
     confirmPassword: string,
   ): Promise<IRegisterResponse> {
-    // Déclencher l'appel HTTP via le signal
-    this.registerData.set({
-      email,
-      password,
-      verifyPassword: confirmPassword,
-    });
-
-    console.log('🔄 Registering User with httpResource (IAM)...', { email });
-
-    // Attendre que la requête se termine
-    return new Promise((resolve, reject) => {
-      const checkResult = () => {
-        // Vérifier si on a un résultat
-        const result = this.registerResult;
-        if (result) {
-          console.log('✅ Registration successful (IAM):', result);
-          this.registerData.set(null); // Réinitialiser
-          resolve(result);
-          return;
-        }
-
-        // Vérifier si on a une erreur
-        const error = this.registerError;
-        if (error) {
-          console.error('❌ Registration failed (IAM):', error);
-          this.registerData.set(null); // Réinitialiser
-          reject(error);
-          return;
-        }
-
-        // Si ni résultat ni erreur, réessayer dans 100ms
-        setTimeout(checkResult, 100);
-      };
-
-      // Démarrer la vérification
-      setTimeout(checkResult, 100);
-    });
+    return this.registerService.register(email, password, confirmPassword);
   }
 
   /**
-   * 📝 REGISTER LEGACY - Version classique avec HttpClient
-   * À utiliser si vous préférez l'ancienne méthode ou si httpResource pose problème
+   * 🚪 LOGOUT
    */
-  async registerLegacy(
-    email: string,
-    password: string,
-    confirmPassword: string,
-  ): Promise<IRegisterResponse | Error> {
-    const pathUrl = 'api/authentication/register-extended';
-
-    const payload: {
-      email: string;
-      password: string;
-      verifyPassword: string;
-      Roles?: string[];
-      Language?: string;
-      lastName?: string;
-      firstName?: string;
-      nickName?: string;
-      Gender?: string;
-    } = {
-      email,
-      password,
-      verifyPassword: confirmPassword,
-    };
-
-    console.log('Registering User Payload (IAM - Legacy): ', payload);
-
-    const register$ = this.httpClient.post<IRegisterResponse>(
-      `${pathUrl}`,
-      payload,
-    );
-    const response = await firstValueFrom(register$);
-
-    console.log('Registering User Response (IAM - Legacy): ', response);
-
-    return response;
-  }
-
-  async logout() {
-    // Utiliser le service de nettoyage centralisé pour supprimer toutes les données
+  async logout(): Promise<void> {
     this.localStorageCleaner.clearAllUserData();
-
-    // Réinitialiser les signaux
-    this.#authTokenSignal.set(undefined);
-    this.#userSignal.set(undefined);
-
-    console.log('🧹 Complete logout - All localStorage cleared via service');
-    console.log('User logged out: ', this.user());
-
+    this.tokenStorage.clearToken();
+    this.userStorage.clearUser();
     this.logoutAsUserOrAdmin();
+    console.log('🧹 Complete logout');
   }
 
-
-
-  // Todo Update user photo both backend and frontend signal : chifter vers un service spécifique ?
-  async updateUserPhoto(
-    photoUrl: string,
-  ): Promise<{ success: boolean; message: string; photoUrl?: string }> {
-    // const pathUrl = 'http://localhost:3000/api/authentication/update-photo';
-    const pathUrl: string = this.environment.API_BACKEND_URL + '/' + this.environment.API_BACKEND_PREFIX + '/authentication/update-photo' || 'http://localhost:3000/api/authentication/update-photo';
-    try {
-      console.log("🔐 Token d'authentification:", this.authToken());
-      console.log('👤 Utilisateur actuel:', this.user());
-      console.log('📤 Données envoyées:', { photoUrl });
-
-      const response = await firstValueFrom(
-        this.httpClient.put<{
-          success: boolean;
-          message: string;
-          photoUrl?: string;
-        }>(`${pathUrl}`, {
-          photoUrl,
-        }),
-      );
-
-      console.log('✅ Réponse complète du serveur:', response);
-
-      if (response.success && response.photoUrl) {
-        // Mettre à jour l'utilisateur local
-        const currentUser = this.user();
-        if (currentUser) {
-          const updatedUser = { ...currentUser, photoUrl: response.photoUrl };
-          this.#userSignal.set(updatedUser);
-          console.log('🔄 Utilisateur mis à jour localement:', updatedUser);
-        }
-      }
-
-      return response;
-    } catch (error) {
-      console.error(
-        '💥 Erreur détaillée lors de la mise à jour de la photo:',
-        error,
-      );
-      console.error("💥 Type d'erreur:", typeof error);
-      console.error("💥 Message d'erreur:", (error as any)?.message);
-      console.error("💥 Status de l'erreur:", (error as any)?.status);
-      console.error('💥 Error object complet:', error);
-
-      return {
-        success: false,
-        message: `Failed to update photo: ${(error as any)?.message || 'Unknown error'}`,
-      };
-    }
+  /**
+   * 📸 Mise à jour de la photo de profil
+   */
+  async updateUserPhoto(photoUrl: string): Promise<{
+    success: boolean;
+    message: string;
+    photoUrl?: string;
+  }> {
+    return this.profileService.updateUserPhoto(photoUrl);
   }
 
   /**
    * Met à jour les données utilisateur localement
-   * @param userData - Nouvelles données utilisateur
    */
   updateUserData(userData: User): void {
-    this.#userSignal.set(userData);
+    this.userStorage.updateUser(userData);
+  }
+
+  async fetchUser(): Promise<User | null> {
+    return this.userFetchService.fetchUser();
   }
 
   /**
-   * 👤 FETCH USER avec nouvel endpoint IAM
-   * IAM:   GET /api/authentication/user/:email ✅
+   * ✅ Vérification des credentials
    */
-  async fetchUser(): Promise<User | undefined | null> {
-    // const pathUrl = "api/authentication/user";
-    const pathUrl = 'api/authentication/profile';
-    //  get user data from backend with authToken
-    // const apiUrl = "api/auths/auth/loggedUser/";
-    const authToken = this.authToken();
-    if (authToken) {
-      const decodedJwt: IJwt = jwtDecode(authToken);
-      console.log('Decoded JWT: ', decodedJwt);
-      const emailToCheck = decodedJwt.email; // username = email
-      if (emailToCheck) {
-        try {
-          const response = await firstValueFrom(
-            // this.httpClient.get<{ user: IUserLogged, fullName: string  } | { success: boolean, message: string}>(`${pathUrl}/${emailToCheck}`)
-            this.httpClient.get<{ user: User; fullName: string }>(`${pathUrl}`),
-          );
-          console.log("Profil récupéré depuis l'API:", response);
-          if ('success' in response) {
-            return null;
-          }
-          const user = response.user;
-          return user;
-        } catch (error) {
-          console.error('Error fetching user data: ', error);
-
-          // Fallback : utiliser les infos du JWT si l'API échoue
-          const decodedJwt: IJwt = jwtDecode(authToken);
-          console.log('Fallback - Decoded JWT: ', decodedJwt);
-        }
-      }
-    }
-    console.log('Error fetching user data: No auth token found');
-    return null;
+  async checkUserCredentials(email: string, password: string): Promise<boolean> {
+    return this.loginService.checkUserCredentials(email, password);
   }
 
   /**
-   * ✅ VÉRIFICATION CREDENTIALS avec nouvel endpoint IAM
-   * IAM:   POST /api/authentication/check-credentials/:email ✅
+   * 🔄 Actualiser le profil utilisateur
    */
-  async checkUserCredentials(
-    email: string,
-    password: string,
-  ): Promise<boolean> {
-    try {
-      // 🆕 Utilisation du nouvel endpoint IAM
-      const response = await firstValueFrom(
-        this.httpClient.post<{ success: boolean; message: string }>(
-          `api/authentication/check-credentials/${email}`,
-          { password },
-        ),
-      );
-
-      return response.success;
-    } catch (error) {
-      console.error('Error checking credentials (IAM):', error);
-      return false;
-    }
-  }
-
-  // 🆕 Méthode pour actualiser le profil utilisateur et mettre à jour le signal
   async refreshUserProfile(): Promise<void> {
-    try {
-      const updatedUser = await this.fetchUser();
-      if (updatedUser) {
-        this.#userSignal.set(updatedUser);
-        console.log('🔄 Profil utilisateur actualisé:', updatedUser);
-      }
-    } catch (error) {
-      console.error(
-        "⚠️ Erreur lors de l'actualisation du profil utilisateur:",
-        error,
-      );
-    }
+    return this.userFetchService.refreshUserProfile();
   }
 
   // === MÉTHODES COMPATIBILITÉ (identiques à auth.service.ts) ===

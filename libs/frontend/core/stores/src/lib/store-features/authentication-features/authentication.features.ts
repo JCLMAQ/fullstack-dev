@@ -20,7 +20,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
     withState(initialAppSlice),
     withProps(() => ({
       _authService: inject(IAM_AUTH_TOKEN),
-      // _authService: inject(IamAuth),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
@@ -121,7 +120,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // Optional: track error
         }
       },
-       /**
+      /**
        * Met à jour l'image de profil de l'utilisateur via une URL
        * @param userId - ID de l'utilisateur
        * @param photoUrl - Nouvelle URL de l'image

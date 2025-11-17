@@ -17,6 +17,11 @@ export class RegisterService {
   private registerEndPoint = 'api/authentication/register-extended';
   private emailCheckEndPoint = 'api/authentication/email-check';
 
+  /**
+   * Vérifie si l'email existe déjà sur le système (IAM)
+   * @param email - L'email à vérifier
+   * @returns Promise avec la réponse de vérification d'email
+   */
   async emailExists(email: string): Promise<boolean> {
     console.log('🔄 Checking if email exists (IAM):', { email });
     return await firstValueFrom(
@@ -26,7 +31,6 @@ export class RegisterService {
 
   /**
    * 📝 USER REGISTER avec nouvel endpoint IAM
-   * AUTHS: POST /api/auths/auth/registerwithpwd
    * IAM:   POST /api/authentication/register-extended ✅
    *
    * @param user - Les données de l'utilisateur à enregistrer
@@ -49,12 +53,6 @@ export class RegisterService {
     }
   }
 
-  /**
-   * Version Observable pour plus de flexibilité si nécessaire
-   */
-  registerObservable(user: User) {
-    return this.httpClient.post<User>(this.registerEndPoint, user);
-  }
 }
 
 
