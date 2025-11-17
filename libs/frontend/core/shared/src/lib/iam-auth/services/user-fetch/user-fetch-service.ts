@@ -8,12 +8,12 @@ import { TokenStorageService } from '../token-storage/token-storage-service';
 import { UserStorageService } from '../user-storage/user-storage-service';
 
 /**
- * 👤 Service de récupération du profil utilisateur
+ * 🔄 Service de récupération utilisateur
  *
  * Responsabilités :
  * - Récupération du profil utilisateur depuis l'API
- * - Rafraîchissement du profil utilisateur
- * - Gestion des erreurs et fallback JWT
+ * - Rafraîchissement des données utilisateur
+ * - Fallback sur les données JWT si API échoue
  */
 @Injectable({
   providedIn: 'root',
@@ -31,8 +31,11 @@ export class UserFetchService {
     const pathUrl = 'api/authentication/profile';
     const authToken = this.tokenStorage.authToken();
 
+    console.log('🔍 Fetching user profile...');
+    console.log('🔐 Auth token present:', !!authToken);
+
     if (!authToken) {
-      console.log('⚠️ No auth token found');
+      console.warn('⚠️ No auth token found');
       return null;
     }
 
@@ -40,15 +43,30 @@ export class UserFetchService {
       const response = await firstValueFrom(
         this.httpClient.get<{ user: User; fullName: string }>(`${pathUrl}`),
       );
-      console.log('👤 Profile fetched:', response);
+
+      console.log('✅ Profile fetched successfully');
+      console.log('📋 Response structure:', Object.keys(response));
+      console.log('👤 User data:', response.user);
+      console.log('📋 User keys:', Object.keys(response.user));
+
       return response.user;
     } catch (error) {
       console.error('❌ Error fetching user:', error);
 
       // Fallback : utiliser les infos du JWT
-      const decodedJwt: IJwt = jwtDecode(authToken);
-      console.log('⚠️ Fallback - Decoded JWT:', decodedJwt);
-      return null;
+      try {
+        const decodedJwt: IJwt = jwtDecode(authToken);
+        console.log('⚠️ Fallback - Decoded JWT:', decodedJwt);
+        console.warn('⚠️ Using JWT fallback - limited user data available');
+
+        // Si vous voulez créer un User partiel depuis le JWT :
+        // return { id: decodedJwt.sub, email: decodedJwt.email, ... } as User;
+
+        return null;
+      } catch (jwtError) {
+        console.error('❌ Error decoding JWT:', jwtError);
+        return null;
+      }
     }
   }
 
@@ -57,13 +75,17 @@ export class UserFetchService {
    */
   async refreshUserProfile(): Promise<void> {
     try {
+      console.log('🔄 Refreshing user profile...');
       const updatedUser = await this.fetchUser();
+
       if (updatedUser) {
         this.userStorage.setUser(updatedUser);
-        console.log('🔄 Profile refreshed:', updatedUser);
+        console.log('✅ Profile refreshed and stored:', updatedUser.email);
+      } else {
+        console.warn('⚠️ No user data to refresh');
       }
     } catch (error) {
-      console.error('⚠️ Error refreshing profile:', error);
+      console.error('❌ Error refreshing profile:', error);
     }
   }
 }

@@ -1,27 +1,44 @@
 import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
 
 export function AuthInterceptor (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    const authJwtToken = localStorage.getItem('authJwtToken');
-    // const authJwtToken = inject(AppStore).authToken();
-
-
     console.log('🔍 AuthInterceptor - URL:', request.url);
-    console.log('🔍 AuthInterceptor - Token from localStorage:', authJwtToken);
-    // console.log('🔍 AuthInterceptor - Token from AppStore:', authJwtToken);
 
-    if (authJwtToken) {
-        const cloned = request.clone({
-            headers: request.headers
-                .set('Authorization',`Bearer ${authJwtToken}`)
-        });
-        console.log('✅ Token ajouté à la requête');
-        return next(cloned);
+    // Injecter le TokenStorageService au lieu de lire directement localStorage
+    const tokenStorage = inject(TokenStorageService);
+    const token = tokenStorage.authToken();
+
+    console.log('🔍 AuthInterceptor - Token from service:', token ? '***' : 'null');
+
+    // Routes qui n'ont pas besoin d'authentification
+    const publicRoutes = [
+        '/authentication/sign-in',
+        '/authentication/register',
+        '/authentication/register-extended',
+        '/authentication/check-credentials',
+    ];
+
+    const isPublicRoute = publicRoutes.some((route) => request.url.includes(route));
+
+    if (isPublicRoute) {
+        console.log('✅ Route publique - pas de token nécessaire');
+        return next(request);
     }
-    else {
+
+    if (!token) {
         console.log('❌ Aucun token trouvé');
         return next(request);
     }
+
+    // Cloner la requête et ajouter le header Authorization
+    const cloned = request.clone({
+        headers: request.headers.set('Authorization', `Bearer ${token}`)
+    });
+
+    console.log('✅ Token ajouté au header Authorization');
+    return next(cloned);
 }
 
 

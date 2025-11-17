@@ -1,4 +1,4 @@
-import { withDevtools, withStorageSync } from '@angular-architects/ngrx-toolkit';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export const AppStore= signalStore(
   //   authToken: computed(() => store._authService.authToken()),
   // })),
 withDevtools('AppStore'),
-withStorageSync('user'),
+// withStorageSync('user-store' ),
 // withMethods((store) => ({
 //       // 🔍 Debug method to check localStorage state
 //       debugLocalStorage: () => {

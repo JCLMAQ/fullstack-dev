@@ -30,21 +30,39 @@ export class LoginService {
   async login(email: string, password: string): Promise<ILoginResponse> {
     const pathUrl = 'api/authentication/sign-in';
 
+    console.log('🔐 Attempting login for:', email);
+
     const login$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, {
       email,
       password,
     });
 
     const response = await firstValueFrom(login$);
+    console.log('✅ Login response received:', {
+      hasAccessToken: !!response.accessToken,
+      hasRefreshToken: !!response.refreshToken
+    });
 
+    // 1. Stocker le token
     this.tokenStorage.setToken(response.accessToken);
+    console.log('🔐 Token stored');
 
+    // 2. Récupérer le profil utilisateur
+    console.log('👤 Fetching user profile...');
     const userLogged = await this.userFetchService.fetchUser();
+
     if (userLogged) {
+      console.log('👤 User fetched successfully:', userLogged);
+      console.log('📋 User object keys:', Object.keys(userLogged));
+      console.log('📋 User data:', JSON.stringify(userLogged, null, 2));
+
+      // 3. Stocker l'utilisateur complet
       this.userStorage.setUser(userLogged);
+      console.log('✅ User stored in UserStorageService');
+    } else {
+      console.error('❌ Failed to fetch user profile');
     }
 
-    console.log('✅ User logged in (IAM):', userLogged);
     return response;
   }
 
