@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { firstValueFrom } from 'rxjs';
-import { ENVIRONMENT_TOKEN } from '../../../tokens/tokens/environement.token';
 import { UserStorageService } from '../user-storage/user-storage-service';
 
 /**

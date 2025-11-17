@@ -1,8 +1,8 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
+import { LocalStorageCleanerService } from '@fe/shared';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
-import { LocalStorageCleanerService } from '../utilities/local-storage-cleaner.service';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
 import { TokenStorageService } from './services/token-storage/token-storage-service';

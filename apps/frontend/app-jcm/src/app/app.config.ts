@@ -1,7 +1,7 @@
 import {
-  ApplicationConfig,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+    ApplicationConfig,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -16,7 +16,8 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 // import { AppStore } from '@fe/stores';
-import { AuthInterceptor, IamAuth, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
+import { IamAuth } from '@fe/auth';
+import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 export const appConfig: ApplicationConfig = {

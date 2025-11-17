@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { TokenStorageService } from '@frontend/core/auth';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
 
 export function AuthInterceptor (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     console.log('🔍 AuthInterceptor - URL:', request.url);

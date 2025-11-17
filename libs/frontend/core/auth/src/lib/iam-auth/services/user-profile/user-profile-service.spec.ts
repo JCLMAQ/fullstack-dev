@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ENVIRONMENT_TOKEN } from '../../../tokens/tokens/environement.token';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { UserStorageService } from '../user-storage/user-storage-service';
 import { UserProfileService } from './user-profile-service';
 

@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { IamAuth } from '@fe/auth';
 import { ApiConfig, AvatarBase64 } from '@fe/services';
-import { IamAuth } from '@fe/shared';
 import { UserAvatar } from '@fe/user-avatar';
 
 @Component({
