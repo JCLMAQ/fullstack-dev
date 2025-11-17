@@ -70,7 +70,7 @@ export class TokenStorageService {
 
   setToken(token: string): void {
     console.log('🔐 setToken() called');
-    
+
     if (!token || typeof token !== 'string') {
       console.error('❌ Invalid token passed to setToken:', token);
       return;
