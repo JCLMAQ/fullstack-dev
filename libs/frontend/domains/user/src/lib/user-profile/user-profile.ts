@@ -1,16 +1,21 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-
 import {
-  Field,
-  apply,
-  customError,
-  disabled,
-  form,
-  required,
-  schema,
-  validate,
+    Field,
+    apply,
+    customError,
+    disabled,
+    form,
+    required,
+    schema,
+    validate,
 } from '@angular/forms/signals';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { FieldError } from '@fe/signalform-utilities';
 import { PersonalInfo } from '../models/personal-info';
 
@@ -39,7 +44,13 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
   imports: [
     JsonPipe,
     FieldError,
-    Field
+    Field,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss',
