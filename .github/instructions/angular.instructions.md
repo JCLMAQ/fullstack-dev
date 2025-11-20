@@ -1,5 +1,5 @@
 ---
-description: "Angular v20+ patterns including standalone components, signals, modern control flow, function-based DI, and OnPush change detection"
+description: "Angular v21+ patterns including standalone components, signals, signals forms, modern control flow, function-based DI, and OnPush change detection"
 applyTo: "**/*.ts, **/*.html, **/*.scss"
 ---
 
@@ -308,3 +308,26 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Alternative Text:** All images include descriptive alt text for accessibility
 - **Angular CDK A11y:** Use Angular CDK accessibility utilities for consistent a11y implementation
 - **Semantic HTML:** Use semantic HTML elements for better accessibility and SEO
+
+## 13. Form Patterns
+- **Signal Forms:** Use Angular Signal Forms for all form implementations, leveraging built-in schema validation for type-safe, reactive form management
+- **Form Controls:** Use standalone form controls with proper validation and error handling
+- **Reactive Patterns:** Prefer reactive form patterns with signals for dynamic form behavior
+- **Validation Feedback:** Provide real-time validation feedback to users
+- **Accessibility:** Ensure forms are accessible with proper labels, ARIA attributes, and keyboard navigation
+
+## 14. Routing Patterns
+- **Lazy Loading:** Use route-level lazy loading with `loadComponent` for standalone components
+- **Deferrable Views:** Use `@defer` blocks for heavy components and features
+- **Route Guards:** Implement route guards for authentication and authorization
+- **Parameter Handling:** Use route parameters and query parameters effectively
+- **Preloading Strategies:** Configure route preloading strategies for improved performance
+- **Error Handling:** Implement error handling for navigation failures and invalid routes
+
+## 15. Internationalization (i18n) Patterns
+- **i18n Attributes:** Use Angular's built-in i18n attributes for translatable content
+- **Translation Files:** Maintain separate translation files for different languages
+- **Dynamic Content:** Handle dynamic content and pluralization in translations
+- **Locale Management:** Implement locale switching and management in the application
+- **Accessibility:** Ensure translated content remains accessible and follows a11y standards
+
