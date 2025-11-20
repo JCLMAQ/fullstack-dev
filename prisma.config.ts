@@ -15,8 +15,10 @@ export default defineConfig({
   typedSql: {
     path: path.join("libs/prisma/src/lib/queries", "queries"),
   },
-  engine: "classic",
   datasource: {
     url: env("DATABASE_URL"),
   },
+  // generate: {
+  //   output: path.join("libs/prisma/src/lib/generated/prisma"),
+  // },
 });
