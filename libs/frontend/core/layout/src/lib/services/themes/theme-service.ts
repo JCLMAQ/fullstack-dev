@@ -17,6 +17,9 @@ export interface ColorTheme {
 export class ThemeService {
   private lightDarkTheme = signal<'light' | 'dark' | 'system'>('system');
 
+  private readonly STORAGE_LIGHT_DARK_KEY = 'theme.lightDark';
+  private readonly STORAGE_COLOR_KEY = 'theme.color';
+
   private themesApp: lightDarkTheme[] = [
     { name: 'light', icon: 'light_mode' },
     { name: 'dark', icon: 'dark_mode' },
@@ -51,6 +54,23 @@ export class ThemeService {
   }
 
   constructor() {
+
+    if (typeof window !== 'undefined') {
+      try {
+        const savedMode = localStorage.getItem(this.STORAGE_LIGHT_DARK_KEY) as 'light' | 'dark' | 'system' | null;
+        if (savedMode && ['light', 'dark', 'system'].includes(savedMode)) {
+          this.lightDarkTheme.set(savedMode);
+        }
+        const savedColorId = localStorage.getItem(this.STORAGE_COLOR_KEY);
+        if (savedColorId) {
+          const theme = this.themesColor.find((t) => t.id === savedColorId);
+            if (theme) {
+              this.currentColorTheme.set(theme);
+            }
+        }
+      } catch {}
+    }
+
     effect(() => {
       const lightDarkTheme = this.lightDarkTheme();
       const colorScheme =
@@ -75,6 +95,13 @@ export class ThemeService {
           console.log('☀️ Mode système (clair) - classe dark supprimée');
         }
       }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(this.STORAGE_LIGHT_DARK_KEY, lightDarkTheme);
+        } catch {}
+      }
+
     });
 
     // Écouter les changements de préférence système
@@ -126,5 +153,10 @@ export class ThemeService {
       ...this.themesColor.map((t) => `${t.id}-theme`),
     );
     document.body.classList.add(`${theme.id}-theme`);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(this.STORAGE_COLOR_KEY, theme.id);
+      } catch {}
+    }
   });
 }
