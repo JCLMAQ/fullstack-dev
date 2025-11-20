@@ -84,22 +84,6 @@ CREATE TABLE "OrgDomain" (
 );
 
 -- CreateTable
-CREATE TABLE "OrgEmailUseTo" (
-    "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "published" BOOLEAN NOT NULL DEFAULT true,
-    "isPublic" BOOLEAN NOT NULL DEFAULT true,
-    "isDeleted" INTEGER NOT NULL DEFAULT 0,
-    "isDeletedDT" TIMESTAMP(3),
-    "useTo" TEXT NOT NULL,
-    "isActiv" BOOLEAN NOT NULL,
-    "emailOrgId" INTEGER NOT NULL,
-
-    CONSTRAINT "OrgEmailUseTo_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "numSeq" SERIAL NOT NULL,
@@ -122,8 +106,8 @@ CREATE TABLE "User" (
     "hasEmergencyContact" BOOLEAN NOT NULL DEFAULT false,
     "emergencyContactName" TEXT,
     "emergencyContactPhone" TEXT,
-    "jobTitle" TEXT,
     "position" "Position" DEFAULT 'Individual',
+    "jobTitle" TEXT,
     "isValidated" TIMESTAMP(3),
     "isSuspended" TIMESTAMP(3),
     "managerId" TEXT,
@@ -480,6 +464,22 @@ CREATE TABLE "ConfigParam" (
 );
 
 -- CreateTable
+CREATE TABLE "OrgEmailUseTo" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "published" BOOLEAN NOT NULL DEFAULT true,
+    "isPublic" BOOLEAN NOT NULL DEFAULT true,
+    "isDeleted" INTEGER NOT NULL DEFAULT 0,
+    "isDeletedDT" TIMESTAMP(3),
+    "useTo" TEXT NOT NULL,
+    "isActiv" BOOLEAN NOT NULL,
+    "emailOrgId" INTEGER NOT NULL,
+
+    CONSTRAINT "OrgEmailUseTo_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "AppEmailDomain" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -559,23 +559,6 @@ CREATE TABLE "Token" (
 );
 
 -- CreateTable
-CREATE TABLE "AccountValidation" (
-    "id" TEXT NOT NULL,
-    "numSeq" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "published" BOOLEAN DEFAULT false,
-    "isPublic" BOOLEAN DEFAULT true,
-    "isDeleted" INTEGER DEFAULT 0,
-    "isDeletedDT" TIMESTAMP(3),
-    "isValidated" BOOLEAN NOT NULL DEFAULT false,
-    "emailToken" TEXT NOT NULL,
-    "timeStamp" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "AccountValidation_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "ChangesTracking" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -593,6 +576,23 @@ CREATE TABLE "ChangesTracking" (
     "oldData" JSONB NOT NULL,
 
     CONSTRAINT "ChangesTracking_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AccountValidation" (
+    "id" TEXT NOT NULL,
+    "numSeq" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "published" BOOLEAN DEFAULT false,
+    "isPublic" BOOLEAN DEFAULT true,
+    "isDeleted" INTEGER DEFAULT 0,
+    "isDeletedDT" TIMESTAMP(3),
+    "isValidated" BOOLEAN NOT NULL DEFAULT false,
+    "emailToken" TEXT NOT NULL,
+    "timeStamp" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "AccountValidation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -791,9 +791,6 @@ ALTER TABLE "OrgEmail" ADD CONSTRAINT "OrgEmail_orgId_fkey" FOREIGN KEY ("orgId"
 ALTER TABLE "OrgDomain" ADD CONSTRAINT "OrgDomain_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "OrgEmailUseTo" ADD CONSTRAINT "OrgEmailUseTo_emailOrgId_fkey" FOREIGN KEY ("emailOrgId") REFERENCES "OrgEmail"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "User"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
@@ -903,6 +900,9 @@ ALTER TABLE "Image" ADD CONSTRAINT "Image_profileUserId_fkey" FOREIGN KEY ("prof
 
 -- AddForeignKey
 ALTER TABLE "Image" ADD CONSTRAINT "Image_storyId_fkey" FOREIGN KEY ("storyId") REFERENCES "Story"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OrgEmailUseTo" ADD CONSTRAINT "OrgEmailUseTo_emailOrgId_fkey" FOREIGN KEY ("emailOrgId") REFERENCES "OrgEmail"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ApiKey" ADD CONSTRAINT "ApiKey_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
