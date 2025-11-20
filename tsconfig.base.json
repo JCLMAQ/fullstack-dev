@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "ignoreDeprecations": "5.0",
     "paths": {
+      "@db/prisma": ["libs/prisma/src/index.ts"],
+      "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],
@@ -33,7 +36,7 @@
       "@be/common": ["libs/backend/common/src/index.ts"],
       "@be/jwtconfig": ["libs/backend/common/src/lib/config/jwt.config"],
 
-      "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
+
 
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -72,7 +75,6 @@
         "libs/frontend/shared-misc/components/user-avatar-editor/src/index.ts"
       ],
       "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
-      "@db/prisma": ["libs/prisma/src/index.ts"],
       "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@be/userFollowers": [
         "libs/backend/data-access/userFollowers/src/index.ts"

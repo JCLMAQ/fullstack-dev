@@ -8,6 +8,7 @@ export default defineConfig({
   schema: path.join("libs/prisma/src/lib/prisma", "schema.prisma"),
   migrations: {
     path: path.join("libs/prisma/src/lib", "migrations"),
+    // seed: "tsx prisma/seed.ts",
   },
   views: {
     path: path.join("libs/prisma/src/lib/views", "views"),
@@ -17,8 +18,5 @@ export default defineConfig({
   },
   datasource: {
     url: env("DATABASE_URL"),
-  },
-  // generate: {
-  //   output: path.join("libs/prisma/src/lib/generated/prisma"),
-  // },
+  }
 });
