@@ -77,8 +77,8 @@ export class ImageUploader {
       this.uploadSuccess = false;
       this.uploadError = true;
       this.snackBar.open(
-        this.translate.instant('Image-uploader.ERROR.ONLY_IMAGES'),
-        this.translate.instant('Image-uploader.CLOSE'),
+        this.translate.instant('IMAGE-UPLOADER.ERROR_ONLY_IMAGES'),
+        this.translate.instant('IMAGE-UPLOADER.CLOSE'),
         {
           duration: 3000,
           panelClass: 'error',

@@ -1,14 +1,14 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import {
-    Field,
-    apply,
-    customError,
-    disabled,
-    form,
-    required,
-    schema,
-    validate,
+  Field,
+  apply,
+  customError,
+  disabled,
+  form,
+  required,
+  schema,
+  validate,
 } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -21,8 +21,8 @@ import { PersonalInfo } from '../models/personal-info';
 
 const passwordSchema = schema<{ password: string; confirmPassword: string }>(
   (path) => {
-    required(path.password, { message: 'Password is required' });
-    required(path.confirmPassword, { message: 'Confirm Password is required' });
+    required(path.password, { message: 'signalFormError.passwordRequired' });
+    required(path.confirmPassword, { message: 'signalFormError.confirmPasswordRequired' });
     validate(path, ({ valueOf }) => {
       const password = valueOf(path.password);
       const confirmPassword = valueOf(path.confirmPassword);
@@ -30,7 +30,7 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
       if (password && confirmPassword && password !== confirmPassword) {
         return customError({
           kind: 'passwordsMismatch',
-          message: 'Password should match',
+          message: 'signalFormError.passwordMatch',
         });
       }
 
@@ -68,15 +68,15 @@ export class UserProfile {
   });
 
   personalForm = form(this.personalInfo, (path) => {
-    required(path.firstName, { message: 'First Name is required' });
-    required(path.lastName, { message: 'Last Name is required' });
-    required(path.dateOfBirth, { message: 'Date of Birth is required' });
+    required(path.firstName, { message: 'signalFormError.required' });
+    required(path.lastName, { message: 'signalFormError.required' });
+    required(path.dateOfBirth, { message: 'signalFormError.required' });
 
     validate(path.dateOfBirth, ({ value }) => {
       const years = new Date().getFullYear() - value().getFullYear();
       if (years < 18) {
         return customError({
-          message: 'You must be at least 18 years old',
+          message: 'signalFormError.minAge',
           kind: 'minAge',
         });
       }
@@ -87,11 +87,11 @@ export class UserProfile {
     apply(path, passwordSchema);
 
     required(path.emergencyContactName, {
-      message: 'Name is required',
+      message: 'signalFormError.required',
       when: ({ valueOf }) => valueOf(path.hasEmergencyContact),
     });
     required(path.emergencyContactPhone, {
-      message: 'Phone is required',
+      message: 'signalFormError.required',
       when: ({ valueOf }) => valueOf(path.hasEmergencyContact),
     });
     disabled(

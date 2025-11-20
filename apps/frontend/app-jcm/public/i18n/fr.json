@@ -34,7 +34,7 @@
       "Posts": "Posts",
       "Components": "Composants",
       "Content": "Contenu",
-       "Comments": "Commentaires"
+      "Comments": "Commentaires"
     },
     "ToolBarMenu": {
       "Users": "Utilisateurs",
@@ -47,10 +47,23 @@
     "MainPage": {
       "Content": "Contenu"
     },
-    "Image-uploader": {
-      "ACTIONS.UPLOAD_PLACEHOLDER": "Faire glisser et relacher une image ici ou clicker pour un selectionner une.",
-      "ACTIONS.REMOVE": "Retirer",
-      "ERROR.ONLY_IMAGES": "Seuls les fichiers image sont supportés !",
+    "signalFormError": {
+      "required": "Ce champ est requis",
+      "minLength": "Doit contenir au moins 2 caractères",
+      "invalidName": "Seuls les lettres, espaces, traits d'union et apostrophes sont autorisés",
+      "passewordRequired": "Le mot de passe est requis",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
+      "passwordPattern": "Le mot de passe doit contenir des majuscules, des minuscules et un chiffre",
+      "passwordMatch": "Les mots de passe doivent correspondre",
+      "confirmPasswordRequired": "La confirmation du mot de passe est requise",
+      "minAge": "Vous devez avoir au moins 18 ans",
+      "invalidEmail": "Adresse email invalide",
+      "invalidPhone": "Numéro de téléphone invalide"
+    },
+    "IMAGE-UPLOADER": {
+      "ACTIONS_UPLOAD_PLACEHOLDER": "Faire glisser et relacher une image ici ou clicker pour un selectionner une.",
+      "ACTIONS_REMOVE": "Retirer",
+      "ERROR_ONLY_IMAGES": "Seuls les fichiers image sont supportés !",
       "CLOSE": "Fermer"
     },
     "IMAGE_MANAGEMENT": {

@@ -41,17 +41,30 @@
     "Users": "Users",
     "Choices": "Choices",
     "Pictos": "Pictures",
-    "Carrousel": "Caroussel",
+    "Carrousel": "Carousel",
     "Files": "Files",
     "Images": "Images"
   },
   "MainPage": {
     "Content": "Content"
   },
-  "Image-uploader": {
-    "ACTIONS.UPLOAD_PLACEHOLDER": "Drag and drop an image here or click to select one.",
-    "ACTIONS.REMOVE": "Remove",
-    "ERROR.ONLY_IMAGES": "Only image files are supported!",
+  "signalFormError": {
+    "required": "This field is required",
+    "minLength": "Must be at least 2 characters long",
+    "invalidName": "Only letters, spaces, hyphens, and apostrophes are allowed",
+    "passewordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordPattern": "Password must contain uppercase, lowercase, and number",
+    "passwordMatch": "Passwords must match",
+    "confirmPasswordRequired": "Password confirmation is required",
+    "minAge": "You must be at least 18 years old",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number"
+  },
+  "IMAGE-UPLOADER": {
+    "ACTIONS_UPLOAD_PLACEHOLDER": "Drag and drop an image here or click to select one.",
+    "ACTIONS_REMOVE": "Remove",
+    "ERROR_ONLY_IMAGES": "Only image files are supported!",
     "CLOSE": "Close"
   },
   "IMAGE_MANAGEMENT": {
