@@ -1,29 +1,16 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@db/prisma';
-import { PrismaPgAdapter } from '@prisma/adapter-pg';
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const adapter = new PrismaPgAdapter({
-  connectionString: process.env.DATABASE_URL!,
+const adapter = new PrismaPg({
+  connectionString: process.env['DATABASE_URL']!,
 
 });
 
 @Injectable()
-export class PrismaClientService extends PrismaClient({ adapter }) implements OnModuleInit, OnModuleDestroy {
+export class PrismaClientService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
-    //   const config: any = {
-    //   log: [
-    //     { level: 'query', emit: 'event' },
-    //     { level: 'error', emit: 'stdout' },
-    //     { level: 'info', emit: 'stdout' },
-    //     { level: 'warn', emit: 'stdout' },
-    //   ],
-    // };
-
-    // if (process.env.PRISMA_ACCELERATE_URL) {
-    //   config.accelerateUrl = process.env.PRISMA_ACCELERATE_URL;
-    // }
-
-    // super(config);
+    super({ adapter });
   }
 
   async onModuleInit() {
