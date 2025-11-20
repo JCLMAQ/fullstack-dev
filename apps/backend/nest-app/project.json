@@ -15,7 +15,7 @@
       "configurations": {
         "development": {
           "args": ["--node-env=development"],
-           "command": "webpack-cli build --config webpack.config.cjs --node-env=development"
+          "command": "webpack-cli build --config webpack.config.cjs --node-env=development"
         }
       }
     },
