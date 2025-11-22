@@ -18,7 +18,6 @@
     "paths": {
       "@db/prisma": ["libs/prisma/src/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
-
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],
@@ -35,9 +34,6 @@
       "@be/users": ["libs/backend/data-access/users/src/index.ts"],
       "@be/common": ["libs/backend/common/src/index.ts"],
       "@be/jwtconfig": ["libs/backend/common/src/lib/config/jwt.config"],
-
-
-
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -80,26 +76,16 @@
         "libs/backend/data-access/userFollowers/src/index.ts"
       ],
       "@be/tasks": ["libs/backend/data-access/tasks/src/index.ts"],
-      "@be/stories": [
-        "libs/backend/data-access/stories/src/index.ts"
-      ],
-      "@be/profiles": [
-        "libs/backend/data-access/profiles/src/index.ts"
-      ],
+      "@be/stories": ["libs/backend/data-access/stories/src/index.ts"],
+      "@be/profiles": ["libs/backend/data-access/profiles/src/index.ts"],
       "@be/posts": ["libs/backend/data-access/posts/src/index.ts"],
-      "@be/postLikes": [
-        "libs/backend/data-access/postLikes/src/index.ts"
-      ],
+      "@be/postLikes": ["libs/backend/data-access/postLikes/src/index.ts"],
       "@be/phones": ["libs/backend/data-access/phones/src/index.ts"],
       "@be/orgEmailUseTos": [
         "libs/backend/data-access/orgEmailUseTos/src/index.ts"
       ],
-      "@be/orgEmails": [
-        "libs/backend/data-access/orgEmails/src/index.ts"
-      ],
-      "@be/orgDomains": [
-        "libs/backend/data-access/orgDomains/src/index.ts"
-      ],
+      "@be/orgEmails": ["libs/backend/data-access/orgEmails/src/index.ts"],
+      "@be/orgDomains": ["libs/backend/data-access/orgDomains/src/index.ts"],
       "@be/organizations": [
         "libs/backend/data-access/organizations/src/index.ts"
       ],
@@ -109,17 +95,17 @@
       "@be/configParams": [
         "libs/backend/data-access/configParams/src/index.ts"
       ],
-      "@be/comments": [
-        "libs/backend/data-access/comments/src/index.ts"
-      ],
-      "@be/categories": [
-        "libs/backend/data-access/categories/src/index.ts"
-      ],
+      "@be/comments": ["libs/backend/data-access/comments/src/index.ts"],
+      "@be/categories": ["libs/backend/data-access/categories/src/index.ts"],
       "@be/appEmailDomains": [
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
-      "@be/address": [
-        "libs/backend/data-access/address/src/index.ts"
+      "@be/address": ["libs/backend/data-access/address/src/index.ts"],
+      "@fe/carousel": [
+        "libs/frontend/shared-misc/components/carousel/src/index.ts"
+      ],
+      "@fe/picture-mgt": [
+        "libs/frontend/shared-misc/components/picture-mgt/src/index.ts"
       ]
     }
   },
