@@ -4,7 +4,7 @@
 .image-management-container {
   padding: 24px;
   min-height: 100vh;
-  background-color: var(--mat-app-background-color, #fafafa);
+  background-color: var(--mat-app-background-color);
 
   .header-card {
     margin-bottom: 24px;
@@ -88,11 +88,11 @@
       gap: 8px;
 
       .text-primary {
-        color: var(--mat-primary-500);
+        color: var(--mat-primary);
       }
 
       .text-muted {
-        color: var(--mat-text-secondary-on-background);
+        color: var(--mat-sys-on-surface-variant);
       }
     }
   }

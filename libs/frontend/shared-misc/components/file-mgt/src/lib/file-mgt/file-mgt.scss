@@ -4,7 +4,7 @@
 .file-management-container {
   padding: 24px;
   min-height: 100vh;
-  background-color: var(--mat-app-background-color, #fafafa);
+  background-color: var(--mat-app-background-color);
 
   .header-card {
     margin-bottom: 24px;
@@ -88,11 +88,11 @@
       gap: 8px;
 
       .text-primary {
-        color: var(--mat-primary-500);
+        color: var(--mat-primary);
       }
 
       .text-muted {
-        color: var(--mat-text-secondary-on-background);
+        color: var(--mat-sys-on-surface-variant);
       }
     }
   }
@@ -118,7 +118,7 @@
     justify-content: center;
     padding: 48px;
     text-align: center;
-    color: var(--mat-text-secondary-on-background);
+    color: var(--mat-sys-on-surface-variant);
 
     mat-icon {
       font-size: 64px;
@@ -166,12 +166,12 @@
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        box-shadow: var(--mat-elevation-3);
       }
 
       &.selected {
-        border: 2px solid var(--mat-primary-500);
-        background-color: var(--mat-primary-50);
+        border: 2px solid var(--mat-primary);
+        background-color: color-mix(in srgb, var(--mat-primary) 10%, transparent);
       }
 
       mat-card-header {
@@ -199,11 +199,11 @@
 
           .label {
             font-weight: 500;
-            color: var(--mat-text-secondary-on-background);
+            color: var(--mat-sys-on-surface-variant);
           }
 
           .value {
-            color: var(--mat-text-primary-on-background);
+            color: var(--mat-sys-on-surface);
             text-align: right;
             max-width: 60%;
             overflow: hidden;
@@ -230,8 +230,8 @@
     transition: all 0.2s ease;
 
     &:hover, &.drag-over {
-      border-color: var(--mat-primary-500);
-      background-color: var(--mat-primary-50);
+      border-color: var(--mat-primary);
+      background-color: color-mix(in srgb, var(--mat-primary) 8%, transparent);
     }
 
     .upload-icon {
@@ -239,7 +239,7 @@
       width: 64px;
       height: 64px;
       margin-bottom: 16px;
-      color: var(--mat-text-secondary-on-background);
+      color: var(--mat-sys-on-surface-variant);
     }
 
     h3 {
@@ -249,7 +249,7 @@
 
     p {
       margin: 0 0 16px 0;
-      color: var(--mat-text-secondary-on-background);
+      color: var(--mat-sys-on-surface-variant);
     }
 
     .hidden {
@@ -304,7 +304,7 @@
 
 // Menu Actions
 .warn-action {
-  color: var(--mat-warn-500) !important;
+  color: var(--mat-error) !important;
 }
 
 // Responsive Design
