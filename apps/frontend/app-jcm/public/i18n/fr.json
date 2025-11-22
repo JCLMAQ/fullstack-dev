@@ -302,5 +302,24 @@
       "UPLOAD": "Upload",
       "UPLOADING": "Upload en cours...",
       "SELECT_FILES": "Sélectionner des Fichiers"
+    },
+    "USER_AVATAR_EDITOR": {
+      "TITLE": "Modifier votre Photo / Emoji de profil",
+      "EMOJI_TAB": "Emoji",
+      "UPLOAD_TAB": "Upload",
+      "CHOOSE_EMOJI": "Choisir un emoji :",
+      "UPLOAD_IMAGE": "Télécharger une image :",
+      "DROP_OR_CLICK": "Cliquez ou glissez une image ici",
+      "ACCEPTED_FORMATS": "Formats acceptés: JPEG, PNG, GIF, WebP (max 5MB)",
+      "DELETE": "Supprimer",
+      "PREVIEW": "Aperçu :",
+      "UPLOAD_IMAGE_BUTTON": "Télécharger l'image",
+      "UPLOADING": "Upload en cours...",
+      "SELECTED_PREVIEW": "Aperçu sélectionné :",
+      "VALUE": "Valeur",
+      "NO_PHOTO_SELECTED": "Aucune photo sélectionnée",
+      "CANCEL": "Annuler",
+      "SAVE": "Enregistrer",
+      "SAVING": "Enregistrement..."
     }
 }

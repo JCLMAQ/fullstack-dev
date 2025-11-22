@@ -285,21 +285,40 @@
     "NO_FILES": "No Files",
     "NO_FILES_DESCRIPTION": "Upload files to get started"
   },
-  "FILE_UPLOAD": {
-    "TITLE": "File Upload",
-    "MULTIPLE_DESCRIPTION": "Upload multiple files at once",
-    "DROP_ZONE_TITLE": "Drop your files here",
-    "DROP_ZONE_DESCRIPTION": "Or click to browse files from your computer",
-    "BROWSE_FILES": "Browse Files",
-    "REMOVE_FILE": "Remove File",
-    "DESCRIPTION": "Description",
-    "DESCRIPTION_PLACEHOLDER": "File description...",
-    "TAGS": "Tags",
-    "TAGS_PLACEHOLDER": "Add tags...",
-    "TAGS_HINT": "Press Enter to add tags",
-    "PUBLIC": "Public",
-    "CLEAR": "Clear",
-    "UPLOAD": "Upload",
-    "UPLOADING": "Uploading..."
-  }
+    "FILE_UPLOAD": {
+      "TITLE": "File Upload",
+      "MULTIPLE_DESCRIPTION": "Upload multiple files at once",
+      "DROP_ZONE_TITLE": "Drop your files here",
+      "DROP_ZONE_DESCRIPTION": "Or click to browse files from your computer",
+      "BROWSE_FILES": "Browse Files",
+      "REMOVE_FILE": "Remove File",
+      "DESCRIPTION": "Description",
+      "DESCRIPTION_PLACEHOLDER": "File description...",
+      "TAGS": "Tags",
+      "TAGS_PLACEHOLDER": "Add tags...",
+      "TAGS_HINT": "Press Enter to add tags",
+      "PUBLIC": "Public",
+      "CLEAR": "Clear",
+      "UPLOAD": "Upload",
+      "UPLOADING": "Uploading..."
+    },
+    "USER_AVATAR_EDITOR": {
+      "TITLE": "Edit your Profile Photo / Emoji",
+      "EMOJI_TAB": "Emoji",
+      "UPLOAD_TAB": "Upload",
+      "CHOOSE_EMOJI": "Choose an emoji:",
+      "UPLOAD_IMAGE": "Upload an image:",
+      "DROP_OR_CLICK": "Click or drag an image here",
+      "ACCEPTED_FORMATS": "Accepted formats: JPEG, PNG, GIF, WebP (max 5MB)",
+      "DELETE": "Delete",
+      "PREVIEW": "Preview:",
+      "UPLOAD_IMAGE_BUTTON": "Upload image",
+      "UPLOADING": "Uploading...",
+      "SELECTED_PREVIEW": "Selected preview:",
+      "VALUE": "Value",
+      "NO_PHOTO_SELECTED": "No photo selected",
+      "CANCEL": "Cancel",
+      "SAVE": "Save",
+      "SAVING": "Saving..."
+    }
 }

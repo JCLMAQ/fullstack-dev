@@ -12,6 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { IamAuth } from '@fe/auth';
 import { ApiConfig, AvatarBase64 } from '@fe/services';
 import { UserAvatar } from '@fe/user-avatar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-user-avatar-editor',
@@ -25,7 +26,8 @@ import { UserAvatar } from '@fe/user-avatar';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   templateUrl: './user-avatar-editor.html',
   styleUrl: './user-avatar-editor.scss',

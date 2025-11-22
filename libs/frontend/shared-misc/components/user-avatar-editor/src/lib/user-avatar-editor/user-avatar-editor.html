@@ -1,10 +1,10 @@
- <h2 mat-dialog-title>Modifier votre Photo / Emoji de profil</h2>
+ <h2 mat-dialog-title>{{ 'USER_AVATAR_EDITOR.TITLE' | translate }}</h2>
     <mat-dialog-content>
       <mat-tab-group>
         <!-- Onglet Emoji -->
-        <mat-tab label="Emoji">
+        <mat-tab [label]="'USER_AVATAR_EDITOR.EMOJI_TAB' | translate">
           <div class="p-4">
-            <h3 class="mb-4">Choisir un emoji :</h3>
+            <h3 class="mb-4">{{ 'USER_AVATAR_EDITOR.CHOOSE_EMOJI' | translate }}</h3>
             <div class="emoji-grid">
               @for (emoji of availableEmojis; track emoji) {
                 <button
@@ -21,9 +21,9 @@
         </mat-tab>
 
         <!-- Onglet Upload -->
-        <mat-tab label="Upload">
+        <mat-tab [label]="'USER_AVATAR_EDITOR.UPLOAD_TAB' | translate">
           <div class="p-4">
-            <h3 class="mb-4">Télécharger une image :</h3>
+            <h3 class="mb-4">{{ 'USER_AVATAR_EDITOR.UPLOAD_IMAGE' | translate }}</h3>
 
             <!-- Zone de drop/sélection -->
             <div class="upload-area"
@@ -40,9 +40,9 @@
                 @if (!selectedFile()) {
                   <div class="text-center">
                     <mat-icon class="upload-icon">cloud_upload</mat-icon>
-                    <p class="mb-2">Cliquez ou glissez une image ici</p>
+                    <p class="mb-2">{{ 'USER_AVATAR_EDITOR.DROP_OR_CLICK' | translate }}</p>
                     <p class="text-sm text-gray-500">
-                      Formats acceptés: JPEG, PNG, GIF, WebP (max 5MB)
+                      {{ 'USER_AVATAR_EDITOR.ACCEPTED_FORMATS' | translate }}
                     </p>
                   </div>
                 } @else {
@@ -52,7 +52,7 @@
                       {{ formatFileSize(selectedFile()?.size || 0) }}
                     </p>
                     <button mat-button color="warn" (click)="clearSelectedFile($event)">
-                      Supprimer
+                      {{ 'USER_AVATAR_EDITOR.DELETE' | translate }}
                     </button>
                   </div>
                 }
@@ -71,7 +71,7 @@
             <!-- Aperçu de l'upload -->
             @if (previewUrl()) {
               <div class="mt-4">
-                <h4>Aperçu :</h4>
+                <h4>{{ 'USER_AVATAR_EDITOR.PREVIEW' | translate }}</h4>
                 <lib-user-avatar
                   [photoUrl]="previewUrl()"
                   cssClass="w-[80px] h-[80px] rounded-full"
@@ -89,7 +89,7 @@
                 (click)="uploadFile()"
                 [disabled]="uploading()"
               >
-                Télécharger l'image
+                {{ 'USER_AVATAR_EDITOR.UPLOAD_IMAGE_BUTTON' | translate }}
               </button>
             }
 
@@ -205,8 +205,8 @@
       <!-- Aperçu sélectionné -->
       @if (selectedPhoto()) {
         <div class="mt-4 text-center">
-          <h4>Aperçu sélectionné :</h4>
-          <p class="text-sm text-gray-600 mb-2">Valeur: "{{ selectedPhoto() }}"</p>
+          <h4>{{ 'USER_AVATAR_EDITOR.SELECTED_PREVIEW' | translate }}</h4>
+          <p class="text-sm text-gray-600 mb-2">{{ 'USER_AVATAR_EDITOR.VALUE' | translate }}: "{{ selectedPhoto() }}"</p>
           <lib-user-avatar
             [photoUrl]="selectedPhoto()"
             cssClass="w-[100px] h-[100px] rounded-full mx-auto"
@@ -215,19 +215,19 @@
         </div>
       } @else {
         <div class="mt-4 text-center text-gray-500">
-          <p>Aucune photo sélectionnée</p>
+          <p>{{ 'USER_AVATAR_EDITOR.NO_PHOTO_SELECTED' | translate }}</p>
         </div>
       }
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-      <button mat-button (click)="cancel()">Annuler</button>
+      <button mat-button (click)="cancel()">{{ 'USER_AVATAR_EDITOR.CANCEL' | translate }}</button>
       <button
         mat-raised-button
         color="primary"
         [disabled]="!selectedPhoto() || saving()"
         (click)="save()"
       >
-        {{ saving() ? 'Enregistrement...' : 'Enregistrer' }}
+        {{ saving() ? ('USER_AVATAR_EDITOR.SAVING' | translate) : ('USER_AVATAR_EDITOR.SAVE' | translate) }}
       </button>
     </mat-dialog-actions>
