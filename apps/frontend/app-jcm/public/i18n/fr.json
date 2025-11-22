@@ -321,5 +321,11 @@
       "CANCEL": "Annuler",
       "SAVE": "Enregistrer",
       "SAVING": "Enregistrement..."
+    },
+    "SIDENAV_HEADER": {
+      "EDIT_PROFILE_TOOLTIP": "Cliquer pour modifier votre profil",
+      "EDIT_PROFILE_ARIA": "Modifier votre profil",
+      "USER_PROFILE_PICTURE": "Photo de profil de l'utilisateur",
+      "DEFAULT_USER": "Utilisateur"
     }
 }

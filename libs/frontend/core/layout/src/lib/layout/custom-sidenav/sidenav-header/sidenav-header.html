@@ -2,21 +2,23 @@
       <button
         class="cursor-pointer hover:opacity-80 transition-opacity border-none bg-transparent p-0"
         (click)="openProfileEditor()"
-        title="Cliquer pour modifier votre profil"
-        aria-label="Modifier votre profil"
+        [title]="'SIDENAV_HEADER.EDIT_PROFILE_TOOLTIP' | translate"
+        [attr.aria-label]="'SIDENAV_HEADER.EDIT_PROFILE_ARIA' | translate"
       >
         <lib-user-avatar
           [photoUrl]="appStore.user()?.photoUrl"
           [cssClass]="avatarClasses()"
-          alt="User profile picture"
+          [alt]="'SIDENAV_HEADER.USER_PROFILE_PICTURE' | translate"
         />
       </button>
-      <div
-        class="text-center mb-2 h-[3rem] {{
-          collapsed() ? '!h-0 opacity-0' : ''
-        }}"
-      >
-        <h2 class="text-lg">{{ appStore.user()?.nickName ?? 'User' }}</h2>
-        <p class="text-sm">{{ appStore.user()?.Roles }}</p>
-      </div>
+      @if (appStore.user()?.nickName) {
+        <div
+          class="text-center mb-2 h-[3rem] {{
+            collapsed() ? '!h-0 opacity-0' : ''
+          }}"
+        >
+          <h2 class="text-lg">{{ appStore.user()?.nickName }}</h2>
+          <p class="text-sm">{{ appStore.user()?.Roles }}</p>
+        </div>
+      }
     </div>

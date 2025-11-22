@@ -3,11 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppStore } from '@fe/stores';
 import { UserAvatar } from '@fe/user-avatar';
 import { UserAvatarEditor } from '@fe/user-avatar-editor';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-sidenav-header',
   imports: [
-    UserAvatar
+    UserAvatar,
+    TranslateModule
   ],
   templateUrl: './sidenav-header.html',
   styleUrl: './sidenav-header.scss',
