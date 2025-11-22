@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="home-container">
+  <div class="home-header">
+    <h1>Bienvenue</h1>
+    <p class="subtitle">Découvrez notre galerie d'images</p>
+  </div>
+
+  <div class="carousel-section">
+    <lib-carousel
+      [config]="carouselConfig"
+      (slideChange)="onSlideChange($event)"
+      (imageClick)="onImageClick($event)"
+    />
+  </div>
+
+  <div class="home-actions">
+    <button mat-raised-button color="primary" (click)="openImageManager()">
+      <mat-icon>collections</mat-icon>
+      Voir toutes les images
+    </button>
+    <button mat-raised-button color="accent" (click)="openImageManager()">
+      <mat-icon>add_photo_alternate</mat-icon>
+      Ajouter des images
+    </button>
+  </div>
+</div>

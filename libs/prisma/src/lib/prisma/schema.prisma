@@ -614,8 +614,8 @@ model Image {
   description   String?   // Image description
 
   // Relations and associations
-  uploadedBy    User      @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: Cascade)
-  uploadedById  String
+  uploadedBy    User?     @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById  String?
 
   // Generic association system
   associatedId  String?   // ID of associated entity (Post, User, Organization, etc.)

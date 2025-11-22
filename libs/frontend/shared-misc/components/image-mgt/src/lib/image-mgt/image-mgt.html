@@ -160,7 +160,8 @@
               [associationType]="associationType()"
               [uploadedById]="uploadedById()"
               (filesUploaded)="onFilesUploaded($event)"
-              (uploadProgress)="onUploadProgress()">
+              (uploadProgress)="onUploadProgress()"
+              (cancelled)="onUploadCancelled()">
             </lib-image-upload-manager>
           </div>
         </mat-tab>

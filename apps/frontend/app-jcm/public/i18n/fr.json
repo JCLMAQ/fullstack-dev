@@ -191,10 +191,12 @@
       "USER_ID": "ID Utilisateur",
       "ORG_ID": "ID Organisation",
       "CLEAR": "Vider",
+      "CANCEL": "Annuler",
       "UPLOAD": "Upload",
       "UPLOADING": "Upload en cours...",
       "SELECT_FILES": "Sélectionner des Fichiers",
-      "METADATA": "Métadonnées"
+      "METADATA": "Métadonnées",
+      "PROGRESS": "Progression"
     },
     "IMAGE_VIEWER": {
       "PREVIOUS": "Image Précédente",
@@ -209,10 +211,27 @@
       "ALT_TEXT": "Texte Alternatif",
       "TAGS": "Tags",
       "UPLOADED": "Uploadé",
+      "CREATED_AT": "Créé le",
+      "UPDATED_AT": "Modifié le",
       "MODIFIED": "Modifié",
       "STATUS": "Statut",
       "PUBLIC": "Publique",
       "PRIVATE": "Privée"
+    },
+    "CAROUSEL_CONFIG": {
+      "TITLE": "Configuration du Carousel",
+      "SUBTITLE": "Sélectionnez les images à afficher dans le carousel",
+      "LOADING": "Chargement des images...",
+      "NO_IMAGES": "Aucune image disponible",
+      "IMAGES_SELECTED": "image(s) sélectionnée(s)",
+      "UPLOAD_IMAGES": "Ajouter des images",
+      "UPLOAD_FIRST_IMAGE": "Ajouter votre première image",
+      "UPLOAD_SUCCESS": "{{count}} image(s) ajoutée(s) avec succès",
+      "ERROR_UPLOAD": "Erreur lors de l'ajout des images",
+      "ERROR_NO_USER": "Vous devez être connecté pour ajouter des images",
+      "CANCEL": "Annuler",
+      "SAVE": "Enregistrer",
+      "CLEAR": "Tout désélectionner"
     },
     "MESSAGES": {
       "CLOSE": "Fermer",

@@ -11,6 +11,7 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { IsOptional, IsString } from 'class-validator';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
@@ -20,11 +21,8 @@ import { ImagesService } from './images.service';
 const multerConfig = {
   storage: diskStorage({
     destination: (req: unknown, file: Express.Multer.File, cb: (error: Error | null, destination: string) => void) => {
-      // Organisé par année/mois
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const uploadPath = join(process.cwd(), 'uploads', 'images', String(year), month);
+      // Stockage direct dans uploads/images
+      const uploadPath = join(process.cwd(), 'uploads', 'images');
 
       // Créer le répertoire s'il n'existe pas
       if (!existsSync(uploadPath)) {
@@ -65,16 +63,48 @@ const multerConfig = {
 
 // DTO pour les métadonnées d'upload
 export class UploadMetadataDto {
-  uploadedById!: string;
+  @IsOptional()
+  @IsString()
+  uploadedById?: string;
+
+  @IsOptional()
+  @IsString()
   altText?: string;
+
+  @IsOptional()
+  @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsString()
   tags?: string;
+
+  @IsOptional()
+  @IsString()
   isPublic?: string;
+
+  @IsOptional()
+  @IsString()
   associatedId?: string;
+
+  @IsOptional()
+  @IsString()
   associationType?: string;
+
+  @IsOptional()
+  @IsString()
   orgId?: string;
+
+  @IsOptional()
+  @IsString()
   postId?: string;
+
+  @IsOptional()
+  @IsString()
   storyId?: string;
+
+  @IsOptional()
+  @IsString()
   profileUserId?: string;
 }
 
@@ -88,17 +118,29 @@ export class UploadController {
     @UploadedFile() file: Express.Multer.File,
     @Body() metadata: UploadMetadataDto
   ): Promise<{ data: Image; message: string }> {
+    console.log('=== UPLOAD IMAGE REQUEST ===');
+    console.log('File received:', file ? {
+      filename: file.filename,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+      size: file.size
+    } : 'NO FILE');
+    console.log('Metadata received:', metadata);
+
     if (!file) {
       throw new BadRequestException('Aucun fichier fourni');
     }
 
-    if (!metadata.uploadedById) {
-      throw new BadRequestException('uploadedById est requis');
-    }
+    // Utiliser 'system' comme valeur par défaut si uploadedById n'est pas fourni
+    const uploadedById = metadata.uploadedById || 'system';
+    console.log('Using uploadedById:', uploadedById);
 
     try {
       // Parse des tags si fournis comme string
       const tags = metadata.tags ? metadata.tags.split(',').map(tag => tag.trim()) : [];
+
+      // Extraire le chemin relatif depuis uploads/
+      const relativePath = file.path.split('uploads')[1].replace(/\\/g, '/');
 
       // Création de l'enregistrement image avec métadonnées
       const imageData = {
@@ -108,8 +150,8 @@ export class UploadController {
         fileSize: file.size,
         storageType: 'local',
         storagePath: file.path,
-        storageUrl: `/uploads/images/${file.filename}`, // URL pour accès public
-        uploadedById: metadata.uploadedById,
+        storageUrl: `/uploads${relativePath}`, // URL avec année/mois pour accès public
+        uploadedById: uploadedById,
         altText: metadata.altText,
         description: metadata.description,
         tags,
@@ -123,12 +165,18 @@ export class UploadController {
       };
 
       const image = await this.imagesService.createImage(imageData);
+      console.log('Image created successfully:', image.id);
 
       return {
         data: image,
         message: 'Image uploadée avec succès'
       };
     } catch (error) {
+      console.error('=== UPLOAD ERROR ===');
+      console.error('Error details:', error);
+      console.error('Error message:', error instanceof Error ? error.message : 'Unknown');
+      console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
+
       throw new HttpException(
         `Erreur lors de l'upload: ${error instanceof Error ? error.message : 'Erreur inconnue'}`,
         HttpStatus.INTERNAL_SERVER_ERROR
@@ -146,9 +194,8 @@ export class UploadController {
       throw new BadRequestException('Aucun fichier fourni');
     }
 
-    if (!metadata.uploadedById) {
-      throw new BadRequestException('uploadedById est requis');
-    }
+    // Utiliser 'system' comme valeur par défaut si uploadedById n'est pas fourni
+    const uploadedById = metadata.uploadedById || 'system';
 
     try {
       const tags = metadata.tags ? metadata.tags.split(',').map(tag => tag.trim()) : [];
@@ -156,6 +203,9 @@ export class UploadController {
 
       // Upload de chaque fichier
       for (const [index, file] of files.entries()) {
+        // Extraire le chemin relatif depuis uploads/
+        const relativePath = file.path.split('uploads')[1].replace(/\\/g, '/');
+
         const imageData = {
           filename: file.filename,
           originalName: file.originalname,
@@ -163,8 +213,8 @@ export class UploadController {
           fileSize: file.size,
           storageType: 'local',
           storagePath: file.path,
-          storageUrl: `/uploads/images/${file.filename}`,
-          uploadedById: metadata.uploadedById,
+          storageUrl: `/uploads${relativePath}`,
+          uploadedById: uploadedById,
           altText: metadata.altText,
           description: metadata.description,
           tags,
@@ -215,6 +265,9 @@ export class UploadController {
     }
 
     try {
+      // Extraire le chemin relatif depuis uploads/
+      const relativePath = file.path.split('uploads')[1].replace(/\\/g, '/');
+
       const imageData = {
         filename: file.filename,
         originalName: file.originalname,
@@ -222,7 +275,7 @@ export class UploadController {
         fileSize: file.size,
         storageType: 'local',
         storagePath: file.path,
-        storageUrl: `/uploads/images/${file.filename}`,
+        storageUrl: `/uploads${relativePath}`,
         uploadedById: metadata.uploadedById,
         profileUserId: metadata.profileUserId,
         associatedId: metadata.profileUserId,

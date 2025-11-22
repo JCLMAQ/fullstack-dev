@@ -1568,10 +1568,12 @@ export type UserCreateNestedOneWithoutProfileImagesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutUploadedImagesNestedInput = {
+export type UserUpdateOneWithoutUploadedImagesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedImagesInput, Prisma.UserUncheckedCreateWithoutUploadedImagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedImagesInput
   upsert?: Prisma.UserUpsertWithoutUploadedImagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedImagesInput, Prisma.UserUpdateWithoutUploadedImagesInput>, Prisma.UserUncheckedUpdateWithoutUploadedImagesInput>
 }

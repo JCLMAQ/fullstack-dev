@@ -8,11 +8,43 @@
   >
     <lib-custom-sidenav />
   </mat-sidenav>
+
   <mat-sidenav-content
     class="content"
     [style.margin-left]="responsiveService.styleMarginLeft()"
   >
     <!-- <app-messages /> -->
     <router-outlet></router-outlet>
+
+    <!-- Bouton flottant pour ouvrir le drawer de gestion des images -->
+    <button
+      mat-fab
+      class="image-manager-fab"
+      color="primary"
+      (click)="toggleRightDrawer()"
+      matTooltip="Gestion des images"
+    >
+      <mat-icon>@if (isRightDrawerOpen()) { close } @else { collections }</mat-icon>
+    </button>
   </mat-sidenav-content>
+
+  <!-- Drawer de droite pour la gestion des images -->
+  <mat-sidenav
+    #rightSidenav
+    mode="over"
+    position="end"
+    [opened]="isRightDrawerOpen()"
+    (closed)="isRightDrawerOpen.set(false)"
+    class="right-drawer"
+  >
+    <div class="drawer-header">
+      <h2>Gestion des Images</h2>
+      <button mat-icon-button (click)="toggleRightDrawer()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="drawer-content">
+      <lib-image-mgt />
+    </div>
+  </mat-sidenav>
 </mat-sidenav-container>

@@ -191,9 +191,12 @@
     "USER_ID": "User ID",
     "ORG_ID": "Organization ID",
     "CLEAR": "Clear",
+    "CANCEL": "Cancel",
     "UPLOAD": "Upload",
+    "UPLOADING": "Uploading...",
     "SELECT_FILES": "Select Files",
-    "METADATA": "Metadata"
+    "METADATA": "Metadata",
+    "PROGRESS": "Progress"
   },
   "IMAGE_VIEWER": {
     "PREVIOUS": "Previous Image",
@@ -208,10 +211,27 @@
     "ALT_TEXT": "Alt Text",
     "TAGS": "Tags",
     "UPLOADED": "Uploaded",
+    "CREATED_AT": "Created at",
+    "UPDATED_AT": "Updated at",
     "MODIFIED": "Modified",
     "STATUS": "Status",
     "PUBLIC": "Public",
     "PRIVATE": "Private"
+  },
+  "CAROUSEL_CONFIG": {
+    "TITLE": "Carousel Configuration",
+    "SUBTITLE": "Select images to display in the carousel",
+    "LOADING": "Loading images...",
+    "NO_IMAGES": "No images available",
+    "IMAGES_SELECTED": "image(s) selected",
+    "UPLOAD_IMAGES": "Add Images",
+    "UPLOAD_FIRST_IMAGE": "Add Your First Image",
+    "UPLOAD_SUCCESS": "{{count}} image(s) successfully added",
+    "ERROR_UPLOAD": "Error adding images",
+    "ERROR_NO_USER": "You must be logged in to add images",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "CLEAR": "Clear All"
   },
   "MESSAGES": {
     "CLOSE": "Close",

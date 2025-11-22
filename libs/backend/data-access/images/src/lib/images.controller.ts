@@ -1,3 +1,4 @@
+import { Public } from '@be/iam';
 import { Image, Prisma } from '@db/prisma';
 import {
     Body,
@@ -15,6 +16,8 @@ import {
     Query,
     ValidationPipe
 } from '@nestjs/common';
+import { Type } from 'class-transformer';
+import { IsArray, IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 import {
     ImageAnalyticsResult,
     ImageSearchOptions,
@@ -110,22 +113,76 @@ export interface DuplicateImageGroup {
 }
 
 export class SearchImagesDto {
+  @IsOptional()
+  @IsString()
   query?: string;
+
+  @IsOptional()
+  @IsString()
   uploadedById?: string;
+
+  @IsOptional()
+  @IsString()
   associatedId?: string;
+
+  @IsOptional()
+  @IsString()
   associationType?: string;
+
+  @IsOptional()
+  @IsString()
   orgId?: string;
+
+  @IsOptional()
+  @IsString()
   postId?: string;
+
+  @IsOptional()
+  @IsString()
   storyId?: string;
+
+  @IsOptional()
+  @IsString()
   profileUserId?: string;
+
+  @IsOptional()
+  @IsString()
   mimeType?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
   tags?: string[];
+
+  @IsOptional()
+  @Type(() => Boolean)
+  @IsBoolean()
   isPublic?: boolean;
+
+  @IsOptional()
+  @IsString()
   storageType?: string;
+
+  @IsOptional()
+  @IsString()
   createdAfter?: string;
+
+  @IsOptional()
+  @IsString()
   createdBefore?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
   skip?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
   take?: number;
+
+  @IsOptional()
+  @IsString()
   orderBy?: string;
 }
 
@@ -153,6 +210,7 @@ export class ImagesController {
     }
   }
 
+  @Public()
   @Get(':id')
   async getImageById(
     @Param('id', ParseUUIDPipe) id: string
@@ -177,6 +235,7 @@ export class ImagesController {
     }
   }
 
+  @Public()
   @Get()
   async getImages(
     @Query() searchParams: SearchImagesDto

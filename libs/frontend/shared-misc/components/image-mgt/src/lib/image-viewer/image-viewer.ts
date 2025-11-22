@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Image } from '@db/prisma';
 import { TranslateModule } from '@ngx-translate/core';
+import { ImageService } from '../services/image.service';
 
 export interface ImageViewerData {
   image: Image;
@@ -98,7 +99,7 @@ export interface ImageViewerData {
           </button>
 
           <button mat-icon-button
-                  mat-dialog-close
+                  (click)="closeDialog()"
                   matTooltip="{{ 'IMAGE_VIEWER.CLOSE' | translate }}">
             <mat-icon>close</mat-icon>
           </button>
@@ -125,7 +126,7 @@ export interface ImageViewerData {
 
           <!-- Image principale -->
           <img
-            [src]="currentImage().storageUrl || '/assets/images/placeholder.png'"
+            [src]="getImageUrl(currentImage())"
             [alt]="currentImage().altText || currentImage().originalName"
             class="main-image"
             [class.zoomed]="isZoomed()"
@@ -207,6 +208,7 @@ export class ImageViewerComponent {
   private dialogRef = inject(MatDialogRef<ImageViewerComponent>);
   private data = inject<ImageViewerData>(MAT_DIALOG_DATA);
   private snackBar = inject(MatSnackBar);
+  private imageService = inject(ImageService);
 
   // State
   currentIndex = signal(0);
@@ -217,9 +219,9 @@ export class ImageViewerComponent {
   images = signal<Image[]>(this.data.images || [this.data.image]);
 
   // Computed
-  currentImage = signal<Image>(this.data.image);
-  totalImages = signal(this.images().length);
-  hasMultipleImages = signal(this.images().length > 1);
+  currentImage = computed(() => this.images()[this.currentIndex()]);
+  totalImages = computed(() => this.images().length);
+  hasMultipleImages = computed(() => this.images().length > 1);
 
   constructor() {
     // Trouver l'index de l'image actuelle
@@ -268,9 +270,7 @@ export class ImageViewerComponent {
 
   previousImage(): void {
     if (this.currentIndex() > 0) {
-      const newIndex = this.currentIndex() - 1;
-      this.currentIndex.set(newIndex);
-      this.currentImage.set(this.images()[newIndex]);
+      this.currentIndex.update(i => i - 1);
       this.imageLoading.set(true);
       this.isZoomed.set(false);
     }
@@ -278,9 +278,7 @@ export class ImageViewerComponent {
 
   nextImage(): void {
     if (this.currentIndex() < this.totalImages() - 1) {
-      const newIndex = this.currentIndex() + 1;
-      this.currentIndex.set(newIndex);
-      this.currentImage.set(this.images()[newIndex]);
+      this.currentIndex.update(i => i + 1);
       this.imageLoading.set(true);
       this.isZoomed.set(false);
     }
@@ -290,11 +288,16 @@ export class ImageViewerComponent {
     this.isZoomed.set(!this.isZoomed());
   }
 
+  getImageUrl(image: Image): string {
+    return this.imageService.getFullImageUrl(image);
+  }
+
   downloadImage(): void {
     const image = this.currentImage();
-    if (image.storageUrl) {
+    const imageUrl = this.getImageUrl(image);
+    if (imageUrl) {
       const link = document.createElement('a');
-      link.href = image.storageUrl;
+      link.href = imageUrl;
       link.download = image.originalName;
       link.target = '_blank';
       document.body.appendChild(link);
@@ -307,8 +310,9 @@ export class ImageViewerComponent {
 
   copyImageUrl(): void {
     const image = this.currentImage();
-    if (image.storageUrl) {
-      navigator.clipboard.writeText(image.storageUrl).then(() => {
+    const imageUrl = this.getImageUrl(image);
+    if (imageUrl) {
+      navigator.clipboard.writeText(imageUrl).then(() => {
         this.snackBar.open('URL copiée dans le presse-papiers', 'Fermer', { duration: 2000 });
       }).catch(() => {
         this.snackBar.open('Erreur lors de la copie', 'Fermer', { duration: 2000 });
@@ -317,18 +321,16 @@ export class ImageViewerComponent {
   }
 
   deleteImage(): void {
-    const dialogRef = this.snackBar.open(
-      `Supprimer "${this.currentImage().originalName}" ?`,
-      'Confirmer',
-      { duration: 5000 }
-    );
-
-    dialogRef.onAction().subscribe(() => {
+    if (confirm(`Voulez-vous vraiment supprimer "${this.currentImage().originalName}" ?`)) {
       this.dialogRef.close({
         action: 'delete',
         image: this.currentImage()
       });
-    });
+    }
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 
   onImageLoad(): void {

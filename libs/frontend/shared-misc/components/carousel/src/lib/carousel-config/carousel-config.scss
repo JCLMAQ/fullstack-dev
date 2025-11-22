@@ -1,0 +1,194 @@
+.carousel-config-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  mat-card {
+    width: 100%;
+  }
+
+  mat-card-header {
+    margin-bottom: 1rem;
+  }
+
+  .upload-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(var(--mat-primary-rgb), 0.05);
+    border-radius: 8px;
+
+    button {
+      flex-shrink: 0;
+    }
+
+    .selection-info-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--mat-primary-color);
+      font-weight: 500;
+      font-size: 0.875rem;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .image-card {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--mat-card-background-color);
+
+    &:hover {
+      border-color: var(--mat-primary-color);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    &.selected {
+      border-color: var(--mat-primary-color);
+      box-shadow: 0 0 0 3px rgba(var(--mat-primary-rgb), 0.2);
+    }
+
+    &:focus {
+      outline: 2px solid var(--mat-primary-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .checkbox-overlay {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+
+    mat-checkbox {
+      display: block;
+
+      ::ng-deep .mdc-checkbox {
+        width: 24px;
+        height: 24px;
+      }
+
+      ::ng-deep .mdc-checkbox__background {
+        width: 24px;
+        height: 24px;
+        border-width: 2px;
+      }
+    }
+  }
+
+  .image-thumbnail {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .image-info {
+    padding: 0.5rem;
+    background: var(--mat-card-background-color);
+  }
+
+  .image-name {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .image-description {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    color: var(--mat-text-secondary-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 3rem;
+    color: var(--mat-text-secondary-color);
+
+    mat-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      opacity: 0.5;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.125rem;
+    }
+
+    button {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .selection-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(var(--mat-primary-rgb), 0.1);
+    border-radius: 4px;
+    color: var(--mat-primary-color);
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid var(--mat-divider-color);
+  }
+}

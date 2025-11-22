@@ -1,0 +1,138 @@
+<div class="carousel-config-container">
+      <!-- Hidden file input -->
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        multiple
+        style="display: none"
+        (change)="onFileSelected($event)"
+      />
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            {{ 'CAROUSEL_CONFIG.TITLE' | translate }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ 'CAROUSEL_CONFIG.SUBTITLE' | translate }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <!-- Upload Button -->
+          <div class="upload-section">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onUploadImages()"
+            >
+              <mat-icon>add_photo_alternate</mat-icon>
+              {{ 'CAROUSEL_CONFIG.UPLOAD_IMAGES' | translate }}
+            </button>
+            @if (selectedImages().length > 0) {
+              <div class="selection-info-inline">
+                <mat-icon>check_circle</mat-icon>
+                <span>{{ selectedImages().length }} {{ 'CAROUSEL_CONFIG.IMAGES_SELECTED' | translate }}</span>
+              </div>
+            }
+          </div>
+
+          <!-- Loading State -->
+          @if (loading()) {
+            <div class="loading-container">
+              <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
+              <p>{{ 'CAROUSEL_CONFIG.LOADING' | translate }}</p>
+            </div>
+          }
+
+          <!-- Image Selection Grid -->
+          @if (!loading() && availableImages().length > 0) {
+            <div class="images-grid">
+              @for (image of availableImages(); track image.id) {
+                <div
+                  class="image-card"
+                  [class.selected]="isSelected(image.id)"
+                  (click)="toggleImageSelection(image)"
+                  (keyup.enter)="toggleImageSelection(image)"
+                  (keyup.space)="toggleImageSelection(image)"
+                  tabindex="0"
+                  role="button"
+                  [attr.aria-label]="'Toggle image: ' + image.originalName"
+                >
+                  <!-- Checkbox overlay -->
+                  <div class="checkbox-overlay">
+                    <mat-checkbox
+                      [checked]="isSelected(image.id)"
+                      (click)="$event.stopPropagation()"
+                      (change)="toggleImageSelection(image)"
+                    ></mat-checkbox>
+                  </div>
+
+                  <!-- Image -->
+                  <img
+                    [src]="getImageUrl(image)"
+                    [alt]="image.altText || image.originalName"
+                    class="image-thumbnail"
+                  />
+
+                  <!-- Image info -->
+                  <div class="image-info">
+                    <p class="image-name">{{ image.originalName }}</p>
+                    @if (image.description) {
+                      <p class="image-description">{{ image.description }}</p>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Empty State -->
+          @if (!loading() && availableImages().length === 0) {
+            <div class="empty-state">
+              <mat-icon>photo_library</mat-icon>
+              <p>{{ 'CAROUSEL_CONFIG.NO_IMAGES' | translate }}</p>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="onUploadImages()"
+              >
+                <mat-icon>add_photo_alternate</mat-icon>
+                {{ 'CAROUSEL_CONFIG.UPLOAD_FIRST_IMAGE' | translate }}
+              </button>
+            </div>
+          }
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            (click)="onCancel()"
+          >
+            <mat-icon>close</mat-icon>
+            {{ 'CAROUSEL_CONFIG.CANCEL' | translate }}
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="selectedImages().length === 0"
+            (click)="onSave()"
+          >
+            <mat-icon>save</mat-icon>
+            {{ 'CAROUSEL_CONFIG.SAVE' | translate }}
+          </button>
+
+          <button
+            mat-raised-button
+            color="accent"
+            [disabled]="selectedImages().length === 0"
+            (click)="onClearSelection()"
+          >
+            <mat-icon>clear_all</mat-icon>
+            {{ 'CAROUSEL_CONFIG.CLEAR' | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>

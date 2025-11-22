@@ -1,1 +1,147 @@
-<p>Carousel works!</p>
+<div class="carousel-container">
+  <!-- Loading Spinner -->
+  @if (loading()) {
+    <div class="carousel-loading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Chargement des images...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <mat-card class="carousel-error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error() }}</p>
+      <button mat-raised-button color="primary" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Réessayer
+      </button>
+    </mat-card>
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && !error() && !hasImages()) {
+    <mat-card class="carousel-empty">
+      <mat-icon>photo_library</mat-icon>
+      <p>Aucune image à afficher</p>
+    </mat-card>
+  }
+
+  <!-- Carousel Content -->
+  @if (!loading() && !error() && hasImages()) {
+    <div class="carousel-wrapper">
+      <!-- Main Carousel -->
+      <div class="carousel-main">
+        <!-- Previous Button -->
+        @if (config().showControls && hasPrevious()) {
+          <button
+            mat-fab
+            class="carousel-control carousel-control-prev"
+            (click)="previousSlide()"
+            [attr.aria-label]="'Image précédente'">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+        }
+
+        <!-- Current Image -->
+        <div
+          class="carousel-slide"
+          [style.aspect-ratio]="config().aspectRatio">
+          @if (currentImage(); as image) {
+            <img
+              [src]="getImageUrl(image)"
+              [alt]="getImageAlt(image)"
+              class="carousel-image"
+              tabindex="0"
+              role="button"
+              (click)="onImageClick(image)"
+              (keydown.enter)="onImageClick(image)"
+              (keydown.space)="onImageClick(image)" />
+
+            <!-- Image Info Overlay -->
+            <div class="carousel-info">
+              @if (image.altText || image.description) {
+                <div class="carousel-caption">
+                  @if (image.altText) {
+                    <h3>{{ image.altText }}</h3>
+                  }
+                  @if (image.description) {
+                    <p>{{ image.description }}</p>
+                  }
+                </div>
+              }
+
+              @if (image.tags && image.tags.length > 0) {
+                <div class="carousel-tags">
+                  @for (tag of image.tags; track tag) {
+                    <mat-chip>{{ tag }}</mat-chip>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Next Button -->
+        @if (config().showControls && hasNext()) {
+          <button
+            mat-fab
+            class="carousel-control carousel-control-next"
+            (click)="nextSlide()"
+            [attr.aria-label]="'Image suivante'">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        }
+
+        <!-- Play/Pause Button -->
+        @if (config().autoPlay) {
+          <button
+            mat-mini-fab
+            class="carousel-play-toggle"
+            (click)="toggleAutoPlay()"
+            [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'">
+            <mat-icon>{{ isPlaying() ? 'pause' : 'play_arrow' }}</mat-icon>
+          </button>
+        }
+      </div>
+
+      <!-- Indicators -->
+      @if (config().showIndicators) {
+        <div class="carousel-indicators">
+          @for (image of images(); track image.id; let i = $index) {
+            <button
+              class="carousel-indicator"
+              [class.active]="i === currentIndex()"
+              (click)="goToSlide(i)"
+              [attr.aria-label]="'Aller à l\'image ' + (i + 1)">
+              <span class="indicator-dot"></span>
+            </button>
+          }
+        </div>
+      }
+
+      <!-- Thumbnails -->
+      @if (config().showThumbnails) {
+        <div class="carousel-thumbnails">
+          @for (image of images(); track image.id; let i = $index) {
+            <button
+              class="carousel-thumbnail"
+              [class.active]="i === currentIndex()"
+              (click)="goToSlide(i)"
+              [attr.aria-label]="'Miniature ' + (i + 1)">
+              <img
+                [src]="getThumbnailUrl(image)"
+                [alt]="'Miniature ' + (i + 1)"
+                class="thumbnail-image" />
+            </button>
+          }
+        </div>
+      }
+
+      <!-- Image Counter -->
+      <div class="carousel-counter">
+        <span>{{ currentIndex() + 1 }} / {{ images().length }}</span>
+      </div>
+    </div>
+  }
+</div>

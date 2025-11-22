@@ -59,6 +59,10 @@ export class ImageGalleryComponent {
     return image.id;
   }
 
+  getImageUrl(image: Image): string {
+    return this.imageService.getFullImageUrl(image);
+  }
+
   hasSelectedImages(): boolean {
     return this.selectedImages().length > 0;
   }
@@ -115,7 +119,7 @@ export class ImageGalleryComponent {
     }
 
     selectedImages.forEach((image, index) => {
-      const url = image.storageUrl;
+      const url = this.getImageUrl(image);
       if (url) {
         setTimeout(() => {
           const link = document.createElement('a');
@@ -162,9 +166,10 @@ export class ImageGalleryComponent {
   }
 
   downloadImage(image: Image): void {
-    if (image.storageUrl) {
+    const imageUrl = this.getImageUrl(image);
+    if (imageUrl) {
       const link = document.createElement('a');
-      link.href = image.storageUrl;
+      link.href = imageUrl;
       link.download = image.originalName;
       link.target = '_blank';
       document.body.appendChild(link);
@@ -174,8 +179,9 @@ export class ImageGalleryComponent {
   }
 
   copyImageUrl(image: Image): void {
-    if (image.storageUrl) {
-      navigator.clipboard.writeText(image.storageUrl).then(() => {
+    const imageUrl = this.getImageUrl(image);
+    if (imageUrl) {
+      navigator.clipboard.writeText(imageUrl).then(() => {
         this.snackBar.open('URL copiée dans le presse-papiers', 'Fermer', { duration: 2000 });
       });
     }

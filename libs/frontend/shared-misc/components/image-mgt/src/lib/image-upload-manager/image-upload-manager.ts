@@ -58,6 +58,7 @@ export class ImageUploadManagerComponent {
   // Outputs
   filesUploaded = output<Image[]>();
   uploadProgress = output<number>();
+  cancelled = output<void>();
 
   // ViewChild
   fileInput = viewChild<ElementRef>('fileInput');
@@ -252,12 +253,31 @@ export class ImageUploadManagerComponent {
             uploadedImages.push(uploadedImage);
             fileData.progress = 100;
           }
-        } catch (error) {
+        } catch (error: any) {
           console.error(`Erreur upload ${fileData.file.name}:`, error);
+
+          // Extraire le message d'erreur détaillé
+          let errorMessage = `Erreur lors de l'upload de ${fileData.file.name}`;
+          if (error?.error?.message) {
+            errorMessage += `: ${error.error.message}`;
+          } else if (error?.message) {
+            errorMessage += `: ${error.message}`;
+          } else if (error?.status) {
+            errorMessage += ` (Status: ${error.status})`;
+          }
+
+          console.error('Détails de l\'erreur:', {
+            status: error?.status,
+            statusText: error?.statusText,
+            message: error?.error?.message || error?.message,
+            error: error?.error,
+            fullError: error
+          });
+
           this.snackBar.open(
-            `Erreur lors de l'upload de ${fileData.file.name}`,
+            errorMessage,
             'Fermer',
-            { duration: 3000 }
+            { duration: 5000 }
           );
         }
 
@@ -284,6 +304,12 @@ export class ImageUploadManagerComponent {
       this.uploading.set(false);
       this.overallProgress.set(0);
     }
+  }
+
+  cancel(): void {
+    this.clearFiles();
+    this.resetForm();
+    this.cancelled.emit();
   }
 
   private resetForm(): void {

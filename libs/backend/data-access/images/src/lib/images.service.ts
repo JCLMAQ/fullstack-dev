@@ -77,6 +77,25 @@ export class ImagesService {
 
   // Core CRUD Operations
   async createImage(data: ImageCreateData): Promise<Image> {
+    // Vérifier si l'uploadedById est un ID système générique ou s'il correspond à un utilisateur existant
+    const isGenericId = !data.uploadedById || ['system', 'anonymous', 'unknown'].includes(data.uploadedById);
+
+    // Si c'est un ID générique, vérifier s'il existe un utilisateur système, sinon ne pas connecter
+    let uploadedByConnect = undefined;
+    if (!isGenericId) {
+      try {
+        const userExists = await this.prisma.user.findUnique({
+          where: { id: data.uploadedById },
+          select: { id: true }
+        });
+        if (userExists) {
+          uploadedByConnect = { connect: { id: data.uploadedById } };
+        }
+      } catch (error) {
+        console.warn(`User ${data.uploadedById} not found, creating image without uploadedBy connection`);
+      }
+    }
+
     return await this.prisma.image.create({
       data: {
         filename: data.filename,
@@ -96,9 +115,7 @@ export class ImagesService {
         description: data.description,
         sequence: data.sequence || 0,
         isPublic: data.isPublic ?? true,
-        uploadedBy: {
-          connect: { id: data.uploadedById }
-        },
+        ...(uploadedByConnect && { uploadedBy: uploadedByConnect }),
         ...(data.associatedId && { associatedId: data.associatedId }),
         ...(data.associationType && { associationType: data.associationType }),
         ...(data.orgId && { org: { connect: { id: data.orgId } } }),

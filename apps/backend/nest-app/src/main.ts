@@ -8,6 +8,7 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ClsMiddleware } from 'nestjs-cls';
+import { join } from 'path';
 import { AppModule } from './app/app.module';
 // import { PrismaClientService } from '@db/prisma-client';
 
@@ -18,6 +19,11 @@ async function bootstrap() {
   // Configuration des limites de taille pour les uploads Base64
   app.use(require('express').json({ limit: '10mb' }));
   app.use(require('express').urlencoded({ limit: '10mb', extended: true }));
+
+  // Servir les fichiers statiques depuis le dossier uploads
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads/',
+  });
 
   // Configuration CORS pour permettre les requêtes depuis le frontend
   app.enableCors({

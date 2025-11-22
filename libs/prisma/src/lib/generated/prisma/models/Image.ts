@@ -378,7 +378,7 @@ export type ImageGroupByOutputType = {
   tags: string[]
   altText: string | null
   description: string | null
-  uploadedById: string
+  uploadedById: string | null
   associatedId: string | null
   associationType: string | null
   sequence: number
@@ -436,7 +436,7 @@ export type ImageWhereInput = {
   tags?: Prisma.StringNullableListFilter<"Image">
   altText?: Prisma.StringNullableFilter<"Image"> | string | null
   description?: Prisma.StringNullableFilter<"Image"> | string | null
-  uploadedById?: Prisma.StringFilter<"Image"> | string
+  uploadedById?: Prisma.StringNullableFilter<"Image"> | string | null
   associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
   associationType?: Prisma.StringNullableFilter<"Image"> | string | null
   sequence?: Prisma.IntFilter<"Image"> | number
@@ -444,7 +444,7 @@ export type ImageWhereInput = {
   postId?: Prisma.StringNullableFilter<"Image"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"Image"> | string | null
   storyId?: Prisma.StringNullableFilter<"Image"> | string | null
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
   profileUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -476,7 +476,7 @@ export type ImageOrderByWithRelationInput = {
   tags?: Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
   associationType?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
@@ -519,7 +519,7 @@ export type ImageWhereUniqueInput = Prisma.AtLeast<{
   tags?: Prisma.StringNullableListFilter<"Image">
   altText?: Prisma.StringNullableFilter<"Image"> | string | null
   description?: Prisma.StringNullableFilter<"Image"> | string | null
-  uploadedById?: Prisma.StringFilter<"Image"> | string
+  uploadedById?: Prisma.StringNullableFilter<"Image"> | string | null
   associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
   associationType?: Prisma.StringNullableFilter<"Image"> | string | null
   sequence?: Prisma.IntFilter<"Image"> | number
@@ -527,7 +527,7 @@ export type ImageWhereUniqueInput = Prisma.AtLeast<{
   postId?: Prisma.StringNullableFilter<"Image"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"Image"> | string | null
   storyId?: Prisma.StringNullableFilter<"Image"> | string | null
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
   profileUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -559,7 +559,7 @@ export type ImageOrderByWithAggregationInput = {
   tags?: Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
   associationType?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
@@ -602,7 +602,7 @@ export type ImageScalarWhereWithAggregatesInput = {
   tags?: Prisma.StringNullableListFilter<"Image">
   altText?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
-  uploadedById?: Prisma.StringWithAggregatesFilter<"Image"> | string
+  uploadedById?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
   associatedId?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
   associationType?: Prisma.StringNullableWithAggregatesFilter<"Image"> | string | null
   sequence?: Prisma.IntWithAggregatesFilter<"Image"> | number
@@ -640,7 +640,7 @@ export type ImageCreateInput = {
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
   org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
   post?: Prisma.PostCreateNestedOneWithoutImagesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
@@ -672,7 +672,7 @@ export type ImageUncheckedCreateInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -710,7 +710,7 @@ export type ImageUpdateInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedImagesNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
   post?: Prisma.PostUpdateOneWithoutImagesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
@@ -742,7 +742,7 @@ export type ImageUncheckedUpdateInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -777,7 +777,7 @@ export type ImageCreateManyInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -842,7 +842,7 @@ export type ImageUncheckedUpdateManyInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1228,7 +1228,7 @@ export type ImageCreateWithoutOrgInput = {
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
   post?: Prisma.PostCreateNestedOneWithoutImagesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
   story?: Prisma.StoryCreateNestedOneWithoutImagesInput
@@ -1259,7 +1259,7 @@ export type ImageUncheckedCreateWithoutOrgInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -1322,7 +1322,7 @@ export type ImageScalarWhereInput = {
   tags?: Prisma.StringNullableListFilter<"Image">
   altText?: Prisma.StringNullableFilter<"Image"> | string | null
   description?: Prisma.StringNullableFilter<"Image"> | string | null
-  uploadedById?: Prisma.StringFilter<"Image"> | string
+  uploadedById?: Prisma.StringNullableFilter<"Image"> | string | null
   associatedId?: Prisma.StringNullableFilter<"Image"> | string | null
   associationType?: Prisma.StringNullableFilter<"Image"> | string | null
   sequence?: Prisma.IntFilter<"Image"> | number
@@ -1438,7 +1438,7 @@ export type ImageCreateWithoutProfileUserInput = {
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
   org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
   post?: Prisma.PostCreateNestedOneWithoutImagesInput
   story?: Prisma.StoryCreateNestedOneWithoutImagesInput
@@ -1469,7 +1469,7 @@ export type ImageUncheckedCreateWithoutProfileUserInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -1548,7 +1548,7 @@ export type ImageCreateWithoutPostInput = {
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
   org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
   story?: Prisma.StoryCreateNestedOneWithoutImagesInput
@@ -1579,7 +1579,7 @@ export type ImageUncheckedCreateWithoutPostInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -1642,7 +1642,7 @@ export type ImageCreateWithoutStoryInput = {
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedImagesInput
   org?: Prisma.OrganizationCreateNestedOneWithoutImagesInput
   post?: Prisma.PostCreateNestedOneWithoutImagesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileImagesInput
@@ -1673,7 +1673,7 @@ export type ImageUncheckedCreateWithoutStoryInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -1733,7 +1733,7 @@ export type ImageCreateManyOrgInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -1770,7 +1770,7 @@ export type ImageUpdateWithoutOrgInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedImagesNestedInput
   post?: Prisma.PostUpdateOneWithoutImagesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
   story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
@@ -1801,7 +1801,7 @@ export type ImageUncheckedUpdateWithoutOrgInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1835,7 +1835,7 @@ export type ImageUncheckedUpdateManyWithoutOrgInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1903,7 +1903,7 @@ export type ImageCreateManyProfileUserInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -2042,7 +2042,7 @@ export type ImageUpdateWithoutProfileUserInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedImagesNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
   post?: Prisma.PostUpdateOneWithoutImagesNestedInput
   story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
@@ -2073,7 +2073,7 @@ export type ImageUncheckedUpdateWithoutProfileUserInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2107,7 +2107,7 @@ export type ImageUncheckedUpdateManyWithoutProfileUserInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2141,7 +2141,7 @@ export type ImageCreateManyPostInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -2178,7 +2178,7 @@ export type ImageUpdateWithoutPostInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedImagesNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
   story?: Prisma.StoryUpdateOneWithoutImagesNestedInput
@@ -2209,7 +2209,7 @@ export type ImageUncheckedUpdateWithoutPostInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2243,7 +2243,7 @@ export type ImageUncheckedUpdateManyWithoutPostInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2277,7 +2277,7 @@ export type ImageCreateManyStoryInput = {
   tags?: Prisma.ImageCreatetagsInput | string[]
   altText?: string | null
   description?: string | null
-  uploadedById: string
+  uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
   sequence?: number
@@ -2314,7 +2314,7 @@ export type ImageUpdateWithoutStoryInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedImagesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedImagesNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutImagesNestedInput
   post?: Prisma.PostUpdateOneWithoutImagesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileImagesNestedInput
@@ -2345,7 +2345,7 @@ export type ImageUncheckedUpdateWithoutStoryInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2379,7 +2379,7 @@ export type ImageUncheckedUpdateManyWithoutStoryInput = {
   tags?: Prisma.ImageUpdatetagsInput | string[]
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2423,7 +2423,7 @@ export type ImageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   postId?: boolean
   profileUserId?: boolean
   storyId?: boolean
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
@@ -2463,7 +2463,7 @@ export type ImageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   postId?: boolean
   profileUserId?: boolean
   storyId?: boolean
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
@@ -2503,7 +2503,7 @@ export type ImageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   postId?: boolean
   profileUserId?: boolean
   storyId?: boolean
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
@@ -2547,21 +2547,21 @@ export type ImageSelectScalar = {
 
 export type ImageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "filename" | "originalName" | "mimeType" | "fileSize" | "width" | "height" | "storageType" | "storagePath" | "storageUrl" | "bucketName" | "isProcessed" | "thumbnailUrl" | "variants" | "tags" | "altText" | "description" | "uploadedById" | "associatedId" | "associationType" | "sequence" | "orgId" | "postId" | "profileUserId" | "storyId", ExtArgs["result"]["image"]>
 export type ImageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
   story?: boolean | Prisma.Image$storyArgs<ExtArgs>
 }
 export type ImageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
   story?: boolean | Prisma.Image$storyArgs<ExtArgs>
 }
 export type ImageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.Image$uploadedByArgs<ExtArgs>
   org?: boolean | Prisma.Image$orgArgs<ExtArgs>
   post?: boolean | Prisma.Image$postArgs<ExtArgs>
   profileUser?: boolean | Prisma.Image$profileUserArgs<ExtArgs>
@@ -2571,7 +2571,7 @@ export type ImageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Image"
   objects: {
-    uploadedBy: Prisma.$UserPayload<ExtArgs>
+    uploadedBy: Prisma.$UserPayload<ExtArgs> | null
     org: Prisma.$OrganizationPayload<ExtArgs> | null
     post: Prisma.$PostPayload<ExtArgs> | null
     profileUser: Prisma.$UserPayload<ExtArgs> | null
@@ -2602,7 +2602,7 @@ export type $ImagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tags: string[]
     altText: string | null
     description: string | null
-    uploadedById: string
+    uploadedById: string | null
     associatedId: string | null
     associationType: string | null
     sequence: number
@@ -3004,7 +3004,7 @@ readonly fields: ImageFieldRefs;
  */
 export interface Prisma__ImageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  uploadedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  uploadedBy<T extends Prisma.Image$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   org<T extends Prisma.Image$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   post<T extends Prisma.Image$postArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$postArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   profileUser<T extends Prisma.Image$profileUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Image$profileUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -3463,6 +3463,25 @@ export type ImageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Images to delete.
    */
   limit?: number
+}
+
+/**
+ * Image.uploadedBy
+ */
+export type Image$uploadedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

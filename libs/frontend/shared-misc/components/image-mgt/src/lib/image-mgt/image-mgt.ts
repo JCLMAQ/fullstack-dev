@@ -213,6 +213,11 @@ export class ImageMgt {
     // Gérer la progression d'upload si nécessaire
   }
 
+  onUploadCancelled(): void {
+    // Revenir à l'onglet galerie après annulation
+    this.activeTab.set(0);
+  }
+
   cleanupUnusedImages(): void {
     // TODO: Implémenter le nettoyage des images non utilisées
     this.snackBar.open('Fonctionnalité de nettoyage à implémenter', 'Fermer', { duration: 3000 });

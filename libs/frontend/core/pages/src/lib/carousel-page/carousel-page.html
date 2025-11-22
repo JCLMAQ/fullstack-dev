@@ -1,0 +1,6 @@
+<p>carousel-page works!</p>
+<lib-carousel-config
+  [initialImages]="currentCarouselImages()"
+  (save)="onCarouselImagesSave($event)"
+  (closed)="onCarouselCancel()"
+></lib-carousel-config>

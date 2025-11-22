@@ -4,20 +4,6 @@ import type { Image } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
-// Interface pour la réponse du dual-storage controller
-interface UploadResponse {
-  success: boolean;
-  file: {
-    id: string;
-    filename: string;
-    originalName: string;
-    mimeType: string;
-    size: number;
-    storageType: string;
-    url: string;
-  };
-}
-
 export interface CreateImageDto {
   filename: string;
   originalName: string;
@@ -115,7 +101,7 @@ export class ImageService {
   private environment = inject(ENVIRONMENT_TOKEN);
 
   private readonly baseUrl = `${this.environment.API_BACKEND_URL}/images`;
-  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/dual-storage`;
+  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/upload`;
 
   // State management
   private imagesSubject = new BehaviorSubject<Image[]>([]);
@@ -357,55 +343,46 @@ export class ImageService {
     const formData = new FormData();
     formData.append('file', file);
 
-    // Mapping des métadonnées vers les champs attendus par le dual-storage controller
+    // Mapping des métadonnées vers les champs attendus par le upload controller
     if (metadata.uploadedById) {
-      formData.append('ownerId', metadata.uploadedById);
+      formData.append('uploadedById', metadata.uploadedById);
     }
-    formData.append('isPublic', 'true'); // Par défaut public
 
     // Ajout des autres métadonnées optionnelles
     if (metadata.tags && Array.isArray(metadata.tags)) {
       formData.append('tags', metadata.tags.join(','));
     }
+    if (metadata.altText) {
+      formData.append('altText', metadata.altText);
+    }
+    if (metadata.description) {
+      formData.append('description', metadata.description);
+    }
+    if (metadata.isPublic !== undefined) {
+      formData.append('isPublic', metadata.isPublic.toString());
+    }
+    if (metadata.orgId) {
+      formData.append('orgId', metadata.orgId);
+    }
+    if (metadata.postId) {
+      formData.append('postId', metadata.postId);
+    }
+    if (metadata.profileUserId) {
+      formData.append('profileUserId', metadata.profileUserId);
+    }
+    if (metadata.associatedId) {
+      formData.append('associatedId', metadata.associatedId);
+    }
+    if (metadata.associationType) {
+      formData.append('associationType', metadata.associationType);
+    }
 
-    return this.http.post<UploadResponse>(this.uploadUrl, formData).pipe(
+    return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/image`, formData).pipe(
       map(response => {
-        // Conversion de UploadResponse vers Image
-        const imageData: Image = {
-          id: response.file.id,
-          numSeq: 0, // Sera défini par le serveur
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          published: true,
-          isPublic: true,
-          isDeleted: 0,
-          isDeletedDT: null,
-          filename: response.file.filename,
-          originalName: response.file.originalName,
-          mimeType: response.file.mimeType,
-          fileSize: response.file.size,
-          width: metadata.width || null,
-          height: metadata.height || null,
-          storageType: response.file.storageType,
-          storagePath: null,
-          storageUrl: response.file.url,
-          bucketName: null,
-          isProcessed: false,
-          thumbnailUrl: null,
-          variants: null,
-          tags: metadata.tags || [],
-          altText: null,
-          description: null,
-          uploadedById: metadata.uploadedById || 'anonymous',
-          associatedId: null,
-          associationType: null,
-          sequence: 0,
-          orgId: null,
-          postId: null,
-          profileUserId: null,
-          storyId: null
-        };
-        return imageData;
+        // Ajouter l'image à la liste locale
+        const currentImages = this.imagesSubject.value;
+        this.imagesSubject.next([response.data, ...currentImages]);
+        return response.data;
       })
     );
   }
@@ -419,17 +396,37 @@ export class ImageService {
       formData.append('files', file);
     });
 
-    // Ajouter les métadonnées
-    Object.keys(metadata).forEach(key => {
-      const value = metadata[key as keyof CreateImageDto];
-      if (value !== undefined && value !== null) {
-        if (Array.isArray(value)) {
-          formData.append(key, value.join(','));
-        } else {
-          formData.append(key, value.toString());
-        }
-      }
-    });
+    // Ajouter les métadonnées (même format que uploadFile)
+    if (metadata.uploadedById) {
+      formData.append('uploadedById', metadata.uploadedById);
+    }
+    if (metadata.tags && Array.isArray(metadata.tags)) {
+      formData.append('tags', metadata.tags.join(','));
+    }
+    if (metadata.altText) {
+      formData.append('altText', metadata.altText);
+    }
+    if (metadata.description) {
+      formData.append('description', metadata.description);
+    }
+    if (metadata.isPublic !== undefined) {
+      formData.append('isPublic', metadata.isPublic.toString());
+    }
+    if (metadata.orgId) {
+      formData.append('orgId', metadata.orgId);
+    }
+    if (metadata.postId) {
+      formData.append('postId', metadata.postId);
+    }
+    if (metadata.profileUserId) {
+      formData.append('profileUserId', metadata.profileUserId);
+    }
+    if (metadata.associatedId) {
+      formData.append('associatedId', metadata.associatedId);
+    }
+    if (metadata.associationType) {
+      formData.append('associationType', metadata.associationType);
+    }
 
     return this.http.post<{ data: Image[]; count: number; message: string }>(`${this.uploadUrl}/images`, formData).pipe(
       map(response => {
@@ -453,7 +450,7 @@ export class ImageService {
     formData.append('uploadedById', uploadedById);
     formData.append('profileUserId', profileUserId);
 
-    return this.http.post<ImageResponse>(`${this.uploadUrl}/avatar`, formData).pipe(
+    return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/avatar`, formData).pipe(
       map(response => {
         this.loadingSubject.next(false);
         // Ajouter la nouvelle image à la liste
@@ -483,5 +480,24 @@ export class ImageService {
 
   isLoading(): boolean {
     return this.loadingSubject.value;
+  }
+
+  // Helper pour construire l'URL complète de l'image
+  getFullImageUrl(image: Image, useThumbnail = false): string {
+    // Utiliser thumbnailUrl si demandé et disponible, sinon storageUrl
+    const url = useThumbnail && image.thumbnailUrl ? image.thumbnailUrl : image.storageUrl;
+
+    if (!url) {
+      return '/assets/images/placeholder.png';
+    }
+
+    // Si l'URL est déjà absolue, la retourner telle quelle
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+
+    // Construire l'URL complète avec le backend
+    const backendBaseUrl = this.environment.API_BACKEND_URL.replace('/api', '');
+    return `${backendBaseUrl}${url}`;
   }
 }
