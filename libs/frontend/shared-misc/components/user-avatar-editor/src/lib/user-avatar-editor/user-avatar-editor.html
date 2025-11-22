@@ -105,15 +105,14 @@
           </div>
         </mat-tab>
 
-        <!-- Onglet Base64 (stockage en DB) -->
+       <!-- Onglet Base64 (stockage en DB) -->
+        <!--
         <mat-tab label="Base64 DB">
           <div class="p-4">
             <h3 class="mb-4">Stocker l'image en base de données :</h3>
             <p class="text-sm text-gray-600 mb-4">
               L'image sera convertie en base64 et stockée directement en base.
             </p>
-
-            <!-- Zone de drop/sélection pour base64 -->
             <div class="upload-area"
                 [class.dragover]="isDragOver()"
                 (dragover)="onDragOver($event)"
@@ -155,8 +154,6 @@
                 }
               </div>
             </div>
-
-            <!-- Input file caché pour base64 -->
             <input
               #fileInputBase64
               type="file"
@@ -164,7 +161,6 @@
               (change)="onFileSelectedBase64($event)"
               style="display: none"
             />
-
             @if (isUploadingBase64()) {
               <div class="text-center mt-4">
                 <mat-progress-spinner
@@ -176,9 +172,10 @@
             }
           </div>
         </mat-tab>
+        -->
 
         <!-- Onglet URL d'image -->
-        <mat-tab label="Image URL">
+        <!-- <mat-tab label="Image URL">
           <div class="p-4">
             <mat-form-field class="w-full">
               <mat-label>URL de l'image</mat-label>
@@ -202,7 +199,7 @@
               </div>
             }
           </div>
-        </mat-tab>
+        </mat-tab> -->
       </mat-tab-group>
 
       <!-- Aperçu sélectionné -->
