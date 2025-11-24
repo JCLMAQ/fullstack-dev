@@ -47,6 +47,12 @@
     "MainPage": {
       "Content": "Contenu"
     },
+    "HOME": {
+      "WELCOME": "Bienvenue",
+      "SUBTITLE": "Découvrez notre galerie d'images",
+      "VIEW_ALL_IMAGES": "Voir toutes les images",
+      "ADD_IMAGES": "Ajouter des images"
+    },
     "userProfile": {
       "title": "Profil Utilisateur",
       "profileSubtitle": "Gérez et mettez à jour vos informations personnelles",
@@ -165,6 +171,18 @@
       "NO_FILES": "No Files",
       "NO_FILES_DESC": "No files found in the selected folder.",
       "IMAGE_GALLERY.DESELECT_ALL": "Désélectionner Tout"
+    },
+    "CAROUSEL": {
+      "LOADING": "Chargement des images...",
+      "RETRY": "Réessayer",
+      "EMPTY_STATE": "Aucune image à afficher",
+      "PREVIOUS_IMAGE": "Image précédente",
+      "NEXT_IMAGE": "Image suivante",
+      "PAUSE": "Pause",
+      "PLAY": "Play",
+      "GO_TO_IMAGE": "Aller à l'image",
+      "THUMBNAIL": "Miniature",
+      "THUMBNAIL_ALT": "Miniature de l'image"
     },
     "IMAGE_UPLOAD": {
       "TITLE": "Upload d'Images",

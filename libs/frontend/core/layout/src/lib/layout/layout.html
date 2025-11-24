@@ -23,7 +23,7 @@
         class="image-manager-fab"
         color="primary"
         (click)="toggleRightDrawer()"
-        matTooltip="Gestion des images"
+        [matTooltip]="'IMAGE_MANAGEMENT.TITLE' | translate"
       >
         <mat-icon>@if (isRightDrawerOpen()) { close } @else { collections }</mat-icon>
       </button>
@@ -40,7 +40,7 @@
     class="right-drawer"
   >
     <div class="drawer-header">
-      <h2>Gestion des Images</h2>
+      <h2>{{ 'IMAGE_MANAGEMENT.TITLE' | translate }}</h2>
       <button mat-icon-button (click)="toggleRightDrawer()">
         <mat-icon>close</mat-icon>
       </button>

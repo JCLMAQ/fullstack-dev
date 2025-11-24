@@ -1,7 +1,7 @@
 <div class="home-container">
   <div class="home-header">
-    <h1>Bienvenue</h1>
-    <p class="subtitle">Découvrez notre galerie d'images</p>
+    <h1>{{ 'HOME.WELCOME' | translate }}</h1>
+    <p class="subtitle">{{ 'HOME.SUBTITLE' | translate }}</p>
   </div>
 
   <div class="carousel-section">
@@ -12,16 +12,17 @@
     />
   </div>
 
+  <!-- Note: Les boutons ci-dessous sont désactivés en raison d'une dépendance circulaire entre pages et layout
   @if (isLoggedIn()) {
     <div class="home-actions">
       <button mat-raised-button color="primary" (click)="openImageManager()">
         <mat-icon>collections</mat-icon>
-        Voir toutes les images
+        {{ 'HOME.VIEW_ALL_IMAGES' | translate }}
       </button>
       <button mat-raised-button color="accent" (click)="openImageManager()">
         <mat-icon>add_photo_alternate</mat-icon>
-        Ajouter des images
+        {{ 'HOME.ADD_IMAGES' | translate }}
       </button>
     </div>
-  }
+  } -->
 </div>

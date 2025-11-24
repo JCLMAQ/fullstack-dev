@@ -1,21 +1,17 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { IamAuth } from '@fe/auth';
+import { TranslateModule } from '@ngx-translate/core';
+import type { Image } from '@db/prisma';
 import { Carousel, type ICarouselConfig } from '@fe/carousel';
-import { Layout } from '@fe/layout';
 
 @Component({
   selector: 'lib-home',
-  imports: [Carousel, MatButtonModule, MatIconModule],
+  imports: [Carousel, MatButtonModule, MatIconModule, TranslateModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
-  private layout = inject(Layout, { optional: true });
-  private readonly authService = inject(IamAuth);
-
-  readonly isLoggedIn = computed(() => this.authService.isLoggedIn());
 
   carouselConfig: ICarouselConfig = {
     autoPlay: true,
@@ -31,14 +27,7 @@ export class Home {
     console.log('Slide changed to:', index);
   }
 
-  onImageClick(image: any): void {
+  onImageClick(image: Image): void {
     console.log('Image clicked:', image);
-    this.openImageManager();
-  }
-
-  openImageManager(): void {
-    if (this.layout) {
-      this.layout.toggleRightDrawer();
-    }
   }
 }

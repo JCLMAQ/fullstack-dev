@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 import type { Image } from '@db/prisma';
 import { IamAuth } from '@fe/auth';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
@@ -40,6 +41,7 @@ export interface ICarouselConfig {
     MatProgressSpinnerModule,
     MatCardModule,
     MatChipsModule,
+    TranslateModule,
   ],
   templateUrl: './carousel.html',
   styleUrl: './carousel.scss',

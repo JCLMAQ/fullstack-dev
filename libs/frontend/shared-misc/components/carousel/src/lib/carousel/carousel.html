@@ -3,7 +3,7 @@
   @if (loading()) {
     <div class="carousel-loading">
       <mat-spinner diameter="50"></mat-spinner>
-      <p>Chargement des images...</p>
+      <p>{{ 'CAROUSEL.LOADING' | translate }}</p>
     </div>
   }
 
@@ -14,7 +14,7 @@
       <p>{{ error() }}</p>
       <button mat-raised-button color="primary" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
-        Réessayer
+        {{ 'CAROUSEL.RETRY' | translate }}
       </button>
     </mat-card>
   }
@@ -23,7 +23,7 @@
   @if (!loading() && !error() && !hasImages()) {
     <mat-card class="carousel-empty">
       <mat-icon>photo_library</mat-icon>
-      <p>Aucune image à afficher</p>
+      <p>{{ 'CAROUSEL.EMPTY_STATE' | translate }}</p>
     </mat-card>
   }
 
@@ -38,7 +38,7 @@
             mat-fab
             class="carousel-control carousel-control-prev"
             (click)="previousSlide()"
-            [attr.aria-label]="'Image précédente'">
+            [attr.aria-label]="'CAROUSEL.PREVIOUS_IMAGE' | translate">
             <mat-icon>chevron_left</mat-icon>
           </button>
         }
@@ -88,7 +88,7 @@
             mat-fab
             class="carousel-control carousel-control-next"
             (click)="nextSlide()"
-            [attr.aria-label]="'Image suivante'">
+            [attr.aria-label]="'CAROUSEL.NEXT_IMAGE' | translate">
             <mat-icon>chevron_right</mat-icon>
           </button>
         }
@@ -99,7 +99,7 @@
             mat-mini-fab
             class="carousel-play-toggle"
             (click)="toggleAutoPlay()"
-            [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'">
+            [attr.aria-label]="(isPlaying() ? 'CAROUSEL.PAUSE' : 'CAROUSEL.PLAY') | translate">
             <mat-icon>{{ isPlaying() ? 'pause' : 'play_arrow' }}</mat-icon>
           </button>
         }
@@ -113,7 +113,7 @@
               class="carousel-indicator"
               [class.active]="i === currentIndex()"
               (click)="goToSlide(i)"
-              [attr.aria-label]="'Aller à l\'image ' + (i + 1)">
+              [attr.aria-label]="('CAROUSEL.GO_TO_IMAGE' | translate) + ' ' + (i + 1)">
               <span class="indicator-dot"></span>
             </button>
           }
@@ -128,10 +128,10 @@
               class="carousel-thumbnail"
               [class.active]="i === currentIndex()"
               (click)="goToSlide(i)"
-              [attr.aria-label]="'Miniature ' + (i + 1)">
+              [attr.aria-label]="('CAROUSEL.THUMBNAIL' | translate) + ' ' + (i + 1)">
               <img
                 [src]="getThumbnailUrl(image)"
-                [alt]="'Miniature ' + (i + 1)"
+                [alt]="('CAROUSEL.THUMBNAIL_ALT' | translate) + ' ' + (i + 1)"
                 class="thumbnail-image" />
             </button>
           }

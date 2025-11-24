@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { IamAuth } from '@fe/auth';
 import { ImageMgt } from '@fe/image-mgt';
 import { ResponsiveService } from '../services/responsive/responsive-service';
@@ -21,6 +22,7 @@ import { Header } from './header/header';
     MatIconModule,
     MatTooltipModule,
     ImageMgt,
+    TranslateModule,
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
