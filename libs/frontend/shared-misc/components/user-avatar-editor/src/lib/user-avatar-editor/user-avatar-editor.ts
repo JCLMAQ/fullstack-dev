@@ -257,7 +257,7 @@ export class UserAvatarEditor {
     try {
       const formData = new FormData();
       formData.append('image', file);
-      const urlToUse = this.apiConfig.getApiUrl() + '/api/upload/avatar';
+      const urlToUse = this.apiConfig.getApiUrl() + '/upload/avatar';
       const response = await fetch(urlToUse, {
         method: 'POST',
         headers: {
@@ -310,18 +310,28 @@ export class UserAvatarEditor {
           next: async () => {
             console.log('✅ Mise à jour base64 réussie');
 
-            // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
-            await this.authService.refreshUserProfile();
+            try {
+              // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
+              await this.authService.refreshUserProfile();
+              console.log('✅ Profil utilisateur actualisé');
 
-            this.saving.set(false);
-            this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
-              duration: 3000,
-              verticalPosition: 'top'
-            });
-            this.dialogRef.close(true);
+              this.saving.set(false);
+              this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
+                duration: 3000,
+                verticalPosition: 'top'
+              });
+              this.dialogRef.close(true);
+            } catch (refreshError) {
+              console.error('❌ Erreur lors du rafraîchissement du profil:', refreshError);
+              this.saving.set(false);
+              this.snackbar.open('Avatar sauvegardé mais erreur lors de l\'actualisation du profil', 'Fermer', {
+                duration: 5000,
+                verticalPosition: 'top'
+              });
+            }
           },
           error: (error) => {
-            console.log('❌ Échec de la mise à jour base64:', error);
+            console.error('❌ Échec de la mise à jour base64:', error);
             this.saving.set(false);
             this.snackbar.open('Erreur lors de la sauvegarde en base de données', 'Fermer', {
               duration: 5000,
@@ -331,9 +341,11 @@ export class UserAvatarEditor {
         });
       } else {
         // Utiliser l'ancienne méthode pour les autres types (emoji, URL)
-        console.log('�🚀 Appel de updateUserPhoto avec:', photo);
+        console.log('🚀 Appel de updateUserPhoto avec:', photo);
         const result = await this.authService.updateUserPhoto(photo);
         console.log('📡 Réponse du serveur:', result);
+
+        this.saving.set(false);
 
         if (result.success) {
           console.log('✅ Mise à jour réussie');

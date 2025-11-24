@@ -36,7 +36,11 @@
     "SUBJECTEMAILFORGOTPWD": "Forgot Password reinitialyse Link.",
     "TEXTEMAILFORGOTPWD": "To resert your password click on the link.",
     "HTMLEMAILFORGOTPWD": "Hello <br> to reset your password click the link below <br>",
-    "SUBJECTEMAILACCOUNTVALIDATION": "Account Email Validation Link.",
-    "TEXTEMAILACCOUNTVALIDATION": "To valid your new account, click on the link.",
-    "HTMLEMAILACCOUNTVALIDATION": "Hello <br> To valid your new account, click the link below <br>"
+  "SUBJECTEMAILACCOUNTVALIDATION": "Account Email Validation Link.",
+  "TEXTEMAILACCOUNTVALIDATION": "To valid your new account, click on the link.",
+  "HTMLEMAILACCOUNTVALIDATION": "Hello <br> To valid your new account, click the link below <br>",
+  "PHOTO_UPDATED_SUCCESS": "Profile photo updated successfully.",
+  "PHOTO_UPDATE_FAILED": "Failed to update profile photo.",
+  "USER_DELETED": "This user has been deleted.",
+  "USER_NOT_FOUND": "User not found."
   }

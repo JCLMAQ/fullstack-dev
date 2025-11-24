@@ -41,7 +41,7 @@ function generateEnvironmentContent(isProduction: boolean): string {
   return `
     export const ENVIRONMENT_DATA = {
         production: ${isProduction},
-        API_BACKEND_URL: "http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}/${process.env.API_BACKEND_PREFIX}",
+        API_BACKEND_URL: "http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}",
         API_BACKEND_PREFIX: "${process.env.API_BACKEND_PREFIX}",
         API_FRONTEND_URL: "http://${process.env.API_FRONTEND}:${frontendPort}",
         API_FRONTEND: "${process.env.API_FRONTEND}",

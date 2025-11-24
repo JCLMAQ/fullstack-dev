@@ -38,5 +38,9 @@
   "HTMLEMAILFORGOTPWD": "Bonjour <br> Pour réinitialiser votre mot de passe, cliquer sur le lien ci-dessous: <br>",
   "SUBJECTEMAILACCOUNTVALIDATION": "Lien pour la validation de la création de votre compte.",
   "TEXTEMAILACCOUNTVALIDATION": "Pour valider votre nouveau compte, merci de cliquer sur le lien.",
-  "HTMLEMAILACCOUNTVALIDATION": "Bonjour <br> Pour valider votre nouveau compte, merci de cliquer sur le lien ci-dessous <br>"
+  "HTMLEMAILACCOUNTVALIDATION": "Bonjour <br> Pour valider votre nouveau compte, merci de cliquer sur le lien ci-dessous <br>",
+  "PHOTO_UPDATED_SUCCESS": "Photo de profil mise à jour avec succès.",
+  "PHOTO_UPDATE_FAILED": "Échec de la mise à jour de la photo de profil.",
+  "USER_DELETED": "Cet utilisateur a été supprimé.",
+  "USER_NOT_FOUND": "Utilisateur non trouvé."
   }
