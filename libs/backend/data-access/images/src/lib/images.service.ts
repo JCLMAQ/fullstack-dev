@@ -1,6 +1,8 @@
 import { Image, Prisma } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
+import { unlink } from 'fs/promises';
+import { join } from 'path';
 
 export interface ImageCreateData {
   filename: string;
@@ -278,12 +280,70 @@ export class ImagesService {
       });
     } else {
       try {
+        // Récupérer l'image avant de la supprimer pour obtenir le chemin du fichier
+        const image = await this.prisma.image.findUnique({
+          where: { id }
+        });
+
+        if (!image) {
+          throw new Error(`Image with ID ${id} not found`);
+        }
+
+        // Supprimer le fichier physique
+        await this.deletePhysicalFile(image);
+
+        // Supprimer l'entrée de la base de données
         return await this.prisma.image.delete({
           where: { id }
         });
-      } catch {
-        throw new Error(`Image with ID ${id} not found`);
+      } catch (error) {
+        throw new Error(`Failed to delete image: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
+    }
+  }
+
+  private async deletePhysicalFile(image: Image): Promise<void> {
+    try {
+      if (image.storagePath) {
+        // Le storagePath peut être soit un chemin absolu complet, soit un chemin relatif
+        // Vérifier si c'est un chemin absolu (commence par / ou contient déjà process.cwd())
+        let filePath = image.storagePath;
+
+        // Si ce n'est pas un chemin absolu, le construire
+        if (!filePath.startsWith('/') && !filePath.includes(process.cwd())) {
+          filePath = join(process.cwd(), filePath);
+        }
+
+        // Supprimer le fichier principal
+        try {
+          await unlink(filePath);
+          console.log(`✅ Fichier supprimé: ${filePath}`);
+        } catch (error) {
+          console.warn(`⚠️ Impossible de supprimer le fichier: ${filePath}`, error);
+        }
+
+        // Supprimer la miniature si elle existe
+        if (image.thumbnailUrl) {
+          // Convertir l'URL en chemin de fichier
+          // thumbnailUrl est généralement comme '/uploads/images/2024/12/filename.jpg'
+          const thumbnailRelativePath = image.thumbnailUrl.startsWith('/')
+            ? image.thumbnailUrl.slice(1)
+            : image.thumbnailUrl;
+          const thumbnailPath = join(process.cwd(), thumbnailRelativePath);
+
+          try {
+            await unlink(thumbnailPath);
+            console.log(`✅ Miniature supprimée: ${thumbnailPath}`);
+          } catch (error) {
+            console.warn(`⚠️ Impossible de supprimer la miniature: ${thumbnailPath}`, error);
+          }
+        }
+      } else {
+        console.warn('⚠️ Image sans storagePath, impossible de supprimer le fichier physique');
+      }
+    } catch (error) {
+      console.error('❌ Erreur lors de la suppression du fichier physique:', error);
+      // Ne pas propager l'erreur pour ne pas bloquer la suppression en base
     }
   }
 
@@ -320,6 +380,19 @@ export class ImagesService {
 
       return { count: result.count };
     } else {
+      // Récupérer toutes les images avant de les supprimer
+      const images = await this.prisma.image.findMany({
+        where: {
+          id: { in: ids }
+        }
+      });
+
+      // Supprimer les fichiers physiques
+      for (const image of images) {
+        await this.deletePhysicalFile(image);
+      }
+
+      // Supprimer les entrées de la base de données
       const result = await this.prisma.image.deleteMany({
         where: {
           id: { in: ids }
@@ -764,6 +837,20 @@ export class ImagesService {
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - daysOld);
 
+    // Récupérer les images avant de les supprimer
+    const images = await this.prisma.image.findMany({
+      where: {
+        isDeleted: 1,
+        isDeletedDT: { lt: cutoffDate }
+      }
+    });
+
+    // Supprimer les fichiers physiques
+    for (const image of images) {
+      await this.deletePhysicalFile(image);
+    }
+
+    // Supprimer les entrées de la base de données
     const result = await this.prisma.image.deleteMany({
       where: {
         isDeleted: 1,

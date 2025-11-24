@@ -188,49 +188,45 @@ export class ImageGalleryComponent {
   }
 
   deleteImage(image: Image): void {
-    const dialogRef = this.snackBar.open(
-      `Supprimer "${image.originalName}" ?`,
-      'Confirmer',
-      { duration: 5000 }
-    );
-
-    dialogRef.onAction().subscribe(() => {
-      this.imageService.deleteImage(image.id).subscribe({
+    // Demander confirmation avec choix du type de suppression
+    if (confirm(`Voulez-vous supprimer définitivement "${image.originalName}" ?\n\nOui = Suppression définitive (fichier inclus)\nAnnuler = Suppression temporaire (soft delete)`)) {
+      // Suppression définitive (hard delete)
+      this.imageService.deleteImage(image.id, false).subscribe({
         next: () => {
           this.imageDeleted.emit(image);
-          this.snackBar.open('Image supprimée avec succès', 'Fermer', { duration: 2000 });
+          this.snackBar.open('Image supprimée définitivement avec succès', 'Fermer', { duration: 2000 });
         },
         error: (error) => {
           console.error('Erreur lors de la suppression:', error);
           this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
         }
       });
-    });
+    } else {
+      // L'utilisateur a cliqué sur Annuler, on ne fait rien ou on fait un soft delete si on veut
+      // Pour l'instant, on ne fait rien si annulé
+      return;
+    }
   }
 
   deleteSelected(): void {
     const selectedCount = this.selectedImages().length;
-    const dialogRef = this.snackBar.open(
-      `Supprimer ${selectedCount} image(s) sélectionnée(s) ?`,
-      'Confirmer',
-      { duration: 5000 }
-    );
 
-    dialogRef.onAction().subscribe(() => {
+    if (confirm(`Voulez-vous supprimer définitivement ${selectedCount} image(s) ?\n\nOui = Suppression définitive (fichiers inclus)\nAnnuler = Annuler l'opération`)) {
       const selectedIds = this.selectedImageIds();
 
-      this.imageService.bulkDeleteImages(selectedIds).subscribe({
+      // Suppression définitive (hard delete)
+      this.imageService.bulkDeleteImages(selectedIds, false).subscribe({
         next: () => {
           this.imagesDeleted.emit(this.selectedImages());
           this.clearSelection();
-          this.snackBar.open(`${selectedCount} image(s) supprimée(s) avec succès`, 'Fermer', { duration: 2000 });
+          this.snackBar.open(`${selectedCount} image(s) supprimée(s) définitivement avec succès`, 'Fermer', { duration: 2000 });
         },
         error: (error) => {
           console.error('Erreur lors de la suppression en lot:', error);
           this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
         }
       });
-    });
+    }
   }
 
   onImageError(event: Event): void {
