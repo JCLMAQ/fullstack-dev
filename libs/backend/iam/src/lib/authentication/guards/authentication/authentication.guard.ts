@@ -1,13 +1,13 @@
 import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException
+    CanActivate,
+    ExecutionContext,
+    Injectable,
+    UnauthorizedException
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { IS_PUBLIC_KEY } from '../../../authorization/decorators/public.decorator';
 import { AUTH_TYPE_KEY } from '../../decorators/auth.decorator';
 import { AuthType } from '../../enums/auth-type.enum';
-import { IS_PUBLIC_KEY } from '../../../authorization/decorators/public.decorator';
 import { AccessTokenGuard } from '../access-token/access-token.guard';
 import { ApiKeyGuard } from '../api-key/api-key.guard';
 
