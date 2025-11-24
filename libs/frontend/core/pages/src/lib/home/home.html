@@ -12,14 +12,16 @@
     />
   </div>
 
-  <div class="home-actions">
-    <button mat-raised-button color="primary" (click)="openImageManager()">
-      <mat-icon>collections</mat-icon>
-      Voir toutes les images
-    </button>
-    <button mat-raised-button color="accent" (click)="openImageManager()">
-      <mat-icon>add_photo_alternate</mat-icon>
-      Ajouter des images
-    </button>
-  </div>
+  @if (isLoggedIn()) {
+    <div class="home-actions">
+      <button mat-raised-button color="primary" (click)="openImageManager()">
+        <mat-icon>collections</mat-icon>
+        Voir toutes les images
+      </button>
+      <button mat-raised-button color="accent" (click)="openImageManager()">
+        <mat-icon>add_photo_alternate</mat-icon>
+        Ajouter des images
+      </button>
+    </div>
+  }
 </div>

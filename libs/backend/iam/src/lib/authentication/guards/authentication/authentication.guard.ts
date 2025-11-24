@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AUTH_TYPE_KEY } from '../../decorators/auth.decorator';
 import { AuthType } from '../../enums/auth-type.enum';
+import { IS_PUBLIC_KEY } from '../../../authorization/decorators/public.decorator';
 import { AccessTokenGuard } from '../access-token/access-token.guard';
 import { ApiKeyGuard } from '../api-key/api-key.guard';
 
@@ -32,6 +33,15 @@ export class AuthenticationGuard implements CanActivate {
 
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    // Vérifier si la route est publique
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic) {
+      return true;
+    }
+
     const authTypes = this.reflector.getAllAndOverride<AuthType[]>(
       AUTH_TYPE_KEY,
       [context.getHandler(), context.getClass()],

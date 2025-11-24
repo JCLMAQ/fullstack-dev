@@ -16,16 +16,18 @@
     <!-- <app-messages /> -->
     <router-outlet></router-outlet>
 
-    <!-- Bouton flottant pour ouvrir le drawer de gestion des images -->
-    <button
-      mat-fab
-      class="image-manager-fab"
-      color="primary"
-      (click)="toggleRightDrawer()"
-      matTooltip="Gestion des images"
-    >
-      <mat-icon>@if (isRightDrawerOpen()) { close } @else { collections }</mat-icon>
-    </button>
+    <!-- Bouton flottant pour ouvrir le drawer de gestion des images (visible uniquement si connecté) -->
+    @if (isLoggedIn()) {
+      <button
+        mat-fab
+        class="image-manager-fab"
+        color="primary"
+        (click)="toggleRightDrawer()"
+        matTooltip="Gestion des images"
+      >
+        <mat-icon>@if (isRightDrawerOpen()) { close } @else { collections }</mat-icon>
+      </button>
+    }
   </mat-sidenav-content>
 
   <!-- Drawer de droite pour la gestion des images -->

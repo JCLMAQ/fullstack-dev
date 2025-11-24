@@ -17,6 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import type { Image } from '@db/prisma';
+import { IamAuth } from '@fe/auth';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
 
 export interface ICarouselConfig {
@@ -47,6 +48,7 @@ export interface ICarouselConfig {
 export class Carousel {
   private readonly imageService = inject(ImageService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly authService = inject(IamAuth);
 
   // Inputs
   readonly config = input<ICarouselConfig>({
@@ -89,10 +91,14 @@ export class Carousel {
       const tagsList = this.tags();
       const assocType = this.associationType();
       const assocId = this.associatedId();
+      const isLoggedIn = this.authService.isLoggedIn();
 
       const params: SearchImagesDto = {
         ...filters,
         take: this.config().maxImages || 10,
+        // Si l'utilisateur est connecté, on affiche toutes les images (publiques et privées)
+        // Si l'utilisateur n'est pas connecté, on affiche uniquement les images publiques
+        isPublic: isLoggedIn ? undefined : true,
       };
 
       if (assocType) params.associationType = assocType;
@@ -155,7 +161,7 @@ export class Carousel {
       this.stopAutoPlay();
     });
 
-    // Effect pour recharger quand les inputs changent
+    // Effect pour recharger quand les inputs changent ou l'état d'authentification change
     effect(
       () => {
         // Lire tous les inputs pour créer des dépendances
@@ -164,6 +170,8 @@ export class Carousel {
         this.associationType();
         this.associatedId();
         void this.config().maxImages;
+        // Surveiller l'état de connexion pour recharger les images
+        this.authService.isLoggedIn();
 
         // Déclencher le rechargement
         this.loadTrigger.update(v => v + 1);

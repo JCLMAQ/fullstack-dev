@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { IamAuth } from '@fe/auth';
 import { Carousel, type ICarouselConfig } from '@fe/carousel';
 import { Layout } from '@fe/layout';
 
@@ -12,6 +13,9 @@ import { Layout } from '@fe/layout';
 })
 export class Home {
   private layout = inject(Layout, { optional: true });
+  private readonly authService = inject(IamAuth);
+
+  readonly isLoggedIn = computed(() => this.authService.isLoggedIn());
 
   carouselConfig: ICarouselConfig = {
     autoPlay: true,
