@@ -267,7 +267,14 @@
     "ERROR_UNAUTHORIZED": "You are not authorized to upload images. Please log in again.",
     "CANCEL": "Cancel",
     "SAVE": "Save",
-    "CLEAR": "Clear All"
+    "CLEAR": "Clear All",
+    "SHOW_ALL_IMAGES": "Show all images",
+    "SHOW_CAROUSEL_ONLY": "Show carousel only",
+    "SELECT_ALL": "Select all",
+    "REMOVE_FROM_CAROUSEL": "Remove from carousel",
+    "ALL_SELECTED": "All images selected",
+    "CAROUSEL_TAG_REMOVED": "Carousel tag removed from selected images",
+    "ERROR_REMOVING_TAG": "Error removing tag"
   },
   "MESSAGES": {
     "CLOSE": "Close",

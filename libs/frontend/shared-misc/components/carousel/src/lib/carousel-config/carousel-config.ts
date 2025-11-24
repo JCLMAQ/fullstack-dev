@@ -64,13 +64,23 @@ export class CarouselConfig {
         return [];
       }
 
+      // Dépendance sur le mode d'affichage
+      const showAll = this.showAllImages();
+
       try {
-        const images = await this.imageService
-          .getImagesByTags(['carousel'], {
-            take: 50,
-            orderBy: 'createdAt',
-          })
-          .toPromise();
+        const images = showAll
+          ? await this.imageService
+              .getImages({
+                take: 100,
+                orderBy: 'createdAt',
+              })
+              .toPromise()
+          : await this.imageService
+              .getImagesByTags(['carousel'], {
+                take: 50,
+                orderBy: 'createdAt',
+              })
+              .toPromise();
         return images || [];
       } catch (err) {
         // Convertir les erreurs HTTP en Error pour resource()
@@ -92,6 +102,7 @@ export class CarouselConfig {
 
   readonly selectedImages = signal<Image[]>([]);
   readonly uploadLoading = signal(false);
+  readonly showAllImages = signal(false);
 
   // Computed
   readonly availableImages = computed(() => this.imagesResource.value() ?? []);
@@ -149,6 +160,54 @@ export class CarouselConfig {
   }
 
   onClearSelection(): void {
+    this.selectedImages.set([]);
+  }
+
+  selectAll(): void {
+    this.selectedImages.set([...this.availableImages()]);
+    this.snackBar.open(
+      this.translate.instant('CAROUSEL_CONFIG.ALL_SELECTED'),
+      this.translate.instant('MESSAGES.CLOSE'),
+      { duration: 2000 }
+    );
+  }
+
+  async removeCarouselTagFromSelected(): Promise<void> {
+    const selected = this.selectedImages();
+    if (selected.length === 0) {
+      return;
+    }
+
+    try {
+      // Pour chaque image sélectionnée, retirer le tag carousel
+      const updatePromises = selected.map(image => {
+        const tags = (image.tags || []).filter(tag => tag !== 'carousel');
+        return this.imageService.updateImage(image.id, { tags }).toPromise();
+      });
+
+      await Promise.all(updatePromises);
+
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.CAROUSEL_TAG_REMOVED', { count: selected.length }),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 3000 }
+      );
+
+      // Recharger la liste et vider la sélection
+      this.reloadImages();
+      this.selectedImages.set([]);
+    } catch (error) {
+      console.error('Erreur lors de la suppression du tag carousel:', error);
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.ERROR_REMOVING_TAG'),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 3000 }
+      );
+    }
+  }
+
+  toggleLibraryMode(): void {
+    this.showAllImages.update(v => !v);
     this.selectedImages.set([]);
   }
 

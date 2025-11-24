@@ -267,7 +267,14 @@
       "ERROR_UNAUTHORIZED": "Vous n'êtes pas autorisé à télécharger des images. Veuillez vous reconnecter.",
       "CANCEL": "Annuler",
       "SAVE": "Enregistrer",
-      "CLEAR": "Tout désélectionner"
+      "CLEAR": "Tout désélectionner",
+      "SHOW_ALL_IMAGES": "Afficher toutes les images",
+      "SHOW_CAROUSEL_ONLY": "Afficher uniquement le carousel",
+      "SELECT_ALL": "Tout sélectionner",
+      "REMOVE_FROM_CAROUSEL": "Retirer du carousel",
+      "ALL_SELECTED": "Toutes les images sélectionnées",
+      "CAROUSEL_TAG_REMOVED": "Tag carousel retiré des images sélectionnées",
+      "ERROR_REMOVING_TAG": "Erreur lors de la suppression du tag"
     },
     "MESSAGES": {
       "CLOSE": "Fermer",

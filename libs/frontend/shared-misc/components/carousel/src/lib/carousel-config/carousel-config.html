@@ -30,6 +30,34 @@
               <mat-icon>add_photo_alternate</mat-icon>
               {{ 'CAROUSEL_CONFIG.UPLOAD_IMAGES' | translate }}
             </button>
+
+            <button
+              mat-raised-button
+              (click)="toggleLibraryMode()"
+            >
+              <mat-icon>{{ showAllImages() ? 'filter_list' : 'photo_library' }}</mat-icon>
+              {{ showAllImages() ? ('CAROUSEL_CONFIG.SHOW_CAROUSEL_ONLY' | translate) : ('CAROUSEL_CONFIG.SHOW_ALL_IMAGES' | translate) }}
+            </button>
+
+            <button
+              mat-raised-button
+              [disabled]="availableImages().length === 0"
+              (click)="selectAll()"
+            >
+              <mat-icon>select_all</mat-icon>
+              {{ 'CAROUSEL_CONFIG.SELECT_ALL' | translate }}
+            </button>
+
+            <button
+              mat-raised-button
+              color="warn"
+              [disabled]="selectedImages().length === 0"
+              (click)="removeCarouselTagFromSelected()"
+            >
+              <mat-icon>remove_circle</mat-icon>
+              {{ 'CAROUSEL_CONFIG.REMOVE_FROM_CAROUSEL' | translate }}
+            </button>
+
             @if (selectedImages().length > 0) {
               <div class="selection-info-inline">
                 <mat-icon>check_circle</mat-icon>
