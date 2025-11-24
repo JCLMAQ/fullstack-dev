@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, effect, ElementRef, inject, input, output, resource, signal, viewChild } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -44,69 +44,25 @@ export class CarouselConfig {
   readonly closed = output<void>();
 
   // State - Utilisation de resource pour charger les images
-  private readonly refreshTrigger = signal(0);
+  readonly showAllImages = signal(false);
+  readonly selectedImages = signal<Image[]>([]);
+  readonly uploadLoading = signal(false);
+  readonly allImages = signal<Image[]>([]);
+  readonly loading = signal(false);
   private readonly abortController = new AbortController();
 
-  readonly imagesResource = resource({
-    loader: async ({ abortSignal }) => {
-      // Lire le signal pour créer une dépendance réactive
-      this.refreshTrigger();
+  // Computed
+  readonly availableImages = computed(() => {
+    const all = this.allImages();
+    const showAll = this.showAllImages();
 
-      // Vérifier si l'opération est annulée
-      if (abortSignal.aborted) {
-        throw new Error('Operation aborted');
-      }
-
-      // ⚠️ Vérifier l'authentification avant de charger les images
-      const currentUser = this.userStorage.user();
-      if (!currentUser) {
-        console.warn('⚠️ Cannot load images: user not authenticated');
-        return [];
-      }
-
-      // Dépendance sur le mode d'affichage
-      const showAll = this.showAllImages();
-
-      try {
-        const images = showAll
-          ? await this.imageService
-              .getImages({
-                take: 100,
-                orderBy: 'createdAt',
-              })
-              .toPromise()
-          : await this.imageService
-              .getImagesByTags(['carousel'], {
-                take: 50,
-                orderBy: 'createdAt',
-              })
-              .toPromise();
-        return images || [];
-      } catch (err) {
-        // Convertir les erreurs HTTP en Error pour resource()
-        if (err instanceof Error) {
-          throw err;
-        }
-        const errorObj = err as { status?: number; message?: string; statusText?: string };
-        const errorMessage = errorObj.message || errorObj.statusText || `HTTP Error ${errorObj.status || 'Unknown'}`;
-
-        // Log spécifique pour 401
-        if (errorObj.status === 401) {
-          console.error('❌ 401 Unauthorized: User token may be invalid or expired');
-        }
-
-        throw new Error(errorMessage);
-      }
+    if (showAll) {
+      return all;
+    } else {
+      return all.filter(img => img.tags?.includes('carousel'));
     }
   });
 
-  readonly selectedImages = signal<Image[]>([]);
-  readonly uploadLoading = signal(false);
-  readonly showAllImages = signal(false);
-
-  // Computed
-  readonly availableImages = computed(() => this.imagesResource.value() ?? []);
-  readonly loading = computed(() => this.imagesResource.isLoading() || this.uploadLoading());
   readonly selectedImageIds = computed(() =>
     this.selectedImages().map((img) => img.id)
   );
@@ -120,14 +76,50 @@ export class CarouselConfig {
       }
     });
 
+    // Effect pour charger les images au démarrage
+    effect(() => {
+      this.loadImages();
+    });
+
     // Annuler le resource lors de la destruction
     this.destroyRef.onDestroy(() => {
       this.abortController.abort();
     });
   }
 
+  private async loadImages(): Promise<void> {
+    const currentUser = this.userStorage.user();
+    if (!currentUser) {
+      console.warn('⚠️ Cannot load images: user not authenticated');
+      this.allImages.set([]);
+      return;
+    }
+
+    this.loading.set(true);
+
+    try {
+      const images = await this.imageService
+        .getImages({
+          take: 100,
+          orderBy: 'createdAt',
+        })
+        .toPromise();
+      this.allImages.set(images || []);
+    } catch (err) {
+      console.error('Error loading images:', err);
+      this.allImages.set([]);
+
+      const errorObj = err as { status?: number; message?: string; statusText?: string };
+      if (errorObj.status === 401) {
+        console.error('❌ 401 Unauthorized: User token may be invalid or expired');
+      }
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
   private reloadImages(): void {
-    this.refreshTrigger.update(v => v + 1);
+    this.loadImages();
   }
 
   getImageUrl(image: Image): string {
@@ -151,25 +143,25 @@ export class CarouselConfig {
     }
   }
 
-  onSave(): void {
-    this.save.emit(this.selectedImages());
-  }
-
-  onCancel(): void {
-    this.closed.emit();
-  }
-
-  onClearSelection(): void {
-    this.selectedImages.set([]);
-  }
-
-  selectAll(): void {
-    this.selectedImages.set([...this.availableImages()]);
-    this.snackBar.open(
-      this.translate.instant('CAROUSEL_CONFIG.ALL_SELECTED'),
-      this.translate.instant('MESSAGES.CLOSE'),
-      { duration: 2000 }
-    );
+  toggleSelectAll(): void {
+    const hasSelection = this.selectedImages().length > 0;
+    
+    if (hasSelection) {
+      this.selectedImages.set([]);
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.ALL_DESELECTED'),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 2000 }
+      );
+    } else {
+      const available = this.availableImages();
+      this.selectedImages.set([...available]);
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.ALL_SELECTED'),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 2000 }
+      );
+    }
   }
 
   async removeCarouselTagFromSelected(): Promise<void> {
@@ -200,6 +192,55 @@ export class CarouselConfig {
       console.error('Erreur lors de la suppression du tag carousel:', error);
       this.snackBar.open(
         this.translate.instant('CAROUSEL_CONFIG.ERROR_REMOVING_TAG'),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 3000 }
+      );
+    }
+  }
+
+  async toggleCarouselTagForSelected(): Promise<void> {
+    const selected = this.selectedImages();
+    if (selected.length === 0) {
+      return;
+    }
+
+    try {
+      // Pour chaque image sélectionnée, toggler le tag carousel
+      const updatePromises = selected.map(image => {
+        const currentTags = image.tags || [];
+        const hasCarouselTag = currentTags.includes('carousel');
+        
+        const tags = hasCarouselTag
+          ? currentTags.filter(tag => tag !== 'carousel')
+          : [...currentTags, 'carousel'];
+        
+        return this.imageService.updateImage(image.id, { tags }).toPromise();
+      });
+
+      await Promise.all(updatePromises);
+
+      // Compter combien d'images avaient le tag avant
+      const withCarouselTag = selected.filter(img => img.tags?.includes('carousel')).length;
+      const addedCount = selected.length - withCarouselTag;
+      const removedCount = withCarouselTag;
+
+      const messageKey = addedCount > 0 
+        ? 'CAROUSEL_CONFIG.CAROUSEL_TAG_ADDED'
+        : 'CAROUSEL_CONFIG.CAROUSEL_TAG_REMOVED';
+
+      this.snackBar.open(
+        this.translate.instant(messageKey, { count: addedCount > 0 ? addedCount : removedCount }),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 3000 }
+      );
+
+      // Recharger la liste et vider la sélection
+      this.reloadImages();
+      this.selectedImages.set([]);
+    } catch (error) {
+      console.error('Erreur lors du toggle du tag carousel:', error);
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.ERROR_TOGGLING_TAG'),
         this.translate.instant('MESSAGES.CLOSE'),
         { duration: 3000 }
       );

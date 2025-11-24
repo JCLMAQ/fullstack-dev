@@ -271,10 +271,15 @@
     "SHOW_ALL_IMAGES": "Show all images",
     "SHOW_CAROUSEL_ONLY": "Show carousel only",
     "SELECT_ALL": "Select all",
+    "DESELECT_ALL": "Deselect all",
     "REMOVE_FROM_CAROUSEL": "Remove from carousel",
+    "TOGGLE_CAROUSEL_TAG": "Toggle carousel",
     "ALL_SELECTED": "All images selected",
-    "CAROUSEL_TAG_REMOVED": "Carousel tag removed from selected images",
-    "ERROR_REMOVING_TAG": "Error removing tag"
+    "ALL_DESELECTED": "All images deselected",
+    "CAROUSEL_TAG_REMOVED": "Carousel tag removed from {{count}} image(s)",
+    "CAROUSEL_TAG_ADDED": "Carousel tag added to {{count}} image(s)",
+    "ERROR_REMOVING_TAG": "Error removing tag",
+    "ERROR_TOGGLING_TAG": "Error toggling tag"
   },
   "MESSAGES": {
     "CLOSE": "Close",

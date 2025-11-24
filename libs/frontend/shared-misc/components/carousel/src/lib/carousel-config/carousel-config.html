@@ -42,20 +42,20 @@
             <button
               mat-raised-button
               [disabled]="availableImages().length === 0"
-              (click)="selectAll()"
+              (click)="toggleSelectAll()"
             >
-              <mat-icon>select_all</mat-icon>
-              {{ 'CAROUSEL_CONFIG.SELECT_ALL' | translate }}
+              <mat-icon>{{ selectedImages().length > 0 ? 'deselect' : 'select_all' }}</mat-icon>
+              {{ selectedImages().length > 0 ? ('CAROUSEL_CONFIG.DESELECT_ALL' | translate) : ('CAROUSEL_CONFIG.SELECT_ALL' | translate) }}
             </button>
 
             <button
               mat-raised-button
-              color="warn"
+              color="accent"
               [disabled]="selectedImages().length === 0"
-              (click)="removeCarouselTagFromSelected()"
+              (click)="toggleCarouselTagForSelected()"
             >
-              <mat-icon>remove_circle</mat-icon>
-              {{ 'CAROUSEL_CONFIG.REMOVE_FROM_CAROUSEL' | translate }}
+              <mat-icon>swap_horiz</mat-icon>
+              {{ 'CAROUSEL_CONFIG.TOGGLE_CAROUSEL_TAG' | translate }}
             </button>
 
             @if (selectedImages().length > 0) {
@@ -144,7 +144,14 @@
 
                   <!-- Image info -->
                   <div class="image-info">
-                    <p class="image-name">{{ image.originalName }}</p>
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                      <p class="image-name">{{ image.originalName }}</p>
+                      @if (image.tags && image.tags.includes('carousel')) {
+                        <div class="carousel-tag-badge-inline">
+                          <mat-icon>view_carousel</mat-icon>
+                        </div>
+                      }
+                    </div>
                     @if (image.description) {
                       <p class="image-description">{{ image.description }}</p>
                     }
@@ -185,35 +192,5 @@
             </div>
           }
         </mat-card-content>
-
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            (click)="onCancel()"
-          >
-            <mat-icon>close</mat-icon>
-            {{ 'CAROUSEL_CONFIG.CANCEL' | translate }}
-          </button>
-
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="selectedImages().length === 0"
-            (click)="onSave()"
-          >
-            <mat-icon>save</mat-icon>
-            {{ 'CAROUSEL_CONFIG.SAVE' | translate }}
-          </button>
-
-          <button
-            mat-raised-button
-            color="accent"
-            [disabled]="selectedImages().length === 0"
-            (click)="onClearSelection()"
-          >
-            <mat-icon>clear_all</mat-icon>
-            {{ 'CAROUSEL_CONFIG.CLEAR' | translate }}
-          </button>
-        </mat-card-actions>
       </mat-card>
     </div>
