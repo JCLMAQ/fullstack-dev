@@ -49,7 +49,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             authToken: authToken,
           });
 
-          store._router.navigate(['/dashboard']);
+          store._router.navigate(['/pages/home']);
         } catch (error) {
           store._snackbar.open('Invalid email or password', 'Close', {
             verticalPosition: 'top',
