@@ -279,7 +279,9 @@
     "CAROUSEL_TAG_REMOVED": "Carousel tag removed from {{count}} image(s)",
     "CAROUSEL_TAG_ADDED": "Carousel tag added to {{count}} image(s)",
     "ERROR_REMOVING_TAG": "Error removing tag",
-    "ERROR_TOGGLING_TAG": "Error toggling tag"
+    "ERROR_TOGGLING_TAG": "Error toggling tag",
+    "MAKE_PRIVATE": "Make private",
+    "MAKE_PUBLIC": "Make public"
   },
   "MESSAGES": {
     "CLOSE": "Close",

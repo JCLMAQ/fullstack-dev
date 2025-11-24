@@ -145,7 +145,7 @@ export class CarouselConfig {
 
   toggleSelectAll(): void {
     const hasSelection = this.selectedImages().length > 0;
-    
+
     if (hasSelection) {
       this.selectedImages.set([]);
       this.snackBar.open(
@@ -209,11 +209,11 @@ export class CarouselConfig {
       const updatePromises = selected.map(image => {
         const currentTags = image.tags || [];
         const hasCarouselTag = currentTags.includes('carousel');
-        
+
         const tags = hasCarouselTag
           ? currentTags.filter(tag => tag !== 'carousel')
           : [...currentTags, 'carousel'];
-        
+
         return this.imageService.updateImage(image.id, { tags }).toPromise();
       });
 
@@ -224,7 +224,7 @@ export class CarouselConfig {
       const addedCount = selected.length - withCarouselTag;
       const removedCount = withCarouselTag;
 
-      const messageKey = addedCount > 0 
+      const messageKey = addedCount > 0
         ? 'CAROUSEL_CONFIG.CAROUSEL_TAG_ADDED'
         : 'CAROUSEL_CONFIG.CAROUSEL_TAG_REMOVED';
 
