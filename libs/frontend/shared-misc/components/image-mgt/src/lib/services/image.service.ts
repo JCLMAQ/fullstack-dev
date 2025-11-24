@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import type { Image } from '@db/prisma';
+import { TokenStorageService } from '@fe/core/auth';
 import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
@@ -99,6 +100,7 @@ export interface BulkResponse {
 export class ImageService {
   private http = inject(HttpClient);
   private environment = inject(ENVIRONMENT_TOKEN);
+  private tokenStorage = inject(TokenStorageService);
 
   private readonly baseUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/images`;
   private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/upload`;
@@ -497,9 +499,20 @@ export class ImageService {
     }
 
     // Construire l'URL complète avec le backend
-
     const backendBaseUrl = this.environment.API_BACKEND_URL;
-    // const backendBaseUrl = this.environment.API_BACKEND_URL.replace('/api', '');
-    return `${backendBaseUrl}${url}`;
+    const fullUrl = `${backendBaseUrl}${url}`;
+
+    // Si l'image est privée, ajouter le token d'authentification comme paramètre de requête
+    // C'est nécessaire car les balises <img> ne peuvent pas envoyer des headers personnalisés
+    if (!image.isPublic) {
+      const token = this.tokenStorage.authToken();
+      if (token) {
+        // Ajouter le token comme paramètre de requête
+        const separator = fullUrl.includes('?') ? '&' : '?';
+        return `${fullUrl}${separator}token=${encodeURIComponent(token)}`;
+      }
+    }
+
+    return fullUrl;
   }
 }

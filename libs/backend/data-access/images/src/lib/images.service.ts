@@ -172,6 +172,21 @@ export class ImagesService {
     });
   }
 
+  async findImageByFilename(filename: string): Promise<Pick<Image, 'id' | 'filename' | 'isPublic' | 'uploadedById'> | null> {
+    return this.prisma.image.findFirst({
+      where: {
+        filename,
+        isDeleted: 0
+      },
+      select: {
+        id: true,
+        filename: true,
+        isPublic: true,
+        uploadedById: true
+      }
+    });
+  }
+
   async findImages(
     options: ImageSearchOptions = {},
     pagination?: { skip?: number; take?: number; orderBy?: Prisma.ImageOrderByWithRelationInput }

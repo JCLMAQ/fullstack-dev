@@ -1,27 +1,30 @@
 import { Public } from '@be/iam';
 import { Image, Prisma } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    DefaultValuePipe,
-    Delete,
-    Get,
-    HttpException,
-    HttpStatus,
-    Param,
-    ParseIntPipe,
-    ParseUUIDPipe,
-    Post,
-    Put,
-    Query,
-    ValidationPipe
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Param,
+  ParseIntPipe,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
+  ValidationPipe
 } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import type { Request } from 'express';
 import {
-    ImageAnalyticsResult,
-    ImageSearchOptions,
-    ImagesService
+  ImageAnalyticsResult,
+  ImageSearchOptions,
+  ImagesService
 } from './images.service';
 
 // DTOs pour la validation
@@ -213,13 +216,23 @@ export class ImagesController {
   @Public()
   @Get(':id')
   async getImageById(
-    @Param('id', ParseUUIDPipe) id: string
+    @Param('id', ParseUUIDPipe) id: string,
+    @Inject(REQUEST) request?: Request
   ): Promise<{ data: Image | null; message: string }> {
     try {
       const image = await this.imagesService.findImageById(id);
       if (!image) {
         throw new HttpException('Image non trouvée', HttpStatus.NOT_FOUND);
       }
+
+      // Vérifier si l'utilisateur est authentifié
+      const isAuthenticated = request ? !!(request as Request & { user?: unknown }).user : false;
+
+      // Si l'image est privée et l'utilisateur n'est pas authentifié, refuser l'accès
+      if (!image.isPublic && !isAuthenticated) {
+        throw new HttpException('Accès non autorisé à cette image', HttpStatus.FORBIDDEN);
+      }
+
       return {
         data: image,
         message: 'Image récupérée avec succès'
@@ -238,7 +251,8 @@ export class ImagesController {
   @Public()
   @Get()
   async getImages(
-    @Query() searchParams: SearchImagesDto
+    @Query() searchParams: SearchImagesDto,
+    @Inject(REQUEST) request?: Request
   ): Promise<{ data: Image[]; total: number; message: string }> {
     try {
       const {
@@ -251,8 +265,14 @@ export class ImagesController {
         ...filters
       } = searchParams;
 
+      // Vérifier si l'utilisateur est authentifié
+      const isAuthenticated = request ? !!(request as Request & { user?: unknown }).user : false;
+
+      // Si non authentifié, forcer isPublic à true
       const searchOptions: ImageSearchOptions = {
         ...filters,
+        // Si l'utilisateur n'est pas authentifié, forcer à voir uniquement les images publiques
+        isPublic: isAuthenticated ? filters.isPublic : true,
         ...(createdAfter && { createdAfter: new Date(createdAfter) }),
         ...(createdBefore && { createdBefore: new Date(createdBefore) })
       };

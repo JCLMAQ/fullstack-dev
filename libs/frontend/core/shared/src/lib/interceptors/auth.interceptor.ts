@@ -32,12 +32,13 @@ export function AuthInterceptor (request: HttpRequest<unknown>, next: HttpHandle
         return next(request);
     }
 
-    // Cloner la requête et ajouter le header Authorization
+    // Cloner la requête et ajouter le header Authorization et withCredentials
     const cloned = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`)
+        headers: request.headers.set('Authorization', `Bearer ${token}`),
+        withCredentials: true // Permet l'envoi des cookies avec les requêtes cross-origin
     });
 
-    console.log('✅ Token ajouté au header Authorization');
+    console.log('✅ Token ajouté au header Authorization + withCredentials activé');
     return next(cloned);
 }
 

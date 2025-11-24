@@ -17,6 +17,7 @@ module.exports = {
       assets: ['./src/assets'],
       optimization: false,
       outputHashing: 'none',
+      outputFileName: 'main.js',
       generatePackageJson: true,
       sourceMaps: true,
     }),
