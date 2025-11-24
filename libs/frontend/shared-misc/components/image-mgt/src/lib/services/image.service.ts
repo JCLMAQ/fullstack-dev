@@ -100,8 +100,8 @@ export class ImageService {
   private http = inject(HttpClient);
   private environment = inject(ENVIRONMENT_TOKEN);
 
-  private readonly baseUrl = `${this.environment.API_BACKEND_URL}/images`;
-  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/upload`;
+  private readonly baseUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/images`;
+  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/upload`;
 
   // State management
   private imagesSubject = new BehaviorSubject<Image[]>([]);
@@ -497,7 +497,9 @@ export class ImageService {
     }
 
     // Construire l'URL complète avec le backend
-    const backendBaseUrl = this.environment.API_BACKEND_URL.replace('/api', '');
+
+    const backendBaseUrl = this.environment.API_BACKEND_URL;
+    // const backendBaseUrl = this.environment.API_BACKEND_URL.replace('/api', '');
     return `${backendBaseUrl}${url}`;
   }
 }
