@@ -8,7 +8,6 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ClsMiddleware } from 'nestjs-cls';
-import { join } from 'path';
 import { AppModule } from './app/app.module';
 // import { PrismaClientService } from '@db/prisma-client';
 
@@ -20,10 +19,11 @@ async function bootstrap() {
   app.use(require('express').json({ limit: '10mb' }));
   app.use(require('express').urlencoded({ limit: '10mb', extended: true }));
 
-  // Servir les fichiers statiques depuis le dossier uploads
-  app.useStaticAssets(join(process.cwd(), 'uploads'), {
-    prefix: '/uploads/',
-  });
+  // Ne PAS servir les fichiers statiques directement pour permettre la vérification de sécurité
+  // Les fichiers seront servis via UploadsController qui vérifie les permissions
+  // app.useStaticAssets(join(process.cwd(), 'uploads'), {
+  //   prefix: '/uploads/',
+  // });
 
   // Configuration CORS pour permettre les requêtes depuis le frontend
   app.enableCors({
@@ -83,7 +83,9 @@ async function bootstrap() {
   }
 
   const globalPrefix = process.env.API_BACKEND_PREFIX || 'api';
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix(globalPrefix, {
+    exclude: ['uploads/(.*)'], // Exclure /uploads du prefix global pour servir les fichiers directement
+  });
   const port = process.env.API_BACKEND_PORT || 3000;
   await app.listen(port);
   Logger.log(

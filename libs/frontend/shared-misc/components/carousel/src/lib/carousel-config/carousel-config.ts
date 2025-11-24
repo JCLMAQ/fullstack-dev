@@ -66,8 +66,7 @@ export class CarouselConfig {
 
       try {
         const images = await this.imageService
-          .getImages({
-            isPublic: true,
+          .getImagesByTags(['carousel'], {
             take: 50,
             orderBy: 'createdAt',
           })
@@ -251,5 +250,31 @@ export class CarouselConfig {
       );
       input.value = '';
     }
+  }
+
+  togglePublicStatus(image: Image, event: Event): void {
+    event.stopPropagation();
+
+    this.imageService.updateImage(image.id, { isPublic: !image.isPublic }).subscribe({
+      next: (updatedImage) => {
+        // Mettre à jour l'image localement
+        Object.assign(image, { isPublic: updatedImage.isPublic });
+        this.snackBar.open(
+          updatedImage.isPublic
+            ? 'Image rendue publique'
+            : 'Image rendue privée',
+          this.translate.instant('MESSAGES.CLOSE'),
+          { duration: 2000 }
+        );
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du statut:', error);
+        this.snackBar.open(
+          'Erreur lors de la mise à jour',
+          this.translate.instant('MESSAGES.CLOSE'),
+          { duration: 3000 }
+        );
+      }
+    });
   }
 }

@@ -2,7 +2,6 @@ import { Public } from '@be/iam';
 import jwtConfig from '@be/jwtconfig';
 import { Controller, ForbiddenException, Get, Headers, Inject, NotFoundException, Param, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { REQUEST } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import type { Request } from 'express';
 import { existsSync } from 'fs';
@@ -90,16 +89,20 @@ export class UploadsController {
       const image = await this.imagesService.findImageByFilename(filename);
 
       if (!image) {
-        // Si l'image n'existe pas en BDD, on refuse l'accès par sécurité
-        throw new NotFoundException('Image non trouvée');
+        // Si l'image n'existe pas en BDD, on autorise l'accès (mode legacy/public par défaut)
+        console.log(`⚠️ Image ${filename} non trouvée en BDD, accès autorisé en mode legacy`);
+        return;
       }
 
       // Si l'image est publique, autoriser l'accès
       if (image.isPublic) {
+        console.log(`✅ Image publique ${filename} - accès autorisé`);
         return;
       }
 
       // Si l'image est privée, vérifier l'authentification via plusieurs méthodes
+      console.log(`🔒 Image privée ${filename} - vérification de l'authentification`);
+
       // Méthode 1: Vérifier le header Authorization
       const hasAuthHeader = authHeader && authHeader.startsWith('Bearer ');
 
@@ -119,7 +122,7 @@ export class UploadsController {
           console.log(`✅ Image privée ${filename} accessible via token query param valide`);
           return;
         } catch (error) {
-          console.log(`⚠️ Token query param invalide pour l'image ${filename}:`, error);
+          console.log(`⚠️ Token query param invalide pour l'image ${filename}:`, error.message);
           // Continue avec les autres méthodes d'authentification
         }
       }
@@ -127,7 +130,7 @@ export class UploadsController {
       const isAuthenticated = hasAuthHeader || !!cookieToken || !!user;
 
       if (!isAuthenticated) {
-        console.log(`⚠️ Accès refusé à l'image privée ${filename} - Pas d'authentification`);
+        console.log(`❌ Accès refusé à l'image privée ${filename} - Pas d'authentification`);
         throw new UnauthorizedException('Vous devez être connecté pour accéder à cette image privée');
       }
 
@@ -138,9 +141,9 @@ export class UploadsController {
       if (error instanceof NotFoundException || error instanceof ForbiddenException || error instanceof UnauthorizedException) {
         throw error;
       }
-      // Pour toute autre erreur (connexion BDD, etc.), logger et continuer
+      // Pour toute autre erreur (connexion BDD, etc.), logger et autoriser l'accès
       console.error('Erreur lors de la vérification de visibilité de l\'image:', error);
-      // Ne pas bloquer l'accès en cas d'erreur technique
+      // Autoriser l'accès en cas d'erreur technique pour ne pas bloquer les images
     }
   }
 }

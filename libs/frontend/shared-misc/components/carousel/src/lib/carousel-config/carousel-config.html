@@ -120,6 +120,21 @@
                     @if (image.description) {
                       <p class="image-description">{{ image.description }}</p>
                     }
+                    <div class="flex items-center gap-1 mt-1">
+                      <mat-icon
+                        [class]="image.isPublic ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-gray-500'"
+                        class="text-xs"
+                      >
+                        {{ image.isPublic ? 'public' : 'lock' }}
+                      </mat-icon>
+                      <button
+                        mat-button
+                        class="!text-xs !py-0 !px-2 !min-w-0"
+                        (click)="togglePublicStatus(image, $event)"
+                      >
+                        {{ image.isPublic ? 'Rendre privée' : 'Rendre publique' }}
+                      </button>
+                    </div>
                   </div>
                 </div>
               }

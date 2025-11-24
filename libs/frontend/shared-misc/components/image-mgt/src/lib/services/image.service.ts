@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import type { Image } from '@db/prisma';
 import { TokenStorageService } from '@fe/core/auth';
 import { ENVIRONMENT_TOKEN } from '@fe/shared';
@@ -108,9 +108,23 @@ export class ImageService {
   // State management
   private imagesSubject = new BehaviorSubject<Image[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
+  private urlCacheBuster = signal<number>(Date.now());
 
   public images$ = this.imagesSubject.asObservable();
   public loading$ = this.loadingSubject.asObservable();
+
+  constructor() {
+    // Détecter les changements de token pour forcer le rafraîchissement des URLs
+    effect(() => {
+      const token = this.tokenStorage.authToken();
+      console.log('🖼️ ImageService - Token changed:', token ? `${token.substring(0, 20)}...` : 'undefined');
+      if (token) {
+        // Mettre à jour le cache buster quand le token change
+        this.urlCacheBuster.set(Date.now());
+        console.log('🔄 ImageService - Cache buster updated:', this.urlCacheBuster());
+      }
+    });
+  }
 
   // Core CRUD Operations
 
@@ -506,10 +520,16 @@ export class ImageService {
     // C'est nécessaire car les balises <img> ne peuvent pas envoyer des headers personnalisés
     if (!image.isPublic) {
       const token = this.tokenStorage.authToken();
+      console.log('🔐 Building private image URL - Token present:', !!token, 'Image:', image.filename);
       if (token) {
-        // Ajouter le token comme paramètre de requête
+        // Ajouter le token + un cache buster qui change seulement quand le token change
         const separator = fullUrl.includes('?') ? '&' : '?';
-        return `${fullUrl}${separator}token=${encodeURIComponent(token)}`;
+        const cacheBuster = this.urlCacheBuster();
+        const finalUrl = `${fullUrl}${separator}token=${encodeURIComponent(token)}&_t=${cacheBuster}`;
+        console.log('🖼️ Private image URL built:', finalUrl.substring(0, 100) + '...');
+        return finalUrl;
+      } else {
+        console.warn('⚠️ No token available for private image:', image.filename);
       }
     }
 

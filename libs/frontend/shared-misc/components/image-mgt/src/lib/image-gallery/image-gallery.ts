@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Image } from '@db/prisma';
 import { TranslateModule } from '@ngx-translate/core';
+import { ImageTagEditorComponent } from '../image-tag-editor/image-tag-editor';
 import { ImageViewerComponent } from '../image-viewer/image-viewer';
 import { ImageService } from '../services/image.service';
 
@@ -240,5 +241,59 @@ export class ImageGalleryComponent {
     const sizes = ['B', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  openTagEditor(image: Image, event: Event): void {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(ImageTagEditorComponent, {
+      data: { image },
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateImage(image, result);
+      }
+    });
+  }
+
+  toggleCarouselTag(image: Image, event: Event): void {
+    event.stopPropagation();
+    const tags = image.tags || [];
+    const hasCarouselTag = tags.includes('carousel');
+
+    const updatedTags = hasCarouselTag
+      ? tags.filter(t => t !== 'carousel')
+      : [...tags, 'carousel'];
+
+    this.updateImage(image, { tags: updatedTags });
+  }
+
+  togglePublicStatus(image: Image, event: Event): void {
+    event.stopPropagation();
+    this.updateImage(image, { isPublic: !image.isPublic });
+  }
+
+  hasCarouselTag(image: Image): boolean {
+    return image.tags?.includes('carousel') ?? false;
+  }
+
+  private updateImage(image: Image, updates: { tags?: string[], isPublic?: boolean }): void {
+    this.imageService.updateImage(image.id, updates).subscribe({
+      next: (updatedImage) => {
+        // Mettre à jour l'image localement
+        Object.assign(image, {
+          tags: updatedImage.tags,
+          isPublic: updatedImage.isPublic
+        });
+        this.snackBar.open('Image mise à jour avec succès', 'Fermer', { duration: 2000 });
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour:', error);
+        const errorMsg = error?.error?.message || error?.message || 'Erreur inconnue';
+        this.snackBar.open(`Erreur: ${errorMsg}`, 'Fermer', { duration: 5000 });
+      }
+    });
   }
 }

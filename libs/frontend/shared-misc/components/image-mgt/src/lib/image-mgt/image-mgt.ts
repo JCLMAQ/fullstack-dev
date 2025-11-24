@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { Image } from '@db/prisma';
+import { TokenStorageService } from '@fe/core/auth';
 import { TranslateModule } from '@ngx-translate/core';
 import { ImageGalleryComponent } from '../image-gallery/image-gallery';
 import { ImageUploadManagerComponent } from '../image-upload-manager/image-upload-manager';
@@ -46,6 +47,7 @@ export class ImageMgt {
 
   private imageService = inject(ImageService);
   private snackBar = inject(MatSnackBar);
+  private tokenStorage = inject(TokenStorageService);
 
   // Inputs
   showAssociations = input<boolean>(false);
@@ -85,6 +87,17 @@ export class ImageMgt {
 
   constructor() {
     this.loadImages();
+
+    // Recharger les images quand le token change (reconnexion)
+    effect(() => {
+      const token = this.tokenStorage.authToken();
+      console.log('🖼️ ImageMgt - Token changed, reloading images...', !!token);
+      if (token) {
+        // Vider les images puis les recharger pour forcer la reconstruction des URLs
+        this.images.set([]);
+        setTimeout(() => this.loadImages(), 100);
+      }
+    });
   }
 
   private async loadImages(): Promise<void> {

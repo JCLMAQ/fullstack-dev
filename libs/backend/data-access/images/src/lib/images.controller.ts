@@ -1,30 +1,34 @@
 import { Public } from '@be/iam';
+import jwtConfig from '@be/jwtconfig';
 import { Image, Prisma } from '@db/prisma';
 import {
-  Body,
-  Controller,
-  DefaultValuePipe,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Inject,
-  Param,
-  ParseIntPipe,
-  ParseUUIDPipe,
-  Post,
-  Put,
-  Query,
-  ValidationPipe
+    Body,
+    Controller,
+    DefaultValuePipe,
+    Delete,
+    Get,
+    Headers,
+    HttpException,
+    HttpStatus,
+    Inject,
+    Param,
+    ParseIntPipe,
+    ParseUUIDPipe,
+    Post,
+    Put,
+    Query,
+    ValidationPipe
 } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { REQUEST } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
 import { Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 import type { Request } from 'express';
 import {
-  ImageAnalyticsResult,
-  ImageSearchOptions,
-  ImagesService
+    ImageAnalyticsResult,
+    ImageSearchOptions,
+    ImagesService
 } from './images.service';
 
 // DTOs pour la validation
@@ -56,28 +60,96 @@ export class CreateImageDto {
 }
 
 export class UpdateImageDto {
+  @IsOptional()
+  @IsString()
   filename?: string;
+
+  @IsOptional()
+  @IsString()
   originalName?: string;
+
+  @IsOptional()
+  @IsString()
   mimeType?: string;
+
+  @IsOptional()
+  @IsInt()
   fileSize?: number;
+
+  @IsOptional()
+  @IsInt()
   width?: number;
+
+  @IsOptional()
+  @IsInt()
   height?: number;
+
+  @IsOptional()
+  @IsString()
   storageType?: string;
+
+  @IsOptional()
+  @IsString()
   storagePath?: string;
+
+  @IsOptional()
+  @IsString()
   storageUrl?: string;
+
+  @IsOptional()
+  @IsString()
   bucketName?: string;
+
+  @IsOptional()
+  @IsString()
   thumbnailUrl?: string;
+
+  @IsOptional()
   variants?: unknown;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
   tags?: string[];
+
+  @IsOptional()
+  @IsString()
   altText?: string;
+
+  @IsOptional()
+  @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsInt()
   sequence?: number;
+
+  @IsOptional()
+  @IsBoolean()
   isPublic?: boolean;
+
+  @IsOptional()
+  @IsString()
   associatedId?: string;
+
+  @IsOptional()
+  @IsString()
   associationType?: string;
+
+  @IsOptional()
+  @IsString()
   orgId?: string;
+
+  @IsOptional()
+  @IsString()
   postId?: string;
+
+  @IsOptional()
+  @IsString()
   storyId?: string;
+
+  @IsOptional()
+  @IsString()
   profileUserId?: string;
 }
 
@@ -191,7 +263,12 @@ export class SearchImagesDto {
 
 @Controller('images')
 export class ImagesController {
-  constructor(private readonly imagesService: ImagesService) {}
+  constructor(
+    private readonly imagesService: ImagesService,
+    private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>
+  ) {}
 
   // Core CRUD Operations
 
@@ -252,6 +329,7 @@ export class ImagesController {
   @Get()
   async getImages(
     @Query() searchParams: SearchImagesDto,
+    @Headers('authorization') authHeader?: string,
     @Inject(REQUEST) request?: Request
   ): Promise<{ data: Image[]; total: number; message: string }> {
     try {
@@ -265,8 +343,40 @@ export class ImagesController {
         ...filters
       } = searchParams;
 
-      // Vérifier si l'utilisateur est authentifié
-      const isAuthenticated = request ? !!(request as Request & { user?: unknown }).user : false;
+      // Vérifier l'authentification via plusieurs méthodes
+      let isAuthenticated = false;
+
+      // Méthode 1: user injecté par les guards (si non @Public)
+      isAuthenticated = request ? !!(request as Request & { user?: unknown }).user : false;
+
+      // Méthode 2: vérifier le header Authorization
+      if (!isAuthenticated && authHeader && authHeader.startsWith('Bearer ')) {
+        try {
+          const token = authHeader.substring(7);
+          await this.jwtService.verifyAsync(token, this.jwtConfiguration);
+          isAuthenticated = true;
+          console.log('✅ getImages - Utilisateur authentifié via Authorization header');
+        } catch (error) {
+          console.log('⚠️ getImages - Token invalide dans Authorization header');
+        }
+      }
+
+      // Méthode 3: vérifier les cookies
+      if (!isAuthenticated && request) {
+        const cookieToken = (request as Request & { cookies?: Record<string, string> }).cookies?.['accessToken']
+          || (request as Request & { cookies?: Record<string, string> }).cookies?.['token'];
+        if (cookieToken) {
+          try {
+            await this.jwtService.verifyAsync(cookieToken, this.jwtConfiguration);
+            isAuthenticated = true;
+            console.log('✅ getImages - Utilisateur authentifié via cookies');
+          } catch (error) {
+            console.log('⚠️ getImages - Token invalide dans cookies');
+          }
+        }
+      }
+
+      console.log(`📊 getImages - isAuthenticated: ${isAuthenticated}, filters.isPublic: ${filters.isPublic}`);
 
       // Si non authentifié, forcer isPublic à true
       const searchOptions: ImageSearchOptions = {
