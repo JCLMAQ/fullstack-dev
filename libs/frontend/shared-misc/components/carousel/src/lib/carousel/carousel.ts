@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  output,
-  signal,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    effect,
+    inject,
+    input,
+    output,
+    resource,
+    signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -44,6 +46,7 @@ export interface ICarouselConfig {
 })
 export class Carousel {
   private readonly imageService = inject(ImageService);
+  private readonly destroyRef = inject(DestroyRef);
 
   // Inputs
   readonly config = input<ICarouselConfig>({
@@ -72,13 +75,62 @@ export class Carousel {
   readonly slideChange = output<number>();
 
   // State
-  readonly images = signal<Image[]>([]);
-  readonly loading = signal<boolean>(false);
+  private readonly loadTrigger = signal(0);
+
+  readonly imagesResource = resource({
+    loader: async ({ abortSignal }) => {
+      this.loadTrigger();
+
+      if (abortSignal.aborted) {
+        throw new Error('Operation aborted');
+      }
+
+      const filters = this.filterParams();
+      const tagsList = this.tags();
+      const assocType = this.associationType();
+      const assocId = this.associatedId();
+
+      const params: SearchImagesDto = {
+        ...filters,
+        take: this.config().maxImages || 10,
+      };
+
+      if (assocType) params.associationType = assocType;
+      if (assocId) params.associatedId = assocId;
+
+      try {
+        const images = tagsList.length > 0
+          ? await this.imageService.getImagesByTags(tagsList, params).toPromise()
+          : await this.imageService.getImages(params).toPromise();
+        return images || [];
+      } catch (err) {
+        if (err instanceof Error) {
+          throw err;
+        }
+        const errorObj = err as { status?: number; message?: string; statusText?: string };
+
+        // Message d'erreur spécifique pour 401
+        if (errorObj.status === 401) {
+          console.error('❌ 401 Unauthorized: Authentication required to load images');
+          throw new Error('Authentication required. Please log in to view images.');
+        }
+
+        throw new Error(errorObj.message || errorObj.statusText || `HTTP Error ${errorObj.status || 'Unknown'}`);
+      }
+    }
+  });
+
   readonly currentIndex = signal<number>(0);
   readonly isPlaying = signal<boolean>(false);
-  readonly error = signal<string | null>(null);
 
   // Computed
+  readonly images = computed(() => this.imagesResource.value() ?? []);
+  readonly loading = computed(() => this.imagesResource.isLoading());
+  readonly error = computed(() => {
+    const err = this.imagesResource.error();
+    return err ? err.message : null;
+  });
+
   readonly currentImage = computed(() => {
     const imgs = this.images();
     const index = this.currentIndex();
@@ -98,24 +150,34 @@ export class Carousel {
   private autoPlayInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
-    // Effect pour charger les images basées sur les inputs
+    // Nettoyage lors de la destruction
+    this.destroyRef.onDestroy(() => {
+      this.stopAutoPlay();
+    });
+
+    // Effect pour recharger quand les inputs changent
     effect(
       () => {
-        const filters = this.filterParams();
-        const tagsList = this.tags();
-        const assocType = this.associationType();
-        const assocId = this.associatedId();
+        // Lire tous les inputs pour créer des dépendances
+        this.filterParams();
+        this.tags();
+        this.associationType();
+        this.associatedId();
+        void this.config().maxImages;
 
-        // Construire les paramètres de recherche
-        const params: SearchImagesDto = {
-          ...filters,
-          take: this.config().maxImages || 10,
-        };
+        // Déclencher le rechargement
+        this.loadTrigger.update(v => v + 1);
+      },
+      { allowSignalWrites: true }
+    );
 
-        if (assocType) params.associationType = assocType;
-        if (assocId) params.associatedId = assocId;
-
-        this.loadImages(params, tagsList);
+    // Effect pour démarrer l'autoplay quand les images sont chargées
+    effect(
+      () => {
+        const imgs = this.images();
+        if (imgs.length > 0 && this.config().autoPlay && !this.loading()) {
+          this.isPlaying.set(true);
+        }
       },
       { allowSignalWrites: true }
     );
@@ -131,31 +193,6 @@ export class Carousel {
       },
       { allowSignalWrites: true }
     );
-  }
-
-  private loadImages(params: SearchImagesDto, tagsList: string[]): void {
-    this.loading.set(true);
-    this.error.set(null);
-
-    const loadObservable =
-      tagsList.length > 0
-        ? this.imageService.getImagesByTags(tagsList, params)
-        : this.imageService.getImages(params);
-
-    loadObservable.subscribe({
-      next: (images) => {
-        this.images.set(images);
-        this.loading.set(false);
-        if (images.length > 0 && this.config().autoPlay) {
-          this.isPlaying.set(true);
-        }
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des images:', err);
-        this.error.set('Impossible de charger les images');
-        this.loading.set(false);
-      },
-    });
   }
 
   goToSlide(index: number): void {
@@ -224,19 +261,6 @@ export class Carousel {
   }
 
   refresh(): void {
-    const filters = this.filterParams();
-    const tagsList = this.tags();
-    const assocType = this.associationType();
-    const assocId = this.associatedId();
-
-    const params: SearchImagesDto = {
-      ...filters,
-      take: this.config().maxImages || 10,
-    };
-
-    if (assocType) params.associationType = assocType;
-    if (assocId) params.associatedId = assocId;
-
-    this.loadImages(params, tagsList);
+    this.loadTrigger.update(v => v + 1);
   }
 }

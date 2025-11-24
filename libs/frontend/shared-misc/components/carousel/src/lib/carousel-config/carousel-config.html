@@ -38,6 +38,37 @@
             }
           </div>
 
+          <!-- Selected Images Section -->
+          @if (selectedImages().length > 0) {
+            <div class="selected-images-section">
+              <h3 class="section-title">
+                <mat-icon>collections</mat-icon>
+                {{ 'CAROUSEL_CONFIG.SELECTED_IMAGES_TITLE' | translate }}
+              </h3>
+              <div class="selected-images-grid">
+                @for (image of selectedImages(); track image.id) {
+                  <div class="selected-image-card">
+                    <img
+                      [src]="getImageUrl(image)"
+                      [alt]="image.altText || image.originalName"
+                      class="selected-image-thumbnail"
+                    />
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      class="remove-button"
+                      (click)="removeFromSelection(image)"
+                      [attr.aria-label]="'Remove ' + image.originalName"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <div class="selected-image-name">{{ image.originalName }}</div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
           <!-- Loading State -->
           @if (loading()) {
             <div class="loading-container">
@@ -68,6 +99,13 @@
                       (change)="toggleImageSelection(image)"
                     ></mat-checkbox>
                   </div>
+
+                  <!-- Selected badge -->
+                  @if (isSelected(image.id)) {
+                    <div class="selected-badge">
+                      <mat-icon>check_circle</mat-icon>
+                    </div>
+                  }
 
                   <!-- Image -->
                   <img

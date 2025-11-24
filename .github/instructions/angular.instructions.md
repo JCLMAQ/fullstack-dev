@@ -25,7 +25,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Lazy Loading:** Use deferrable views with `@defer` blocks and route-level lazy loading with `loadComponent`
 - **No NgModules:** Do NOT use NgModules for new features. Always use standalone components, directives, and pipes
 - **No Legacy Imports:** Do not import CommonModule, RouterModule, or other NgModule-based APIs. Import only required standalone features
-- **OnPush Strategy:** Set `changeDetection: ChangeDetectionStrategy.OnPush` in all components
+- **OnPush Strategy:** Set `changeDetection: ChangeDetectionStrategy.OnPush` if necessary (it's the default for standalone components)
 
 ## 2. Angular Style Guide Patterns
 
@@ -93,12 +93,11 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 ## 4. Component Patterns
 
-- **Naming Pattern:** Components follow consistent naming - `feature.type.ts` (e.g., `hero-list.component.ts`)
-- **Template Size:** Keep templates small and focused. Use inline templates only for very simple components
-- **Style Extraction:** Styles exist in separate `.css/.scss` files for maintainability
+- **Naming Pattern:** Components follow consistent naming according the new Angular 21 recomandations
+- **Template Size:** Keep templates small and focused. Do not use inline templates; only use external template files.
+- **Style Extraction:** Styles exist in separate `.scss` files for maintainability
 - **Function-Based Inputs/Outputs:** Use `input()` and `output()` functions instead of decorators
 - **Two-Way Binding:** Use `model()` for two-way binding scenarios
-- **Change Detection:** Always set `changeDetection: ChangeDetectionStrategy.OnPush`
 - **Element Selectors:** Use element selectors (`selector: 'app-hero-detail'`)
 - **Logic Delegation:** Delegate complex logic to services, keep components lean
 - **Signal State:** Use `signal()` for local component state, `computed()` for derived state
@@ -113,15 +112,15 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 ## 5. Styling Patterns
 
 - **Component Encapsulation:** Components use scoped styles with proper encapsulation
-- **CSS Methodology:** BEM methodology guides CSS class naming when not using Angular Material
-- **Component Libraries:** Angular Material or other component libraries provide consistent UI elements
+- **Component Libraries:** Angular Material v3 is the standard UI library
+- **SCSS Usage:** Use SCSS for styling with variables, mixins, and nesting
 - **Theming:** Color systems and theming enable consistent visual design
 - **Accessibility:** Components follow a11y standards
 - **Dark Mode:** Components support dark mode where appropriate
 
 ## 5a. Angular Material and Angular CDK Usage
 
-- **Standard UI Library:** Use Angular Material v3 for all standard UI components (buttons, forms, navigation, dialogs, etc.) to ensure consistency, accessibility, and alignment with Angular best practices.
+- **Standard UI Library:** Use Angular Material v3 for all standard UI components (buttons, forms, navigation, dialogs, etc.) to ensure consistency, accessibility, and alignment with Angular best practices refer to the dedicated `angular-material.instructions.md` file which provides comprehensive guidance.
 - **Component Development:** Build new UI components and features using Angular Material components as the foundation. Only create custom components when Material does not provide a suitable solution.
 - **Behavioral Primitives:** Use Angular CDK for advanced behaviors (drag-and-drop, overlays, accessibility, virtual scrolling, etc.) and for building custom components that require low-level primitives.
 - **Theming:** Leverage Angular Material's theming system for consistent color schemes, dark mode support, and branding. Define and use custom themes in `styles.scss` or feature-level styles as needed.
@@ -223,7 +222,11 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 ## 8. State Management Patterns
 
-- **Signals-First:** Signals serve as the primary state management solution for all application state
+- **Signals and NGRX Signals-First:** Signals and NGRX Signals serve as the primary state management solution for all application state
+- **No NgRx Store:** Do NOT use the legacy NgRx Store or other state management libraries like Akita, NGXS, etc.
+- **Global State:** Use NGRX Signals for global application state that needs to be shared across multiple components and services
+- **Feature State:** Use NGRX Signals feature stores for modular, feature-specific state management
+- **NGRX Signals store** Refer to the dedicated `ngrx-signals.instructions.md` file which provides comprehensive guidance
 - **Local State:** Use writable signals with `signal()` for local component state:
 
   ```typescript
@@ -270,7 +273,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 ## 10. Performance Patterns
 
-- **OnPush Strategy:** ALWAYS use `changeDetection: ChangeDetectionStrategy.OnPush` for all components
+- **OnPush Strategy:** ALWAYS use `changeDetection: ChangeDetectionStrategy.OnPush` for all components which are not using standalone components (it's the default for standalone components)
 - **Signal-Driven Updates:** Leverage signals for efficient, targeted updates instead of zone-based change detection
 - **Lazy Loading:** Use route-level lazy loading with `loadComponent` and `@defer` blocks for code splitting
 - **Virtual Scrolling:** Use Angular CDK Virtual Scrolling for large lists to improve performance
@@ -317,7 +320,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Accessibility:** Ensure forms are accessible with proper labels, ARIA attributes, and keyboard navigation
 
 ## 14. Routing Patterns
-- **Lazy Loading:** Use route-level lazy loading with `loadComponent` for standalone components
+- **Lazy Loading:** Use route-level lazy loading with `loadComponent` for standalone components if possible
 - **Deferrable Views:** Use `@defer` blocks for heavy components and features
 - **Route Guards:** Implement route guards for authentication and authorization
 - **Parameter Handling:** Use route parameters and query parameters effectively
@@ -325,7 +328,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Error Handling:** Implement error handling for navigation failures and invalid routes
 
 ## 15. Internationalization (i18n) Patterns
-- **i18n Attributes:** Use Angular's built-in i18n attributes for translatable content
+- **i18n Attributes:** Use Angular's built-in i18n attributes for translatable content and ngx-translate for dynamic translations
 - **Translation Files:** Maintain separate translation files for different languages
 - **Dynamic Content:** Handle dynamic content and pluralization in translations
 - **Locale Management:** Implement locale switching and management in the application

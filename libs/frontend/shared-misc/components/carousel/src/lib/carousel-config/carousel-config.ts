@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, input, output, resource, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -31,6 +31,7 @@ export class CarouselConfig {
   private readonly userStorage = inject(UserStorageService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
+  private readonly destroyRef = inject(DestroyRef);
 
   // ViewChild pour l'input file
   readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
@@ -42,43 +43,81 @@ export class CarouselConfig {
   readonly save = output<Image[]>();
   readonly closed = output<void>();
 
-  // State
-  readonly loading = signal(false);
-  readonly availableImages = signal<Image[]>([]);
+  // State - Utilisation de resource pour charger les images
+  private readonly refreshTrigger = signal(0);
+  private readonly abortController = new AbortController();
+
+  readonly imagesResource = resource({
+    loader: async ({ abortSignal }) => {
+      // Lire le signal pour créer une dépendance réactive
+      this.refreshTrigger();
+
+      // Vérifier si l'opération est annulée
+      if (abortSignal.aborted) {
+        throw new Error('Operation aborted');
+      }
+
+      // ⚠️ Vérifier l'authentification avant de charger les images
+      const currentUser = this.userStorage.user();
+      if (!currentUser) {
+        console.warn('⚠️ Cannot load images: user not authenticated');
+        return [];
+      }
+
+      try {
+        const images = await this.imageService
+          .getImages({
+            isPublic: true,
+            take: 50,
+            orderBy: 'createdAt',
+          })
+          .toPromise();
+        return images || [];
+      } catch (err) {
+        // Convertir les erreurs HTTP en Error pour resource()
+        if (err instanceof Error) {
+          throw err;
+        }
+        const errorObj = err as { status?: number; message?: string; statusText?: string };
+        const errorMessage = errorObj.message || errorObj.statusText || `HTTP Error ${errorObj.status || 'Unknown'}`;
+
+        // Log spécifique pour 401
+        if (errorObj.status === 401) {
+          console.error('❌ 401 Unauthorized: User token may be invalid or expired');
+        }
+
+        throw new Error(errorMessage);
+      }
+    }
+  });
+
   readonly selectedImages = signal<Image[]>([]);
+  readonly uploadLoading = signal(false);
 
   // Computed
+  readonly availableImages = computed(() => this.imagesResource.value() ?? []);
+  readonly loading = computed(() => this.imagesResource.isLoading() || this.uploadLoading());
   readonly selectedImageIds = computed(() =>
     this.selectedImages().map((img) => img.id)
   );
 
   constructor() {
-    this.loadImages();
-    // Initialize selected images from input
-    if (this.initialImages().length > 0) {
-      this.selectedImages.set([...this.initialImages()]);
-    }
+    // Effect pour initialiser les images sélectionnées depuis l'input
+    effect(() => {
+      const initial = this.initialImages();
+      if (initial.length > 0) {
+        this.selectedImages.set([...initial]);
+      }
+    });
+
+    // Annuler le resource lors de la destruction
+    this.destroyRef.onDestroy(() => {
+      this.abortController.abort();
+    });
   }
 
-  private loadImages(): void {
-    this.loading.set(true);
-
-    this.imageService
-      .getImages({
-        isPublic: true,
-        take: 50,
-        orderBy: 'createdAt',
-      })
-      .subscribe({
-        next: (images) => {
-          this.availableImages.set(images);
-          this.loading.set(false);
-        },
-        error: (err) => {
-          console.error('Error loading images:', err);
-          this.loading.set(false);
-        },
-      });
+  private reloadImages(): void {
+    this.refreshTrigger.update(v => v + 1);
   }
 
   getImageUrl(image: Image): string {
@@ -114,6 +153,17 @@ export class CarouselConfig {
     this.selectedImages.set([]);
   }
 
+  removeFromSelection(image: Image): void {
+    const currentSelection = this.selectedImages();
+    this.selectedImages.set(currentSelection.filter((img) => img.id !== image.id));
+
+    this.snackBar.open(
+      this.translate.instant('CAROUSEL_CONFIG.IMAGE_REMOVED'),
+      this.translate.instant('MESSAGES.CLOSE'),
+      { duration: 2000 }
+    );
+  }
+
   onUploadImages(): void {
     const input = this.fileInput()?.nativeElement;
     if (input) {
@@ -121,13 +171,15 @@ export class CarouselConfig {
     }
   }
 
-  onFileSelected(event: Event): void {
+  async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
       return;
     }
 
     const user = this.userStorage.user();
+    console.log('🔍 Upload - User:', user ? `ID: ${user.id}, Email: ${user.email}` : 'Not found');
+
     if (!user) {
       this.snackBar.open(
         this.translate.instant('CAROUSEL_CONFIG.ERROR_NO_USER'),
@@ -137,46 +189,67 @@ export class CarouselConfig {
       return;
     }
 
-    this.loading.set(true);
+    this.uploadLoading.set(true);
     const files = input.files;
+    console.log('📤 Uploading', files.length, 'files for user:', user.id);
 
-    // Upload des fichiers
-    this.imageService
-      .uploadMultipleFiles(files, {
-        uploadedById: user.id,
-        isPublic: true,
-        tags: ['carousel'],
-      })
-      .subscribe({
-        next: (images) => {
-          this.loading.set(false);
+    try {
+      // Upload des fichiers avec Promise
+      const images = await this.imageService
+        .uploadMultipleFiles(files, {
+          uploadedById: user.id,
+          isPublic: true,
+          tags: ['carousel'],
+        })
+        .toPromise();
 
-          // Recharger la liste des images
-          this.loadImages();
+      if (!images) {
+        throw new Error('No images returned from upload');
+      }
 
-          // Ajouter automatiquement les nouvelles images à la sélection
-          const currentSelection = this.selectedImages();
-          this.selectedImages.set([...currentSelection, ...images]);
+      console.log('✅ Upload successful:', images.length, 'images');
+      this.uploadLoading.set(false);
 
-          this.snackBar.open(
-            this.translate.instant('CAROUSEL_CONFIG.UPLOAD_SUCCESS', { count: images.length }),
-            this.translate.instant('MESSAGES.CLOSE'),
-            { duration: 3000 }
-          );
+      // Recharger la liste des images
+      this.reloadImages();
 
-          // Réinitialiser l'input
-          input.value = '';
-        },
-        error: (err) => {
-          console.error('Error uploading images:', err);
-          this.loading.set(false);
-          this.snackBar.open(
-            this.translate.instant('CAROUSEL_CONFIG.ERROR_UPLOAD'),
-            this.translate.instant('MESSAGES.CLOSE'),
-            { duration: 5000 }
-          );
-          input.value = '';
-        },
+      // Ajouter automatiquement les nouvelles images à la sélection
+      const currentSelection = this.selectedImages();
+      this.selectedImages.set([...currentSelection, ...images]);
+
+      this.snackBar.open(
+        this.translate.instant('CAROUSEL_CONFIG.UPLOAD_SUCCESS', { count: images.length }),
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 3000 }
+      );
+
+      // Réinitialiser l'input
+      input.value = '';
+    } catch (err: unknown) {
+      console.error('❌ Error uploading images:', err);
+      const errorObj = err as { status?: number; statusText?: string; message?: string; error?: unknown };
+      console.error('❌ Error details:', {
+        status: errorObj.status,
+        statusText: errorObj.statusText,
+        message: errorObj.message,
+        error: errorObj.error
       });
+
+      this.uploadLoading.set(false);
+
+      let errorMessage = this.translate.instant('CAROUSEL_CONFIG.ERROR_UPLOAD');
+
+      // Message d'erreur spécifique pour 401
+      if (errorObj.status === 401) {
+        errorMessage = this.translate.instant('CAROUSEL_CONFIG.ERROR_UNAUTHORIZED');
+      }
+
+      this.snackBar.open(
+        errorMessage,
+        this.translate.instant('MESSAGES.CLOSE'),
+        { duration: 5000 }
+      );
+      input.value = '';
+    }
   }
 }
