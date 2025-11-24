@@ -96,32 +96,32 @@
 
       <mat-menu #submenu="matMenu">
 
-        <button mat-menu-item (click)="navigate('picto')">
+        <button mat-menu-item (click)="navigate('picto')" [disabled]="!appStore.user()">
           <mat-icon>picture_in_picture</mat-icon>
           <span>{{"ToolBarMenu.Pictos" | translate}}</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="navigate('carouselpicture')">
+        <button mat-menu-item (click)="navigate('carouselpicture')" [disabled]="!appStore.user()">
             <mat-icon>camera</mat-icon>
             <span>{{"ToolBarMenu.Carrousel" | translate}}</span>
           </button>
           <mat-divider></mat-divider>
-        <button mat-menu-item (click)="navigate('picture')">
+        <button mat-menu-item (click)="navigate('picture')" [disabled]="!appStore.user()">
             <mat-icon>camera_alt</mat-icon>
             <span>{{"ToolBarMenu.Images" | translate}}</span>
           </button>
           <mat-divider></mat-divider>
-        <button mat-menu-item (click)="navigate('file')">
+        <button mat-menu-item (click)="navigate('file')" [disabled]="!appStore.user()">
             <mat-icon>task</mat-icon>
             <span>{{"ToolBarMenu.Files" | translate}}</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="navigate('users')">
+          <button mat-menu-item (click)="navigate('users')" [disabled]="!appStore.user()">
               <mat-icon>supervised_user_circle</mat-icon>
               <span>{{"ToolBarMenu.Users" | translate}}</span>
             </button>
             <mat-divider></mat-divider>
-          <button mat-menu-item (click)="navigate('choice')">
+          <button mat-menu-item (click)="navigate('choice')" [disabled]="!appStore.user()">
             <mat-icon>tune</mat-icon>
             <span>{{"ToolBarMenu.Choices" | translate}}</span>
           </button>
