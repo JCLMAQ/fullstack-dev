@@ -56,7 +56,8 @@
               role="button"
               (click)="onImageClick(image)"
               (keydown.enter)="onImageClick(image)"
-              (keydown.space)="onImageClick(image)" />
+              (keydown.space)="onImageClick(image)"
+              (error)="onImageError($event)" />
 
             <!-- Image Info Overlay -->
             <div class="carousel-info">
@@ -132,7 +133,8 @@
               <img
                 [src]="getThumbnailUrl(image)"
                 [alt]="('CAROUSEL.THUMBNAIL_ALT' | translate) + ' ' + (i + 1)"
-                class="thumbnail-image" />
+                class="thumbnail-image"
+                (error)="onImageError($event)" />
             </button>
           }
         </div>

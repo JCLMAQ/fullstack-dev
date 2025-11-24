@@ -624,19 +624,55 @@ export class ImagesController {
     }
   }
 
+  @Public()
   @Get('tags/:tags')
   async getImagesByTags(
     @Param('tags') tagsParam: string,
     @Query('skip', new DefaultValuePipe(0), ParseIntPipe) skip: number,
     @Query('take', new DefaultValuePipe(20), ParseIntPipe) take: number,
-    @Query() filters: SearchImagesDto
+    @Query() filters: SearchImagesDto,
+    @Headers('authorization') authHeader?: string,
+    @Inject(REQUEST) request?: Request
   ): Promise<{ data: Image[]; message: string }> {
     try {
       const tags = tagsParam.split(',');
+
+      // Vérifier l'authentification via plusieurs méthodes
+      let isAuthenticated = false;
+
+      // Méthode 1: user injecté par les guards
+      isAuthenticated = request ? !!(request as Request & { user?: unknown }).user : false;
+
+      // Méthode 2: vérifier le header Authorization
+      if (!isAuthenticated && authHeader && authHeader.startsWith('Bearer ')) {
+        try {
+          const token = authHeader.substring(7);
+          await this.jwtService.verifyAsync(token, this.jwtConfiguration);
+          isAuthenticated = true;
+        } catch (error) {
+          // Token invalide
+        }
+      }
+
+      // Méthode 3: vérifier les cookies
+      if (!isAuthenticated && request) {
+        const cookieToken = (request as Request & { cookies?: Record<string, string> }).cookies?.['accessToken']
+          || (request as Request & { cookies?: Record<string, string> }).cookies?.['token'];
+        if (cookieToken) {
+          try {
+            await this.jwtService.verifyAsync(cookieToken, this.jwtConfiguration);
+            isAuthenticated = true;
+          } catch (error) {
+            // Token invalide
+          }
+        }
+      }
+
+      // Si non authentifié, forcer isPublic à true
       const searchOptions: ImageSearchOptions = {
         uploadedById: filters.uploadedById,
         orgId: filters.orgId,
-        isPublic: filters.isPublic
+        isPublic: isAuthenticated ? filters.isPublic : true
       };
 
       const images = await this.imagesService.getImagesByTags(tags, searchOptions, { skip, take });

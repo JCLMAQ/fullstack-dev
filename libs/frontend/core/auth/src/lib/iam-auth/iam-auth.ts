@@ -91,6 +91,8 @@ export class IamAuth {
     this.userStorage.clearUser();
     this.logoutAsUserOrAdmin();
     console.log('🧹 Complete logout');
+    console.log('👤 User after logout:', this.user()?.email || 'undefined');
+    console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
   }
 
   /**

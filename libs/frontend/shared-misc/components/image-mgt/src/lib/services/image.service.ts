@@ -118,11 +118,10 @@ export class ImageService {
     effect(() => {
       const token = this.tokenStorage.authToken();
       console.log('🖼️ ImageService - Token changed:', token ? `${token.substring(0, 20)}...` : 'undefined');
-      if (token) {
-        // Mettre à jour le cache buster quand le token change
-        this.urlCacheBuster.set(Date.now());
-        console.log('🔄 ImageService - Cache buster updated:', this.urlCacheBuster());
-      }
+      // TOUJOURS mettre à jour le cache buster, que le token soit présent ou non
+      // Cela force le rafraîchissement des URLs quand on se logout aussi
+      this.urlCacheBuster.set(Date.now());
+      console.log('🔄 ImageService - Cache buster updated:', this.urlCacheBuster());
     });
   }
 

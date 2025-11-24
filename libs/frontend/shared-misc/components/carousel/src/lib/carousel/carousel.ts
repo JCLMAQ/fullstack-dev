@@ -16,10 +16,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
 import type { Image } from '@db/prisma';
 import { IamAuth } from '@fe/auth';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface ICarouselConfig {
   autoPlay?: boolean;
@@ -83,21 +83,27 @@ export class Carousel {
 
   readonly imagesResource = resource({
     loader: async ({ abortSignal }) => {
-      this.loadTrigger();
+      // Lire TOUTES les dépendances en PREMIER pour garantir la réactivité
+      // Important : Les lire AVANT tout code async
+      const triggerValue = this.loadTrigger(); // Pour refresh() manuel
+      const user = this.authService.user(); // Dépendance sur l'authentification
+      const token = this.authService.authToken(); // Dépendance sur le token
+      const isLoggedIn = !!user;
+      const filters = this.filterParams();
+      const tagsList = this.tags();
+      const assocType = this.associationType();
+      const assocId = this.associatedId();
+      const maxImages = this.config().maxImages;
+
+      console.log(`🎠 Carousel loader - user=${user?.email || 'undefined'}, token=${!!token}, trigger=${triggerValue}`);
 
       if (abortSignal.aborted) {
         throw new Error('Operation aborted');
       }
 
-      const filters = this.filterParams();
-      const tagsList = this.tags();
-      const assocType = this.associationType();
-      const assocId = this.associatedId();
-      const isLoggedIn = this.authService.isLoggedIn();
-
       const params: SearchImagesDto = {
         ...filters,
-        take: this.config().maxImages || 10,
+        take: maxImages || 10,
         // Si l'utilisateur est connecté, on affiche toutes les images (publiques et privées)
         // Si l'utilisateur n'est pas connecté, on affiche uniquement les images publiques
         isPublic: isLoggedIn ? undefined : true,
@@ -110,6 +116,8 @@ export class Carousel {
         const images = tagsList.length > 0
           ? await this.imageService.getImagesByTags(tagsList, params).toPromise()
           : await this.imageService.getImages(params).toPromise();
+
+        console.log(`🎠 Carousel loaded ${images?.length || 0} images (isLoggedIn: ${isLoggedIn}, isPublic filter: ${params.isPublic})`);
         return images || [];
       } catch (err) {
         if (err instanceof Error) {
@@ -132,7 +140,18 @@ export class Carousel {
   readonly isPlaying = signal<boolean>(false);
 
   // Computed
-  readonly images = computed(() => this.imagesResource.value() ?? []);
+  readonly images = computed(() => {
+    const resourceImages = this.imagesResource.value() ?? [];
+    const isLoggedIn = !!this.authService.user();
+
+    // FILTRE DE SÉCURITÉ : Ne jamais afficher d'images privées si non connecté
+    // Cela évite d'afficher temporairement les anciennes images privées pendant le rechargement
+    if (!isLoggedIn) {
+      return resourceImages.filter(img => img.isPublic === true);
+    }
+
+    return resourceImages;
+  });
   readonly loading = computed(() => this.imagesResource.isLoading());
   readonly error = computed(() => {
     const err = this.imagesResource.error();
@@ -163,20 +182,33 @@ export class Carousel {
       this.stopAutoPlay();
     });
 
-    // Effect pour recharger quand les inputs changent ou l'état d'authentification change
+    // Effect pour gérer les changements d'authentification
+    // Force le rechargement immédiat via loadTrigger pour éviter d'afficher
+    // temporairement les anciennes images avec le mauvais état d'auth
+    effect(() => {
+      const user = this.authService.user();
+      const token = this.authService.authToken();
+      console.log(`🔄 Carousel - Auth changed: user=${user?.email || 'undefined'}, token=${!!token}`);
+
+      // Réinitialiser l'UI
+      this.isPlaying.set(false);
+      this.currentIndex.set(0);
+
+      // Forcer le rechargement immédiat
+      this.loadTrigger.update(v => v + 1);
+    });
+
+    // Effect pour réinitialiser l'index quand les images changent
     effect(
       () => {
-        // Lire tous les inputs pour créer des dépendances
-        this.filterParams();
-        this.tags();
-        this.associationType();
-        this.associatedId();
-        void this.config().maxImages;
-        // Surveiller l'état de connexion pour recharger les images
-        this.authService.isLoggedIn();
-
-        // Déclencher le rechargement
-        this.loadTrigger.update(v => v + 1);
+        const imgs = this.images();
+        const currentIdx = this.currentIndex();
+        // Si l'index actuel est supérieur au nombre d'images, réinitialiser à 0
+        if (currentIdx >= imgs.length && imgs.length > 0) {
+          this.currentIndex.set(0);
+        } else if (imgs.length === 0) {
+          this.currentIndex.set(0);
+        }
       }
     );
 
@@ -269,5 +301,11 @@ export class Carousel {
 
   refresh(): void {
     this.loadTrigger.update(v => v + 1);
+  }
+
+  onImageError(event: Event): void {
+    // Une image ne peut pas être chargée
+    const img = event.target as HTMLImageElement;
+    console.warn('⚠️ Image loading error:', img.src);
   }
 }

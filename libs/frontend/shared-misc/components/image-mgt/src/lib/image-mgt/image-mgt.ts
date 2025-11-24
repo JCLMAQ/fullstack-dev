@@ -86,14 +86,19 @@ export class ImageMgt {
   });
 
   constructor() {
-    this.loadImages();
+    let firstRun = true;
 
-    // Recharger les images quand le token change (reconnexion)
+    // Recharger les images quand le token change (login OU logout)
     effect(() => {
       const token = this.tokenStorage.authToken();
       console.log('🖼️ ImageMgt - Token changed, reloading images...', !!token);
-      if (token) {
-        // Vider les images puis les recharger pour forcer la reconstruction des URLs
+
+      if (firstRun) {
+        // Premier chargement au démarrage
+        firstRun = false;
+        this.loadImages();
+      } else {
+        // Rechargement après changement de token (login ou logout)
         this.images.set([]);
         setTimeout(() => this.loadImages(), 100);
       }
