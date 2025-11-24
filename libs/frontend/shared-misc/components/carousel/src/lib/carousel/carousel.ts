@@ -177,8 +177,7 @@ export class Carousel {
 
         // Déclencher le rechargement
         this.loadTrigger.update(v => v + 1);
-      },
-      { allowSignalWrites: true }
+      }
     );
 
     // Effect pour démarrer l'autoplay quand les images sont chargées
@@ -188,8 +187,7 @@ export class Carousel {
         if (imgs.length > 0 && this.config().autoPlay && !this.loading()) {
           this.isPlaying.set(true);
         }
-      },
-      { allowSignalWrites: true }
+      }
     );
 
     // Effect pour l'autoplay
@@ -200,8 +198,7 @@ export class Carousel {
         } else {
           this.stopAutoPlay();
         }
-      },
-      { allowSignalWrites: true }
+      }
     );
   }
 
