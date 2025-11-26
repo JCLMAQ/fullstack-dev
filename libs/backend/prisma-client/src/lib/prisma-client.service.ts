@@ -3,7 +3,7 @@ import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL']!,
+  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
 
 });
 
