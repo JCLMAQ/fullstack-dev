@@ -16,6 +16,6 @@ export const AppStore= signalStore(
   // Languages part
   withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
-  // 🔄 Synchronisation avec service d'authentification (Option 2 - Recommandée)
+  // 🔄 Synchronisation avec service d'authentification
   withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
 );
