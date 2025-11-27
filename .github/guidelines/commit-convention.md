@@ -4,7 +4,7 @@ This project follows the Conventional Commits specification.
 
 ## Format
 
-```
+``` Github
 <type>[(optional scope)](!): <description>
 ```
 
@@ -36,6 +36,7 @@ For breaking changes, include a BREAKING CHANGE: footer with a description of th
 
 - Regular commit: `feat(auth): add login functionality`
 - Breaking change: `feat(api)!: change authentication endpoints`
-  ```
+
+  ``` Github
   BREAKING CHANGE: The authentication endpoints now require a different payload structure
   ```
