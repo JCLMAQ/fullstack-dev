@@ -1,11 +1,11 @@
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { withAuthSync } from '@fe/auth';
-import { signalStore, withState } from '@ngrx/signals';
-import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
-import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
-import { initialAppSlice } from './app.slice';
+import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import { withAuthSync } from "@fe/auth";
+import { signalStore, withComputed, withState } from "@ngrx/signals";
+import { withAppAuthFeatures } from "../store-features/authentication-features/authentication.features";
+import { withDictionariesFeatures } from "../store-features/dictionaries-features/dictionaries.features";
+import { initialAppSlice } from "./app.slice";
 
-export const AppStore= signalStore(
+export const AppStore = signalStore(
   { providedIn: 'root' },
   withState(initialAppSlice), // État initial défini UNE SEULE FOIS
   withDevtools('AppStore'),
@@ -18,4 +18,9 @@ export const AppStore= signalStore(
 
   // 🔄 Synchronisation avec service d'authentification
   withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
+
+  // Expose computed selector for isAdmin
+  withComputed((store) => ({
+    isAdmin: () => store['isAdmin'],
+  })),
 );

@@ -4,9 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { AdminBanner } from '@fe/admin-banner';
 import { IamAuth } from '@fe/auth';
 import { ImageMgt } from '@fe/image-mgt';
+import { TranslateModule } from '@ngx-translate/core';
 import { ResponsiveService } from '../services/responsive/responsive-service';
 import { CustomSidenav } from './custom-sidenav/custom-sidenav';
 import { Header } from './header/header';
@@ -23,6 +24,7 @@ import { Header } from './header/header';
     MatTooltipModule,
     ImageMgt,
     TranslateModule,
+    AdminBanner,
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',

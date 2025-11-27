@@ -1,10 +1,10 @@
 import { effect, inject } from '@angular/core';
 import { IamAuth } from '@fe/core/auth';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withHooks,
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withHooks,
 } from '@ngrx/signals';
 
 /**
@@ -32,15 +32,18 @@ export function withAuthSync(): SignalStoreFeature {
         // 1️⃣ Initialisation : récupérer les données du service au démarrage
         const user = authService.user();
         const authToken = authService.authToken();
+        const isAdmin = authService.hasAdminRole();
 
         if (user || authToken) {
           console.log('🔄 [withAuthSync] Initializing store with auth data');
           console.log('👤 User:', user?.email || 'undefined');
           console.log('🔐 Auth Token:', authToken ? '***' : 'undefined');
+          console.log('🛡️ Admin:', isAdmin);
 
           patchState(store, {
             user: user,
             authToken: authToken,
+            isAdmin: isAdmin,
           });
         }
 
@@ -48,12 +51,14 @@ export function withAuthSync(): SignalStoreFeature {
         effect(() => {
           const currentUser = authService.user();
           const currentToken = authService.authToken();
+          const currentIsAdmin = authService.hasAdminRole();
 
           console.log('🔄 [withAuthSync] Service changed - syncing to store');
 
           patchState(store, {
             user: currentUser,
             authToken: currentToken,
+            isAdmin: currentIsAdmin,
           });
         });
       },

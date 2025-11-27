@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IAM_AUTH_TOKEN } from '@fe/shared';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withMethods,
-  withProps
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withMethods,
+    withProps
 } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
 
@@ -26,8 +26,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
   //   authToken: computed(() => store._authService.authToken()),
   // })),
     withMethods((store) => ({
-      login: async (email: string, password: string) => {
 
+      login: async (email: string, password: string) => {
         try {
           if (!email || !password) {
             store._snackbar.open('Enter an email and password.', 'Close', {
@@ -36,19 +36,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             });
             return;
           }
-          const loginResponse = await store._authService.login(email, password);
-          console.log('user after login (from authentication feature): ', loginResponse);
-
-       // Le service IamAuth gère déjà la sauvegarde dans localStorage
-          // On synchronise juste l'état du store
-          const user = store._authService.user();
-          const authToken = store._authService.authToken();
-
-          patchState(store, {
-            user: user,
-            authToken: authToken,
-          });
-
+          await store._authService.login(email, password);
           store._router.navigate(['/pages/home']);
         } catch (error) {
           store._snackbar.open('Invalid email or password', 'Close', {
@@ -56,21 +44,18 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             horizontalPosition: 'right',
           });
           console.error(error);
-          // Optional: track error
         }
       },
 
       logout: async () => {
         await store._authService.logout();
-
-        // Le service IamAuth gère déjà la suppression du localStorage
-        // On synchronise juste l'état du store
-        patchState(store, { user: undefined });
         store._router.navigate(['pages/home']);
-
-        console.log('🚪 User logged out - Store cleared');
-
-        store._router.navigate(['pages/home']);
+      },
+      loginAsAdmin: async () => {
+        await store._authService.loginAsAdmin();
+      },
+      hasAdminRole: () => {
+        return store._authService.hasAdminRole();
       },
 
       register: async (

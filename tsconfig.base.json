@@ -106,6 +106,9 @@
       ],
       "@fe/picture-mgt": [
         "libs/frontend/shared-misc/components/picture-mgt/src/index.ts"
+      ],
+      "@fe/admin-banner": [
+        "libs/frontend/shared-misc/components/admin-banner/src/index.ts"
       ]
     }
   },
