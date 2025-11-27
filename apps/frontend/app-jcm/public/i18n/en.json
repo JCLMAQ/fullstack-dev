@@ -53,6 +53,33 @@
     "VIEW_ALL_IMAGES": "View all images",
     "ADD_IMAGES": "Add images"
   },
+    "LOGIN": {
+      "title": "Login",
+      "dontHaveAccount": "Don't have an account?",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Please enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Please enter your password",
+      "loginButton": "Login",
+      "cancelButton": "Cancel",
+      "wantToCancel": "Do you want to cancel?"
+    },
+    "REGISTER": {
+      "title": "Register",
+      "alreadyHaveAccount": "Already have an account?",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Please enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Please enter your password",
+      "registerButton": "Register",
+      "cancelButton": "Cancel",
+      "wantToCancel": "Do you want to cancel?"
+    },
+    "ERROR_MESSAGES": {
+      "REQUIRED_FIELD": "This field is required",
+      "INVALID_EMAIL": "Please enter a valid email address",
+      "MIN_LENGTH": "This field must be at least {{minLength}} characters long"
+    },
   "userProfile": {
     "title": "User Profile",
     "profileSubtitle": "Manage and update your personal information",

@@ -4,12 +4,76 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
 <div
   class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
 >
-  <h1 class="text-2xl mb-2 text-on-surface">Login</h1>
+  <h1 class="text-2xl mb-2 text-on-surface">{{ 'LOGIN.title' | translate }}</h1>
   <div class="flex gap-1 mb-8 text-sm text-on-surface">
-    <span>Don't have an account?</span>
-  <a class="text-primary cursor-pointer" tabindex="0" (click)="register()" (keyup.enter)="register()">Sign up!</a>
+    <span>{{ "LOGIN.dontHaveAccount" | translate }}</span>
+  <a class="text-primary cursor-pointer" tabindex="0" (click)="register()" (keyup.enter)="register()">{{'REGISTER.registerButton' | translate}}</a>
   </div>
-  <form
+
+
+<form  class="flex flex-col gap-5" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'LOGIN.emailLabel' | translate }}</mat-label>
+        <input matInput [field]="userLoginForm.email" placeholder="{{ 'LOGIN.emailPlaceholder' | translate }}" />
+        <mat-icon matSuffix>email</mat-icon>
+        <lib-field-error [fieldError]="userLoginForm.email()" />
+        @if(userLoginForm.email().touched() || userLoginForm.email().dirty()) {
+          @for (error of userLoginForm.email().errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>{{ 'LOGIN.passwordLabel' | translate }}</mat-label>
+          @if (hidePassword()) {
+            <input
+              matInput
+              [field]="userLoginForm.password"
+              placeholder="{{ 'LOGIN.passwordPlaceholder' | translate }}"
+              type="password"
+            />
+          } @else {
+            <input
+              matInput
+              [field]="userLoginForm.password"
+              placeholder="{{ 'LOGIN.passwordPlaceholder' | translate }}"
+              type="text"
+            />
+          }
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword.set(!hidePassword())"
+          type="button"
+          class="mr-1"
+        >
+          <mat-icon>{{
+            hidePassword() ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
+        </button>
+        @if(userLoginForm.password().touched() || userLoginForm.password().dirty()) {
+          @for (error of userLoginForm.password().errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
+        }
+      </mat-form-field>
+
+      <button  mat-flat-button class="w-full mt-3" type="submit" [disabled]="!userLoginForm().valid()">
+        {{ 'LOGIN.loginButton' | translate }}
+      </button>
+    </form>
+
+      <div class="flex gap-3 mb-8 text-sm text-on-surface">
+    <br><br>
+    <span>{{ "LOGIN.wantToCancel" | translate }}</span>
+      <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
+    </div>
+  </div>
+
+</div>
+
+  <!-- <form
     class="flex flex-col gap-5"
     (ngSubmit)="login()"
   >
@@ -58,12 +122,5 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
     </mat-form-field>
 
     <button mat-flat-button class="w-full mt-3">Login</button>
-  </form>
-  <div class="flex gap-3 mb-8 text-sm text-on-surface">
-    <br><br>
-    <span>Want to Cancel ?</span>
-  <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">Cancel !</a>
-  </div>
-</div>
+  </form> -->
 
-</div>

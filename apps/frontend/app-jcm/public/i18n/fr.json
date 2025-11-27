@@ -53,6 +53,33 @@
       "VIEW_ALL_IMAGES": "Voir toutes les images",
       "ADD_IMAGES": "Ajouter des images"
     },
+    "LOGIN": {
+      "title": "Connexion",
+      "dontHaveAccount": "Vous n'avez pas de compte ?",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "Veuillez saisir votre adresse email",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "Veuillez saisir votre mot de passe",
+      "loginButton": "Se Connecter",
+      "cancelButton": "Annuler",
+      "wantToCancel": "Vous voulez annuler ?"
+    },
+    "REGISTER": {
+      "title": "Inscription",
+      "alreadyHaveAccount": "Vous avez déjà un compte ?",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "Veuillez saisir votre adresse email",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "Veuillez saisir votre mot de passe",
+      "registerButton": "S'inscrire",
+      "cancelButton": "Annuler",
+      "wantToCancel": "Vous voulez annuler ?"
+    },
+    "ERROR_MESSAGES": {
+      "REQUIRED_FIELD": "Ce champ est requis",
+      "INVALID_EMAIL": "Veuillez saisir une adresse email valide",
+      "MIN_LENGTH": "Ce champ doit contenir au moins {{minLength}} caractères"
+    },
     "userProfile": {
       "title": "Profil Utilisateur",
       "profileSubtitle": "Gérez et mettez à jour vos informations personnelles",
