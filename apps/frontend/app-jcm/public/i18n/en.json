@@ -101,6 +101,9 @@
     "cancelChanges": "Cancel",
     "resetProfil": "Reset"
   },
+    "admin-banner": {
+      "admin-message": "You are logged in as an administrator."
+    },
   "editForm": {
     "saveButton": "Save Changes",
     "cancelButton": "Cancel Changes",

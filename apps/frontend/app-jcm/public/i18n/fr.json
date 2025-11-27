@@ -101,6 +101,9 @@
       "cancelChanges": "Annuler",
       "resetProfil": "Reinitialiser"
     },
+    "admin-banner": {
+      "admin-message": "Vous êtes connecté en tant qu’administrateur."
+    },
     "editForm": {
       "saveButton": "Sauvegarder les Modifications",
       "cancelButton": "Annuler",
