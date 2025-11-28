@@ -49,8 +49,6 @@ export class Login {
   constructor() {
       this.loginUser.set({ email: 'user1@test.be', password: 'Pwd!123456' });
   }
-  // email = signal('user1@test.be');
-  // password = signal('Pwd!123456');
 
   hidePassword = signal(true);
 
