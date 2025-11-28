@@ -1,6 +1,6 @@
 import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { withAuthSync } from "@fe/auth";
-import { signalStore, withComputed, withState } from "@ngrx/signals";
+import { signalStore, withState } from "@ngrx/signals";
 import { withAppAuthFeatures } from "../store-features/authentication-features/authentication.features";
 import { withDictionariesFeatures } from "../store-features/dictionaries-features/dictionaries.features";
 import { initialAppSlice } from "./app.slice";
