@@ -19,8 +19,4 @@ export const AppStore = signalStore(
   // 🔄 Synchronisation avec service d'authentification
   withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
 
-  // Expose computed selector for isAdmin
-  withComputed((store) => ({
-    isAdmin: () => store['isAdmin'],
-  })),
 );

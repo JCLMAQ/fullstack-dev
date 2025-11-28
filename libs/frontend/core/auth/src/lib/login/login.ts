@@ -1,7 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { email, Field, form, minLength, required, schema } from '@angular/forms/signals';
+// import { FormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
+import { email, Field, form, minLength, required, schema, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
@@ -25,13 +27,14 @@ const loginUserSchema = schema<LoginUser>((f) => {
   selector: 'lib-login',
   imports: [
     MatFormFieldModule,
-    FormsModule,
+    MatCardModule,
     MatInput,
     MatIcon,
     MatButtonModule,
     Field,
     TranslateModule,
-    FieldError
+    FieldError,
+    JsonPipe
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -49,18 +52,33 @@ export class Login {
 
   hidePassword = signal(true);
 
-  onSubmit() {
-    if (this.userLoginForm().valid()) {
-          this.login();
-      console.log('Données valides:', this.loginUser());
+  onSubmit = submit(this.userLoginForm, async (form) => {
+    const email = form.email().value();
+    const password = form.password().value();
+    console.log('Login avec', email, password);
+    try {
+      await this.login(email, password);
+      console.log('Login réussi:', form().value());
+      // this.router.navigate(['pages/home']);
+      return undefined;
+    } catch (e) {
+      console.error('Erreur lors du login:', e);
+      return [
+        { kind: 'server', message: 'Network error. Please try again.' }
+      ];
     }
-  }
+  });
+
   register() {
     this.router.navigate(['auth/register']);
   }
+  forgotPassword() {
+    this.router.navigate(['auth/forgotpwd']);
+  }
 
-  async login() {
-    await this.appStore['login'](this.loginUser().email, this.loginUser().password);
+  async login(email: string, password: string) {
+    console.log('Login avec', email, password);
+    await this.appStore['login'](email, password);
   }
 
   cancel() {

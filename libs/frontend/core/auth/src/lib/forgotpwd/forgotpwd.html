@@ -1,1 +1,41 @@
-<p>forgotpwd works!</p>
+<mat-card class="forgotpwd-page">
+  <mat-card-title>
+      {{ 'FORGOTPWD.title' | translate }}
+  </mat-card-title>
+  <mat-card-content>
+  <br>
+   <form  class="flex flex-col gap-5" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-full">
+        <mat-label>{{ 'FORGOTPWD.emailLabel' | translate }}</mat-label>
+        <input matInput [field]="forgotPwdForm.email" placeholder="{{ 'FORGOTPWD.emailPlaceholder' | translate }}" />
+        <mat-icon matSuffix>email</mat-icon>
+        <lib-field-error [fieldError]="forgotPwdForm.email()" />
+        @if(forgotPwdForm.email().touched() || forgotPwdForm.email().dirty()) {
+          @for (error of forgotPwdForm.email().errors(); track error.kind) {
+            <mat-error>{{ error.message }}</mat-error>
+          }
+        }
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  mat-flat-button class="w-full mt-3" type="submit" [disabled]="!forgotPwdForm().valid()">
+        {{ 'FORGOTPWD.submitButton' | translate }}
+      </button>
+    <button class="forgotpwd-button" mat-button (click)="backhome()">
+      {{ 'FORGOTPWD.cancelButton' | translate }}
+      <mat-icon>cancel_presentation</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- <div class="flex gap-3 mb-8 text-sm text-on-surface">
+  <br><br>
+  <span>{{ "LOGIN.wantToCancel" | translate }}</span>
+    <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
+</div> -->
+
+
+<!-- <div>
+{{forgotPwdForm.value | json}}
+</div> -->

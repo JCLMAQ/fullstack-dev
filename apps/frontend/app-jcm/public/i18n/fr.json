@@ -62,7 +62,8 @@
       "passwordPlaceholder": "Veuillez saisir votre mot de passe",
       "loginButton": "Se Connecter",
       "cancelButton": "Annuler",
-      "wantToCancel": "Vous voulez annuler ?"
+      "wantToCancel": "Vous voulez annuler ?",
+      "forgotPassword": "Mot de passe oublié ?"
     },
     "REGISTER": {
       "title": "Inscription",
@@ -72,6 +73,14 @@
       "passwordLabel": "Mot de Passe",
       "passwordPlaceholder": "Veuillez saisir votre mot de passe",
       "registerButton": "S'inscrire",
+      "cancelButton": "Annuler",
+      "wantToCancel": "Vous voulez annuler ?"
+    },
+    "FORGOTPWD": {
+      "title": "Mot de Passe Oublié",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "Veuillez saisir votre adresse email",
+      "submitButton": "Envoyer le Lien de Réinitialisation",
       "cancelButton": "Annuler",
       "wantToCancel": "Vous voulez annuler ?"
     },

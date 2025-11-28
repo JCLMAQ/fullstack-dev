@@ -65,6 +65,8 @@ export class IamAuth {
    * IAM: POST /api/authentication/sign-in ✅
    */
   async login(email: string, password: string): Promise<ILoginResponse> {
+    // Toujours réinitialiser le flag admin lors d'un login classique
+    this.adminRole = false;
     const response = await this.loginService.login(email, password);
     this.loginAsUser();
     return response;
@@ -90,9 +92,12 @@ export class IamAuth {
     this.tokenStorage.clearToken();
     this.userStorage.clearUser();
     this.logoutAsUserOrAdmin();
+    // Correction : forcer le flag admin à false explicitement
+    this.adminRole = false;
     console.log('🧹 Complete logout');
     console.log('👤 User after logout:', this.user()?.email || 'undefined');
     console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
+    console.log('🛡️ adminRole after logout:', this.adminRole);
   }
 
   /**
