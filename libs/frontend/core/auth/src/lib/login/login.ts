@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 // import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
-import { email, Field, form, minLength, required, schema, submit } from '@angular/forms/signals';
+import { apply, email, Field, form, required, schema, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { FieldError } from '@fe/signalform-utilities';
+import { FieldError, strongPasswordSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
 interface LoginUser {
@@ -16,11 +16,11 @@ interface LoginUser {
   password: string;
 }
 
-const loginUserSchema = schema<LoginUser>((f) => {
-  required(f.password, { message: 'Le password est requis' });
-  minLength(f.password, 3, { message: 'Le password doit comporter au moins 3 caractères' });
-  required(f.email, { message: 'L’email est requis' });
-  email(f.email, { message: 'Email invalide' });
+const loginUserSchema = schema<LoginUser>((path) => {
+  // apply(path.personalInfo.firstName, personNameSchema),
+  apply(path.password, strongPasswordSchema);
+  required(path.email, { message: 'L’email est requis' });
+  email(path.email, { message: 'Email invalide' });
 });
 
 @Component({
@@ -43,10 +43,13 @@ export class Login {
   appStore = inject(AppStore);
   router = inject(Router);
 
-  // loginUser = signal<LoginUser>({ email: '', password: '' });
-  loginUser = signal<LoginUser>({ email: 'user1@test.be', password: 'Pwd!123456' });
+  // loginUser = signal<LoginUser>({ email: 'user1@test.be', password: 'Pwd!123456' });
+  loginUser = signal<LoginUser>({ email: '', password: '' });
   userLoginForm = form(this.loginUser, loginUserSchema);
 
+  constructor() {
+      this.loginUser.set({ email: 'user1@test.be', password: 'Pwd!123456' });
+  }
   // email = signal('user1@test.be');
   // password = signal('Pwd!123456');
 
