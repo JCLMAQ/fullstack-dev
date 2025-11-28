@@ -17,10 +17,9 @@ interface LoginUser {
 }
 
 const loginUserSchema = schema<LoginUser>((path) => {
-  // apply(path.personalInfo.firstName, personNameSchema),
   apply(path.password, strongPasswordSchema);
-  required(path.email, { message: 'L’email est requis' });
-  email(path.email, { message: 'Email invalide' });
+  required(path.email, { message: 'LOGIN.emailRequired' });
+  email(path.email, { message: 'LOGIN.invalidEmail' });
 });
 
 @Component({

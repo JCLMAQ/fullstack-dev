@@ -1,4 +1,4 @@
- @if (fieldError().touched()) {
+ @if (fieldError().touched() || fieldError().dirty()) {
       @for (error of fieldError().errors(); track error.kind) {
         <div class="mt-1 text-sm text-red-600">{{ error.message | translate }}</div>
       }

@@ -63,7 +63,10 @@
       "loginButton": "Se Connecter",
       "cancelButton": "Annuler",
       "wantToCancel": "Vous voulez annuler ?",
-      "forgotPassword": "Mot de passe oublié ?"
+      "forgotPassword": "Mot de passe oublié ?",
+      "emailRequired": "L’email est requis",
+      "invalidEmail": "Email invalide",
+      "passwordRequired": "Le mot de passe est requis"
     },
     "REGISTER": {
       "title": "Inscription",

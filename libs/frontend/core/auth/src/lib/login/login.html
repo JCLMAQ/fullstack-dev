@@ -19,14 +19,14 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
 <form  class="flex flex-col gap-5" (ngSubmit)="onSubmit">
       <mat-form-field class="w-full">
         <mat-label>{{ 'LOGIN.emailLabel' | translate }}</mat-label>
-        <input matInput [field]="userLoginForm.email" placeholder="{{ 'LOGIN.emailPlaceholder' | translate }}" />
+        <input matInput [field]="userLoginForm.email"
+          placeholder="{{ 'LOGIN.emailPlaceholder' | translate }}"
+          type="email" />
         <mat-icon matSuffix>email</mat-icon>
         <lib-field-error [fieldError]="userLoginForm.email()" />
-        @if(userLoginForm.email().touched() || userLoginForm.email().dirty()) {
-          @for (error of userLoginForm.email().errors(); track error.kind) {
-            <mat-error>{{ error.message }}</mat-error>
-          }
-        }
+        <!-- @if(userLoginForm.email().touched() || userLoginForm.email().dirty()) {
+          <lib-field-error [fieldError]="userLoginForm.email()" />
+        } -->
       </mat-form-field>
 
       <mat-form-field class="w-full">
@@ -46,6 +46,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
               type="text"
             />
           }
+
         <button
           mat-icon-button
           matSuffix
@@ -57,14 +58,18 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
             hidePassword() ? 'visibility_off' : 'visibility'
           }}</mat-icon>
         </button>
+        <!-- <lib-field-error [fieldError]="userLoginForm.password()" /> -->
         @if(userLoginForm.password().touched() || userLoginForm.password().dirty()) {
-          @for (error of userLoginForm.password().errors(); track error.kind) {
+          <lib-field-error [fieldError]="userLoginForm.password()" />
+          <!-- @for (error of userLoginForm.password().errors(); track error.kind) {
             <mat-error>{{ error.message }}</mat-error>
-          }
+          } -->
         }
       </mat-form-field>
 
-      <button  mat-flat-button class="w-full mt-3" type="submit" [disabled]="!userLoginForm().valid()">
+      <button  mat-flat-button class="w-full mt-3"
+        type="submit"
+        [disabled]="!userLoginForm().valid()">
         {{ 'LOGIN.loginButton' | translate }}
       </button>
     </form>

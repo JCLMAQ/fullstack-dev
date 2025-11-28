@@ -63,7 +63,10 @@
       "loginButton": "Login",
       "cancelButton": "Cancel",
       "wantToCancel": "Do you want to cancel?",
-      "forgotPassword": "Forgot your password ?"
+      "forgotPassword": "Forgot your password ?",
+      "emailRequired": "The email is required",
+      "invalidEmail": "Invalid email",
+      "passwordRequired": "The password is required"
     },
     "REGISTER": {
       "title": "Register",

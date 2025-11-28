@@ -24,9 +24,9 @@ export const personNameSchema = schema<string>((path) => [
 export const strongPasswordSchema = schema<string>((path) => [
   required(path, { message: 'signalFormError.passwordRequired' }), // 'Password is required'
   minLength(path, 8, { message: 'signalFormError.passwordMinLength' }), // 'Password must be at least 8 characters'
-  pattern(path, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, {
-    message: 'signalFormError.passwordPattern' // 'Password must contain uppercase, lowercase, and number'
-  })
+  // pattern(path, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, {
+  //   message: 'signalFormError.passwordPattern' // 'Password must contain uppercase, lowercase, and number'
+  // })
 ]);
 
 // Date of Birth schema with minimum age validation
