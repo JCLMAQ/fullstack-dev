@@ -29,7 +29,6 @@ export const strongPasswordSchema = schema<string>((path) => [
   })
 ]);
 
-// "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
 
 
 // Date of Birth schema with minimum age validation
