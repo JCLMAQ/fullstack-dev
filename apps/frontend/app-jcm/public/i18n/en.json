@@ -154,7 +154,7 @@
     "invalidName": "Only letters, spaces, hyphens, and apostrophes are allowed",
     "passewordRequired": "Password is required",
     "passwordMinLength": "Password must be at least 8 characters",
-    "passwordPattern": "Password must contain uppercase, lowercase, and number",
+    "passwordPattern": "Password must contain uppercase(s), lowercase(s), number(s) and special character(s) (@$!%*#?&)",
     "passworMisdMatch": "Passwords must match",
     "confirmPasswordRequired": "Password confirmation is required",
     "minAge": "You must be at least 18 years old",

@@ -42,10 +42,10 @@ export class Login {
   appStore = inject(AppStore);
   router = inject(Router);
 
-  // loginUser = signal<LoginUser>({ email: 'user1@test.be', password: 'Pwd!12345666' });
   loginUser = signal<LoginUser>({ email: '', password: '' });
   userLoginForm = form(this.loginUser, loginUserSchema);
 
+// TODO : to delete it's just for easy testing
   constructor() {
       this.loginUser.set({ email: 'user1@test.be', password: 'Pwd!123456' });
   }
@@ -61,7 +61,6 @@ submitForm() {
     try {
       await this.login(email, password);
       console.log('Login réussi:', form().value());
-      // this.router.navigate(['pages/home']);
       return undefined;
     } catch (e) {
       console.error('Erreur lors du login:', e);
@@ -71,41 +70,6 @@ submitForm() {
     }
   });
 }
-
-/*
-submitForm() {
-    submit(this.f, (f) => this.mockHttpRequest(f));
-  }
-
-  mockHttpRequest(form: typeof this.f) {
-    return Promise.resolve(
-      form().value().name === 'Bálint'
-        ? undefined
-        : [{
-          field: form.name,
-          kind: 'server',
-          message: 'Name is not valid'
-        }]
-    );
-  }
-*/
-
-  // onSubmit = submit(this.userLoginForm, async (form) => {
-  //   const email = form.value().email();
-  //   const password = form.password().value();
-  //   console.log('Login avec', email, password);
-  //   try {
-  //     await this.login(email, password);
-  //     console.log('Login réussi:', form().value());
-  //     // this.router.navigate(['pages/home']);
-  //     return undefined;
-  //   } catch (e) {
-  //     console.error('Erreur lors du login:', e);
-  //     return [
-  //       { kind: 'server', message: 'Network error. Please try again.' }
-  //     ];
-  //   }
-  // });
 
   register() {
     this.router.navigate(['auth/register']);
