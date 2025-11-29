@@ -190,12 +190,12 @@ export class Carousel {
       const token = this.authService.authToken();
       console.log(`🔄 Carousel - Auth changed: user=${user?.email || 'undefined'}, token=${!!token}`);
 
-      // Réinitialiser l'UI
-      this.isPlaying.set(false);
-      this.currentIndex.set(0);
-
-      // Forcer le rechargement immédiat
-      this.loadTrigger.update(v => v + 1);
+      // Réinitialiser l'UI de façon asynchrone pour éviter NG0100
+      queueMicrotask(() => {
+        this.isPlaying.set(false);
+        this.currentIndex.set(0);
+        this.loadTrigger.update(v => v + 1);
+      });
     });
 
     // Effect pour réinitialiser l'index quand les images changent
