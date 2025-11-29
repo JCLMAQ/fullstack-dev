@@ -2,22 +2,22 @@ import { Public } from '@be/iam';
 import jwtConfig from '@be/jwtconfig';
 import { Image, Prisma } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    DefaultValuePipe,
-    Delete,
-    Get,
-    Headers,
-    HttpException,
-    HttpStatus,
-    Inject,
-    Param,
-    ParseIntPipe,
-    ParseUUIDPipe,
-    Post,
-    Put,
-    Query,
-    ValidationPipe
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  Headers,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Param,
+  ParseIntPipe,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
+  ValidationPipe
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { REQUEST } from '@nestjs/core';
@@ -26,9 +26,9 @@ import { Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 import type { Request } from 'express';
 import {
-    ImageAnalyticsResult,
-    ImageSearchOptions,
-    ImagesService
+  ImageAnalyticsResult,
+  ImageSearchOptions,
+  ImagesService
 } from './images.service';
 
 // DTOs pour la validation
@@ -378,11 +378,21 @@ export class ImagesController {
 
       console.log(`📊 getImages - isAuthenticated: ${isAuthenticated}, filters.isPublic: ${filters.isPublic}`);
 
+      // Conversion explicite de isPublic (string|boolean|undefined) en booléen ou undefined
+      let isPublic: boolean | undefined = undefined;
+      if (filters.isPublic !== undefined) {
+        if (typeof filters.isPublic === 'string') {
+          if (filters.isPublic === 'true') isPublic = true;
+          else if (filters.isPublic === 'false') isPublic = false;
+        } else if (typeof filters.isPublic === 'boolean') {
+          isPublic = filters.isPublic;
+        }
+      }
+
       // Si non authentifié, forcer isPublic à true
       const searchOptions: ImageSearchOptions = {
         ...filters,
-        // Si l'utilisateur n'est pas authentifié, forcer à voir uniquement les images publiques
-        isPublic: isAuthenticated ? filters.isPublic : true,
+        isPublic: isAuthenticated ? isPublic : true,
         ...(createdAfter && { createdAfter: new Date(createdAfter) }),
         ...(createdBefore && { createdBefore: new Date(createdBefore) })
       };
@@ -668,11 +678,22 @@ export class ImagesController {
         }
       }
 
+      // Conversion explicite de isPublic (string|boolean|undefined) en booléen ou undefined
+      let isPublic: boolean | undefined = undefined;
+      if (filters.isPublic !== undefined) {
+        if (typeof filters.isPublic === 'string') {
+          if (filters.isPublic === 'true') isPublic = true;
+          else if (filters.isPublic === 'false') isPublic = false;
+        } else if (typeof filters.isPublic === 'boolean') {
+          isPublic = filters.isPublic;
+        }
+      }
+
       // Si non authentifié, forcer isPublic à true
       const searchOptions: ImageSearchOptions = {
         uploadedById: filters.uploadedById,
         orgId: filters.orgId,
-        isPublic: isAuthenticated ? filters.isPublic : true
+        isPublic: isAuthenticated ? isPublic : true
       };
 
       const images = await this.imagesService.getImagesByTags(tags, searchOptions, { skip, take });

@@ -157,6 +157,10 @@ export class ImageService {
     let httpParams = new HttpParams();
     Object.keys(params).forEach(key => {
       const value = params[key as keyof SearchImagesDto];
+      // Ne jamais envoyer isPublic si undefined
+      if (key === 'isPublic' && value === undefined) {
+        return;
+      }
       if (value !== undefined && value !== null) {
         if (Array.isArray(value)) {
           value.forEach(item => httpParams = httpParams.append(key, item.toString()));
@@ -288,6 +292,10 @@ export class ImageService {
     let httpParams = new HttpParams();
     Object.keys(filters).forEach(key => {
       const value = filters[key as keyof SearchImagesDto];
+      // Ne jamais envoyer isPublic si undefined
+      if (key === 'isPublic' && value === undefined) {
+        return;
+      }
       if (value !== undefined && value !== null) {
         httpParams = httpParams.set(key, value.toString());
       }
