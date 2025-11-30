@@ -27,7 +27,10 @@ export class UserProfileService {
     message: string;
     photoUrl?: string;
   }> {
-    const pathUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/authentication/update-photo`;
+    // Construction dynamique de l'URL backend selon la config d'environnement
+    const apiBaseUrl = this.environment.API_BACKEND_URL?.replace(/\/$/, '');
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const pathUrl = `${apiBaseUrl}/${apiPrefix}/authentication/update-photo`;
 
     try {
       console.log('📤 Updating user photo:', { photoUrl });

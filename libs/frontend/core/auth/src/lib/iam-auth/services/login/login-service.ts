@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { firstValueFrom } from 'rxjs';
 import { ILoginResponse } from '../../../models/auth.model';
 import { TokenStorageService } from '../token-storage/token-storage-service';
@@ -22,13 +23,15 @@ export class LoginService {
   private tokenStorage = inject(TokenStorageService);
   private userStorage = inject(UserStorageService);
   private userFetchService = inject(UserFetchService);
+  private environment = inject(ENVIRONMENT_TOKEN);
 
   /**
    * 🔐 LOGIN avec endpoint IAM
    * IAM: POST /api/authentication/sign-in ✅
    */
   async login(email: string, password: string): Promise<ILoginResponse> {
-    const pathUrl = 'api/authentication/sign-in';
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const pathUrl = `${apiPrefix}/authentication/sign-in`;
 
     console.log('🔐 Attempting login for:', email);
 
@@ -74,10 +77,13 @@ export class LoginService {
     email: string,
     password: string,
   ): Promise<boolean> {
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const pathUrl = `${apiPrefix}check-credentials/${email}`;
     try {
       const response = await firstValueFrom(
+
         this.httpClient.post<{ success: boolean; message: string }>(
-          `api/authentication/check-credentials/${email}`,
+          `${pathUrl}`,
           { password },
         ),
       );

@@ -5,13 +5,17 @@ import { ENVIRONMENT_TOKEN } from '@fe/shared';
   providedIn: 'root'
 })
 export class ApiConfig {
-  ;
+
   private readonly environment = inject(ENVIRONMENT_TOKEN);
 
   private readonly apiUrl: string = this.environment.API_BACKEND_URL || 'http://localhost:3000';
+  private readonly apiPrefix: string = this.environment.API_BACKEND_PREFIX || '';
 
   getApiUrl(): string {
     return this.apiUrl;
+  }
+  getApiPrefix(): string {
+    return this.apiPrefix;
   }
 
   getFileUrl(relativePath: string): string {

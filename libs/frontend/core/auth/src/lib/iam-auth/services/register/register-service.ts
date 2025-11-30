@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { firstValueFrom } from 'rxjs';
 import { IRegisterResponse } from '../../../models/auth.model';
 
@@ -15,6 +16,7 @@ import { IRegisterResponse } from '../../../models/auth.model';
 })
 export class RegisterService {
   private httpClient = inject(HttpClient);
+  private environment = inject(ENVIRONMENT_TOKEN);
 
   /**
    * 📝 REGISTER avec endpoint IAM
@@ -25,7 +27,8 @@ export class RegisterService {
     password: string,
     confirmPassword: string,
   ): Promise<IRegisterResponse> {
-    const pathUrl = 'api/authentication/register-extended';
+     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const pathUrl = `${apiPrefix}/authentication/register-extended`;
 
     const payload = {
       email,

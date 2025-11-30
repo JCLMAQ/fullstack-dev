@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IAM_AUTH_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/shared';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withMethods,
-    withProps
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withMethods,
+  withProps
 } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
 
@@ -114,9 +114,15 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
 
+          // Construction dynamique de l'URL backend
+          const environment = inject(ENVIRONMENT_TOKEN) as Environment;
+          const apiBaseUrl = environment.API_BACKEND_URL?.replace(/\/$/, '');
+          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+          const userUrl = `${apiBaseUrl}/${apiPrefix}/users/${userId}`;
+
           // Appeler l'API pour mettre à jour l'utilisateur
           await firstValueFrom(
-            store._httpClient.put<{ id: string; photoUrl: string }>(`/api/users/${userId}`, {
+            store._httpClient.put<{ id: string; photoUrl: string }>(userUrl, {
               photoUrl: photoUrl
             })
           );
@@ -172,6 +178,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
 
+          // Construction dynamique de l'URL backend
+          const environment = inject(ENVIRONMENT_TOKEN) as Environment;
+          const apiBaseUrl = environment.API_BACKEND_URL?.replace(/\/$/, '');
+          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+          const uploadUrl = `${apiBaseUrl}/${apiPrefix}/upload/avatar`;
+          const userUrl = `${apiBaseUrl}/${apiPrefix}/users/${userId}`;
+
           // 1. Upload l'image via l'endpoint avatar
           const formData = new FormData();
           formData.append('avatar', file);
@@ -179,14 +192,14 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           formData.append('profileUserId', userId);
 
           const uploadResponse = await firstValueFrom(
-            store._httpClient.post<{ data: { storageUrl: string; id: string } }>(`/api/upload/avatar`, formData)
+            store._httpClient.post<{ data: { storageUrl: string; id: string } }>(uploadUrl, formData)
           );
 
           const newPhotoUrl = uploadResponse.data.storageUrl;
 
           // 2. Mettre à jour l'utilisateur avec la nouvelle URL
           await firstValueFrom(
-            store._httpClient.put<{ id: string; photoUrl: string }>(`/api/users/${userId}`, {
+            store._httpClient.put<{ id: string; photoUrl: string }>(userUrl, {
               photoUrl: newPhotoUrl
             })
           );

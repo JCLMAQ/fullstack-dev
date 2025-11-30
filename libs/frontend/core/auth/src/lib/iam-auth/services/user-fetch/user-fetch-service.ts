@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from '@db/prisma';
+import { ENVIRONMENT_TOKEN } from '@fe/shared';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt } from '../../../models/auth.model';
@@ -22,13 +23,16 @@ export class UserFetchService {
   private httpClient = inject(HttpClient);
   private tokenStorage = inject(TokenStorageService);
   private userStorage = inject(UserStorageService);
+  private environment = inject(ENVIRONMENT_TOKEN);
 
   /**
    * 👤 FETCH USER avec endpoint IAM
    * IAM: GET /api/authentication/profile ✅
    */
   async fetchUser(): Promise<User | null> {
-    const pathUrl = 'api/authentication/profile';
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const pathUrl = `${apiPrefix}/authentication/profile`;
+
     const authToken = this.tokenStorage.authToken();
 
     console.log('🔍 Fetching user profile...');

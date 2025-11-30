@@ -102,8 +102,11 @@ export class ImageService {
   private environment = inject(ENVIRONMENT_TOKEN);
   private tokenStorage = inject(TokenStorageService);
 
-  private readonly baseUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/images`;
-  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/upload`;
+  // Construction dynamique des URLs backend avec préfixe depuis l'environnement
+  private readonly apiBaseUrl = this.environment.API_BACKEND_URL?.replace(/\/$/, '');
+  private readonly apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+  private readonly baseUrl = `${this.apiBaseUrl}/${this.apiPrefix}/images`;
+  private readonly uploadUrl = `${this.apiBaseUrl}/${this.apiPrefix}/upload`;
 
   // State management
   private imagesSubject = new BehaviorSubject<Image[]>([]);
@@ -520,8 +523,9 @@ export class ImageService {
     }
 
     // Construire l'URL complète avec le backend
-    const backendBaseUrl = this.environment.API_BACKEND_URL;
-    const fullUrl = `${backendBaseUrl}${url}`;
+    const backendBaseUrl = this.environment.API_BACKEND_URL?.replace(/\/$/, '');
+    // Si url commence par /, éviter la double barre oblique
+    const fullUrl = url.startsWith('/') ? `${backendBaseUrl}${url}` : `${backendBaseUrl}/${url}`;
 
     // Si l'image est privée, ajouter le token d'authentification comme paramètre de requête
     // C'est nécessaire car les balises <img> ne peuvent pas envoyer des headers personnalisés

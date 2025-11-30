@@ -12,7 +12,7 @@ export class AvatarBase64 {
   private apiConfig = inject(ApiConfig);
 
   async uploadAvatarBase64(base64Data: string): Promise<{ message: string }> {
-    const url = `${this.apiConfig.getApiUrl()}/api/avatar-base64/upload`;
+    const url = `${this.apiConfig.getApiUrl()}/${this.apiConfig.getApiPrefix()}/avatar-base64/upload`;
     console.log('🔍 Sending to URL:', url);
     console.log('📊 Data length:', base64Data.length);
     console.log('🏷️ Data preview:', base64Data.substring(0, 100));
@@ -23,7 +23,7 @@ export class AvatarBase64 {
 
   // Méthode de test
   async testEndpoint(testData: Record<string, unknown>): Promise<Record<string, unknown>> {
-    const url = `${this.apiConfig.getApiUrl()}/api/avatar-base64/test`;
+    const url = `${this.apiConfig.getApiUrl()}/${this.apiConfig.getApiPrefix()}/avatar-base64/test`;
     console.log('🧪 Testing endpoint:', url);
     return await firstValueFrom(
       this.http.post<Record<string, unknown>>(url, testData)
@@ -31,7 +31,7 @@ export class AvatarBase64 {
   }
 
   async getCurrentAvatar(): Promise<{ avatarData: string | null }> {
-    const url = `${this.apiConfig.getApiUrl()}/api/avatar-base64/current`;
+    const url = `${this.apiConfig.getApiUrl()}/${this.apiConfig.getApiPrefix()}/avatar-base64/current`;
     return await firstValueFrom(
       this.http.get<{ avatarData: string | null }>(url)
     );
