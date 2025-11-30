@@ -216,6 +216,7 @@ export class UserAvatarEditor {
       this.selectedPhoto.set(base64String); // Préparer la photo pour sauvegarde via le bouton
     };
     reader.readAsDataURL(file);
+  }
   private async uploadToBase64(base64Data: string) {
     this.isUploadingBase64.set(true);
     try {
