@@ -48,6 +48,7 @@ Thumbs.db
 # Env files
 .env
 .env.local
+.routes
 
 # Uploads
 uploads/images/*
