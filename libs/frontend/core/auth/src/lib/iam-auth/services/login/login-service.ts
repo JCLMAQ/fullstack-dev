@@ -15,6 +15,8 @@ import { UserStorageService } from '../user-storage/user-storage-service';
  * - Gestion du token après login
  * - Récupération et stockage du profil utilisateur
  */
+
+// TODO: remplacer les adresse hardcodées par des constantes ou configuration
 @Injectable({
   providedIn: 'root',
 })
