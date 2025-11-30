@@ -216,27 +216,24 @@ export class UserAvatarEditor {
       this.selectedPhoto.set(base64String); // Préparer la photo pour sauvegarde via le bouton
     };
     reader.readAsDataURL(file);
-  }  private uploadToBase64(base64Data: string) {
+  private async uploadToBase64(base64Data: string) {
     this.isUploadingBase64.set(true);
-
-    this.avatarBase64Service.uploadAvatarBase64(base64Data).subscribe({
-      next: () => {
-        this.isUploadingBase64.set(false);
-        this.selectedPhoto.set(base64Data); // Utiliser le base64 comme photo sélectionnée
-        this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
-          duration: 3000,
-          verticalPosition: 'top'
-        });
-      },
-      error: (error) => {
-        this.isUploadingBase64.set(false);
-        console.error('Erreur upload base64:', error);
-        this.snackbar.open('Erreur lors de la sauvegarde', 'Fermer', {
-          duration: 5000,
-          verticalPosition: 'top'
-        });
-      }
-    });
+    try {
+      await this.avatarBase64Service.uploadAvatarBase64(base64Data);
+      this.isUploadingBase64.set(false);
+      this.selectedPhoto.set(base64Data); // Utiliser le base64 comme photo sélectionnée
+      this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
+    } catch (error) {
+      this.isUploadingBase64.set(false);
+      console.error('Erreur upload base64:', error);
+      this.snackbar.open('Erreur lors de la sauvegarde', 'Fermer', {
+        duration: 5000,
+        verticalPosition: 'top'
+      });
+    }
   }
 
   clearSelectedFileBase64(event: Event) {
@@ -306,39 +303,35 @@ export class UserAvatarEditor {
       if (photo.startsWith('data:image/')) {
         console.log('�️ Sauvegarde base64 en base de données');
 
-        this.avatarBase64Service.uploadAvatarBase64(photo).subscribe({
-          next: async () => {
-            console.log('✅ Mise à jour base64 réussie');
-
-            try {
-              // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
-              await this.authService.refreshUserProfile();
-              console.log('✅ Profil utilisateur actualisé');
-
-              this.saving.set(false);
-              this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
-                duration: 3000,
-                verticalPosition: 'top'
-              });
-              this.dialogRef.close(true);
-            } catch (refreshError) {
-              console.error('❌ Erreur lors du rafraîchissement du profil:', refreshError);
-              this.saving.set(false);
-              this.snackbar.open('Avatar sauvegardé mais erreur lors de l\'actualisation du profil', 'Fermer', {
-                duration: 5000,
-                verticalPosition: 'top'
-              });
-            }
-          },
-          error: (error) => {
-            console.error('❌ Échec de la mise à jour base64:', error);
+        try {
+          await this.avatarBase64Service.uploadAvatarBase64(photo);
+          console.log('✅ Mise à jour base64 réussie');
+          try {
+            // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
+            await this.authService.refreshUserProfile();
+            console.log('✅ Profil utilisateur actualisé');
             this.saving.set(false);
-            this.snackbar.open('Erreur lors de la sauvegarde en base de données', 'Fermer', {
+            this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
+              duration: 3000,
+              verticalPosition: 'top'
+            });
+            this.dialogRef.close(true);
+          } catch (refreshError) {
+            console.error('❌ Erreur lors du rafraîchissement du profil:', refreshError);
+            this.saving.set(false);
+            this.snackbar.open('Avatar sauvegardé mais erreur lors de l\'actualisation du profil', 'Fermer', {
               duration: 5000,
               verticalPosition: 'top'
             });
           }
-        });
+        } catch (error) {
+          console.error('❌ Échec de la mise à jour base64:', error);
+          this.saving.set(false);
+          this.snackbar.open('Erreur lors de la sauvegarde en base de données', 'Fermer', {
+            duration: 5000,
+            verticalPosition: 'top'
+          });
+        }
       } else {
         // Utiliser l'ancienne méthode pour les autres types (emoji, URL)
         console.log('🚀 Appel de updateUserPhoto avec:', photo);

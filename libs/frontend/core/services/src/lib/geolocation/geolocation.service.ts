@@ -1,10 +1,4 @@
 import { Injectable, computed, signal } from '@angular/core';
-// import { Observable, from } from 'rxjs';
-
-/*
-In this service, we define methods for geolocation using both Observables and Signals.
-This approach provides flexibility and better reactivity for geolocation data.
-*/
 
 @Injectable({
   providedIn: 'root',
@@ -63,20 +57,4 @@ export class GeolocationService {
       });
     });
   }
-
-  // // Keep the Observable version for backward compatibility
-  // getCurrentPosition(): Observable<GeolocationPosition> {
-  //   return from(this.getPositionPromise());
-  // }
-
-  // Signal version using toSignal (alternative approach)
-  // getCurrentPositionSignal = toSignal(this.getCurrentPosition(), {
-  //   initialValue: null
-  // });
 }
-
-
-
-/*
-public todos = toSignal(this.todosService.getTodos(), { initialValue: [] });
-*/
