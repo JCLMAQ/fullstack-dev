@@ -16,11 +16,8 @@
     "baseUrl": ".",
     "ignoreDeprecations": "5.0",
     "paths": {
-      // DB mapping
       "@db/prisma": ["libs/prisma/src/index.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
-
-      // Backend mapping
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],
@@ -66,9 +63,6 @@
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
-
-// Frontend mapping
-
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -107,7 +101,6 @@
       ],
       "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
       "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
-
       "@fe/carousel": [
         "libs/frontend/shared-misc/components/carousel/src/index.ts"
       ],
@@ -116,7 +109,8 @@
       ],
       "@fe/admin-banner": [
         "libs/frontend/shared-misc/components/admin-banner/src/index.ts"
-      ]
+      ],
+      "@fe/token": ["libs/frontend/token/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
