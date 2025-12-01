@@ -105,7 +105,10 @@ export class ImageMgt {
       }
     });
 
-
+    // Synchronisation automatique avec le signal du service pour garantir la réactivité
+    effect(() => {
+      this.images.set(this.imageService.images());
+    });
   }
 
   onImageUpdated(updatedImage: Image): void {
