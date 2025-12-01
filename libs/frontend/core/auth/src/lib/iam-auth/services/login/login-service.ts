@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ENVIRONMENT_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { firstValueFrom } from 'rxjs';
 import { ILoginResponse } from '../../../models/auth.model';
 import { TokenStorageService } from '../token-storage/token-storage-service';

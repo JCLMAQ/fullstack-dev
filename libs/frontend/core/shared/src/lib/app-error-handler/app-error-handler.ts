@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {
-  EnvironmentProviders,
-  ErrorHandler,
-  Injectable,
-  NgZone,
-  inject,
-  makeEnvironmentProviders,
+    EnvironmentProviders,
+    ErrorHandler,
+    Injectable,
+    NgZone,
+    inject,
+    makeEnvironmentProviders,
 } from '@angular/core';
 import { ToastService } from './toast';
 

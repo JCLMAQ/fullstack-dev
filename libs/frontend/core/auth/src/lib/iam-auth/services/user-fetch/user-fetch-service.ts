@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from '@db/prisma';
-import { ENVIRONMENT_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { IJwt } from '../../../models/auth.model';

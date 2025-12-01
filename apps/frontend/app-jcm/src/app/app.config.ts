@@ -1,7 +1,7 @@
 import {
-    ApplicationConfig,
-    provideBrowserGlobalErrorListeners,
-    provideZonelessChangeDetection,
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -10,7 +10,8 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, MENU_ITEMS_TOKEN } from '@fe/shared';
+import { DICTIONARIES_TOKEN, MENU_ITEMS_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN } from '@fe/token';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';

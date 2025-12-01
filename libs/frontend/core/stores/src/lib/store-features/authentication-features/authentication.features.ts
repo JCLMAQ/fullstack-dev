@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/shared';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withMethods,
-  withProps
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withMethods,
+    withProps
 } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import type { File } from '@db/prisma';
-import { ENVIRONMENT_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 export interface CreateFileDto {
