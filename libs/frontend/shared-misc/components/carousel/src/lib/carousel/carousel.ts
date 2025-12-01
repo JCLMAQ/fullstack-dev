@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    DestroyRef,
-    effect,
-    inject,
-    input,
-    output,
-    resource,
-    signal,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  output,
+  resource,
+  signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -114,8 +114,8 @@ export class Carousel {
 
       try {
         const images = tagsList.length > 0
-          ? await this.imageService.getImagesByTags(tagsList, params).toPromise()
-          : await this.imageService.getImages(params).toPromise();
+          ? await this.imageService.getImagesByTags(tagsList, params)
+          : await this.imageService.getImages(params);
 
         console.log(`🎠 Carousel loaded ${images?.length || 0} images (isLoggedIn: ${isLoggedIn}, isPublic filter: ${params.isPublic})`);
         return images || [];
@@ -147,7 +147,7 @@ export class Carousel {
     // FILTRE DE SÉCURITÉ : Ne jamais afficher d'images privées si non connecté
     // Cela évite d'afficher temporairement les anciennes images privées pendant le rechargement
     if (!isLoggedIn) {
-      return resourceImages.filter(img => img.isPublic === true);
+      return resourceImages.filter((img: Image) => img.isPublic === true);
     }
 
     return resourceImages;

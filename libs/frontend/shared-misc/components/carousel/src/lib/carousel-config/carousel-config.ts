@@ -98,12 +98,10 @@ export class CarouselConfig {
     this.loading.set(true);
 
     try {
-      const images = await this.imageService
-        .getImages({
-          take: 100,
-          orderBy: 'createdAt',
-        })
-        .toPromise();
+      const images = await this.imageService.getImages({
+        take: 100,
+        orderBy: 'createdAt',
+      });
       this.allImages.set(images || []);
     } catch (err) {
       console.error('Error loading images:', err);
@@ -174,7 +172,7 @@ export class CarouselConfig {
       // Pour chaque image sélectionnée, retirer le tag carousel
       const updatePromises = selected.map(image => {
         const tags = (image.tags || []).filter(tag => tag !== 'carousel');
-        return this.imageService.updateImage(image.id, { tags }).toPromise();
+        return this.imageService.updateImage(image.id, { tags });
       });
 
       await Promise.all(updatePromises);
@@ -214,7 +212,7 @@ export class CarouselConfig {
           ? currentTags.filter(tag => tag !== 'carousel')
           : [...currentTags, 'carousel'];
 
-        return this.imageService.updateImage(image.id, { tags }).toPromise();
+        return this.imageService.updateImage(image.id, { tags });
       });
 
       await Promise.all(updatePromises);
@@ -299,8 +297,7 @@ export class CarouselConfig {
           uploadedById: user.id,
           isPublic: true,
           tags: ['carousel'],
-        })
-        .toPromise();
+        });
 
       if (!images) {
         throw new Error('No images returned from upload');
@@ -355,8 +352,8 @@ export class CarouselConfig {
   togglePublicStatus(image: Image, event: Event): void {
     event.stopPropagation();
 
-    this.imageService.updateImage(image.id, { isPublic: !image.isPublic }).subscribe({
-      next: (updatedImage) => {
+    this.imageService.updateImage(image.id, { isPublic: !image.isPublic })
+      .then((updatedImage: Image) => {
         // Mettre à jour l'image localement
         Object.assign(image, { isPublic: updatedImage.isPublic });
         this.snackBar.open(
@@ -366,15 +363,14 @@ export class CarouselConfig {
           this.translate.instant('MESSAGES.CLOSE'),
           { duration: 2000 }
         );
-      },
-      error: (error) => {
+      })
+      .catch((error: unknown) => {
         console.error('Erreur lors de la mise à jour du statut:', error);
         this.snackBar.open(
           'Erreur lors de la mise à jour',
           this.translate.instant('MESSAGES.CLOSE'),
           { duration: 3000 }
         );
-      }
-    });
+      });
   }
 }

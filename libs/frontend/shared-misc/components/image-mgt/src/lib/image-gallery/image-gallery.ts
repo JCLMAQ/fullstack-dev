@@ -192,16 +192,15 @@ export class ImageGalleryComponent {
     // Demander confirmation avec choix du type de suppression
     if (confirm(`Voulez-vous supprimer définitivement "${image.originalName}" ?\n\nOui = Suppression définitive (fichier inclus)\nAnnuler = Suppression temporaire (soft delete)`)) {
       // Suppression définitive (hard delete)
-      this.imageService.deleteImage(image.id, false).subscribe({
-        next: () => {
+      this.imageService.deleteImage(image.id, false)
+        .then(() => {
           this.imageDeleted.emit(image);
           this.snackBar.open('Image supprimée définitivement avec succès', 'Fermer', { duration: 2000 });
-        },
-        error: (error) => {
+        })
+        .catch((error: unknown) => {
           console.error('Erreur lors de la suppression:', error);
           this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
-        }
-      });
+        });
     } else {
       // L'utilisateur a cliqué sur Annuler, on ne fait rien ou on fait un soft delete si on veut
       // Pour l'instant, on ne fait rien si annulé
@@ -216,17 +215,16 @@ export class ImageGalleryComponent {
       const selectedIds = this.selectedImageIds();
 
       // Suppression définitive (hard delete)
-      this.imageService.bulkDeleteImages(selectedIds, false).subscribe({
-        next: () => {
+      this.imageService.bulkDeleteImages(selectedIds, false)
+        .then(() => {
           this.imagesDeleted.emit(this.selectedImages());
           this.clearSelection();
           this.snackBar.open(`${selectedCount} image(s) supprimée(s) définitivement avec succès`, 'Fermer', { duration: 2000 });
-        },
-        error: (error) => {
+        })
+        .catch((error: unknown) => {
           console.error('Erreur lors de la suppression en lot:', error);
           this.snackBar.open('Erreur lors de la suppression', 'Fermer', { duration: 3000 });
-        }
-      });
+        });
     }
   }
 
@@ -280,20 +278,19 @@ export class ImageGalleryComponent {
   }
 
   private updateImage(image: Image, updates: { tags?: string[], isPublic?: boolean }): void {
-    this.imageService.updateImage(image.id, updates).subscribe({
-      next: (updatedImage) => {
+    this.imageService.updateImage(image.id, updates)
+      .then((updatedImage: Image) => {
         // Mettre à jour l'image localement
         Object.assign(image, {
           tags: updatedImage.tags,
           isPublic: updatedImage.isPublic
         });
         this.snackBar.open('Image mise à jour avec succès', 'Fermer', { duration: 2000 });
-      },
-      error: (error) => {
+      })
+      .catch((error: unknown) => {
         console.error('Erreur lors de la mise à jour:', error);
-        const errorMsg = error?.error?.message || error?.message || 'Erreur inconnue';
+        const errorMsg = (error as any)?.error?.message || (error as any)?.message || 'Erreur inconnue';
         this.snackBar.open(`Erreur: ${errorMsg}`, 'Fermer', { duration: 5000 });
-      }
-    });
+      });
   }
 }

@@ -247,7 +247,7 @@ export class ImageUploadManagerComponent {
         };
 
         try {
-          const uploadedImage = await this.imageService.uploadFile(fileData.file, metadata).toPromise();
+          const uploadedImage = await this.imageService.uploadFile(fileData.file, metadata);
 
           if (uploadedImage) {
             uploadedImages.push(uploadedImage);

@@ -114,17 +114,15 @@ export class ImageMgt {
         orderBy: 'createdAt'
       };
 
-      this.imageService.getImages(params).subscribe({
-        next: (images) => {
-          this.images.set(images);
-          this.loading.set(false);
-        },
-        error: (error) => {
-          console.error('Erreur lors du chargement des images:', error);
-          this.snackBar.open('Erreur lors du chargement des images', 'Fermer', { duration: 3000 });
-          this.loading.set(false);
-        }
-      });
+      try {
+        const images: Image[] = await this.imageService.getImages(params);
+        this.images.set(images);
+        this.loading.set(false);
+      } catch (error: unknown) {
+        console.error('Erreur lors du chargement des images:', error);
+        this.snackBar.open('Erreur lors du chargement des images', 'Fermer', { duration: 3000 });
+        this.loading.set(false);
+      }
     } catch (error) {
       console.error('Erreur:', error);
       this.loading.set(false);
@@ -141,18 +139,17 @@ export class ImageMgt {
     this.imageService.searchImages(this.searchQuery, {
       mimeType: this.selectedMimeType || undefined,
       isPublic: this.selectedVisibility ?? undefined
-    }).subscribe({
-      next: (images) => {
+    })
+      .then((images: Image[]) => {
         this.images.set(images);
         this.loading.set(false);
         this.currentPage = 0;
-      },
-      error: (error) => {
+      })
+      .catch((error: unknown) => {
         console.error('Erreur lors de la recherche:', error);
         this.snackBar.open('Erreur lors de la recherche', 'Fermer', { duration: 3000 });
         this.loading.set(false);
-      }
-    });
+      });
   }
 
   applyFilters(): void {
@@ -164,17 +161,16 @@ export class ImageMgt {
     };
 
     this.loading.set(true);
-    this.imageService.getImages(params).subscribe({
-      next: (images) => {
+    this.imageService.getImages(params)
+      .then((images: Image[]) => {
         this.images.set(images);
         this.loading.set(false);
         this.currentPage = 0;
-      },
-      error: (error) => {
+      })
+      .catch((error: unknown) => {
         console.error('Erreur lors du filtrage:', error);
         this.loading.set(false);
-      }
-    });
+      });
   }
 
   refreshImages(): void {

@@ -3,7 +3,7 @@ import { effect, inject, Injectable, signal } from '@angular/core';
 import type { Image } from '@db/prisma';
 import { TokenStorageService } from '@fe/core/auth';
 import { ENVIRONMENT_TOKEN } from '@fe/token';
-import { catchError, map, Observable, of } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 export interface CreateImageDto {
   filename: string;
@@ -131,29 +131,33 @@ export class ImageService {
 
   // Core CRUD Operations
 
-  createImage(imageData: CreateImageDto): Observable<Image> {
+  async createImage(imageData: CreateImageDto): Promise<Image> {
     this.loadingSignal.set(true);
-    return this.http.post<ImageResponse>(`${this.baseUrl}`, imageData).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
+    try {
+      const response = await firstValueFrom(
+        this.http.post<ImageResponse>(`${this.baseUrl}`, imageData)
+      );
+      this.loadingSignal.set(false);
+      this.imagesSignal.set([response.data, ...this.imagesSignal()]);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
         throw error;
-      })
-    );
+    }
   }
 
-  getImageById(id: string): Observable<Image | null> {
-    return this.http.get<ImageResponse>(`${this.baseUrl}/${id}`).pipe(
-      map(response => response.data),
-      catchError(() => of(null))
-    );
+  async getImageById(id: string): Promise<Image | null> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<ImageResponse>(`${this.baseUrl}/${id}`)
+      );
+      return response.data;
+    } catch {
+      return null;
+    }
   }
 
-  getImages(params: SearchImagesDto = {}): Observable<Image[]> {
+  async getImages(params: SearchImagesDto = {}): Promise<Image[]> {
     this.loadingSignal.set(true);
 
     let httpParams = new HttpParams();
@@ -171,69 +175,64 @@ export class ImageService {
       }
     });
 
-    return this.http.get<ImagesResponse>(`${this.baseUrl}`, { params: httpParams }).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        this.imagesSignal.set(response.data);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
-        throw error;
-      })
-    );
+    try {
+      const response = await firstValueFrom(
+        this.http.get<ImagesResponse>(`${this.baseUrl}`, { params: httpParams })
+      );
+      this.loadingSignal.set(false);
+      this.imagesSignal.set(response.data);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
+      throw error;
+    }
   }
 
-  updateImage(id: string, imageData: UpdateImageDto): Observable<Image> {
-    return this.http.put<ImageResponse>(`${this.baseUrl}/${id}`, imageData).pipe(
-      map(response => {
-        const updatedImages = this.imagesSignal().map(img =>
-          img.id === id ? response.data : img
-        );
-        this.imagesSignal.set(updatedImages);
-        return response.data;
-      })
+  async updateImage(id: string, imageData: UpdateImageDto): Promise<Image> {
+    const response = await firstValueFrom(
+      this.http.put<ImageResponse>(`${this.baseUrl}/${id}`, imageData)
     );
+    const updatedImages = this.imagesSignal().map(img =>
+      img.id === id ? response.data : img
+    );
+    this.imagesSignal.set(updatedImages);
+    return response.data;
   }
 
-  deleteImage(id: string, soft = true): Observable<Image> {
+  async deleteImage(id: string, soft = true): Promise<Image> {
     const params = new HttpParams().set('soft', soft.toString());
-
-    return this.http.delete<ImageResponse>(`${this.baseUrl}/${id}`, { params }).pipe(
-      map(response => {
-        const filteredImages = this.imagesSignal().filter(img => img.id !== id);
-        this.imagesSignal.set(filteredImages);
-        return response.data;
-      })
+    const response = await firstValueFrom(
+      this.http.delete<ImageResponse>(`${this.baseUrl}/${id}`, { params })
     );
+    const filteredImages = this.imagesSignal().filter(img => img.id !== id);
+    this.imagesSignal.set(filteredImages);
+    return response.data;
   }
 
   // Bulk Operations
 
-  bulkUpdateImages(ids: string[], updates: UpdateImageDto): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/bulk/update`, { ids, updates }).pipe(
-      map(response => {
-        this.refreshImages();
-        return response.count;
-      })
+  async bulkUpdateImages(ids: string[], updates: UpdateImageDto): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/bulk/update`, { ids, updates })
     );
+    await this.refreshImages();
+    return response.count;
   }
 
-  bulkDeleteImages(ids: string[], soft = true): Observable<number> {
-    return this.http.delete<BulkResponse>(`${this.baseUrl}/bulk/delete`, {
-      body: { ids, soft }
-    }).pipe(
-      map(response => {
-        const filteredImages = this.imagesSignal().filter(img => !ids.includes(img.id));
-        this.imagesSignal.set(filteredImages);
-        return response.count;
+  async bulkDeleteImages(ids: string[], soft = true): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.delete<BulkResponse>(`${this.baseUrl}/bulk/delete`, {
+        body: { ids, soft }
       })
     );
+    const filteredImages = this.imagesSignal().filter(img => !ids.includes(img.id));
+    this.imagesSignal.set(filteredImages);
+    return response.count;
   }
 
   // Search Operations
 
-  searchImages(query: string, filters: SearchImagesDto = {}): Observable<Image[]> {
+  async searchImages(query: string, filters: SearchImagesDto = {}): Promise<Image[]> {
     this.loadingSignal.set(true);
 
     let httpParams = new HttpParams().set('q', query);
@@ -248,39 +247,37 @@ export class ImageService {
       }
     });
 
-    return this.http.get<ImagesResponse>(`${this.baseUrl}/search/query`, { params: httpParams }).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
-        throw error;
-      })
-    );
+    try {
+      const response = await firstValueFrom(
+        this.http.get<ImagesResponse>(`${this.baseUrl}/search/query`, { params: httpParams })
+      );
+      this.loadingSignal.set(false);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
+      throw error;
+    }
   }
 
   // Tag Management
 
-  addTagsToImages(imageIds: string[], tags: string[]): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/tags/add`, { imageIds, tags }).pipe(
-      map(response => {
-        this.refreshImages();
-        return response.count;
-      })
+  async addTagsToImages(imageIds: string[], tags: string[]): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/tags/add`, { imageIds, tags })
     );
+    await this.refreshImages();
+    return response.count;
   }
 
-  removeTagsFromImages(imageIds: string[], tags: string[]): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/tags/remove`, { imageIds, tags }).pipe(
-      map(response => {
-        this.refreshImages();
-        return response.count;
-      })
+  async removeTagsFromImages(imageIds: string[], tags: string[]): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/tags/remove`, { imageIds, tags })
     );
+    await this.refreshImages();
+    return response.count;
   }
 
-  getImagesByTags(tags: string[], filters: SearchImagesDto = {}): Observable<Image[]> {
+  async getImagesByTags(tags: string[], filters: SearchImagesDto = {}): Promise<Image[]> {
     this.loadingSignal.set(true);
 
     let httpParams = new HttpParams();
@@ -295,65 +292,67 @@ export class ImageService {
     });
 
     const tagsParam = tags.join(',');
-    return this.http.get<ImagesResponse>(`${this.baseUrl}/tags/${tagsParam}`, { params: httpParams }).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
-        throw error;
-      })
-    );
+    try {
+      const response = await firstValueFrom(
+        this.http.get<ImagesResponse>(`${this.baseUrl}/tags/${tagsParam}`, { params: httpParams })
+      );
+      this.loadingSignal.set(false);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
+      throw error;
+    }
   }
 
   // Association Management
 
-  associateWithPost(imageIds: string[], postId: string): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/associate/post`, {
-      imageIds,
-      targetId: postId
-    }).pipe(
-      map(response => response.count)
+  async associateWithPost(imageIds: string[], postId: string): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/associate/post`, {
+        imageIds,
+        targetId: postId
+      })
     );
+    return response.count;
   }
 
-  associateWithUser(imageIds: string[], userId: string, asProfile = false): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/associate/user`, {
-      imageIds,
-      targetId: userId,
-      asProfile
-    }).pipe(
-      map(response => response.count)
+  async associateWithUser(imageIds: string[], userId: string, asProfile = false): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/associate/user`, {
+        imageIds,
+        targetId: userId,
+        asProfile
+      })
     );
+    return response.count;
   }
 
-  associateWithOrganization(imageIds: string[], orgId: string): Observable<number> {
-    return this.http.put<BulkResponse>(`${this.baseUrl}/associate/organization`, {
-      imageIds,
-      targetId: orgId
-    }).pipe(
-      map(response => response.count)
+  async associateWithOrganization(imageIds: string[], orgId: string): Promise<number> {
+    const response = await firstValueFrom(
+      this.http.put<BulkResponse>(`${this.baseUrl}/associate/organization`, {
+        imageIds,
+        targetId: orgId
+      })
     );
+    return response.count;
   }
 
   // Metadata Management
 
-  updateImageMetadata(id: string, metadata: { altText?: string; description?: string; tags?: string[] }): Observable<Image> {
-    return this.http.put<ImageResponse>(`${this.baseUrl}/${id}/metadata`, metadata).pipe(
-      map(response => {
-        const updatedImages = this.imagesSignal().map(img =>
-          img.id === id ? response.data : img
-        );
-        this.imagesSignal.set(updatedImages);
-        return response.data;
-      })
+  async updateImageMetadata(id: string, metadata: { altText?: string; description?: string; tags?: string[] }): Promise<Image> {
+    const response = await firstValueFrom(
+      this.http.put<ImageResponse>(`${this.baseUrl}/${id}/metadata`, metadata)
     );
+    const updatedImages = this.imagesSignal().map(img =>
+      img.id === id ? response.data : img
+    );
+    this.imagesSignal.set(updatedImages);
+    return response.data;
   }
 
   // Utility Methods
 
-  uploadFile(file: File, metadata: Partial<CreateImageDto>): Observable<Image> {
+  async uploadFile(file: File, metadata: Partial<CreateImageDto>): Promise<Image> {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -391,15 +390,14 @@ export class ImageService {
       formData.append('associationType', metadata.associationType);
     }
 
-    return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/image`, formData).pipe(
-      map(response => {
-        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
-        return response.data;
-      })
+    const response = await firstValueFrom(
+      this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/image`, formData)
     );
+    this.imagesSignal.set([response.data, ...this.imagesSignal()]);
+    return response.data;
   }
 
-  uploadMultipleFiles(files: FileList, metadata: Partial<CreateImageDto>): Observable<Image[]> {
+  async uploadMultipleFiles(files: FileList, metadata: Partial<CreateImageDto>): Promise<Image[]> {
     this.loadingSignal.set(true);
     const formData = new FormData();
     Array.from(files).forEach(file => {
@@ -436,41 +434,41 @@ export class ImageService {
       formData.append('associationType', metadata.associationType);
     }
 
-    return this.http.post<{ data: Image[]; count: number; message: string }>(`${this.uploadUrl}/images`, formData).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        this.imagesSignal.set([...response.data, ...this.imagesSignal()]);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
-        throw error;
-      })
-    );
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ data: Image[]; count: number; message: string }>(`${this.uploadUrl}/images`, formData)
+      );
+      this.loadingSignal.set(false);
+      this.imagesSignal.set([...response.data, ...this.imagesSignal()]);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
+      throw error;
+    }
   }
 
-  uploadAvatar(file: File, uploadedById: string, profileUserId: string): Observable<Image> {
+  async uploadAvatar(file: File, uploadedById: string, profileUserId: string): Promise<Image> {
     this.loadingSignal.set(true);
     const formData = new FormData();
     formData.append('avatar', file);
     formData.append('uploadedById', uploadedById);
     formData.append('profileUserId', profileUserId);
 
-    return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/avatar`, formData).pipe(
-      map(response => {
-        this.loadingSignal.set(false);
-        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
-        return response.data;
-      }),
-      catchError(error => {
-        this.loadingSignal.set(false);
-        throw error;
-      })
-    );
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/avatar`, formData)
+      );
+      this.loadingSignal.set(false);
+      this.imagesSignal.set([response.data, ...this.imagesSignal()]);
+      return response.data;
+    } catch (error) {
+      this.loadingSignal.set(false);
+      throw error;
+    }
   }
 
-  refreshImages(): void {
-    this.getImages().subscribe();
+  async refreshImages(): Promise<void> {
+    await this.getImages();
   }
 
   clearImages(): void {
