@@ -49,6 +49,7 @@ export class ImageGalleryComponent {
   imageDeleted = output<Image>();
   imagesDeleted = output<Image[]>();
   selectionChanged = output<Image[]>();
+  imageUpdated = output<Image>();
 
   // State
   selectedImages = signal<Image[]>([]);
@@ -280,11 +281,7 @@ export class ImageGalleryComponent {
   private updateImage(image: Image, updates: { tags?: string[], isPublic?: boolean }): void {
     this.imageService.updateImage(image.id, updates)
       .then((updatedImage: Image) => {
-        // Mettre à jour l'image localement
-        Object.assign(image, {
-          tags: updatedImage.tags,
-          isPublic: updatedImage.isPublic
-        });
+        this.imageUpdated.emit(updatedImage);
         this.snackBar.open('Image mise à jour avec succès', 'Fermer', { duration: 2000 });
       })
       .catch((error: unknown) => {

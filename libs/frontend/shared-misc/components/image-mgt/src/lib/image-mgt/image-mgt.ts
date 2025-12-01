@@ -1,3 +1,4 @@
+
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -103,26 +104,28 @@ export class ImageMgt {
         setTimeout(() => this.loadImages(), 100);
       }
     });
+
+
   }
+
+  onImageUpdated(updatedImage: Image): void {
+    // Met à jour l'image dans le signal images
+    const currentImages = this.images();
+    const updatedImages = currentImages.map(img => img.id === updatedImage.id ? updatedImage : img);
+    this.images.set(updatedImages);
+  }
+
+
 
   private async loadImages(): Promise<void> {
     this.loading.set(true);
-
     try {
       const params: SearchImagesDto = {
-        take: 1000, // Charger plus d'images pour la pagination côté client
-        orderBy: 'createdAt'
+        take: 1000 // Charger plus d'images pour la pagination côté client
       };
-
-      try {
-        const images: Image[] = await this.imageService.getImages(params);
-        this.images.set(images);
-        this.loading.set(false);
-      } catch (error: unknown) {
-        console.error('Erreur lors du chargement des images:', error);
-        this.snackBar.open('Erreur lors du chargement des images', 'Fermer', { duration: 3000 });
-        this.loading.set(false);
-      }
+      const images = await this.imageService.getImages(params);
+      this.images.set(images);
+      this.loading.set(false);
     } catch (error) {
       console.error('Erreur:', error);
       this.loading.set(false);
