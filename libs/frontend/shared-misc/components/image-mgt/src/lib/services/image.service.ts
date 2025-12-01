@@ -3,7 +3,7 @@ import { effect, inject, Injectable, signal } from '@angular/core';
 import type { Image } from '@db/prisma';
 import { TokenStorageService } from '@fe/core/auth';
 import { ENVIRONMENT_TOKEN } from '@fe/token';
-import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 export interface CreateImageDto {
   filename: string;
@@ -108,13 +108,14 @@ export class ImageService {
   private readonly baseUrl = `${this.apiBaseUrl}/${this.apiPrefix}/images`;
   private readonly uploadUrl = `${this.apiBaseUrl}/${this.apiPrefix}/upload`;
 
-  // State management
-  private imagesSubject = new BehaviorSubject<Image[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-  private urlCacheBuster = signal<number>(Date.now());
+  // State management (signals)
+  private readonly imagesSignal = signal<Image[]>([]);
+  private readonly loadingSignal = signal(false);
+  private readonly urlCacheBuster = signal<number>(Date.now());
 
-  public images$ = this.imagesSubject.asObservable();
-  public loading$ = this.loadingSubject.asObservable();
+  // Exposed signals for UI
+  public readonly images = this.imagesSignal;
+  public readonly loading = this.loadingSignal;
 
   constructor() {
     // Détecter les changements de token pour forcer le rafraîchissement des URLs
@@ -131,17 +132,15 @@ export class ImageService {
   // Core CRUD Operations
 
   createImage(imageData: CreateImageDto): Observable<Image> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
     return this.http.post<ImageResponse>(`${this.baseUrl}`, imageData).pipe(
       map(response => {
-        this.loadingSubject.next(false);
-        // Ajouter la nouvelle image à la liste
-        const currentImages = this.imagesSubject.value;
-        this.imagesSubject.next([response.data, ...currentImages]);
+        this.loadingSignal.set(false);
+        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
@@ -155,12 +154,11 @@ export class ImageService {
   }
 
   getImages(params: SearchImagesDto = {}): Observable<Image[]> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
 
     let httpParams = new HttpParams();
     Object.keys(params).forEach(key => {
       const value = params[key as keyof SearchImagesDto];
-      // Ne jamais envoyer isPublic si undefined
       if (key === 'isPublic' && value === undefined) {
         return;
       }
@@ -175,12 +173,12 @@ export class ImageService {
 
     return this.http.get<ImagesResponse>(`${this.baseUrl}`, { params: httpParams }).pipe(
       map(response => {
-        this.loadingSubject.next(false);
-        this.imagesSubject.next(response.data);
+        this.loadingSignal.set(false);
+        this.imagesSignal.set(response.data);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
@@ -189,12 +187,10 @@ export class ImageService {
   updateImage(id: string, imageData: UpdateImageDto): Observable<Image> {
     return this.http.put<ImageResponse>(`${this.baseUrl}/${id}`, imageData).pipe(
       map(response => {
-        // Mettre à jour l'image dans la liste
-        const currentImages = this.imagesSubject.value;
-        const updatedImages = currentImages.map(img =>
+        const updatedImages = this.imagesSignal().map(img =>
           img.id === id ? response.data : img
         );
-        this.imagesSubject.next(updatedImages);
+        this.imagesSignal.set(updatedImages);
         return response.data;
       })
     );
@@ -205,10 +201,8 @@ export class ImageService {
 
     return this.http.delete<ImageResponse>(`${this.baseUrl}/${id}`, { params }).pipe(
       map(response => {
-        // Retirer l'image de la liste
-        const currentImages = this.imagesSubject.value;
-        const filteredImages = currentImages.filter(img => img.id !== id);
-        this.imagesSubject.next(filteredImages);
+        const filteredImages = this.imagesSignal().filter(img => img.id !== id);
+        this.imagesSignal.set(filteredImages);
         return response.data;
       })
     );
@@ -219,7 +213,6 @@ export class ImageService {
   bulkUpdateImages(ids: string[], updates: UpdateImageDto): Observable<number> {
     return this.http.put<BulkResponse>(`${this.baseUrl}/bulk/update`, { ids, updates }).pipe(
       map(response => {
-        // Recharger les images
         this.refreshImages();
         return response.count;
       })
@@ -231,10 +224,8 @@ export class ImageService {
       body: { ids, soft }
     }).pipe(
       map(response => {
-        // Retirer les images supprimées de la liste
-        const currentImages = this.imagesSubject.value;
-        const filteredImages = currentImages.filter(img => !ids.includes(img.id));
-        this.imagesSubject.next(filteredImages);
+        const filteredImages = this.imagesSignal().filter(img => !ids.includes(img.id));
+        this.imagesSignal.set(filteredImages);
         return response.count;
       })
     );
@@ -243,7 +234,7 @@ export class ImageService {
   // Search Operations
 
   searchImages(query: string, filters: SearchImagesDto = {}): Observable<Image[]> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
 
     let httpParams = new HttpParams().set('q', query);
     Object.keys(filters).forEach(key => {
@@ -259,11 +250,11 @@ export class ImageService {
 
     return this.http.get<ImagesResponse>(`${this.baseUrl}/search/query`, { params: httpParams }).pipe(
       map(response => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
@@ -290,12 +281,11 @@ export class ImageService {
   }
 
   getImagesByTags(tags: string[], filters: SearchImagesDto = {}): Observable<Image[]> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
 
     let httpParams = new HttpParams();
     Object.keys(filters).forEach(key => {
       const value = filters[key as keyof SearchImagesDto];
-      // Ne jamais envoyer isPublic si undefined
       if (key === 'isPublic' && value === undefined) {
         return;
       }
@@ -307,11 +297,11 @@ export class ImageService {
     const tagsParam = tags.join(',');
     return this.http.get<ImagesResponse>(`${this.baseUrl}/tags/${tagsParam}`, { params: httpParams }).pipe(
       map(response => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
@@ -352,12 +342,10 @@ export class ImageService {
   updateImageMetadata(id: string, metadata: { altText?: string; description?: string; tags?: string[] }): Observable<Image> {
     return this.http.put<ImageResponse>(`${this.baseUrl}/${id}/metadata`, metadata).pipe(
       map(response => {
-        // Mettre à jour l'image dans la liste
-        const currentImages = this.imagesSubject.value;
-        const updatedImages = currentImages.map(img =>
+        const updatedImages = this.imagesSignal().map(img =>
           img.id === id ? response.data : img
         );
-        this.imagesSubject.next(updatedImages);
+        this.imagesSignal.set(updatedImages);
         return response.data;
       })
     );
@@ -405,24 +393,18 @@ export class ImageService {
 
     return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/image`, formData).pipe(
       map(response => {
-        // Ajouter l'image à la liste locale
-        const currentImages = this.imagesSubject.value;
-        this.imagesSubject.next([response.data, ...currentImages]);
+        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
         return response.data;
       })
     );
   }
 
   uploadMultipleFiles(files: FileList, metadata: Partial<CreateImageDto>): Observable<Image[]> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
     const formData = new FormData();
-
-    // Ajouter tous les fichiers
     Array.from(files).forEach(file => {
       formData.append('files', file);
     });
-
-    // Ajouter les métadonnées (même format que uploadFile)
     if (metadata.uploadedById) {
       formData.append('uploadedById', metadata.uploadedById);
     }
@@ -456,21 +438,19 @@ export class ImageService {
 
     return this.http.post<{ data: Image[]; count: number; message: string }>(`${this.uploadUrl}/images`, formData).pipe(
       map(response => {
-        this.loadingSubject.next(false);
-        // Ajouter les nouvelles images à la liste
-        const currentImages = this.imagesSubject.value;
-        this.imagesSubject.next([...response.data, ...currentImages]);
+        this.loadingSignal.set(false);
+        this.imagesSignal.set([...response.data, ...this.imagesSignal()]);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
   }
 
   uploadAvatar(file: File, uploadedById: string, profileUserId: string): Observable<Image> {
-    this.loadingSubject.next(true);
+    this.loadingSignal.set(true);
     const formData = new FormData();
     formData.append('avatar', file);
     formData.append('uploadedById', uploadedById);
@@ -478,14 +458,12 @@ export class ImageService {
 
     return this.http.post<{ data: Image; message: string }>(`${this.uploadUrl}/avatar`, formData).pipe(
       map(response => {
-        this.loadingSubject.next(false);
-        // Ajouter la nouvelle image à la liste
-        const currentImages = this.imagesSubject.value;
-        this.imagesSubject.next([response.data, ...currentImages]);
+        this.loadingSignal.set(false);
+        this.imagesSignal.set([response.data, ...this.imagesSignal()]);
         return response.data;
       }),
       catchError(error => {
-        this.loadingSubject.next(false);
+        this.loadingSignal.set(false);
         throw error;
       })
     );
@@ -496,16 +474,16 @@ export class ImageService {
   }
 
   clearImages(): void {
-    this.imagesSubject.next([]);
+    this.imagesSignal.set([]);
   }
 
   // State getters
   getCurrentImages(): Image[] {
-    return this.imagesSubject.value;
+    return this.imagesSignal();
   }
 
   isLoading(): boolean {
-    return this.loadingSubject.value;
+    return this.loadingSignal();
   }
 
   // Helper pour construire l'URL complète de l'image
