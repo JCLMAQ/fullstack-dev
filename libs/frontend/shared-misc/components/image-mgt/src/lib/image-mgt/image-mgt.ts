@@ -83,7 +83,8 @@ export class ImageMgt {
   displayedImages = computed(() => {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    return this.images().slice(start, end);
+    // Toujours retourner une nouvelle instance de tableau pour forcer la détection de changement
+    return [...this.images().slice(start, end)];
   });
 
   constructor() {
@@ -112,10 +113,10 @@ export class ImageMgt {
   }
 
   onImageUpdated(updatedImage: Image): void {
-    // Met à jour l'image dans le signal images
-    const currentImages = this.images();
-    const updatedImages = currentImages.map(img => img.id === updatedImage.id ? updatedImage : img);
-    this.images.set(updatedImages);
+    // Après update, on recharge la liste depuis le service pour garantir la propagation
+    this.loadImages();
+    // Optionnel : forcer le recalcul de la page affichée
+    this.currentPage = this.currentPage;
   }
 
 

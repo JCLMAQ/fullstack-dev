@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, linkedSignal, output, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -40,6 +40,7 @@ export class ImageGalleryComponent {
 
   // Inputs
   images = input<Image[]>([]);
+  imagesSignal = linkedSignal(this.images);
   selectionMode = input<boolean>(false);
   showActions = input<boolean>(true);
   loading = input<boolean>(false);
@@ -100,7 +101,7 @@ export class ImageGalleryComponent {
   }
 
   selectAll(): void {
-    this.selectedImages.set([...this.images()]);
+    this.selectedImages.set([...this.imagesSignal()]);
     this.selectionChanged.emit(this.selectedImages());
   }
 
@@ -148,7 +149,7 @@ export class ImageGalleryComponent {
     const dialogRef = this.dialog.open(ImageViewerComponent, {
       data: {
         image,
-        images: this.images()
+        images: this.imagesSignal()
       },
       maxWidth: '90vw',
       maxHeight: '90vh',

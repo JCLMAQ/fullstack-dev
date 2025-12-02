@@ -192,10 +192,13 @@ export class ImageService {
     const response = await firstValueFrom(
       this.http.put<ImageResponse>(`${this.baseUrl}/${id}`, imageData)
     );
+    // Création d'une nouvelle référence de tableau à chaque update
     const updatedImages = this.imagesSignal().map(img =>
-      img.id === id ? response.data : img
+      img.id === id ? { ...response.data } : img
     );
-    this.imagesSignal.set(updatedImages);
+    // Log pour debug propagation
+    console.log('[ImageService] Mise à jour imagesSignal', updatedImages);
+    this.imagesSignal.set([...updatedImages]);
     return response.data;
   }
 
