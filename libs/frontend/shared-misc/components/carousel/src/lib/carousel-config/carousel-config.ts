@@ -120,9 +120,22 @@ export class CarouselConfig {
     this.loadImages();
   }
 
-  getImageUrl(image: Image): string {
-    return this.imageService.getFullImageUrl(image, true);
-  }
+
+  // Signal computed pour les URLs d'images (clé = image.id)
+  readonly imageUrls = computed(() => {
+    const all = [...this.allImages(), ...this.selectedImages()];
+    const uniqueImages = new Map<string, Image>();
+    for (const img of all) {
+      if (img && img.id && !uniqueImages.has(img.id)) {
+        uniqueImages.set(img.id, img);
+      }
+    }
+    const urls: Record<string, string> = {};
+    for (const [id, img] of uniqueImages.entries()) {
+      urls[id] = this.imageService.getFullImageUrl(img, true);
+    }
+    return urls;
+  });
 
   isSelected(imageId: string): boolean {
     return this.selectedImageIds().includes(imageId);
@@ -354,8 +367,18 @@ export class CarouselConfig {
 
     this.imageService.updateImage(image.id, { isPublic: !image.isPublic })
       .then((updatedImage: Image) => {
-        // Mettre à jour l'image localement
-        Object.assign(image, { isPublic: updatedImage.isPublic });
+        // Mettre à jour l'image dans le signal allImages
+        this.allImages.update(images =>
+          images.map(img =>
+            img.id === updatedImage.id ? { ...img, isPublic: updatedImage.isPublic } : img
+          )
+        );
+        // Mettre à jour aussi dans selectedImages si présent
+        this.selectedImages.update(images =>
+          images.map(img =>
+            img.id === updatedImage.id ? { ...img, isPublic: updatedImage.isPublic } : img
+          )
+        );
         this.snackBar.open(
           updatedImage.isPublic
             ? 'Image rendue publique'

@@ -77,7 +77,7 @@
                 @for (image of selectedImages(); track image.id) {
                   <div class="selected-image-card">
                     <img
-                      [src]="getImageUrl(image)"
+                      [src]="imageUrls()[image.id]"
                       [alt]="image.altText || image.originalName"
                       class="selected-image-thumbnail"
                     />
@@ -137,7 +137,7 @@
 
                   <!-- Image -->
                   <img
-                    [src]="getImageUrl(image)"
+                    [src]="imageUrls()[image.id]"
                     [alt]="image.altText || image.originalName"
                     class="image-thumbnail"
                   />

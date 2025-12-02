@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  DestroyRef,
-  effect,
-  inject,
-  input,
-  output,
-  resource,
-  signal,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    effect,
+    inject,
+    input,
+    output,
+    resource,
+    signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -287,9 +287,15 @@ export class Carousel {
     this.imageClick.emit(image);
   }
 
+
   getImageUrl(image: Image): string {
     return this.imageService.getFullImageUrl(image);
   }
+
+  readonly currentImageUrl = computed(() => {
+    const image = this.currentImage();
+    return image ? this.getImageUrl(image) : '/assets/images/placeholder.png';
+  });
 
   getThumbnailUrl(image: Image): string {
     return this.imageService.getFullImageUrl(image, true);

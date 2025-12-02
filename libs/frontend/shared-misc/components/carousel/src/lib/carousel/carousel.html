@@ -49,7 +49,7 @@
           [style.aspect-ratio]="config().aspectRatio">
           @if (currentImage(); as image) {
             <img
-              [src]="getImageUrl(image)"
+              [src]="currentImageUrl()"
               [alt]="getImageAlt(image)"
               class="carousel-image"
               tabindex="0"
