@@ -1,20 +1,4 @@
-# GitHub Copilot Instructions for Prisma Workspace
-
-## General Guidelines
-
-1. **Language**: English only.
-2. **Types**: Declare explicit types; avoid `any`.
-3. **Comments**: Use JSDoc for public methods and classes.
-4. **Exports**: One export per file.
-5. **Naming**:
-
-   * **Classes/interfaces** → `PascalCase`
-   * **Variables/functions** → `camelCase`
-   * **Files/directories** → `kebab-case`
-   * **Constants** → `UPPERCASE`
-   * **Boolean flags** → verb-based (e.g., `isLoading`)
-
----
+# Prisma Instructions
 
 ## Prisma-Specific Guidelines
 

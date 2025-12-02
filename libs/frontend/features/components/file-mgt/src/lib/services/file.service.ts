@@ -91,7 +91,7 @@ export class FileService {
   private environment = inject(ENVIRONMENT_TOKEN);
 
   private readonly baseUrl = `${this.environment.API_BACKEND_URL}/files`;
-  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/upload`;
+  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/files/upload`;
 
   // State management
   private filesSubject = new BehaviorSubject<File[]>([]);
@@ -336,7 +336,7 @@ export class FileService {
       }
     });
 
-    return this.http.post<FileResponse>(`${this.uploadUrl}/file`, formData).pipe(
+    return this.http.post<FileResponse>(`${this.uploadUrl}`, formData).pipe(
       map(response => {
         this.loadingSubject.next(false);
         // Ajouter le nouveau fichier à la liste
@@ -372,7 +372,8 @@ export class FileService {
       }
     });
 
-    return this.http.post<{ data: File[]; count: number; message: string }>(`${this.uploadUrl}/files`, formData).pipe(
+    // Si le backend supporte l'upload multiple sur /files/upload, sinon adapter la route
+    return this.http.post<{ data: File[]; count: number; message: string }>(`${this.environment.API_BACKEND_URL}/files/upload-multiple`, formData).pipe(
       map(response => {
         this.loadingSubject.next(false);
         // Ajouter les nouveaux fichiers à la liste

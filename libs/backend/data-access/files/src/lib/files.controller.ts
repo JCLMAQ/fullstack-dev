@@ -1,16 +1,20 @@
 import { File } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
-    Post,
-    Put,
-    Query,
-    ValidationPipe,
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+  ValidationPipe,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { FileCreateDto, FileSearchOptions, FilesService, FileUpdateDto } from './files.service';
 
 // DTOs for validation
@@ -78,6 +82,31 @@ export class FileSearchDto implements FileSearchOptions {
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
+
+  // Upload binaire (multipart/form-data)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: Partial<CreateFileDto>,
+  ): Promise<File> {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+    // Fusionne les infos du fichier et du body
+    const dto: CreateFileDto = {
+      ...body,
+      filename: file.filename ?? file.originalname,
+      originalName: file.originalname,
+      mimeType: file.mimetype,
+      fileSize: file.size,
+      encoding: file.encoding,
+      // Ajoute d'autres champs si besoin
+      ownerId: body.ownerId ?? '',
+      orgId: body.orgId ?? '',
+    };
+    return await this.filesService.create(dto);
+  }
 
   // Create operations
   @Post()
