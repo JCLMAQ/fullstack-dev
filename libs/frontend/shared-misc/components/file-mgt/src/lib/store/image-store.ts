@@ -1,7 +1,7 @@
 
 import { patchState, signalStore, type, withMethods, withState } from '@ngrx/signals';
-import { addEntity, entityConfig, removeEntity, setAllEntities, withEntities } from '@ngrx/signals/entities';
-import { Image } from '../models/image.model';
+import { addEntity, entityConfig, removeAllEntities, removeEntity, setAllEntities, withEntities } from '@ngrx/signals/entities';
+import { Image } from './models/image.model';
 
 
 export interface ImageStoreState {
