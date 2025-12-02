@@ -71,44 +71,44 @@
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
       "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/dashboard": [
-        "libs/frontend/Features/components/dashboard/src/index.ts"
+        "libs/frontend/features/components/dashboard/src/index.ts"
       ],
       "@fe/file-mgt": [
-        "libs/frontend/Features/components/file-mgt/src/index.ts"
+        "libs/frontend/features/components/file-mgt/src/index.ts"
       ],
       "@fe/image-mgt": [
-        "libs/frontend/Features/components/image-mgt/src/index.ts"
+        "libs/frontend/features/components/image-mgt/src/index.ts"
       ],
       "@fe/loading-container": [
-        "libs/frontend/Features/components/loading-container/src/index.ts"
+        "libs/frontend/features/components/loading-container/src/index.ts"
       ],
       "@fe/messages": [
-        "libs/frontend/Features/components/messages/src/index.ts"
+        "libs/frontend/features/components/messages/src/index.ts"
       ],
-      "@fe/material": ["libs/frontend/Features/material/src/index.ts"],
+      "@fe/material": ["libs/frontend/features/material/src/index.ts"],
       "@fe/date-utilities": [
-        "libs/frontend/Features/utils/date-utilities/src/index.ts"
+        "libs/frontend/features/utils/date-utilities/src/index.ts"
       ],
       "@fe/signalform-utilities": [
-        "libs/frontend/Features/utils/signalform-utilities/src/index.ts"
+        "libs/frontend/features/utils/signalform-utilities/src/index.ts"
       ],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
       "@fe/user-avatar": [
-        "libs/frontend/Features/components/user-avatar/src/index.ts"
+        "libs/frontend/features/components/user-avatar/src/index.ts"
       ],
       "@fe/user-avatar-editor": [
-        "libs/frontend/Features/components/user-avatar-editor/src/index.ts"
+        "libs/frontend/features/components/user-avatar-editor/src/index.ts"
       ],
       "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
       "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@fe/carousel": [
-        "libs/frontend/Features/components/carousel/src/index.ts"
+        "libs/frontend/features/components/carousel/src/index.ts"
       ],
       "@fe/picture-mgt": [
-        "libs/frontend/Features/components/picture-mgt/src/index.ts"
+        "libs/frontend/features/components/picture-mgt/src/index.ts"
       ],
       "@fe/admin-banner": [
-        "libs/frontend/Features/components/admin-banner/src/index.ts"
+        "libs/frontend/features/components/admin-banner/src/index.ts"
       ],
       "@fe/token": ["libs/frontend/token/src/index.ts"]
     }
