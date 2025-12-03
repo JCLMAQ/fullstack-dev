@@ -24,7 +24,7 @@ export interface FileCreateDto {
   // Relations
   ownerId: string;
   uploadedById?: string;
-  orgId: string;
+  orgId?: string;
   postId?: string;
   storyId?: string;
   profileUserId?: string;
@@ -96,7 +96,7 @@ export class FilesService {
           // Relations
           owner: { connect: { id: data.ownerId } },
           ...(data.uploadedById && { uploadedBy: { connect: { id: data.uploadedById } } }),
-          org: { connect: { id: data.orgId } },
+          ...(data.orgId ? { org: { connect: { id: data.orgId } } } : {}),
           ...(data.postId && { post: { connect: { id: data.postId } } }),
           ...(data.storyId && { story: { connect: { id: data.storyId } } }),
           ...(data.profileUserId && { profileUser: { connect: { id: data.profileUserId } } }),

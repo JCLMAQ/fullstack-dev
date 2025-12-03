@@ -486,7 +486,7 @@ export type FileGroupByOutputType = {
   uploadedById: string | null
   associatedId: string | null
   associationType: string | null
-  orgId: string
+  orgId: string | null
   postId: string | null
   storyId: string | null
   profileUserId: string | null
@@ -559,14 +559,14 @@ export type FileWhereInput = {
   uploadedById?: Prisma.StringNullableFilter<"File"> | string | null
   associatedId?: Prisma.StringNullableFilter<"File"> | string | null
   associationType?: Prisma.StringNullableFilter<"File"> | string | null
-  orgId?: Prisma.StringFilter<"File"> | string
+  orgId?: Prisma.StringNullableFilter<"File"> | string | null
   postId?: Prisma.StringNullableFilter<"File"> | string | null
   storyId?: Prisma.StringNullableFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"File"> | string | null
   commentId?: Prisma.StringNullableFilter<"File"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
   story?: Prisma.XOR<Prisma.StoryNullableScalarRelationFilter, Prisma.StoryWhereInput> | null
@@ -617,7 +617,7 @@ export type FileOrderByWithRelationInput = {
   uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
   associationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   storyId?: Prisma.SortOrderInput | Prisma.SortOrder
   profileUserId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -678,14 +678,14 @@ export type FileWhereUniqueInput = Prisma.AtLeast<{
   uploadedById?: Prisma.StringNullableFilter<"File"> | string | null
   associatedId?: Prisma.StringNullableFilter<"File"> | string | null
   associationType?: Prisma.StringNullableFilter<"File"> | string | null
-  orgId?: Prisma.StringFilter<"File"> | string
+  orgId?: Prisma.StringNullableFilter<"File"> | string | null
   postId?: Prisma.StringNullableFilter<"File"> | string | null
   storyId?: Prisma.StringNullableFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"File"> | string | null
   commentId?: Prisma.StringNullableFilter<"File"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   post?: Prisma.XOR<Prisma.PostNullableScalarRelationFilter, Prisma.PostWhereInput> | null
   story?: Prisma.XOR<Prisma.StoryNullableScalarRelationFilter, Prisma.StoryWhereInput> | null
@@ -736,7 +736,7 @@ export type FileOrderByWithAggregationInput = {
   uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   associatedId?: Prisma.SortOrderInput | Prisma.SortOrder
   associationType?: Prisma.SortOrderInput | Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   postId?: Prisma.SortOrderInput | Prisma.SortOrder
   storyId?: Prisma.SortOrderInput | Prisma.SortOrder
   profileUserId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -794,7 +794,7 @@ export type FileScalarWhereWithAggregatesInput = {
   uploadedById?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
   associatedId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
   associationType?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
-  orgId?: Prisma.StringWithAggregatesFilter<"File"> | string
+  orgId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
   postId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
   storyId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableWithAggregatesFilter<"File"> | string | null
@@ -844,7 +844,7 @@ export type FileCreateInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
@@ -895,7 +895,7 @@ export type FileUncheckedCreateInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -946,7 +946,7 @@ export type FileUpdateInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
@@ -997,7 +997,7 @@ export type FileUncheckedUpdateInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1048,7 +1048,7 @@ export type FileCreateManyInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -1141,7 +1141,7 @@ export type FileUncheckedUpdateManyInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1847,7 +1847,7 @@ export type FileScalarWhereInput = {
   uploadedById?: Prisma.StringNullableFilter<"File"> | string | null
   associatedId?: Prisma.StringNullableFilter<"File"> | string | null
   associationType?: Prisma.StringNullableFilter<"File"> | string | null
-  orgId?: Prisma.StringFilter<"File"> | string
+  orgId?: Prisma.StringNullableFilter<"File"> | string | null
   postId?: Prisma.StringNullableFilter<"File"> | string | null
   storyId?: Prisma.StringNullableFilter<"File"> | string | null
   profileUserId?: Prisma.StringNullableFilter<"File"> | string | null
@@ -1896,7 +1896,7 @@ export type FileCreateWithoutOwnerInput = {
   associatedId?: string | null
   associationType?: string | null
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
@@ -1946,7 +1946,7 @@ export type FileUncheckedCreateWithoutOwnerInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -2006,7 +2006,7 @@ export type FileCreateWithoutUploadedByInput = {
   associatedId?: string | null
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
@@ -2056,7 +2056,7 @@ export type FileUncheckedCreateWithoutUploadedByInput = {
   ownerId: string
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -2117,7 +2117,7 @@ export type FileCreateWithoutProfileUserInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
@@ -2167,7 +2167,7 @@ export type FileUncheckedCreateWithoutProfileUserInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   commentId?: string | null
@@ -2275,7 +2275,7 @@ export type FileCreateWithoutGroupsInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileFilesInput
@@ -2325,7 +2325,7 @@ export type FileUncheckedCreateWithoutGroupsInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -2396,7 +2396,7 @@ export type FileCreateWithoutPostInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileFilesInput
@@ -2446,7 +2446,7 @@ export type FileUncheckedCreateWithoutPostInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
@@ -2522,7 +2522,7 @@ export type FileCreateWithoutCommentInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   story?: Prisma.StoryCreateNestedOneWithoutFilesInput
@@ -2572,7 +2572,7 @@ export type FileUncheckedCreateWithoutCommentInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -2648,7 +2648,7 @@ export type FileCreateWithoutStoryInput = {
   associationType?: string | null
   owner: Prisma.UserCreateNestedOneWithoutOwnedFilesInput
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedFilesInput
-  org: Prisma.OrganizationCreateNestedOneWithoutFilesInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutFilesInput
   groups?: Prisma.GroupCreateNestedManyWithoutFilesInput
   post?: Prisma.PostCreateNestedOneWithoutFilesInput
   profileUser?: Prisma.UserCreateNestedOneWithoutProfileFilesInput
@@ -2698,7 +2698,7 @@ export type FileUncheckedCreateWithoutStoryInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   profileUserId?: string | null
   commentId?: string | null
@@ -2971,7 +2971,7 @@ export type FileCreateManyOwnerInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -3020,7 +3020,7 @@ export type FileCreateManyUploadedByInput = {
   ownerId: string
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -3070,7 +3070,7 @@ export type FileCreateManyProfileUserInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   commentId?: string | null
@@ -3118,7 +3118,7 @@ export type FileUpdateWithoutOwnerInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
@@ -3168,7 +3168,7 @@ export type FileUncheckedUpdateWithoutOwnerInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3218,7 +3218,7 @@ export type FileUncheckedUpdateManyWithoutOwnerInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3267,7 +3267,7 @@ export type FileUpdateWithoutUploadedByInput = {
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
@@ -3317,7 +3317,7 @@ export type FileUncheckedUpdateWithoutUploadedByInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3367,7 +3367,7 @@ export type FileUncheckedUpdateManyWithoutUploadedByInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3417,7 +3417,7 @@ export type FileUpdateWithoutProfileUserInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
@@ -3467,7 +3467,7 @@ export type FileUncheckedUpdateWithoutProfileUserInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3517,7 +3517,7 @@ export type FileUncheckedUpdateManyWithoutProfileUserInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3566,7 +3566,7 @@ export type FileUpdateWithoutGroupsInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileFilesNestedInput
@@ -3616,7 +3616,7 @@ export type FileUncheckedUpdateWithoutGroupsInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3666,7 +3666,7 @@ export type FileUncheckedUpdateManyWithoutGroupsInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3716,7 +3716,7 @@ export type FileCreateManyPostInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   storyId?: string | null
   profileUserId?: string | null
   commentId?: string | null
@@ -3765,7 +3765,7 @@ export type FileUpdateWithoutPostInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileFilesNestedInput
@@ -3815,7 +3815,7 @@ export type FileUncheckedUpdateWithoutPostInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3865,7 +3865,7 @@ export type FileUncheckedUpdateManyWithoutPostInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3914,7 +3914,7 @@ export type FileCreateManyCommentInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   storyId?: string | null
   profileUserId?: string | null
@@ -3963,7 +3963,7 @@ export type FileUpdateWithoutCommentInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   story?: Prisma.StoryUpdateOneWithoutFilesNestedInput
@@ -4013,7 +4013,7 @@ export type FileUncheckedUpdateWithoutCommentInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4063,7 +4063,7 @@ export type FileUncheckedUpdateManyWithoutCommentInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4112,7 +4112,7 @@ export type FileCreateManyStoryInput = {
   uploadedById?: string | null
   associatedId?: string | null
   associationType?: string | null
-  orgId: string
+  orgId?: string | null
   postId?: string | null
   profileUserId?: string | null
   commentId?: string | null
@@ -4161,7 +4161,7 @@ export type FileUpdateWithoutStoryInput = {
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedFilesNestedInput
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedFilesNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutFilesNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutFilesNestedInput
   groups?: Prisma.GroupUpdateManyWithoutFilesNestedInput
   post?: Prisma.PostUpdateOneWithoutFilesNestedInput
   profileUser?: Prisma.UserUpdateOneWithoutProfileFilesNestedInput
@@ -4211,7 +4211,7 @@ export type FileUncheckedUpdateWithoutStoryInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4261,7 +4261,7 @@ export type FileUncheckedUpdateManyWithoutStoryInput = {
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associatedId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   associationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4348,7 +4348,7 @@ export type FileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   commentId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   groups?: boolean | Prisma.File$groupsArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
@@ -4407,7 +4407,7 @@ export type FileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   commentId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
   profileUser?: boolean | Prisma.File$profileUserArgs<ExtArgs>
@@ -4464,7 +4464,7 @@ export type FileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   commentId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
   profileUser?: boolean | Prisma.File$profileUserArgs<ExtArgs>
@@ -4525,7 +4525,7 @@ export type FileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type FileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   groups?: boolean | Prisma.File$groupsArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
@@ -4536,7 +4536,7 @@ export type FileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type FileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
   profileUser?: boolean | Prisma.File$profileUserArgs<ExtArgs>
@@ -4545,7 +4545,7 @@ export type FileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type FileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.File$uploadedByArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.File$orgArgs<ExtArgs>
   post?: boolean | Prisma.File$postArgs<ExtArgs>
   story?: boolean | Prisma.File$storyArgs<ExtArgs>
   profileUser?: boolean | Prisma.File$profileUserArgs<ExtArgs>
@@ -4557,7 +4557,7 @@ export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
     uploadedBy: Prisma.$UserPayload<ExtArgs> | null
-    org: Prisma.$OrganizationPayload<ExtArgs>
+    org: Prisma.$OrganizationPayload<ExtArgs> | null
     groups: Prisma.$GroupPayload<ExtArgs>[]
     post: Prisma.$PostPayload<ExtArgs> | null
     story: Prisma.$StoryPayload<ExtArgs> | null
@@ -4607,7 +4607,7 @@ export type $FilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     uploadedById: string | null
     associatedId: string | null
     associationType: string | null
-    orgId: string
+    orgId: string | null
     postId: string | null
     storyId: string | null
     profileUserId: string | null
@@ -5008,7 +5008,7 @@ export interface Prisma__FileClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   uploadedBy<T extends Prisma.File$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.File$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.File$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   post<T extends Prisma.File$postArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$postArgs<ExtArgs>>): Prisma.Prisma__PostClient<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   story<T extends Prisma.File$storyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.File$storyArgs<ExtArgs>>): Prisma.Prisma__StoryClient<runtime.Types.Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -5502,6 +5502,25 @@ export type File$uploadedByArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * File.org
+ */
+export type File$orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
 }
 
 /**

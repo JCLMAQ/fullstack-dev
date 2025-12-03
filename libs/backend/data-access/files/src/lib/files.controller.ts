@@ -101,9 +101,8 @@ export class FilesController {
       mimeType: file.mimetype,
       fileSize: file.size,
       encoding: file.encoding,
-      // Ajoute d'autres champs si besoin
       ownerId: body.ownerId ?? '',
-      orgId: body.orgId ?? '',
+      ...(body.orgId ? { orgId: body.orgId } : {}),
     };
     return await this.filesService.create(dto);
   }

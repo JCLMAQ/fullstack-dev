@@ -865,10 +865,12 @@ export type OrganizationCreateNestedOneWithoutFilesInput = {
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneRequiredWithoutFilesNestedInput = {
+export type OrganizationUpdateOneWithoutFilesNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutFilesInput, Prisma.OrganizationUncheckedCreateWithoutFilesInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutFilesInput
   upsert?: Prisma.OrganizationUpsertWithoutFilesInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutFilesInput, Prisma.OrganizationUpdateWithoutFilesInput>, Prisma.OrganizationUncheckedUpdateWithoutFilesInput>
 }

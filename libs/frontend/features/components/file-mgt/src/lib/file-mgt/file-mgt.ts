@@ -53,6 +53,7 @@ protected fileService = inject(FileService);
   showAssociations = input<boolean>(false);
   associationType = input<string>('');
   uploadedById = input<string>('');
+  orgId = input<string>('');
   showAdminTab = input<boolean>(false);
 
   // State
@@ -74,15 +75,16 @@ protected fileService = inject(FileService);
   pageSizeOptions = [10, 20, 50, 100];
 
   // Computed
-  totalFiles = computed(() => this.files().length);
+  totalFiles = computed(() => (this.files() ?? []).length);
   totalSize = computed(() =>
     this.files().reduce((total, file) => total + file.fileSize, 0)
   );
 
   displayedFiles = computed(() => {
+    const filesArr = this.files() ?? [];
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    return this.files().slice(start, end);
+    return filesArr.slice(start, end);
   });
 
   constructor() {
@@ -312,14 +314,19 @@ protected fileService = inject(FileService);
   private processFiles(files: globalThis.File[]): void {
     // Pour l'instant, on traite les fichiers un par un
     files.forEach(file => {
-      const metadata = {
+      const metadata: any = {
         filename: file.name,
         originalName: file.name,
         mimeType: file.type,
         fileSize: file.size,
-        uploadedById: this.uploadedById() || 'anonymous',
+        ownerId: this.uploadedById() || 'anonymous',
         isPublic: false
       };
+      // N'inclure orgId que si non vide
+      const orgIdValue = this.orgId();
+      if (orgIdValue) {
+        metadata.orgId = orgIdValue;
+      }
 
       this.fileService.uploadFile(file, metadata).subscribe({
         next: (uploadedFile) => {

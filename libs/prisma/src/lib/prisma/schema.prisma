@@ -504,8 +504,8 @@ model File {
   associationType   String?                // Type of association (post, user, organization, etc.)
 
   // Organization association
-  org               Organization @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
-  orgId             String
+  org               Organization? @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
+  orgId             String?
 
   // Groups association (many-to-many)
   groups            Group[]

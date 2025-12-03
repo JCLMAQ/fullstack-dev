@@ -90,8 +90,8 @@ export class FileService {
   private http = inject(HttpClient);
   private environment = inject(ENVIRONMENT_TOKEN);
 
-  private readonly baseUrl = `${this.environment.API_BACKEND_URL}/files`;
-  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/files/upload`;
+  private readonly baseUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/files`;
+  private readonly uploadUrl = `${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/files/upload`;
 
   // State management
   private filesSubject = new BehaviorSubject<File[]>([]);
@@ -129,17 +129,25 @@ export class FileService {
   getFiles(params: SearchFilesDto = {}): Observable<File[]> {
     this.loadingSubject.next(true);
 
-    let httpParams = new HttpParams();
-    Object.keys(params).forEach(key => {
-      const value = params[key as keyof SearchFilesDto];
-      if (value !== undefined && value !== null) {
-        if (Array.isArray(value)) {
-          value.forEach(item => httpParams = httpParams.append(key, item.toString()));
-        } else {
-          httpParams = httpParams.set(key, value.toString());
+
+      // Liste blanche des paramètres acceptés par le backend
+      const allowedKeys = [
+        'filename', 'mimeType', 'category', 'tags', 'storageType', 'processingStatus', 'virusScanStatus',
+        'ownerId', 'orgId', 'isPublicDownload', 'minSize', 'maxSize', 'createdAfter', 'createdBefore'
+      ];
+      let httpParams = new HttpParams();
+      Object.keys(params).forEach(key => {
+        if (allowedKeys.includes(key)) {
+          const value = params[key as keyof SearchFilesDto];
+          if (value !== undefined && value !== null) {
+            if (Array.isArray(value)) {
+              value.forEach(item => httpParams = httpParams.append(key, item.toString()));
+            } else {
+              httpParams = httpParams.set(key, value.toString());
+            }
+          }
         }
-      }
-    });
+      });
 
     return this.http.get<FilesResponse>(`${this.baseUrl}`, { params: httpParams }).pipe(
       map(response => {
@@ -319,19 +327,28 @@ export class FileService {
   // Utility Methods
 
   uploadFile(file: globalThis.File, metadata: Partial<CreateFileDto>): Observable<File> {
+    // Validation stricte des champs obligatoires
+    const ownerId = (metadata as { ownerId?: string }).ownerId;
+    const orgId = (metadata as { orgId?: string }).orgId;
+    if (!ownerId) {
+      throw new Error('ownerId est obligatoire pour l’upload de fichier.');
+    }
+    // orgId peut être vide ou absent
+
     this.loadingSubject.next(true);
     const formData = new FormData();
     formData.append('file', file);
-
-    // Ajouter les métadonnées en tant que string pour Multer
+    formData.append('ownerId', ownerId);
+    formData.append('orgId', orgId ?? '');
     Object.keys(metadata).forEach(key => {
-      const value = metadata[key as keyof CreateFileDto];
-      if (value !== undefined && value !== null) {
-        if (Array.isArray(value)) {
-          // Pour les tags, joindre avec des virgules
-          formData.append(key, value.join(','));
-        } else {
-          formData.append(key, value.toString());
+      if (key !== 'ownerId' && key !== 'orgId') {
+        const value = metadata[key as keyof CreateFileDto];
+        if (value !== undefined && value !== null) {
+          if (Array.isArray(value)) {
+            formData.append(key, value.join(','));
+          } else {
+            formData.append(key, value.toString());
+          }
         }
       }
     });
@@ -373,7 +390,7 @@ export class FileService {
     });
 
     // Si le backend supporte l'upload multiple sur /files/upload, sinon adapter la route
-    return this.http.post<{ data: File[]; count: number; message: string }>(`${this.environment.API_BACKEND_URL}/files/upload-multiple`, formData).pipe(
+    return this.http.post<{ data: File[]; count: number; message: string }>(`${this.environment.API_BACKEND_URL}/${this.environment.API_BACKEND_PREFIX}/files/upload-multiple`, formData).pipe(
       map(response => {
         this.loadingSubject.next(false);
         // Ajouter les nouveaux fichiers à la liste
