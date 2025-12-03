@@ -1,18 +1,18 @@
 import { File } from '@db/prisma';
 import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  Put,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-  ValidationPipe,
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    NotFoundException,
+    Param,
+    Post,
+    Put,
+    Query,
+    UploadedFile,
+    UseInterceptors,
+    ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileCreateDto, FileSearchOptions, FilesService, FileUpdateDto } from './files.service';
