@@ -21,18 +21,18 @@ You are an NgRx Signal Store expert. Your task is to create a complete signal st
   - Any async operations or methods needed
 
 2. **Create Model Files** (if needed):
-  - Location: `src/app/{domain}/data/models/{name}.model.ts`
+  - Location: `src/app/{domain}/data/models/{name}-model.ts`
   - Define TypeScript interfaces for entities and DTOs
   - Export all models needed by the store
 
 3. **Create Infrastructure File** (if async operations needed):
-  - Location: `src/app/{domain}/data/infrastructure/{name}.infrastructure.ts`
+  - Location: `src/app/{domain}/data/infrastructure/{name}-infrastructure.ts`
   - Create service for API calls and data access
   - Use HttpClient for REST operations
   - Return Observables (never Promises)
 
 4. **Create Store File**:
-  - Location: `src/app/{domain}/data/state/{name}.store.ts`
+  - Location: `src/app/{domain}/data/state/{name}-store.ts`
   - Follow NgRx Signals patterns:
     - Define state interface with strong typing
     - Create `initialState` with meaningful defaults
