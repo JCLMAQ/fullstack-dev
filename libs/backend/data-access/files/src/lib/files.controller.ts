@@ -40,7 +40,7 @@ export class CreateFileDto implements FileCreateDto {
   // Relations
   ownerId!: string;
   uploadedById?: string;
-  orgId!: string;
+  orgId?: string;
   postId?: string;
   storyId?: string;
   profileUserId?: string;

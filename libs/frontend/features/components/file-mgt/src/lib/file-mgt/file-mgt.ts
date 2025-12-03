@@ -313,13 +313,18 @@ protected fileService = inject(FileService);
 
   private processFiles(files: globalThis.File[]): void {
     // Pour l'instant, on traite les fichiers un par un
+    const ownerId = this.uploadedById();
+    if (!ownerId) {
+      this.snackBar.open('ownerId est requis pour l’upload de fichier', 'Fermer', { duration: 3000 });
+      return;
+    }
     files.forEach(file => {
       const metadata: any = {
         filename: file.name,
         originalName: file.name,
         mimeType: file.type,
         fileSize: file.size,
-        ownerId: this.uploadedById() || 'anonymous',
+        ownerId,
         isPublic: false
       };
       // N'inclure orgId que si non vide

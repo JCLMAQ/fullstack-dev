@@ -1,4 +1,4 @@
-import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import { withDevtools, withStorageSync } from "@angular-architects/ngrx-toolkit";
 import { withAuthSync } from "@fe/auth";
 import { signalStore, withState } from "@ngrx/signals";
 import { withAppAuthFeatures } from "../store-features/authentication-features/authentication.features";
@@ -9,7 +9,7 @@ export const AppStore = signalStore(
   { providedIn: 'root' },
   withState(initialAppSlice), // État initial défini UNE SEULE FOIS
   withDevtools('AppStore'),
-
+  withStorageSync('AppStore'),
   // Auth part
   withAppAuthFeatures(), // Add: login(), logout(), register()
 

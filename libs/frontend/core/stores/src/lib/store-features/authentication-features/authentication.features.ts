@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withMethods,
-    withProps
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withMethods,
+  withProps
 } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
 
@@ -37,6 +37,19 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
           await store._authService.login(email, password);
+          // Récupérer l'utilisateur connecté
+          const user = store._authService.user();
+          // Récupérer tous les IDs d'organisations liées à l'utilisateur
+          let orgId: string[] | undefined = undefined;
+          if (user && Array.isArray(user.organizations) && user.organizations.length > 0) {
+            orgId = user.organizations.map((org: any) => org.id);
+          } else {
+            orgId = undefined;
+          }
+          patchState(store, {
+            user,
+            orgId,
+          });
           store._router.navigate(['/pages/home']);
         } catch (error) {
           store._snackbar.open('Invalid email or password', 'Close', {
@@ -243,9 +256,16 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       refreshUserData: async () => {
         try {
           const updatedUser = await store._authService.fetchUser();
+          let orgId: string[] | undefined = undefined;
+          if (updatedUser && Array.isArray(updatedUser.organizations) && updatedUser.organizations.length > 0) {
+            orgId = updatedUser.organizations.map((org: any) => org.id);
+          } else {
+            orgId = undefined;
+          }
           if (updatedUser) {
             patchState(store, {
               user: updatedUser,
+              orgId,
             });
           }
         } catch (error) {
