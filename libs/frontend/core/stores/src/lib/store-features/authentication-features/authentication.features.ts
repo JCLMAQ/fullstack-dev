@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
-import { IamAuth } from '@fe/auth';
-import { ENVIRONMENT_TOKEN, type Environment } from '@fe/token';
+// import { IamAuth } from '@fe/auth';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
 // import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
 import {
   patchState,
@@ -20,8 +20,8 @@ import { firstValueFrom } from 'rxjs';
 export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withProps(() => ({
-      _authService: inject(IamAuth),
-      //  _authService: inject(IAM_AUTH_TOKEN),
+      // _authService: inject(IamAuth),
+      _authService: inject(IAM_AUTH_TOKEN),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
