@@ -1,8 +1,7 @@
-import { computed, inject, Injectable, Injector } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
 import { LocalStorageCleanerService } from '@fe/shared';
-import { AppStore } from '@fe/stores';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
@@ -37,7 +36,7 @@ import { UserStorageService } from './services/user-storage/user-storage-service
 export class IamAuth {
   private router = inject(Router);
     // private appStore = inject(AppStore);
-    private injector = inject(Injector);
+    // private injector = inject(Injector);
 
   private localStorageCleaner = inject(LocalStorageCleanerService);
 
@@ -51,16 +50,16 @@ export class IamAuth {
 
 
    // Accès différé au store pour éviter la boucle
-  private get appStore() {
-    return this.injector.get(AppStore);
-  }
+  // private get appStore() {
+  //   return this.injector.get(AppStore);
+  // }
 
-  get userAppStore() {
-    return this.appStore.user;
-  }
-  get authTokenAppStore() {
-    return this.appStore.authToken;
-  }
+  // get userAppStore() {
+  //   return this.appStore.user;
+  // }
+  // get authTokenAppStore() {
+  //   return this.appStore.authToken;
+  // }
 
   // 📡 Exposer les signaux depuis les services spécialisés
   // user = this.userStorage.user;
@@ -68,16 +67,16 @@ export class IamAuth {
   // //  authToken = this.tokenStorage.authToken;
   // authTokenAppStore = this.appStore.authToken;
 
-  isLoggedIn = computed(() => !!this.userAppStore());
+  // isLoggedIn = computed(() => !!this.userAppStore());
 
   // État d'authentification (compatibilité)
   private authenticated = false;
   private adminRole = false;
 
   constructor() {
-    console.log('🚀 IamAuth initialized (Facade Pattern)');
-    console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
-    console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
+    // console.log('🚀 IamAuth initialized (Facade Pattern)');
+    // console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
+    // console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
   }
 
   /**
@@ -134,10 +133,10 @@ export class IamAuth {
     this.logoutAsUserOrAdmin();
     // Correction : forcer le flag admin à false explicitement
     this.adminRole = false;
-    console.log('🧹 Complete logout');
-    console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
-    console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
-    console.log('🛡️ adminRole after logout:', this.adminRole);
+    // console.log('🧹 Complete logout');
+    // console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
+    // console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
+    // console.log('🛡️ adminRole after logout:', this.adminRole);
   }
 
   /**

@@ -5,11 +5,13 @@ export type AppSlice = {
   readonly authToken: string | undefined;
   readonly isAdmin: boolean;
   readonly orgId: string[] | undefined;
+  readonly isLoggedIn: boolean;
 };
 
 export const initialAppSlice: AppSlice = {
   user: undefined,
   authToken: undefined,
   isAdmin: false,
-  orgId: undefined
+  orgId: undefined,
+  isLoggedIn: false,
 };

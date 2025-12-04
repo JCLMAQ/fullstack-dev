@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -36,7 +36,7 @@ export class Layout {
   readonly rightSidenav = viewChild.required<MatSidenav>('rightSidenav');
 
   isRightDrawerOpen = signal(false);
-  readonly isLoggedIn = computed(() => this.authService.isLoggedIn());
+  // readonly isLoggedIn = computed(() => this.authService.isLoggedIn());
 
   backDrop() {
     if (this.responsiveService.isMobile()) {

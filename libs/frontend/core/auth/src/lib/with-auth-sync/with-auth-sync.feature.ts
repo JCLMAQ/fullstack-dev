@@ -1,10 +1,7 @@
-import { effect, inject } from '@angular/core';
-import { IamAuth } from '@fe/core/auth';
 import {
-  patchState,
   signalStoreFeature,
   SignalStoreFeature,
-  withHooks,
+  withHooks
 } from '@ngrx/signals';
 
 /**
@@ -27,40 +24,40 @@ export function withAuthSync(): SignalStoreFeature {
   return signalStoreFeature(
     withHooks({
       onInit(store) {
-        const authService = inject(IamAuth);
+        // const authService = inject(IamAuth);
 
-        // 1️⃣ Initialisation : récupérer les données du service au démarrage
-        const user = authService.userAppStore();
-        const authToken = authService.authTokenAppStore();
-        const isAdmin = authService.hasAdminRole();
+        // // 1️⃣ Initialisation : récupérer les données du service au démarrage
+        // const user = authService.userAppStore();
+        // const authToken = authService.authTokenAppStore();
+        // const isAdmin = authService.hasAdminRole();
 
-        if (user || authToken) {
-          console.log('🔄 [withAuthSync] Initializing store with auth data');
-          console.log('👤 User:', user?.email || 'undefined');
-          console.log('🔐 Auth Token:', authToken ? '***' : 'undefined');
-          console.log('🛡️ Admin:', isAdmin);
+        // if (user || authToken) {
+        //   console.log('🔄 [withAuthSync] Initializing store with auth data');
+        //   console.log('👤 User:', user?.email || 'undefined');
+        //   console.log('🔐 Auth Token:', authToken ? '***' : 'undefined');
+        //   console.log('🛡️ Admin:', isAdmin);
 
-          patchState(store, {
-            user: user,
-            authToken: authToken,
-            isAdmin: isAdmin,
-          });
-        }
+        //   patchState(store, {
+        //     user: user,
+        //     authToken: authToken,
+        //     isAdmin: isAdmin,
+        //   });
+        // }
 
         // 2️⃣ Synchronisation : écouter les changements du service
-        effect(() => {
-          const currentUser = authService.userAppStore();
-          const currentToken = authService.authTokenAppStore();
-          const currentIsAdmin = authService.hasAdminRole();
+        // effect(() => {
+        //   const currentUser = authService.userAppStore();
+        //   const currentToken = authService.authTokenAppStore();
+        //   const currentIsAdmin = authService.hasAdminRole();
 
-          console.log('🔄 [withAuthSync] Service changed - syncing to store');
+        //   console.log('🔄 [withAuthSync] Service changed - syncing to store');
 
-          patchState(store, {
-            user: currentUser,
-            authToken: currentToken,
-            isAdmin: currentIsAdmin,
-          });
-        });
+        //   patchState(store, {
+        //     user: currentUser,
+        //     authToken: currentToken,
+        //     isAdmin: currentIsAdmin,
+        //   });
+        // });
       },
     }),
   );

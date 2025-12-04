@@ -17,8 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import type { Image } from '@db/prisma';
-import { IamAuth } from '@fe/auth';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
+import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface ICarouselConfig {
@@ -50,7 +50,8 @@ export interface ICarouselConfig {
 export class Carousel {
   private readonly imageService = inject(ImageService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly authService = inject(IamAuth);
+  // private readonly authService = inject(IamAuth);
+  private readonly appStore = inject(AppStore);
 
   // Inputs
   readonly config = input<ICarouselConfig>({
@@ -86,8 +87,8 @@ export class Carousel {
       // Lire TOUTES les dépendances en PREMIER pour garantir la réactivité
       // Important : Les lire AVANT tout code async
       const triggerValue = this.loadTrigger(); // Pour refresh() manuel
-      const user = this.authService.userAppStore(); // Dépendance sur l'authentification
-      const token = this.authService.authTokenAppStore(); // Dépendance sur le token
+      const user = this.appStore.user(); // Dépendance sur l'authentification
+      const token = this.appStore.authToken(); // Dépendance sur le token
       const isLoggedIn = !!user;
       const filters = this.filterParams();
       const tagsList = this.tags();
@@ -142,7 +143,7 @@ export class Carousel {
   // Computed
   readonly images = computed(() => {
     const resourceImages = this.imagesResource.value() ?? [];
-    const isLoggedIn = !!this.authService.userAppStore();
+    const isLoggedIn = !!this.appStore.user();
 
     // FILTRE DE SÉCURITÉ : Ne jamais afficher d'images privées si non connecté
     // Cela évite d'afficher temporairement les anciennes images privées pendant le rechargement
@@ -186,8 +187,8 @@ export class Carousel {
     // Force le rechargement immédiat via loadTrigger pour éviter d'afficher
     // temporairement les anciennes images avec le mauvais état d'auth
     effect(() => {
-      const user = this.authService.userAppStore();
-      const token = this.authService.authTokenAppStore();
+      const user = this.appStore.user();
+      const token = this.appStore.authToken();
       console.log(`🔄 Carousel - Auth changed: user=${user?.email || 'undefined'}, token=${!!token}`);
 
       // Réinitialiser l'UI de façon asynchrone pour éviter NG0100

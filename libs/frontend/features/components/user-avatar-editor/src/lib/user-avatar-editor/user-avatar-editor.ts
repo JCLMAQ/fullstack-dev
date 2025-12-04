@@ -9,8 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { IamAuth } from '@fe/auth';
 import { ApiConfig, AvatarBase64 } from '@fe/services';
+import { AppStore } from '@fe/stores';
 import { UserAvatar } from '@fe/user-avatar';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -34,7 +34,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class UserAvatarEditor {
 
-  authService = inject(IamAuth);
+  private appStore = inject(AppStore);
+  private authService = inject(AppStore);
   snackbar = inject(MatSnackBar);
   dialogRef = inject(MatDialogRef<UserAvatarEditor>);
   avatarBase64Service = inject(AvatarBase64);
@@ -259,7 +260,7 @@ export class UserAvatarEditor {
       const response = await fetch(urlToUse, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.authService.authTokenAppStore()}`
+          'Authorization': `Bearer ${this.appStore.authToken()}`
         },
         body: formData
       });
@@ -309,7 +310,7 @@ export class UserAvatarEditor {
           console.log('✅ Mise à jour base64 réussie');
           try {
             // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
-            await this.authService.refreshUserProfile();
+            await this.authService['refreshUserProfile']();
             console.log('✅ Profil utilisateur actualisé');
             this.saving.set(false);
             this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
@@ -336,7 +337,7 @@ export class UserAvatarEditor {
       } else {
         // Utiliser l'ancienne méthode pour les autres types (emoji, URL)
         console.log('🚀 Appel de updateUserPhoto avec:', photo);
-        const result = await this.authService.updateUserPhoto(photo);
+        const result = await this.authService['updateUserPhoto'](photo);
         console.log('📡 Réponse du serveur:', result);
 
         this.saving.set(false);

@@ -55,6 +55,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // } else {
           //   orgId = undefined;
           // }
+          let isLoggedIn = false;
+          if (user) {
+            isLoggedIn = true;
+
+          } else {
+            throw new Error('User data is null after login.');
+          }
 
           const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
           // console.log('✅ Login successful:', {
@@ -77,6 +84,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             orgId,
             authToken: loginResponse.accessToken,
             isAdmin: roleIsAdmin,
+            isLoggedIn: isLoggedIn,
           });
           store._router.navigate(['/pages/home']);
         } catch (error) {
