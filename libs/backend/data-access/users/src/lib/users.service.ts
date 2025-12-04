@@ -1,7 +1,7 @@
 import * as Prisma from '@db/prisma';
-import { User } from '@db/prisma';
+import { Organization, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaClientService) {}
@@ -55,4 +55,24 @@ export class UsersService {
       where,
     });
   }
+
+    async getUserOrganizations(params: { id?: string }): Promise<Organization[]> {
+    const { id} = params;
+
+    if (!id) {
+      throw new BadRequestException('Either id  must be provided');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: { Orgs: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user.Orgs ?? [];
+  }
 }
+

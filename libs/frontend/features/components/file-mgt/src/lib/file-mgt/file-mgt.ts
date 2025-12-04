@@ -17,6 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { File } from '@db/prisma';
+import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileService, SearchFilesDto } from '../services/file.service';
 
@@ -39,7 +40,7 @@ import { FileService, SearchFilesDto } from '../services/file.service';
     MatCheckboxModule,
     MatMenuModule,
     MatDividerModule,
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './file-mgt.html',
   styleUrl: './file-mgt.scss',
@@ -48,6 +49,7 @@ export class FileMgt {
 
 protected fileService = inject(FileService);
   private snackBar = inject(MatSnackBar);
+  private appStore = inject(AppStore);
 
   // Inputs
   showAssociations = input<boolean>(false);
@@ -313,7 +315,9 @@ protected fileService = inject(FileService);
 
   private processFiles(files: globalThis.File[]): void {
     // Pour l'instant, on traite les fichiers un par un
-    const ownerId = this.uploadedById();
+    // const ownerId = this.uploadedById();
+    const ownerId = this.appStore.user()?.id;
+    const orgId = this.appStore.orgId();
     if (!ownerId) {
       this.snackBar.open('ownerId est requis pour l’upload de fichier', 'Fermer', { duration: 3000 });
       return;

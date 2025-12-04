@@ -30,8 +30,8 @@ export function withAuthSync(): SignalStoreFeature {
         const authService = inject(IamAuth);
 
         // 1️⃣ Initialisation : récupérer les données du service au démarrage
-        const user = authService.user();
-        const authToken = authService.authToken();
+        const user = authService.userAppStore();
+        const authToken = authService.authTokenAppStore();
         const isAdmin = authService.hasAdminRole();
 
         if (user || authToken) {
@@ -49,8 +49,8 @@ export function withAuthSync(): SignalStoreFeature {
 
         // 2️⃣ Synchronisation : écouter les changements du service
         effect(() => {
-          const currentUser = authService.user();
-          const currentToken = authService.authToken();
+          const currentUser = authService.userAppStore();
+          const currentToken = authService.authTokenAppStore();
           const currentIsAdmin = authService.hasAdminRole();
 
           console.log('🔄 [withAuthSync] Service changed - syncing to store');

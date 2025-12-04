@@ -1,7 +1,8 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@db/prisma';
+import { Organization, User } from '@db/prisma';
 import { LocalStorageCleanerService } from '@fe/shared';
+import { AppStore } from '@fe/stores';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
@@ -35,6 +36,9 @@ import { UserStorageService } from './services/user-storage/user-storage-service
 })
 export class IamAuth {
   private router = inject(Router);
+    // private appStore = inject(AppStore);
+    private injector = inject(Injector);
+
   private localStorageCleaner = inject(LocalStorageCleanerService);
 
   // 🔧 Services spécialisés injectés
@@ -45,10 +49,26 @@ export class IamAuth {
   private userStorage = inject(UserStorageService);
   private profileService = inject(UserProfileService);
 
+
+   // Accès différé au store pour éviter la boucle
+  private get appStore() {
+    return this.injector.get(AppStore);
+  }
+
+  get userAppStore() {
+    return this.appStore.user;
+  }
+  get authTokenAppStore() {
+    return this.appStore.authToken;
+  }
+
   // 📡 Exposer les signaux depuis les services spécialisés
-  user = this.userStorage.user;
-  authToken = this.tokenStorage.authToken;
-  isLoggedIn = computed(() => !!this.user());
+  // user = this.userStorage.user;
+  // userAppStore = this.appStore.user;
+  // //  authToken = this.tokenStorage.authToken;
+  // authTokenAppStore = this.appStore.authToken;
+
+  isLoggedIn = computed(() => !!this.userAppStore());
 
   // État d'authentification (compatibilité)
   private authenticated = false;
@@ -56,20 +76,40 @@ export class IamAuth {
 
   constructor() {
     console.log('🚀 IamAuth initialized (Facade Pattern)');
-    console.log('👤 User loaded:', this.user()?.email || 'undefined');
-    console.log('🔐 Token loaded:', this.authToken() ? '***' : 'undefined');
+    console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
+    console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
   }
 
   /**
    * 🔐 LOGIN avec nouvel endpoint IAM
    * IAM: POST /api/authentication/sign-in ✅
    */
-  async login(email: string, password: string): Promise<ILoginResponse> {
+  async login(email: string, password: string): Promise<ILoginResponse & { user: User | null } & { organizations: Organization[] }> {
     // Toujours réinitialiser le flag admin lors d'un login classique
     this.adminRole = false;
     const response = await this.loginService.login(email, password);
-    this.loginAsUser();
+    this.loginAsUser(); // authenticated = true
     return response;
+  }
+  /**
+   *
+   *
+   */
+
+  async fetchUserOrganizations(userId?: string, currentUser?: User): Promise<Organization[] | null> {
+
+    if (!currentUser && userId) {
+      return null;
+    }
+
+    try {
+      const organizations = await this.userFetchService.fetchUserOrganizations(userId, currentUser);
+      console.log('✅ Organizations fetched successfully:', organizations);
+      return organizations;
+    } catch (error) {
+      console.error('❌ Error fetching organizations:', error);
+      return null;
+    }
   }
 
   /**
@@ -95,7 +135,7 @@ export class IamAuth {
     // Correction : forcer le flag admin à false explicitement
     this.adminRole = false;
     console.log('🧹 Complete logout');
-    console.log('👤 User after logout:', this.user()?.email || 'undefined');
+    console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
     console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
     console.log('🛡️ adminRole after logout:', this.adminRole);
   }
@@ -132,7 +172,7 @@ export class IamAuth {
   /**
    * 🔄 Actualiser le profil utilisateur
    */
-  async refreshUserProfile(): Promise<void> {
+  async refreshUserProfile(): Promise<User | null> {
     return this.userFetchService.refreshUserProfile();
   }
 

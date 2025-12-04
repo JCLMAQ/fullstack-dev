@@ -1,16 +1,16 @@
 import * as Prisma from '@db/prisma';
-import { User } from '@db/prisma';
+import { Organization, User } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpException,
-    HttpStatus,
-    Param,
-    Post,
-    Put,
-    Query
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -139,6 +139,24 @@ export class UsersController {
     }
   }
 
+    /**
+   * Récupère les organisations liées à un utilisateur par id ou email
+   */
+  @Get(':id/organizations')
+  async getUserOrganizationsById(@Param('id') id: string): Promise<Organization[]> {
+    try {
+      if (!id) {
+        throw new HttpException('L\'id utilisateur est requis', HttpStatus.BAD_REQUEST);
+      }
+      return await this.usersService.getUserOrganizations({ id });
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+      throw new HttpException(
+        'Erreur lors de la récupération des organisations',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
   /**
    * Crée un nouvel utilisateur
    */

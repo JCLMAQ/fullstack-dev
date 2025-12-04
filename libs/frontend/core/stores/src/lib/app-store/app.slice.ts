@@ -1,10 +1,10 @@
-import { Organization, User } from '@db/prisma';
+import { User } from '@db/prisma';
 
 export type AppSlice = {
   readonly user: User | undefined;
   readonly authToken: string | undefined;
   readonly isAdmin: boolean;
-  readonly orgId: Organization['id'][] | undefined;
+  readonly orgId: string[] | undefined;
 };
 
 export const initialAppSlice: AppSlice = {

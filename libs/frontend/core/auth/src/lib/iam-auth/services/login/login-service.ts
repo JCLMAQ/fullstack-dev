@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Organization, User } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { firstValueFrom } from 'rxjs';
 import { ILoginResponse } from '../../../models/auth.model';
@@ -30,8 +31,13 @@ export class LoginService {
   /**
    * 🔐 LOGIN avec endpoint IAM
    * IAM: POST /api/authentication/sign-in ✅
+   *
+   * interface ILoginResponse {
+    * accessToken: string;
+    * refreshToken: string;
+    }
    */
-  async login(email: string, password: string): Promise<ILoginResponse> {
+  async login(email: string, password: string): Promise<ILoginResponse & { user: User | null } & { organizations: Organization[] }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
     const pathUrl = `${apiPrefix}/authentication/sign-in`;
 
@@ -42,14 +48,14 @@ export class LoginService {
       password,
     });
 
-    const response = await firstValueFrom(login$);
-    console.log('✅ Login response received:', {
-      hasAccessToken: !!response.accessToken,
-      hasRefreshToken: !!response.refreshToken
-    });
+    const loginResponse = await firstValueFrom(login$);
+          console.log('✅ Login response received:', {
+            hasAccessToken: !!loginResponse.accessToken,
+            hasRefreshToken: !!loginResponse.refreshToken
+          });
 
     // 1. Stocker le token
-    this.tokenStorage.setToken(response.accessToken);
+    this.tokenStorage.setToken(loginResponse.accessToken);
     console.log('🔐 Token stored');
 
     // 2. Récupérer le profil utilisateur
@@ -64,11 +70,24 @@ export class LoginService {
       // 3. Stocker l'utilisateur complet
       this.userStorage.setUser(userLogged);
       console.log('✅ User stored in UserStorageService');
+
+
+
     } else {
       console.error('❌ Failed to fetch user profile');
     }
+    // 5. Retourner la réponse complète
+    console.log('✅ Login successful:', { email, user: userLogged?.email });
 
-    return response;
+    // 4. Récuperer les données de l'organisation si nécessaire
+      console.log('👥 Fetching Organizations...');
+      const org = await this.userFetchService.fetchUserOrganizations(userLogged!.id, userLogged!);
+      if (org) {
+        console.log('👥 Organizations fetched successfully:', org);
+      } else {
+        console.warn('⚠️ No organizations found for user');
+      }
+    return { ...loginResponse, user: userLogged, organizations: org || [] };
   }
 
   /**

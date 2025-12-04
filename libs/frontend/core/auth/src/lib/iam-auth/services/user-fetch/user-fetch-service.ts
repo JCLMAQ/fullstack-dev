@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '@db/prisma';
+import { Organization, User } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
@@ -29,7 +29,7 @@ export class UserFetchService {
    * 👤 FETCH USER avec endpoint IAM
    * IAM: GET /api/authentication/profile ✅
    */
-  async fetchUser(): Promise<User | null> {
+  async fetchUser(userId?: string): Promise<User | null> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
     const pathUrl = `${apiPrefix}/authentication/profile`;
 
@@ -64,7 +64,7 @@ export class UserFetchService {
         console.warn('⚠️ Using JWT fallback - limited user data available');
 
         // Si vous voulez créer un User partiel depuis le JWT :
-        // return { id: decodedJwt.sub, email: decodedJwt.email, ... } as User;
+        //return { id: decodedJwt.sub, email: decodedJwt.email, ... } as User;
 
         return null;
       } catch (jwtError) {
@@ -77,19 +77,49 @@ export class UserFetchService {
   /**
    * 🔄 Actualiser le profil utilisateur
    */
-  async refreshUserProfile(): Promise<void> {
+  async refreshUserProfile(): Promise<User | null> {
     try {
       console.log('🔄 Refreshing user profile...');
       const updatedUser = await this.fetchUser();
 
       if (updatedUser) {
         this.userStorage.setUser(updatedUser);
+
         console.log('✅ Profile refreshed and stored:', updatedUser.email);
+        return updatedUser;
       } else {
         console.warn('⚠️ No user data to refresh');
       }
     } catch (error) {
       console.error('❌ Error refreshing profile:', error);
+      return null;
+    }
+    return null;
+  }
+
+  async fetchUserOrganizations(userId?: string, user?: User): Promise<Organization[] | null> {
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    // const user = await this.fetchUser();
+
+    if (!user && !userId) {
+      return null;
+    }
+    let id = userId ?? user?.id;
+    let orgsUrl = '';
+    if (id) {
+      orgsUrl = `${apiPrefix}/users/${encodeURIComponent(id)}/organizations`;
+    } else {
+      return null;
+    }
+
+    try {
+      const organizations = await firstValueFrom(
+        this.httpClient.get<Organization[]>(orgsUrl)
+      );
+      return organizations;
+    } catch {
+      return null;
     }
   }
+
 }

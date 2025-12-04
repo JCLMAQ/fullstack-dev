@@ -9,6 +9,19 @@
     "datePlaceholder": "Choose a date",
     "dateLabel": "Date"
   },
+  "Common": {
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "loading": "Loading...",
+    "selectLanguage": "Select Language"
+  },
   "HEADER.CHOOSE": "Choose your language",
   "SITETITLE": "New Angular Site",
   "Name": "Name",
@@ -66,7 +79,8 @@
       "forgotPassword": "Forgot your password ?",
       "emailRequired": "The email is required",
       "invalidEmail": "Invalid email",
-      "passwordRequired": "The password is required"
+      "passwordRequired": "The password is required",
+      "invalidCredentials": "Invalid email or password"
     },
     "REGISTER": {
       "title": "Register",

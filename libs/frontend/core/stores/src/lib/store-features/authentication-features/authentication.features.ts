@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
+import { Organization, User } from '@db/prisma';
+import { IamAuth } from '@fe/auth';
+import { ENVIRONMENT_TOKEN, type Environment } from '@fe/token';
+// import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
 import {
   patchState,
   signalStoreFeature,
@@ -10,16 +13,19 @@ import {
   withMethods,
   withProps
 } from '@ngrx/signals';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 
 /* tslint:disable:object-literal-type */
 export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withProps(() => ({
-      _authService: inject(IAM_AUTH_TOKEN),
+      _authService: inject(IamAuth),
+      //  _authService: inject(IAM_AUTH_TOKEN),
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
+      _translate: inject(TranslateService),
     })),
      // withComputed((store) => ({
   //   user: computed(() => store._authService.user()),
@@ -36,23 +42,47 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             });
             return;
           }
-          await store._authService.login(email, password);
+          // ILoginResponse & { user: User | null } & { organizations: Organization[]
+          const loginResponse: { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] } = await store._authService.login(email, password);
           // Récupérer l'utilisateur connecté
-          const user = store._authService.user();
+          // const user = store._authService.userAppStore();
+          const user = loginResponse.user;
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
+          // let orgId: string[] | undefined = undefined;
+          // const organizations = await store._authService.fetchUserOrganizations(user?.id, user ? user : undefined);
+          // if (organizations!.length > 0) {
+          //   orgId = organizations!.map((org: any) => org.id);
+          // } else {
+          //   orgId = undefined;
+          // }
+
+          const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
+          // console.log('✅ Login successful:', {
+          //   email,
+          //   user: user?.email,
+          //   hasToken: !!loginResponse.accessToken,
+          //   isAdmin: roleIsAdmin
+          // });
+
+
+          const organizations = loginResponse.organizations;
           let orgId: string[] | undefined = undefined;
-          if (user && Array.isArray(user.organizations) && user.organizations.length > 0) {
-            orgId = user.organizations.map((org: any) => org.id);
+          if (organizations!.length > 0) {
+            orgId = organizations!.map((org: any) => org.id);
           } else {
             orgId = undefined;
           }
           patchState(store, {
-            user,
+            user: user,
             orgId,
+            authToken: loginResponse.accessToken,
+            isAdmin: roleIsAdmin,
           });
           store._router.navigate(['/pages/home']);
         } catch (error) {
-          store._snackbar.open('Invalid email or password', 'Close', {
+          store._snackbar.open(
+            store._translate.instant('LOGIN.invalidCredentials'),
+            store._translate.instant('Common.close'), {
             verticalPosition: 'top',
             horizontalPosition: 'right',
           });
@@ -118,7 +148,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
        */
       updateUserProfileImage: async (userId: string, photoUrl: string) => {
         try {
-          const currentUser = store._authService.user();
+          const currentUser = store._authService.userAppStore();
           if (!currentUser) {
             store._snackbar.open('Utilisateur non connecté', 'Close', {
               verticalPosition: 'top',
@@ -182,7 +212,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
        */
       uploadAndUpdateProfileImage: async (file: File, userId: string) => {
         try {
-          const currentUser = store._authService.user();
+          const currentUser = store._authService.userAppStore();
           if (!currentUser) {
             store._snackbar.open('Utilisateur non connecté', 'Close', {
               verticalPosition: 'top',
@@ -256,9 +286,18 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       refreshUserData: async () => {
         try {
           const updatedUser = await store._authService.fetchUser();
+
+  // Récupérer tous les IDs d'organisations liées à l'utilisateur
           let orgId: string[] | undefined = undefined;
-          if (updatedUser && Array.isArray(updatedUser.organizations) && updatedUser.organizations.length > 0) {
-            orgId = updatedUser.organizations.map((org: any) => org.id);
+          const organizations = await store._authService.fetchUserOrganizations(updatedUser?.id, updatedUser ? updatedUser : undefined);
+          if (organizations!.length > 0) {
+            orgId = organizations!.map((org: any) => org.id);
+          } else {
+            orgId = undefined;
+          }
+
+          if (updatedUser && Array.isArray(organizations) && organizations.length > 0) {
+            orgId = organizations.map((org: any) => org.id);
           } else {
             orgId = undefined;
           }

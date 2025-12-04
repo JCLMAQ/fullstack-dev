@@ -259,7 +259,7 @@ export class UserAvatarEditor {
       const response = await fetch(urlToUse, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.authService.authToken()}`
+          'Authorization': `Bearer ${this.authService.authTokenAppStore()}`
         },
         body: formData
       });
