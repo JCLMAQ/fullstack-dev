@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import type { Image } from '@db/prisma';
 import { ImageService } from '@fe/image-mgt';
-import { ENVIRONMENT_TOKEN } from '@fe/token';
+import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { of, throwError } from 'rxjs';
 import { Carousel, ICarouselConfig } from './carousel';
 

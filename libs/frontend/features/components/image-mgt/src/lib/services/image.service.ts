@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { effect, inject, Injectable, signal } from '@angular/core';
 import type { Image } from '@db/prisma';
 import { TokenStorageService } from '@fe/core/auth';
-import { ENVIRONMENT_TOKEN } from '@fe/token';
+import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 
 export interface CreateImageDto {

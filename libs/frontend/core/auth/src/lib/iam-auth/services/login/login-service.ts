@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Organization, User } from '@db/prisma';
-import { ENVIRONMENT_TOKEN } from '@fe/token';
+import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 import { ILoginResponse } from '../../../models/auth.model';
 import { TokenStorageService } from '../token-storage/token-storage-service';

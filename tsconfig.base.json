@@ -69,7 +69,7 @@
       "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],
       "@fe/services": ["libs/frontend/core/services/src/index.ts"],
       "@fe/stores": ["libs/frontend/core/stores/src/index.ts"],
-      "@fe/tokens": ["libs/frontend/core/tokens/src/index.ts"],
+
       "@fe/dashboard": [
         "libs/frontend/features/components/dashboard/src/index.ts"
       ],
@@ -110,13 +110,17 @@
       "@fe/admin-banner": [
         "libs/frontend/features/components/admin-banner/src/index.ts"
       ],
-      "@fe/token": ["libs/frontend/token/src/index.ts"],
+      "@fe/tokens": ["libs/frontend/token/src/index.ts"],
+      "@fe/core-tokens": ["libs/frontend/core/tokens/src/index.ts"],
       "@fe/auth/iam-auth/iam-auth.token": [
         "libs/frontend/core/auth/src/lib/iam-auth/iam-auth.token.ts"
       ],
       "@fe/login": ["libs/frontend/features/components/login/src/index.ts"],
       "@fe/register": [
         "libs/frontend/features/components/register/src/index.ts"
+      ],
+      "@fe/dictionaries-token": [
+        "libs/frontend/core/tokens/src/index.ts"
       ]
     }
   },

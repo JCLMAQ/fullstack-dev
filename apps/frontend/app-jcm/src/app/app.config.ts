@@ -10,8 +10,9 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DICTIONARIES_TOKEN, LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
-import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN } from '@fe/token';
+import { DICTIONARIES_TOKEN } from '@fe/dictionaries-token';
+import { LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN } from '@fe/tokens';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';

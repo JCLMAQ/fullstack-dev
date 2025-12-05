@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
 import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
-import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/token';
+import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/tokens';
 import {
   patchState,
   signalStoreFeature,

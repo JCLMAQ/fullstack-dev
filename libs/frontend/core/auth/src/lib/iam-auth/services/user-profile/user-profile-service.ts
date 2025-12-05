@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ENVIRONMENT_TOKEN } from '@fe/token';
+import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 import { UserStorageService } from '../user-storage/user-storage-service';
 // import { AppStore } from '@fe/stores';

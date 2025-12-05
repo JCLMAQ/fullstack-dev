@@ -1,5 +1,6 @@
 import { computed, inject } from '@angular/core';
-import { DICTIONARIES_TOKEN } from '@fe/shared';
+// import type { Dictionaries } from '@fe/shared/src/lib/tokens/models/dictionary.model';
+import { DICTIONARIES_TOKEN } from '@fe/core-tokens';
 import {
   patchState,
   signalStoreFeature,
@@ -11,6 +12,7 @@ import {
   withState
 } from '@ngrx/signals';
 import { getDictionary } from './dictionaries.helpers';
+import { Dictionaries } from './dictionary.model';
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
 
@@ -21,7 +23,7 @@ export function withDictionariesFeatures(): SignalStoreFeature {
       selectedLanguage: '' as string,
     })),
     withProps(() => ({
-      _dictionaries: inject(DICTIONARIES_TOKEN),
+      _dictionaries: inject(DICTIONARIES_TOKEN) as Dictionaries,
     })),
     withComputed((store) => {
       return {
