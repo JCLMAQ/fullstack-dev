@@ -25,6 +25,6 @@ export const isUserAuthenticated: CanActivateFn =
         verticalPosition: 'top',
         horizontalPosition: 'right',
       });
-     return router.parseUrl('/home')
+    return router.parseUrl('/home')
     }
   }

@@ -10,8 +10,8 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { DICTIONARIES_TOKEN, MENU_ITEMS_TOKEN } from '@fe/shared';
-import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN } from '@fe/token';
+import { DICTIONARIES_TOKEN, LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, LOCALSTORAGE_CLEANER_TOKEN } from '@fe/token';
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
@@ -56,6 +56,7 @@ export const appConfig: ApplicationConfig = {
   { provide: ENVIRONMENT_TOKEN, useValue: ENVIRONMENT_DATA },
   // Provide the Authentication Service
   { provide: IAM_AUTH_TOKEN, useClass: IamAuth },
+  { provide: LOCALSTORAGE_CLEANER_TOKEN, useClass: LocalStorageCleanerService },
   {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {

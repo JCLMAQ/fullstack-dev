@@ -3,9 +3,7 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
-// import { IamAuth } from '@fe/auth';
-import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
-// import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, type Environment } from '@fe/token';
+import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/token';
 import {
   patchState,
   signalStoreFeature,
@@ -26,11 +24,9 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
       _translate: inject(TranslateService),
+      _localStorageCleaner: inject(LOCALSTORAGE_CLEANER_TOKEN),
     })),
-     // withComputed((store) => ({
-  //   user: computed(() => store._authService.user()),
-  //   authToken: computed(() => store._authService.authToken()),
-  // })),
+
     withMethods((store) => ({
 
       login: async (email: string, password: string) => {
@@ -43,18 +39,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
           // ILoginResponse & { user: User | null } & { organizations: Organization[]
-          const loginResponse: { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] } = await store._authService.login(email, password);
+          const loginResponse:
+            { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] }
+            = await store._authService.login(email, password);
+
           // Récupérer l'utilisateur connecté
-          // const user = store._authService.userAppStore();
           const user = loginResponse.user;
-          // Récupérer tous les IDs d'organisations liées à l'utilisateur
-          // let orgId: string[] | undefined = undefined;
-          // const organizations = await store._authService.fetchUserOrganizations(user?.id, user ? user : undefined);
-          // if (organizations!.length > 0) {
-          //   orgId = organizations!.map((org: any) => org.id);
-          // } else {
-          //   orgId = undefined;
-          // }
+
           let isLoggedIn = false;
           if (user) {
             isLoggedIn = true;
@@ -64,14 +55,9 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           }
 
           const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
-          // console.log('✅ Login successful:', {
-          //   email,
-          //   user: user?.email,
-          //   hasToken: !!loginResponse.accessToken,
-          //   isAdmin: roleIsAdmin
-          // });
 
 
+          // Récupérer tous les IDs d'organisations liées à l'utilisateur
           const organizations = loginResponse.organizations;
           let orgId: string[] | undefined = undefined;
           if (organizations!.length > 0) {
@@ -86,6 +72,16 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             isAdmin: roleIsAdmin,
             isLoggedIn: isLoggedIn,
           });
+
+            console.log('✅ Login successful:', {
+              email,
+              user: user?.email,
+              orgId,
+              hasToken: !!loginResponse.accessToken,
+              isAdmin: roleIsAdmin,
+              isLoggedIn: isLoggedIn,
+          });
+
           store._router.navigate(['/pages/home']);
         } catch (error) {
           store._snackbar.open(
@@ -99,7 +95,15 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       },
 
       logout: async () => {
-        await store._authService.logout();
+        store._localStorageCleaner.clearAllUserData();
+        patchState(store, {
+          user: undefined,
+          authToken: undefined,
+          isAdmin: false,
+          orgId: undefined,
+          isLoggedIn: false,
+        });
+        // await store._authService.logout();
         store._router.navigate(['pages/home']);
       },
       loginAsAdmin: async () => {

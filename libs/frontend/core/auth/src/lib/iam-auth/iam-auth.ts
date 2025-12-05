@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
-import { LocalStorageCleanerService } from '@fe/shared';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
@@ -38,7 +37,7 @@ export class IamAuth {
     // private appStore = inject(AppStore);
     // private injector = inject(Injector);
 
-  private localStorageCleaner = inject(LocalStorageCleanerService);
+  // private localStorageCleaner = inject(LocalStorageCleanerService);
 
   // 🔧 Services spécialisés injectés
   private loginService = inject(LoginService);
@@ -127,7 +126,7 @@ export class IamAuth {
    * 🚪 LOGOUT
    */
   async logout(): Promise<void> {
-    this.localStorageCleaner.clearAllUserData();
+    // this.localStorageCleaner.clearAllUserData();
     this.tokenStorage.clearToken();
     this.userStorage.clearUser();
     this.logoutAsUserOrAdmin();

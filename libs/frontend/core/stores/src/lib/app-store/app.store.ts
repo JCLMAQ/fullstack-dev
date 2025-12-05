@@ -1,5 +1,4 @@
 import { withDevtools, withStorageSync } from "@angular-architects/ngrx-toolkit";
-import { withAuthSync } from "@fe/auth";
 import { signalStore, withState } from "@ngrx/signals";
 import { withAppAuthFeatures } from "../store-features/authentication-features/authentication.features";
 import { withDictionariesFeatures } from "../store-features/dictionaries-features/dictionaries.features";
@@ -17,6 +16,6 @@ export const AppStore = signalStore(
   withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
   // 🔄 Synchronisation avec service d'authentification
-  withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
+  // withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
 
 );
