@@ -1,17 +1,19 @@
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
-import { AppStore } from "@fe/stores";
+// import { AppStore } from "@fe/stores";
+import { IamAuth } from "../iam-auth/iam-auth";
 
 
 export const isUserAuthenticated: CanActivateFn =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-    const appStore = inject(AppStore);
+    // const appStore = inject(AppStore);
+    const authService = inject(IamAuth);
     const router = inject(Router);
     const snackbar = inject(MatSnackBar);
     // const messagesService = inject(MessagesService);
 
-    if (appStore.isLoggedIn()) {
+    if (authService.isAuthenticated()) {
       return true;
     }
     else {

@@ -1,5 +1,4 @@
 import { computed, inject } from '@angular/core';
-// import type { Dictionaries } from '@fe/shared/src/lib/tokens/models/dictionary.model';
 import { DICTIONARIES_TOKEN } from '@fe/core-tokens';
 import {
   patchState,
@@ -13,6 +12,7 @@ import {
 } from '@ngrx/signals';
 import { getDictionary } from './dictionaries.helpers';
 import { Dictionaries } from './dictionary.model';
+
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
 
