@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 // import { Auth } from './auth/auth';
 import { Login } from '@fe/login';
+import { Register } from '@fe/register';
 import { Changepwd } from './changepwd/changepwd';
 import { Forgotpwd } from './forgotpwd/forgotpwd';
-import { Register } from './register/register';
 import { Resetpwd } from './resetpwd/resetpwd';
 
 export const authRoutes: Route[] = [
@@ -16,7 +16,7 @@ export const authRoutes: Route[] = [
   },
   { path: 'changepwd', component: Changepwd,
   },
-   { path: 'resetpwd', component: Resetpwd,
+  { path: 'resetpwd', component: Resetpwd,
   },
   { path: '', component: Login,}
 

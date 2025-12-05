@@ -27,7 +27,7 @@ export class RegisterService {
     password: string,
     confirmPassword: string,
   ): Promise<IRegisterResponse> {
-     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
     const pathUrl = `${apiPrefix}/authentication/register-extended`;
 
     const payload = {

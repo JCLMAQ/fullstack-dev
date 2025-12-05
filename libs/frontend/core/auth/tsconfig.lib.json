@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../features/components/register/src/lib/register/register.spec.ts", "../../features/components/register/src/lib/register/register.ts"]
 }

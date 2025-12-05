@@ -43,7 +43,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           const loginResponse:
             { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] }
               = await store._authService.login(email, password);
-
+              // = await this.loginService.login(email, password);
           // Récupérer l'utilisateur connecté
           const user = loginResponse.user;
 
