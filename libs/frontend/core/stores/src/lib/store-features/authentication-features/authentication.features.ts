@@ -3,7 +3,8 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
-import { ENVIRONMENT_TOKEN, IAM_AUTH_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/token';
+import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
+import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/token';
 import {
   patchState,
   signalStoreFeature,
@@ -41,7 +42,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // ILoginResponse & { user: User | null } & { organizations: Organization[]
           const loginResponse:
             { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] }
-            = await store._authService.login(email, password);
+              = await store._authService.login(email, password);
 
           // Récupérer l'utilisateur connecté
           const user = loginResponse.user;
@@ -161,7 +162,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
        */
       updateUserProfileImage: async (userId: string, photoUrl: string) => {
         try {
-          const currentUser = store._authService.userAppStore();
+          // const currentUser = store._authService.userAppStore();
+          const currentUser = await store._authService.fetchUser();
           if (!currentUser) {
             store._snackbar.open('Utilisateur non connecté', 'Close', {
               verticalPosition: 'top',

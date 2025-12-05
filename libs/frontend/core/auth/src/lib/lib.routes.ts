@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 // import { Auth } from './auth/auth';
+import { Login } from '@fe/login';
 import { Changepwd } from './changepwd/changepwd';
 import { Forgotpwd } from './forgotpwd/forgotpwd';
-import { Login } from './login/login';
 import { Register } from './register/register';
 import { Resetpwd } from './resetpwd/resetpwd';
 

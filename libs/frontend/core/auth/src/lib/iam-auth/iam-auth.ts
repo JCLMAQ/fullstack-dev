@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
@@ -48,33 +48,14 @@ export class IamAuth {
   private profileService = inject(UserProfileService);
 
 
-   // Accès différé au store pour éviter la boucle
-  // private get appStore() {
-  //   return this.injector.get(AppStore);
-  // }
-
-  // get userAppStore() {
-  //   return this.appStore.user;
-  // }
-  // get authTokenAppStore() {
-  //   return this.appStore.authToken;
-  // }
-
-  // 📡 Exposer les signaux depuis les services spécialisés
-  // user = this.userStorage.user;
-  // userAppStore = this.appStore.user;
-  // //  authToken = this.tokenStorage.authToken;
-  // authTokenAppStore = this.appStore.authToken;
-
-  // isLoggedIn = computed(() => !!this.userAppStore());
-
   // État d'authentification (compatibilité)
   private authenticated = false;
   private adminRole = false;
+  userAppStore = signal<User | null>(null);
 
   constructor() {
     // console.log('🚀 IamAuth initialized (Facade Pattern)');
-    // console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
+    console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
     // console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
   }
 
@@ -88,6 +69,7 @@ export class IamAuth {
     // this.adminRole = false;
     const response = await this.loginService.login(email, password);
     this.loginAsUser(); // authenticated = true
+    this.userAppStore.set(response.user);
     return response;
   }
   /**

@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/token';
 import { firstValueFrom } from 'rxjs';
 import { UserStorageService } from '../user-storage/user-storage-service';
+// import { AppStore } from '@fe/stores';
 
 /**
  * 📸 Service de gestion du profil utilisateur
@@ -18,6 +19,7 @@ export class UserProfileService {
   private httpClient = inject(HttpClient);
   private userStorage = inject(UserStorageService);
   private environment = inject(ENVIRONMENT_TOKEN);
+  // private appStore = inject(AppStore);
 
   /**
    * 📸 Mettre à jour la photo de profil
