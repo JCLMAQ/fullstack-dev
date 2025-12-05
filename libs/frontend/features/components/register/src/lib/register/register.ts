@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { AppStore } from '@fe/stores';
+import { RegisterService } from '@fe/auth';
 
 
 interface RegisterFormModel {
@@ -46,7 +46,7 @@ function passwordMatchValidator(control: AbstractControl) {
 })
 export class Register {
 
-   private appStore = inject(AppStore);
+  private registerService = inject(RegisterService);
   private router = inject(Router);
 
   // Signal d'état UI
@@ -231,7 +231,8 @@ export class Register {
       const confirmPassword = this.confirmPassword();
 
       if (email.length > 0 && password.length > 0 && confirmPassword.length > 0) {
-        await this.appStore['register'](email, password, confirmPassword);
+        const result = await this.registerService.register(email, password, confirmPassword);
+        // result: IRegisterResponse
         localStorage.removeItem('register-draft');
       }
     } catch (error) {

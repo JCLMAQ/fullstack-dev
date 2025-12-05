@@ -10,7 +10,6 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
 import { DICTIONARIES_TOKEN, LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
 import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN } from '@fe/token';
 import { appRoutes } from './app.routes';
@@ -53,14 +52,9 @@ export const appConfig: ApplicationConfig = {
   { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS },
   // Provide the environment configuration for the API URL and other settings
   { provide: ENVIRONMENT_TOKEN, useValue: ENVIRONMENT_DATA },
-  // Provide the Authentication Service
-   {
-    provide: IAM_AUTH_TOKEN,
-    useFactory: async () => {
-      const mod = await import('@fe/auth');
-      return mod.IamAuth;
-    },
-  },
+  // Provide the Authentication Service :
+  // Ne pas fournir explicitement IAM_AUTH_TOKEN ici.
+  // Angular utilisera la factory fournie dans iam-auth.token.ts (providedIn: 'root').
   { provide: LOCALSTORAGE_CLEANER_TOKEN, useClass: LocalStorageCleanerService },
   {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

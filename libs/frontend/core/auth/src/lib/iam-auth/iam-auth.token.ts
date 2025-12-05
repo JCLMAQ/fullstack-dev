@@ -4,5 +4,5 @@ import { IamAuth } from './iam-auth';
 // export const IAM_AUTH_TOKEN = new InjectionToken<any>('IAM_AUTH_TOKEN');
 export const IAM_AUTH_TOKEN = new InjectionToken<IamAuth>('IAM_AUTH_TOKEN', {
   providedIn: 'root',
-    factory: () => inject(IamAuth),
+  factory: () => inject(IamAuth),
 });
