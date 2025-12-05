@@ -15,8 +15,6 @@ export * from './lib/iam-auth/services/user-storage/user-storage-service';
 // Auth models
 export * from './lib/models/auth.model';
 
-// Store features
-export * from './lib/with-auth-sync/with-auth-sync.feature';
 
 
 

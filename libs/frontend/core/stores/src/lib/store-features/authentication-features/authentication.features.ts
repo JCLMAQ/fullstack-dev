@@ -95,7 +95,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       },
 
       logout: async () => {
-        store._localStorageCleaner.clearAllUserData();
+        store._localStorageCleaner.clearAllUserData(); // user and tokens
+
         patchState(store, {
           user: undefined,
           authToken: undefined,

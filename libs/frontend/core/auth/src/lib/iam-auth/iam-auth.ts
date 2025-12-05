@@ -82,9 +82,10 @@ export class IamAuth {
    * 🔐 LOGIN avec nouvel endpoint IAM
    * IAM: POST /api/authentication/sign-in ✅
    */
-  async login(email: string, password: string): Promise<ILoginResponse & { user: User | null } & { organizations: Organization[] }> {
+  async login(email: string, password: string):
+    Promise<ILoginResponse & { user: User | null } & { organizations: Organization[] }> {
     // Toujours réinitialiser le flag admin lors d'un login classique
-    this.adminRole = false;
+    // this.adminRole = false;
     const response = await this.loginService.login(email, password);
     this.loginAsUser(); // authenticated = true
     return response;
@@ -125,18 +126,18 @@ export class IamAuth {
   /**
    * 🚪 LOGOUT
    */
-  async logout(): Promise<void> {
-    // this.localStorageCleaner.clearAllUserData();
-    this.tokenStorage.clearToken();
-    this.userStorage.clearUser();
-    this.logoutAsUserOrAdmin();
-    // Correction : forcer le flag admin à false explicitement
-    this.adminRole = false;
-    // console.log('🧹 Complete logout');
-    // console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
-    // console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
-    // console.log('🛡️ adminRole after logout:', this.adminRole);
-  }
+  // async logout(): Promise<void> {
+  //   // this.localStorageCleaner.clearAllUserData();
+  //   this.tokenStorage.clearToken();
+  //   this.userStorage.clearUser();
+  //   this.logoutAsUserOrAdmin();
+  //   // Correction : forcer le flag admin à false explicitement
+  //   this.adminRole = false;
+  //   // console.log('🧹 Complete logout');
+  //   // console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
+  //   // console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
+  //   // console.log('🛡️ adminRole after logout:', this.adminRole);
+  // }
 
   /**
    * 📸 Mise à jour de la photo de profil

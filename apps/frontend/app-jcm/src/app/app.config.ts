@@ -16,8 +16,6 @@ import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
-// import { AppStore } from '@fe/stores';
-import { IamAuth } from '@fe/auth';
 import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
@@ -55,7 +53,13 @@ export const appConfig: ApplicationConfig = {
   // Provide the environment configuration for the API URL and other settings
   { provide: ENVIRONMENT_TOKEN, useValue: ENVIRONMENT_DATA },
   // Provide the Authentication Service
-  { provide: IAM_AUTH_TOKEN, useClass: IamAuth },
+   {
+    provide: IAM_AUTH_TOKEN,
+    useFactory: async () => {
+      const mod = await import('@fe/auth');
+      return mod.IamAuth;
+    },
+  },
   { provide: LOCALSTORAGE_CLEANER_TOKEN, useClass: LocalStorageCleanerService },
   {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
