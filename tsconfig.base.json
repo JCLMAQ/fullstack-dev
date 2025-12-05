@@ -111,16 +111,15 @@
         "libs/frontend/features/components/admin-banner/src/index.ts"
       ],
       "@fe/tokens": ["libs/frontend/token/src/index.ts"],
-      "@fe/core-tokens": ["libs/frontend/core/tokens/src/index.ts"],
+
+      "@fe/core-tokens": ["libs/frontend/core/shared/src/lib/tokens/index.ts"],
+
       "@fe/auth/iam-auth/iam-auth.token": [
         "libs/frontend/core/auth/src/lib/iam-auth/iam-auth.token.ts"
       ],
       "@fe/login": ["libs/frontend/features/components/login/src/index.ts"],
       "@fe/register": [
         "libs/frontend/features/components/register/src/index.ts"
-      ],
-      "@fe/dictionaries-token": [
-        "libs/frontend/core/tokens/src/index.ts"
       ]
     }
   },
