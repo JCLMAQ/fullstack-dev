@@ -313,6 +313,7 @@ export class UserAvatarEditor {
             // 🔄 Actualiser le profil utilisateur pour récupérer la nouvelle photoUrl
             await this.authService['refreshUserProfile']();
             console.log('✅ Profil utilisateur actualisé');
+            this.appStore.updateUserAvatar(photo);
             this.saving.set(false);
             this.snackbar.open('Avatar sauvegardé en base de données avec succès !', 'Fermer', {
               duration: 3000,
@@ -322,7 +323,7 @@ export class UserAvatarEditor {
           } catch (refreshError) {
             console.error('❌ Erreur lors du rafraîchissement du profil:', refreshError);
             this.saving.set(false);
-            this.snackbar.open('Avatar sauvegardé mais erreur lors de l\'actualisation du profil', 'Fermer', {
+            this.snackbar.open("Avatar sauvegardé mais erreur lors de l’actualisation du profil", 'Fermer', {
               duration: 5000,
               verticalPosition: 'top'
             });
@@ -345,6 +346,7 @@ export class UserAvatarEditor {
 
         if (result.success) {
           console.log('✅ Mise à jour réussie');
+          this.appStore.updateUserAvatar(photo);
           this.snackbar.open(result.message, 'Fermer', {
             duration: 3000,
             verticalPosition: 'top'
