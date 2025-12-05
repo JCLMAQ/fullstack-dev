@@ -1,8 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppStore } from '@fe/stores';
-import { UserAvatar } from '@fe/user-avatar';
-import { UserAvatarEditor } from '@fe/user-avatar-editor';
+import { UserAvatar, UserAvatarEditor } from '@fe/user-avatar';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

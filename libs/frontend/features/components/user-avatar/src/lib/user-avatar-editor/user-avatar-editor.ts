@@ -9,10 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { IamAuth } from '@fe/auth';
 import { ApiConfig, AvatarBase64 } from '@fe/services';
 import { AppStore } from '@fe/stores';
-import { UserAvatar } from '@fe/user-avatar';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserAvatar } from '../user-avatar/user-avatar';
 
 @Component({
   selector: 'lib-user-avatar-editor',
@@ -35,7 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class UserAvatarEditor {
 
   private appStore = inject(AppStore);
-  private authService = inject(AppStore);
+  private authService = inject(IamAuth);
   snackbar = inject(MatSnackBar);
   dialogRef = inject(MatDialogRef<UserAvatarEditor>);
   avatarBase64Service = inject(AvatarBase64);
