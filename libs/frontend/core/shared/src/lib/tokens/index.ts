@@ -1,4 +1,4 @@
-export * from './models/dictionary.model';
+
 // export * from './models/environment.model';
 export * from './models/menu-items.model';
 // export * from './tokens/dictionaries.token';

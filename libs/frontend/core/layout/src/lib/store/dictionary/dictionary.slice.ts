@@ -1,4 +1,4 @@
-import { Dictionary } from '@fe/shared';
+import { Dictionary } from '@fe/stores';
 
 export interface DictionarySlice {
   readonly selectedLanguage: string;

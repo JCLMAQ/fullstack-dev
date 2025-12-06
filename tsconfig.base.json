@@ -120,6 +120,12 @@
       "@fe/login": ["libs/frontend/features/components/login/src/index.ts"],
       "@fe/register": [
         "libs/frontend/features/components/register/src/index.ts"
+      ],
+      "@fe/util/models/dictionary.model": [
+        "libs/frontend/core/util/models/dictionary.model.ts"
+      ],
+      "@fe/util/tokens/dictionaries.token": [
+        "libs/frontend/core/util/tokens/dictionaries.token.ts"
       ]
     }
   },
