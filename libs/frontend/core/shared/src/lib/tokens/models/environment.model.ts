@@ -1,2 +1,0 @@
-
-// Supprimé, voir @fe/tokens
