@@ -4,6 +4,7 @@ import {
 } from '@angular-architects/ngrx-toolkit';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
+import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
 import { initialAppSlice } from './app.slice';
 
 export const AppStore = signalStore(
@@ -15,7 +16,7 @@ export const AppStore = signalStore(
   withAppAuthFeatures(), // Add: login(), logout(), register()
 
   // Languages part
-  // withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
+  withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
   withMethods((store) => ({
     updateUserAvatar(avatarUrl: string) {

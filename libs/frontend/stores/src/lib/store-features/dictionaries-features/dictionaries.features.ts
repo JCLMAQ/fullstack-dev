@@ -1,5 +1,5 @@
 import { computed, inject } from '@angular/core';
-import { DICTIONARIES_TOKEN } from '@fe/util/tokens/dictionaries.token';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import {
   patchState,
   signalStoreFeature,
