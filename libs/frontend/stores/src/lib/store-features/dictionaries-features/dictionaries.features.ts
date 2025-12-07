@@ -50,11 +50,16 @@ export function withDictionariesFeatures(): SignalStoreFeature {
     }),
     withHooks((store) => ({
       onInit: () => {
+        store._ngxtranslateService.use(store._ngxtranslateService.getBrowserLang() || 'en'); // use browser language by default
+        const currentLanguage = store._ngxtranslateService.getCurrentLang()
+        console.log(`🌐 Detected Browser Language: ${store._ngxtranslateService.getBrowserLang()}`);
         const languages = Object.keys(store._dictionaries);
         patchState(store, {
           possibleLanguages: languages,
-          selectedLanguage: languages[0],
+          // selectedLanguage: languages[0],
+          selectedLanguage: currentLanguage
         });
+        console.log(`🌐 Current Language on init: ${currentLanguage}`);
       },
     })),
   );

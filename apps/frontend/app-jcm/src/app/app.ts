@@ -22,22 +22,18 @@ export class App {
   constructor() {
     const translateService = this.ngxtranslateService;
     translateService.addLangs(['en','fr']);
-    translateService.use(translateService.getBrowserLang() || 'en'); // use browser language by default
+    // translateService.use(translateService.getBrowserLang() || 'en'); // use browser language by default
 
 // Synchronisation de la langue entre le store et ngxTranslate
-    effect(() => {
-    const lang = this.appStore['selectedLanguage']();
-    if (lang && lang !== translateService.getCurrentLang()) {
-      translateService.use(lang);
-      this.currentLang.set(lang);
-    } else {
-      this.currentLang.set(translateService.getCurrentLang());
-    }
-  });
-
-    const logCurrentLang = effect(() => {
-      console.log("🌐 Current Language:", this.currentLang());
-    });
+  //   effect(() => {
+  //   const lang = this.appStore['selectedLanguage']();
+  //   if (lang && lang !== translateService.getCurrentLang()) {
+  //     translateService.use(lang);
+  //     this.currentLang.set(lang);
+  //   } else {
+  //     this.currentLang.set(translateService.getCurrentLang());
+  //   }
+  // });
 
     // Le store AppStore s'initialise automatiquement grâce à withHooks({ onInit })
     // Mais on peut forcer une synchronisation si nécessaire
@@ -45,12 +41,10 @@ export class App {
   }
 
   currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
+  logCurrentLang = effect(() => {
+      console.log("🌐 Current Language:", this.currentLang());
+    });
 
-  // logCurrentLang = effect(() => {
-  //   console.log("🌐 Current Language:", this.currentLang());
-  // });
-
-  // Effect pour logger les changements d'utilisateur (utile pour debug)
   logCurrentUser = effect(() => {
     const user = this.appStore.user();
     const authToken = this.appStore.authToken();
