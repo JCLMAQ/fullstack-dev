@@ -48,7 +48,7 @@ export class Header {
   currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
 
   setLanguage(language: string) {
-    this.appStore['switchLanguage'](language);
+    this.appStore['switchLanguageDictionary'](language);
     this.currentLang.set(language);
     this.ngxtranslateService.use(language);
     // this.dictionaryStore.setDictionary(this.dictionaryStore._dictionaries[language]);
