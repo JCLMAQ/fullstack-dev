@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { DICTIONARIES_TOKEN } from '@fe/core-tokens';
 import { Dictionary } from '@fe/stores';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { getDictionaryHelper } from '../../store/dictionary/dictionary.helpers';
 

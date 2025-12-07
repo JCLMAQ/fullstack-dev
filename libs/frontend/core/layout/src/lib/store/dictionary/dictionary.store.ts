@@ -1,7 +1,7 @@
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
-import { DICTIONARIES_TOKEN } from '@fe/core-tokens';
 import { withBusy } from '@fe/shared';
+import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import {
   patchState,
   signalStore,
