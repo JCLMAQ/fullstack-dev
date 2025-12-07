@@ -56,15 +56,15 @@
     }
   </button>
   <mat-menu #menulanguage="matMenu">
-    @for (lang of this.ngxtranslateService.getLangs(); track lang) { @if (lang
-    === 'en') {
-    <button mat-menu-item [value]="lang" (click)="setLanguage(lang)">
-      <h3><span class="fi fi-gb"></span> - {{ lang.toUpperCase() }}</h3>
-    </button>
-    } @else {
-    <button mat-menu-item [value]="lang" (click)="setLanguage(lang)">
-      <h3><span class="fi fi-{{ lang }}"></span> - {{ lang.toUpperCase() }}</h3>
-    </button>
+    @for (lang of this.ngxtranslateService.getLangs(); track lang) {
+      @if (lang === 'en') {
+        <button mat-menu-item [value]="lang" (click)="setLanguage(lang)">
+          <h3><span class="fi fi-gb"></span> - {{ lang.toUpperCase() }}</h3>
+        </button>
+      } @else {
+        <button mat-menu-item [value]="lang" (click)="setLanguage(lang)">
+          <h3><span class="fi fi-{{ lang }}"></span> - {{ lang.toUpperCase() }}</h3>
+        </button>
     } }
   </mat-menu>
 
