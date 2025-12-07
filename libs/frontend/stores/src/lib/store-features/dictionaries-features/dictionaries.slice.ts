@@ -1,11 +1,13 @@
+import { Dictionary } from "@fe/tokens";
+
 export type DictionariesSlice = {
   readonly selectedLanguage: string;
   readonly possibleLanguages: string[];
-  // readonly selectedDictionary: Dictionary | null;
+  readonly selectedDictionary: Dictionary | null;
 };
 
 export const initialDictionariesSlice: DictionariesSlice = {
   selectedLanguage: '',
   possibleLanguages: [],
-  // selectedDictionary: null,
+  selectedDictionary: null,
 };

@@ -10,7 +10,7 @@ import {
   withProps,
   withState,
 } from '@ngrx/signals';
-import { getDictionary } from './dictionaries.helpers';
+import { getDictionaryHelper } from './dictionaries.helpers';
 import { Dictionaries } from './dictionary.model';
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
@@ -27,7 +27,7 @@ export function withDictionariesFeatures(): SignalStoreFeature {
     withComputed((store) => {
       return {
         selectedDictionary: computed(() =>
-          getDictionary(store.selectedLanguage(), store._dictionaries),
+          getDictionaryHelper(store.selectedLanguage(), store._dictionaries),
         ),
       };
     }),
