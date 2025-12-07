@@ -1,7 +1,10 @@
-import { withDevtools, withStorageSync } from "@angular-architects/ngrx-toolkit";
-import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
-import { withAppAuthFeatures } from "../store-features/authentication-features/authentication.features";
-import { initialAppSlice } from "./app.slice";
+import {
+  withDevtools,
+  withStorageSync,
+} from '@angular-architects/ngrx-toolkit';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
+import { initialAppSlice } from './app.slice';
 
 export const AppStore = signalStore(
   { providedIn: 'root' },
@@ -15,17 +18,15 @@ export const AppStore = signalStore(
   // withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
   withMethods((store) => ({
-
     updateUserAvatar(avatarUrl: string) {
       const user = store.user();
       if (!user) return;
       patchState(store, { user: { ...user, photoUrl: avatarUrl } });
-    }
-
-  }))
-    /**
-     * Met à jour l'avatar de l'utilisateur dans le signal user
-     */
+    },
+  })),
+  /**
+   * Met à jour l'avatar de l'utilisateur dans le signal user
+   */
   //   updateUserAvatar(avatarUrl: string) {
   //     const user = this.user();
   //     if (!user) return;
@@ -34,5 +35,4 @@ export const AppStore = signalStore(
   // })
   // 🔄 Synchronisation avec service d'authentification
   // withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
-
 );

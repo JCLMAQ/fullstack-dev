@@ -8,11 +8,10 @@ import {
   withHooks,
   withMethods,
   withProps,
-  withState
+  withState,
 } from '@ngrx/signals';
 import { getDictionary } from './dictionaries.helpers';
 import { Dictionaries } from './dictionary.model';
-
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
 
@@ -35,7 +34,7 @@ export function withDictionariesFeatures(): SignalStoreFeature {
     withMethods((store) => {
       const languages = Object.keys(store._dictionaries);
       return {
-      changeLanguage: () => {
+        changeLanguage: () => {
           const currentIndex = languages.indexOf(store.selectedLanguage());
           const nextIndex = (currentIndex + 1) % languages.length;
           const nextLanguage = languages[nextIndex];

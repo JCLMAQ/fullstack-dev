@@ -10,11 +10,11 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
+import { DICTIONARIES_TOKEN, LocalStorageCleanerService, MENU_ITEMS_TOKEN } from '@fe/shared';
 import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN } from '@fe/tokens';
 // import { DICTIONARIES_TOKEN } from '@fe/util/tokens/dictionaries.token';
 import { appRoutes } from './app.routes';
-// import { DICTIONARIES } from './data/dictionaries';
+import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
@@ -49,7 +49,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
   // Provide the translaton dictionary for the dictionary store
   // { provide: DICTIONARIES_TOKEN, useValue: dictionaries },
-  // { provide: DICTIONARIES_TOKEN, useValue: DICTIONARIES },
+  { provide: DICTIONARIES_TOKEN, useValue: DICTIONARIES },
   // Provide the menu items for the left menu
   { provide: MENU_ITEMS_TOKEN, useValue: APP_MENU_ITEMS },
   // Provide the environment configuration for the API URL and other settings

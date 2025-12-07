@@ -4,13 +4,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
 import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
-import { ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, type Environment } from '@fe/tokens';
+import {
+  ENVIRONMENT_TOKEN,
+  LOCALSTORAGE_CLEANER_TOKEN,
+  type Environment,
+} from '@fe/tokens';
 import {
   patchState,
   signalStoreFeature,
   SignalStoreFeature,
   withMethods,
-  withProps
+  withProps,
 } from '@ngrx/signals';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -29,7 +33,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
     })),
 
     withMethods((store) => ({
-
       login: async (email: string, password: string) => {
         try {
           if (!email || !password) {
@@ -40,23 +43,22 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
           // ILoginResponse & { user: User | null } & { organizations: Organization[]
-          const loginResponse:
-            { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] }
-              = await store._authService.login(email, password);
-              // = await this.loginService.login(email, password);
+          const loginResponse: { accessToken: string; refreshToken: string } & {
+            user: User | null;
+          } & { organizations: Organization[] } =
+            await store._authService.login(email, password);
+          // = await this.loginService.login(email, password);
           // Récupérer l'utilisateur connecté
           const user = loginResponse.user;
 
           let isLoggedIn = false;
           if (user) {
             isLoggedIn = true;
-
           } else {
             throw new Error('User data is null after login.');
           }
 
           const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
-
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
           const organizations = loginResponse.organizations;
@@ -74,23 +76,25 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             isLoggedIn: isLoggedIn,
           });
 
-            console.log('✅ Login successful:', {
-              email,
-              user: user?.email,
-              orgId,
-              hasToken: !!loginResponse.accessToken,
-              isAdmin: roleIsAdmin,
-              isLoggedIn: isLoggedIn,
+          console.log('✅ Login successful:', {
+            email,
+            user: user?.email,
+            orgId,
+            hasToken: !!loginResponse.accessToken,
+            isAdmin: roleIsAdmin,
+            isLoggedIn: isLoggedIn,
           });
 
           store._router.navigate(['/pages/home']);
         } catch (error) {
           store._snackbar.open(
             store._translate.instant('LOGIN.invalidCredentials'),
-            store._translate.instant('Common.close'), {
-            verticalPosition: 'top',
-            horizontalPosition: 'right',
-          });
+            store._translate.instant('Common.close'),
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            },
+          );
           console.error(error);
         }
       },
@@ -140,7 +144,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             horizontalPosition: 'right',
           });
 
-
           store._router.navigate(['/auth/login']);
         } catch (error) {
           store._snackbar.open(
@@ -175,20 +178,23 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // Construction dynamique de l'URL backend
           const environment = inject(ENVIRONMENT_TOKEN) as Environment;
           const apiBaseUrl = environment.API_BACKEND_URL?.replace(/\/$/, '');
-          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(
+            /^\//,
+            '',
+          ).replace(/\/$/, '');
           const userUrl = `${apiBaseUrl}/${apiPrefix}/users/${userId}`;
 
           // Appeler l'API pour mettre à jour l'utilisateur
           await firstValueFrom(
             store._httpClient.put<{ id: string; photoUrl: string }>(userUrl, {
-              photoUrl: photoUrl
-            })
+              photoUrl: photoUrl,
+            }),
           );
 
           // Mettre à jour l'utilisateur local avec la nouvelle image
           const updatedUserData = {
             ...currentUser,
-            photoUrl: photoUrl
+            photoUrl: photoUrl,
           };
 
           // Mettre à jour le store avec les nouvelles données
@@ -199,17 +205,23 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // Mettre à jour le service d'authentification
           store._authService.updateUserData(updatedUserData);
 
-          store._snackbar.open('Image de profil mise à jour avec succès', 'Close', {
-            verticalPosition: 'top',
-            horizontalPosition: 'right',
-          });
+          store._snackbar.open(
+            'Image de profil mise à jour avec succès',
+            'Close',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            },
+          );
 
           return updatedUserData;
-
         } catch (error) {
-          console.error('Erreur lors de la mise à jour de l\'image de profil:', error);
+          console.error(
+            "Erreur lors de la mise à jour de l'image de profil:",
+            error,
+          );
           store._snackbar.open(
-            'Erreur lors de la mise à jour de l\'image de profil',
+            "Erreur lors de la mise à jour de l'image de profil",
             'Close',
             {
               verticalPosition: 'top',
@@ -239,7 +251,10 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // Construction dynamique de l'URL backend
           const environment = inject(ENVIRONMENT_TOKEN) as Environment;
           const apiBaseUrl = environment.API_BACKEND_URL?.replace(/\/$/, '');
-          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+          const apiPrefix = environment.API_BACKEND_PREFIX?.replace(
+            /^\//,
+            '',
+          ).replace(/\/$/, '');
           const uploadUrl = `${apiBaseUrl}/${apiPrefix}/upload/avatar`;
           const userUrl = `${apiBaseUrl}/${apiPrefix}/users/${userId}`;
 
@@ -250,7 +265,9 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           formData.append('profileUserId', userId);
 
           const uploadResponse = await firstValueFrom(
-            store._httpClient.post<{ data: { storageUrl: string; id: string } }>(uploadUrl, formData)
+            store._httpClient.post<{
+              data: { storageUrl: string; id: string };
+            }>(uploadUrl, formData),
           );
 
           const newPhotoUrl = uploadResponse.data.storageUrl;
@@ -258,14 +275,14 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           // 2. Mettre à jour l'utilisateur avec la nouvelle URL
           await firstValueFrom(
             store._httpClient.put<{ id: string; photoUrl: string }>(userUrl, {
-              photoUrl: newPhotoUrl
-            })
+              photoUrl: newPhotoUrl,
+            }),
           );
 
           // 3. Mettre à jour l'état local
           const updatedUserData = {
             ...currentUser,
-            photoUrl: newPhotoUrl
+            photoUrl: newPhotoUrl,
           };
 
           patchState(store, {
@@ -274,17 +291,20 @@ export function withAppAuthFeatures(): SignalStoreFeature {
 
           store._authService.updateUserData(updatedUserData);
 
-          store._snackbar.open('Image de profil uploadée et mise à jour avec succès', 'Close', {
-            verticalPosition: 'top',
-            horizontalPosition: 'right',
-          });
+          store._snackbar.open(
+            'Image de profil uploadée et mise à jour avec succès',
+            'Close',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
+            },
+          );
 
           return updatedUserData;
-
         } catch (error) {
-          console.error('Erreur lors de l\'upload de l\'image de profil:', error);
+          console.error("Erreur lors de l'upload de l'image de profil:", error);
           store._snackbar.open(
-            'Erreur lors de l\'upload de l\'image de profil',
+            "Erreur lors de l'upload de l'image de profil",
             'Close',
             {
               verticalPosition: 'top',
@@ -302,16 +322,23 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         try {
           const updatedUser = await store._authService.fetchUser();
 
-  // Récupérer tous les IDs d'organisations liées à l'utilisateur
+          // Récupérer tous les IDs d'organisations liées à l'utilisateur
           let orgId: string[] | undefined = undefined;
-          const organizations = await store._authService.fetchUserOrganizations(updatedUser?.id, updatedUser ? updatedUser : undefined);
+          const organizations = await store._authService.fetchUserOrganizations(
+            updatedUser?.id,
+            updatedUser ? updatedUser : undefined,
+          );
           if (organizations!.length > 0) {
             orgId = organizations!.map((org: any) => org.id);
           } else {
             orgId = undefined;
           }
 
-          if (updatedUser && Array.isArray(organizations) && organizations.length > 0) {
+          if (
+            updatedUser &&
+            Array.isArray(organizations) &&
+            organizations.length > 0
+          ) {
             orgId = organizations.map((org: any) => org.id);
           } else {
             orgId = undefined;
@@ -323,7 +350,10 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             });
           }
         } catch (error) {
-          console.error('Erreur lors du rafraîchissement des données utilisateur:', error);
+          console.error(
+            'Erreur lors du rafraîchissement des données utilisateur:',
+            error,
+          );
         }
       },
     })),
