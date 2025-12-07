@@ -11,7 +11,7 @@ import { UserAvatar } from '@fe/user-avatar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
 import { ThemeService } from '../../services/themes/theme-service';
-import { DictionaryStore } from '../../store/dictionary/dictionary.store';
+// import { DictionaryStore } from '../../store/dictionary/dictionary.store';
 
 @Component({
   selector: 'lib-header',
@@ -34,7 +34,7 @@ export class Header {
   appStore = inject(AppStore);
   router = inject(Router);
 
-  dictionaryStore = inject(DictionaryStore);
+  // dictionaryStore = inject(DictionaryStore);
   ngxtranslateService = inject(TranslateService);
   themeService = inject(ThemeService);
   responsiveService = inject(ResponsiveService);
@@ -48,7 +48,7 @@ export class Header {
   currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
 
   setLanguage(language: string) {
-    this.dictionaryStore.switchLanguage(language);
+    this.appStore['switchLanguage'](language);
     this.currentLang.set(language);
     this.ngxtranslateService.use(language);
     // this.dictionaryStore.setDictionary(this.dictionaryStore._dictionaries[language]);
