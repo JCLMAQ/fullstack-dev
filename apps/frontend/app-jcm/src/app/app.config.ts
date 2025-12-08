@@ -17,6 +17,7 @@ import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideSignalFormsConfig } from '@angular/forms/signals';
 import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
@@ -68,5 +69,66 @@ export const appConfig: ApplicationConfig = {
       },
     },
     provideAppErrorHandler(),
+
+    // https://medium.com/@amosisaila/angular-21-0-1-the-missing-style-link-in-signal-forms-bb8571e90f61
+    provideSignalFormsConfig({
+      classes: {
+        // 1. Success State: Green ring when valid and dirty (user typed something correct)
+        'ring-2': (state) => state.valid() && state.dirty(),
+        'ring-green-500': (state) => state.valid() && state.dirty(),
+        'border-green-500': (state) => state.valid() && state.dirty(),
+        // 2. Error State: Red ring when invalid and touched (user blurred the field)
+        'ring-red-500': (state) => state.invalid() && state.touched(),
+        'border-red-500': (state) => state.invalid() && state.touched(),
+        'bg-red-50': (state) => state.invalid() && state.touched(),
+        // 3. Pending State: Blue pulse during async validation (like our City check)
+        'animate-pulse': (state) => state.pending(),
+        'bg-blue-50': (state) => state.pending(),
+      // https://itnext.io/signal-forms-just-got-automatic-state-classes-and-more-f1fcf87cff78
+        'app-disabled': s => s.disabled(),
+        'app-touched': s => s.touched(),
+        'app-untouched': s => !s.touched(),
+        'app-dirty': s => s.dirty(),
+        'app-pristine': s => !s.dirty(),
+        'app-valid': s => s.valid(),
+        // 'app-invalid': s => s.invalid(),
+        'app-invalid': s => s.invalid() && s.touched(),
+        'app-pending': s => s.pending(),
+      }
+    })
   ],
 };
+
+/* Css pour les champs de formulaire en Signal Forms:
+input {
+
+  // touched vs untouched
+  &.app-untouched {
+    background-color: rgba(white, 0.05);
+  }
+
+  &.app-touched {
+    background-color: rgba(#007bff, 0.15);
+  }
+
+  // dirty vs pristine
+  &.app-dirty {
+    box-shadow: 0 0 0 2px rgba(#007bff, 0.12);
+  }
+
+  // valid vs invalid
+  &.app-touched.app-invalid {
+    border-color: #e53935;
+  }
+
+  &.app-touched.app-valid {
+    border-color: #43a047;
+  }
+
+  // pending
+  &.app-pending {
+    border-color: orange;
+  }
+
+}
+  */

@@ -24,9 +24,6 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
           type="email" />
         <mat-icon matSuffix>email</mat-icon>
         <lib-field-error [fieldError]="userLoginForm.email()" />
-        <!-- @if(userLoginForm.email().touched() || userLoginForm.email().dirty()) {
-          <lib-field-error [fieldError]="userLoginForm.email()" />
-        } -->
       </mat-form-field>
 
       <mat-form-field class="w-full">
@@ -59,12 +56,6 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
           }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="userLoginForm.password()" />
-        <!-- @if(userLoginForm.password().touched() || userLoginForm.password().dirty()) {
-          <lib-field-error [fieldError]="userLoginForm.password()" />
-          @for (error of userLoginForm.password().errors(); track error.kind) {
-            <mat-error>{{ error.message }}</mat-error>
-          }
-        } -->
       </mat-form-field>
 
       <!-- <button  mat-flat-button class="w-full mt-3"
