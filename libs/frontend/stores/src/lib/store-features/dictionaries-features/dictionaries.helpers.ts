@@ -1,4 +1,4 @@
-import { Dictionaries, Dictionary } from './dictionary.model';
+import { Dictionaries, Dictionary } from '@fe/models';
 
 export function getDictionaryHelper(
   language: string,

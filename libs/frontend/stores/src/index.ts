@@ -4,5 +4,4 @@ export * from './lib/store-features/custom-store-features/with-busy/with-busy.fe
 export * from './lib/store-features/custom-store-features/with-local-storage/with-local-storage.feature';
 // export * from './lib/store-features/custom-store-features/with-service/with-service.feature'; // bug à corriger
 export * from './lib/store-features/dictionaries-features/dictionaries.features';
-export * from './lib/store-features/dictionaries-features/dictionary.model';
 

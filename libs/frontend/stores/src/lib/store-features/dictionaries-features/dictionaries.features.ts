@@ -12,8 +12,8 @@ import {
 } from '@ngrx/signals';
 import { getDictionaryHelper } from './dictionaries.helpers';
 
+import { Dictionaries } from '@fe/models';
 import { TranslateService } from '@ngx-translate/core';
-import { Dictionaries } from './dictionary.model';
 
 // Base on Koby-Hary-Udemy NGRX Signals Courses
 
