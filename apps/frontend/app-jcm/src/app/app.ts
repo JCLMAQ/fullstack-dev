@@ -1,7 +1,9 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AppStore } from '@fe/stores';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SUPPORTED_LANGS } from './data/dictionaries';
 
 @Component({
   imports: [
@@ -23,7 +25,7 @@ export class App {
 
   constructor() {
     const translateService = this.ngxtranslateService;
-    translateService.addLangs(['en','fr']);
+    translateService.addLangs(SUPPORTED_LANGS);
     // translateService.use(translateService.getBrowserLang() || 'en'); // use browser language by default
 
 
