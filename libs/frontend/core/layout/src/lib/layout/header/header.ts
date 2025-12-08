@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -30,7 +30,7 @@ import { ThemeService } from '../../services/themes/theme-service';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header implements OnInit {
+export class Header {
 
   appStore = inject(AppStore);
   router = inject(Router);
@@ -46,15 +46,15 @@ export class Header implements OnInit {
   collapsed = this.responsiveService.isCollapsed;
   barOpen = this.responsiveService.isMenuBarOpen;
 
-  currentLang = this.appStore['selectedLanguage']();
-  currentLangbis = signal(this.ngxtranslateService.getCurrentLang()); // get current language
-    ngOnInit() {
-      if (this.currentLang !== this.currentLangbis()) {
-        console.warn("⚠️ Language mismatch between AppStore and ngxTranslate in Header component:", this.currentLang, '/',this.currentLangbis());
-      } else {
-        console.log("✅ Langue synchronisée :", this.currentLang, '/', this.currentLangbis());
-      }
-    }
+  // currentLang = this.appStore['selectedLanguage']();
+  // currentLangbis = signal(this.ngxtranslateService.getCurrentLang()); // get current language
+  //   ngOnInit() {
+  //     if (this.currentLang !== this.currentLangbis()) {
+  //       console.warn("⚠️ Language mismatch between AppStore and ngxTranslate in Header component:", this.currentLang, '/',this.currentLangbis());
+  //     } else {
+  //       console.log("✅ Langue synchronisée :", this.currentLang, '/', this.currentLangbis());
+  //     }
+  //   }
 
   setLanguage(language: string) {
     // this.appStore['switchLanguageDictionary'](language);

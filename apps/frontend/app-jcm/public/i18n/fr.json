@@ -22,7 +22,6 @@
     "loading": "Chargement...",
     "selectLanguage": "Choisir la langue"
   },
-  "HEADER": {
     "HEADER.CHOOSE": "Choix de la langue",
     "SITETITLE": "Nouveau site Angular",
     "Name": "Nom",
@@ -172,6 +171,7 @@
       "passwordPattern": "Le mot de passe doit contenir des majuscules, des minuscules, des chiffres et des caractères spéciaux (@$!%*#?&)",
       "passwordMismatch": "Les mots de passe doivent correspondre",
       "confirmPasswordRequired": "La confirmation du mot de passe est requise",
+      "minAge": "Vous devez avoir au moins 18 ans",
       "invalidEmail": "Adresse email invalide",
       "invalidPhone": "Numéro de téléphone invalide",
       "contactNameRequired": "Le nom du contact est requis",
@@ -470,4 +470,3 @@
       "DEFAULT_USER": "Utilisateur"
     }
   }
-}
