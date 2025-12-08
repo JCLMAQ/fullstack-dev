@@ -19,37 +19,40 @@ export class App {
   appStore = inject(AppStore);
   ngxtranslateService = inject(TranslateService);
 
+   currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
+
   constructor() {
     const translateService = this.ngxtranslateService;
     translateService.addLangs(['en','fr']);
     // translateService.use(translateService.getBrowserLang() || 'en'); // use browser language by default
 
+
 // Synchronisation de la langue entre le store et ngxTranslate
-  //   effect(() => {
-  //   const lang = this.appStore['selectedLanguage']();
-  //   if (lang && lang !== translateService.getCurrentLang()) {
-  //     translateService.use(lang);
-  //     this.currentLang.set(lang);
-  //   } else {
-  //     this.currentLang.set(translateService.getCurrentLang());
-  //   }
-  // });
+    effect(() => {
+    const lang = this.appStore['selectedLanguage']();
+    if (lang && lang !== translateService.getCurrentLang()) {
+      translateService.use(lang);
+      this.currentLang.set(lang);
+    } else {
+      this.currentLang.set(translateService.getCurrentLang());
+    }
+  });
 
     // Le store AppStore s'initialise automatiquement grâce à withHooks({ onInit })
     // Mais on peut forcer une synchronisation si nécessaire
     console.log('🚀 App initialized - AppStore should be synced with localStorage');
   }
 
-  currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
-  logCurrentLang = effect(() => {
-      console.log("🌐 Current Language:", this.currentLang());
-    });
+  // currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
+  // logCurrentLang = effect(() => {
+  //     console.log("🌐 Current Language (app.ts):", this.currentLang());
+  //   });
 
   logCurrentUser = effect(() => {
     const user = this.appStore.user();
     const authToken = this.appStore.authToken();
-    console.log("👤 AppStore User:", user?.email || 'undefined');
-    console.log("🔐 AppStore AuthToken:", authToken ? '***' : 'undefined');
+    console.log("👤 AppStore User (app.ts):", user?.email || 'undefined');
+    console.log("🔐 AppStore AuthToken (app.ts):", authToken ? '***' : 'undefined');
   });
 
 }

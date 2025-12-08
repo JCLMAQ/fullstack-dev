@@ -296,7 +296,7 @@
     "PUBLIC": "Public",
     "PRIVATE": "Private"
   },
-   "CAROUSEL": {
+  "CAROUSEL": {
       "TITLE": "Carousel Configuration",
       "SUBTITLE": "Select images to display in the carousel",
       "NO_IMAGES": "No images available",

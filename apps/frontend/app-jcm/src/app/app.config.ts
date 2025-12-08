@@ -37,6 +37,7 @@ export const appConfig: ApplicationConfig = {
         ),
 
     provideTranslateService({
+      lang: 'fr',
       fallbackLang: 'en',
       loader: provideTranslateHttpLoader({
         prefix:"i18n/",

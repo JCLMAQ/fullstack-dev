@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <h1 class="flex-1">{{"SITETITLE" | translate }}</h1>
+  <h1 class="flex-1">{{"HEADER.SITETITLE" | translate }}</h1>
   <!-- <div class="flex-stretch"></div> -->
   <div class="flex-right"></div>
 
@@ -49,10 +49,10 @@
     aria-label="Change Language Menu"
   >
     <!-- <mat-icon>language</mat-icon> -->
-    @if (currentLang() === 'en') {
+    @if (appStore['selectedLanguage']() === 'en') {
     <h3><span class="fi fi-gb"></span></h3>
     } @else {
-    <h3><span class="fi fi-{{ currentLang() }}"></span></h3>
+    <h3><span class="fi fi-{{ appStore['selectedLanguage']() }}"></span></h3>
     }
   </button>
   <mat-menu #menulanguage="matMenu">
