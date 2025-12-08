@@ -44,7 +44,12 @@ export function withDictionariesFeatures(): SignalStoreFeature {
           patchState(store, { selectedLanguage: nextLanguage });
           store._ngxtranslateService.use(nextLanguage);
           console.log(`🌐 Language changed to: ${nextLanguage}`);
-
+        },
+         switchLanguage: (language: string) => {
+          const nextLanguage = language;
+          patchState(store, { selectedLanguage: nextLanguage });
+          store._ngxtranslateService.use(nextLanguage);
+          console.log(`🌐 Language changed to: ${nextLanguage}`);
         },
       };
     }),

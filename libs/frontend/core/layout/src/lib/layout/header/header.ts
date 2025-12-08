@@ -58,7 +58,8 @@ export class Header {
 
   setLanguage(language: string) {
     // this.appStore['switchLanguageDictionary'](language);
-    this.appStore['changeLanguage'](language);
+    // this.appStore['changeLanguage'](language);
+    this.appStore['switchLanguage'](language);
     // this.currentLang.set(language);
     // this.ngxtranslateService.use(language);
     // this.dictionaryStore.setDictionary(this.dictionaryStore._dictionaries[language]);
