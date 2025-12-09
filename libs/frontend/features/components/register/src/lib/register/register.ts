@@ -1,12 +1,16 @@
 
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { customError, email as emailValidator, Field, form, minLength, required, schema, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { RegisterService } from '@fe/auth';
+import { FieldError } from '@fe/signalform-utilities';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -26,7 +30,7 @@ const registerSchema = schema<RegisterFormModel>((f) => {
   required(f.confirmPassword, { message: 'Confirmation requise' });
   // Validation custom pour la correspondance des mots de passe
   validate(f.confirmPassword, (field) => {
-    if (f.password.valueOf() !== field.value()) {
+    if (f.password.value() !== field.value()) {
       return customError({ kind: 'passwordMismatch', message: 'Les mots de passe ne correspondent pas' });
     }
     return null;
@@ -42,6 +46,10 @@ const registerSchema = schema<RegisterFormModel>((f) => {
     MatIcon,
     MatButtonModule,
     Field,
+    FieldError,
+    MatCardModule,
+    TranslateModule,
+    JsonPipe
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',

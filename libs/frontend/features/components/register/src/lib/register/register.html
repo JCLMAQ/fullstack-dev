@@ -15,11 +15,9 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
       Sign in!
     </button>
   </div>
-  <form
-    (ngSubmit)="register()"
-    class="flex flex-col gap-5"
-    autocomplete="off"
-  >
+
+  <form class="flex flex-col gap-5" >
+
     <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
       <input
@@ -27,52 +25,42 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
         type="email"
         placeholder="Enter your email"
         [field]="registerForm.email"
-        autocomplete="username"
       />
       <mat-icon matSuffix>email</mat-icon>
-      @if (registerForm.email().touched() || registerForm.email().dirty()) {
-        @for (error of registerForm.email().errors(); track error.kind) {
-          <mat-error>{{ error.message }}</mat-error>
-        }
-      }
+        <lib-field-error [fieldError]="registerForm.email()" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Password</mat-label>
-@if (hidePassword()) {
-      <input
-        matInput
-        type="password"
-        placeholder="Enter your password"
-        [field]="registerForm.password"
-        autocomplete="new-password"
-      />
- } @else {
-      <input
-        matInput
-       type="text"
-        placeholder="Enter your password"
-        [field]="registerForm.password"
-        autocomplete="new-password"
-      />
- }
-
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hidePassword.set(!hidePassword())"
-        type="button"
-        class="mr-1"
-      >
-        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-      @if (registerForm.password().touched() || registerForm.password().dirty()) {
-        @for (error of registerForm.password().errors(); track error.kind) {
-          <mat-error>{{ error.message }}</mat-error>
+        @if (hidePassword()) {
+          <input
+            matInput
+            type="password"
+            placeholder="Enter your password"
+            [field]="registerForm.password"
+          />
+        } @else {
+            <input
+              matInput
+            type="text"
+              placeholder="Enter your password"
+              [field]="registerForm.password"
+            />
         }
-      }
+
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword.set(!hidePassword())"
+          type="button"
+          class="mr-1"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <lib-field-error [fieldError]="registerForm.password()" />
+
       <!-- Indicateur de force du mot de passe -->
-      @if (registerForm.password().value().length > 0) {
+      <!-- @if (registerForm.password().value().length > 0) {
         <div class="mt-2">
           <div class="flex items-center gap-2 text-sm">
             <span>Password strength:</span>
@@ -88,7 +76,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
             ></div>
           </div>
         </div>
-      }
+      } -->
     </mat-form-field>
 
     <mat-form-field class="w-full">
@@ -99,7 +87,6 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
             type="password"
             placeholder="Confirm your password"
             [field]="registerForm.confirmPassword"
-            autocomplete="new-password"
           />
         } @else {
           <input
@@ -107,25 +94,21 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
             type="text"
             placeholder="Confirm your password"
             [field]="registerForm.confirmPassword"
-            autocomplete="new-password"
           />
         }
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hidePassword.set(!hidePassword())"
-        type="button"
-        class="mr-1"
-      >
-        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-      @if (registerForm.confirmPassword().touched() || registerForm.confirmPassword().dirty()) {
-        @for (error of registerForm.confirmPassword().errors(); track error.kind) {
-          <mat-error>{{ error.message }}</mat-error>
-        }
-      }
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword.set(!hidePassword())"
+          type="button"
+          class="mr-1"
+        >
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <lib-field-error [fieldError]="registerForm.confirmPassword()" />
+
       <!-- Indicateur de correspondance des mots de passe -->
-      @if (registerForm.confirmPassword().value().length > 0 && registerForm.password().value().length > 0) {
+      <!-- @if (registerForm.confirmPassword().value().length > 0 && registerForm.password().value().length > 0) {
         <div class="mt-1 flex items-center gap-1 text-sm">
           @if (passwordsMatch()) {
             <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
@@ -135,12 +118,12 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
             <span class="text-red-600">Passwords don't match</span>
           }
         </div>
-      }
+      } -->
     </mat-form-field>
 
 
     <!-- Résumé du statut du formulaire -->
-    @if (
+    <!-- @if (
       registerForm.email().value().length > 0 ||
       registerForm.password().value().length > 0 ||
       registerForm.confirmPassword().value().length > 0
@@ -168,7 +151,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
           </div>
         </div>
       </div>
-    }
+    } -->
 
     <button
       mat-flat-button
@@ -181,14 +164,14 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
   </form>
   <!-- Debug Panel (Development only) -->
   <!-- Uncomment for debugging -->
-  <!--
+
   <details class="mt-4 mb-4">
     <summary class="cursor-pointer text-sm text-gray-600 hover:text-gray-800">
       🔧 Debug Info (Dev only)
     </summary>
     <pre class="mt-2 p-3 bg-gray-100 rounded text-xs overflow-auto">{{ debugInfo() | json }}</pre>
   </details>
-  -->
+
 
   <div class="flex gap-1 mb-8 text-sm text-on-surface">
     <br><br>
@@ -203,3 +186,13 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
   </div>
 </div>
 </div>
+
+<mat-card class="debug-card">
+      <mat-card-header>
+        <mat-card-title>Form Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre class="debug-pre">{{ registerForm().value() | json }}</pre>
+        <pre class="debug-pre">{{ registerForm().errorSummary() | json }}</pre>
+      </mat-card-content>
+</mat-card>
