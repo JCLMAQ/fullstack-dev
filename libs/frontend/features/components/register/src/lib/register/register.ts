@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { customError, email as emailValidator, Field, form, minLength, required, schema, validate } from '@angular/forms/signals';
+import { apply, email as emailValidator, Field, form, minLength, required, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,12 +9,13 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { RegisterService } from '@fe/auth';
-import { FieldError } from '@fe/signalform-utilities';
+// import { IamAuth } from '@fe/auth'
+import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
 
 
-interface RegisterFormModel {
+export interface RegisterFormModel {
   email: string;
   password: string;
   confirmPassword: string;
@@ -22,21 +23,16 @@ interface RegisterFormModel {
 
 
 // Validation personnalisée pour la correspondance des mots de passe
-const registerSchema = schema<RegisterFormModel>((f) => {
-  required(f.email, { message: 'Email requis' });
-  emailValidator(f.email, { message: 'Format email invalide' });
-  required(f.password, { message: 'Mot de passe requis' });
-  minLength(f.password, 8, { message: '8 caractères minimum' });
-  required(f.confirmPassword, { message: 'Confirmation requise' });
+const registerSchema = schema<RegisterFormModel>((path) => {
+  required(path.email, { message: 'Email requis' });
+  emailValidator(path.email, { message: 'Format email invalide' });
+  required(path.password, { message: 'Mot de passe requis' });
+  minLength(path.password, 8, { message: '8 caractères minimum' });
+  required(path.confirmPassword, { message: 'Confirmation requise' });
   // Validation custom pour la correspondance des mots de passe
-  validate(f.confirmPassword, (field) => {
-    if (f.password.value() !== field.value()) {
-      return customError({ kind: 'passwordMismatch', message: 'Les mots de passe ne correspondent pas' });
-    }
-    return null;
-  });
+  // passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }
+  apply(path, passwordWithConfirmSchema );
 });
-
 
 @Component({
   selector: 'lib-register',
