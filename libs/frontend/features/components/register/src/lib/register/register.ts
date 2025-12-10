@@ -83,11 +83,16 @@ export class Register {
     };
   });
 
-
   // Signal pour la correspondance des mots de passe (évite l'expression complexe en template)
+  // passwordsMatch = computed(() => {
+  //   // true si aucune erreur passwordMismatch sur confirmPassword
+  //   return !this.registerForm.confirmPassword().errors().some(e => e.kind === 'passwordMismatch');
+  // });
+
   passwordsMatch = computed(() => {
-    // true si aucune erreur passwordMismatch sur confirmPassword
-    return !this.registerForm.confirmPassword().errors().some(e => e.kind === 'passwordMismatch');
+    const pwd = this.registerForm.password().value();
+    const confirmPwd = this.registerForm.confirmPassword().value();
+    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
   });
 
   // Résumé d'état du formulaire
