@@ -108,7 +108,8 @@
   "emailNotExists": "E-mailadres bestaat niet",
   "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
   "wantToReset": "Wilt u het formulier opnieuw instellen?",
-  "resetFormButton": "Formulier opnieuw instellen"
+  "resetFormButton": "Formulier opnieuw instellen",
+  "passwordStrength": "Wachtwoordsterkte"
 },
 "FORGOTPWD": {
   "title": "Wachtwoord vergeten",

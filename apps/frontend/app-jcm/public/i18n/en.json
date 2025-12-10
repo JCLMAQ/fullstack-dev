@@ -108,7 +108,8 @@
       "emailNotExists": "Email address does not exist",
       "invalidCredentials": "Invalid email or password",
       "wantToReset": "Do you want to reset the form?",
-      "resetFormButton": "Reset Form"
+      "resetFormButton": "Reset Form",
+      "passwordStrength": "Password Strength"
     },
     "FORGOTPWD": {
       "title": "Forgot Password",

@@ -65,21 +65,19 @@ export class Register {
   // Signal Form avec schéma de validation
   registerForm = form(this.registerCredentials, registerSchema);
 
-
-
-// Conservé
-  // Password strength (conservé)
+  // Password strength
   passwordStrength = computed(() => {
     const pwd = this.registerForm.password().value();
     if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
-    let strength = 0;
+    let strength = -1;
     if (pwd.length >= 8) strength++;
-    if (/[a-z]/.test(pwd)) strength++;
-    if (/[A-Z]/.test(pwd)) strength++;
-    if (/[0-9]/.test(pwd)) strength++;
-    if (/[^A-Za-z0-9]/.test(pwd)) strength++;
+    if (/[a-z]/.test(pwd)) strength++; // Minuscule
+    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
+    if (/[0-9]/.test(pwd)) strength++; // Chiffre
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
+    if (strength > 4  ) strength = 4;
     return {
-      score: strength,
+      score: strength+1,
       label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
       color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
     };

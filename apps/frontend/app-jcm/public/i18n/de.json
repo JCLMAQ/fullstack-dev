@@ -108,7 +108,8 @@
       "emailNotExists": "Die E-Mail-Adresse existiert nicht",
       "invalidCredentials": "Ungültige E-Mail oder Passwort",
       "wantToReset": "Möchten Sie das Formular zurücksetzen?",
-      "resetFormButton": "Formular zurücksetzen"
+      "resetFormButton": "Formular zurücksetzen",
+      "passwordStrength": "Passwortstärke"
     },
     "FORGOTPWD": {
       "title": "Passwort vergessen",
