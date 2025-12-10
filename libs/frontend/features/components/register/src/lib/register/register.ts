@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, email as emailValidator, Field, form, minLength, required, schema } from '@angular/forms/signals';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { apply, email as emailValidator, Field, form, required, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,21 +14,17 @@ import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities'
 import { TranslateModule } from '@ngx-translate/core';
 
 
-
+// Register Credentials model
 export interface RegisterFormModel {
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-
 // Validation personnalisée pour la correspondance des mots de passe
 const registerSchema = schema<RegisterFormModel>((path) => {
-  required(path.email, { message: 'Email requis' });
-  emailValidator(path.email, { message: 'Format email invalide' });
-  required(path.password, { message: 'Mot de passe requis' });
-  minLength(path.password, 8, { message: '8 caractères minimum' });
-  required(path.confirmPassword, { message: 'Confirmation requise' });
+  required(path.email, { message: 'REGISTER.emailRequired' });
+  emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
   // Validation custom pour la correspondance des mots de passe
   // passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }
   apply(path, passwordWithConfirmSchema );
@@ -48,11 +44,9 @@ const registerSchema = schema<RegisterFormModel>((path) => {
     JsonPipe
   ],
   templateUrl: './register.html',
-  styleUrl: './register.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './register.scss'
 })
 export class Register {
-
 
   private registerService = inject(RegisterService);
   private router = inject(Router);
@@ -62,15 +56,18 @@ export class Register {
   isSubmitting = signal(false);
 
   // Signal Forms: état du modèle
-  user = signal<RegisterFormModel>({
+  registerCredentials = signal<RegisterFormModel>({
     email: '',
     password: '',
     confirmPassword: ''
   });
 
   // Signal Form avec schéma de validation
-  registerForm = form(this.user, registerSchema);
+  registerForm = form(this.registerCredentials, registerSchema);
 
+
+
+// Conservé
   // Password strength (conservé)
   passwordStrength = computed(() => {
     const pwd = this.registerForm.password().value();
@@ -108,7 +105,7 @@ export class Register {
   // Debug info (dev only)
   debugInfo = computed(() => ({
     formStatus: this.registerForm().valid() ? 'VALID' : 'INVALID',
-    formValue: this.user(),
+    formValue: this.registerCredentials(),
     emailValue: this.registerForm.email().value(),
     passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
     confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
@@ -141,7 +138,7 @@ export class Register {
     }
     this.isSubmitting.set(true);
     try {
-      const { email, password, confirmPassword } = this.user();
+      const { email, password, confirmPassword } = this.registerCredentials();
       if (email && password && confirmPassword) {
         const result = await this.registerService.register(email, password, confirmPassword);
         localStorage.removeItem('register-draft');
@@ -162,6 +159,12 @@ export class Register {
   }
 
   resetForm() {
+    // Réinitialise tous les champs du formulaire d'un coup
+    this.registerCredentials.set({
+      email: '',
+      password: '',
+      confirmPassword: ''
+    });
     this.registerForm.email().reset();
     this.registerForm.password().reset();
     this.registerForm.confirmPassword().reset();
@@ -187,7 +190,7 @@ export class Register {
       try {
         const draft = JSON.parse(saved);
         if (draft.email) {
-          this.user.update(u => ({ ...u, email: draft.email }));
+          this.registerCredentials.update(u => ({ ...u, email: draft.email }));
         }
       } catch (error) {
         console.warn('Could not load draft:', error);

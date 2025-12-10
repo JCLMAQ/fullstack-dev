@@ -1,29 +1,27 @@
-<div
-class="flex gap-2 min-h-screen items-center justify-center bg-background"
->
+<div class="flex gap-2 min-h-screen items-center justify-center bg-background">
 <div
   class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
 >
-  <h1 class="text-2xl mb-2 text-on-surface">Register</h1>
+  <h1 class="text-2xl mb-2 text-on-surface">{{"REGISTER.title" | translate}}</h1>
   <div class="flex gap-1 mb-8 text-sm text-on-surface">
-    <span>Already have an account?</span>
+    <span>{{"REGISTER.alreadyHaveAccount" | translate}}</span>
     <button
       type="button"
       class="text-primary cursor-pointer bg-transparent border-none underline"
       (click)="login()"
     >
-      Sign in!
+      {{"REGISTER.signInButton" | translate}}
     </button>
   </div>
 
   <form class="flex flex-col gap-5" >
 
     <mat-form-field class="w-full">
-      <mat-label>Email</mat-label>
+      <mat-label>{{"REGISTER.emailLabel" | translate}}</mat-label>
       <input
         matInput
         type="email"
-        placeholder="Enter your email"
+        placeholder="{{'REGISTER.emailPlaceholder' | translate}}"
         [field]="registerForm.email"
       />
       <mat-icon matSuffix>email</mat-icon>
@@ -31,19 +29,19 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>Password</mat-label>
+      <mat-label>{{"REGISTER.passwordLabel" | translate}}</mat-label>
         @if (hidePassword()) {
           <input
             matInput
             type="password"
-            placeholder="Enter your password"
+            placeholder="{{'REGISTER.passwordPlaceholder' | translate}}"
             [field]="registerForm.password"
           />
         } @else {
             <input
               matInput
             type="text"
-              placeholder="Enter your password"
+              placeholder="{{'REGISTER.passwordPlaceholder' | translate}}"
               [field]="registerForm.password"
             />
         }
@@ -58,41 +56,22 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
           <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.password()" />
-
-      <!-- Indicateur de force du mot de passe -->
-      <!-- @if (registerForm.password().value().length > 0) {
-        <div class="mt-2">
-          <div class="flex items-center gap-2 text-sm">
-            <span>Password strength:</span>
-            <span [style.color]="passwordStrength().color" class="font-medium">
-              {{ passwordStrength().label }}
-            </span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-            <div
-              class="h-2 rounded-full transition-all duration-300"
-              [style.width.%]="passwordStrength().score * 20"
-              [style.background-color]="passwordStrength().color"
-            ></div>
-          </div>
-        </div>
-      } -->
     </mat-form-field>
 
     <mat-form-field class="w-full">
-      <mat-label>Confirm Password</mat-label>
+      <mat-label>{{"REGISTER.confirmPasswordLabel" | translate}}</mat-label>
         @if (hidePassword()) {
           <input
             matInput
             type="password"
-            placeholder="Confirm your password"
+            placeholder="{{'REGISTER.confirmPasswordPlaceholder' | translate}}"
             [field]="registerForm.confirmPassword"
           />
         } @else {
           <input
             matInput
             type="text"
-            placeholder="Confirm your password"
+            placeholder="{{'REGISTER.confirmPasswordPlaceholder' | translate}}"
             [field]="registerForm.confirmPassword"
           />
         }
@@ -106,52 +85,8 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
           <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.confirmPassword()" />
-
-      <!-- Indicateur de correspondance des mots de passe -->
-      <!-- @if (registerForm.confirmPassword().value().length > 0 && registerForm.password().value().length > 0) {
-        <div class="mt-1 flex items-center gap-1 text-sm">
-          @if (passwordsMatch()) {
-            <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
-            <span class="text-green-600">Passwords match</span>
-          } @else {
-            <mat-icon class="text-red-500 text-sm">cancel</mat-icon>
-            <span class="text-red-600">Passwords don't match</span>
-          }
-        </div>
-      } -->
     </mat-form-field>
 
-
-    <!-- Résumé du statut du formulaire -->
-    <!-- @if (
-      registerForm.email().value().length > 0 ||
-      registerForm.password().value().length > 0 ||
-      registerForm.confirmPassword().value().length > 0
-    ) {
-      <div class="mt-4 p-3 rounded-lg bg-gray-50 border">
-        <h4 class="text-sm font-medium mb-2 text-gray-700">Form Status</h4>
-        <div class="space-y-1 text-xs">
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-xs" [class.text-green-500]="formSummary().emailValid" [class.text-red-500]="!formSummary().emailValid">
-              {{ formSummary().emailValid ? 'check_circle' : 'cancel' }}
-            </mat-icon>
-            <span>Valid email address</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-xs" [class.text-green-500]="formSummary().passwordStrong" [class.text-red-500]="!formSummary().passwordStrong">
-              {{ formSummary().passwordStrong ? 'check_circle' : 'cancel' }}
-            </mat-icon>
-            <span>Strong password (3+ criteria)</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <mat-icon class="text-xs" [class.text-green-500]="formSummary().passwordMatch" [class.text-red-500]="!formSummary().passwordMatch">
-              {{ formSummary().passwordMatch ? 'check_circle' : 'cancel' }}
-            </mat-icon>
-            <span>Passwords match</span>
-          </div>
-        </div>
-      </div>
-    } -->
 
     <button
       mat-flat-button
@@ -159,9 +94,10 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
       type="submit"
       [disabled]="!registerForm().valid() || isSubmitting()"
     >
-      Register
+      {{"REGISTER.registerButton" | translate}}
     </button>
   </form>
+
   <!-- Debug Panel (Development only) -->
   <!-- Uncomment for debugging -->
 
@@ -172,21 +108,33 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
     <pre class="mt-2 p-3 bg-gray-100 rounded text-xs overflow-auto">{{ debugInfo() | json }}</pre>
   </details>
 
+  <div class="flex gap-1 mb-8 text-sm text-on-surface">
+      <br><br>
+      <span>{{"REGISTER.wantToReset" | translate }}</span>
+      <button
+        type="button"
+        class="text-primary cursor-pointer bg-transparent border-none underline"
+        (click)="resetForm()"
+      >
+        {{"REGISTER.resetFormButton" | translate}}
+      </button>
+    </div>
 
   <div class="flex gap-1 mb-8 text-sm text-on-surface">
     <br><br>
-    <span>Want to Cancel ?</span>
+    <span>{{"REGISTER.wantToCancel" | translate}}</span>
     <button
       type="button"
       class="text-primary cursor-pointer bg-transparent border-none underline"
       (click)="cancel()"
     >
-      Cancel !
+      {{"REGISTER.cancelButton" | translate}}
     </button>
   </div>
 </div>
 </div>
 
+<div>
 <mat-card class="debug-card">
       <mat-card-header>
         <mat-card-title>Form Data</mat-card-title>
@@ -196,3 +144,4 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
         <pre class="debug-pre">{{ registerForm().errorSummary() | json }}</pre>
       </mat-card-content>
 </mat-card>
+</div>

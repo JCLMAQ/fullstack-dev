@@ -29,7 +29,28 @@ export const strongPasswordSchema = schema<string>((path) => [
   })
 ]);
 
+// Password with Confirm Password schema
+export const passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }>((path) => [
+  required(path.password, { message: 'signalFormError.passwordRequired' }),
+  minLength(path.password, 8, { message: 'signalFormError.passwordMinLength' }), // 'Password must be at least 8 characters'
+  pattern(path.password, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+      // pattern(path.password, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, {
+    message: 'signalFormError.passwordPattern' // 'Password must contain uppercase, lowercase, and number'
+  }),
+  required(path.confirmPassword, { message: 'signalFormError.confirmPasswordRequired' }),
+  validate(path, ({ valueOf }) => {
+    const password = valueOf(path.password);
+    const confirmPassword = valueOf(path.confirmPassword);
 
+    if (password && confirmPassword && password !== confirmPassword) {
+      return customError({
+        kind: 'passwordsMismatch',
+        message: 'signalFormError.passwordMismatch' // 'Passwords do not match',
+      });
+    }
+    return null;
+  }),
+]);
 
 // Date of Birth schema with minimum age validation
 export const dateOfBirthSchema = schema<Date>((path) => [
@@ -47,26 +68,7 @@ export const dateOfBirthSchema = schema<Date>((path) => [
   }),
 ]);
 
-// Password with Confirm Password schema
-export const passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }>((path) => [
-  required(path.password, { message: 'signalFormError.passwordRequired' }),
-  pattern(path.password, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/, {
-    message: 'signalFormError.passwordPattern' // 'Password must contain uppercase, lowercase, and number'
-  }),
-  required(path.confirmPassword, { message: 'signalFormError.confirmPasswordRequired' }),
-  validate(path, ({ valueOf }) => {
-    const password = valueOf(path.password);
-    const confirmPassword = valueOf(path.confirmPassword);
 
-    if (password && confirmPassword && password !== confirmPassword) {
-      return customError({
-        kind: 'passwordsMismatch',
-        message: 'signalFormError.passwordMismatch' // 'Passwords do not match',
-      });
-    }
-    return null;
-  }),
-]);
 
 // Emergency Contact Schema
 export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; emergencyContactName: string; emergencyContactPhone: string }>((path) => [
