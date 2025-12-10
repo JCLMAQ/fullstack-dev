@@ -65,7 +65,7 @@ export class Register {
   // Signal Form avec schéma de validation
   registerForm = form(this.registerCredentials, registerSchema);
 
-  // Password strength
+  // Password strength (indicateur visuel de robustesse du mot de passe  )
   passwordStrength = computed(() => {
     const pwd = this.registerForm.password().value();
     if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
@@ -83,12 +83,7 @@ export class Register {
     };
   });
 
-  // Signal pour la correspondance des mots de passe (évite l'expression complexe en template)
-  // passwordsMatch = computed(() => {
-  //   // true si aucune erreur passwordMismatch sur confirmPassword
-  //   return !this.registerForm.confirmPassword().errors().some(e => e.kind === 'passwordMismatch');
-  // });
-
+  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
   passwordsMatch = computed(() => {
     const pwd = this.registerForm.password().value();
     const confirmPwd = this.registerForm.confirmPassword().value();

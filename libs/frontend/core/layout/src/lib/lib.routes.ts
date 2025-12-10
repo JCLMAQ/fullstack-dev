@@ -14,9 +14,14 @@ children: [
         path: 'pages',
         loadChildren: () => import('@fe/pages').then((m) => m.pagesRoutes),
       },
+      // {
+      //   path: 'auth',
+      //   loadChildren: () => import('@fe/auth').then((m) => m.authRoutes),
+      // },
       {
         path: 'auth',
-        loadChildren: () => import('@fe/auth').then((m) => m.authRoutes),
+        loadChildren: () =>
+          import('@fe/components').then((m) => m.componentRoutes),
       },
       {
         path: 'users',

@@ -1,6 +1,6 @@
 
 
-export * from './lib/lib.routes';
+// Auth exports
 export * from './lib/services/changepwd/changepwd-service';
 
 // IAM Auth exports

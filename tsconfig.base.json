@@ -124,7 +124,8 @@
       "@fe/util/tokens/dictionaries.token": [
         "libs/frontend/core/util/tokens/dictionaries.token.ts"
       ],
-      "@fe/models": ["libs/frontend/models/src/index.ts"]
+      "@fe/models": ["libs/frontend/models/src/index.ts"],
+      "@fe/components": ["libs/frontend/features/components/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

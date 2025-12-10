@@ -15,7 +15,7 @@ export const pagesRoutes: Route[] = [
   { path: '**', component: PageNotFound },
   {
   path: 'auth',
-  loadChildren: () => import('@fe/auth').then((m) => m.authRoutes),
+  loadChildren: () => import('@fe/components').then((m) => m.componentRoutes),
 },
 
 ];
