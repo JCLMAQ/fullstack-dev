@@ -1,31 +1,16 @@
-// input {
+button.text-primary,
+a.text-primary {
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
 
-//   // touched vs untouched
-//   &.app-untouched {
-//     background-color: rgba(white, 0.05);
-//   }
-
-//   &.app-touched {
-//     background-color: rgba(#007bff, 0.15);
-//   }
-
-//   // dirty vs pristine
-//   &.app-dirty {
-//     box-shadow: 0 0 0 2px rgba(#007bff, 0.12);
-//   }
-
-//   // valid vs invalid
-//   &.app-touched.app-invalid {
-//     border-color: #e53935;
-//   }
-
-//   &.app-touched.app-valid {
-//     border-color: #43a047;
-//   }
-
-//   // pending
-//   &.app-pending {
-//     border-color: orange;
-//   }
-
-// }
+button.text-primary:hover,
+a.text-primary:hover {
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
+}
