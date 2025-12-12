@@ -1,3 +1,4 @@
+export * from './authenticate/login/src';
+export * from './authenticate/register/src';
 export * from './lib.routes';
-export * from './login/src';
-export * from './register/src';
+
