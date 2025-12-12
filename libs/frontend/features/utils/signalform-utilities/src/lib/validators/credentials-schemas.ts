@@ -89,16 +89,18 @@ export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; eme
 
 
 // password is different from Email validator
-export  const passwordIsDifferentFromEmail = schema<{ email: string; password: string }>(
+export const passwordDifferentFromEmail = schema<{ email: string; password: string; confirmPassword?: string }>(
   (path) => [
-    validate(path, context => {
-      const { email, password } = context.value();
-      return  email === password
-        ? {
+    validate(path.password, ({ valueOf }) => {
+      const email = valueOf(path.email);
+      const password = valueOf(path.password);
+
+      return email && password && email.toLowerCase() === password.toLowerCase()
+        ? customError({
             kind: 'password-different-from-email',
-            message: 'SignalFormError.passwordDifferentFromEmail', // 'Password should not be the same as email'
-          }
-        : undefined;
+            message: 'signalFormError.passwordDifferentFromEmail', // 'Password should not be the same as email'
+          })
+        : null;
     }),
   ]);
 

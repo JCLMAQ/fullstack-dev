@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { RegisterService } from '@fe/auth';
 // import { IamAuth } from '@fe/auth'
-import { FieldError, passwordIsDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, passwordDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -94,7 +94,10 @@ export class Register {
   private registerSchema = schema<RegisterFormModel>((path) => {
     required(path.email, { message: 'REGISTER.emailRequired' });
     emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
-    apply(path, passwordIsDifferentFromEmail);
+
+    // Validation: le mot de passe ne doit pas être identique à l'email
+    apply(path, passwordDifferentFromEmail);
+
     apply(path, passwordWithConfirmSchema);
 
     debounce(path.email, 500); // 0.5 seconde de debounce avant validation asynchrone

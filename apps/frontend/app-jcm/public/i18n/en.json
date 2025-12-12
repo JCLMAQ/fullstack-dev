@@ -212,6 +212,9 @@
     "invalidZip": "Invalid zip code",
     "invalidCountry": "Invalid country",
     "passwordDifferentFromEmail": "Password must not be the same as the email",
+    "emailExists": "Email address already exists",
+    "emailNotExists": "Email address does not exist",
+    "invalidCredentials": "Invalid email or password",
     "emailCheckFailed": "Could not verify if the email is already registered"
 
   },

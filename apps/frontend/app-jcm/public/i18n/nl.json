@@ -212,6 +212,9 @@
   "invalidZip": "Ongeldige postcode",
   "invalidCountry": "Ongeldig land",
   "passwordDifferentFromEmail": "Wachtwoord mag niet hetzelfde zijn als het e-mailadres",
+  "emailExists": "E-mailadres bestaat al",
+  "emailNotExists": "E-mailadres bestaat niet",
+  "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
   "emailCheckFailed": "Kon niet verifiëren of het e-mailadres al geregistreerd is"
 },
   "IMAGE-UPLOADER": {

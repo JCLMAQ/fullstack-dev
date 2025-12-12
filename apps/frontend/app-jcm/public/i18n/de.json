@@ -212,6 +212,9 @@
     "invalidZip": "Ungültige Postleitzahl",
     "invalidCountry": "Ungültiges Land",
     "passwordDifferentFromEmail": "Das Passwort darf nicht mit der E-Mail übereinstimmen",
+    "emailExists": "Die E-Mail-Adresse existiert bereits",
+    "emailNotExists": "Die E-Mail-Adresse existiert nicht",
+    "invalidCredentials": "Ungültige E-Mail oder Passwort",
     "emailCheckFailed": "Konnte nicht überprüfen, ob die E-Mail bereits registriert ist"
   },
   "IMAGE-UPLOADER": {
