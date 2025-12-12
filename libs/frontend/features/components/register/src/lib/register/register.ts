@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
-import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, validateAsync } from '@angular/forms/signals';
+import { Component, computed, effect, inject, resource, signal, untracked } from '@angular/core';
+import { apply, customError, debounce, email as emailValidator, Field, form, required, schema, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -53,6 +53,43 @@ export class Register {
     confirmPassword: ''
   });
 
+  // Email debounced signal pour le resource
+  private emailForCheck = signal('');
+
+  // Resource créé dans le contexte d'injection
+  private emailCheckResource = resource({
+    loader: async ({ abortSignal }) => {
+      const email = this.emailForCheck();
+      console.log('🔄 [EmailCheck Resource] Loader appelé avec email:', email);
+
+      if (!email || !email.includes('@')) {
+        console.log('⏭️  [EmailCheck Resource] Email invalide ou vide, skip validation');
+        return false;
+      }
+
+      // Vérifier si la requête a été annulée
+      if (abortSignal?.aborted) {
+        console.log('🚫 [EmailCheck Resource] Requête annulée');
+        return false;
+      }
+
+      try {
+        console.log('🌐 [EmailCheck Resource] Appel API emailCheck...');
+        const exists = await this.registerService.emailCheck(email);
+        console.log('✅ [EmailCheck Resource] Résultat API:', exists ? 'Email déjà utilisé' : 'Email disponible');
+        return exists;
+      } catch (error) {
+        // Ignorer les erreurs d'annulation
+        if (abortSignal?.aborted) {
+          console.log('🚫 [EmailCheck Resource] Requête annulée pendant l\'appel');
+          return false;
+        }
+        console.error('❌ [EmailCheck Resource] Erreur:', error);
+        throw error;
+      }
+    }
+  });
+
   // Schéma de validation avec accès au service
   private registerSchema = schema<RegisterFormModel>((path) => {
     required(path.email, { message: 'REGISTER.emailRequired' });
@@ -60,40 +97,45 @@ export class Register {
     apply(path, passwordWithConfirmSchema);
     apply(path, PasswordisDifferentFromEmail);
     debounce(path.email, 1000); // 1 seconde de debounce avant validation asynchrone
-    validateAsync(path.email, {
-      params: (email: ChildFieldContext<string>) => {
-        console.log('📧 validateAsync - params called with email:', email.value());
-        return email.value();
-      },
-      factory: (params: Signal<string | undefined>) => {
-        console.log('🏭 validateAsync - factory called with params:', params());
-        return resource({
-          params,
-          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) => {
-            console.log('🔄 validateAsync - loader called with:', loaderParams.params);
-            const result = await this.registerService.emailCheck(loaderParams.params);
-            console.log('✅ validateAsync - loader result:', result);
-            return result;
-          }
-        });
-      },
-      onSuccess: (isRegistered: boolean) => {
-        console.log('🎯 validateAsync - onSuccess called with:', isRegistered);
-        return isRegistered
-          ? {
-              kind: 'email-already-registered',
-              message: 'Email is already registered'
-            }
-          : undefined;
-      },
-      onError: () => {
-        console.error('❌ validateAsync - onError called');
-        return {
-          kind: 'email-check-failed',
-          message: 'Could not verify if the email is already registered'
-        };
+// Validation synchrone utilisant le resource créé plus haut
+    validate(path.email, (field) => {
+      const exists = this.emailCheckResource.value();
+      const error = this.emailCheckResource.error();
+      const pending = this.emailCheckResource.isLoading();
+
+      console.log('🔍 [Email Validation] État:', {
+        email: field.value(),
+        exists,
+        error: error ? 'Erreur API' : null,
+        pending
+      });
+
+      if (pending) {
+        console.log('⏳ [Email Validation] Validation en cours...');
+        // Validation en cours, pas d'erreur à afficher
+        return null;
       }
+
+      if (error) {
+        console.error('❌ [Email Validation] Erreur lors de la vérification:', error);
+        return customError({
+          kind: 'email-check-failed',
+          message: 'REGISTER.emailCheckFailed'
+        });
+      }
+
+      if (exists) {
+        console.warn('⚠️  [Email Validation] Email déjà enregistré');
+        return customError({
+          kind: 'email-already-registered',
+          message: 'REGISTER.emailAlreadyRegistered'
+        });
+      }
+
+      console.log('✅ [Email Validation] Email disponible');
+      return null;
     });
+
   });
 
   // Signal Form avec schéma de validation
@@ -138,45 +180,42 @@ export class Register {
     };
   });
 
-  // Debug info (dev only)
-    debugInfo = computed(() => {
-    const form = this.registerForm();
-    const email = form.email();
-    const password = form.password();
-    const confirmPassword = form.confirmPassword();
-
-    return {
-      formStatus: untracked(() => form.valid()) ? 'VALID' : 'INVALID',
-      formValue: this.registerCredentials(),
-      emailValue: email.value(),
-      passwordValue: (password.value() || '').replace(/./g, '*'),
-      confirmPasswordValue: (confirmPassword.value() || '').replace(/./g, '*'),
-      passwordStrength: this.passwordStrength(),
-      isValid: untracked(() => form.valid()),
-      errors: {
-        email: untracked(() => email.errors()),
-        password: untracked(() => password.errors()),
-        confirmPassword: untracked(() => confirmPassword.errors())
-      }
-    };
-  });
-  // debugInfo = computed(() => ({
-  //   formStatus: this.registerForm().valid() ? 'VALID' : 'INVALID',
-  //   formValue: this.registerCredentials(),
-  //   emailValue: this.registerForm.email().value(),
-  //   passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
-  //   confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
-  //   passwordStrength: this.passwordStrength(),
-  //   isValid: this.registerForm().valid(),
-  //   errors: {
-  //     email: this.registerForm.email().errors(),
-  //     password: this.registerForm.password().errors(),
-  //     confirmPassword: this.registerForm.confirmPassword().errors()
-  //   }
-  // }));
+  // Informations de débogage du formulaire
+  debugInfo = computed(() => ({
+    formStatus: this.registerForm().valid() ? 'VALID' : 'INVALID',
+    formValue: this.registerCredentials(),
+    emailValue: this.registerForm.email().value(),
+    passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
+    confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
+    passwordStrength: this.passwordStrength(),
+    isValid: this.registerForm().valid(),
+    errors: {
+      email: this.registerForm.email().errors(),
+      password: this.registerForm.password().errors(),
+      confirmPassword: this.registerForm.confirmPassword().errors()
+    }
+  }));
 
   constructor() {
     this.loadDraft();
+
+    // Met à jour emailForCheck quand l'email change
+    effect(() => {
+      const email = this.registerForm.email().value();
+      console.log('📝 [Effect] Email modifié:', email);
+      this.emailForCheck.set(email);
+      console.log('🔄 [Effect] emailForCheck mis à jour, trigger du resource');
+    });
+
+    // Déclenche explicitement le rechargement du resource quand emailForCheck change
+    effect(() => {
+      const email = this.emailForCheck();
+      if (email && email.includes('@')) {
+        console.log('🔁 [Effect] Reload resource pour email:', email);
+        this.emailCheckResource.reload();
+      }
+    });
+
     // Sauvegarde automatique du brouillon quand l'email change
     effect(() => {
       const email = this.registerForm.email().value();
@@ -187,23 +226,40 @@ export class Register {
   }
 
   async register() {
+    console.log('🚀 [Submit] Tentative de soumission du formulaire');
+    console.log('📋 [Submit] État du formulaire:', {
+      valid: this.registerForm().valid(),
+      emailValid: this.registerForm.email().valid(),
+      emailErrors: this.registerForm.email().errors(),
+      passwordValid: this.registerForm.password().valid(),
+      confirmPasswordValid: this.registerForm.confirmPassword().valid()
+    });
+
     if (!this.registerForm().valid()) {
+      console.warn('⚠️  [Submit] Formulaire invalide, marquage des champs');
       this.registerForm.email().markAsTouched();
       this.registerForm.password().markAsTouched();
       this.registerForm.confirmPassword().markAsTouched();
       return;
     }
+
     this.isSubmitting.set(true);
+    console.log('⏳ [Submit] Soumission en cours...');
+
     try {
       const { email, password, confirmPassword } = this.registerCredentials();
+      console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
+
       if (email && password && confirmPassword) {
         const result = await this.registerService.register(email, password, confirmPassword);
+        console.log('✅ [Submit] Inscription réussie:', result);
         localStorage.removeItem('register-draft');
       }
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error('❌ [Submit] Échec de l\'inscription:', error);
     } finally {
       this.isSubmitting.set(false);
+      console.log('🏁 [Submit] Fin de la soumission');
     }
   }
 

@@ -56,7 +56,7 @@ export class RegisterService {
 
         const payload = { email};
 
-        console.log('📝 User email check unicity (IAM):', payload);
+        console.log('📝 [RegisterService] User email check unicity (IAM):', payload);
 
         const emailCheck$ = this.httpClient.post<boolean>(
           `${pathUrl}`,
@@ -64,7 +64,12 @@ export class RegisterService {
         );
         const response = await firstValueFrom(emailCheck$);
 
-        console.log('✅ Email check successful (IAM):', response);
+        console.log('✅ [RegisterService] Email check response (IAM):', {
+          response,
+          type: typeof response,
+          isBoolean: typeof response === 'boolean',
+          truthyValue: !!response
+        });
 
         return response;
 

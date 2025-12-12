@@ -29,6 +29,9 @@
       />
       <mat-icon matSuffix>email</mat-icon>
         <lib-field-error [fieldError]="registerForm.email()" />
+          @if (registerForm.email().pending()) {
+            <div>{{"REGISTER.checkingEmail" | translate}}</div>
+          }
     </mat-form-field>
 
     <mat-form-field class="w-full">

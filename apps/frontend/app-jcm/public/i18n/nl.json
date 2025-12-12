@@ -109,7 +109,10 @@
   "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
   "wantToReset": "Wilt u het formulier opnieuw instellen?",
   "resetFormButton": "Formulier opnieuw instellen",
-  "passwordStrength": "Wachtwoordsterkte"
+  "passwordStrength": "Wachtwoordsterkte",
+  "emailAlreadyRegistered": "E-mailadres is al geregistreerd",
+  "emailCheckFailed": "Het is niet mogelijk om te controleren of het e-mailadres al geregistreerd is",
+  "checkingEmail": "E-mail wordt gecontroleerd..."
 },
 "FORGOTPWD": {
   "title": "Wachtwoord vergeten",

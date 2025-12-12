@@ -8,16 +8,16 @@ import { AccountValidationService } from './account-validation/account-validatio
 import { AuthenticationService } from './authentication.service';
 import { Auth } from './decorators/auth.decorator';
 import {
-  AuthResponse,
-  RequestAccountValidationDto,
-  UserProfile,
-  UserProfileResponse
+    AuthResponse,
+    RequestAccountValidationDto,
+    UserProfile,
+    UserProfileResponse
 } from './dto/account-validation.dto/account-validation.dto';
 import { ExtendedSignUpDto } from './dto/extended-sign-up.dto/extended-sign-up.dto';
 import {
-  ChangePasswordDto,
-  ForgotPasswordDto,
-  ResetPasswordDto
+    ChangePasswordDto,
+    ForgotPasswordDto,
+    ResetPasswordDto
 } from './dto/password-management.dto/password-management.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -45,9 +45,11 @@ export class AuthenticationController {
     return await this.authenticationService.signUp(signUpDto);
   }
  @Post('email-check')
-  async emailCheck(@Body() email: string) {
-// true if the email already exists
-    return await this.authenticationService.emailCheck(email);
+  async emailCheck(@Body('email') email: string) {
+    console.log('🔍 [AuthController] email-check appelé avec:', { email, type: typeof email });
+    const exists = await this.authenticationService.emailCheck(email);
+    console.log('📤 [AuthController] email-check renvoie:', { exists, type: typeof exists });
+    return exists;
   }
 
   @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)

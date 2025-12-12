@@ -109,7 +109,10 @@
       "invalidCredentials": "Invalid email or password",
       "wantToReset": "Do you want to reset the form?",
       "resetFormButton": "Reset Form",
-      "passwordStrength": "Password Strength"
+      "passwordStrength": "Password Strength",
+      "emailAlreadyRegistered": "Email address is already registered",
+      "emailCheckFailed": "Unable to verify if the email address is already registered",
+      "checkingEmail": "Checking email..."
     },
     "FORGOTPWD": {
       "title": "Forgot Password",

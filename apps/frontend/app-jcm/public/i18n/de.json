@@ -109,7 +109,10 @@
       "invalidCredentials": "Ungültige E-Mail oder Passwort",
       "wantToReset": "Möchten Sie das Formular zurücksetzen?",
       "resetFormButton": "Formular zurücksetzen",
-      "passwordStrength": "Passwortstärke"
+      "passwordStrength": "Passwortstärke",
+      "emailAlreadyRegistered": "Die E-Mail-Adresse ist bereits registriert",
+      "emailCheckFailed": "Es ist nicht möglich zu überprüfen, ob die E-Mail-Adresse bereits registriert ist",
+      "checkingEmail": "E-Mail wird überprüft..."
     },
     "FORGOTPWD": {
       "title": "Passwort vergessen",

@@ -2,10 +2,10 @@ import { ActiveUserData, HashingService } from '@be/common';
 import { Gender, Language, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
-  ConflictException,
-  Inject,
-  Injectable,
-  UnauthorizedException,
+    ConflictException,
+    Inject,
+    Injectable,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -38,12 +38,16 @@ export class AuthenticationService {
 
   async emailCheck(email: string): Promise<boolean> {
       try {
+        console.log('🔎 [AuthService] Recherche email:', email);
         const user = await this.prisma.user.findUnique({
           where: { email: email.toLowerCase() }
         });
-
-        return !!user;
-      } catch {
+        console.log('👤 [AuthService] User trouvé:', user ? `Oui (id: ${user.id})` : 'Non');
+        const exists = !!user;
+        console.log('✅ [AuthService] Résultat:', exists);
+        return exists;
+      } catch (error) {
+        console.error('❌ [AuthService] Erreur lors de la recherche:', error);
         return false;
       }
     }

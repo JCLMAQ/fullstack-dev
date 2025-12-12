@@ -109,7 +109,10 @@
       "invalidCredentials": "Email ou mot de passe invalide",
       "wantToReset": "Vous voulez réinitialiser le formulaire ?",
       "resetFormButton": "Réinitialiser le formulaire",
-      "passwordStrength": "Force du mot de passe"
+      "passwordStrength": "Force du mot de passe",
+      "emailAlreadyRegistered": "L'adresse email est déjà enregistrée",
+      "emailCheckFailed": "Impossible de verifier si l'adresse email est deja enregistrée",
+      "checkingEmail": "Vérification de l'email..."
     },
     "FORGOTPWD": {
       "title": "Mot de Passe Oublié",
