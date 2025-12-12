@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, resource, signal, untracked } from '@angular/core';
-import { apply, customError, debounce, email as emailValidator, Field, form, required, schema, validate } from '@angular/forms/signals';
+import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
+import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { RegisterService } from '@fe/auth';
 // import { IamAuth } from '@fe/auth'
-import { FieldError, PasswordisDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, passwordIsDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -94,48 +94,74 @@ export class Register {
   private registerSchema = schema<RegisterFormModel>((path) => {
     required(path.email, { message: 'REGISTER.emailRequired' });
     emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
+    apply(path, passwordIsDifferentFromEmail);
     apply(path, passwordWithConfirmSchema);
-    apply(path, PasswordisDifferentFromEmail);
+
     debounce(path.email, 500); // 0.5 seconde de debounce avant validation asynchrone
 // Validation synchrone utilisant le resource créé plus haut
-    validate(path.email, (field) => {
-      const exists = this.emailCheckResource.value();
-      const error = this.emailCheckResource.error();
-      const pending = this.emailCheckResource.isLoading();
+    // validate(path.email, (field) => {
+    //   const exists = this.emailCheckResource.value();
+    //   const error = this.emailCheckResource.error();
+    //   const pending = this.emailCheckResource.isLoading();
 
-      console.log('🔍 [Email Validation] État:', {
-        email: field.value(),
-        exists,
-        error: error ? 'Erreur API' : null,
-        pending
-      });
+    //   console.log('🔍 [Email Validation] État:', {
+    //     email: field.value(),
+    //     exists,
+    //     error: error ? 'Erreur API' : null,
+    //     pending
+    //   });
 
-      if (pending) {
-        console.log('⏳ [Email Validation] Validation en cours...');
-        // Validation en cours, pas d'erreur à afficher
-        return null;
-      }
+    //   if (pending) {
+    //     console.log('⏳ [Email Validation] Validation en cours...');
+    //     // Validation en cours, pas d'erreur à afficher
+    //     return null;
+    //   }
 
-      if (error) {
-        console.error('❌ [Email Validation] Erreur lors de la vérification:', error);
-        return customError({
-          kind: 'email-check-failed',
-          message: 'REGISTER.emailCheckFailed'
-        });
-      }
+    //   if (error) {
+    //     console.error('❌ [Email Validation] Erreur lors de la vérification:', error);
+    //     return customError({
+    //       kind: 'email-check-failed',
+    //       message: 'REGISTER.emailCheckFailed'
+    //     });
+    //   }
 
-      if (exists) {
-        console.warn('⚠️  [Email Validation] Email déjà enregistré');
-        return customError({
-          kind: 'email-already-registered',
-          message: 'REGISTER.emailAlreadyRegistered'
-        });
-      }
+    //   if (exists) {
+    //     console.warn('⚠️  [Email Validation] Email déjà enregistré');
+    //     return customError({
+    //       kind: 'email-already-registered',
+    //       message: 'REGISTER.emailAlreadyRegistered'
+    //     });
+    //   }
 
-      console.log('✅ [Email Validation] Email disponible');
-      return null;
+    //   console.log('✅ [Email Validation] Email disponible');
+    //   return null;
+    // });
+    validateAsync(path.email, {
+      params: (email: ChildFieldContext<string>) => email.value(),
+      factory: (params: Signal<string | undefined>) =>
+        resource({
+          // 👇 Params contains the `email` signal and is used to trigger the resource
+          params,
+          // the loader makes an HTTP call to check if the email is already registered
+          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
+            // returns true if the email is already registered
+            await this.registerService.emailCheck(loaderParams.params)
+        }),
+        // 👇 This is called with the result of the resource
+        onSuccess: (isRegistered: boolean) =>
+          isRegistered
+            ? {
+                kind: 'email-already-registered',
+                message: 'REGISTER.emailAlreadyRegistered'
+              }
+            : undefined,
+        // 👇 This is called if the resource fails
+        onError: () =>
+          ({
+            kind: 'email-check-failed',
+            message: 'REGISTER.emailCheckFailed'
+          })
     });
-
   });
 
   // Signal Form avec schéma de validation
