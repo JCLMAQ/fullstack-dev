@@ -8,11 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { RegisterService } from '@fe/auth';
 // import { IamAuth } from '@fe/auth'
 import { FieldError, passwordDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { AppStore } from '@fe/stores';
+import { IAM_AUTH_TOKEN } from '@fe/tokens';
 import { TranslateModule } from '@ngx-translate/core';
-
 
 // Register Credentials model
 export interface RegisterFormModel {
@@ -39,7 +39,9 @@ export interface RegisterFormModel {
 })
 export class Register {
 
-  private registerService = inject(RegisterService);
+  _authService = inject(IAM_AUTH_TOKEN);
+  _appStore = inject(AppStore);
+  // private registerService = inject(RegisterService);
   private router = inject(Router);
 
   // Signal d'état UI
@@ -75,7 +77,7 @@ export class Register {
 
       try {
         console.log('🌐 [EmailCheck Resource] Appel API emailCheck...');
-        const exists = await this.registerService.emailCheck(email);
+        const exists = await this._authService.emailCheck(email);
         console.log('✅ [EmailCheck Resource] Résultat API:', exists ? 'Email déjà utilisé' : 'Email disponible');
         return exists;
       } catch (error) {
@@ -148,7 +150,7 @@ export class Register {
           // the loader makes an HTTP call to check if the email is already registered
           loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
             // returns true if the email is already registered
-            await this.registerService.emailCheck(loaderParams.params)
+            await this._authService.emailCheck(loaderParams.params)
         }),
         // 👇 This is called with the result of the resource
         onSuccess: (isRegistered: boolean) =>
@@ -293,22 +295,18 @@ export class Register {
   // }
 
 
-async register() {
-  await submit(this.registerForm, async (form) => {
+submitForm() {
+  submit(this.registerForm, async (form) => {
     try {
       // The form() gives you the latest value
       const { email, password, confirmPassword } = form().value();
 
       console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
-      if (email && password && confirmPassword) {
-        const result = await this.registerService.register(email, password, confirmPassword);
-        console.log('✅ [Submit] Inscription réussie:', result);
+
+        await this.register(email, password, confirmPassword);
         localStorage.removeItem('register-draft');
-        // Succès - naviguer après un délai pour que l'utilisateur voie le feedback
-        setTimeout(() => this.login(), 500);
-        return null; // Pas d'erreur
-      }
-      return null;
+
+      return undefined;
     } catch (serverError) {
         console.error('❌ [Submit] Échec de l\'inscription:', serverError);
         // On failure, return a ValidationError to be displayed on the form
@@ -321,6 +319,9 @@ async register() {
   });
 }
 
+  async register(email: string, password: string, confirmPassword: string) {
+    await this._appStore['register'](email, password, confirmPassword);
+  }
 
   login() {
     this.router.navigate(['auth/login']);
