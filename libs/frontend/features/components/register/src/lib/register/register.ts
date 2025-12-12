@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
-import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, validateAsync } from '@angular/forms/signals';
+import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, submit, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -254,43 +254,76 @@ export class Register {
     });
   }
 
-  async register() {
-    console.log('🚀 [Submit] Tentative de soumission du formulaire');
-    console.log('📋 [Submit] État du formulaire:', {
-      valid: this.registerForm().valid(),
-      emailValid: this.registerForm.email().valid(),
-      emailErrors: this.registerForm.email().errors(),
-      passwordValid: this.registerForm.password().valid(),
-      confirmPasswordValid: this.registerForm.confirmPassword().valid()
-    });
+  // async register() {
+  //   console.log('🚀 [Submit] Tentative de soumission du formulaire');
+  //   console.log('📋 [Submit] État du formulaire:', {
+  //     valid: this.registerForm().valid(),
+  //     emailValid: this.registerForm.email().valid(),
+  //     emailErrors: this.registerForm.email().errors(),
+  //     passwordValid: this.registerForm.password().valid(),
+  //     confirmPasswordValid: this.registerForm.confirmPassword().valid()
+  //   });
 
-    if (!this.registerForm().valid()) {
-      console.warn('⚠️  [Submit] Formulaire invalide, marquage des champs');
-      this.registerForm.email().markAsTouched();
-      this.registerForm.password().markAsTouched();
-      this.registerForm.confirmPassword().markAsTouched();
-      return;
-    }
+  //   if (!this.registerForm().valid()) {
+  //     console.warn('⚠️  [Submit] Formulaire invalide, marquage des champs');
+  //     this.registerForm.email().markAsTouched();
+  //     this.registerForm.password().markAsTouched();
+  //     this.registerForm.confirmPassword().markAsTouched();
+  //     return;
+  //   }
 
-    this.isSubmitting.set(true);
-    console.log('⏳ [Submit] Soumission en cours...');
+  //   this.isSubmitting.set(true);
+  //   console.log('⏳ [Submit] Soumission en cours...');
 
+  //   try {
+  //     const { email, password, confirmPassword } = this.registerCredentials();
+  //     console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
+
+  //     if (email && password && confirmPassword) {
+  //       const result = await this.registerService.register(email, password, confirmPassword);
+  //       console.log('✅ [Submit] Inscription réussie:', result);
+  //       localStorage.removeItem('register-draft');
+  //     }
+  //   } catch (error) {
+  //     console.error('❌ [Submit] Échec de l\'inscription:', error);
+  //   } finally {
+  //     this.isSubmitting.set(false);
+  //     console.log('🏁 [Submit] Fin de la soumission');
+  //   }
+  // }
+
+
+async register() {
+  submit(this.registerForm, async(form) => {
     try {
-      const { email, password, confirmPassword } = this.registerCredentials();
-      console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
+      // The form() gives you the latest value
+      const { email, password, confirmPassword } = form().value();
 
+      console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
       if (email && password && confirmPassword) {
         const result = await this.registerService.register(email, password, confirmPassword);
         console.log('✅ [Submit] Inscription réussie:', result);
         localStorage.removeItem('register-draft');
       }
-    } catch (error) {
-      console.error('❌ [Submit] Échec de l\'inscription:', error);
-    } finally {
-      this.isSubmitting.set(false);
-      console.log('🏁 [Submit] Fin de la soumission');
+      // On success, return null
+      // return null;
+      return {
+        kind: 'registeration_success',
+        message: 'REGISTER.registrationSuccess', // 'Registration successful! Please check your email to verify your account.',
+        field: form.email // Attach the error to the email field!
+      };
+    } catch (serverError) {
+        console.error('❌ [Submit] Échec de l\'inscription:', serverError);
+        // On failure, return a ValidationError to be displayed on the form
+        return {
+          kind: 'server_error',
+          message: 'REGISTER.registrationFailed', // 'Something went wrong on the server. Please try again later.',
+          field: form.email // Attach the error to the email field!
+        };
     }
-  }
+  });
+}
+
 
   login() {
     this.router.navigate(['auth/login']);
