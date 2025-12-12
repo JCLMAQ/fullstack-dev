@@ -104,6 +104,9 @@ export class IamAuth {
   ): Promise<IRegisterResponse> {
     return this.registerService.register(email, password, confirmPassword);
   }
+  async emailCheck(email: string): Promise<boolean> {
+    return  this.registerService.emailCheck(email);
+  }
 
   /**
    * 🚪 LOGOUT

@@ -48,13 +48,25 @@ export class RegisterService {
     return response;
   }
 
-    // async isRegistered(email: string): Promise<boolean> {
-    //   if (!email || typeof email !== 'string') return false;
-    //   try {
-    //     // On suppose que IamAuth expose une méthode checkEmailExists, sinon à ajouter côté backend/API
-    //     return await this.iamAuth.checkEmailExists(email);
-    //   } catch {
-    //     return false;
-    //   }
-    // }
+    async emailCheck(email: string): Promise<boolean> {
+      if (!email || typeof email !== 'string') return false;
+
+        const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+        const pathUrl = `${apiPrefix}/authentication/email-check`;
+
+        const payload = { email};
+
+        console.log('📝 User email check unicity (IAM):', payload);
+
+        const emailCheck$ = this.httpClient.post<boolean>(
+          `${pathUrl}`,
+          payload,
+        );
+        const response = await firstValueFrom(emailCheck$);
+
+        console.log('✅ Email check successful (IAM):', response);
+
+        return response;
+
+    }
 }

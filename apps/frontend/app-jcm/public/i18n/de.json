@@ -208,7 +208,8 @@
     "invalidState": "Ungültiges Bundesland",
     "invalidZip": "Ungültige Postleitzahl",
     "invalidCountry": "Ungültiges Land",
-    "passwordDifferentFromEmail": "Das Passwort darf nicht mit der E-Mail übereinstimmen"
+    "passwordDifferentFromEmail": "Das Passwort darf nicht mit der E-Mail übereinstimmen",
+    "emailCheckFailed": "Konnte nicht überprüfen, ob die E-Mail bereits registriert ist"
   },
   "IMAGE-UPLOADER": {
     "ACTIONS_UPLOAD_PLACEHOLDER": "Bild hierher ziehen oder klicken, um eines auszuwählen.",

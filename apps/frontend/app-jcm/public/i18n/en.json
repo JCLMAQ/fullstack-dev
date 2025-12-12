@@ -208,7 +208,8 @@
     "invalidState": "Invalid state",
     "invalidZip": "Invalid zip code",
     "invalidCountry": "Invalid country",
-    "passwordDifferentFromEmail": "Password must not be the same as the email"
+    "passwordDifferentFromEmail": "Password must not be the same as the email",
+    "emailCheckFailed": "Could not verify if the email is already registered"
 
   },
   "IMAGE-UPLOADER": {
