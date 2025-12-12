@@ -47,4 +47,14 @@ export class RegisterService {
     console.log('✅ Registration successful (IAM):', response);
     return response;
   }
+
+    // async isRegistered(email: string): Promise<boolean> {
+    //   if (!email || typeof email !== 'string') return false;
+    //   try {
+    //     // On suppose que IamAuth expose une méthode checkEmailExists, sinon à ajouter côté backend/API
+    //     return await this.iamAuth.checkEmailExists(email);
+    //   } catch {
+    //     return false;
+    //   }
+    // }
 }

@@ -1,10 +1,11 @@
 
 
 // Auth exports
-export * from './lib/services/changepwd/changepwd-service';
+export * from './lib/iam-auth/services/changepwd/changepwd-service';
 
 // IAM Auth exports
 export * from './lib/iam-auth/iam-auth';
+export * from './lib/iam-auth/services/changepwd/changepwd-service';
 export * from './lib/iam-auth/services/login/login-service';
 export * from './lib/iam-auth/services/register/register-service';
 export * from './lib/iam-auth/services/token-storage/token-storage-service';

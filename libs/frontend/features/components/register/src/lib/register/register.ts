@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { RegisterService } from '@fe/auth';
 // import { IamAuth } from '@fe/auth'
-import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, PasswordisDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -28,6 +28,34 @@ const registerSchema = schema<RegisterFormModel>((path) => {
   // Validation custom pour la correspondance des mots de passe
   // passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }
   apply(path, passwordWithConfirmSchema );
+  apply(path, PasswordisDifferentFromEmail );
+  // validateAsync(path.email, {
+  //   params: (email: ChildFieldContext<string>) => email.value(),
+  //   factory: (params: Signal<string | undefined>) =>
+  //     resource({
+  //       // 👇 Params contains the `email` signal and is used to trigger the resource
+  //       params,
+  //       // the loader makes an HTTP call to check if the email is already registered
+  //       loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
+  //         // returns true if the email is already registered
+  //         await this.registerService.isRegistered(loaderParams.params)
+  //     }),
+  //     // 👇 This is called with the result of the resource
+  //     onSuccess: (response: { isRegistered: boolean }) =>
+  //       response.isRegistered
+  //         ? {
+  //             kind: 'email-already-registered',
+  //             message: 'Email is already registered'
+  //           }
+  //         : undefined,
+  //     // 👇 This is called if the resource fails
+  //     onError: () =>
+  //       ({
+  //         kind: 'email-check-failed',
+  //         message: 'Could not verify if the email is already registered'
+  //       })
+  // });
+
 });
 
 @Component({

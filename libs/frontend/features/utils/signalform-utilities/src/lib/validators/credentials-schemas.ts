@@ -96,22 +96,13 @@ export  const PasswordisDifferentFromEmail = schema<{ email: string; password: s
       return email && password && email === password
         ? {
             kind: 'password-different-from-email',
-            message: 'Password should not be the same as email'
+            message: 'SignalFormError.passwordDifferentFromEmail', // 'Password should not be the same as email'
           }
         : undefined;
     }),
   ]);
 
-// password is different from email
-// validate(form, context => {
-//   const { email, password } = context.value();
-//   return email && password && email === password
-//     ? {
-//         kind: 'password-different-from-email',
-//         message: 'Password should not be the same as email'
-//       }
-//     : undefined;
-// });
+
 /* In your component (from signal-forms-preview master)
 
 export type PersonalInfo = {
