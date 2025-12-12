@@ -294,7 +294,7 @@ export class Register {
 
 
 async register() {
-  submit(this.registerForm, async(form) => {
+  await submit(this.registerForm, async (form) => {
     try {
       // The form() gives you the latest value
       const { email, password, confirmPassword } = form().value();
@@ -304,6 +304,8 @@ async register() {
         const result = await this.registerService.register(email, password, confirmPassword);
         console.log('✅ [Submit] Inscription réussie:', result);
         localStorage.removeItem('register-draft');
+        // Rediriger vers le formulaire de login après une inscription réussie
+        await this.router.navigate(['auth/login'], { queryParams: { registered: 'true', email } });
       }
       // On success, return null
       // return null;

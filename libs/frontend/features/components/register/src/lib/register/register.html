@@ -133,6 +133,7 @@
       class="w-full mt-3"
       type="submit"
       [disabled]="!registerForm().valid() || isSubmitting()"
+      (click)="register()"
     >
       {{"REGISTER.registerButton" | translate}}
     </button>
