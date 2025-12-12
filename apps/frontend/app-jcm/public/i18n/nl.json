@@ -207,7 +207,8 @@
   "invalidCity": "Ongeldige stad",
   "invalidState": "Ongeldige provincie",
   "invalidZip": "Ongeldige postcode",
-  "invalidCountry": "Ongeldig land"
+  "invalidCountry": "Ongeldig land",
+  "passwordDifferentFromEmail": "Wachtwoord mag niet hetzelfde zijn als het e-mailadres"
 },
   "IMAGE-UPLOADER": {
   "ACTIONS_UPLOAD_PLACEHOLDER": "Sleep een afbeelding hierheen of klik om er een te selecteren.",

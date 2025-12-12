@@ -128,7 +128,66 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Follow Angular Style Guide (https://angular.dev/style-guide)
 - Use Angular Material  for consistent styling 
 
-## Development Standards
+## Examples
+
+These are modern examples of how to write an Angular 21 component with signals
+
+```ts
+import { Component, signal } from '@angular/core';
+
+
+@Component({
+  selector: '{{tag-name}}-root',
+  templateUrl: '{{tag-name}}.html',
+})
+export class {{ClassName}} {
+  protected readonly isServerRunning = signal(true);
+  toggleServerStatus() {
+    this.isServerRunning.update(isServerRunning => !isServerRunning);
+  }
+}
+```
+
+```css
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    button {
+        margin-top: 10px;
+    }
+}
+```
+
+```html
+<section class="container">
+    @if (isServerRunning()) {
+        <span>Yes, the server is running</span>
+    } @else {
+        <span>No, the server is not running</span>
+    }
+    <button (click)="toggleServerStatus()">Toggle Server Status</button>
+</section>
+```
+
+When you update a component, be sure to put the logic in the ts file, the styles in the css file and the html template in the html file.
+
+## Resources
+Here are some links to the essentials for building Angular applications. Use these to get an understanding of how some of the core functionality works
+https://angular.dev/essentials/components
+https://angular.dev/essentials/signals
+https://angular.dev/essentials/templates
+https://angular.dev/essentials/dependency-injection
+
+## Development Standards /## Best practices & Style guide
+
+Here are the best practices and the style guide information.
+
+### Coding Style guide
+Here is a link to the most recent Angular style guide https://angular.dev/style-guide
 
 ### Architecture
 - Use standalone components unless modules are explicitly required
@@ -137,28 +196,33 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Use Angular's built-in dependency injection system effectively
 - Structure components with a clear separation of concerns (smart vs. presentational components)
 
-### TypeScript
+### TypeScript Best Practices
 - Enable strict mode in `tsconfig.json` for type safety
 - Define clear interfaces and types for components, services, and models
 - Use type guards and union types for robust type checking
 - Implement proper error handling with RxJS operators (e.g., `catchError`)
-- Use typed forms (e.g., `FormGroup`, `FormControl`) for reactive forms
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
 
 ### Angular Best Practices
 - Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v21+.
 - Use signals for state management
 - Implement lazy loading for feature routes
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
 - Use `NgOptimizedImage` for all static images.
-  - `NgOptimizedImage` does not work for inline base64 images.
+- `NgOptimizedImage` does not work for inline base64 images.
 
 ### Components
 - Follow Angular's component lifecycle hooks best practices
-- Use `input()` `output()`, `viewChild()`, `viewChildren()`, `contentChild()` and `contentChildren()` functions instead of decorators; otherwise use decorators
+- Use `input()` signal instead of decorators, learn more here https://angular.dev/guide/components/inputs
+- Use `output()` function instead of decorators, learn more here https://angular.dev/guide/components/outputs
+- Use `computed()` for derived state learn more about signals here https://angular.dev/guide/signals.
+- Use `viewChild()`, `viewChildren()`, `contentChild()` and `contentChildren()` functions instead of decorators; learn more here https://angular.dev/guide/components/child-component-interaction
+- Never use inline templates for components even if they are short
+- Never use inline styles for components even if they are short
+- Always use signal form for forms, learn more here https://angular.dev/guide/signal-forms
 - Leverage Angular's change detection strategy (default or `OnPush` for performance)
 - Keep templates clean and logic in component classes or services
 - Use Angular directives and pipes for reusable functionality
@@ -166,8 +230,8 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Use `computed()` for derived state
 - Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
 - Prefer Signal forms instead of Reactive or Template-driven ones when Angular Signal Forms are available
-- Do NOT use `ngClass`, use `class` bindings instead
-- Do NOT use `ngStyle`, use `style` bindings instead
+- Do NOT use `ngClass`, use `class` bindings instead, learn more here https://angular.dev/guide/templates/binding#css-class-and-style-property-bindings
+- Do NOT use `ngStyle`, use `style` bindings instead, learn more here https://angular.dev/guide/templates/binding#css-class-and-style-property-bindings
 - When using external templates/styles, use paths relative to the component TS file.
 
 ## Services
@@ -182,24 +246,31 @@ Instructions for generating high-quality Angular applications with TypeScript, u
 - Do not assume globals like (`new Date()`) are available.
 - Do not write arrow functions in templates (they are not supported).
 - Do not write Regular expressions in templates (they are not supported).
+- Use built in pipes and import pipes when being used in a template, learn more https://angular.dev/guide/templates/pipes#.
+- Use Angular Material components for consistent UI/UX
+- Use ngx-translate for internationalization (i18n) when dynamic translations are needed
+
 
 ### Styling
+- Use Material v3 design components and theming system for a modern look and feel
 - Use Angular's component-level CSS encapsulation (default: ViewEncapsulation.Emulated)
 - Prefer SCSS for styling with consistent theming
 - Implement responsive design using CSS Grid, Flexbox, or Angular CDK Layout utilities
-- Follow Angular Material's theming guidelines
+- Follow Angular Material's theming v3 guidelines
 - Maintain accessibility (a11y) with ARIA attributes and semantic HTML
+- Always integrate Dark Mode support using Angular Material theming capabilities
 
 ### State Management
 - Use Angular Signals for reactive state management in components and services
-- Use NGRX Signals Store if needed for complex state management across the application
-- Leverage `signal()`, `computed()`, and `effect()` for reactive state updates
+- Use `NGRX signal store` for complex state management (within components or across the application)  
+- Use `computed()` for derived state
+- Use `linkedSignal()` for interconnected signals
+- Use `effect()` for side effects
+- Use `toSignal()` to integrate observables
 - Use writable signals for mutable state and computed signals for derived state
 - Use linkedSignals for sharing state between components
 - Handle loading and error states with signals and proper UI feedback
 - Use Angular's `AsyncPipe` to handle observables in templates when combining signals with RxJS
-- Use signals for local component state
-- Use `computed()` for derived state
 - Keep state transformations pure and predictable
 - Do NOT use `mutate` on signals, use `update` or `set` instead
 

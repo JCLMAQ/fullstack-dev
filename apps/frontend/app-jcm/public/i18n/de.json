@@ -207,7 +207,8 @@
     "invalidCity": "Ungültige Stadt",
     "invalidState": "Ungültiges Bundesland",
     "invalidZip": "Ungültige Postleitzahl",
-    "invalidCountry": "Ungültiges Land"
+    "invalidCountry": "Ungültiges Land",
+    "passwordDifferentFromEmail": "Das Passwort darf nicht mit der E-Mail übereinstimmen"
   },
   "IMAGE-UPLOADER": {
     "ACTIONS_UPLOAD_PLACEHOLDER": "Bild hierher ziehen oder klicken, um eines auszuwählen.",

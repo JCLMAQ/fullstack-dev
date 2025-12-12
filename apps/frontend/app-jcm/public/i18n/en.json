@@ -207,7 +207,9 @@
     "invalidCity": "Invalid city",
     "invalidState": "Invalid state",
     "invalidZip": "Invalid zip code",
-    "invalidCountry": "Le pays est invalide"
+    "invalidCountry": "Invalid country",
+    "passwordDifferentFromEmail": "Password must not be the same as the email"
+
   },
   "IMAGE-UPLOADER": {
     "ACTIONS_UPLOAD_PLACEHOLDER": "Drag and drop an image here or click to select one.",
