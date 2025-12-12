@@ -304,23 +304,18 @@ async register() {
         const result = await this.registerService.register(email, password, confirmPassword);
         console.log('✅ [Submit] Inscription réussie:', result);
         localStorage.removeItem('register-draft');
-        // Rediriger vers le formulaire de login après une inscription réussie
-        await this.router.navigate(['auth/login'], { queryParams: { registered: 'true', email } });
+        // Succès - naviguer après un délai pour que l'utilisateur voie le feedback
+        setTimeout(() => this.login(), 500);
+        return null; // Pas d'erreur
       }
-      // On success, return null
-      // return null;
-      return {
-        kind: 'registeration_success',
-        message: 'REGISTER.registrationSuccess', // 'Registration successful! Please check your email to verify your account.',
-        field: form.email // Attach the error to the email field!
-      };
+      return null;
     } catch (serverError) {
         console.error('❌ [Submit] Échec de l\'inscription:', serverError);
         // On failure, return a ValidationError to be displayed on the form
         return {
           kind: 'server_error',
-          message: 'REGISTER.registrationFailed', // 'Something went wrong on the server. Please try again later.',
-          field: form.email // Attach the error to the email field!
+          message: 'REGISTER.registrationFailed',
+          field: form.email
         };
     }
   });
