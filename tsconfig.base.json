@@ -63,6 +63,7 @@
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
+
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
