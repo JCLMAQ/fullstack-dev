@@ -96,7 +96,7 @@ export class Register {
     emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
     apply(path, passwordWithConfirmSchema);
     apply(path, PasswordisDifferentFromEmail);
-    debounce(path.email, 1000); // 1 seconde de debounce avant validation asynchrone
+    debounce(path.email, 500); // 0.5 seconde de debounce avant validation asynchrone
 // Validation synchrone utilisant le resource créé plus haut
     validate(path.email, (field) => {
       const exists = this.emailCheckResource.value();
