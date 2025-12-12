@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, email as emailValidator, Field, form, required, schema } from '@angular/forms/signals';
+import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
+import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,43 +20,6 @@ export interface RegisterFormModel {
   password: string;
   confirmPassword: string;
 }
-
-// Validation personnalisée pour la correspondance des mots de passe
-const registerSchema = schema<RegisterFormModel>((path) => {
-  required(path.email, { message: 'REGISTER.emailRequired' });
-  emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
-  // Validation custom pour la correspondance des mots de passe
-  // passwordWithConfirmSchema = schema<{ password: string; confirmPassword: string }
-  apply(path, passwordWithConfirmSchema );
-  apply(path, PasswordisDifferentFromEmail );
-  // validateAsync(path.email, {
-  //   params: (email: ChildFieldContext<string>) => email.value(),
-  //   factory: (params: Signal<string | undefined>) =>
-  //     resource({
-  //       // 👇 Params contains the `email` signal and is used to trigger the resource
-  //       params,
-  //       // the loader makes an HTTP call to check if the email is already registered
-  //       loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
-  //         // returns true if the email is already registered
-  //         await this.registerService.isRegistered(loaderParams.params)
-  //     }),
-  //     // 👇 This is called with the result of the resource
-  //     onSuccess: (response: { isRegistered: boolean }) =>
-  //       response.isRegistered
-  //         ? {
-  //             kind: 'email-already-registered',
-  //             message: 'Email is already registered'
-  //           }
-  //         : undefined,
-  //     // 👇 This is called if the resource fails
-  //     onError: () =>
-  //       ({
-  //         kind: 'email-check-failed',
-  //         message: 'Could not verify if the email is already registered'
-  //       })
-  // });
-
-});
 
 @Component({
   selector: 'lib-register',
@@ -90,8 +53,52 @@ export class Register {
     confirmPassword: ''
   });
 
+  // Schéma de validation avec accès au service
+  private registerSchema = schema<RegisterFormModel>((path) => {
+    required(path.email, { message: 'REGISTER.emailRequired' });
+    emailValidator(path.email, { message: 'REGISTER.emailInvalid' });
+    apply(path, passwordWithConfirmSchema);
+    apply(path, PasswordisDifferentFromEmail);
+    debounce(path.email, 1000); // 1 seconde de debounce avant validation asynchrone
+    validateAsync(path.email, {
+      params: (email: ChildFieldContext<string>) => {
+        console.log('📧 validateAsync - params called with email:', email.value());
+        return email.value();
+      },
+      factory: (params: Signal<string | undefined>) => {
+        console.log('🏭 validateAsync - factory called with params:', params());
+        return resource({
+          params,
+          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) => {
+            console.log('🔄 validateAsync - loader called with:', loaderParams.params);
+            const result = await this.registerService.emailCheck(loaderParams.params);
+            console.log('✅ validateAsync - loader result:', result);
+            return result;
+          }
+        });
+      },
+      onSuccess: (isRegistered: boolean) => {
+        console.log('🎯 validateAsync - onSuccess called with:', isRegistered);
+        return isRegistered
+          ? {
+              kind: 'email-already-registered',
+              message: 'Email is already registered'
+            }
+          : undefined;
+      },
+      onError: () => {
+        console.error('❌ validateAsync - onError called');
+        return {
+          kind: 'email-check-failed',
+          message: 'Could not verify if the email is already registered'
+        };
+      }
+    });
+  });
+
   // Signal Form avec schéma de validation
-  registerForm = form(this.registerCredentials, registerSchema);
+  // registerForm = form(this.registerCredentials, this.registerSchema);
+  registerForm = form<RegisterFormModel>(this.registerCredentials, this.registerSchema);
 
   // Password strength (indicateur visuel de robustesse du mot de passe  )
   passwordStrength = computed(() => {
@@ -119,38 +126,62 @@ export class Register {
   });
 
   // Résumé d'état du formulaire
-  formSummary = computed(() => ({
-    isValid: this.registerForm().valid(),
-    hasErrors: this.registerForm().invalid(),
-    passwordMatch: this.passwordsMatch(),
-    emailValid: this.registerForm.email().valid(),
-    passwordStrong: this.passwordStrength().score >= 3,
-    canSubmit: this.registerForm().valid()
-  }));
+  formSummary = computed(() => {
+    const form = this.registerForm();
+    return {
+      isValid: untracked(() => form.valid()),
+      hasErrors: untracked(() => form.invalid()),
+      passwordMatch: this.passwordsMatch(),
+      emailValid: untracked(() => this.registerForm.email().valid()),
+      passwordStrong: this.passwordStrength().score >= 3,
+      canSubmit: untracked(() => form.valid())
+    };
+  });
 
   // Debug info (dev only)
-  debugInfo = computed(() => ({
-    formStatus: this.registerForm().valid() ? 'VALID' : 'INVALID',
-    formValue: this.registerCredentials(),
-    emailValue: this.registerForm.email().value(),
-    passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
-    confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
-    passwordStrength: this.passwordStrength(),
-    isValid: this.registerForm().valid(),
-    errors: {
-      email: this.registerForm.email().errors(),
-      password: this.registerForm.password().errors(),
-      confirmPassword: this.registerForm.confirmPassword().errors()
-    }
-  }));
+    debugInfo = computed(() => {
+    const form = this.registerForm();
+    const email = form.email();
+    const password = form.password();
+    const confirmPassword = form.confirmPassword();
+
+    return {
+      formStatus: untracked(() => form.valid()) ? 'VALID' : 'INVALID',
+      formValue: this.registerCredentials(),
+      emailValue: email.value(),
+      passwordValue: (password.value() || '').replace(/./g, '*'),
+      confirmPasswordValue: (confirmPassword.value() || '').replace(/./g, '*'),
+      passwordStrength: this.passwordStrength(),
+      isValid: untracked(() => form.valid()),
+      errors: {
+        email: untracked(() => email.errors()),
+        password: untracked(() => password.errors()),
+        confirmPassword: untracked(() => confirmPassword.errors())
+      }
+    };
+  });
+  // debugInfo = computed(() => ({
+  //   formStatus: this.registerForm().valid() ? 'VALID' : 'INVALID',
+  //   formValue: this.registerCredentials(),
+  //   emailValue: this.registerForm.email().value(),
+  //   passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
+  //   confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
+  //   passwordStrength: this.passwordStrength(),
+  //   isValid: this.registerForm().valid(),
+  //   errors: {
+  //     email: this.registerForm.email().errors(),
+  //     password: this.registerForm.password().errors(),
+  //     confirmPassword: this.registerForm.confirmPassword().errors()
+  //   }
+  // }));
 
   constructor() {
     this.loadDraft();
     // Sauvegarde automatique du brouillon quand l'email change
     effect(() => {
       const email = this.registerForm.email().value();
-      if (email.length > 0 && this.registerForm.email().valid()) {
-        this.saveDraft();
+      if (email.length > 0) {
+        untracked(() => this.saveDraft());
       }
     });
   }
