@@ -88,6 +88,30 @@ export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; eme
 ]);
 
 
+// password is different from Email validator
+export  const PasswordisDifferentFromEmail = schema<{ email: string; password: string }>(
+  (path) => [
+    validate(path, context => {
+      const { email, password } = context.value();
+      return email && password && email === password
+        ? {
+            kind: 'password-different-from-email',
+            message: 'Password should not be the same as email'
+          }
+        : undefined;
+    }),
+  ]);
+
+// password is different from email
+// validate(form, context => {
+//   const { email, password } = context.value();
+//   return email && password && email === password
+//     ? {
+//         kind: 'password-different-from-email',
+//         message: 'Password should not be the same as email'
+//       }
+//     : undefined;
+// });
 /* In your component (from signal-forms-preview master)
 
 export type PersonalInfo = {
@@ -111,4 +135,59 @@ personalInfo = signal<PersonalInfo>({
     emergencyContactName: '',
     emergencyContactPhone: '',
   });
+*/
+
+
+
+
+
+// https://blog.ninja-squad.com/2025/11/14/angular-signal-forms-part-2?utm_source=substack&utm_medium=email
+
+// email is not already registered (async validation)
+/*
+validateAsync(form.email, {
+  params: (email: ChildFieldContext<string>) => email.value(),
+  factory: (params: Signal<string | undefined>) =>
+    resource({
+      // 👇 Params contains the `email` signal and is used to trigger the resource
+      params,
+      // the loader makes an HTTP call to check if the email is already registered
+      loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
+        // returns true if the email is already registered
+        await this.userService.isRegistered(loaderParams.params)
+    }),
+    // 👇 This is called with the result of the resource
+    onSuccess: (response: { isRegistered: boolean }) =>
+      response.isRegistered
+        ? {
+            kind: 'email-already-registered',
+            message: 'Email is already registered'
+          }
+        : undefined,
+    // 👇 This is called if the resource fails
+    onError: () =>
+      ({
+        kind: 'email-check-failed',
+        message: 'Could not verify if the email is already registered'
+      })
+});
+
+
+// email is not already registered (async validation)
+validateHttp(form.email, {
+  // 👇 httpResource is triggered when the email signal changes
+  request: (email: ChildFieldContext<string>) => `/api/users/check?email=${email.value()}`,
+  onSuccess: (response: { isRegistered: boolean }) =>
+    response.isRegistered
+      ? {
+          kind: 'email-already-taken',
+          message: 'Email is already taken'
+        }
+      : undefined,
+  onError: () =>
+    ({
+      kind: 'email-check-failed',
+      message: 'Could not verify if the email is already taken'
+    })
+});
 */
