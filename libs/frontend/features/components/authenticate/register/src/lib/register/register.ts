@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 // import { IamAuth } from '@fe/auth'
 import { IAM_AUTH_TOKEN } from '@fe/auth';
@@ -43,6 +44,7 @@ export class Register {
   _appStore = inject(AppStore);
   // private registerService = inject(RegisterService);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   // Signal d'état UI
   hidePassword = signal(true);
@@ -295,17 +297,39 @@ export class Register {
   // }
 
 
-submitForm() {
+submitForm() { // Register the user
+  console.log('🎯 [submitForm] Fonction appelée');
   submit(this.registerForm, async (form) => {
+    console.log('🔵 [submitForm] Inside submit callback');
     try {
       // The form() gives you the latest value
       const { email, password, confirmPassword } = form().value();
 
       console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
 
-        await this.register(email, password, confirmPassword);
-        localStorage.removeItem('register-draft');
+      const result = await this._authService.registerIamAuth(email, password, confirmPassword);
 
+      console.log('📤 [Submit] Inscription réussie pour:', email, 'Result:', result);
+
+      localStorage.removeItem('register-draft');
+
+      // Afficher le message de succès
+      this.snackBar.open(
+        result.message || 'Inscription réussie ! Vous pouvez maintenant vous connecter.',
+        'Fermer',
+        {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+        }
+      );
+
+      // Rediriger vers la page de login après un court délai
+      setTimeout(() => {
+        this.router.navigate(['/auth/login']);
+      }, 1500);
+
+      console.log('✅ [submitForm] Retour undefined (succès)');
       return undefined;
     } catch (serverError) {
         console.error('❌ [Submit] Échec de l\'inscription:', serverError);
@@ -317,11 +341,8 @@ submitForm() {
         };
     }
   });
+  console.log('🎯 [submitForm] Après submit()');
 }
-
-  async register(email: string, password: string, confirmPassword: string) {
-    await this._appStore['register'](email, password, confirmPassword);
-  }
 
   login() {
     this.router.navigate(['auth/login']);

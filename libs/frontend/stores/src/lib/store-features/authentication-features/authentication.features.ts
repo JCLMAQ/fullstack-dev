@@ -43,12 +43,9 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
           // ILoginResponse & { user: User | null } & { organizations: Organization[]
-          const loginResponse: { accessToken: string; refreshToken: string } & {
-            user: User | null;
-          } & { organizations: Organization[] } =
-            await store._authService.login(email, password);
-          // = await this.loginService.login(email, password);
-          // Récupérer l'utilisateur connecté
+          const loginResponse: { accessToken: string; refreshToken: string } & { user: User | null } & { organizations: Organization[] } =
+            await store._authService.loginIamAuth(email, password);
+
           const user = loginResponse.user;
 
           let isLoggedIn = false;
@@ -86,6 +83,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           });
 
           store._router.navigate(['/pages/home']);
+
         } catch (error) {
           store._snackbar.open(
             store._translate.instant('LOGIN.invalidCredentials'),
@@ -112,18 +110,17 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         // await store._authService.logout();
         store._router.navigate(['pages/home']);
       },
+
       loginAsAdmin: async () => {
         await store._authService.loginAsAdmin();
       },
+
       hasAdminRole: () => {
         return store._authService.hasAdminRole();
       },
 
-      register: async (
-        email: string,
-        password: string,
-        confirmPassword: string,
-      ) => {
+      registerAuthFeatureStore: async ( email: string, password: string, confirmPassword: string ) => {
+
         try {
           if (!email || !password || !confirmPassword) {
             store._snackbar.open(
@@ -137,15 +134,28 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
 
-          // const response =
-          await store._authService.register(email, password, confirmPassword);
+          const response = await store._authService.registerIamAuth( email, password, confirmPassword );
+
+          console.log('✅ Registration successful:', { email, response });
+
           store._snackbar.open('Registration done', 'Close', {
             verticalPosition: 'top',
             horizontalPosition: 'right',
           });
 
           store._router.navigate(['/auth/login']);
+
+          return response;
+
         } catch (error) {
+          console.error('❌ [AuthStore] Registration error caught:', {
+            error,
+            message: error instanceof Error ? error.message : 'Unknown error',
+            status: (error as any)?.status,
+            statusText: (error as any)?.statusText,
+            body: (error as any)?.error
+          });
+
           store._snackbar.open(
             'Invalid email, password or confirm password',
             'Close',
@@ -154,10 +164,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
               horizontalPosition: 'right',
             },
           );
-          console.error(error);
+          console.error('[AuthStore] Full error object:', error);
           // Optional: track error
+          throw error;
+
         }
       },
+
       /**
        * Met à jour l'image de profil de l'utilisateur via une URL
        * @param userId - ID de l'utilisateur
@@ -165,7 +178,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
        */
       updateUserProfileImage: async (userId: string, photoUrl: string) => {
         try {
-          // const currentUser = store._authService.userAppStore();
+          // const currentUser = store._authService.userSignal();
           const currentUser = await store._authService.fetchUser();
           if (!currentUser) {
             store._snackbar.open('Utilisateur non connecté', 'Close', {
@@ -239,7 +252,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
        */
       uploadAndUpdateProfileImage: async (file: File, userId: string) => {
         try {
-          const currentUser = store._authService.userAppStore();
+          const currentUser = store._authService.userSignal();
           if (!currentUser) {
             store._snackbar.open('Utilisateur non connecté', 'Close', {
               verticalPosition: 'top',
@@ -324,7 +337,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
           let orgId: string[] | undefined = undefined;
-          const organizations = await store._authService.fetchUserOrganizations(
+          const organizations = await store._authService.fetchUserOrganizationsIamAuth(
             updatedUser?.id,
             updatedUser ? updatedUser : undefined,
           );

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, timeout } from 'rxjs';
 import { IRegisterResponse } from '../../../models/auth.model';
 
 /**
@@ -10,6 +10,12 @@ import { IRegisterResponse } from '../../../models/auth.model';
  * Responsabilités :
  * - Enregistrement de nouveaux utilisateurs
  * - Validation des données d'inscription
+ * Response: IRegisterResponse {
+          success: boolean;
+          message: string;
+        }
+ *
+ *
  */
 @Injectable({
   providedIn: 'root',
@@ -36,16 +42,35 @@ export class RegisterService {
       verifyPassword: confirmPassword,
     };
 
-    console.log('📝 Registering User (IAM):', payload);
+    console.log('📝 Registering User (IAM):', { url: pathUrl, payload });
 
-    const register$ = this.httpClient.post<IRegisterResponse>(
-      `${pathUrl}`,
-      payload,
-    );
-    const response = await firstValueFrom(register$);
+    try {
+      const register$ = this.httpClient.post<IRegisterResponse>(
+        `${pathUrl}`,
+        payload,
+      ).pipe(
+        timeout({ each: 30000, with: () => {
+          throw new Error('Registration request timeout (30s)');
+        }})
+      );
 
-    console.log('✅ Registration successful (IAM):', response);
-    return response;
+      console.log('🔄 Waiting for registration response...');
+      const response = await firstValueFrom(register$);
+      console.log('📦 Response received:', response);
+
+      console.log('✅ Registration successful (IAM) - register-service:', response);
+
+      return response;
+    } catch (error) {
+      console.error('❌ Registration failed (IAM) - register-service:', {
+        error,
+        message: error instanceof Error ? error.message : 'Unknown error',
+        status: (error as any)?.status,
+        statusText: (error as any)?.statusText,
+        body: (error as any)?.error
+      });
+      throw error;
+    }
   }
 
     async emailCheck(email: string): Promise<boolean> {

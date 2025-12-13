@@ -51,11 +51,11 @@ export class IamAuth {
   // État d'authentification (compatibilité)
   private authenticated = false;
   private adminRole = false;
-  userAppStore = signal<User | null>(null);
+  userSignal = signal<User | null>(null);
 
   constructor() {
     // console.log('🚀 IamAuth initialized (Facade Pattern)');
-    console.log('👤 User loaded:', this.userAppStore()?.email || 'undefined');
+    // console.log('👤 User loaded:', this.userSignal()?.email || 'undefined');
     // console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
   }
 
@@ -63,26 +63,20 @@ export class IamAuth {
    * 🔐 LOGIN avec nouvel endpoint IAM
    * IAM: POST /api/authentication/sign-in ✅
    */
-  async login(email: string, password: string):
+  async loginIamAuth(email: string, password: string):
     Promise<ILoginResponse & { user: User | null } & { organizations: Organization[] }> {
     // Toujours réinitialiser le flag admin lors d'un login classique
     // this.adminRole = false;
     const response = await this.loginService.login(email, password);
     this.loginAsUser(); // authenticated = true
-    this.userAppStore.set(response.user);
+    this.userSignal.set(response.user);
     return response;
   }
-  /**
-   *
-   *
-   */
 
-  async fetchUserOrganizations(userId?: string, currentUser?: User): Promise<Organization[] | null> {
-
+  async fetchUserOrganizationsIamAuth(userId?: string, currentUser?: User): Promise<Organization[] | null> {
     if (!currentUser && userId) {
       return null;
     }
-
     try {
       const organizations = await this.userFetchService.fetchUserOrganizations(userId, currentUser);
       console.log('✅ Organizations fetched successfully:', organizations);
@@ -97,15 +91,17 @@ export class IamAuth {
    * 📝 REGISTER avec nouvel endpoint IAM
    * IAM: POST /api/authentication/register-extended ✅
    */
-  async register(
+  async registerIamAuth(
     email: string,
     password: string,
     confirmPassword: string,
   ): Promise<IRegisterResponse> {
-    return this.registerService.register(email, password, confirmPassword);
+    const response = await this.registerService.register(email, password, confirmPassword);
+    return response
   }
+
   async emailCheck(email: string): Promise<boolean> {
-    return  this.registerService.emailCheck(email);
+    return  await this.registerService.emailCheck(email);
   }
 
   /**
@@ -119,7 +115,7 @@ export class IamAuth {
   //   // Correction : forcer le flag admin à false explicitement
   //   this.adminRole = false;
   //   // console.log('🧹 Complete logout');
-  //   // console.log('👤 User after logout:', this.userAppStore()?.email || 'undefined');
+  //   // console.log('👤 User after logout:', this.userSignal()?.email || 'undefined');
   //   // console.log('🔐 isLoggedIn after logout:', this.isLoggedIn());
   //   // console.log('🛡️ adminRole after logout:', this.adminRole);
   // }
