@@ -27,5 +27,6 @@
         "libs/frontend/core/services/src/lib/messages",
         "libs/frontend/shared/components/messages/src/lib/messages"
     ],
-    "i18n-ally.keystyle": "nested"
+    "i18n-ally.keystyle": "nested",
+    "jest.enable": false
 }
