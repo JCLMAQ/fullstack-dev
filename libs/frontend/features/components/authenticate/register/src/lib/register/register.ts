@@ -9,9 +9,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
 // import { IamAuth } from '@fe/auth'
+import { IAM_AUTH_TOKEN } from '@fe/auth';
 import { FieldError, passwordDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
-import { IAM_AUTH_TOKEN } from '@fe/tokens';
 import { TranslateModule } from '@ngx-translate/core';
 
 // Register Credentials model
