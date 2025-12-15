@@ -37,7 +37,7 @@ const forgotpwdSchema = schema<emailUser>((f) => {
 export class Forgotpwd {
  private router = inject(Router);
 
- emailUser = signal<emailUser>({ email: '' });
+emailUser = signal<emailUser>({ email: '' });
 forgotPwdForm = form(this.emailUser, forgotpwdSchema);
 
  onSubmit() {
