@@ -25,6 +25,7 @@
       "@be/exception-filter": [
         "libs/backend/utilities/exception-filter/src/index.ts"
       ],
+      "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@be/mails": ["libs/backend/utilities/mails/src/index.ts"],
       "@be/time-util": ["libs/backend/utilities/time-util/src/index.ts"],
       "@be/files-utilities": [
@@ -63,7 +64,6 @@
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
-
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -100,7 +100,6 @@
         "libs/frontend/features/components/user-avatar-editor/src/index.ts"
       ],
       "@fe/shared": ["libs/frontend/core/shared/src/index.ts"],
-      "@be/todos": ["libs/backend/data-access/todos/src/index.ts"],
       "@fe/carousel": [
         "libs/frontend/features/components/carousel/src/index.ts"
       ],
@@ -126,7 +125,8 @@
         "libs/frontend/core/util/tokens/dictionaries.token.ts"
       ],
       "@fe/models": ["libs/frontend/models/src/index.ts"],
-      "@fe/components": ["libs/frontend/features/components/index.ts"]
+      "@fe/components": ["libs/frontend/features/components/index.ts"],
+      "@fullstack-dev/files-jcm": ["libs/backend/files-jcm/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

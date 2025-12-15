@@ -1,7 +1,7 @@
 import { AppEmailDomain, Prisma } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-
+import { ConfigService } from '@nestjs/config';
 function hasErrorCode(error: unknown, code: string): boolean {
   return typeof error === 'object' && error !== null && 'code' in error && error.code === code;
 }
@@ -38,7 +38,35 @@ export interface AppEmailDomainStatistics {
 
 @Injectable()
 export class AppEmailDomainsService {
-  constructor(private readonly prisma: PrismaClientService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly prisma: PrismaClientService
+  ) {}
+
+  /**
+   * Verify within the db and ageter from the .env file if email domain verification is enabled
+   * and if the domain is accepted
+  */
+
+async findOneUnique(emaildomainWhereUniqueInput: Prisma.AppEmailDomainWhereUniqueInput): Promise<AppEmailDomain | null> {
+    return this.prisma.appEmailDomain.findUnique({
+      where: emaildomainWhereUniqueInput,
+    })
+  }
+
+  async isEmailDomainAccepted(domain: string): Promise<boolean> {
+    // Verify the domain for the email is an accepted one
+    let isAccepted = false;
+    const result= await this.findOneUnique({domain: domain})
+    if(result === null) {
+      // Look within the .env file
+      isAccepted = (this.configService.get<string>("EMAIL_ALLOWED_DOMAIN") === domain);
+      return isAccepted
+    }
+    const finalAccepted = !result?.allowed ? false : true;
+  return finalAccepted;
+  }
+
 
   /**
    * Create a new app email domain
