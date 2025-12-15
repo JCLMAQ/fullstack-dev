@@ -156,6 +156,24 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
     return true
   }
 
+
+  async sendPasswordResetEmail(toEmail: string, token: string): Promise<void> {
+    const resetUrl = `${this.configService.get<string>('CLIENT_URL')}?token=${token}`;
+    const subjectEmail = 'Password Reset Request';
+    const textEmail = `You requested a password reset. Please use the following link to reset your password: ${resetUrl}`;
+    const htmlEmail = `<p>You requested a password reset.</p><p>Please use the following link to reset your password:</p><a href="${resetUrl}">${resetUrl}</a>`;
+
+    const emailData: emailData = {
+      fromEmail: await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_USER"),
+      toEmail: toEmail,
+      subjectEmail: subjectEmail,
+      textEmail: textEmail,
+      htmlEmail: htmlEmail
+    };
+
+    await this.sendEmailToken(emailData);
+  }
+
   /*
   *** Not Used
   */

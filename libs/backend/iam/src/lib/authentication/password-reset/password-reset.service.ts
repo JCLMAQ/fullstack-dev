@@ -72,7 +72,7 @@ export class PasswordResetService {
 
       // TODO: Send email with reset link
       // This should integrate with the existing mail service
-      // await this.mailService.sendPasswordResetEmail(user.email, token);
+      await this.mailService.sendPasswordResetEmail(user.email, token);
 
       return {
         success: true,
