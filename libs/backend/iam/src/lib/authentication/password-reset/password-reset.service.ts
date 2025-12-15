@@ -1,4 +1,5 @@
 import { HashingService } from '@be/common';
+import { MailsService } from '@be/mails';
 import { TokenType } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
@@ -12,6 +13,7 @@ export class PasswordResetService {
     private readonly prisma: PrismaClientService,
     private readonly hashingService: HashingService,
     private readonly i18n: I18nService,
+    private readonly mailService: MailsService,
   ) {}
 
   /**
@@ -70,7 +72,7 @@ export class PasswordResetService {
 
       // TODO: Send email with reset link
       // This should integrate with the existing mail service
-      await this.mailService.sendPasswordResetEmail(user.email, token);
+      // await this.mailService.sendPasswordResetEmail(user.email, token);
 
       return {
         success: true,

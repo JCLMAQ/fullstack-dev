@@ -9,6 +9,7 @@ import * as fs from 'fs';
 import * as handlebars from 'handlebars';
 import * as nodemailer from 'nodemailer';
 import * as path from 'path';
+import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
 @Injectable()
 export class MailingService {
@@ -18,23 +19,15 @@ export class MailingService {
   private groupInviteTemplate: handlebars.TemplateDelegate;
 
   constructor() {
-    this.transporter = nodemailer.createTransport(
-      {
-        emailHost: process.env['EMAIL_HOST'] || 'default-host',
-        port: Number(process.env['EMAIL_PORT']),
-        secure: process.env['EMAILER_SECURE'] === 'true',
-        auth: {
-          user: process.env['EMAIL_NOREPLY_USER'],
-          pass: process.env['EMAIL_NOREPLY_PWD'],
-        },
+    this.transporter = nodemailer.createTransport({
+      host: process.env['EMAIL_HOST'] || 'default-host',
+      port: Number(process.env['EMAIL_PORT']),
+      secure: process.env['EMAILER_SECURE'] === 'true',
+      auth: {
+        user: process.env['EMAIL_NOREPLY_USER'],
+        pass: process.env['EMAIL_NOREPLY_PWD'],
       },
-      {
-        from: {
-          name: 'No-reply',
-          address: process.env['EMAIL_NOREPLY'],
-        },
-      },
-    );
+    } as unknown as SMTPTransport.Options);
 
     // Load Handlebars templates
     this.confirmationTemplate = this.loadTemplate('confirmation.hbs');

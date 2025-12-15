@@ -64,6 +64,9 @@
         "libs/backend/data-access/appEmailDomains/src/index.ts"
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
+      "@be/files-jcm": ["libs/backend/files-jcm/src/index.ts"],
+
+
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -126,7 +129,7 @@
       ],
       "@fe/models": ["libs/frontend/models/src/index.ts"],
       "@fe/components": ["libs/frontend/features/components/index.ts"],
-      "@fullstack-dev/files-jcm": ["libs/backend/files-jcm/src/index.ts"]
+
     }
   },
   "exclude": ["node_modules", "tmp"]

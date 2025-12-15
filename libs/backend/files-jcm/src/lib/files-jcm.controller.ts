@@ -1,3 +1,4 @@
+import { ActiveUser, ActiveUserData } from '@be/common';
 import { File } from '@db/prisma';
 import { Controller, Get, HttpStatus, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
@@ -35,7 +36,7 @@ export class FilesJcmController {
   // Upload one image file
   @Post('uploadoneimage')
   @UseInterceptors(FileInterceptor('image', imageMulterOptions))
-  async uploadedImage(@UploadedFile() file: any) {
+  async uploadedImage(@UploadedFile() file: any, @ActiveUser() user: ActiveUserData) {
     console.log("File data back: ", file)
     // Create the different image sizes
     await this.filesService.saveSizedImages(file);
@@ -44,7 +45,8 @@ export class FilesJcmController {
       originalName: file.originalname,
       fileName: file.filename,
       typeFile: file.mimetype,
-      size: file.size
+      size: file.size,
+      ownerId: user.sub
     };
     const result = await this.filesService.createOneFileInDB(response)
     return {
@@ -59,16 +61,17 @@ export class FilesJcmController {
   @Post('uploadmultipleimages')
   @UseInterceptors(
     FilesInterceptor('image', 10, imageMulterOptions))
-  async uploadMultipleImages(@UploadedFiles() files: any) {
+  async uploadMultipleImages(@UploadedFiles() files: any, @ActiveUser() user: ActiveUserData) {
     const response: FileResponse[] = [];
     const resultdb: File[]= [];
     files.forEach((file: any) => {
       this.filesService.saveSizedImages(file);
-      const fileResponse: FileResponse = {
+      const fileResponse: any = {
         originalname: file.originalname,
         filename: file.filename,
         typeFile: file.mimetype,
-        size: file.size
+        size: file.size,
+        ownerId: user.sub
       };
       // Create the record in DB
       const fileResult: any= this.filesService.createOneFileInDB(fileResponse)
@@ -134,7 +137,10 @@ export class FilesJcmController {
   // Delete the temp folder for specific predefined size images
   @Post('imagespecsized/deletefolder')
   async deleteTempImgesFolder() {
-    const pathToDelete = process.env['IMAGES_TEMP_STORAGE_DEST'];
+    const pathToDelete = process.env['IMAGES_TEMP_STORAGE_DEST'] ?? '';
+    if (!pathToDelete) {
+      throw new Error('IMAGES_TEMP_STORAGE_DEST not configured');
+    }
     const result= await this.filesService.deleteOneFolder(pathToDelete)
       return {
         status: HttpStatus.OK,
@@ -160,12 +166,13 @@ export class FilesJcmController {
   // Upload a file
   @Post('uploadonefile')
   @UseInterceptors(FileInterceptor('file', fileMulterOptions))
-  async uploadedFile(@UploadedFile() file: {originalname: string, filename: string, mimetype: string, size: number}, @I18nLang() lang: string) {
+  async uploadedFile(@UploadedFile() file: {originalname: string, filename: string, mimetype: string, size: number}, @ActiveUser() user: ActiveUserData, @I18nLang() lang: string) {
     const response = {
       originalName: file.originalname,
       fileName: file.filename,
       typeFile: file.mimetype,
-      size: file.size
+      size: file.size,
+      ownerId: user.sub
     };
     // Create the corresponding record in DB
     const result = await this.filesService.createOneFileInDB(response)
@@ -180,7 +187,7 @@ export class FilesJcmController {
   // Upload multiple files
   @Post('uploadmultiplefiles')
   @UseInterceptors(FilesInterceptor('file', 10, fileMulterOptions))
-  async uploadMultipleFiles(@UploadedFiles() files: [], @I18nLang() lang: string) {
+  async uploadMultipleFiles(@UploadedFiles() files: [], @ActiveUser() user: ActiveUserData, @I18nLang() lang: string) {
     const response: { originalname: string; filename: string; typeFile: string; size: number; }[] = [];
     const resultdb: any = [];
     files.forEach((file: { originalname: string; filename: string; mimetype: string; size: number; }) => {
@@ -188,7 +195,8 @@ export class FilesJcmController {
         originalname: file.originalname,
         filename: file.filename,
         typeFile: file.mimetype,
-        size: file.size
+        size: file.size,
+        ownerId: user.sub
       };
       const result = this.filesService.createOneFileInDB(fileReponse)
       // Create the corresponding record in DB

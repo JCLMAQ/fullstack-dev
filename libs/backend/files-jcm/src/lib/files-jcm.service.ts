@@ -253,22 +253,26 @@ console.log("path to delete : ", fullPathDest)
     * CRUD part for the file mgt in DB
     */
 
-    async createOneFileInDB(response: { originalName?: string; fileName?: string; typeFile: string; size: number; originalname?: string; filename?: string; }){
+    async createOneFileInDB(response: { originalName?: string; fileName?: string; typeFile: string; size: number; originalname?: string; filename?: string; ownerId: string; }){
       // Create the record in DB
-      const dataFile = "";
-      const ownerFile = "";
-      const data = {name: response.originalName, storageName: response.fileName, type: response.typeFile, data: dataFile, owner: ownerFile, size: response.size };
+      const data: Prisma.FileCreateInput = {
+        filename: response.fileName ?? response.filename ?? '',
+        originalName: response.originalName ?? response.originalname ?? '',
+        mimeType: response.typeFile,
+        fileSize: response.size,
+        owner: {
+          connect: { id: response.ownerId }
+        }
+      };
       return await this.createOneFileRecord(data);
     }
 
     async deleteOneFileInDB(storageName: string) {
-      const dataFile = "";
-      const ownerFile = "";
       const softDelete = this.configService.get<number>("ENABLE_SOFT_DELETE") === 1
       if(softDelete) {
         // Soft delete
         const where = { storageName : storageName };
-        const data = { isDeleted: new Date() }
+        const data = { isDeleted: 1, isDeletedDT: new Date() }
         const params = { where, data }
         return await this.updateOneFile(params)
       } else {

@@ -6,9 +6,11 @@ import { ConfigParamsModule } from '@be/configParams';
 import { DbConfigModule } from '@be/db-config';
 import { AllExceptionsFilter, ExceptionFilterModule } from '@be/exception-filter';
 import { FilesModule } from '@be/files';
+import { FilesJcmModule } from '@be/files-jcm';
 import { GroupsModule } from '@be/groups';
 import { IamModule } from '@be/iam';
 import { ImagesModule } from '@be/images';
+import { MailsModule } from '@be/mails';
 import { OrganizationsModule } from '@be/organizations';
 import { OrgDomainsModule } from '@be/orgDomains';
 import { OrgEmailsModule } from '@be/orgEmails';
@@ -129,6 +131,8 @@ import { AppService } from './app.service';
     TodosModule,
     UserFollowersModule,
     UsersModule,
+    FilesJcmModule,
+    MailsModule
 
   ],
   controllers: [AppController],
