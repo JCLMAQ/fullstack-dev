@@ -171,7 +171,9 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
       htmlEmail: htmlEmail
     };
 
-    await this.sendEmailToken(emailData);
+    const  response = await this.sendEmailToken(emailData);
+    console.log('Password reset email sent response:', response);
+    console.log( 'Email data:', emailData)
   }
 
   /*

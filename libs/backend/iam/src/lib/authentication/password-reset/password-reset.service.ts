@@ -60,7 +60,7 @@ export class PasswordResetService {
       expiresAt.setHours(expiresAt.getHours() + 2); // 2 hours expiry
 
       // Save token to database
-      await this.prisma.token.create({
+      const tokendata = await this.prisma.token.create({
         data: {
           tokenId: token,
           type: TokenType.FORGOT,
@@ -70,9 +70,20 @@ export class PasswordResetService {
         },
       });
 
+      if (!tokendata) {
+        return {
+          success: false,
+          message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+            lang,
+          }),
+        };
+      }
+      console.log('Generated forgot password token:', token);
+
       // TODO: Send email with reset link
       // This should integrate with the existing mail service
       await this.mailService.sendPasswordResetEmail(user.email, token);
+
 
       return {
         success: true,

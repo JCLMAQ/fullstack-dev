@@ -14,6 +14,7 @@
     "nxmigrate": "nx migrate --run-migrations",
     "db:docker:up": "dotenvx run -- docker compose -f './docker/docker-compose.yml' up -d --build",
     "db:docker:down": "dotenvx run -- docker compose -f './docker/docker-compose.yml' down",
+    "seed-param": "dotenvx run -- npx tsx libs/prisma/src/lib/seed/seed-param.ts",
     "prisma:generate": "dotenvx run -- pnpm exec prisma generate",
     "prisma:generate:watch": "dotenvx run -- pnpm exec prisma generate --watch",
     "prisma-migrate": "dotenvx run -- pnpm exec prisma migrate dev",
