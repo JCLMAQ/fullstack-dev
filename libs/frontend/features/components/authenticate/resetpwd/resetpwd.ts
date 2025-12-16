@@ -80,7 +80,7 @@ export class Resetpwd implements OnInit {
   private verifyToken(token: string): void {
     this.isLoading.set(true);
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-    const apiUrl = `${apiPrefix}/authentication/reset-password/${token}`;
+    const apiUrl = `${apiPrefix}/authentication/resetpwd/${token}`;
 
     this.http.get<{ valid: boolean; message: string }>(apiUrl).subscribe({
       next: (response) => {
@@ -89,7 +89,7 @@ export class Resetpwd implements OnInit {
           this.tokenValid.set(true);
         } else {
           this.showError(response.message);
-          setTimeout(() => this.router.navigate(['/auth/forgot-password']), 3000);
+          setTimeout(() => this.router.navigate(['/auth/forgotpwd']), 3000);
         }
       },
       error: (error) => {

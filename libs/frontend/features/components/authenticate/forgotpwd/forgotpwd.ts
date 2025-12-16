@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { ChangePwdService } from '@fe/auth';
 import { FieldError } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -36,21 +37,22 @@ const forgotpwdSchema = schema<emailUser>((f) => {
 })
 export class Forgotpwd {
  private router = inject(Router);
-
+ private authService = inject(ChangePwdService);
 emailUser = signal<emailUser>({ email: '' });
 forgotPwdForm = form(this.emailUser, forgotpwdSchema);
 
- onSubmit() {
+onSubmit() {
     if (this.forgotPwdForm().valid()) {
       this.sendforget();
       console.log('Données valides:-email envoyé', this.emailUser());
     }
- }
+}
 
   async sendforget() {
-    // const res = await this.authService.sendEmailForgotPwd(email.value);
-    // alert(res.message);
+          const res = await this.authService.sendEmailForgotPwd(this.emailUser().email);
+          alert(res.message);
     // this.router.navigate(['portal']);
+    this.backhome();
   }
 
   backhome() {
