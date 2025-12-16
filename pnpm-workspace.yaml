@@ -6,6 +6,7 @@ onlyBuiltDependencies:
   - '@swc/core'
   - bcrypt
   - esbuild
+  - less
   - lmdb
   - msgpackr-extract
   - nx

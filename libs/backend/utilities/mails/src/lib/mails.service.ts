@@ -30,33 +30,57 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
   */
 
   async sendEmailToken(emailData: emailData): Promise<boolean> {
+    console.log('\n📮 [SEND EMAIL TOKEN] ===== Building transporter =====');
     // Step 1: buildup the transporter - connexion to the SMTP
         // Connexion - transporter data: EMAIL_HOST, EMAIL_PORT, EMAIL_NOREPLY, EMAIL_NOREPLY_PWD
+        const host = await this.dbConfigService.searchConfigParam("EMAIL_HOST");
+        const port = await this.dbConfigService.searchConfigParam("EMAIL_PORT");
+        const user = await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_USER");
+        const pass = await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_PWD");
+
+        console.log('📮 [SEND EMAIL TOKEN] SMTP Config:');
+        console.log('  - Host:', host);
+        console.log('  - Port:', port);
+        console.log('  - User:', user);
+        console.log('  - Pass:', pass ? '***' + pass.substring(pass.length - 3) : 'NOT SET');
+
         const transporter = nodemailer.createTransport({
-                host: await this.dbConfigService.searchConfigParam("EMAIL_HOST"),
-                port: await this.dbConfigService.searchConfigParam("EMAIL_PORT"),
+                host: host,
+                port: port,
                 auth: {
-                    user: await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_USER"),
-                    pass: await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_PWD"),
+                    user: user,
+                    pass: pass,
                 }
             } as unknown as SMTPTransport.Options);
     // Step 2: buildup the email
         const {fromEmail, toEmail, subjectEmail, textEmail, htmlEmail } = emailData
+        console.log('📮 [SEND EMAIL TOKEN] Building mail details...');
+        console.log('  - From:', fromEmail);
+        console.log('  - To:', toEmail);
+        console.log('  - Subject:', subjectEmail);
+
         // Email to send with defined transport object
-        const mailDetails = await transporter.sendMail({
+        const mailDetails = {
            from: fromEmail, // Sender address // '"No reply" <project.1@localhost>'
            to: toEmail, // List of receivers
            subject: subjectEmail, // Subject line
            text: textEmail, // plain text body // `NestJS your token: ${token}.`
            html: htmlEmail // HTML body // html: `Hello <br> Please, use this token to confirm your login : ${token} <br>
-        });
+        };
+
     // Step 3: Sending email
+        console.log('📮 [SEND EMAIL TOKEN] Sending email...');
         const sendMail = await new Promise<boolean>(function (resolve, reject) {
             return transporter.sendMail(mailDetails, function (err, info: nodemailer.SentMessageInfo) {
-                if (err) return reject(false);
+                if (err) {
+                  console.error('❌ [SEND EMAIL TOKEN] Error:', err);
+                  return reject(false);
+                }
+                console.log('✅ [SEND EMAIL TOKEN] Success! Info:', info);
                 return resolve(info);
             });
         });
+        console.log('📮 [SEND EMAIL TOKEN] Final result:', sendMail);
         return sendMail;
   }
 
@@ -158,22 +182,47 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
 
   async sendPasswordResetEmail(toEmail: string, token: string): Promise<void> {
-    const resetUrl = `${this.configService.get<string>('CLIENT_URL')}?token=${token}`;
+    console.log('\n📧 [MAIL SERVICE] ===== sendPasswordResetEmail called =====');
+    console.log('📧 [MAIL SERVICE] To:', toEmail);
+    console.log('📧 [MAIL SERVICE] Token:', token.substring(0, 10) + '...');
+
+    // Get client URL from DB config or env variable with fallback
+    let clientUrl = this.configService.get<string>('CLIENT_URL');
+    if (!clientUrl) {
+      clientUrl = await this.dbConfigService.searchConfigParam("CLIENT_URL");
+    }
+    if (!clientUrl) {
+      clientUrl = 'http://localhost:4000/auth/reset-password'; // Fallback
+    }
+
+    console.log('📧 [MAIL SERVICE] Client URL:', clientUrl);
+    const resetUrl = `${clientUrl}?token=${token}`;
+    console.log('📧 [MAIL SERVICE] Reset URL:', resetUrl);
+
     const subjectEmail = 'Password Reset Request';
     const textEmail = `You requested a password reset. Please use the following link to reset your password: ${resetUrl}`;
     const htmlEmail = `<p>You requested a password reset.</p><p>Please use the following link to reset your password:</p><a href="${resetUrl}">${resetUrl}</a>`;
 
+    console.log('📧 [MAIL SERVICE] Getting email config from DB...');
+    const fromEmail = await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_USER");
+    console.log('📧 [MAIL SERVICE] From email:', fromEmail);
+
     const emailData: emailData = {
-      fromEmail: await this.dbConfigService.searchConfigParam("EMAIL_NOREPLY_USER"),
+      fromEmail: fromEmail,
       toEmail: toEmail,
       subjectEmail: subjectEmail,
       textEmail: textEmail,
       htmlEmail: htmlEmail
     };
 
-    const  response = await this.sendEmailToken(emailData);
-    console.log('Password reset email sent response:', response);
-    console.log( 'Email data:', emailData)
+    console.log('📧 [MAIL SERVICE] Calling sendEmailToken...');
+    try {
+      const response = await this.sendEmailToken(emailData);
+      console.log('✅ [MAIL SERVICE] Email sent! Response:', response);
+    } catch (error) {
+      console.error('❌ [MAIL SERVICE] Error sending email:', error);
+      throw error;
+    }
   }
 
   /*

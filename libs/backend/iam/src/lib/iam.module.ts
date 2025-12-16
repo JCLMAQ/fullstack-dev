@@ -1,10 +1,10 @@
 import { BcryptService, CommonModule, HashingService } from '@be/common';
 import jwtConfig from '@be/jwtconfig';
-import { Module } from '@nestjs/common';
+import { PrismaClientModule } from '@db/prisma-client';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
-import { PrismaClientModule } from '@db/prisma-client';
 import { AccountValidationService } from './authentication/account-validation/account-validation.service';
 import { ApiKeysRepository } from './authentication/api-keys/api-key.repository';
 import { ApiKeysService } from './authentication/api-keys/api-keys.service';
@@ -83,6 +83,7 @@ import { UploadController } from './upload/upload.controller';
     PasswordResetService,
     UserProfileService,
     AvatarBase64Service,
+    Logger
 
   ],
   exports: [],

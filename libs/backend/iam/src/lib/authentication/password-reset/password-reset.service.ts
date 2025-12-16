@@ -2,13 +2,16 @@ import { HashingService } from '@be/common';
 import { MailsService } from '@be/mails';
 import { TokenType } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import { I18nService } from 'nestjs-i18n';
 import { AuthResponse } from '../dto/account-validation.dto/account-validation.dto';
 
 @Injectable()
 export class PasswordResetService {
+
+   private readonly logger = new Logger(PasswordResetService.name);
+
   constructor(
     private readonly prisma: PrismaClientService,
     private readonly hashingService: HashingService,
@@ -19,79 +22,164 @@ export class PasswordResetService {
   /**
    * Send forgot password email with reset token
    */
+  // async sendForgotPasswordEmail(
+  //   email: string,
+  //   lang = 'en',
+  // ): Promise<AuthResponse> {
+  //   // Find user by email
+  //   const user = await this.prisma.user.findUnique({
+  //     where: { email: email.toLowerCase() },
+  //   });
+
+  //   if (!user) {
+  //     return {
+  //       success: false,
+  //       message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
+  //     };
+  //   }
+
+  //   // Check if user is active
+  //   if (user.isDeleted || user.isDeletedDT) {
+  //     return {
+  //       success: false,
+  //       message: await this.i18n.translate('auths.USER_DELETED', { lang }),
+  //     };
+  //   }
+
+  //   try {
+  //     // Invalidate existing forgot password tokens
+  //     await this.prisma.token.updateMany({
+  //       where: {
+  //         userId: user.id,
+  //         type: TokenType.FORGOT,
+  //         valid: true,
+  //       },
+  //       data: { valid: false },
+  //     });
+
+  //     // Generate new reset token
+  //     const token = this.generateToken();
+  //     const expiresAt = new Date();
+  //     expiresAt.setHours(expiresAt.getHours() + 2); // 2 hours expiry
+
+  //     // Save token to database
+  //     const tokendata = await this.prisma.token.create({
+  //       data: {
+  //         tokenId: token,
+  //         type: TokenType.FORGOT,
+  //         userId: user.id,
+  //         expiration: expiresAt,
+  //         valid: true,
+  //       },
+  //     });
+
+  //     if (!tokendata) {
+  //       return {
+  //         success: false,
+  //         message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+  //           lang,
+  //         }),
+  //       };
+  //     }
+  //     console.log('Generated forgot password token:', token);
+
+  //     // TODO: Send email with reset link
+  //     // This should integrate with the existing mail service
+  //     await this.mailService.sendPasswordResetEmail(user.email, token);
+
+
+  //     return {
+  //       success: true,
+  //       message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', {
+  //         lang,
+  //       }),
+  //     };
+  //   } catch {
+  //     return {
+  //       success: false,
+  //       message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+  //         lang,
+  //       }),
+  //     };
+  //   }
+  // }
+
   async sendForgotPasswordEmail(
-    email: string,
-    lang = 'en',
-  ): Promise<AuthResponse> {
-    // Find user by email
-    const user = await this.prisma.user.findUnique({
-      where: { email: email.toLowerCase() },
+  email: string,
+  lang = 'en',
+): Promise<AuthResponse> {
+
+console.log('\n🔍 [SERVICE] ===== Starting sendForgotPasswordEmail =====');
+console.log('🔍 [SERVICE] Email:', email);
+console.log('🔍 [SERVICE] Lang:', lang);
+
+  this.logger.debug(`[START] sendForgotPasswordEmail for email: ${email}`);
+
+  // Find user by email
+  console.log('🔍 [SERVICE] Searching for user in database...');
+  const user = await this.prisma.user.findUnique({
+    where: { email: email.toLowerCase() },
+  });
+  console.log('🔍 [SERVICE] User found:', user ? `ID: ${user.id}` : 'NO USER FOUND');
+
+  if (!user) {
+    this.logger.warn(`Password reset requested for non-existent email: ${email}`);
+    return {
+      success: false,
+      message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
+    };
+  }
+
+  this.logger.debug(`User found: ${user.id}, isDeleted: ${user.isDeleted}`);
+
+  // Check if user is active
+  if (user.isDeleted || user.isDeletedDT) {
+    this.logger.warn(`Password reset requested for deleted user: ${user.id}`);
+    return {
+      success: false,
+      message: await this.i18n.translate('auths.USER_DELETED', { lang }),
+    };
+  }
+
+  try {
+    this.logger.debug('Invalidating existing tokens...');
+
+    // Invalidate existing forgot password tokens
+    const invalidatedCount = await this.prisma.token.updateMany({
+      where: {
+        userId: user.id,
+        type: TokenType.FORGOT,
+        valid: true,
+      },
+      data: { valid: false },
     });
 
-    if (!user) {
-      return {
-        success: false,
-        message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
-      };
-    }
+    this.logger.debug(`Invalidated ${invalidatedCount.count} existing tokens`);
 
-    // Check if user is active
-    if (user.isDeleted || user.isDeletedDT) {
-      return {
-        success: false,
-        message: await this.i18n.translate('auths.USER_DELETED', { lang }),
-      };
-    }
+    // Generate new reset token
+    const token = this.generateToken();
+    this.logger.debug(`Generated token: ${token.substring(0, 10)}...`);
 
-    try {
-      // Invalidate existing forgot password tokens
-      await this.prisma.token.updateMany({
-        where: {
-          userId: user.id,
-          type: TokenType.FORGOT,
-          valid: true,
-        },
-        data: { valid: false },
-      });
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 2);
+    this.logger.debug(`Token expires at: ${expiresAt.toISOString()}`);
 
-      // Generate new reset token
-      const token = this.generateToken();
-      const expiresAt = new Date();
-      expiresAt.setHours(expiresAt.getHours() + 2); // 2 hours expiry
+    // Save token to database
+    this.logger.debug('Saving token to database...');
+    const tokendata = await this.prisma.token.create({
+      data: {
+        tokenId: token,
+        type: TokenType.FORGOT,
+        userId: user.id,
+        expiration: expiresAt,
+        valid: true,
+      },
+    });
 
-      // Save token to database
-      const tokendata = await this.prisma.token.create({
-        data: {
-          tokenId: token,
-          type: TokenType.FORGOT,
-          userId: user.id,
-          expiration: expiresAt,
-          valid: true,
-        },
-      });
+    this.logger.debug(`Token saved with ID: ${tokendata.id}`);
 
-      if (!tokendata) {
-        return {
-          success: false,
-          message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
-            lang,
-          }),
-        };
-      }
-      console.log('Generated forgot password token:', token);
-
-      // TODO: Send email with reset link
-      // This should integrate with the existing mail service
-      await this.mailService.sendPasswordResetEmail(user.email, token);
-
-
-      return {
-        success: true,
-        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', {
-          lang,
-        }),
-      };
-    } catch {
+    if (!tokendata) {
+      this.logger.error('Failed to create password reset token in database');
       return {
         success: false,
         message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
@@ -99,7 +187,59 @@ export class PasswordResetService {
         }),
       };
     }
+
+    this.logger.log(`Generated forgot password token for user ${user.id}`);
+
+    // Send email with reset link
+    try {
+      console.log('🔍 [SERVICE] About to call mailService.sendPasswordResetEmail');
+      console.log('🔍 [SERVICE] Email:', user.email);
+      console.log('🔍 [SERVICE] Token:', token.substring(0, 10) + '...');
+      this.logger.debug(`Calling mailService.sendPasswordResetEmail for ${user.email}`);
+      await this.mailService.sendPasswordResetEmail(user.email, token);
+      console.log('✅ [SERVICE] Email sent successfully!');
+      this.logger.log(`✅ Password reset email sent successfully to ${user.email}`);
+    } catch (emailError) {
+      console.error('❌ [SERVICE] Error sending email:', emailError);
+      this.logger.error(
+        `❌ Failed to send password reset email to ${user.email}`,
+        emailError instanceof Error ? emailError.stack : String(emailError)
+      );
+
+      // Invalidate token since email failed
+      await this.prisma.token.update({
+        where: { id: tokendata.id },
+        data: { valid: false },
+      });
+
+      return {
+        success: false,
+        message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+          lang,
+        }),
+      };
+    }
+
+    this.logger.debug('[END] sendForgotPasswordEmail - SUCCESS');
+    return {
+      success: true,
+      message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', {
+        lang,
+      }),
+    };
+  } catch (error) {
+    this.logger.error(
+      '❌ Error in sendForgotPasswordEmail',
+      error instanceof Error ? error.stack : String(error)
+    );
+    return {
+      success: false,
+      message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
+        lang,
+      }),
+    };
   }
+}
 
   /**
    * Verify reset token validity

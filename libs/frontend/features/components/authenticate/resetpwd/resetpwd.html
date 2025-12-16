@@ -1,64 +1,60 @@
 <mat-card class="resetpwd-page">
+  @if (isLoading()) {
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+  }
+
+  @if (!isLoading() && tokenValid()) {
     <mat-card-title>
-      Reset your Password
+      Réinitialiser votre mot de passe
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="resetpwdForm" class="resetpwd-form">
-        <mat-form-field >
-          <mat-label>Enter your new password</mat-label>
-          <input matInput [type]="hidePassword ? 'newPassword' : 'text'" placeholder="Password" formControlName="newPassword">
-          @if (newPassword.errors?.required) {
-<mat-error>The password is mandatory.</mat-error>
-}
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <form class="resetpwd-form">
+        <mat-form-field>
+          <mat-label>Entrez votre nouveau mot de passe</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Mot de passe" [field]="resetpwdForm.password">
+          @if (resetpwdForm.password().touched() || resetpwdForm.password().dirty()) {
+            @for (error of resetpwdForm.password().errors(); track error.kind) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword()" type="button">
+            <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
-        @if (newPassword.errors | onlyOneError:['minlength','passwordStrength']; as error) {
 
-            @if (error.minlength) {
-<div class="field-message">
-                Your password must have minimum {{error.minlength.requiredLength}} chars,
-                but it only has {{error.minlength.actualLength}}.
-            </div>
-}
-            @if (error.passwordStrength) {
-<div class="field-message">
-                Your password must have lower case, upper case and numeric characters.
-            </div>
-}
-
-}
-
-          <mat-form-field >
-            <mat-label>Confirm your password</mat-label>
-            <input matInput [type]="hideConfirmPassword ? 'confirmNewPassword' : 'text'" placeholder="Confirm Password" formControlName="confirmNewPassword">
-            @if (confirmNewPassword.errors?.required) {
-<mat-error>The password is mandatory.</mat-error>
-}
-            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
-              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-    </form>
+        <mat-form-field>
+          <mat-label>Confirmez votre mot de passe</mat-label>
+          <input matInput [type]="hideConfirmPassword() ? 'password' : 'text'" placeholder="Confirmer le mot de passe" [field]="resetpwdForm.confirmPassword">
+          @if (resetpwdForm.confirmPassword().touched() || resetpwdForm.confirmPassword().dirty()) {
+            @for (error of resetpwdForm.confirmPassword().errors(); track error.kind) {
+              <mat-error>{{ error.message }}</mat-error>
+            }
+          }
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword.set(!hideConfirmPassword())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword()" type="button">
+            <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
     </mat-card-content>
     <mat-card-actions>
-
       <button class="resetpwd-button" mat-raised-button color="primary"
-                type="submit"
-                (click)="resetPwd()"
-                [disabled]="!resetpwdForm.valid">
-            Reset Your Password
+              type="submit"
+              (click)="resetPwd()"
+              [disabled]="!resetpwdForm().valid() || isLoading()">
+        Réinitialiser le mot de passe
       </button>
       <button class="login-button" mat-button (click)="backhome()">
-        <mat-icon>cancel_presentation</mat-icon>
+        <mat-icon>cancel</mat-icon>
+        Retour
       </button>
     </mat-card-actions>
+  }
+
+  @if (!isLoading() && !tokenValid() && token()) {
+    <mat-card-content>
+      <p>Le lien de réinitialisation est invalide ou a expiré.</p>
+      <p>Vous allez être redirigé vers la page de demande de réinitialisation...</p>
+    </mat-card-content>
+  }
 </mat-card>
-<div>
-{{resetpwdForm.value | json}}
-</div>
-<div>
-{{resetpwdForm.valid | json}}
-</div>
 

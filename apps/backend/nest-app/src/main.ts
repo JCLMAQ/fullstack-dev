@@ -13,7 +13,12 @@ import { AppModule } from './app/app.module';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: ['error', 'warn', 'log', 'debug', 'verbose'], // Activez tous les niveaux de log
+  });
+
+  // const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Configuration des limites de taille pour les uploads Base64
   app.use(require('express').json({ limit: '10mb' }));
@@ -91,6 +96,10 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
+
+  const logger = new Logger('Bootstrap');
+  logger.log(`Application is running on: ${await app.getUrl()}`);
+
 }
 
 bootstrap();

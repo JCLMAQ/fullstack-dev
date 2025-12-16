@@ -158,15 +158,27 @@ export class AuthenticationController {
    */
   @Post('forgot-password')
   async sendForgotPasswordEmail(@Body() dto: ForgotPasswordDto, @I18nLang() lang: string): Promise<AuthResponse> {
-    return await this.passwordResetService.sendForgotPasswordEmail(dto.email, lang);
+    console.log('🔍 [CONTROLLER] forgot-password endpoint called with email:', dto.email, 'lang:', lang);
+    const result = await this.passwordResetService.sendForgotPasswordEmail(dto.email, lang);
+    console.log('🔍 [CONTROLLER] sendForgotPasswordEmail result:', result);
+    return result;
   }
 
   /**
    * Verify reset password token (AUTHS compatible)
    */
   @Get('reset-password/:token')
+
+
+
   async verifyResetToken(@Param('token') token: string, @I18nLang() lang: string): Promise<{ valid: boolean; message: string }> {
+
+    console.log('🔍 Controller: forgot-password endpoint called');
+
     const result = await this.passwordResetService.verifyResetToken(token, lang);
+
+    console.log('🔍 Controller: result:', result);
+
     return {
       valid: result.valid,
       message: result.message
