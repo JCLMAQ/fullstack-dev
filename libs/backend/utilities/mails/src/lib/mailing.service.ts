@@ -42,12 +42,12 @@ export class MailingService {
   }
 
   async sendUserConfirmation(user: any, token: string) {
-    const url = `${process.env['CLIENT_URL']}?token=${token}`;
+    const url = `${process.env['API_FRONTEND_URL']}/auth/confirm-email?token=${token}`;
     const html = this.confirmationTemplate({ name: user.firstName, url });
 
     await this.transporter.sendMail({
       to: user.email,
-      subject: 'Welcome user! Confirm your Email',
+      subject: 'Welcome user! Confirm your Email', // TODO Add translation
       html: html,
     });
   }
