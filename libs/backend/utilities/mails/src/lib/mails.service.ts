@@ -192,11 +192,11 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
       clientUrl = await this.dbConfigService.searchConfigParam("API_FRONTEND_URL");
     }
     // if (!clientUrl) {
-    //   clientUrl = 'http://localhost:4000/auth/reset-password'; // Fallback
+    //   clientUrl = 'http://localhost:4000/auth/resetpwd'; // Fallback
     // }
 
     console.log('📧 [MAIL SERVICE] Client URL:', clientUrl);
-    const resetUrl = `${clientUrl}/auth/reset-password?token=${token}`;
+    const resetUrl = `${clientUrl}/auth/resetpwd?token=${token}`;
     console.log('📧 [MAIL SERVICE] Reset URL:', resetUrl);
 
     const subjectEmail = 'Password Reset Request';

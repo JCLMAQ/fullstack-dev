@@ -158,7 +158,7 @@ export class AuthenticationController {
   /**
    * Send forgot password email (AUTHS compatible)
    */
-  @Post('forgotpwd')
+  @Post('forgot-password')
   async sendForgotPasswordEmail(@Body() dto: ForgotPasswordDto, @I18nLang() lang: string): Promise<AuthResponse> {
     console.log('🔍 [CONTROLLER] forgot-password endpoint called with email:', dto.email, 'lang:', lang);
     const result = await this.passwordResetService.sendForgotPasswordEmail(dto.email, lang);
@@ -170,8 +170,6 @@ export class AuthenticationController {
    * Verify reset password token (AUTHS compatible)
    */
   @Get('reset-password/:token')
-
-
 
   async verifyResetToken(@Param('token') token: string, @I18nLang() lang: string): Promise<{ valid: boolean; message: string }> {
 
@@ -267,7 +265,7 @@ export class AuthenticationController {
    * Change password for authenticated user (AUTHS compatible)
    */
   @Auth(AuthType.Bearer)
-  @Post('changepwd')
+  @Post('change-password')
   async changePassword(
     @ActiveUser() activeUser: ActiveUserData,
     @Body() dto: ChangePasswordDto,

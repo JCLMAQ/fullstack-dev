@@ -44,7 +44,7 @@ export class ChangePwdService {
 
   async sendEmailForgotPwd(email: string): Promise<{ success: boolean; message: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-        const pathUrl = `${apiPrefix}/authentication/forgotpwd`;
+        const pathUrl = `${apiPrefix}/authentication/forgot-password`;
 
         console.log('🔐 Attempting forgot password email sending:', email);
 
