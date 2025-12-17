@@ -1,54 +1,110 @@
-<mat-card class="resetpwd-page">
-  @if (isLoading()) {
-    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
-  }
 
-  @if (!isLoading() && tokenValid()) {
-    <mat-card-title>
-      Réinitialiser votre mot de passe
-    </mat-card-title>
-    <mat-card-content>
-      <form class="resetpwd-form">
-        <mat-form-field>
-          <mat-label>Entrez votre nouveau mot de passe</mat-label>
-          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Mot de passe" [field]="resetpwdForm.password">
-          @if (resetpwdForm.password().touched() || resetpwdForm.password().dirty()) {
-            @for (error of resetpwdForm.password().errors(); track error.kind) {
-              <mat-error>{{ error.message }}</mat-error>
-            }
-          }
-          <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword()" type="button">
+<div
+class="flex gap-2 min-h-screen items-center justify-center bg-background"
+>
+<div
+  class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
+>
+  <h1 class="text-2xl mb-2 text-on-surface">{{"RESETPWD.title" | translate}}</h1>
+
+  <div class="flex flex-col gap-5">
+        <mat-form-field class="w-full">
+          <mat-label>{{"RESETPWD.newPasswordLabel" | translate}}</mat-label>
+            @if (hidePassword()) {
+              <input
+                matInput
+                type="password"
+                placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
+                [field]="resetpwdForm.password"
+              />
+        } @else {
+            <input
+              matInput
+            type="text"
+              placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
+              [field]="resetpwdForm.password"
+            />
+        }
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword.set(!hidePassword())"
+            type="button"
+            class="mr-1"
+            >
             <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <lib-field-error [fieldError]="resetpwdForm.password()" />
+
+          <!-- Indicateur de force du mot de passe -->
+          @if (resetpwdForm.password().value().length > 0) {
+          <div class="mt-2">
+            <div class="flex items-center gap-2 text-sm">
+              <span>{{"RESETPWD.passwordStrength" | translate}}</span>
+              <span [style.color]="passwordStrength().color" class="font-medium">
+                {{ passwordStrength().label }}
+              </span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+              <div
+                class="h-2 rounded-full transition-all duration-300"
+                [style.width.%]="passwordStrength().score * 20"
+                [style.background-color]="passwordStrength().color"
+              ></div>
+            </div>
+          </div>
+          }
+
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Confirmez votre mot de passe</mat-label>
-          <input matInput [type]="hideConfirmPassword() ? 'password' : 'text'" placeholder="Confirmer le mot de passe" [field]="resetpwdForm.confirmPassword">
-          @if (resetpwdForm.confirmPassword().touched() || resetpwdForm.confirmPassword().dirty()) {
-            @for (error of resetpwdForm.confirmPassword().errors(); track error.kind) {
-              <mat-error>{{ error.message }}</mat-error>
-            }
-          }
-          <button mat-icon-button matSuffix (click)="hideConfirmPassword.set(!hideConfirmPassword())" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword()" type="button">
+        <mat-form-field class="w-full">
+          <mat-label>{{"RESETPWD.confirmPasswordLabel" | translate}}</mat-label>
+          <input
+            matInput
+            [type]="hideConfirmPassword() ? 'password' : 'text'"
+            placeholder="{{"RESETPWD.confirmPasswordPlaceholder" | translate }}"
+            [field]="resetpwdForm.confirmPassword"
+            >
+          <button mat-icon-button matSuffix
+            (click)="hideConfirmPassword.set(!hideConfirmPassword())"
+            type="button"
+            class="mr-1"
+            >
             <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <lib-field-error [fieldError]="resetpwdForm.confirmPassword()" />
+
+          <!-- Indicateur de correspondance des mots de passe -->
+          @if (resetpwdForm.password().value().length > 0 && resetpwdForm.confirmPassword().value().length > 0) {
+          <div class="mt-1 flex items-center gap-1 text-sm">
+            @if (passwordsMatch()) {
+            <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
+            <span class="text-green-600">Passwords match</span>
+            } @else {
+            <mat-icon class="text-red-500 text-sm">cancel</mat-icon>
+            <span class="text-red-600">{{"RESETPWD.passwordMismatch" | translate}}</span>
+            }
+          </div>
         </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button class="resetpwd-button" mat-raised-button color="primary"
-              type="submit"
-              (click)="resetPwd()"
-              [disabled]="!resetpwdForm().valid() || isLoading()">
-        Réinitialiser le mot de passe
+
+
+
+      <button  mat-flat-button class="w-full mt-3"
+          type="button"
+          (click)="resetPwd()"
+          [disabled]="!resetpwdForm().valid() || isSubmitting()">
+        {{ 'RESETPWD.submitButton' | translate }}
       </button>
-      <button class="login-button" mat-button (click)="backhome()">
-        <mat-icon>cancel</mat-icon>
-        Retour
-      </button>
-    </mat-card-actions>
-  }
+
+  </div>
+
+<div class="flex gap-3 mb-8 text-sm text-on-surface">
+    <br><br>
+    <span>{{ "editForm.cancelButton" | translate }}</span>
+      <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
+  </div>
+
+</div>
 
   @if (!isLoading() && !tokenValid() && token()) {
     <mat-card-content>
@@ -56,5 +112,10 @@
       <p>Vous allez être redirigé vers la page de demande de réinitialisation...</p>
     </mat-card-content>
   }
-</mat-card>
+</div>
+  @if (isLoading()) {
+    <div class="flex justify-center items-center h-32">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  }
 

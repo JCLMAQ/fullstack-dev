@@ -122,6 +122,24 @@
   "cancelButton": "Annuleren",
   "wantToCancel": "Wil je annuleren?"
 },
+"RESETPWD": {
+  "title": "Wachtwoord opnieuw instellen",
+  "newPasswordLabel": "Nieuw wachtwoord",
+  "newPasswordPlaceholder": "Voer je nieuwe wachtwoord in",
+  "confirmPasswordLabel": "Bevestig nieuw wachtwoord",
+  "confirmPasswordPlaceholder": "Bevestig je nieuwe wachtwoord",
+  "submitButton": "Wachtwoord opnieuw instellen",
+  "cancelButton": "Annuleren",
+  "wantToCancel": "Wil je annuleren?",
+  "tokenInvalid": "De resetlink is ongeldig of verlopen.",
+  "tokenExpired": "De resetlink is verlopen.",
+  "passwordRequired": "Wachtwoord is verplicht",
+  "passwordMinLength": "Wachtwoord moet minimaal 8 tekens bevatten",
+  "confirmPasswordRequired": "Bevestiging van wachtwoord is verplicht",
+  "passwordMismatch": "Wachtwoorden komen niet overeen",
+  "resetSuccess": "Wachtwoord succesvol opnieuw ingesteld. Je kunt nu inloggen.",
+  "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer."
+},
 "ERROR_MESSAGES": {
   "REQUIRED_FIELD": "Dit veld is verplicht",
   "INVALID_EMAIL": "Vul een geldig e-mailadres in",

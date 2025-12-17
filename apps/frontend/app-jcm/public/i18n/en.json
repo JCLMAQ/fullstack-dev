@@ -122,6 +122,24 @@
       "cancelButton": "Cancel",
       "wantToCancel": "Do you want to cancel?"
     },
+    "RESETPWD": {
+      "title": "Reset Password",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Please enter your new password",
+      "confirmPasswordLabel": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Please confirm your new password",
+      "submitButton": "Reset Password",
+      "cancelButton": "Cancel",
+      "wantToCancel": "Do you want to cancel?",
+      "tokenInvalid": "The reset link is invalid or has expired.",
+      "tokenExpired": "The reset link has expired.",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "confirmPasswordRequired": "Password confirmation is required",
+      "passwordMismatch": "Passwords do not match",
+      "resetSuccess": "Password reset successfully. You can now log in.",
+      "resetFailed": "Password reset failed. Please try again."
+    },
     "ERROR_MESSAGES": {
       "REQUIRED_FIELD": "This field is required",
       "INVALID_EMAIL": "Please enter a valid email address",

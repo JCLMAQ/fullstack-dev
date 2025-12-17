@@ -122,6 +122,24 @@
       "cancelButton": "Annuler",
       "wantToCancel": "Vous voulez annuler ?"
     },
+    "RESETPWD": {
+      "title": "Réinitialisation du Mot de Passe",
+      "newPasswordLabel": "Nouveau Mot de Passe",
+      "newPasswordPlaceholder": "Veuillez saisir votre nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le Nouveau Mot de Passe",
+      "confirmPasswordPlaceholder": "Veuillez confirmer votre nouveau mot de passe",
+      "submitButton": "Réinitialiser le Mot de Passe",
+      "cancelButton": "Annuler",
+      "wantToCancel": "Vous voulez annuler ?",
+      "tokenInvalid": "Le lien de réinitialisation est invalide ou a expiré.",
+      "tokenExpired": "Le lien de réinitialisation a expiré.",
+      "passwordRequired": "Le mot de passe est requis",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
+      "confirmPasswordRequired": "La confirmation du mot de passe est requise",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "resetSuccess": "Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.",
+      "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer."
+    },
     "ERROR_MESSAGES": {
       "REQUIRED_FIELD": "Ce champ est requis",
       "INVALID_EMAIL": "Veuillez saisir une adresse email valide",
