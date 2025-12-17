@@ -1,74 +1,70 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from 'express';
+import { Router } from '@angular/router';
+import { FieldError } from '@fe/signalform-utilities';
+import { changePasswordSchema } from './changepwd-schema';
+
+export type ChangePasswordForm = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
 
 @Component({
   selector: 'lib-changepwd',
   imports: [
     MatCardModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     JsonPipe,
-    // OnlyOneErrorPipe
+    Field,
+    FieldError,
   ],
   templateUrl: './changepwd.html',
   styleUrl: './changepwd.scss',
 })
 export class Changepwd {
+  private readonly router = inject(Router);
 
-   // changepwdForm: FormGroup;
-  hidePassword = true;
-  hidePassword2 = true;
-  hidePassword3 = true;
+  protected readonly hideOldPassword = signal(true);
+  protected readonly hideNewPassword = signal(true);
+  protected readonly hideConfirmPassword = signal(true);
 
-  changepwdForm!: FormGroup;
+  protected readonly changePasswordData = signal<ChangePasswordForm>({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  protected readonly changepwdForm = form(
+    this.changePasswordData,
+    changePasswordSchema
+  );
+
+  protected changePwd(): void {
+    const formState = this.changepwdForm();
+    if (!formState.valid()) {
+      formState.markAsTouched();
+      return;
+    }
+
+    const formValue = formState.value();
+    console.log('Change password:', formValue);
+    // TODO: Implement password change logic
 
 
-  constructor(
-      private fb:FormBuilder,
-      private auth: AuthService,
-      private router:Router,
-      private store: Store<AppState>) {
-      const formOptions: AbstractControlOptions = { validators: [ MustMatch('newPassword', 'verifyPassword'), MustNotMatch('oldPassword', 'newPassword') ]};
-      this.changepwdForm = fb.group({
-          oldPassword: ['', [
-          Validators.required,
-          Validators.minLength(8),]],
-          newPassword: ['', [
-            Validators.required,
-            Validators.minLength(8),
-            createPasswordStrengthValidator(),
-            ]],
-          verifyPassword: ['', [Validators.required]]
-      }, formOptions);
 
   }
 
-  get oldPassword() {
-    return this.changepwdForm.get('oldPassword');
-  }
-
-  get newPassword() {
-    return this.changepwdForm.get('newPassword');
-  }
-
-  get verifyPassword() {
-    return this.changepwdForm.get('verifyPassword');
-  }
-
-  changePwd() {}
-
-  backhome() {
+  protected backhome(): void {
     this.router.navigate(['pages/home']);
   }
 }

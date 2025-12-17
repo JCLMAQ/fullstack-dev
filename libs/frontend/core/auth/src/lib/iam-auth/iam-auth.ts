@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
+import { ChangePwdService } from './services/changepwd/changepwd-service';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
 import { TokenStorageService } from './services/token-storage/token-storage-service';
@@ -46,6 +47,7 @@ export class IamAuth {
   private tokenStorage = inject(TokenStorageService);
   private userStorage = inject(UserStorageService);
   private profileService = inject(UserProfileService);
+  private changePwdService = inject(ChangePwdService);
 
 
   // État d'authentification (compatibilité)
@@ -104,6 +106,9 @@ export class IamAuth {
     return  await this.registerService.emailCheck(email);
   }
 
+  async sendEmailForgotPwdIamAuth(email: string): Promise<{ success: boolean; message: string }> {
+    return await this.changePwdService.sendEmailForgotPwd(email);
+  }
   /**
    * 🚪 LOGOUT
    */

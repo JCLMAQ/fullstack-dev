@@ -215,7 +215,11 @@
     "emailExists": "Email address already exists",
     "emailNotExists": "Email address does not exist",
     "invalidCredentials": "Invalid email or password",
-    "emailCheckFailed": "Could not verify if the email is already registered"
+    "emailCheckFailed": "Could not verify if the email is already registered",
+    "emailAlreadyRegistered": "Email address is already registered",
+    "checkingEmail": "Checking email...",
+    "nameMaxLength": "Name must not exceed 50 characters",
+    "invalidCharactersDetected": "Invalid characters detected"
 
   },
   "IMAGE-UPLOADER": {

@@ -215,7 +215,11 @@
       "emailExists": "L'adresse email existe deja",
       "emailNotExists": "L'adresse email n'existe pas",
       "invalidCredentials": "Email ou mot de passe invalide",
-      "emailCheckFailed": "Impossible de verifier si l'adresse email est déjà enregistrée"
+      "emailCheckFailed": "Impossible de verifier si l'adresse email est déjà enregistrée",
+      "emailAlreadyRegistered": "L'adresse email est déjà enregistrée",
+      "checkingEmail": "Vérification de l'email...",
+      "nameMaxLength": "Le nom ne doit pas dépasser 50 caractères",
+      "invalidCharactersDetected": "Caractères invalides détectés"
     },
     "IMAGE-UPLOADER": {
       "ACTIONS_UPLOAD_PLACEHOLDER": "Faire glisser et relacher une image ici ou clicker pour un selectionner une.",

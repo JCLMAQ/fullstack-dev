@@ -215,7 +215,11 @@
   "emailExists": "E-mailadres bestaat al",
   "emailNotExists": "E-mailadres bestaat niet",
   "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
-  "emailCheckFailed": "Kon niet verifiëren of het e-mailadres al geregistreerd is"
+  "emailCheckFailed": "Kon niet verifiëren of het e-mailadres al geregistreerd is",
+  "emailAlreadyRegistered": "E-mailadres is al geregistreerd",
+  "checkingEmail": "E-mail wordt gecontroleerd...",
+  "nameMaxLength": "Naam mag niet langer zijn dan 50 tekens",
+  "invalidCharactersDetected": "Ongeldige tekens gedetecteerd"
 },
   "IMAGE-UPLOADER": {
   "ACTIONS_UPLOAD_PLACEHOLDER": "Sleep een afbeelding hierheen of klik om er een te selecteren.",

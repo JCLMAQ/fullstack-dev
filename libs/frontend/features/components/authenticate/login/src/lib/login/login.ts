@@ -39,6 +39,7 @@ const loginUserSchema = schema<LoginUser>((path) => {
   styleUrl: './login.scss',
 })
 export class Login {
+
   appStore = inject(AppStore);
   router = inject(Router);
 
@@ -71,6 +72,11 @@ submitForm() {
   });
 }
 
+  async login(email: string, password: string) {
+    console.log('Login avec', email, password);
+    await this.appStore['login'](email, password);
+  }
+
   register() {
     this.router.navigate(['auth/register']);
   }
@@ -78,10 +84,6 @@ submitForm() {
     this.router.navigate(['auth/forgotpwd']);
   }
 
-  async login(email: string, password: string) {
-    console.log('Login avec', email, password);
-    await this.appStore['login'](email, password);
-  }
 
   cancel() {
     this.router.navigate(['/pages/home']);

@@ -105,44 +105,7 @@ export class Register {
     apply(path, passwordWithConfirmSchema);
 
     debounce(path.email, 500); // 0.5 seconde de debounce avant validation asynchrone
-// Validation synchrone utilisant le resource créé plus haut
-    // validate(path.email, (field) => {
-    //   const exists = this.emailCheckResource.value();
-    //   const error = this.emailCheckResource.error();
-    //   const pending = this.emailCheckResource.isLoading();
 
-    //   console.log('🔍 [Email Validation] État:', {
-    //     email: field.value(),
-    //     exists,
-    //     error: error ? 'Erreur API' : null,
-    //     pending
-    //   });
-
-    //   if (pending) {
-    //     console.log('⏳ [Email Validation] Validation en cours...');
-    //     // Validation en cours, pas d'erreur à afficher
-    //     return null;
-    //   }
-
-    //   if (error) {
-    //     console.error('❌ [Email Validation] Erreur lors de la vérification:', error);
-    //     return customError({
-    //       kind: 'email-check-failed',
-    //       message: 'REGISTER.emailCheckFailed'
-    //     });
-    //   }
-
-    //   if (exists) {
-    //     console.warn('⚠️  [Email Validation] Email déjà enregistré');
-    //     return customError({
-    //       kind: 'email-already-registered',
-    //       message: 'REGISTER.emailAlreadyRegistered'
-    //     });
-    //   }
-
-    //   console.log('✅ [Email Validation] Email disponible');
-    //   return null;
-    // });
     validateAsync(path.email, {
       params: (email: ChildFieldContext<string>) => email.value(),
       factory: (params: Signal<string | undefined>) =>
@@ -257,45 +220,6 @@ export class Register {
       }
     });
   }
-
-  // async register() {
-  //   console.log('🚀 [Submit] Tentative de soumission du formulaire');
-  //   console.log('📋 [Submit] État du formulaire:', {
-  //     valid: this.registerForm().valid(),
-  //     emailValid: this.registerForm.email().valid(),
-  //     emailErrors: this.registerForm.email().errors(),
-  //     passwordValid: this.registerForm.password().valid(),
-  //     confirmPasswordValid: this.registerForm.confirmPassword().valid()
-  //   });
-
-  //   if (!this.registerForm().valid()) {
-  //     console.warn('⚠️  [Submit] Formulaire invalide, marquage des champs');
-  //     this.registerForm.email().markAsTouched();
-  //     this.registerForm.password().markAsTouched();
-  //     this.registerForm.confirmPassword().markAsTouched();
-  //     return;
-  //   }
-
-  //   this.isSubmitting.set(true);
-  //   console.log('⏳ [Submit] Soumission en cours...');
-
-  //   try {
-  //     const { email, password, confirmPassword } = this.registerCredentials();
-  //     console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
-
-  //     if (email && password && confirmPassword) {
-  //       const result = await this.registerService.register(email, password, confirmPassword);
-  //       console.log('✅ [Submit] Inscription réussie:', result);
-  //       localStorage.removeItem('register-draft');
-  //     }
-  //   } catch (error) {
-  //     console.error('❌ [Submit] Échec de l\'inscription:', error);
-  //   } finally {
-  //     this.isSubmitting.set(false);
-  //     console.log('🏁 [Submit] Fin de la soumission');
-  //   }
-  // }
-
 
 submitForm() { // Register the user
   console.log('🎯 [submitForm] Fonction appelée');

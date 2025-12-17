@@ -20,90 +20,9 @@ export class PasswordResetService {
   ) {}
 
   /**
-   * Send forgot password email with reset token
+   *
+   * Send forgot password email
    */
-  // async sendForgotPasswordEmail(
-  //   email: string,
-  //   lang = 'en',
-  // ): Promise<AuthResponse> {
-  //   // Find user by email
-  //   const user = await this.prisma.user.findUnique({
-  //     where: { email: email.toLowerCase() },
-  //   });
-
-  //   if (!user) {
-  //     return {
-  //       success: false,
-  //       message: await this.i18n.translate('auths.EMAIL_NOT_FOUND', { lang }),
-  //     };
-  //   }
-
-  //   // Check if user is active
-  //   if (user.isDeleted || user.isDeletedDT) {
-  //     return {
-  //       success: false,
-  //       message: await this.i18n.translate('auths.USER_DELETED', { lang }),
-  //     };
-  //   }
-
-  //   try {
-  //     // Invalidate existing forgot password tokens
-  //     await this.prisma.token.updateMany({
-  //       where: {
-  //         userId: user.id,
-  //         type: TokenType.FORGOT,
-  //         valid: true,
-  //       },
-  //       data: { valid: false },
-  //     });
-
-  //     // Generate new reset token
-  //     const token = this.generateToken();
-  //     const expiresAt = new Date();
-  //     expiresAt.setHours(expiresAt.getHours() + 2); // 2 hours expiry
-
-  //     // Save token to database
-  //     const tokendata = await this.prisma.token.create({
-  //       data: {
-  //         tokenId: token,
-  //         type: TokenType.FORGOT,
-  //         userId: user.id,
-  //         expiration: expiresAt,
-  //         valid: true,
-  //       },
-  //     });
-
-  //     if (!tokendata) {
-  //       return {
-  //         success: false,
-  //         message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
-  //           lang,
-  //         }),
-  //       };
-  //     }
-  //     console.log('Generated forgot password token:', token);
-
-  //     // TODO: Send email with reset link
-  //     // This should integrate with the existing mail service
-  //     await this.mailService.sendPasswordResetEmail(user.email, token);
-
-
-  //     return {
-  //       success: true,
-  //       message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_SENT', {
-  //         lang,
-  //       }),
-  //     };
-  //   } catch {
-  //     return {
-  //       success: false,
-  //       message: await this.i18n.translate('auths.FORGOT_PWD_EMAIL_NOT_SENT', {
-  //         lang,
-  //       }),
-  //     };
-  //   }
-  // }
-
   async sendForgotPasswordEmail(
   email: string,
   lang = 'en',

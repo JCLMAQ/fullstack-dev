@@ -215,7 +215,11 @@
     "emailExists": "Die E-Mail-Adresse existiert bereits",
     "emailNotExists": "Die E-Mail-Adresse existiert nicht",
     "invalidCredentials": "Ungültige E-Mail oder Passwort",
-    "emailCheckFailed": "Konnte nicht überprüfen, ob die E-Mail bereits registriert ist"
+    "emailCheckFailed": "Konnte nicht überprüfen, ob die E-Mail bereits registriert ist",
+    "emailAlreadyRegistered": "Die E-Mail-Adresse ist bereits registriert",
+    "checkingEmail": "E-Mail wird überprüft...",
+    "nameMaxLength": "Der Name darf nicht länger als 50 Zeichen sein",
+    "invalidCharactersDetected": "Ungültige Zeichen erkannt"
   },
   "IMAGE-UPLOADER": {
     "ACTIONS_UPLOAD_PLACEHOLDER": "Bild hierher ziehen oder klicken, um eines auszuwählen.",

@@ -8,16 +8,16 @@ import { AccountValidationService } from './account-validation/account-validatio
 import { AuthenticationService } from './authentication.service';
 import { Auth } from './decorators/auth.decorator';
 import {
-    AuthResponse,
-    RequestAccountValidationDto,
-    UserProfile,
-    UserProfileResponse
+  AuthResponse,
+  RequestAccountValidationDto,
+  UserProfile,
+  UserProfileResponse
 } from './dto/account-validation.dto/account-validation.dto';
 import { ExtendedSignUpDto } from './dto/extended-sign-up.dto/extended-sign-up.dto';
 import {
-    ChangePasswordDto,
-    ForgotPasswordDto,
-    ResetPasswordDto
+  ChangePasswordDto,
+  ForgotPasswordDto,
+  ResetPasswordDto
 } from './dto/password-management.dto/password-management.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -27,6 +27,8 @@ import { AuthType } from './enums/auth-type.enum';
 import { OtpAuthenticationService } from './otp-authentication/otp-authentication.service';
 import { PasswordResetService } from './password-reset/password-reset.service';
 import { UserProfileService } from './user-profile/user-profile.service';
+
+
 @Auth(AuthType.None) // This allows public routes
 @Controller('authentication')
 export class AuthenticationController {
@@ -156,7 +158,7 @@ export class AuthenticationController {
   /**
    * Send forgot password email (AUTHS compatible)
    */
-  @Post('forgot-password')
+  @Post('forgotpwd')
   async sendForgotPasswordEmail(@Body() dto: ForgotPasswordDto, @I18nLang() lang: string): Promise<AuthResponse> {
     console.log('🔍 [CONTROLLER] forgot-password endpoint called with email:', dto.email, 'lang:', lang);
     const result = await this.passwordResetService.sendForgotPasswordEmail(dto.email, lang);
@@ -265,7 +267,7 @@ export class AuthenticationController {
    * Change password for authenticated user (AUTHS compatible)
    */
   @Auth(AuthType.Bearer)
-  @Post('change-password')
+  @Post('changepwd')
   async changePassword(
     @ActiveUser() activeUser: ActiveUserData,
     @Body() dto: ChangePasswordDto,

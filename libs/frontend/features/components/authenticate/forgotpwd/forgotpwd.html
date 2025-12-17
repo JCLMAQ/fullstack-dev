@@ -1,41 +1,56 @@
-<mat-card class="forgotpwd-page">
-  <mat-card-title>
-      {{ 'FORGOTPWD.title' | translate }}
-  </mat-card-title>
-  <mat-card-content>
-  <br>
-   <form  class="flex flex-col gap-5" (ngSubmit)="onSubmit()">
-    <mat-form-field class="w-full">
+<div
+class="flex gap-2 min-h-screen items-center justify-center bg-background"
+>
+<div
+  class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
+>
+  <mat-card class="forgotpwd-page">
+    <mat-card-title>
+        {{ 'FORGOTPWD.title' | translate }}
+    </mat-card-title>
+    <mat-card-content>
+    <br>
+    <form  class="flex flex-col gap-5">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'FORGOTPWD.emailLabel' | translate }}</mat-label>
-        <input matInput [field]="forgotPwdForm.email" placeholder="{{ 'FORGOTPWD.emailPlaceholder' | translate }}" />
+        <input matInput
+          [field]="forgotPwdForm.email"
+          placeholder="{{ 'FORGOTPWD.emailPlaceholder' | translate }}"
+          type="email" />
         <mat-icon matSuffix>email</mat-icon>
         <lib-field-error [fieldError]="forgotPwdForm.email()" />
-        @if(forgotPwdForm.email().touched() || forgotPwdForm.email().dirty()) {
-          @for (error of forgotPwdForm.email().errors(); track error.kind) {
-            <mat-error>{{ error.message }}</mat-error>
-          }
-        }
       </mat-form-field>
-    </form>
-  </mat-card-content>
-  <mat-card-actions>
-    <button  mat-flat-button class="w-full mt-3" type="submit" [disabled]="!forgotPwdForm().valid()">
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button  mat-flat-button class="w-full mt-3"
+        type="button"
+        [disabled]="forgotPwdForm().invalid()"
+        (click)="submitForm()">
         {{ 'FORGOTPWD.submitButton' | translate }}
       </button>
-    <button class="forgotpwd-button" mat-button (click)="backhome()">
-      {{ 'FORGOTPWD.cancelButton' | translate }}
-      <mat-icon>cancel_presentation</mat-icon>
-    </button>
-  </mat-card-actions>
+      <button class="forgotpwd-button" mat-button (click)="cancel()">
+        {{ 'FORGOTPWD.cancelButton' | translate }}
+        <mat-icon>cancel_presentation</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="flex gap-3 mb-8 text-sm text-on-surface">
+    <br><br>
+    <span>{{ "LOGIN.wantToCancel" | translate }}</span>
+      <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
+  </div>
+
+</div>
+</div>
+
+<mat-card class="debug-card">
+      <mat-card-header>
+        <mat-card-title>Form Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre class="debug-pre">{{ forgotPwdForm().value() | json }}</pre>
+        <pre class="debug-pre">{{ forgotPwdForm().errorSummary() | json }}</pre>
+      </mat-card-content>
 </mat-card>
-
-<!-- <div class="flex gap-3 mb-8 text-sm text-on-surface">
-  <br><br>
-  <span>{{ "LOGIN.wantToCancel" | translate }}</span>
-    <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
-</div> -->
-
-
-<!-- <div>
-{{forgotPwdForm.value | json}}
-</div> -->

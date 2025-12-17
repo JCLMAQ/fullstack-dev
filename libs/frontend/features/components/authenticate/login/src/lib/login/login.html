@@ -16,7 +16,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
   <a class="text-primary cursor-pointer" tabindex="0" (click)="forgotPassword()" (keyup.enter)="forgotPassword()">{{'FORGOTPWD.submitButton' | translate}}</a>
 </div>
 
-<form  class="flex flex-col gap-5" >
+  <form  class="flex flex-col gap-5" >
       <mat-form-field class="w-full">
         <mat-label>{{ 'LOGIN.emailLabel' | translate }}</mat-label>
         <input matInput [field]="userLoginForm.email"

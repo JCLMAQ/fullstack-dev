@@ -11,6 +11,16 @@ registrationForm = form(this.userRegistration, (path) => [
 
 import { customError, disabled, minLength, pattern, required, schema, validate } from '@angular/forms/signals';
 
+// Email Schema (already dans personnal-info-schemas.ts)
+// export const emailSchema = schema<string>((path) => [
+//   required(path, { message: 'signalFormError.emailRequired' }), // 'Email is required'
+//   email(path, { message: 'signalFormError.invalidEmail' }),
+//   pattern(path, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+//     message: 'signalFormError.invalidEmail' // 'Invalid email format'
+//   })
+// ]);
+
+
 // Person Name Schema
 export const personNameSchema = schema<string>((path) => [
   required(path, { message: 'signalFormError.required' }), // 'This field is required'
