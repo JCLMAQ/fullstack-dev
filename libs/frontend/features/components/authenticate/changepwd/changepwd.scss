@@ -1,34 +1,52 @@
-.changepwd-page {
-  max-width: 450px;
-  margin: 50px auto;
-  flex-direction: column;
+button.text-primary,
+a.text-primary {
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.changepwd-form {
-  display: flex;
-  flex-direction: column;
-  flex: center;
-  flex-direction: column;
+button.text-primary:hover,
+a.text-primary:hover {
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
 }
 
-.changepwd-card {
 
-}
+// .changepwd-page {
+//   max-width: 450px;
+//   margin: 50px auto;
+//   flex-direction: column;
+// }
 
-.changepwd-button {
-  margin: 5px 5px 5px 50px;
-  // background-color: #e1234e; /* Green */
-}
+// .changepwd-form {
+//   display: flex;
+//   flex-direction: column;
+//   flex: center;
+//   flex-direction: column;
+// }
 
-.field-message {
-  font-size: 10px;
-  color: red;
-}
+// .changepwd-card {
 
-mat-card-title {
-  text-align: center;
-}
+// }
 
-mat-card-actions {
-  text-align: center;
-}
+// .changepwd-button {
+//   margin: 5px 5px 5px 50px;
+//   // background-color: #e1234e; /* Green */
+// }
+
+// .field-message {
+//   font-size: 10px;
+//   color: red;
+// }
+
+// mat-card-title {
+//   text-align: center;
+// }
+
+// mat-card-actions {
+//   text-align: center;
+// }

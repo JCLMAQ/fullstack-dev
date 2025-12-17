@@ -4,11 +4,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
 <div
   class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
 >
-  <mat-card class="forgotpwd-page">
-    <mat-card-title>
-        {{ 'FORGOTPWD.title' | translate }}
-    </mat-card-title>
-    <mat-card-content>
+  <h1 class="text-2xl mb-2 text-on-surface">{{ 'FORGOTPWD.title' | translate }}</h1>
     <br>
     <form  class="flex flex-col gap-5">
       <mat-form-field class="w-full">
@@ -20,21 +16,21 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
         <mat-icon matSuffix>email</mat-icon>
         <lib-field-error [fieldError]="forgotPwdForm.email()" />
       </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
+
       <button  mat-flat-button class="w-full mt-3"
         type="button"
         [disabled]="forgotPwdForm().invalid()"
         (click)="submitForm()">
         {{ 'FORGOTPWD.submitButton' | translate }}
       </button>
-      <button class="forgotpwd-button" mat-button (click)="cancel()">
+
+      <!-- <button mat-flat-button class="w-full mt-3"
+        type="button"
+        (click)="cancel()">
         {{ 'FORGOTPWD.cancelButton' | translate }}
-        <mat-icon>cancel_presentation</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+        <mat-icon>cancelButton</mat-icon>
+      </button> -->
+    </form>
 
   <div class="flex gap-3 mb-8 text-sm text-on-surface">
     <br><br>
@@ -43,8 +39,8 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
   </div>
 
 </div>
-</div>
 
+<!--  debugging info -->
 <mat-card class="debug-card">
       <mat-card-header>
         <mat-card-title>Form Data</mat-card-title>

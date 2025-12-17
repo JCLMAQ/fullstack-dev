@@ -1,34 +1,51 @@
-.forgotpwd-page {
-  max-width: 450px;
-  margin: 50px auto;
-  flex-direction: column;
+button.text-primary,
+a.text-primary {
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.forgotpwd-form {
-  display: flex;
-  flex-direction: column;
-  flex: center;
-  flex-direction: column;
+button.text-primary:hover,
+a.text-primary:hover {
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
 }
 
-.forgotpwd-card {
+// .forgotpwd-page {
+//   max-width: 450px;
+//   margin: 50px auto;
+//   flex-direction: column;
+// }
 
-}
+// .forgotpwd-form {
+//   display: flex;
+//   flex-direction: column;
+//   flex: center;
+//   flex-direction: column;
+// }
 
-.forgotpwd-button {
-  margin: 5px 5px 5px 50px;
-  // background-color: #e1234e; /* Green */
-}
+// .forgotpwd-card {
 
-.field-message {
-  font-size: 10px;
-  color: red;
-}
+// }
 
-mat-card-title {
-  text-align: center;
-}
+// .forgotpwd-button {
+//   margin: 5px 5px 5px 50px;
+//   // background-color: #e1234e; /* Green */
+// }
 
-mat-card-actions {
-  text-align: center;
-}
+// .field-message {
+//   font-size: 10px;
+//   color: red;
+// }
+
+// mat-card-title {
+//   text-align: center;
+// }
+
+// mat-card-actions {
+//   text-align: center;
+// }

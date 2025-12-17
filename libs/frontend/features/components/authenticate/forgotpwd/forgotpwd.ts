@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
+import { Component, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
 import { ChildFieldContext, email, Field, form, required, schema, submit, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -15,39 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export interface EmailUserFormModel {
   email: string;
 };
-
-// Schéma de validation pour l'objet emailUser
-// const forgotPwdSchema = schema<EmailUserFormModel>((path) => {
-//   required(path.email, { message: 'signalFormError.emailRequired' });
-//   email(path.email, { message: 'signalFormError.invalidEmail' });
-//   validateAsync(path.email, {
-//     params: (email: ChildFieldContext<string>) => email.value(),
-//     factory: (params: Signal<string | undefined>) =>
-//       resource({
-//         // 👇 Params contains the `email` signal and is used to trigger the resource
-//         params,
-//         // the loader makes an HTTP call to check if the email is already registered
-//         loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
-//           // returns true if the email is already registered
-//           await this._authService.emailCheck(loaderParams.params)
-//       }),
-//       // 👇 This is called with the result of the resource
-//       onSuccess: (isRegistered: boolean) =>
-//         isRegistered
-//           ? {
-//               kind: 'email-already-registered',
-//               message: 'REGISTER.emailAlreadyRegistered'
-//             }
-//           : undefined,
-//       // 👇 This is called if the resource fails
-//       onError: () =>
-//         ({
-//           kind: 'email-check-failed',
-//           message: 'REGISTER.emailCheckFailed'
-//         })
-//     });
-// });
-
 
 @Component({
   selector: 'lib-forgotpwd',
@@ -79,38 +46,38 @@ export class Forgotpwd {
   private emailForCheck = signal('');
 
 // Resource créé dans le contexte d'injection
-  private emailCheckResource = resource({
-    loader: async ({ abortSignal }) => {
-      const email = this.emailForCheck();
-      console.log('🔄 [EmailCheck Resource] Loader appelé avec email:', email);
+  // private emailCheckResource = resource({
+  //   loader: async ({ abortSignal }) => {
+  //     const email = this.emailForCheck();
+  //     console.log('🔄 [EmailCheck Resource] Loader appelé avec email:', email);
 
-      if (!email || !email.includes('@')) {
-        console.log('⏭️  [EmailCheck Resource] Email invalide ou vide, skip validation');
-        return false;
-      }
+  //     if (!email || !email.includes('@')) {
+  //       console.log('⏭️  [EmailCheck Resource] Email invalide ou vide, skip validation');
+  //       return false;
+  //     }
 
-      // Vérifier si la requête a été annulée
-      if (abortSignal?.aborted) {
-        console.log('🚫 [EmailCheck Resource] Requête annulée');
-        return false;
-      }
+  //     // Vérifier si la requête a été annulée
+  //     if (abortSignal?.aborted) {
+  //       console.log('🚫 [EmailCheck Resource] Requête annulée');
+  //       return false;
+  //     }
 
-      try {
-        console.log('🌐 [EmailCheck Resource] Appel API emailCheck...');
-        const exists = await this._authService.emailCheck(email);
-        console.log('✅ [EmailCheck Resource] Résultat API:', exists ? 'Email déjà utilisé' : 'Email disponible');
-        return exists;
-      } catch (error) {
-        // Ignorer les erreurs d'annulation
-        if (abortSignal?.aborted) {
-          console.log('🚫 [EmailCheck Resource] Requête annulée pendant l\'appel');
-          return false;
-        }
-        console.error('❌ [EmailCheck Resource] Erreur:', error);
-        throw error;
-      }
-    }
-  });
+  //     try {
+  //       console.log('🌐 [EmailCheck Resource] Appel API emailCheck...');
+  //       const exists = await this._authService.emailCheck(email);
+  //       console.log('✅ [EmailCheck Resource] Résultat API:', exists ? 'Email déjà utilisé' : 'Email disponible');
+  //       return exists;
+  //     } catch (error) {
+  //       // Ignorer les erreurs d'annulation
+  //       if (abortSignal?.aborted) {
+  //         console.log('🚫 [EmailCheck Resource] Requête annulée pendant l\'appel');
+  //         return false;
+  //       }
+  //       console.error('❌ [EmailCheck Resource] Erreur:', error);
+  //       throw error;
+  //     }
+  //   }
+  // });
 
 private forgotPwdSchema = schema<EmailUserFormModel>((path) => {
   required(path.email, { message: 'signalFormError.emailRequired' });
@@ -130,16 +97,16 @@ private forgotPwdSchema = schema<EmailUserFormModel>((path) => {
         // 👇 This is called with the result of the resource
         onSuccess: (isRegistered: boolean) =>
           isRegistered
-            ? {
-                kind: 'email-already-registered',
-                message: 'REGISTER.emailAlreadyRegistered'
-              }
-            : undefined,
+            ? undefined
+            : {
+                kind: 'email does not exist',
+                message: 'signalFormError.emailNotExist'
+              },
         // 👇 This is called if the resource fails
         onError: () =>
           ({
             kind: 'email-check-failed',
-            message: 'REGISTER.emailCheckFailed'
+            message: 'signalFormError.emailCheckFailed'
           })
     });
   });
@@ -150,21 +117,21 @@ private forgotPwdSchema = schema<EmailUserFormModel>((path) => {
     // this.loadDraft();
 
     // Met à jour emailForCheck quand l'email change
-    effect(() => {
-      const email = this.forgotPwdForm.email().value();
-      console.log('📝 [Effect] Email modifié:', email);
-      this.emailForCheck.set(email);
-      console.log('🔄 [Effect] emailForCheck mis à jour, trigger du resource');
-    });
+    // effect(() => {
+    //   const email = this.forgotPwdForm.email().value();
+    //   console.log('📝 [Effect] Email modifié:', email);
+    //   this.emailForCheck.set(email);
+    //   console.log('🔄 [Effect] emailForCheck mis à jour, trigger du resource');
+    // });
 
-    // Déclenche explicitement le rechargement du resource quand emailForCheck change
-    effect(() => {
-      const email = this.emailForCheck();
-      if (email && email.includes('@')) {
-        console.log('🔁 [Effect] Reload resource pour email:', email);
-        this.emailCheckResource.reload();
-      }
-    });
+    // // Déclenche explicitement le rechargement du resource quand emailForCheck change
+    // effect(() => {
+    //   const email = this.emailForCheck();
+    //   if (email && email.includes('@')) {
+    //     console.log('🔁 [Effect] Reload resource pour email:', email);
+    //     this.emailCheckResource.reload();
+    //   }
+    // });
 
     // Sauvegarde automatique du brouillon quand l'email change
     // effect(() => {
