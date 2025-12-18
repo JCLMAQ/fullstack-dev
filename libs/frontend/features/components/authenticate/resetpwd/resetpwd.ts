@@ -1,6 +1,7 @@
-
+import { JsonPipe } from '@angular/common';
+import { Component, computed, inject, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { apply, Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
+import { FieldError } from '@fe/signalform-utilities';
 interface ResetPasswordResponse {
   success: boolean;
   message: string;
@@ -33,13 +35,15 @@ interface ResetPasswordForm {
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    FieldError,
+    JsonPipe
   ],
   templateUrl: './resetpwd.html',
   styleUrl: './resetpwd.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class Resetpwd implements OnInit {
+
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly http = inject(HttpClient);
@@ -132,9 +136,44 @@ export class Resetpwd implements OnInit {
     }
   }
 
+    resetForm() {
+      // Réinitialise tous les champs du formulaire d'un coup
+      this.resetpwdForm.set({
+        password: '',
+        confirmPassword: ''
+      });
+      this.resetpwdForm.password().reset();
+      this.resetpwdForm.confirmPassword().reset();
+    }
+
   backhome(): void {
     this.router.navigate(['/auth/login']);
   }
+
+  // Password strength (indicateur visuel de robustesse du mot de passe  )
+  passwordStrength = computed(() => {
+    const pwd = this.resetpwdForm.password().value();
+    if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
+    let strength = -1;
+    if (pwd.length >= 8) strength++;
+    if (/[a-z]/.test(pwd)) strength++; // Minuscule
+    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
+    if (/[0-9]/.test(pwd)) strength++; // Chiffre
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
+    if (strength > 4  ) strength = 4;
+    return {
+      score: strength+1,
+      label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
+      color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
+    };
+  });
+
+  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
+  passwordsMatch = computed(() => {
+    const pwd = this.resetpwdForm.password().value();
+    const confirmPwd = this.resetpwdForm.confirmPassword().value();
+    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
+  });
 
   private showError(message: string): void {
     this.snackBar.open(message, 'Fermer', {
@@ -149,5 +188,6 @@ export class Resetpwd implements OnInit {
       panelClass: ['success-snackbar']
     });
   }
+
 }
 

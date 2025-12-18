@@ -3,20 +3,18 @@
   class="w-full max-w-[400px] ml-[200px] p-10 rounded-2xl shadow-xl bg-surface-container border border-outline-variant"
 >
   <h1 class="text-2xl mb-2 text-on-surface">{{"REGISTER.title" | translate}}</h1>
-  <div class="flex gap-1 mb-8 text-sm text-on-surface">
-    <span>{{"REGISTER.alreadyHaveAccount" | translate}}</span>
-
-    <button
-      type="button"
-      class="text-primary cursor-pointer bg-transparent border-none underline"
-      (click)="login()"
-    >
-      {{"REGISTER.signInButton" | translate}}
-    </button>
-  </div>
+    <div class="flex gap-1 mb-8 text-sm text-on-surface">
+      <span>{{"REGISTER.alreadyHaveAccount" | translate}}</span>
+      <button
+        type="button"
+        class="text-primary cursor-pointer bg-transparent border-none underline"
+        (click)="login()"
+      >
+        {{"REGISTER.signInButton" | translate}}
+      </button>
+    </div>
 
   <div class="flex flex-col gap-5">
-
     <mat-form-field class="w-full">
       <mat-label>{{"REGISTER.emailLabel" | translate}}</mat-label>
       <input
@@ -49,7 +47,6 @@
               [field]="registerForm.password"
             />
         }
-
         <button
           mat-icon-button
           matSuffix
@@ -60,7 +57,6 @@
           <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.password()" />
-
         <!-- Indicateur de force du mot de passe -->
           @if (registerForm.password().value().length > 0) {
           <div class="mt-2">
@@ -79,7 +75,6 @@
             </div>
           </div>
           }
-
     </mat-form-field>
 
     <mat-form-field class="w-full">
