@@ -137,6 +137,7 @@
   "passwordMinLength": "Wachtwoord moet minimaal 8 tekens bevatten",
   "confirmPasswordRequired": "Bevestiging van wachtwoord is verplicht",
   "passwordMismatch": "Wachtwoorden komen niet overeen",
+  "passwordMatch": "Wachtwoorden komen overeen",
   "resetSuccess": "Wachtwoord succesvol opnieuw ingesteld. Je kunt nu inloggen.",
   "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer.",
   "passwordStrength": "Sterkte van het wachtwoord",

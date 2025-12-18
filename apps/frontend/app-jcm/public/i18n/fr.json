@@ -137,6 +137,7 @@
       "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
       "confirmPasswordRequired": "La confirmation du mot de passe est requise",
       "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordMatch": "Les mots de passe correspondent",
       "resetSuccess": "Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.",
       "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer.",
       "passwordStrength": "Force du mot de passe",

@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form, required, schema } from '@angular/forms/signals';
+import { apply, Field, form, schema } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -27,8 +27,6 @@ interface ResetPasswordCredentials {
 }
 
 const resetPasswordSchema = schema<ResetPasswordCredentials>((path) => {
-  required(path.password, { message: 'RESETPWD.passwordRequired' });
-  required(path.confirmPassword, { message: 'RESETPWD.confirmPasswordRequired' });
   apply(path, passwordWithConfirmSchema);
 });
 
@@ -56,17 +54,18 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path) => {
 
 export class Resetpwd implements OnInit {
 
-  private readonly router: Router = inject(Router);
-  private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly http: HttpClient = inject(HttpClient);
-  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
-  private readonly environment: Environment = inject<Environment>(ENVIRONMENT_TOKEN);
+  private  router: Router = inject(Router);
+  private  route: ActivatedRoute = inject(ActivatedRoute);
+  private  http: HttpClient = inject(HttpClient);
+  private  snackBar: MatSnackBar = inject(MatSnackBar);
+  private  environment: Environment = inject<Environment>(ENVIRONMENT_TOKEN);
 
-  protected readonly hidePassword = signal(true);
-  protected readonly hideConfirmPassword = signal(true);
-  protected readonly isLoading = signal(false);
-  protected readonly token = signal<string | null>(null);
-  protected readonly tokenValid = signal(false);
+  // Signal d'état UI
+  hidePassword = signal(true);
+  hideConfirmPassword = signal(true);
+  isLoading = signal(false);
+  token = signal<string | null>(null);
+  tokenValid = signal(false);
 
   // Signal Form state
   protected readonly resetCredentials = signal<ResetPasswordCredentials>({
@@ -77,8 +76,32 @@ export class Resetpwd implements OnInit {
   // SChema de validation des mots de passe
 
   // Signal Form avec validation schema
-  protected readonly resetpwdForm = form(this.resetCredentials, resetPasswordSchema);
+  resetpwdForm = form<ResetPasswordCredentials>(this.resetCredentials, resetPasswordSchema);
 
+ // Password strength (indicateur visuel de robustesse du mot de passe  )
+  passwordStrength = computed(() => {
+    const pwd = this.resetpwdForm.password().controlValue();
+    if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
+    let strength = -1;
+    if (pwd.length >= 8) strength++;
+    if (/[a-z]/.test(pwd)) strength++; // Minuscule
+    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
+    if (/[0-9]/.test(pwd)) strength++; // Chiffre
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
+    if (strength > 4  ) strength = 4;
+    return {
+      score: strength+1,
+      label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
+      color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
+    };
+  });
+
+  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
+  passwordsMatch = computed(() => {
+    const pwd = this.resetpwdForm.password().controlValue();
+    const confirmPwd = this.resetpwdForm.confirmPassword().controlValue();
+    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
+  });
 
   ngOnInit(): void {
     // Récupérer le token depuis les query params
@@ -163,30 +186,7 @@ export class Resetpwd implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
-  // Password strength (indicateur visuel de robustesse du mot de passe  )
-  passwordStrength = computed(() => {
-    const pwd = this.resetpwdForm.password().value();
-    if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
-    let strength = -1;
-    if (pwd.length >= 8) strength++;
-    if (/[a-z]/.test(pwd)) strength++; // Minuscule
-    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
-    if (/[0-9]/.test(pwd)) strength++; // Chiffre
-    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
-    if (strength > 4  ) strength = 4;
-    return {
-      score: strength+1,
-      label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
-      color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
-    };
-  });
 
-  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
-  passwordsMatch = computed(() => {
-    const pwd = this.resetpwdForm.password().value();
-    const confirmPwd = this.resetpwdForm.confirmPassword().value();
-    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
-  });
 
   private showError(message: string): void {
     this.snackBar.open(message, 'Fermer', {

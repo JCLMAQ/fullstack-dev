@@ -35,7 +35,7 @@
       <lib-field-error [fieldError]="resetpwdForm.password()" />
 
       <!-- Indicateur de force du mot de passe -->
-      @if (resetpwdForm.password().value().length > 0) {
+      @if (resetpwdForm.password().controlValue().length > 0) {
         <div class="mt-2">
           <div class="flex items-center gap-2 text-sm">
             <span>{{"RESETPWD.passwordStrength" | translate}}</span>
@@ -56,7 +56,7 @@
 
     <mat-form-field class="w-full">
       <mat-label>{{"RESETPWD.confirmPasswordLabel" | translate}}</mat-label>
-      @if (hidePassword()) {
+      @if (hideConfirmPassword()) {
         <input
           matInput
           type="password"
@@ -80,12 +80,14 @@
       >
         <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <lib-field-error [fieldError]="resetpwdForm.password()" />
+
       <!-- Indicateur de correspondance des mots de passe -->
-      @if (resetpwdForm.password().value().length > 0 && resetpwdForm.confirmPassword().value().length > 0) {
+      @if (resetpwdForm.password().controlValue().length > 0 && resetpwdForm.confirmPassword().controlValue().length > 0) {
         <div class="mt-1 flex items-center gap-1 text-sm">
           @if (passwordsMatch()) {
             <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
-            <span class="text-green-600">Passwords match</span>
+            <span class="text-green-600">{{"RESETPWD.passwordMatch" | translate}}</span>
           } @else {
             <mat-icon class="text-red-500 text-sm">cancel</mat-icon>
             <span class="text-red-600">{{"RESETPWD.passwordMismatch" | translate}}</span>
@@ -93,7 +95,6 @@
         </div>
       }
 
-      <lib-field-error [fieldError]="resetpwdForm.confirmPassword()" />
         </mat-form-field>
 
       <button
@@ -101,7 +102,7 @@
         class="w-full mt-3"
         type="button"
         (click)="resetPwd()"
-        [disabled]="!resetpwdForm().valid() || resetPwd()"
+        [disabled]="!resetpwdForm().valid() || isLoading()"
       >
         {{ 'RESETPWD.submitButton' | translate }}
       </button>
