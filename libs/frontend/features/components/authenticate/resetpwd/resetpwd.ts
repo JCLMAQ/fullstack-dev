@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form, schema } from '@angular/forms/signals';
+import { apply, Field, form, schema, submit } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -144,36 +144,62 @@ export class Resetpwd implements OnInit {
     });
   }
 
-  resetPwd(): void {
-    if (this.resetpwdForm().valid() && this.token()) {
-      this.isLoading.set(true);
-      const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-      const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
+  submitForm() {
+      console.log('🎯 [submitForm] Fonction appelée');
+    submit(this.resetpwdForm, async (form) => {
+      console.log('🔵 [submitForm] Inside submit callback');
+      try {
 
-      const formData = this.resetCredentials();
-      const payload = {
-        newPassword: formData.password,
-        verifyPassword: formData.confirmPassword
-      };
+        const { password, confirmPassword } = form().value();
 
-      this.http.post<ResetPasswordResponse>(apiUrl, payload).subscribe({
-        next: (response: ResetPasswordResponse) => {
-          this.isLoading.set(false);
-          if (response.success) {
-            this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
-            setTimeout(() => this.router.navigate(['/auth/login']), 2000);
-          } else {
-            this.showError(response.message || 'Erreur lors de la réinitialisation');
-          }
-        },
-        error: (error: unknown) => {
-          this.isLoading.set(false);
-          console.error('Error resetting password:', error);
-          this.showError('Erreur lors de la réinitialisation du mot de passe');
-        }
-      });
-    }
+        const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+        const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
+        const payload = {
+                newPassword: form.password,
+                verifyPassword: form.confirmPassword
+              };
+
+
+
+        console.log('🟢 [submitForm] Form is valid, proceeding to reset password');
+        return true;
+      } catch (error) {
+        console.error('❌ [submitForm] Error during form submission:', error);
+        return false;
+      }
+    });
+
   }
+
+      //   if (this.resetpwdForm().valid() && this.token()) {
+      //     this.isLoading.set(true);
+      //     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+      //     const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
+
+      //     const formData = this.resetCredentials();
+      //     const payload = {
+      //       newPassword: formData.password,
+      //       verifyPassword: formData.confirmPassword
+      //     };
+
+      //     this.http.post<ResetPasswordResponse>(apiUrl, payload).subscribe({
+      //       next: (response: ResetPasswordResponse) => {
+      //         this.isLoading.set(false);
+      //         if (response.success) {
+      //           this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
+      //           setTimeout(() => this.router.navigate(['/auth/login']), 2000);
+      //         } else {
+      //           this.showError(response.message || 'Erreur lors de la réinitialisation');
+      //         }
+      //       },
+      //       error: (error: unknown) => {
+      //         this.isLoading.set(false);
+      //         console.error('Error resetting password:', error);
+      //         this.showError('Erreur lors de la réinitialisation du mot de passe');
+      //       }
+      //     });
+      //   }
+      // }
 
   resetForm() {
     // Réinitialise tous les champs du formulaire

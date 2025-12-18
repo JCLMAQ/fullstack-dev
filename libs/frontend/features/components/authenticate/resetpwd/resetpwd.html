@@ -101,7 +101,7 @@
         mat-flat-button
         class="w-full mt-3"
         type="button"
-        (click)="resetPwd()"
+        (click)="submitForm()"
         [disabled]="!resetpwdForm().valid() || isLoading()"
       >
         {{ 'RESETPWD.submitButton' | translate }}
