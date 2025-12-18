@@ -8,101 +8,103 @@
   <div class="flex flex-col gap-5">
     <mat-form-field class="w-full">
       <mat-label>{{"RESETPWD.newPasswordLabel" | translate}}</mat-label>
-        @if (hidePassword()) {
-          <input
-            matInput
-            type="password"
-            placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
-            [field]="resetpwdForm.password"
-          />
-    } @else {
+      @if (hidePassword()) {
         <input
           matInput
-        type="text"
+          type="password"
           placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
           [field]="resetpwdForm.password"
         />
-    }
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="hidePassword.set(!hidePassword())"
-      type="button"
-      class="mr-1"
+      } @else {
+        <input
+          matInput
+          type="text"
+          placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
+          [field]="resetpwdForm.password"
+        />
+      }
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword.set(!hidePassword())"
+        type="button"
+        class="mr-1"
       >
-      <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <lib-field-error [fieldError]="resetpwdForm.password()" />
-    <!-- Indicateur de force du mot de passe -->
+        <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <lib-field-error [fieldError]="resetpwdForm.password()" />
+
+      <!-- Indicateur de force du mot de passe -->
       @if (resetpwdForm.password().value().length > 0) {
-      <div class="mt-2">
-        <div class="flex items-center gap-2 text-sm">
-          <span>{{"RESETPWD.passwordStrength" | translate}}</span>
-          <span [style.color]="passwordStrength().color" class="font-medium">
-            {{ passwordStrength().label }}
-          </span>
+        <div class="mt-2">
+          <div class="flex items-center gap-2 text-sm">
+            <span>{{"RESETPWD.passwordStrength" | translate}}</span>
+            <span [style.color]="passwordStrength().color" class="font-medium">
+              {{ passwordStrength().label }}
+            </span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+            <div
+              class="h-2 rounded-full transition-all duration-300"
+              [style.width.%]="passwordStrength().score * 20"
+              [style.background-color]="passwordStrength().color"
+            ></div>
+          </div>
         </div>
-        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-          <div
-            class="h-2 rounded-full transition-all duration-300"
-            [style.width.%]="passwordStrength().score * 20"
-            [style.background-color]="passwordStrength().color"
-          ></div>
-        </div>
-      </div>
       }
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>{{"RESETPWD.confirmPasswordLabel" | translate}}</mat-label>
-        @if (hidePassword()) {
-          <input
-            matInput
-            type="password"
-            [type]="hideConfirmPassword() ? 'password' : 'text'"
-            placeholder="{{"RESETPWD.confirmPasswordPlaceholder" | translate }}"
-            [field]="resetpwdForm.confirmPassword"
-            />
-        } @else {
-          <input
-            matInput
-            type= "text"
-            [type]="hideConfirmPassword() ? 'password' : 'text'"
-            placeholder="{{"RESETPWD.confirmPasswordPlaceholder" | translate }}"
-            [field]="resetpwdForm.confirmPassword"
-            />
-        }
-        <button mat-icon-button matSuffix
-          (click)="hideConfirmPassword.set(!hideConfirmPassword())"
-          type="button"
-          class="mr-1"
-          >
-          <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-          <lib-field-error [fieldError]="resetpwdForm.confirmPassword()" />
-
-          <!-- Indicateur de correspondance des mots de passe -->
-          @if (resetpwdForm.password().value().length > 0 && resetpwdForm.confirmPassword().value().length > 0) {
-          <div class="mt-1 flex items-center gap-1 text-sm">
-            @if (passwordsMatch()) {
+      @if (hidePassword()) {
+        <input
+          matInput
+          type="password"
+          placeholder="{{'RESETPWD.confirmPasswordPlaceholder' | translate}}"
+          [field]="resetpwdForm.confirmPassword"
+        />
+      } @else {
+        <input
+          matInput
+          type="text"
+          placeholder="{{'RESETPWD.confirmPasswordPlaceholder' | translate}}"
+          [field]="resetpwdForm.confirmPassword"
+        />
+      }
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideConfirmPassword.set(!hideConfirmPassword())"
+        type="button"
+        class="mr-1"
+      >
+        <mat-icon>{{hideConfirmPassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <!-- Indicateur de correspondance des mots de passe -->
+      @if (resetpwdForm.password().value().length > 0 && resetpwdForm.confirmPassword().value().length > 0) {
+        <div class="mt-1 flex items-center gap-1 text-sm">
+          @if (passwordsMatch()) {
             <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
             <span class="text-green-600">Passwords match</span>
-            } @else {
+          } @else {
             <mat-icon class="text-red-500 text-sm">cancel</mat-icon>
             <span class="text-red-600">{{"RESETPWD.passwordMismatch" | translate}}</span>
-            }
-          </div>
+          }
+        </div>
+      }
+      </div>
+        }
         </mat-form-field>
 
-
-
-      <button  mat-flat-button class="w-full mt-3"
-          type="button"
-          (click)="resetPwd()"
-          [disabled]="!resetpwdForm().valid() || isSubmitting()">
+      <button
+        mat-flat-button
+        class="w-full mt-3"
+        type="button"
+        (click)="resetPwd()"
+        [disabled]="!resetpwdForm().valid() || isSubmitting()"
+      >
         {{ 'RESETPWD.submitButton' | translate }}
       </button>
-
   </div>
 
 <div class="flex gap-3 mb-8 text-sm text-on-surface">

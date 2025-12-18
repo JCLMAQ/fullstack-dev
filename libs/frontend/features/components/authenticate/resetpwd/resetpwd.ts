@@ -1,20 +1,19 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { apply, Field, form } from '@angular/forms/signals';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { FieldError } from '@fe/signalform-utilities';
+import { TranslateModule } from '@ngx-translate/core';
 interface ResetPasswordResponse {
   success: boolean;
   message: string;
@@ -28,15 +27,19 @@ interface ResetPasswordForm {
 @Component({
   selector: 'lib-resetpwd',
   imports: [
-    MatCardModule,
+    MatCard,
+    MatCardContent,
     Field,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatButton,
+    MatIcon,
+    MatSuffix,
+    MatProgressSpinner,
     FieldError,
-    JsonPipe
+    JsonPipe,
+    TranslateModule
   ],
   templateUrl: './resetpwd.html',
   styleUrl: './resetpwd.scss',
@@ -87,7 +90,7 @@ export class Resetpwd implements OnInit {
     const apiUrl = `${apiPrefix}/authentication/reset-password/${token}`;
 
     this.http.get<{ valid: boolean; message: string }>(apiUrl).subscribe({
-      next: (response) => {
+      next: (response: { valid: boolean; message: string }) => {
         this.isLoading.set(false);
         if (response.valid) {
           this.tokenValid.set(true);
@@ -96,7 +99,7 @@ export class Resetpwd implements OnInit {
           setTimeout(() => this.router.navigate(['/auth/forgotpwd']), 3000);
         }
       },
-      error: (error) => {
+      error: (error: unknown) => {
         this.isLoading.set(false);
         console.error('Error verifying token:', error);
         this.showError('Erreur lors de la vérification du token');
@@ -118,7 +121,7 @@ export class Resetpwd implements OnInit {
       };
 
       this.http.post<ResetPasswordResponse>(apiUrl, payload).subscribe({
-        next: (response) => {
+        next: (response: ResetPasswordResponse) => {
           this.isLoading.set(false);
           if (response.success) {
             this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
@@ -127,7 +130,7 @@ export class Resetpwd implements OnInit {
             this.showError(response.message || 'Erreur lors de la réinitialisation');
           }
         },
-        error: (error) => {
+        error: (error: unknown) => {
           this.isLoading.set(false);
           console.error('Error resetting password:', error);
           this.showError('Erreur lors de la réinitialisation du mot de passe');
@@ -137,11 +140,7 @@ export class Resetpwd implements OnInit {
   }
 
     resetForm() {
-      // Réinitialise tous les champs du formulaire d'un coup
-      this.resetpwdForm.set({
-        password: '',
-        confirmPassword: ''
-      });
+      // Réinitialise tous les champs du formulaire
       this.resetpwdForm.password().reset();
       this.resetpwdForm.confirmPassword().reset();
     }

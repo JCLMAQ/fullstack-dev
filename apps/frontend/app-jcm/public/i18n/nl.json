@@ -138,7 +138,8 @@
   "confirmPasswordRequired": "Bevestiging van wachtwoord is verplicht",
   "passwordMismatch": "Wachtwoorden komen niet overeen",
   "resetSuccess": "Wachtwoord succesvol opnieuw ingesteld. Je kunt nu inloggen.",
-  "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer."
+  "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer.",
+  "passwordStrength": "Sterkte van het wachtwoord"
 },
 "ERROR_MESSAGES": {
   "REQUIRED_FIELD": "Dit veld is verplicht",
