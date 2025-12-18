@@ -5,6 +5,7 @@ import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { ChangePwdService } from './services/changepwd/changepwd-service';
 import { LoginService } from './services/login/login-service';
 import { RegisterService } from './services/register/register-service';
+import { ResetPwdService } from './services/resetpwd/resetpwd-service';
 import { TokenStorageService } from './services/token-storage/token-storage-service';
 import { UserFetchService } from './services/user-fetch/user-fetch-service';
 import { UserProfileService } from './services/user-profile/user-profile-service';
@@ -48,6 +49,7 @@ export class IamAuth {
   private userStorage = inject(UserStorageService);
   private profileService = inject(UserProfileService);
   private changePwdService = inject(ChangePwdService);
+  private resetPasswordService = inject(ResetPwdService);
 
 
   // État d'authentification (compatibilité)
@@ -109,6 +111,11 @@ export class IamAuth {
   async sendEmailForgotPwdIamAuth(email: string): Promise<{ success: boolean; message: string }> {
     return await this.changePwdService.sendEmailForgotPwd(email);
   }
+
+  async resetPasswordIamAuth(newPassword: string, verifyPassword: string, token: string ): Promise<{ success: boolean; message: string }> {
+    return this.resetPasswordService.resetPasswordWithToken(newPassword, verifyPassword, token);
+  }
+
 
   /**
    * 🚪 LOGOUT

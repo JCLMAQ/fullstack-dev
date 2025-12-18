@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form, schema, submit } from '@angular/forms/signals';
+import { apply, Field, FieldTree, form, schema, SchemaPath, submit } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { MatInput } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IAM_AUTH_TOKEN } from '@fe/auth';
 import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
@@ -26,7 +27,7 @@ interface ResetPasswordCredentials {
   confirmPassword: string;
 }
 
-const resetPasswordSchema = schema<ResetPasswordCredentials>((path) => {
+const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<ResetPasswordCredentials>) => {
   apply(path, passwordWithConfirmSchema);
 });
 
@@ -62,6 +63,8 @@ export class Resetpwd implements OnInit {
   private  http: HttpClient = inject(HttpClient);
   private  snackBar: MatSnackBar = inject(MatSnackBar);
   private  environment: Environment = inject<Environment>(ENVIRONMENT_TOKEN);
+
+  _authService = inject(IAM_AUTH_TOKEN);
 
   // Signal d'état UI
   hidePassword = signal(true);
@@ -146,26 +149,28 @@ export class Resetpwd implements OnInit {
 
   submitForm() {
       console.log('🎯 [submitForm] Fonction appelée');
-    submit(this.resetpwdForm, async (form) => {
+        submit(this.resetpwdForm, async (form: FieldTree<ResetPasswordCredentials, string | number>) => {
       console.log('🔵 [submitForm] Inside submit callback');
       try {
-
+        const token = this.token();
+        if (!token) {
+          this.showError('Token de réinitialisation manquant');
+          return;
+        }
         const { password, confirmPassword } = form().value();
 
-        const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-        const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
-        const payload = {
-                newPassword: form.password,
-                verifyPassword: form.confirmPassword
-              };
-
-
+        const response = await this._authService.resetPasswordIamAuth(password, confirmPassword, token);
+        if (response.success) {
+          this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
+          setTimeout(() => this.router.navigate(['/auth/login']), 3000);
+        } else {
+          this.showError(response.message || 'Une erreur s’est produite lors de la réinitialisation du mot de passe');
+        }
 
         console.log('🟢 [submitForm] Form is valid, proceeding to reset password');
-        return true;
       } catch (error) {
         console.error('❌ [submitForm] Error during form submission:', error);
-        return false;
+        this.showError('Erreur lors de la réinitialisation du mot de passe');
       }
     });
 
