@@ -170,7 +170,7 @@ export class Resetpwd implements OnInit {
         console.log('🟢 [submitForm] Form is valid, proceeding to reset password');
       } catch (error) {
         console.error('❌ [submitForm] Error during form submission:', error);
-        this.showError('Erreur lors de la réinitialisation du mot de passe');
+        this.showError('RESETPWD.resetFailed');
       }
     });
 
