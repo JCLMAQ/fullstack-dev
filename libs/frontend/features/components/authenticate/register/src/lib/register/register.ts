@@ -48,6 +48,7 @@ export class Register {
 
   // Signal d'état UI
   hidePassword = signal(true);
+  hideConfirmPassword = signal(true);
   isSubmitting = signal(false);
 
   // Signal Forms: état du modèle

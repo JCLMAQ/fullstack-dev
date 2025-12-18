@@ -139,7 +139,10 @@
       "passwordMismatch": "Les mots de passe ne correspondent pas",
       "resetSuccess": "Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.",
       "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer.",
-      "passwordStrength": "Force du mot de passe"
+      "passwordStrength": "Force du mot de passe",
+      "wantToReset": "Vous voulez réinitialiser le formulaire ?",
+      "resetFormButton": "Réinitialiser le formulaire",
+      "tokenRequired": "Le token de réinitialisation est requis"
     },
     "ERROR_MESSAGES": {
       "REQUIRED_FIELD": "Ce champ est requis",

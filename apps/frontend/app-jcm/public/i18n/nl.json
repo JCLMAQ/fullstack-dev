@@ -139,7 +139,10 @@
   "passwordMismatch": "Wachtwoorden komen niet overeen",
   "resetSuccess": "Wachtwoord succesvol opnieuw ingesteld. Je kunt nu inloggen.",
   "resetFailed": "La réinitialisation du mot de passe a échoué. Veuillez réessayer.",
-  "passwordStrength": "Sterkte van het wachtwoord"
+  "passwordStrength": "Sterkte van het wachtwoord",
+  "wantToReset": "Wilt u het formulier opnieuw instellen?",
+  "resetFormButton": "Formulier opnieuw instellen",
+  "tokenRequired": "Reset token is vereist"
 },
 "ERROR_MESSAGES": {
   "REQUIRED_FIELD": "Dit veld is verplicht",

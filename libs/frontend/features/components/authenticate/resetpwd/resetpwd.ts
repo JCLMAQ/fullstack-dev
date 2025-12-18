@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form } from '@angular/forms/signals';
+import { apply, Field, form, required, schema } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -14,15 +14,24 @@ import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities'
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { TranslateModule } from '@ngx-translate/core';
+
+
 interface ResetPasswordResponse {
   success: boolean;
   message: string;
 }
 
-interface ResetPasswordForm {
+interface ResetPasswordCredentials {
   password: string;
   confirmPassword: string;
 }
+
+const resetPasswordSchema = schema<ResetPasswordCredentials>((path) => {
+  required(path.password, { message: 'RESETPWD.passwordRequired' });
+  required(path.confirmPassword, { message: 'RESETPWD.confirmPasswordRequired' });
+  apply(path, passwordWithConfirmSchema);
+});
+
 
 @Component({
   selector: 'lib-resetpwd',
@@ -60,15 +69,16 @@ export class Resetpwd implements OnInit {
   protected readonly tokenValid = signal(false);
 
   // Signal Form state
-  protected readonly formState = signal<ResetPasswordForm>({
+  protected readonly resetCredentials = signal<ResetPasswordCredentials>({
     password: '',
     confirmPassword: ''
   });
 
+  // SChema de validation des mots de passe
+
   // Signal Form avec validation schema
-  protected readonly resetpwdForm = form(this.formState, (path) => [
-    apply(path, passwordWithConfirmSchema)
-  ]);
+  protected readonly resetpwdForm = form(this.resetCredentials, resetPasswordSchema);
+
 
   ngOnInit(): void {
     // Récupérer le token depuis les query params
@@ -114,7 +124,7 @@ export class Resetpwd implements OnInit {
       const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
       const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
 
-      const formData = this.formState();
+      const formData = this.resetCredentials();
       const payload = {
         newPassword: formData.password,
         verifyPassword: formData.confirmPassword
@@ -139,11 +149,11 @@ export class Resetpwd implements OnInit {
     }
   }
 
-    resetForm() {
-      // Réinitialise tous les champs du formulaire
-      this.resetpwdForm.password().reset();
-      this.resetpwdForm.confirmPassword().reset();
-    }
+  resetForm() {
+    // Réinitialise tous les champs du formulaire
+    this.resetpwdForm.password().reset();
+    this.resetpwdForm.confirmPassword().reset();
+  }
 
   cancel(): void {
     this.router.navigate(['/auth/login']);

@@ -139,7 +139,10 @@
       "passwordMismatch": "Passwords do not match",
       "resetSuccess": "Password reset successfully. You can now log in.",
       "resetFailed": "Password reset failed. Please try again.",
-      "passwordStrength": "Password Strength"
+      "passwordStrength": "Password Strength",
+      "wantToReset": "Do you want to reset the form?",
+      "resetFormButton": "Reset Form",
+      "tokenRequired": "Reset token is required"
     },
     "ERROR_MESSAGES": {
       "REQUIRED_FIELD": "This field is required",

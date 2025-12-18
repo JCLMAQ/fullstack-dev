@@ -79,7 +79,7 @@
 
     <mat-form-field class="w-full">
       <mat-label>{{"REGISTER.confirmPasswordLabel" | translate}}</mat-label>
-        @if (hidePassword()) {
+        @if (hideConfirmPassword()) {
           <input
             matInput
             type="password"
@@ -97,11 +97,11 @@
         <button
           mat-icon-button
           matSuffix
-          (click)="hidePassword.set(!hidePassword())"
+          (click)="hideConfirmPassword.set(!hideConfirmPassword())"
           type="button"
           class="mr-1"
         >
-          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.confirmPassword()" />
 

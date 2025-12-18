@@ -1,23 +1,16 @@
-
-.resetpwd-page {
-  max-width: 350px;
-  margin: 50px auto;
+button.text-primary,
+a.text-primary {
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
-.resetpwd-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.field-message {
-  font-size: 10px;
-  color: red;
-}
-
-mat-card-title {
-  text-align: center;
-}
-
-mat-card-actions {
-  text-align: center;
+button.text-primary:hover,
+a.text-primary:hover {
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
 }
