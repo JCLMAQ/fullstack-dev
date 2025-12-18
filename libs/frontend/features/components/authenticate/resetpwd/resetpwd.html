@@ -92,8 +92,8 @@
           }
         </div>
       }
-      </div>
-        }
+
+      <lib-field-error [fieldError]="resetpwdForm.confirmPassword()" />
         </mat-form-field>
 
       <button
@@ -101,7 +101,7 @@
         class="w-full mt-3"
         type="button"
         (click)="resetPwd()"
-        [disabled]="!resetpwdForm().valid() || isSubmitting()"
+        [disabled]="!resetpwdForm().valid() || resetPwd()"
       >
         {{ 'RESETPWD.submitButton' | translate }}
       </button>

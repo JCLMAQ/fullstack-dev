@@ -47,11 +47,11 @@ interface ResetPasswordForm {
 
 export class Resetpwd implements OnInit {
 
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-  private readonly http = inject(HttpClient);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly environment = inject<Environment>(ENVIRONMENT_TOKEN);
+  private readonly router: Router = inject(Router);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly http: HttpClient = inject(HttpClient);
+  private readonly snackBar: MatSnackBar = inject(MatSnackBar);
+  private readonly environment: Environment = inject<Environment>(ENVIRONMENT_TOKEN);
 
   protected readonly hidePassword = signal(true);
   protected readonly hideConfirmPassword = signal(true);
@@ -144,6 +144,10 @@ export class Resetpwd implements OnInit {
       this.resetpwdForm.password().reset();
       this.resetpwdForm.confirmPassword().reset();
     }
+
+  cancel(): void {
+    this.router.navigate(['/auth/login']);
+  }
 
   backhome(): void {
     this.router.navigate(['/auth/login']);
