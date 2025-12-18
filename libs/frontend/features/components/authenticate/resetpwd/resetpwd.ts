@@ -176,36 +176,6 @@ export class Resetpwd implements OnInit {
 
   }
 
-      //   if (this.resetpwdForm().valid() && this.token()) {
-      //     this.isLoading.set(true);
-      //     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-      //     const apiUrl = `${apiPrefix}/authentication/reset-password/${this.token()}`;
-
-      //     const formData = this.resetCredentials();
-      //     const payload = {
-      //       newPassword: formData.password,
-      //       verifyPassword: formData.confirmPassword
-      //     };
-
-      //     this.http.post<ResetPasswordResponse>(apiUrl, payload).subscribe({
-      //       next: (response: ResetPasswordResponse) => {
-      //         this.isLoading.set(false);
-      //         if (response.success) {
-      //           this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
-      //           setTimeout(() => this.router.navigate(['/auth/login']), 2000);
-      //         } else {
-      //           this.showError(response.message || 'Erreur lors de la réinitialisation');
-      //         }
-      //       },
-      //       error: (error: unknown) => {
-      //         this.isLoading.set(false);
-      //         console.error('Error resetting password:', error);
-      //         this.showError('Erreur lors de la réinitialisation du mot de passe');
-      //       }
-      //     });
-      //   }
-      // }
-
   resetForm() {
     // Réinitialise tous les champs du formulaire
     this.resetCredentials.set({
