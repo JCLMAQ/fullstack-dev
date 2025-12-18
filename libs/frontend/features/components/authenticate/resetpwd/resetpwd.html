@@ -107,25 +107,57 @@
         {{ 'RESETPWD.submitButton' | translate }}
       </button>
   </div>
-
-<div class="flex gap-3 mb-8 text-sm text-on-surface">
-    <br><br>
-    <span>{{ "editForm.cancelButton" | translate }}</span>
-      <a class="text-primary cursor-pointer" tabindex="0" (click)="cancel()" (keyup.enter)="cancel()">{{'LOGIN.cancelButton' | translate}}</a>
+<br>
+<div class="flex gap-1 mb-8 text-sm text-on-surface">
+      <br>
+      <span>{{"REGISTER.wantToReset" | translate }}</span>
+      <button
+        type="button"
+        class="text-primary cursor-pointer bg-transparent border-none underline"
+        (click)="resetForm()"
+      >
+        {{"REGISTER.resetFormButton" | translate}}
+      </button>
   </div>
 
+<div class="flex gap-3 mb-8 text-sm text-on-surface">
+    <span>{{ "REGISTER.wantToCancel" | translate }}</span>
+    <button
+        type="button"
+        class=" text-primary cursor-pointer bg-transparent border-none underline"
+        (click)="cancel()"
+      >
+        {{"REGISTER.cancelButton" | translate}}
+      </button>
+    </div>
+
 </div>
+
+
+
+
+
 
   @if (!isLoading() && !tokenValid() && token()) {
     <mat-card-content>
-      <p>Le lien de réinitialisation est invalide ou a expiré.</p>
-      <p>Vous allez être redirigé vers la page de demande de réinitialisation...</p>
+      <p>{{"RESETPWD.tokenInvalid" | translate}}</p>
+      <p>{{"RESETPWD.resetFailed" | translate}}</p>
     </mat-card-content>
   }
-</div>
+
   @if (isLoading()) {
     <div class="flex justify-center items-center h-32">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
   }
 
+<!--  debugging info -->
+<mat-card class="debug-card">
+      <mat-card-header>
+        <mat-card-title>Form Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <pre class="debug-pre">{{ resetpwdForm().value() | json }}</pre>
+        <pre class="debug-pre">{{ resetpwdForm().errorSummary() | json }}</pre>
+      </mat-card-content>
+</mat-card>

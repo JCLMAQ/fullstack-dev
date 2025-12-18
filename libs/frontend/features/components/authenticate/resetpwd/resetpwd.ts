@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { apply, Field, form, schema } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
-import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
@@ -36,6 +36,9 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path) => {
   imports: [
     MatCard,
     MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatFormField,
     Field,
     MatFormField,
     MatLabel,
@@ -174,6 +177,10 @@ export class Resetpwd implements OnInit {
 
   resetForm() {
     // Réinitialise tous les champs du formulaire
+    this.resetCredentials.set({
+      password: '',
+      confirmPassword: ''
+    });
     this.resetpwdForm.password().reset();
     this.resetpwdForm.confirmPassword().reset();
   }
