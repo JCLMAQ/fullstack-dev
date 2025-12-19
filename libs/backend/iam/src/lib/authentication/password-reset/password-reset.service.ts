@@ -230,16 +230,42 @@ console.log('🔍 [SERVICE] Lang:', lang);
     }
 
     try {
-      // Hash new password
-      const hashedPassword = await this.hashingService.hash(newPassword);
+      this.logger.debug(`🔐 Starting password reset for userId: ${tokenVerification.userId}`);
 
-      // Update user password
-      await this.prisma.userSecret.update({
-        where: { userId: tokenVerification.userId },
-        data: { pwdHash: hashedPassword },
+      // Get user email (UserSecret.userId references User.email, not User.id)
+      const user = await this.prisma.user.findUnique({
+        where: { id: tokenVerification.userId },
+        select: { email: true },
       });
 
+      if (!user) {
+        this.logger.error(`❌ User not found for userId: ${tokenVerification.userId}`);
+        return {
+          success: false,
+          message: this.i18n.translate('ERRORS.USER_NOT_FOUND', { lang }),
+        };
+      }
+
+      this.logger.debug(`📧 User email found: ${user.email}`);
+
+      // Hash new password
+      const hashedPassword = await this.hashingService.hash(newPassword);
+      this.logger.debug(`✅ Password hashed successfully`);
+
+      // Update user password (using email as userId per schema)
+      this.logger.debug(`🔄 Updating UserSecret for email: ${user.email}`);
+      await this.prisma.userSecret.upsert({
+        where: { userId: user.email },
+        update: { pwdHash: hashedPassword },
+        create: {
+          userId: user.email,
+          pwdHash: hashedPassword,
+        },
+      });
+      this.logger.debug(`✅ UserSecret updated successfully`);
+
       // Invalidate the token
+      this.logger.debug(`🔄 Invalidating token: ${token}`);
       await this.prisma.token.updateMany({
         where: {
           tokenId: token,
@@ -248,6 +274,7 @@ console.log('🔍 [SERVICE] Lang:', lang);
         },
         data: { valid: false },
       });
+      this.logger.debug(`✅ Token invalidated successfully`);
 
       return {
         success: true,
@@ -255,7 +282,8 @@ console.log('🔍 [SERVICE] Lang:', lang);
           lang,
         }),
       };
-    } catch {
+    } catch (error) {
+      this.logger.error(`❌ Error during password reset:`, error);
       return {
         success: false,
         message: await this.i18n.translate('auths.FORGOT_PWD_ERROR', { lang }),

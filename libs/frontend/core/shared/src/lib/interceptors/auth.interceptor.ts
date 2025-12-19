@@ -18,6 +18,8 @@ export function AuthInterceptor (request: HttpRequest<unknown>, next: HttpHandle
         '/authentication/register',
         '/authentication/register-extended',
         '/authentication/check-credentials',
+        '/authentication/reset-password',
+        '/authentication/forgot-password',
     ];
 
     const isPublicRoute = publicRoutes.some((route) => request.url.includes(route));

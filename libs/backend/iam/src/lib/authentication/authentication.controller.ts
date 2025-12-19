@@ -8,16 +8,16 @@ import { AccountValidationService } from './account-validation/account-validatio
 import { AuthenticationService } from './authentication.service';
 import { Auth } from './decorators/auth.decorator';
 import {
-  AuthResponse,
-  RequestAccountValidationDto,
-  UserProfile,
-  UserProfileResponse
+    AuthResponse,
+    RequestAccountValidationDto,
+    UserProfile,
+    UserProfileResponse
 } from './dto/account-validation.dto/account-validation.dto';
 import { ExtendedSignUpDto } from './dto/extended-sign-up.dto/extended-sign-up.dto';
 import {
-  ChangePasswordDto,
-  ForgotPasswordDto,
-  ResetPasswordDto
+    ChangePasswordDto,
+    ForgotPasswordDto,
+    ResetPasswordDto
 } from './dto/password-management.dto/password-management.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -194,7 +194,15 @@ export class AuthenticationController {
     @Body() dto: ResetPasswordDto,
     @I18nLang() lang: string
   ): Promise<AuthResponse> {
-    return await this.passwordResetService.resetPassword(token, dto.newPassword, dto.verifyPassword, lang);
+    console.log('🚀 Controller: POST reset-password endpoint called');
+    console.log('  - Token:', token);
+    console.log('  - Body:', dto);
+    console.log('  - Lang:', lang);
+
+    const result = await this.passwordResetService.resetPassword(token, dto.newPassword, dto.verifyPassword, lang);
+
+    console.log('📦 Controller: resetPassword result:', result);
+    return result;
   }
 
   /**

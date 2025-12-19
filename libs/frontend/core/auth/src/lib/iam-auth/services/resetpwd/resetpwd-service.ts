@@ -28,16 +28,20 @@ export class ResetPwdService {
   async resetPasswordWithToken(newPassword: string, verifyPassword: string, token: string ): Promise<{ success: boolean; message: string }> {
     // const pathUrl = `${this.apiPrefix}/authentication/reset-password`;
 
-        console.log('🔐 Attempting password reset:', { newPassword, verifyPassword, token });
+        console.log('🔐 Attempting password reset');
+        console.log('  - Token:', token);
+        console.log('  - Password length:', newPassword.length);
+        console.log('  - Full URL:', `${this.pathUrl}/${token}`);
+        console.log('  - Payload:', { newPassword, verifyPassword });
 
-        const resetPassword$ = this.httpClient.post<ResetPasswordResponse>(`${this.pathUrl}?token=${token}`, {
+        const resetPassword$ = this.httpClient.post<ResetPasswordResponse>(`${this.pathUrl}/${token}`, {
           newPassword,
           verifyPassword
         });
 
         const resetPwdResponse = await firstValueFrom(resetPassword$);
 
-        console.log('✅ Password resetd:', resetPwdResponse );
+        console.log('📬 Backend response:', resetPwdResponse );
 
       return { success: resetPwdResponse.success, message: resetPwdResponse.message };
   }

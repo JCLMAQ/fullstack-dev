@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form, schema, SchemaPath } from '@angular/forms/signals';
+import { apply, Field, FieldTree, form, schema, SchemaPath } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -15,6 +15,12 @@ import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities'
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { TranslateModule } from '@ngx-translate/core';
+
+
+interface ResetPasswordResponse {
+  success: boolean;
+  message: string;
+}
 
 interface ResetPasswordCredentials {
   password: string;
@@ -141,49 +147,33 @@ export class Resetpwd implements OnInit {
     });
   }
 
-  async submitForm() {
-    console.log('🎯 [submitForm] Fonction appelée');
-    console.log('🎯 [submitForm] Form valid:', this.resetpwdForm().valid());
-    console.log('🎯 [submitForm] Form errors:', this.resetpwdForm().errors());
+  submitForm() {
+      console.log('🎯 [submitForm] Fonction appelée');
+        submit(this.resetpwdForm, async (form: FieldTree<ResetPasswordCredentials, string | number>) => {
+      console.log('🔵 [submitForm] Inside submit callback');
+      try {
+        const token = this.token();
+        if (!token) {
+          this.showError('Token de réinitialisation manquant');
+          return;
+        }
+        const { password, confirmPassword } = form().value();
 
-    if (!this.resetpwdForm().valid()) {
-      console.log('❌ [submitForm] Form is invalid');
-      this.showError('Veuillez corriger les erreurs du formulaire');
-      return;
-    }
+        const response = await this._authService.resetPasswordIamAuth(password, confirmPassword, token);
+        if (response.success) {
+          this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
+          setTimeout(() => this.router.navigate(['/auth/login']), 3000);
+        } else {
+          this.showError(response.message || 'Une erreur s’est produite lors de la réinitialisation du mot de passe');
+        }
 
-    try {
-      const token = this.token();
-      if (!token) {
-        console.log('❌ [submitForm] No token available');
-        this.showError('Token de réinitialisation manquant');
-        return;
+        console.log('🟢 [submitForm] Form is valid, proceeding to reset password');
+      } catch (error) {
+        console.error('❌ [submitForm] Error during form submission:', error);
+        this.showError('RESETPWD.resetFailed');
       }
+    });
 
-      const { password, confirmPassword } = this.resetpwdForm().value();
-      console.log('🔵 [submitForm] Starting password reset');
-      console.log('  - Token:', token);
-      console.log('  - Password length:', password.length);
-
-      this.isLoading.set(true);
-      const response = await this._authService.resetPasswordIamAuth(password, confirmPassword, token);
-      this.isLoading.set(false);
-
-      console.log('📦 [submitForm] Response received:', response);
-
-      if (response.success) {
-        this.showSuccess(response.message || 'Mot de passe réinitialisé avec succès');
-        setTimeout(() => this.router.navigate(['/auth/login']), 3000);
-      } else {
-        this.showError(response.message || 'Une erreur s\'est produite lors de la réinitialisation du mot de passe');
-      }
-
-      console.log('🟢 [submitForm] Form is valid, proceeding to reset password');
-    } catch (error) {
-      this.isLoading.set(false);
-      console.error('❌ [submitForm] Error during form submission:', error);
-      this.showError('RESETPWD.resetFailed');
-    }
   }
 
   resetForm() {
