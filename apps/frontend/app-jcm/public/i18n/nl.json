@@ -80,7 +80,10 @@
   "emailRequired": "E-mail is verplicht",
   "invalidEmail": "Ongeldig e-mailadres",
   "passwordRequired": "Wachtwoord is verplicht",
-  "invalidCredentials": "Ongeldig e-mailadres of wachtwoord"
+  "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
+  "wantToReset": "Wilt u het formulier opnieuw instellen?",
+  "resetFormButton": "Formulier opnieuw instellen",
+  "passwordStrength": "Wachtwoordsterkte"
   },
 "CHANGEPWD": {
   "title": "Wachtwoord wijzigen",

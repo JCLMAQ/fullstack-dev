@@ -98,7 +98,10 @@
       "confirmNewPasswordRequired": "Confirmation of the new password is required",
       "passwordMismatch": "Passwords do not match",
       "changeSuccess": "Password changed successfully",
-      "changeFailed": "Password change failed. Please try again."
+      "changeFailed": "Password change failed. Please try again.",
+      "wantToReset": "Do you want to reset the form?",
+      "resetFormButton": "Reset Form",
+      "passwordStrength": "Password Strength"
     },
     "REGISTER": {
       "title": "Register",
