@@ -66,7 +66,7 @@
       "VIEW_ALL_IMAGES": "Bekijk alle afbeeldingen",
       "ADD_IMAGES": "Afbeeldingen toevoegen"
     },
-  "LOGIN": {
+"LOGIN": {
   "title": "Inloggen",
   "dontHaveAccount": "Heb je geen account?",
   "emailLabel": "E-mailadres",
@@ -81,6 +81,24 @@
   "invalidEmail": "Ongeldig e-mailadres",
   "passwordRequired": "Wachtwoord is verplicht",
   "invalidCredentials": "Ongeldig e-mailadres of wachtwoord"
+  },
+"CHANGEPWD": {
+  "title": "Wachtwoord wijzigen",
+  "currentPasswordLabel": "Huidig wachtwoord",
+  "currentPasswordPlaceholder": "Voer je huidige wachtwoord in",
+  "newPasswordLabel": "Nieuw wachtwoord",
+  "newPasswordPlaceholder": "Voer je nieuwe wachtwoord in",
+  "confirmNewPasswordLabel": "Bevestig nieuw wachtwoord",
+  "confirmNewPasswordPlaceholder": "Bevestig je nieuwe wachtwoord",
+  "submitButton": "Wachtwoord wijzigen",
+  "cancelButton": "Annuleren",
+  "wantToCancel": "Wil je annuleren?",
+  "currentPasswordRequired": "Huidig wachtwoord is verplicht",
+  "newPasswordRequired": "Nieuw wachtwoord is verplicht",
+  "confirmNewPasswordRequired": "Bevestiging van het nieuwe wachtwoord is verplicht",
+  "passwordMismatch": "Wachtwoorden komen niet overeen",
+  "changeSuccess": "Wachtwoord succesvol gewijzigd",
+  "changeFailed": "Wachtwoord wijzigen is mislukt. Probeer het opnieuw."
 },
 "REGISTER": {
   "title": "Registreren",

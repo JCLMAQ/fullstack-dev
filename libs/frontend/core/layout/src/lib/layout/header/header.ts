@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppStore } from '@fe/stores';
 import { UserAvatar } from '@fe/user-avatar';
@@ -20,6 +21,7 @@ import { ThemeService } from '../../services/themes/theme-service';
     MatIcon,
     MatButtonModule,
     MatMenuModule,
+    MatTooltipModule,
     MatDivider,
     // TitleCasePipe,
     TranslatePipe,
@@ -46,24 +48,10 @@ export class Header {
   collapsed = this.responsiveService.isCollapsed;
   barOpen = this.responsiveService.isMenuBarOpen;
 
-  // currentLang = this.appStore['selectedLanguage']();
-  // currentLangbis = signal(this.ngxtranslateService.getCurrentLang()); // get current language
-  //   ngOnInit() {
-  //     if (this.currentLang !== this.currentLangbis()) {
-  //       console.warn("⚠️ Language mismatch between AppStore and ngxTranslate in Header component:", this.currentLang, '/',this.currentLangbis());
-  //     } else {
-  //       console.log("✅ Langue synchronisée :", this.currentLang, '/', this.currentLangbis());
-  //     }
-  //   }
-
   setLanguage(language: string) {
-    // this.appStore['switchLanguageDictionary'](language);
-    // this.appStore['changeLanguage'](language);
     this.appStore['switchLanguage'](language);
-    // this.currentLang.set(language);
-    // this.ngxtranslateService.use(language);
-    // this.dictionaryStore.setDictionary(this.dictionaryStore._dictionaries[language]);
   }
+
   toggleMenu() {
     if (!this.barOpen()) {
       this.barOpen.set(!this.barOpen());
@@ -82,6 +70,7 @@ export class Header {
   }
 
   navigate(route: string) {
+    console.log('Navigate to:', route);
     // Routes qui sont sous pages/
     const pageRoutes = ['picto', 'carouselpicture', 'picture', 'choice', 'file'];
 

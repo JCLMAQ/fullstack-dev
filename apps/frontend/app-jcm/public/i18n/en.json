@@ -82,6 +82,24 @@
       "passwordRequired": "The password is required",
       "invalidCredentials": "Invalid email or password"
     },
+    "CHANGEPWD": {
+      "title": "Change Password",
+      "currentPasswordLabel": "Current Password",
+      "currentPasswordPlaceholder": "Please enter your current password",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Please enter your new password",
+      "confirmNewPasswordLabel": "Confirm New Password",
+      "confirmNewPasswordPlaceholder": "Please confirm your new password",
+      "submitButton": "Change Password",
+      "cancelButton": "Cancel",
+      "wantToCancel": "Do you want to cancel?",
+      "currentPasswordRequired": "Current password is required",
+      "newPasswordRequired": "New password is required",
+      "confirmNewPasswordRequired": "Confirmation of the new password is required",
+      "passwordMismatch": "Passwords do not match",
+      "changeSuccess": "Password changed successfully",
+      "changeFailed": "Password change failed. Please try again."
+    },
     "REGISTER": {
       "title": "Register",
       "alreadyHaveAccount": "Already have an account?",

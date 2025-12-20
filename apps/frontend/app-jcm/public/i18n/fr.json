@@ -82,6 +82,28 @@
       "passwordRequired": "Le mot de passe est requis",
       "invalidCredentials": "Email ou mot de passe invalide"
     },
+    "CHANGEPWD": {
+      "title": "Changer le Mot de Passe",
+      "currentPasswordLabel": "Mot de Passe Actuel",
+      "currentPasswordPlaceholder": "Veuillez saisir votre mot de passe actuel",
+      "newPasswordLabel": "Nouveau Mot de Passe",
+      "newPasswordPlaceholder": "Veuillez saisir votre nouveau mot de passe",
+      "confirmNewPasswordLabel": "Confirmer le Nouveau Mot de Passe",
+      "confirmNewPasswordPlaceholder": "Veuillez confirmer votre nouveau mot de passe",
+      "submitButton": "Changer le Mot de Passe",
+      "cancelButton": "Annuler",
+      "wantToCancel": "Vous voulez annuler ?",
+      "currentPasswordRequired": "Le mot de passe actuel est requis",
+      "newPasswordRequired": "Le nouveau mot de passe est requis",
+      "confirmNewPasswordRequired": "La confirmation du nouveau mot de passe est requise",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "changeSuccess": "Mot de passe changé avec succès",
+      "changeFailed": "Le changement de mot de passe a échoué. Veuillez réessayer.",
+      "wantToReset": "Vous voulez réinitialiser le formulaire ?",
+      "resetFormButton": "Réinitialiser le formulaire",
+      "passwordStrength": "Force du mot de passe"
+
+    },
     "REGISTER": {
       "title": "Inscription",
       "alreadyHaveAccount": "Vous avez déjà un compte ?",

@@ -36,10 +36,6 @@
     }
   </mat-menu>
 
-  <!-- <app-flag [of]="dictionaryStore.selectedLanguage()"
-            matTooltip="Change Language"
-            (click)="dictionaryStore.changeLanguage()"
-            /> -->
 
   <!-- Menu language selectection -->
   <button
@@ -70,24 +66,30 @@
 
 <!-- Login Menu -->
       @if (appStore.user()) {
-        <button mat-icon-button [mat-menu-trigger-for]="profileMenu">
+        <button mat-icon-button [matMenuTriggerFor]="profileMenu">
         <lib-user-avatar
             [photoUrl]="appStore.user()?.photoUrl"
             alt="User profile picture"
             cssClass="w-[40px] h-[40px] rounded-full"
           />
         </button>
-        <mat-menu #profileMenu="matMenu">
-          <button mat-menu-item (click)="appStore['logout']()">
-            <mat-icon>logout</mat-icon>
-            Log out
-          </button>
-        </mat-menu>
       } @else {
         <button mat-icon-button (click)="login()">
           <mat-icon>login</mat-icon>
         </button>
       }
+
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="navigate('auth/changepwd')">
+          <mat-icon>lock</mat-icon>
+          Change Password
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="appStore['logout']()">
+          <mat-icon>logout</mat-icon>
+          Log out
+        </button>
+      </mat-menu>
 
       <!-- Pages selection menu -->
       <button class="menu-button" mat-icon-button [matMenuTriggerFor]="submenu">

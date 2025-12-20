@@ -1,12 +1,12 @@
 import {
-    customError,
-    minLength,
-    pattern,
-    required,
-    schema,
-    validate,
+  customError,
+  minLength,
+  pattern,
+  required,
+  schema,
+  validate,
 } from '@angular/forms/signals';
-import { ChangePasswordForm } from './changepwd';
+import { ChangePasswordModel } from './changepwd';
 
 /**
  * Schema de validation pour le changement de mot de passe
@@ -17,7 +17,7 @@ import { ChangePasswordForm } from './changepwd';
  * - Le mot de passe de confirmation correspond au nouveau mot de passe
  * - Le nouveau mot de passe est différent de l'ancien
  */
-export const changePasswordSchema = schema<ChangePasswordForm>((path) => [
+export const changePasswordSchema = schema<ChangePasswordModel>((path) => [
   // Validation de l'ancien mot de passe
   required(path.oldPassword, { message: 'signalFormError.passwordRequired' }),
   minLength(path.oldPassword, 8, {
