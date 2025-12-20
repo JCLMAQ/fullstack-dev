@@ -21,6 +21,28 @@ import { provideSignalFormsConfig } from '@angular/forms/signals';
 import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
+const NG_STATUS_CLASSES = {
+  // 'app-disabled': (s: any) => s.disabled(),
+  // 'app-touched': (s: any) => s.touched(),
+  // 'app-untouched': (s: any) => !s.touched(),
+  // 'app-dirty': (s: any) => s.dirty(),
+  // 'app-pristine': (s: any) => !s.dirty(),
+  // 'app-valid': (s: any) => s.valid(),
+  // 'app-invalid': (s: any) => s.invalid() && s.touched(),
+  // 'app-pending': (s: any) => s.pending(),
+        'ring-2': (state: any) => state.valid() && state.dirty(),
+        //{ [className: string]: (state: Field<unknown>) => boolean; } | undefined
+        'ring-green-500': (state: any) => state.valid() && state.dirty(),
+        'border-green-500': (state: any) => state.valid() && state.dirty(),
+        // 2. Error State: Red ring when invalid and touched (user blurred the field)
+        'ring-red-500': (state: any) => state.invalid() && state.touched(),
+        'border-red-500': (state: any) => state.invalid() && state.touched(),
+        'bg-red-50': (state: any) => state.invalid() && state.touched(),
+        // 3. Pending State: Blue pulse during async validation (like our City check)
+        'animate-pulse': (state: any) => state.pending(),
+        'bg-blue-50': (state: any) => state.pending(),
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
@@ -72,18 +94,21 @@ export const appConfig: ApplicationConfig = {
 
     // https://medium.com/@amosisaila/angular-21-0-1-the-missing-style-link-in-signal-forms-bb8571e90f61
     provideSignalFormsConfig({
-      classes: {
-        // 1. Success State: Green ring when valid and dirty (user typed something correct)
-        'ring-2': (state) => state.valid() && state.dirty(),
-        'ring-green-500': (state) => state.valid() && state.dirty(),
-        'border-green-500': (state) => state.valid() && state.dirty(),
-        // 2. Error State: Red ring when invalid and touched (user blurred the field)
-        'ring-red-500': (state) => state.invalid() && state.touched(),
-        'border-red-500': (state) => state.invalid() && state.touched(),
-        'bg-red-50': (state) => state.invalid() && state.touched(),
-        // 3. Pending State: Blue pulse during async validation (like our City check)
-        'animate-pulse': (state) => state.pending(),
-        'bg-blue-50': (state) => state.pending(),
+      classes: NG_STATUS_CLASSES
+
+      // {
+        // // 1. Success State: Green ring when valid and dirty (user typed something correct)
+        // 'ring-2': (state) => state.valid() && state.dirty(),
+        // //{ [className: string]: (state: Field<unknown>) => boolean; } | undefined
+        // 'ring-green-500': (state) => state.valid() && state.dirty(),
+        // 'border-green-500': (state) => state.valid() && state.dirty(),
+        // // 2. Error State: Red ring when invalid and touched (user blurred the field)
+        // 'ring-red-500': (state) => state.invalid() && state.touched(),
+        // 'border-red-500': (state) => state.invalid() && state.touched(),
+        // 'bg-red-50': (state) => state.invalid() && state.touched(),
+        // // 3. Pending State: Blue pulse during async validation (like our City check)
+        // 'animate-pulse': (state) => state.pending(),
+        // 'bg-blue-50': (state) => state.pending(),
       // https://itnext.io/signal-forms-just-got-automatic-state-classes-and-more-f1fcf87cff78
         // 'app-disabled': s => s.disabled(),
         // 'app-touched': s => s.touched(),
@@ -94,7 +119,7 @@ export const appConfig: ApplicationConfig = {
         // // 'app-invalid': s => s.invalid(),
         // 'app-invalid': s => s.invalid() && s.touched(),
         // 'app-pending': s => s.pending(),
-      }
+      // }
     })
   ],
 };
