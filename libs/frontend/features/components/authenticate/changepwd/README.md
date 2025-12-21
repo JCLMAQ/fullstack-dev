@@ -20,6 +20,7 @@ Le composant implémente une validation asynchrone pour vérifier que l'ancien m
 5. **Appel API** : Le service `ChangePwdService.verifyOldPassword()` appelle l'endpoint backend `/authentication/verify-password`
 6. **État de chargement** : Le signal `isVerifyingOldPassword` affiche un spinner pendant la vérification
 7. **Gestion des erreurs** : Le signal `oldPasswordError` stocke le message d'erreur de traduction
+8. **Nettoyage** : Le timer est nettoyé automatiquement lors de la destruction du composant (`ngOnDestroy`) pour éviter les fuites mémoire
 
 ### Signaux Utilisés
 
