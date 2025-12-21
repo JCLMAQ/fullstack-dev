@@ -22,12 +22,12 @@ import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
-  // 'app-disabled': ({ state }) => state.disabled(),
-  // 'app-touched': ({ state }) => state.touched(),
-  // 'app-untouched': ({ state }) => !state.touched(),
-  // 'app-dirty': ({ state }) => state.dirty(),
-  // 'app-pristine': ({ state }) => !state.dirty(),
-  // 'app-valid': ({ state }) => state.valid(),
+  // 'app-disabled': ({ state }) => state().disabled(),
+  // 'app-touched': ({ state }) => state().touched(),
+  // 'app-untouched': ({ state }) => !state().touched(),
+  // 'app-dirty': ({ state }) => state().dirty(),
+  // 'app-pristine': ({ state }) => !state().dirty(),
+  // 'app-valid': ({ state }) => state().valid(),
   // 'app-invalid': ({ state }) => state.invalid() && state.touched(),
   // 'app-pending': ({ state }) => state.pending(),
         // 1. Success State: Green ring when valid and dirty (user typed something correct)
@@ -44,13 +44,6 @@ const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
         'bg-blue-50': ({ state }) => state().pending(),
 };
 
-// provideSignalFormsConfig({
-//      classes: {
-//         'my-invalid-class': ({ state }) => state.invalid(),
-//         'multiline': ({ element }) =>
-//                           element.tagName.toLowerCase() === 'textarea'
-//       },
-//     }),
 
 export const appConfig: ApplicationConfig = {
   providers: [
