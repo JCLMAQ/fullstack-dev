@@ -41,7 +41,27 @@ export class ChangePwdService {
 
               return { message: 'Password changed successfully.' };
   }
+  async verifyOldPassword(oldPassword: string, userEmail: string): Promise<boolean> {
+    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//,  '').replace(/\/$/,  '');
+    const pathUrl = `${apiPrefix}/authentication/verify-password`;
 
+    try {
+      console.log('🔐 Verifying old password for:', userEmail);
+
+      const verifyPassword$ = this.httpClient.post<{ valid: boolean }>(`${pathUrl}`, {
+        email: userEmail,
+        password: oldPassword
+      });
+
+      const response = await firstValueFrom(verifyPassword$);
+      console.log('✅ Password verification:', response.valid);
+
+      return response.valid;
+    } catch (error) {
+      console.error('❌ Error verifying password:', error);
+      return false;
+    }
+  }
   async sendEmailForgotPwd(email: string): Promise<{ success: boolean; message: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
         const pathUrl = `${apiPrefix}/authentication/forgot-password`;

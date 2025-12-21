@@ -25,6 +25,9 @@
           autocomplete="current-password"
           [field]="changepwdForm.oldPassword"
         />
+        @if (isVerifyingOldPassword()) {
+          <mat-spinner matSuffix diameter="20"></mat-spinner>
+        }
         <button
           mat-icon-button
           matSuffix
@@ -37,9 +40,15 @@
           <mat-icon>{{ hideOldPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
 
-        <!-- Bad password control -->
+        <!-- Erreurs de validation standard -->
+        <lib-field-error [fieldError]="changepwdForm.oldPassword()" />
 
-          <lib-field-error [fieldError]="changepwdForm.oldPassword()" />
+        <!-- Erreur de validation asynchrone -->
+        @if (oldPasswordError()) {
+          <mat-error class="text-error">
+            {{ oldPasswordError() | translate }}
+          </mat-error>
+        }
       </mat-form-field>
 
 <br>
@@ -109,9 +118,13 @@
       class="w-full mt-3"
       type="button"
       (click)="changePwd()"
-      [disabled]="!changepwdForm().valid() || isSubmitting()"
+      [disabled]="!changepwdForm().valid() || isSubmitting() || isVerifyingOldPassword() || oldPasswordError()"
     >
-      {{ "CHANGEPWD.submitButton" | translate }}
+      @if (isVerifyingOldPassword()) {
+        {{ "CHANGEPWD.verifyingPassword" | translate }}
+      } @else {
+        {{ "CHANGEPWD.submitButton" | translate }}
+      }
     </button>
 
   </div>
