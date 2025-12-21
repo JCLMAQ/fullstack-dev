@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -40,7 +40,7 @@ export type ChangePasswordModel = {
   templateUrl: './changepwd.html',
   styleUrl: './changepwd.scss',
 })
-export class Changepwd {
+export class Changepwd implements OnDestroy {
   private readonly router = inject(Router);
   private readonly changePwdService = inject(ChangePwdService);
   private readonly appStore = inject(AppStore);
@@ -90,6 +90,14 @@ export class Changepwd {
         }, 500);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    // Nettoyer le timer pour éviter les fuites mémoire
+    if (this.debounceTimer) {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = null;
+    }
   }
 
   private async verifyOldPasswordAsync(oldPassword: string): Promise<void> {
