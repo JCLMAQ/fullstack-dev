@@ -106,16 +106,36 @@ export class Changepwd implements OnDestroy {
 
     try {
       console.log('🔐 Verifying old password...');
-      const userEmail: string = this.appStore['userEmail'](); // À remplacer par l'email réel
+      const user = this.appStore.user();
 
-      const isValid = await this.changePwdService.verifyOldPassword(oldPassword, userEmail);
+      if (!user?.email) {
+        console.error('❌ User email not found in store');
+        this.oldPasswordError.set('signalFormError.verificationError');
+        return;
+      }
+
+      const isValid = await this.changePwdService.verifyOldPassword(oldPassword, user.email);
 
       if (!isValid) {
+        console.log('❌ Invalid old password');
         this.oldPasswordError.set('signalFormError.invalidOldPassword');
+      } else {
+        console.log('✅ Old password verified successfully');
       }
-    } catch (error) {
-      console.error('Error verifying old password:', error);
-      this.oldPasswordError.set('signalFormError.verificationError');
+    } catch (error: unknown) {
+      console.error('❌ Error verifying old password:', error);
+
+      // Gérer différents types d'erreurs
+      if (error && typeof error === 'object' && 'status' in error) {
+        const httpError = error as { status: number };
+        if (httpError.status === 404) {
+          this.oldPasswordError.set('signalFormError.endpointNotFound');
+        } else {
+          this.oldPasswordError.set('signalFormError.verificationError');
+        }
+      } else {
+        this.oldPasswordError.set('signalFormError.verificationError');
+      }
     } finally {
       this.isVerifyingOldPassword.set(false);
     }

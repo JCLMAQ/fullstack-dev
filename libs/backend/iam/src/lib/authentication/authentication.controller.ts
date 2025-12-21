@@ -63,7 +63,8 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)
   @Post('verify-password')
   async verifyPassword(@Body() signInDto: SignInDto) {
-    return await this.authenticationService.verifyPassword(signInDto);
+    const valid = await this.authenticationService.verifyPassword(signInDto);
+    return { valid };
   }
   // Cookies approach
   @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)

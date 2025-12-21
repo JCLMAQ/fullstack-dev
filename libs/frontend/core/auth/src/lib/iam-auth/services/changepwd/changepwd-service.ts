@@ -45,22 +45,17 @@ export class ChangePwdService {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//,  '').replace(/\/$/,  '');
     const pathUrl = `${apiPrefix}/authentication/verify-password`;
 
-    try {
-      console.log('🔐 Verifying old password for:', userEmail);
+    console.log('🔐 Verifying old password for:', userEmail);
 
-      const verifyPassword$ = this.httpClient.post<{ valid: boolean }>(`${pathUrl}`, {
-        email: userEmail,
-        password: oldPassword
-      });
+    const verifyPassword$ = this.httpClient.post<{ valid: boolean }>(`${pathUrl}`, {
+      email: userEmail,
+      password: oldPassword
+    });
 
-      const response = await firstValueFrom(verifyPassword$);
-      console.log('✅ Password verification:', response.valid);
+    const response = await firstValueFrom(verifyPassword$);
+    console.log('✅ Password verification:', response.valid);
 
-      return response.valid;
-    } catch (error) {
-      console.error('❌ Error verifying password:', error);
-      return false;
-    }
+    return response.valid;
   }
   async sendEmailForgotPwd(email: string): Promise<{ success: boolean; message: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');

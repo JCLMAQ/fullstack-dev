@@ -241,6 +241,7 @@
       "newPasswordMustBeDifferent": "Le nouveau mot de passe doit être différent de l'ancien",
       "invalidOldPassword": "Le mot de passe actuel est incorrect",
       "verificationError": "Erreur lors de la vérification du mot de passe",
+      "endpointNotFound": "Service de vérification non disponible (erreur 404)",
       "minAge": "Vous devez avoir au moins 18 ans",
       "invalidEmail": "Adresse email invalide",
       "invalidPhone": "Numéro de téléphone invalide",
