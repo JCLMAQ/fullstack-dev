@@ -2,10 +2,10 @@ import { ActiveUserData, HashingService } from '@be/common';
 import { Gender, Language, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
-    ConflictException,
-    Inject,
-    Injectable,
-    UnauthorizedException,
+  ConflictException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -178,6 +178,31 @@ export class AuthenticationService {
       }
     }
     return await this.generateTokens(user);
+  }
+
+  async verifyPassword(signInDto: SignInDto): Promise<boolean> {
+    const user = await this.prisma.user.findUnique({
+      where: { email: signInDto.email },
+      include: {
+        userSecret: true, // Return all fields
+      },
+    });
+    if (!user) {
+      console.log('❌ [AuthService] User does not exist for email:', signInDto.email);
+      return false;
+    }
+    const isEqual = await this.hashingService.compare(
+      signInDto.password,
+      user.userSecret?.pwdHash,
+    );
+
+    if (!isEqual) {
+      console.log('❌ [AuthService] Password does not match for email:', signInDto.email);
+      return false;
+    }
+
+    console.log('✅ [AuthService] Password verified successfully for email:', signInDto.email);
+    return true;
   }
 
   async generateTokens(user: User) {

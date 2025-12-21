@@ -8,16 +8,16 @@ import { AccountValidationService } from './account-validation/account-validatio
 import { AuthenticationService } from './authentication.service';
 import { Auth } from './decorators/auth.decorator';
 import {
-    AuthResponse,
-    RequestAccountValidationDto,
-    UserProfile,
-    UserProfileResponse
+  AuthResponse,
+  RequestAccountValidationDto,
+  UserProfile,
+  UserProfileResponse
 } from './dto/account-validation.dto/account-validation.dto';
 import { ExtendedSignUpDto } from './dto/extended-sign-up.dto/extended-sign-up.dto';
 import {
-    ChangePasswordDto,
-    ForgotPasswordDto,
-    ResetPasswordDto
+  ChangePasswordDto,
+  ForgotPasswordDto,
+  ResetPasswordDto
 } from './dto/password-management.dto/password-management.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -60,6 +60,11 @@ export class AuthenticationController {
     return await this.authenticationService.signIn(signInDto);
   }
 
+  @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)
+  @Post('verify-password')
+  async verifyPassword(@Body() signInDto: SignInDto) {
+    return await this.authenticationService.verifyPassword(signInDto);
+  }
   // Cookies approach
   @HttpCode(HttpStatus.OK) // by default @Post does 201, we wanted 200 - hence using @HttpCode(HttpStatus.OK)
   @Post('sign-in-cookies')

@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -44,6 +44,7 @@ export class Changepwd {
   private readonly router = inject(Router);
   private readonly changePwdService = inject(ChangePwdService);
   private readonly appStore = inject(AppStore);
+  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   protected readonly hideOldPassword = signal(true);
   protected readonly hideNewPassword = signal(true);
@@ -63,17 +64,30 @@ export class Changepwd {
   );
 
   constructor() {
-    // Validation asynchrone de l'ancien mot de passe
+    // Validation asynchrone de l'ancien mot de passe avec debounce
     effect(() => {
       const oldPassword = this.changepwdForm.oldPassword().value();
       const isTouched = this.changepwdForm.oldPassword().touched();
       const isDirty = this.changepwdForm.oldPassword().dirty();
 
+      // Annuler le timer précédent
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = null;
+      }
+
+      // Réinitialiser l'erreur si le champ est vide
+      if (!oldPassword) {
+        this.oldPasswordError.set(null);
+        return;
+      }
+
       // Valider seulement si le champ a été touché/modifié et contient au moins 8 caractères
       if ((isTouched || isDirty) && oldPassword && oldPassword.length >= 8) {
-        this.verifyOldPasswordAsync(oldPassword);
-      } else if (!oldPassword) {
-        this.oldPasswordError.set(null);
+        // Appliquer un debounce de 500ms
+        this.debounceTimer = setTimeout(() => {
+          this.verifyOldPasswordAsync(oldPassword);
+        }, 500);
       }
     });
   }
