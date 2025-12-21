@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { apply, Field, form, schema, SchemaPath } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
@@ -11,7 +11,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAM_AUTH_TOKEN } from '@fe/auth';
-import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { TranslateModule } from '@ngx-translate/core';
@@ -43,6 +43,8 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<R
     MatSuffix,
     MatProgressSpinner,
     FieldError,
+    PasswordStrength,
+    PasswordMatch,
     JsonPipe,
     TranslateModule
   ],
@@ -77,31 +79,6 @@ export class Resetpwd implements OnInit {
 
   // Signal Form avec validation schema
   resetpwdForm = form<ResetPasswordCredentials>(this.resetCredentials, resetPasswordSchema);
-
- // Password strength (indicateur visuel de robustesse du mot de passe  )
-  passwordStrength = computed(() => {
-    const pwd = this.resetpwdForm.password().controlValue();
-    if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
-    let strength = -1;
-    if (pwd.length >= 8) strength++;
-    if (/[a-z]/.test(pwd)) strength++; // Minuscule
-    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
-    if (/[0-9]/.test(pwd)) strength++; // Chiffre
-    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
-    if (strength > 4  ) strength = 4;
-    return {
-      score: strength+1,
-      label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
-      color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
-    };
-  });
-
-  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
-  passwordsMatch = computed(() => {
-    const pwd = this.resetpwdForm.password().controlValue();
-    const confirmPwd = this.resetpwdForm.confirmPassword().controlValue();
-    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
-  });
 
   ngOnInit(): void {
     // Récupérer le token depuis les query params

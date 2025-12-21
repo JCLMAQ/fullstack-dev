@@ -57,24 +57,7 @@
           <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.password()" />
-        <!-- Indicateur de force du mot de passe -->
-          @if (registerForm.password().value().length > 0) {
-          <div class="mt-2">
-            <div class="flex items-center gap-2 text-sm">
-              <span>{{"REGISTER.passwordStrength" | translate}}</span>
-              <span [style.color]="passwordStrength().color" class="font-medium">
-                {{ passwordStrength().label }}
-              </span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-              <div
-                class="h-2 rounded-full transition-all duration-300"
-                [style.width.%]="passwordStrength().score * 20"
-                [style.background-color]="passwordStrength().color"
-              ></div>
-            </div>
-          </div>
-          }
+        <lib-password-strength [fieldState]="registerForm.password()" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
@@ -104,20 +87,10 @@
           <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <lib-field-error [fieldError]="registerForm.confirmPassword()" />
-
-<!-- Indicateur de correspondance des mots de passe -->
-      @if (registerForm.password().value().length > 0 && registerForm.confirmPassword().value().length > 0) {
-      <div class="mt-1 flex items-center gap-1 text-sm">
-        @if (passwordsMatch()) {
-        <mat-icon class="text-green-500 text-sm">check_circle</mat-icon>
-        <span class="text-green-600">Passwords match</span>
-        } @else {
-        <mat-icon class="text-red-500 text-sm">cancel</mat-icon>
-        <span class="text-red-600">Passwords don't match</span>
-        }
-      </div>
-      }
-
+        <lib-password-match
+          [passwordFieldState]="registerForm.password()"
+          [confirmPasswordFieldState]="registerForm.confirmPassword()"
+        />
     </mat-form-field>
 
 

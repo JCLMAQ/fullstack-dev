@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 // import { IamAuth } from '@fe/auth'
 import { IAM_AUTH_TOKEN } from '@fe/auth';
-import { FieldError, passwordDifferentFromEmail, passwordWithConfirmSchema } from '@fe/signalform-utilities';
+import { FieldError, passwordDifferentFromEmail, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -31,6 +31,8 @@ export interface RegisterFormModel {
     MatButtonModule,
     Field,
     FieldError,
+    PasswordStrength,
+    PasswordMatch,
     MatCardModule,
     TranslateModule,
     JsonPipe
@@ -139,40 +141,13 @@ export class Register {
   // registerForm = form(this.registerCredentials, this.registerSchema);
   registerForm = form<RegisterFormModel>(this.registerCredentials, this.registerSchema);
 
-  // Password strength (indicateur visuel de robustesse du mot de passe  )
-  passwordStrength = computed(() => {
-    const pwd = this.registerForm.password().value();
-    if (!pwd) return { score: 0, label: 'Very Weak', color: 'red' };
-    let strength = -1;
-    if (pwd.length >= 8) strength++;
-    if (/[a-z]/.test(pwd)) strength++; // Minuscule
-    if (/[A-Z]/.test(pwd)) strength++; // Majuscule
-    if (/[0-9]/.test(pwd)) strength++; // Chiffre
-    if (/[^A-Za-z0-9]/.test(pwd)) strength++; // Caractère spécial
-    if (strength > 4  ) strength = 4;
-    return {
-      score: strength+1,
-      label: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][strength] || 'Very Weak',
-      color: ['red', 'orange', 'yellow', 'lightgreen', 'green'][strength] || 'red'
-    };
-  });
-
-  // Vérification de la correspondance des mots de passe pour l'indicateur visuel
-  passwordsMatch = computed(() => {
-    const pwd = this.registerForm.password().value();
-    const confirmPwd = this.registerForm.confirmPassword().value();
-    return pwd.length > 0 && confirmPwd.length > 0 && pwd === confirmPwd;
-  });
-
   // Résumé d'état du formulaire
   formSummary = computed(() => {
     const form = this.registerForm();
     return {
       isValid: untracked(() => form.valid()),
       hasErrors: untracked(() => form.invalid()),
-      passwordMatch: this.passwordsMatch(),
       emailValid: untracked(() => this.registerForm.email().valid()),
-      passwordStrong: this.passwordStrength().score >= 3,
       canSubmit: untracked(() => form.valid())
     };
   });
@@ -184,7 +159,6 @@ export class Register {
     emailValue: this.registerForm.email().value(),
     passwordValue: (this.registerForm.password().value() || '').replace(/./g, '*'),
     confirmPasswordValue: (this.registerForm.confirmPassword().value() || '').replace(/./g, '*'),
-    passwordStrength: this.passwordStrength(),
     isValid: this.registerForm().valid(),
     errors: {
       email: this.registerForm.email().errors(),
