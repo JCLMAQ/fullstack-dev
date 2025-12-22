@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { ChangePwdService } from '@fe/auth';
+import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, PasswordMatch, PasswordStrength } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,7 +35,8 @@ export type ChangePasswordModel = {
     PasswordStrength,
     PasswordMatch,
     TranslateModule,
-    JsonPipe
+    JsonPipe,
+    MatFormFieldStatusDirective
   ],
   templateUrl: './changepwd.html',
   styleUrl: './changepwd.scss',

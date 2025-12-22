@@ -28,22 +28,13 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
 
       <mat-form-field class="w-full" [fieldState]="userLoginForm.password()">
         <mat-label>{{ 'LOGIN.passwordLabel' | translate }}</mat-label>
-          @if (hidePassword()) {
             <input
               matInput
               [field]="userLoginForm.password"
+              [type]="hidePassword() ? 'password' : 'text'"
               placeholder="{{ 'LOGIN.passwordPlaceholder' | translate }}"
               type="password"
             />
-          } @else {
-            <input
-              matInput
-              [field]="userLoginForm.password"
-              placeholder="{{ 'LOGIN.passwordPlaceholder' | translate }}"
-              type="text"
-            />
-          }
-
         <button
           mat-icon-button
           matSuffix

@@ -23,9 +23,10 @@ import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
         // 1. Success State: Green ring when valid and dirty (user typed something correct)
-        'ring-2': ({ state }) => state().valid() && state().dirty(),
+        // 'ring-2': ({ state }) => state().valid() && state().dirty(),
         'ring-green-500': ({ state }) => state().valid() && state().dirty(),
         'border-green-500': ({ state }) => state().valid() && state().dirty(),
+        'bg-green-50': ({ state }) => state().valid() && state().dirty(),
         // 2. Error State: Red ring when invalid and touched (user blurred the field)
         'ring-red-500': ({ state }) => state().invalid() && state().touched(),
         'border-red-500': ({ state }) => state().invalid() && state().touched(),

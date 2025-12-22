@@ -15,7 +15,7 @@
     </div>
 
   <div class="flex flex-col gap-5">
-    <mat-form-field class="w-full">
+    <mat-form-field class="w-full" [fieldState]="registerForm.email()">
       <mat-label>{{"REGISTER.emailLabel" | translate}}</mat-label>
       <input
         matInput
@@ -30,23 +30,14 @@
           }
     </mat-form-field>
 
-    <mat-form-field class="w-full">
+    <mat-form-field class="w-full" [fieldState]="registerForm.password()">
       <mat-label>{{"REGISTER.passwordLabel" | translate}}</mat-label>
-        @if (hidePassword()) {
           <input
             matInput
-            type="password"
+            [type]="hidePassword() ? 'password' : 'text'"
             placeholder="{{'REGISTER.passwordPlaceholder' | translate}}"
             [field]="registerForm.password"
           />
-        } @else {
-            <input
-              matInput
-            type="text"
-              placeholder="{{'REGISTER.passwordPlaceholder' | translate}}"
-              [field]="registerForm.password"
-            />
-        }
         <button
           mat-icon-button
           matSuffix
@@ -60,23 +51,15 @@
         <lib-password-strength [fieldState]="registerForm.password()" />
     </mat-form-field>
 
-    <mat-form-field class="w-full">
+    <mat-form-field class="w-full" [fieldState]="registerForm.confirmPassword()">
       <mat-label>{{"REGISTER.confirmPasswordLabel" | translate}}</mat-label>
-        @if (hideConfirmPassword()) {
           <input
             matInput
-            type="password"
+            [type]="hideConfirmPassword() ? 'password' : 'text'"
             placeholder="{{'REGISTER.confirmPasswordPlaceholder' | translate}}"
             [field]="registerForm.confirmPassword"
           />
-        } @else {
-          <input
-            matInput
-            type="text"
-            placeholder="{{'REGISTER.confirmPasswordPlaceholder' | translate}}"
-            [field]="registerForm.confirmPassword"
-          />
-        }
+
         <button
           mat-icon-button
           matSuffix

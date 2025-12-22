@@ -16,7 +16,7 @@
         aria-hidden="true"
       />
 
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full" [fieldState]="changepwdForm.oldPassword()">
         <mat-label>{{ "CHANGEPWD.currentPasswordLabel" | translate }}</mat-label>
         <input
           matInput
@@ -46,7 +46,7 @@
 
 <br>
 
-      <mat-form-field class="w-full">
+      <mat-form-field class="w-full" [fieldState]="changepwdForm.newPassword()">
         <mat-label>{{"CHANGEPWD.newPasswordLabel" | translate}}</mat-label>
         <input
           matInput
@@ -74,7 +74,7 @@
 
       <br>
 
-      <mat-form-field>
+      <mat-form-field class="w-full" [fieldState]="changepwdForm.confirmPassword()">
         <mat-label>{{"CHANGEPWD.confirmNewPasswordLabel" | translate}}</mat-label>
         <input
           matInput

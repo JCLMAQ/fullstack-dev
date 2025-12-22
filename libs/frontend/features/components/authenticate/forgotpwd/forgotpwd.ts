@@ -9,6 +9,7 @@ import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IAM_AUTH_TOKEN } from '@fe/auth';
+import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -27,7 +28,8 @@ export interface EmailUserFormModel {
     Field,
     TranslateModule,
     FieldError,
-    JsonPipe
+    JsonPipe,
+    MatFormFieldStatusDirective
   ],
   templateUrl: './forgotpwd.html',
   styleUrl: './forgotpwd.scss',

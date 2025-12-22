@@ -11,6 +11,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAM_AUTH_TOKEN } from '@fe/auth';
+import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
@@ -46,7 +47,9 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<R
     PasswordStrength,
     PasswordMatch,
     JsonPipe,
-    TranslateModule
+    TranslateModule,
+    MatFormFieldStatusDirective
+
   ],
   templateUrl: './resetpwd.html',
   styleUrl: './resetpwd.scss',

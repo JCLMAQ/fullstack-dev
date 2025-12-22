@@ -6,23 +6,14 @@
   <h1 class="text-2xl mb-2 text-on-surface">{{"RESETPWD.title" | translate}}</h1>
 
   <form class="flex flex-col gap-5">
-    <mat-form-field class="w-full">
+    <mat-form-field class="w-full" [fieldState]="resetpwdForm.password()">
       <mat-label>{{"RESETPWD.newPasswordLabel" | translate}}</mat-label>
-      @if (hidePassword()) {
         <input
           matInput
-          type="password"
+          [type]="hidePassword() ? 'password' : 'text'"
           placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
           [field]="resetpwdForm.password"
         />
-      } @else {
-        <input
-          matInput
-          type="text"
-          placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
-          [field]="resetpwdForm.password"
-        />
-      }
       <button
         mat-icon-button
         matSuffix
@@ -36,23 +27,14 @@
       <lib-password-strength [fieldState]="resetpwdForm.password()" />
     </mat-form-field>
 
-    <mat-form-field class="w-full">
+    <mat-form-field class="w-full" [fieldState]="resetpwdForm.confirmPassword()">
       <mat-label>{{"RESETPWD.confirmPasswordLabel" | translate}}</mat-label>
-      @if (hideConfirmPassword()) {
         <input
           matInput
-          type="password"
+          [type]="hideConfirmPassword() ? 'password' : 'text'"
           placeholder="{{'RESETPWD.confirmPasswordPlaceholder' | translate}}"
           [field]="resetpwdForm.confirmPassword"
         />
-      } @else {
-        <input
-          matInput
-          type="text"
-          placeholder="{{'RESETPWD.confirmPasswordPlaceholder' | translate}}"
-          [field]="resetpwdForm.confirmPassword"
-        />
-      }
       <button
         mat-icon-button
         matSuffix
