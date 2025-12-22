@@ -310,12 +310,35 @@ console.log('🔍 [SERVICE] Lang:', lang);
     }
 
     try {
-      // Get user with current password
-      const userSecret = await this.prisma.userSecret.findUnique({
-        where: { userId },
+      console.log('🔍 changePassword - Received userId (User.id):', userId);
+
+      // Get user email from User.id (UserSecret.userId references User.email)
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true },
       });
 
+      console.log('🔍 changePassword - Found user:', user);
+
+      if (!user) {
+        console.log('❌ changePassword - User not found in User table with id:', userId);
+        return {
+          success: false,
+          message: await this.i18n.translate('auths.USER_NOT_FOUND', { lang }),
+        };
+      }
+
+      console.log('🔍 changePassword - Looking for UserSecret with userId (email):', user.email);
+
+      // Get user with current password (using email as userId per schema)
+      const userSecret = await this.prisma.userSecret.findUnique({
+        where: { userId: user.email },
+      });
+
+      console.log('🔍 changePassword - Found userSecret:', userSecret ? 'Yes' : 'No');
+
       if (!userSecret) {
+        console.log('❌ changePassword - UserSecret not found with userId (email):', user.email);
         return {
           success: false,
           message: await this.i18n.translate('auths.USER_NOT_FOUND', { lang }),
@@ -349,11 +372,15 @@ console.log('🔍 [SERVICE] Lang:', lang);
       // Hash new password
       const hashedPassword = await this.hashingService.hash(newPassword);
 
-      // Update password
+      console.log('🔍 changePassword - Updating UserSecret with userId (email):', user.email);
+
+      // Update password (using email as userId per schema)
       await this.prisma.userSecret.update({
-        where: { userId },
+        where: { userId: user.email },
         data: { pwdHash: hashedPassword },
       });
+
+      console.log('✅ changePassword - Password updated successfully');
 
       return {
         success: true,
@@ -361,7 +388,8 @@ console.log('🔍 [SERVICE] Lang:', lang);
           lang,
         }),
       };
-    } catch {
+    } catch (error) {
+      console.error('❌ changePassword - Error:', error);
       return {
         success: false,
         message: await this.i18n.translate('auths.CHANGE_PWD_ERROR', { lang }),

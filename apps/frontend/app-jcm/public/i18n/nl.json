@@ -101,7 +101,9 @@
   "confirmNewPasswordRequired": "Bevestiging van het nieuwe wachtwoord is verplicht",
   "passwordMismatch": "Wachtwoorden komen niet overeen",
   "changeSuccess": "Wachtwoord succesvol gewijzigd",
-  "changeFailed": "Wachtwoord wijzigen is mislukt. Probeer het opnieuw."
+  "changeFailed": "Wachtwoord wijzigen is mislukt. Probeer het opnieuw.",
+  "invalidOldPassword": "Het huidige wachtwoord is onjuist",
+  "passwordMatch": "De wachtwoorden komen overeen"
 },
 "REGISTER": {
   "title": "Registreren",

@@ -1,7 +1,7 @@
 import {
-  ApplicationConfig,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+    ApplicationConfig,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -18,7 +18,7 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
-import { AuthInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
+import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
@@ -57,6 +57,7 @@ export const appConfig: ApplicationConfig = {
           withFetch(),
           withInterceptors([
             AuthInterceptor,
+            LanguageInterceptor,
             LoggingInterceptor,
           ]),
         ),

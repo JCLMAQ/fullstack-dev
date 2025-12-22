@@ -35,7 +35,7 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     origin: [process.env.API_FRONTEND_URL, process.env.API_FRONTEND_URL_IP],
     // origin: ['http://localhost:4100', 'http://127.0.0.1:4100'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-custom-lang'],
     credentials: true,
   });
  // Enable shutdown hooks for Prisma

@@ -101,7 +101,9 @@
       "changeFailed": "Password change failed. Please try again.",
       "wantToReset": "Do you want to reset the form?",
       "resetFormButton": "Reset Form",
-      "passwordStrength": "Password Strength"
+      "passwordStrength": "Password Strength",
+      "invalidOldPassword": "Current password is incorrect",
+      "passwordMatch": "Passwords match"
     },
     "REGISTER": {
       "title": "Register",

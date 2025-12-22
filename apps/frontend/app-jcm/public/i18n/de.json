@@ -101,7 +101,9 @@
       "changeFailed": "Die Passwortänderung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
       "wantToReset": "Möchten Sie das Formular zurücksetzen?",
       "resetFormButton": "Formular zurücksetzen",
-      "passwordStrength": "Passwortstärke"
+      "passwordStrength": "Passwortstärke",
+      "invalidOldPassword": "Das aktuelle Passwort ist falsch",
+      "passwordMatch": "Die Passwörter stimmen überein"
     },
     "REGISTER": {
       "title": "Registrieren",

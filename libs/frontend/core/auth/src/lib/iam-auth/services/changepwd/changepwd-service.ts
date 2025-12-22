@@ -17,22 +17,11 @@ export class ChangePwdService {
 
   async changePassword(oldPassword: string, newPassword: string, verifyPassword: string): Promise<{ message: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-        const pathUrl = `${apiPrefix}/authentication/change-password`;
+        // const pathUrl = `${apiPrefix}/authentication/change-password`;
 
         console.log('🔐 Attempting password change:', { oldPassword, newPassword, verifyPassword });
 
-      //  payload:{
-      //     "oldPassword": "test011",
-      //     "newPassword" : "test01",
-      // 	"verifyPassword" : "test01"
-      // }
-      // response:
-      // interface ILoginResponse {
-      //   accessToken: string;
-      //   refreshToken: string;
-      // }
-
-        const changePassword$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, {
+        const changePassword$ = this.httpClient.post<ILoginResponse>(`${this.pathUrl}`, {
           oldPassword,
           newPassword,
           verifyPassword

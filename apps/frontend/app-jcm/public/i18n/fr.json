@@ -102,7 +102,9 @@
       "changeFailed": "Le changement de mot de passe a échoué. Veuillez réessayer.",
       "wantToReset": "Vous voulez réinitialiser le formulaire ?",
       "resetFormButton": "Réinitialiser le formulaire",
-      "passwordStrength": "Force du mot de passe"
+      "passwordStrength": "Force du mot de passe",
+      "invalidOldPassword": "Le mot de passe actuel est incorrect",
+      "passwordMatch": "Les mots de passe correspondent"
 
     },
     "REGISTER": {
