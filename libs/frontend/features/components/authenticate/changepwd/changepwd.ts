@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
-import { Field, form } from '@angular/forms/signals';
+import { Component, computed, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
+import { ChildFieldContext, customError, Field, form, minLength, pattern, required, schema, validate, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,6 @@ import { ChangePwdService } from '@fe/auth';
 import { FieldError, PasswordMatch, PasswordStrength } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
-import { changePasswordSchema } from './changepwd-schema';
 
 export type ChangePasswordModel = {
   oldPassword: string;
@@ -40,106 +39,125 @@ export type ChangePasswordModel = {
   templateUrl: './changepwd.html',
   styleUrl: './changepwd.scss',
 })
-export class Changepwd implements OnDestroy {
+export class Changepwd {
   private readonly router = inject(Router);
   private readonly changePwdService = inject(ChangePwdService);
   private readonly appStore = inject(AppStore);
-  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   protected readonly hideOldPassword = signal(true);
   protected readonly hideNewPassword = signal(true);
   protected readonly hideConfirmPassword = signal(true);
   protected readonly isSubmitting = signal(false);
-  protected readonly isVerifyingOldPassword = signal(false);
-  protected readonly oldPasswordError = signal<string | null>(null);
+
   protected readonly changePasswordData = signal<ChangePasswordModel>({
     oldPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
 
+  // Schéma avec validation asynchrone de l'ancien mot de passe
+  private readonly extendedSchema = schema<ChangePasswordModel>((path) => [
+    // Validation de l'ancien mot de passe
+    required(path.oldPassword, { message: 'signalFormError.passwordRequired' }),
+    minLength(path.oldPassword, 8, {
+      message: 'signalFormError.passwordMinLength',
+    }),
+
+    // Validation du nouveau mot de passe
+    required(path.newPassword, { message: 'signalFormError.passwordRequired' }),
+    minLength(path.newPassword, 8, {
+      message: 'signalFormError.passwordMinLength',
+    }),
+    pattern(
+      path.newPassword,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      {
+        message: 'signalFormError.passwordPattern',
+      }
+    ),
+
+    // Validation du mot de passe de confirmation
+    required(path.confirmPassword, {
+      message: 'signalFormError.confirmPasswordRequired',
+    }),
+
+    // Validation que les mots de passe correspondent
+    validate(path, ({ valueOf }) => {
+      const newPassword = valueOf(path.newPassword);
+      const confirmPassword = valueOf(path.confirmPassword);
+
+      if (
+        newPassword &&
+        confirmPassword &&
+        newPassword !== confirmPassword
+      ) {
+        return customError({
+          kind: 'passwordsMismatch',
+          message: 'signalFormError.passwordMismatch',
+        });
+      }
+      return null;
+    }),
+
+    // Validation que le nouveau mot de passe est différent de l'ancien
+    validate(path, ({ valueOf }) => {
+      const oldPassword = valueOf(path.oldPassword);
+      const newPassword = valueOf(path.newPassword);
+
+      if (oldPassword && newPassword && oldPassword === newPassword) {
+        return customError({
+          kind: 'samePassword',
+          message: 'signalFormError.newPasswordMustBeDifferent',
+        });
+      }
+      return null;
+    }),
+
+    // Ajouter la validation asynchrone pour oldPassword
+    validateAsync(path.oldPassword, {
+      params: (oldPassword: ChildFieldContext<string>) => oldPassword.value(),
+      factory: (params: Signal<string | undefined>) =>
+        resource({
+          params,
+          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) => {
+            const password = loaderParams.params;
+            const user = this.appStore.user();
+            const email = user && typeof user === 'object' && 'email' in user
+              ? (user as { email?: string }).email
+              : undefined;
+
+            if (!password || password.length < 8 || !email) {
+              return null;
+            }
+
+            return await this.changePwdService.verifyOldPassword(password, email);
+          }
+        }),
+      onSuccess: (isValid: boolean | null) =>
+        (isValid === null || isValid)
+          ? undefined
+          : customError({
+              kind: 'invalid-old-password',
+              message: 'signalFormError.invalidOldPassword'
+            }),
+      onError: () =>
+        customError({
+          kind: 'verification-error',
+          message: 'signalFormError.verificationError'
+        })
+    }),
+  ]);
+
+  // Schéma étendu avec validation asynchrone
   protected readonly changepwdForm = form(
     this.changePasswordData,
-    changePasswordSchema
+    this.extendedSchema
   );
 
-  constructor() {
-    // Validation asynchrone de l'ancien mot de passe avec debounce
-    effect(() => {
-      const oldPassword = this.changepwdForm.oldPassword().value();
-      const isTouched = this.changepwdForm.oldPassword().touched();
-      const isDirty = this.changepwdForm.oldPassword().dirty();
-
-      // Annuler le timer précédent
-      if (this.debounceTimer) {
-        clearTimeout(this.debounceTimer);
-        this.debounceTimer = null;
-      }
-
-      // Réinitialiser l'erreur si le champ est vide
-      if (!oldPassword) {
-        this.oldPasswordError.set(null);
-        return;
-      }
-
-      // Valider seulement si le champ a été touché/modifié et contient au moins 8 caractères
-      if ((isTouched || isDirty) && oldPassword && oldPassword.length >= 8) {
-        // Appliquer un debounce de 500ms
-        this.debounceTimer = setTimeout(() => {
-          this.verifyOldPasswordAsync(oldPassword);
-        }, 500);
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    // Nettoyer le timer pour éviter les fuites mémoire
-    if (this.debounceTimer) {
-      clearTimeout(this.debounceTimer);
-      this.debounceTimer = null;
-    }
-  }
-
-  private async verifyOldPasswordAsync(oldPassword: string): Promise<void> {
-    this.isVerifyingOldPassword.set(true);
-    this.oldPasswordError.set(null);
-
-    try {
-      console.log('🔐 Verifying old password...');
-      const user = this.appStore.user();
-
-      if (!user?.email) {
-        console.error('❌ User email not found in store');
-        this.oldPasswordError.set('signalFormError.verificationError');
-        return;
-      }
-
-      const isValid = await this.changePwdService.verifyOldPassword(oldPassword, user.email);
-
-      if (!isValid) {
-        console.log('❌ Invalid old password');
-        this.oldPasswordError.set('signalFormError.invalidOldPassword');
-      } else {
-        console.log('✅ Old password verified successfully');
-      }
-    } catch (error: unknown) {
-      console.error('❌ Error verifying old password:', error);
-
-      // Gérer différents types d'erreurs
-      if (error && typeof error === 'object' && 'status' in error) {
-        const httpError = error as { status: number };
-        if (httpError.status === 404) {
-          this.oldPasswordError.set('signalFormError.endpointNotFound');
-        } else {
-          this.oldPasswordError.set('signalFormError.verificationError');
-        }
-      } else {
-        this.oldPasswordError.set('signalFormError.verificationError');
-      }
-    } finally {
-      this.isVerifyingOldPassword.set(false);
-    }
-  }
+  // État de validation calculé
+  protected readonly isValidating = computed(() =>
+    this.changepwdForm.oldPassword().pending()
+  );
 
   protected changePwd(): void {
     const formState = this.changepwdForm();
@@ -148,19 +166,14 @@ export class Changepwd implements OnDestroy {
       return;
     }
 
-    // Vérifier si une validation async est en cours ou s'il y a une erreur
-    if (this.isVerifyingOldPassword()) {
-      console.log('Validation en cours, veuillez patienter...');
-      return;
-    }
-
-    if (this.oldPasswordError()) {
-      console.log('L\'ancien mot de passe n\'est pas valide');
+    // Vérifier si une validation async est en cours
+    if (this.changepwdForm.oldPassword().pending()) {
+      console.log('⏳ Validation en cours, veuillez patienter...');
       return;
     }
 
     const formValue = formState.value();
-    console.log('Change password:', formValue);
+    console.log('✅ Change password:', formValue);
     // TODO: Implement password change logic
   }
 
