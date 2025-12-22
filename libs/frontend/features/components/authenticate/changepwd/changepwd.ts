@@ -130,7 +130,7 @@ export class Changepwd {
               return null;
             }
 
-            return await this.changePwdService.verifyOldPassword(password, email);
+            return await (this.changePwdService as ChangePwdService).verifyOldPassword(password, email);
           }
         }),
       onSuccess: (isValid: boolean | null) =>
@@ -159,7 +159,7 @@ export class Changepwd {
     this.changepwdForm.oldPassword().pending()
   );
 
-  protected changePwd(): void {
+  protected async changePwd(): Promise<void> {
     const formState = this.changepwdForm();
     if (!formState.valid()) {
       formState.markAsTouched();
@@ -175,6 +175,13 @@ export class Changepwd {
     const formValue = formState.value();
     console.log('✅ Change password:', formValue);
     // TODO: Implement password change logic
+      await (this.changePwdService as ChangePwdService).changePassword(
+        formValue.oldPassword,
+        formValue.newPassword,
+        formValue.confirmPassword
+      );
+      // this.resetForm();
+      // this.backhome() ;
   }
 
   cancel(): void {

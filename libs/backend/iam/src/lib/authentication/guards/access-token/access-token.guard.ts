@@ -1,10 +1,10 @@
 import jwtConfig from '@be/jwtconfig';
 import {
-  CanActivate,
-  ExecutionContext,
-  Inject,
-  Injectable,
-  UnauthorizedException
+    CanActivate,
+    ExecutionContext,
+    Inject,
+    Injectable,
+    UnauthorizedException
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -26,16 +26,19 @@ export class AccessTokenGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
+      console.error('❌ AccessTokenGuard: No token found in Authorization header');
       throw new UnauthorizedException("No token found (or empty token)");
     }
+    console.log('🔍 AccessTokenGuard: Token found, attempting verification...');
     try {
       const payload = await this.jwtService.verifyAsync(
         token,
         this.jwtConfiguration,
       );
       request[REQUEST_USER_KEY] = payload;
-      console.log('From access-token.guards.ts', payload);
-    } catch {
+      console.log('✅ AccessTokenGuard: Token verified successfully. Payload:', payload);
+    } catch (error) {
+      console.error('❌ AccessTokenGuard: Token verification failed:', error.message);
       throw new UnauthorizedException("Token management error");
     }
     return true;

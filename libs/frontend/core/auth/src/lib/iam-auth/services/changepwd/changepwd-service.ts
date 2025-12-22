@@ -13,34 +13,49 @@ export class ChangePwdService {
   private readonly httpClient = inject(HttpClient);
   private readonly environment = inject(ENVIRONMENT_TOKEN);
   private readonly apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-  private readonly pathUrl = `${this.apiPrefix}/authentication/changepwd`;
+  private readonly pathUrl = `${this.apiPrefix}/authentication/change-password`;
 
-  async changePassword(oldPassword: string, newPassword: string, verifyPassword: string, userEmail: string): Promise<{ message: string }> {
+  async changePassword(oldPassword: string, newPassword: string, verifyPassword: string): Promise<{ message: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
-        const pathUrl = `${apiPrefix}/authentication/changepwd`;
+        const pathUrl = `${apiPrefix}/authentication/change-password`;
 
         console.log('🔐 Attempting password change:', { oldPassword, newPassword, verifyPassword });
 
-//         {
-//            "userId": "string",
-// 	          "email": "user01@test.be",
-//            "oldPassword": "test011",
-//            "newPassword" : "test01",
-// 	          "verifyPassword" : "test01"
-// }
+      //  payload:{
+      //     "oldPassword": "test011",
+      //     "newPassword" : "test01",
+      // 	"verifyPassword" : "test01"
+      // }
+      // response:
+      // interface ILoginResponse {
+      //   accessToken: string;
+      //   refreshToken: string;
+      // }
 
         const changePassword$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, {
-          email: userEmail,
           oldPassword,
           newPassword,
           verifyPassword
         });
 
-        const changePwdResponse = await firstValueFrom(changePassword$);
-              console.log('✅ Password changed:', changePwdResponse );
+        try {
+          const changePwdResponse = await firstValueFrom(changePassword$);
+          console.log('✅ Password changed:', changePwdResponse );
+          return { message: 'Password changed successfully.' };
+        } catch (error: unknown) {
+          console.error('❌ Error changing password:', error);
 
-              return { message: 'Password changed successfully.' };
+          if (error && typeof error === 'object' && 'status' in error) {
+            const httpError = error as { status: number };
+            if (httpError.status === 401) {
+              throw new Error('Votre session a expiré. Veuillez vous reconnecter pour changer votre mot de passe.');
+            }
+          }
+
+          throw error;
+        }
   }
+
   async verifyOldPassword(oldPassword: string, userEmail: string): Promise<boolean> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//,  '').replace(/\/$/,  '');
     const pathUrl = `${apiPrefix}/authentication/verify-password`;
