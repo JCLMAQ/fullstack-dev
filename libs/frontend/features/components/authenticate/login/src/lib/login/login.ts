@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, strongPasswordSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +34,8 @@ const loginUserSchema = schema<LoginUser>((path) => {
     Field,
     TranslateModule,
     FieldError,
-    JsonPipe
+    JsonPipe,
+    MatFormFieldStatusDirective
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',

@@ -1,7 +1,7 @@
 import {
-    ApplicationConfig,
-    provideBrowserGlobalErrorListeners,
-    provideZonelessChangeDetection,
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -22,17 +22,8 @@ import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErr
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
-  // 'app-disabled': ({ state }) => state().disabled(),
-  // 'app-touched': ({ state }) => state().touched(),
-  // 'app-untouched': ({ state }) => !state().touched(),
-  // 'app-dirty': ({ state }) => state().dirty(),
-  // 'app-pristine': ({ state }) => !state().dirty(),
-  // 'app-valid': ({ state }) => state().valid(),
-  // 'app-invalid': ({ state }) => state.invalid() && state.touched(),
-  // 'app-pending': ({ state }) => state.pending(),
         // 1. Success State: Green ring when valid and dirty (user typed something correct)
         'ring-2': ({ state }) => state().valid() && state().dirty(),
-        //{ [className: string]: (state: Field<unknown>) => boolean; } | undefined
         'ring-green-500': ({ state }) => state().valid() && state().dirty(),
         'border-green-500': ({ state }) => state().valid() && state().dirty(),
         // 2. Error State: Red ring when invalid and touched (user blurred the field)

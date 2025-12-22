@@ -65,8 +65,6 @@
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
       "@be/files-jcm": ["libs/backend/files-jcm/src/index.ts"],
-
-
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -94,6 +92,9 @@
       ],
       "@fe/signalform-utilities": [
         "libs/frontend/features/utils/signalform-utilities/src/index.ts"
+      ],
+      "@fe/utils/directives": [
+        "libs/frontend/features/utils/directives/src/index.ts"
       ],
       "@fe/user": ["libs/frontend/domains/user/src/index.ts"],
       "@fe/user-avatar": [
@@ -129,7 +130,9 @@
       ],
       "@fe/models": ["libs/frontend/models/src/index.ts"],
       "@fe/components": ["libs/frontend/features/components/index.ts"],
-
+      "@fe/directives": [
+        "libs/frontend/features/utils/directives/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
