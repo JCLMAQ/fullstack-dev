@@ -86,7 +86,7 @@
       "@fe/messages": [
         "libs/frontend/features/components/messages/src/index.ts"
       ],
-      "@fe/material": ["libs/frontend/features/material/src/index.ts"],
+      "@fe/material": ["libs/frontend/features/utils/material/src/index.ts"],
       "@fe/date-utilities": [
         "libs/frontend/features/utils/date-utilities/src/index.ts"
       ],
