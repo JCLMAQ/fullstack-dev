@@ -1,12 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Prisma, PrismaClient, Task, User } from '../generated/prisma/client';
+import { Prisma, PrismaClient, Task, User } from '../../generated/prisma/client';
 
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
 // alternatively can make both as optional, and create new relations if absent
 const comment= faker.lorem.paragraph();
 
@@ -19,7 +13,7 @@ export const dataUserTaskLink = (
   comment
 });
 
-export const createUserTaskLink = async (task: Task, user: User) => {
+export const createUserTaskLink = async (task: Task, user: User, prisma: PrismaClient) => {
 
       const userTaskLink = await prisma.userTaskLink.create({
         data: {

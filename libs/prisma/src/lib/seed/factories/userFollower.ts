@@ -1,4 +1,4 @@
-import { Prisma, User } from '../generated/prisma/client';
+import { Prisma, User } from '../../generated/prisma/client';
 
 // alternatively can make both as optional, and create new relations if absent
 export const dataUserFollower = (

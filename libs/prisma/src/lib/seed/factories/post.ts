@@ -1,15 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Category, Organization, PrismaClient, User } from '../generated/prisma/client';
+import { Category, Organization, PrismaClient, User } from '../../generated/prisma/client';
 
 
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
-
-export const createPost = async (iOrg: number,iUser: number, z: number, org: Organization, user: User, cat: Category) => {
+export const createPost = async (iOrg: number,iUser: number, z: number, org: Organization, user: User, cat: Category, prisma: PrismaClient) => {
 
   console.log("Posts: ",z,"/Org: ", iOrg,"/User: ", iUser);
 

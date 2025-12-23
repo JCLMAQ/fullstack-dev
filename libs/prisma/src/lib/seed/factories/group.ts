@@ -1,12 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Organization, Prisma, PrismaClient, User } from '../generated/prisma/client';
-
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
+import { Organization, Prisma, PrismaClient, User } from '../../generated/prisma/client';
 
 export const dataGroup =  (user: User, organization: Organization): Prisma.GroupCreateInput => {
   const description = faker.lorem.paragraph();
@@ -18,7 +11,7 @@ export const dataGroup =  (user: User, organization: Organization): Prisma.Group
   return { description, name, isActiv, orderGroup, org: { connect: { id: organization.id }} , Users: { connect: { id: user.id } } };
 };
 
-export const createGroup = async (i: number, iOrg: number, iUser: number, org: Organization, user: User) => {
+export const createGroup = async (i: number, iOrg: number, iUser: number, org: Organization, user: User, prisma: PrismaClient) => {
       console.log("Group: ",i.toString() + "/ Org: " + iOrg.toString()+ "/User: " + iUser.toString())
       const group = await prisma.group.create({
         data: {

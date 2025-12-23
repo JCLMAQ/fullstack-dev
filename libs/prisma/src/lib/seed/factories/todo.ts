@@ -1,13 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Organization, Prisma, PrismaClient, User } from '../generated/prisma/client';
-
-
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
+import { Organization, Prisma, PrismaClient, User } from '../../generated/prisma/client';
 
 export const dataTodo = (i: number, user: User, organization: Organization): Prisma.TodoCreateInput => {
   const content = faker.lorem.paragraph();
@@ -21,7 +13,7 @@ export const dataTodo = (i: number, user: User, organization: Organization): Pri
 
 }
 
-export const createTodo = async (iOrg: number, iUser: number, i: number, org: Organization, user: User) => {
+export const createTodo = async (iOrg: number, iUser: number, i: number, org: Organization, user: User, prisma: PrismaClient) => {
   console.log("Todo: ",  i.toString() + "/ Org: " + iOrg.toString()+ "/User: " + iUser.toString())
       const todo = await prisma.todo.create({
         data: {

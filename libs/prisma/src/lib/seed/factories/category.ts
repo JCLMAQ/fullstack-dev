@@ -1,12 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Prisma, PrismaClient } from '../generated/prisma/client';
+import { Prisma, PrismaClient } from '../../generated/prisma/client';
 
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
 export const dataCategory = (j: number): Prisma.CategoryCreateInput => {
   const orderCategory = faker.number.int(100);
   const name = 'Category ' + j.toString();
@@ -17,7 +11,7 @@ export const dataCategory = (j: number): Prisma.CategoryCreateInput => {
 
 }
 
-export const createCategories = async (maxj: number) => {
+export const createCategories = async (maxj: number, prisma: PrismaClient) => {
   for (let j = 0; j < maxj; j++) {
     console.log("Category: ", j)
     const orderCategory = faker.number.int(100);

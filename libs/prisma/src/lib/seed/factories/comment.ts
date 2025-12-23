@@ -1,12 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Post, Prisma, PrismaClient, User } from '../generated/prisma/client';
+import { Post, Prisma, PrismaClient, User } from '../../generated/prisma/client';
 
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
 // alternatively can make both as optional, and create new relations if absent
 export const dataComment = (
   user: User,
@@ -25,7 +19,7 @@ export const dataComment = (
 
 }
 
-export const createComment = async (iOrg: number, iUser: number, iPost: number, i: number, user: User, post: Post) => {
+export const createComment = async (iOrg: number, iUser: number, iPost: number, i: number, user: User, post: Post, prisma: PrismaClient) => {
     console.log("Comments: ", i, "/Org: ", iOrg,"/User: ", iUser,"/Post: ", iPost,);
       const comment = await prisma.comment.create({
         data: {

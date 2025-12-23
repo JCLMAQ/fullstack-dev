@@ -1,17 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Organization, Prisma, PrismaClient } from '../generated/prisma/client';
+import { Organization, Prisma, PrismaClient } from '../../generated/prisma/client';
 import { dataOrgDomain } from './orgDomain';
 import { dataOrgEmail } from './orgEmail';
 
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
 // create two Organizations
 
-export const create2Orgs = async () => {
+export const create2Orgs = async (prisma: PrismaClient) => {
 
   const orgs: Organization[]=[];
 
@@ -66,7 +60,7 @@ export const create2Orgs = async () => {
     data: dataOrgDomain(org2, "theone", "be")
   });
   await prisma.orgEmail.create({
-    data: dataOrgEmail(org1, "info@theone.be")
+    data: dataOrgEmail(org2, "info@theone.be")
   });
 
   console.log("Organization 2: ", org2)

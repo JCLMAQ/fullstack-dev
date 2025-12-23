@@ -1,19 +1,11 @@
 
 import { faker } from '@faker-js/faker';
-import { PrismaPg } from '@prisma/adapter-pg';
 import { pbkdf2Sync, randomBytes } from "crypto";
-import { PrismaClient, Role, User } from '../generated/prisma/client';
-
-
-const adapter = new PrismaPg({
-  connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
-});
-
-const prisma = new PrismaClient({ adapter });
+import { PrismaClient, Role, User } from '../../generated/prisma/client';
 
 // create the 4 user: 3 attached to the Org1 and one to the Org2
 
-export const create4Users = async () => {
+export const create4Users = async (prisma: PrismaClient) => {
  const users: User[] = [];
 
  function hashPassword(plainTextPassword: string, salt: string ): string  {
@@ -39,7 +31,7 @@ export const create4Users = async () => {
       firstName: 'alice',
       lastName: 'Merveille',
       nickName: 'ALMER',
-      dob: faker.date.birthdate(),
+      dateOfBirth: faker.date.birthdate(),
       passWordFaker: passWordFaker,
       Orgs: { connect: { id: orgs[0].id } },
       Roles: [Role.USER],
@@ -62,7 +54,7 @@ export const create4Users = async () => {
       email: 'bob@prisma.io',
       nickName: 'MOBOB',
       passWordFaker: passWordFaker,
-      dob: faker.date.birthdate(),
+      dateOfBirth: faker.date.birthdate(),
       Orgs: { connect: { id: orgs[0].id } },
       Roles: [Role.USER],
       userSecret: {
@@ -84,7 +76,7 @@ export const create4Users = async () => {
       email: 'toi@toit.be',
       nickName: 'TOITOI',
       passWordFaker: passWordFaker,
-      dob: faker.date.birthdate(),
+      dateOfBirth: faker.date.birthdate(),
       Orgs: { connect: { id: orgs[0].id } },
       Roles: [Role.USER],
       userSecret: {
@@ -106,7 +98,7 @@ export const create4Users = async () => {
       email: 'jcm@jcm.be',
       nickName: 'JCM',
       passWordFaker: passWordFaker,
-      dob: faker.date.birthdate(),
+      dateOfBirth: faker.date.birthdate(),
       Orgs: { connect: { id: orgs[1].id } },
       Roles: [Role.ADMIN],
       userSecret: {

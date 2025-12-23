@@ -1,4 +1,4 @@
-import { Post, Prisma, User } from '../generated/prisma/client';
+import { Post, Prisma, User } from '../../generated/prisma/client';
 
 // alternatively can make both as optional, and create new relations if absent
 export const dataPostLike = (
