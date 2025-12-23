@@ -22,7 +22,8 @@
     "sync-images": "dotenvx run -- npx tsx ./scripts/sync-images.ts",
     "configangular": "dotenvx run -- npx tsx ./scripts/setenv.ts",
     "update-project-port": "dotenvx run -- npx tsx ./scripts/update-project-port.ts",
-    "configproxy": "dotenvx run -- npx tsx ./scripts/setproxyconfig.ts"
+    "configproxy": "dotenvx run -- npx tsx ./scripts/setproxyconfig.ts",
+    "cleanup-ports": "npx tsx ./scripts/cleanup-ports.ts"
   },
   "private": true,
   "dependencies": {
