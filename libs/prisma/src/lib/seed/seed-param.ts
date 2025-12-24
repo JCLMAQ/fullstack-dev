@@ -128,11 +128,6 @@ async function main() {
         name: 'IMAGES_TEMP_STORAGE_DEST',
         value: './uploadedtempimages',
         utility: " ! Not used for now - URL for the files storage location."
-      },
-      {
-        name: 'CLIENT_URL',
-        value: 'http://localhost:4000/auth/reset-password',
-        utility: " ! Url of the client application (for email links)and reset password."
       }
     ]
   })
