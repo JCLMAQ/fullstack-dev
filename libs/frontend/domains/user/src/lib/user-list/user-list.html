@@ -1,1 +1,41 @@
-<p>user-list works!</p>
+<section class="user-list">
+	<header class="toolbar">
+		<button (click)="refreshUsers()">Recharger</button>
+		<span>@if (isLoading()) { Chargement... } @else { {{ userCount() }} utilisateurs }</span>
+		@if (hasError()) {
+			<span class="error">Une erreur est survenue.</span>
+		}
+	</header>
+
+	<ul class="items">
+		@for (u of users(); track u.id) {
+			<li>
+				<button (click)="selectUser(u.id)">
+					{{ u.firstName }} {{ u.lastName }} — {{ u.email }}
+				</button>
+			</li>
+		}
+	</ul>
+
+	@if (selectedUserId()) {
+		<section class="relations">
+			<h3>Relations pour {{ selectedUserId() }}</h3>
+			<div class="rel-group">
+				<h4>Followers (@if (hasFollowers()) { {{ followers().length }} } @else { 0 })</h4>
+				<ul>
+					@for (f of followers(); track f.id) {
+						<li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+					}
+				</ul>
+			</div>
+			<div class="rel-group">
+				<h4>Following (@if (hasFollowing()) { {{ following().length }} } @else { 0 })</h4>
+				<ul>
+					@for (f of following(); track f.id) {
+						<li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+					}
+				</ul>
+			</div>
+		</section>
+	}
+</section>

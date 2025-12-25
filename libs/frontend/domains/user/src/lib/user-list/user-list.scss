@@ -1,0 +1,32 @@
+.user-list {
+	display: grid;
+	gap: 1rem;
+}
+
+.toolbar {
+	display: flex;
+	align-items: center;
+	gap: .75rem;
+}
+
+.error { color: #c00; }
+
+.items {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.items li { margin-bottom: .5rem; }
+
+.relations {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.rel-group ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
