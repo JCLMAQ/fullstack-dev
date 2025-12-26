@@ -8,7 +8,7 @@ import { initialUserState, UserState } from "./user-slice";
 export const UserStore = signalStore(
 
   withState(initialUserState),
-  withDevtools('userStore'),
+  withDevtools('UserStore'),
   withEntities<UserState>(),
   withComputed(({ users, followers, following, organizations, selectedUser, loading, error }) => ({
     isLoading: computed(() => loading()),
