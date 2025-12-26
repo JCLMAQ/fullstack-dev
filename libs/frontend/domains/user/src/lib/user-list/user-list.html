@@ -28,6 +28,24 @@
   } @else {
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Colonne Sélection -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="toggleAll()"
+              [checked]="isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              aria-label="Tout sélectionner">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let user">
+            <mat-checkbox
+              (change)="toggleSelection(user)"
+              [checked]="selection.isSelected(user)"
+              aria-label="Sélectionner la ligne">
+            </mat-checkbox>
+          </td>
+        </ng-container>
         <!-- Colonne Prénom -->
         <ng-container matColumnDef="firstName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</th>

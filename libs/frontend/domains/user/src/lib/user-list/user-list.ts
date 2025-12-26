@@ -1,5 +1,7 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, effect, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -17,6 +19,7 @@ import { UserStore } from '../store/user-store';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
+    MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipsModule,
   ],
@@ -43,8 +46,9 @@ export class UserList {
   protected readonly hasFollowing = this.store.hasFollowing;
 
   // Configuration de la table
-  protected readonly displayedColumns: string[] = ['firstName', 'lastName', 'email', 'actions'];
+  protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
   protected readonly dataSource = new MatTableDataSource<User>([]);
+  protected readonly selection = new SelectionModel<User>(true, []);
 
   constructor() {
     // Synchroniser les données du store avec la table
@@ -75,5 +79,24 @@ export class UserList {
     // this.store.loadFollowers(id);
     // this.store.loadFollowing(id);
     this.store.loadOrganizations(id);
+  }
+
+  // Sélection
+  protected isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected > 0 && numSelected === numRows;
+  }
+
+  protected toggleAll(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.data);
+    }
+  }
+
+  protected toggleSelection(user: User): void {
+    this.selection.toggle(user);
   }
 }
