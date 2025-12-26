@@ -35,6 +35,12 @@ export const UserStore = signalStore(
     selectedUserId: computed(() => selectedUser()?.id ?? null),
     selectedIdSet: computed(() => new Set(selectedIds())),
     selectedCount: computed(() => selectedIds().length),
+    selectedUsers: computed(() => {
+      const entities = usersEntities();
+      return selectedIds()
+        .map((id: string) => entities[id as keyof typeof entities])
+        .filter((user): user is User => user !== undefined);
+    }),
     isAllSelected: computed(() => {
       const total = Object.keys(usersEntities()).length;
       const sel = selectedIds().length;
