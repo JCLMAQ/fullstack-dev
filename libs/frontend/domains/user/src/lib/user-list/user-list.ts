@@ -1,4 +1,3 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, effect, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -48,7 +47,6 @@ export class UserList {
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
   protected readonly dataSource = new MatTableDataSource<User>([]);
-  protected readonly selection = new SelectionModel<User>(true, []);
 
   constructor() {
     // Synchroniser les données du store avec la table
@@ -75,6 +73,7 @@ export class UserList {
 
   protected selectUser(id: string): void {
     this.store.loadUser(id);
+    // TODO Ajouter les endpoints followers/following (côté backend)
     // Note: Les endpoints followers/following ne sont pas encore implémentés côté backend
     // this.store.loadFollowers(id);
     // this.store.loadFollowing(id);
@@ -83,20 +82,26 @@ export class UserList {
 
   // Sélection
   protected isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected > 0 && numSelected === numRows;
+    return this.store.isAllSelected();
   }
 
   protected toggleAll(): void {
     if (this.isAllSelected()) {
-      this.selection.clear();
+      this.store.clearSelection();
     } else {
-      this.selection.select(...this.dataSource.data);
+      this.store.selectAll();
     }
   }
 
-  protected toggleSelection(user: User): void {
-    this.selection.toggle(user);
+  protected toggleSelection(id: string): void {
+    this.store.toggleSelection(id);
+  }
+
+  protected isSelected(id: string): boolean {
+    return this.store.selectedIdSet().has(id);
+  }
+
+  protected selectedSize(): number {
+    return this.store.selectedIdSet().size;
   }
 }

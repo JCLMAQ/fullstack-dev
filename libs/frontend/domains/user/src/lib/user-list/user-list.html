@@ -34,14 +34,14 @@
             <mat-checkbox
               (change)="toggleAll()"
               [checked]="isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [indeterminate]="selectedSize() > 0 && !isAllSelected()"
               aria-label="Tout sélectionner">
             </mat-checkbox>
           </th>
           <td mat-cell *matCellDef="let user">
             <mat-checkbox
-              (change)="toggleSelection(user)"
-              [checked]="selection.isSelected(user)"
+              (change)="toggleSelection(user.id)"
+              [checked]="isSelected(user.id)"
               aria-label="Sélectionner la ligne">
             </mat-checkbox>
           </td>

@@ -15,6 +15,7 @@ const userConfig = entityConfig({
 
 export const UserStore = signalStore(
   withState(initialUserState),
+  withState({ selectedIds: [] as string[] }),
   withEntities(userConfig),
   withCallState({ collection: 'users' }),
   withUserMethods,
@@ -22,7 +23,7 @@ export const UserStore = signalStore(
   withUndoRedo({
     collections: ['users'],
   }),
-  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error }) => ({
+  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
     // Conversion des entités en tableau pour la compatibilité
     users: computed(() => Object.values(usersEntities())),
     isLoading: computed(() => loading()),
@@ -32,6 +33,13 @@ export const UserStore = signalStore(
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
     selectedUserId: computed(() => selectedUser()?.id ?? null),
+    selectedIdSet: computed(() => new Set(selectedIds())),
+    selectedCount: computed(() => selectedIds().length),
+    isAllSelected: computed(() => {
+      const total = Object.keys(usersEntities()).length;
+      const sel = selectedIds().length;
+      return total > 0 && sel === total;
+    }),
   })),
   withHooks({
     onInit: (store) => {
