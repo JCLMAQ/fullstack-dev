@@ -9,6 +9,31 @@ type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
   withMethods((store, userService = inject(UserService)) => ({
+
+  toggleSelection(id: string) {
+      const sel = store as unknown as SelectionStore;
+      const current: string[] = sel.selectedIds();
+      const next = current.includes(id)
+        ? current.filter((x: string) => x !== id)
+        : [...current, id];
+      patchState(store, { selectedIds: next });
+    },
+
+    clearSelection() {
+      patchState(store, { selectedIds: [] });
+    },
+
+    selectAll() {
+      const ents = store as unknown as UsersEntitiesStore;
+      const allIds = Object.keys(ents.usersEntities());
+      patchState(store, { selectedIds: allIds });
+    },
+
+    setSelection(ids: string[]) {
+      const unique = Array.from(new Set(ids));
+      patchState(store, { selectedIds: unique });
+    },
+
     async loadUsers(options?: UsersQueryOptions) {
       try {
         patchState(store, { loading: true, error: null });
@@ -59,28 +84,82 @@ export const withUserMethods = signalStoreFeature(
       }
     },
 
-    toggleSelection(id: string) {
-      const sel = store as unknown as SelectionStore;
-      const current: string[] = sel.selectedIds();
-      const next = current.includes(id)
-        ? current.filter((x: string) => x !== id)
-        : [...current, id];
-      patchState(store, { selectedIds: next });
+    async updateUser(id: string, data: Partial<User>) {
+      try {
+        patchState(store, { loading: true, error: null });
+        const updated = await userService.updateUser(id, data);
+        patchState(store, { selectedUser: updated, loading: false });
+        // Update in entities - access via cast
+        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
+        const current = storeWithEntities.usersEntities();
+        patchState(store, {
+          usersEntities: { ...current, [id]: updated },
+        } as any);
+      } catch {
+        patchState(store, { loading: false, error: 'Erreur lors de la mise à jour de l\'utilisateur' });
+      }
     },
 
-    clearSelection() {
-      patchState(store, { selectedIds: [] });
+    async deleteUser(id: string) {
+      try {
+        patchState(store, { loading: true, error: null });
+        await userService.deleteUser(id);
+        // Remove from entities
+        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
+        const current = storeWithEntities.usersEntities();
+        const updated = { ...current };
+        delete updated[id];
+        patchState(store, {
+          usersEntities: updated,
+          selectedUser: null,
+          loading: false,
+        } as any);
+        // Remove from selection
+        const sel = store as unknown as SelectionStore;
+        const selectedIds = sel.selectedIds().filter(sid => sid !== id);
+        patchState(store, { selectedIds });
+      } catch {
+        patchState(store, { loading: false, error: 'Erreur lors de la suppression de l\'utilisateur' });
+      }
     },
 
-    selectAll() {
-      const ents = store as unknown as UsersEntitiesStore;
-      const allIds = Object.keys(ents.usersEntities());
-      patchState(store, { selectedIds: allIds });
+    async softDeleteUser(id: string) {
+      try {
+        patchState(store, { loading: true, error: null });
+        await userService.softDeleteUser(id);
+        // Update in entities
+        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
+        const current = storeWithEntities.usersEntities();
+        if (current[id]) {
+          const updated = { ...current[id], isDeleted: 1 };
+          patchState(store, {
+            usersEntities: { ...current, [id]: updated },
+            selectedUser: current[id]?.id === id ? (updated as User) : null,
+            loading: false,
+          } as any);
+        }
+      } catch {
+        patchState(store, { loading: false, error: 'Erreur lors de la désactivation de l\'utilisateur' });
+      }
     },
 
-    setSelection(ids: string[]) {
-      const unique = Array.from(new Set(ids));
-      patchState(store, { selectedIds: unique });
+    async createUser(data: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) {
+      try {
+        patchState(store, { loading: true, error: null });
+        const created = await userService.createUser(data);
+        patchState(store, { selectedUser: created, loading: false });
+        // Add to entities
+        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
+        const current = storeWithEntities.usersEntities();
+        patchState(store, {
+          usersEntities: { ...current, [created.id]: created },
+        } as any);
+      } catch {
+        patchState(store, { loading: false, error: 'Erreur lors de la création de l\'utilisateur' });
+      }
     },
+
+
+
   }))
 );

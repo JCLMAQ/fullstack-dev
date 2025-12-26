@@ -71,9 +71,30 @@
             <button
               mat-icon-button
               color="primary"
-              (click)="selectUser(user.id)"
+              (click)="navigateButton(user.id, 'Edit')"
+              aria-label="Éditer l'utilisateur">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="navigateButton(user.id, 'View')"
               aria-label="Voir les détails">
-              <mat-icon>visibility</mat-icon>
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="softDeleteUser(user.id)"
+              aria-label="Supprimer (soft delete)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="hardDeleteUser(user.id)"
+              aria-label="Supprimer définitivement">
+              <mat-icon>delete_forever</mat-icon>
             </button>
           </td>
         </ng-container>

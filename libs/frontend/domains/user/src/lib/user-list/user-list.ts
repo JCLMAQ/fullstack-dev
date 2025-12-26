@@ -7,6 +7,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { User } from '@db/prisma';
 import { UserStore } from '../store/user-store';
 
@@ -28,6 +29,13 @@ import { UserStore } from '../store/user-store';
 })
 export class UserList {
   private readonly store = inject(UserStore);
+  private readonly router = inject(Router);
+
+  routeToDetail = "users/user";
+
+  mode: 'Edit' | 'View' | 'Update' | undefined ;
+  master = false; // true : button is disable
+  owner = false; // true button is disable
 
   // ViewChild pour tri et pagination
   protected readonly sort = viewChild(MatSort);
@@ -103,5 +111,56 @@ export class UserList {
 
   protected selectedSize(): number {
     return this.store.selectedIdSet().size;
+  }
+
+  // Méthodes d'actions sur les utilisateurs
+/*
+  navigateButton( id: string, mode: string ) {
+    this.todoStore.todoIdSelectedId(id);
+    this.todoStore.initNavButton(id);
+    this.router.navigate([this.routeToDetail, id, mode]);
+  }
+
+  addOne() {
+    this.router.navigate([this.routeToDetail, '', 'create']);
+  }
+
+// Delete the selected item
+  async remove( id: string ) {
+
+  }
+
+  virtualRemove(id: string) {
+
+  }
+
+*/
+
+  protected navigateButton(id: string, mode: string): void {
+    this.selectUser(id);
+    this.router.navigate(['/users/detail', id]);
+  }
+
+
+
+  protected editUser(id: string): void {
+    // TODO: Implémenter la navigation vers le formulaire d'édition
+    console.log('Éditer utilisateur:', id);
+  }
+
+  protected viewUser(id: string): void {
+    this.selectUser(id);
+  }
+
+  protected softDeleteUser(id: string): void {
+    // TODO: Implémenter le soft delete via le store
+    console.log('Soft delete utilisateur:', id);
+    // this.store.softDeleteUser(id);
+  }
+
+  protected hardDeleteUser(id: string): void {
+    // TODO: Implémenter le hard delete via le store
+    console.log('Hard delete utilisateur:', id);
+    // this.store.hardDeleteUser(id);
   }
 }

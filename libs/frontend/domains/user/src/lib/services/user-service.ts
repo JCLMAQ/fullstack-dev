@@ -92,6 +92,12 @@ export class UserService {
 		return await firstValueFrom(this.http.delete<User>(url));
 	}
 
+	async softDeleteUser(id: string): Promise<User> {
+		if (!id) throw new Error('id requis');
+		const url = `${this.baseUrl}/${encodeURIComponent(id)}/soft-delete`;
+		return await firstValueFrom(this.http.patch<User>(url, {}));
+	}
+
 	// --------------------
 	// httpResource helpers (signal-friendly)
 	// --------------------
