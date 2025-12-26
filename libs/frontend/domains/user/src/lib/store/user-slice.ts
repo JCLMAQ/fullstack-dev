@@ -1,7 +1,6 @@
 import { Organization, User } from "@db/prisma";
 
 export interface UserState {
-	users: User[];
 	selectedUser: User | null;
 	organizations: Organization[];
 	followers: User[];
@@ -11,7 +10,6 @@ export interface UserState {
 }
 
 export const initialUserState: UserState = {
-	users: [],
 	selectedUser: null,
 	organizations: [],
 	followers: [],

@@ -1,29 +1,31 @@
 import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, inject } from "@angular/core";
+import { User } from "@db/prisma";
 import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { entityConfig, withEntities } from "@ngrx/signals/entities";
+import { entityConfig, setAllEntities, withEntities } from "@ngrx/signals/entities";
 import { UserService, UsersQueryOptions } from "../services/user-service";
-import { initialUserState, UserState } from "./user-slice";
+import { initialUserState } from "./user-slice";
 
 const userConfig = entityConfig({
-  entity: type<UserState>(),
-  collection: 'users' as const,
-  // selectId: (user: UserState) => user.id
+  entity: type<User>(),
+  collection: 'users',
+  selectId: (user: User) => user.id,
 });
 
 export const UserStore = signalStore(
-
   withState(initialUserState),
+  withEntities(userConfig),
   withCallState({ collection: 'users' }),
   withDevtools('UserStore'),
-  withEntities(userConfig),
   withUndoRedo({
-    collections: ['users'] as const,
+    collections: ['users'],
   }),
-  withComputed(({ users, followers, following, organizations, selectedUser, loading, error }) => ({
+  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error }) => ({
+    // Conversion des entités en tableau pour la compatibilité
+    users: computed(() => Object.values(usersEntities())),
     isLoading: computed(() => loading()),
     hasError: computed(() => !!error()),
-    userCount: computed(() => users().length),
+    userCount: computed(() => Object.keys(usersEntities()).length),
     hasFollowers: computed(() => followers().length > 0),
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
@@ -34,7 +36,7 @@ export const UserStore = signalStore(
       try {
         patchState(store, { loading: true, error: null });
         const users = await userService.listUsers(options);
-        patchState(store, { users, loading: false });
+        patchState(store, setAllEntities(users, { collection: 'users' }), { loading: false });
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement des utilisateurs' });
       }
