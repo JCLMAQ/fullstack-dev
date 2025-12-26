@@ -4,6 +4,7 @@ import { UserStore } from '../store/user-store';
 @Component({
   selector: 'lib-user-list',
   imports: [],
+  providers: [UserStore],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
 })
