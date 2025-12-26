@@ -1,15 +1,25 @@
-import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, inject } from "@angular/core";
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { withEntities } from "@ngrx/signals/entities";
+import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
+import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { UserService, UsersQueryOptions } from "../services/user-service";
 import { initialUserState, UserState } from "./user-slice";
+
+const userConfig = entityConfig({
+  entity: type<UserState>(),
+  collection: 'users' as const,
+  // selectId: (user: UserState) => user.id
+});
 
 export const UserStore = signalStore(
 
   withState(initialUserState),
+  withCallState({ collection: 'users' }),
   withDevtools('UserStore'),
-  withEntities<UserState>(),
+  withEntities(userConfig),
+  withUndoRedo({
+    collections: ['users'] as const,
+  }),
   withComputed(({ users, followers, following, organizations, selectedUser, loading, error }) => ({
     isLoading: computed(() => loading()),
     hasError: computed(() => !!error()),

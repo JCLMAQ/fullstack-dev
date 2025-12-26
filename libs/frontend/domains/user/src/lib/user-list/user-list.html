@@ -1,41 +1,123 @@
 <section class="user-list">
-	<header class="toolbar">
-		<button (click)="refreshUsers()">Recharger</button>
-		<span>@if (isLoading()) { Chargement... } @else { {{ userCount() }} utilisateurs }</span>
-		@if (hasError()) {
-			<span class="error">Une erreur est survenue.</span>
-		}
-	</header>
+  <header class="toolbar">
+    <h2>Utilisateurs</h2>
+    <div class="toolbar-actions">
+      <button mat-raised-button color="primary" (click)="refreshUsers()">
+        <mat-icon>refresh</mat-icon>
+        Recharger
+      </button>
+      <mat-chip-set>
+        <mat-chip highlighted>
+          {{ userCount() }} utilisateurs
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+  </header>
 
-	<ul class="items">
-		@for (u of users(); track u.id) {
-			<li>
-				<button (click)="selectUser(u.id)">
-					{{ u.firstName }} {{ u.lastName }} — {{ u.email }}
-				</button>
-			</li>
-		}
-	</ul>
+  @if (hasError()) {
+    <div class="error-banner">
+      <mat-icon>error</mat-icon>
+      <span>Une erreur est survenue lors du chargement des données.</span>
+    </div>
+  }
 
-	@if (selectedUserId()) {
-		<section class="relations">
-			<h3>Relations pour {{ selectedUserId() }}</h3>
-			<div class="rel-group">
-				<h4>Followers (@if (hasFollowers()) { {{ followers().length }} } @else { 0 })</h4>
-				<ul>
-					@for (f of followers(); track f.id) {
-						<li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
-					}
-				</ul>
-			</div>
-			<div class="rel-group">
-				<h4>Following (@if (hasFollowing()) { {{ following().length }} } @else { 0 })</h4>
-				<ul>
-					@for (f of following(); track f.id) {
-						<li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
-					}
-				</ul>
-			</div>
-		</section>
-	}
+  @if (isLoading()) {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Colonne Prénom -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</th>
+          <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
+        </ng-container>
+
+        <!-- Colonne Nom -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+          <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
+        </ng-container>
+
+        <!-- Colonne Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+        </ng-container>
+
+        <!-- Colonne Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let user">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="selectUser(user.id)"
+              aria-label="Voir les détails">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [class.selected-row]="row.id === selectedUserId()">
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        showFirstLastButtons
+        aria-label="Sélectionner la page">
+      </mat-paginator>
+    </div>
+  }
+
+  @if (selectedUserId()) {
+    <section class="relations">
+      <h3>Relations pour l'utilisateur sélectionné</h3>
+      <div class="relations-grid">
+        <div class="rel-group">
+          <h4>
+            <mat-icon>person_add</mat-icon>
+            Followers
+            @if (hasFollowers()) {
+              <mat-chip>{{ followers().length }}</mat-chip>
+            }
+          </h4>
+          @if (hasFollowers()) {
+            <ul>
+              @for (f of followers(); track f.id) {
+                <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+              }
+            </ul>
+          } @else {
+            <p class="empty-state">Aucun follower</p>
+          }
+        </div>
+
+        <div class="rel-group">
+          <h4>
+            <mat-icon>person</mat-icon>
+            Following
+            @if (hasFollowing()) {
+              <mat-chip>{{ following().length }}</mat-chip>
+            }
+          </h4>
+          @if (hasFollowing()) {
+            <ul>
+              @for (f of following(); track f.id) {
+                <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+              }
+            </ul>
+          } @else {
+            <p class="empty-state">Aucun abonnement</p>
+          }
+        </div>
+      </div>
+    </section>
+  }
 </section>

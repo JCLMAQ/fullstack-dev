@@ -1,9 +1,25 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, viewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { User } from '@db/prisma';
 import { UserStore } from '../store/user-store';
 
 @Component({
   selector: 'lib-user-list',
-  imports: [],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+  ],
   providers: [UserStore],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
@@ -11,26 +27,53 @@ import { UserStore } from '../store/user-store';
 export class UserList {
   private readonly store = inject(UserStore);
 
+  // ViewChild pour tri et pagination
+  protected readonly sort = viewChild(MatSort);
+  protected readonly paginator = viewChild(MatPaginator);
+
   // Signals exposés au template
-  users = this.store.users;
-  isLoading = this.store.isLoading;
-  hasError = this.store.hasError;
-  userCount = this.store.userCount;
-  selectedUserId = this.store.selectedUserId;
-  followers = this.store.followers;
-  following = this.store.following;
-  hasFollowers = this.store.hasFollowers;
-  hasFollowing = this.store.hasFollowing;
+  protected readonly users = this.store.users;
+  protected readonly isLoading = this.store.isLoading;
+  protected readonly hasError = this.store.hasError;
+  protected readonly userCount = this.store.userCount;
+  protected readonly selectedUserId = this.store.selectedUserId;
+  protected readonly followers = this.store.followers;
+  protected readonly following = this.store.following;
+  protected readonly hasFollowers = this.store.hasFollowers;
+  protected readonly hasFollowing = this.store.hasFollowing;
+
+  // Configuration de la table
+  protected readonly displayedColumns: string[] = ['firstName', 'lastName', 'email', 'actions'];
+  protected readonly dataSource = new MatTableDataSource<User>([]);
+
+  constructor() {
+    // Synchroniser les données du store avec la table
+    effect(() => {
+      this.dataSource.data = this.users();
+    });
+
+    // Configurer le tri et la pagination après initialisation de la vue
+    effect(() => {
+      const sort = this.sort();
+      const paginator = this.paginator();
+
+      if (sort && paginator) {
+        this.dataSource.sort = sort;
+        this.dataSource.paginator = paginator;
+      }
+    });
+  }
 
   // Actions
-  refreshUsers() {
+  protected refreshUsers(): void {
     this.store.loadUsers();
   }
 
-  selectUser(id: string) {
+  protected selectUser(id: string): void {
     this.store.loadUser(id);
-    this.store.loadFollowers(id);
-    this.store.loadFollowing(id);
+    // Note: Les endpoints followers/following ne sont pas encore implémentés côté backend
+    // this.store.loadFollowers(id);
+    // this.store.loadFollowing(id);
     this.store.loadOrganizations(id);
   }
 }
