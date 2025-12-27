@@ -15,7 +15,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserStore } from '../store/user-store';
-import { User } from '@db/prisma';
 
 interface UserFormModel {
   id: string;

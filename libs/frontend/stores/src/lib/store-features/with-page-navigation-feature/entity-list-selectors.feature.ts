@@ -59,9 +59,7 @@ export function withEntityListSelectors<Entity extends { id: string }>(
       const selectedIds = s.selectedIds;
 
       return {
-        /**
-         * L'entité actuellement sélectionnée (via selectedId)
-         */
+        // * L'entité actuellement sélectionnée (via selectedId)
         selectedItem: computed(() => {
           const id = selectedId();
           if (!id) return undefined;
@@ -69,18 +67,14 @@ export function withEntityListSelectors<Entity extends { id: string }>(
           return map[id];
         }),
 
-        /**
-         * Index de l'item sélectionné dans selectedIds
-         */
+        // * Index de l'item sélectionné dans selectedIds
         selectedItemIndex: computed(() => {
           const ids = selectedIds();
           const id = selectedId();
           return ids.findIndex((x: string) => x === id);
         }),
 
-        /**
-         * Liste des entités sélectionnées (via selectedIds)
-         */
+        // * Liste des entités sélectionnées (via selectedIds)
         selectedItems: computed(() => {
           const ids = selectedIds();
           const map = entityMap();
@@ -89,9 +83,7 @@ export function withEntityListSelectors<Entity extends { id: string }>(
             .filter((item): item is Entity => !!item);
         }),
 
-        /**
-         * Index de la dernière position (nombre d'entités - 1)
-         */
+        // *Index de la dernière position (nombre d'entités - 1)
         lastPositionIndex: computed(() => {
           const ids = entityIds();
           return Math.max(ids.length - 1, 0);

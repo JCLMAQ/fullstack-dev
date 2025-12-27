@@ -8,20 +8,21 @@ import {
 } from '@ngrx/signals';
 import { EntityId, EntityState } from '@ngrx/signals/entities';
 
-export type SelectedEntityState = {
-  selectedEntityId: EntityId | null;
-};
-export interface SelectionState<Entity> {
-  selectionOne: {
-    selected: Map<EntityId, Entity>;
-    deselected: Map<EntityId, Entity>;
-  };
-   selectedId: string | null,
+export type SelectedEntityState<Entity> = {
+  selectedEntityId: EntityId | null,
+  selectedId: string | null,
   selectedIds: string[],
-  selection: SelectionModel<User>,
-}
+  selection: SelectionModel<Entity>
+};
+// export type SelectionState<Entity> {
+//   // selectionOne: {
+//   //   selected: Map<EntityId, Entity>;
+//   //   deselected: Map<EntityId, Entity>;
+//   // };
+  
+// }
 
-export function withUserSelectors<Entity>() {
+export function withEntitySelectors<Entity>() {
   return signalStoreFeature(
     { state: type<EntityState<Entity>>() },
     withState<SelectedEntityState>({ selectedEntityId: null }),

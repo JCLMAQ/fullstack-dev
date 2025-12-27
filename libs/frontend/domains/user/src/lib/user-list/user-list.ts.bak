@@ -59,7 +59,7 @@ export class UserList {
   constructor() {
     // Synchroniser les données du store avec la table
     effect(() => {
-      this.dataSource.data = this.users() as User[];
+      this.dataSource.data = this.users();
     });
 
     // Configurer le tri et la pagination après initialisation de la vue
