@@ -1,23 +1,57 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { computed } from '@angular/core';
-import { User } from '@db/prisma';
-import { signalStoreFeature, type, withComputed } from '@ngrx/signals';
-import { EntityState } from '@ngrx/signals/entities';
+import {
+  signalStoreFeature,
+  type,
+  withComputed,
+  withState,
+} from '@ngrx/signals';
+import { EntityId, EntityState } from '@ngrx/signals/entities';
 
-export function withUserSelectors() {
+export type SelectedEntityState = {
+  selectedEntityId: EntityId | null;
+};
+export interface SelectionState<Entity> {
+  selectionOne: {
+    selected: Map<EntityId, Entity>;
+    deselected: Map<EntityId, Entity>;
+  };
+   selectedId: string | null,
+  selectedIds: string[],
+  selection: SelectionModel<User>,
+}
+
+export function withUserSelectors<Entity>() {
   return signalStoreFeature(
-    { state: type<EntityState<User>>() },
+    { state: type<EntityState<Entity>>() },
+    withState<SelectedEntityState>({ selectedEntityId: null }),
     withComputed((store) => ({
-      selectedItem: computed(() =>
-        Object.values(store.entityMap()).find((x) => x.id === store.selectedId())
-      ),
+
+      selectedItem: computed(() => {
+        const selectedId = selectedEntityId();
+        Object.values(store.entityMap()).find((x) => x.id === store.selectedEntityId())
+    }),
       selectedItemIndex: computed(() =>
-        store.selectedIds().findIndex((x) => x === store.selectedId())
+        store.selectedIds().findIndex((x) => x === store.selectedEntityId())
       ),
       selectedItems: computed(() => store.selection().selected.entries),
       lastPositionIndex: computed(() => Object.values(store.entityMap()).length - 1),
       lastPositionId: computed(() => {
         const entities = Object.values(store.entityMap());
         return entities.length > 0 ? entities[entities.length - 1].id : null;
+      }),
+    }))
+  );
+}
+
+export function withSelectedEntity<Entity>() {
+  return signalStoreFeature(
+    { state: type<EntityState<Entity>>() },
+    withState<SelectedEntityState>({ selectedEntityId: null }),
+    withComputed(({ entityMap, selectedEntityId }) => ({
+      selectedEntity: computed(() => {
+        const selectedId = selectedEntityId();
+        return selectedId ? entityMap()[selectedId] : null;
       }),
     }))
   );

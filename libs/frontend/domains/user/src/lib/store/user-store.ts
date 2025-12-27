@@ -25,7 +25,8 @@ export const UserStore = signalStore(
   withUndoRedo({
     collections: ['users'],
   }),
-  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds, selectedId, selection }) => ({
+  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
+    // withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds, selectedId, selection }) => ({
     // Conversion des entités en tableau pour la compatibilité
     users: computed(() => Object.values(usersEntities())),
     isLoading: computed(() => loading()),
@@ -49,18 +50,18 @@ export const UserStore = signalStore(
       return total > 0 && sel === total;
     }),
     // Sélecteurs supplémentaires
-    selectedItem: computed(() =>
-      Object.values(usersEntities()).find((x) => x.id === selectedId())
-    ),
-    selectedItemIndex: computed(() =>
-      selectedIds().findIndex((x: string) => x === selectedId())
-    ),
-    selectedItems: computed(() => selection().selected.entries),
-    lastPositionIndex: computed(() => Object.values(usersEntities()).length - 1),
-    lastPositionId: computed(() => {
-      const entities = Object.values(usersEntities());
-      return entities.length > 0 ? entities[entities.length - 1].id : null;
-    }),
+    // selectedItem: computed(() =>
+    //   Object.values(usersEntities()).find((x) => x.id === selectedId())
+    // ),
+    // selectedItemIndex: computed(() =>
+    //   selectedIds().findIndex((x: string) => x === selectedId())
+    // ),
+    // selectedItems: computed(() => selection().selected.entries),
+    // lastPositionIndex: computed(() => Object.values(usersEntities()).length - 1),
+    // lastPositionId: computed(() => {
+    //   const entities = Object.values(usersEntities());
+    //   return entities.length > 0 ? entities[entities.length - 1].id : null;
+    // }),
   })),
   withMethods((store) => ({
     initSelectedID() {
