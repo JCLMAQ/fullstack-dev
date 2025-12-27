@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { User } from '@db/prisma';
 import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
-import { setAllEntities } from '@ngrx/signals/entities';
+import { addEntity, setAllEntities } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
 type UsersEntitiesStore = { usersEntities: () => Record<string, User> };
@@ -48,7 +48,13 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const user = await userService.getUserById(id);
-        patchState(store, { selectedUser: user, loading: false });
+
+        // Use addEntity to properly add user to the collection with correct selectId
+        patchState(
+          store,
+          addEntity(user, { collection: 'users' }),
+          { selectedUser: user, loading: false }
+        );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement de l\'utilisateur' });
       }

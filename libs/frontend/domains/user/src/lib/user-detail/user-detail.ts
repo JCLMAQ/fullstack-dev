@@ -79,6 +79,9 @@ export class UserDetail {
   protected readonly hasNext = computed(() => this.currentIndex() < this.selectedUsers().length - 1);
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
 
+  // Expose Object for template debugging
+  protected readonly Object = Object;
+
   constructor() {
     // Load user from route params
     effect(() => {

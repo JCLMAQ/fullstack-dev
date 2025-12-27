@@ -14,6 +14,14 @@
       </button>
       <span class="toolbar-title">User Detail</span>
       <span class="spacer"></span>
+      <!-- Debug: affichage du nombre d'utilisateurs sélectionnés -->
+      <span class="debug-info" style="color: yellow; margin: 0 1rem;">
+        DEBUG: selectedUsers: {{ selectedUsers().length }} | selectedIds: {{ userStore.selectedIds().length }} | entities: {{ Object.keys(userStore.usersEntities()).length }}
+        <br />
+        <span style="font-size: 0.7rem;">
+          IDs: {{ userStore.selectedIds().slice(0, 1) | json }} | Keys: {{ Object.keys(userStore.usersEntities()).slice(0, 1) | json }}
+        </span>
+      </span>
       @if (selectedUsers().length > 0) {
         <span class="navigation-info">
           {{ currentIndex() + 1 }} / {{ selectedUsers().length }}
@@ -164,6 +172,11 @@
       </button>
 
       <mat-divider [vertical]="true"></mat-divider>
+
+      <!-- Debug Navigation -->
+      <span style="color: yellow; font-size: 0.8rem; margin: 0 0.5rem;">
+        Nav: {{ selectedUsers().length }} users
+      </span>
 
       <!-- Navigation Buttons -->
       @if (selectedUsers().length > 1) {

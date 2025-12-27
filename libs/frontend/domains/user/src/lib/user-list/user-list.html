@@ -50,9 +50,7 @@
                     </mat-checkbox>
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    <mat-checkbox (click)="$event.stopPropagation()"
-                                  (click)="store.toggleSelected(element.id)"
-                                  (change)="$event ? store.selection().toggle(element) : null"
+                    <mat-checkbox (click)="$event.stopPropagation(); toggleRowSelection(element)"
                                   [checked]="store.selection().isSelected(element)">
                     </mat-checkbox>
                   </td>
@@ -215,6 +213,8 @@
       <span class="selected-text"> ({{store.selection().selected.length}} items selected)</span>
       <span> {{store.selection().selected | json}}  </span>
     }
+    <br>
+    <span style="color: orange; font-weight: bold;">selectedIds Array: {{ store.selectedIds() | json }}</span>
     <br>
     <span> {{store.users().length}} data length </span>
     <br>

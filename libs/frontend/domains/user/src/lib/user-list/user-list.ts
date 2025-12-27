@@ -27,7 +27,6 @@ import { UserStore } from '../store/user-store';
     MatChipsModule,
     ...MATERIAL
   ],
-  providers: [UserStore],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
 })
@@ -36,7 +35,7 @@ export class UserList {
   readonly store = inject(UserStore);
   private readonly router = inject(Router);
 
-  routeToDetail = "users/user";
+  routeToDetail = "/users/detail";
 
   mode: 'Edit' | 'View' | 'Update' | undefined ;
   master = false; // true : button is disable
@@ -151,12 +150,13 @@ export class UserList {
   /**
    * Navigue vers le formulaire de détail d'un utilisateur.
    * @param id - ID de l'utilisateur à afficher
-   * @param mode - Mode d'affichage du formulaire (par exemple, 'view', 'edit', 'create')
+   * @param mode - Mode d'affichage (non utilisé - le mode est géré dans le composant de détail)
    */
- navigateButton( id: string, mode: string ) {
+  navigateButton( id: string, mode: string ) {
+    // Définir l'utilisateur sélectionné avant de naviguer
     this.store.todoIdSelectedId(id);
-    this.store.initNavButton(id);
-    this.router.navigate([this.routeToDetail, id, mode]);
+    // Naviguer vers le détail
+    this.router.navigate([this.routeToDetail, id]);
   }
 
 
@@ -222,8 +222,15 @@ export class UserList {
     }
   }
 
+  protected toggleRowSelection(user: User): void {
+    // Synchroniser selection() et selectedIds
+    this.store.selection().toggle(user);
+    this.store.toggleSelected(user.id);
+  }
+
   protected addOne(): void {
-    this.router.navigate([this.routeToDetail, '', 'create']);
+    // Navigation pour créer un nouvel utilisateur (ID vide)
+    this.router.navigate([this.routeToDetail, '']);
   }
 
 }
