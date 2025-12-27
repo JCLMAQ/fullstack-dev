@@ -9,7 +9,6 @@ export interface UserState {
   selectedId: string | null,
   selectedIds: string[],
   selection: SelectionModel<User>,
-  todoLoaded: boolean;
 	selectedUser: User | null;
 	organizations: Organization[];
 	followers: User[];
@@ -26,7 +25,6 @@ export const initialUserState: UserState = {
   selectedId: null,
   selectedIds: [],
   selection: new SelectionModel<User>(true, []),
-  todoLoaded: false,
 	selectedUser: null,
 	organizations: [],
 	followers: [],
