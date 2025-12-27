@@ -9,7 +9,6 @@ import { withUserMethods } from "./user-store-methods";
 
 const userConfig = entityConfig({
   entity: type<User>(),
-  collection: 'users',
   selectId: (user: User) => user.id,
 });
 
@@ -18,19 +17,19 @@ export const UserStore = signalStore(
   withState(initialUserState),
   withEntities(userConfig),
   withNavigationMethods<User>(),
-  withCallState({ collection: 'users' }),
+  withCallState(),
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
   }),
-  withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
+  withComputed(({ entityMap, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
     // withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds, selectedId, selection }) => ({
     // Conversion des entités en tableau pour la compatibilité
-    users: computed(() => Object.values(usersEntities())),
+    users: computed(() => Object.values(entityMap())),
 
     isLoading: computed(() => loading()),
     hasError: computed(() => !!error()),
-    userCount: computed(() => Object.keys(usersEntities()).length),
+    userCount: computed(() => Object.keys(entityMap()).length),
     hasFollowers: computed(() => followers().length > 0),
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
@@ -39,13 +38,13 @@ export const UserStore = signalStore(
     selectedIdSet: computed(() => new Set(selectedIds())),
     selectedCount: computed(() => selectedIds().length),
     selectedUsers: computed(() => {
-      const entities = usersEntities();
+      const entities = entityMap();
       return selectedIds()
         .map((id: string) => entities[id as keyof typeof entities])
         .filter((user): user is User => user !== undefined);
     }),
     isAllSelected: computed(() => {
-      const total = Object.keys(usersEntities()).length;
+      const total = Object.keys(entityMap()).length;
       const sel = selectedIds().length;
       return total > 0 && sel === total;
     }),
@@ -65,7 +64,7 @@ export const UserStore = signalStore(
   })),
   withMethods((store) => ({
     initSelectedID() {
-        const firstIndex = store['usersEntities']().at(0)?.id;
+        const firstIndex = Object.values(store['entityMap']())[0]?.id;
         patchState(store, { selectedId: firstIndex })
       },
 
@@ -87,7 +86,7 @@ export const UserStore = signalStore(
       },
 
       newSelectedSelectionItem(newSelectedSelectionItemIndex: number) {
-        const users = Object.values(store['usersEntities']());
+        const users = Object.values(store['entityMap']());
         const newSelectedSelectionItem = users[newSelectedSelectionItemIndex];
         if (newSelectedSelectionItem) {
           patchState(store, { selectedId: newSelectedSelectionItem.id });
@@ -95,7 +94,7 @@ export const UserStore = signalStore(
       },
 
       newSelectedItem(newSelectedItemIndex: number) {
-        const selectedItem = store['usersEntities']()[newSelectedItemIndex]
+        const selectedItem = Object.values(store['entityMap']())[newSelectedItemIndex]
         patchState(store,{ selectedId: selectedItem.id })
       },
 

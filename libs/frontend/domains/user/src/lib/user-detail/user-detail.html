@@ -15,12 +15,14 @@
       <span class="toolbar-title">User Detail</span>
       <span class="spacer"></span>
       <!-- Debug: affichage du nombre d'utilisateurs sélectionnés -->
-      <span class="debug-info" style="color: yellow; margin: 0 1rem;">
-        DEBUG: selectedUsers: {{ selectedUsers().length }} | selectedIds: {{ userStore.selectedIds().length }} | entities: {{ Object.keys(userStore.usersEntities()).length }}
+      <span class="debug-info" style="color: yellow; margin: 0 1rem; display: block; font-size: 0.75rem; line-height: 1.3;">
+        DEBUG: selectedUsers: {{ selectedUsers().length }} | selectedIds: {{ userStore.selectedIds().length }} | entities: {{ Object.keys(userStore.entityMap()).length }}
         <br />
-        <span style="font-size: 0.7rem;">
-          IDs: {{ userStore.selectedIds().slice(0, 1) | json }} | Keys: {{ Object.keys(userStore.usersEntities()).slice(0, 1) | json }}
-        </span>
+        IDs: {{ userStore.selectedIds().slice(0, 1) | json }} | Keys: {{ Object.keys(userStore.entityMap()).slice(0, 1) | json }}
+        <br />
+        Sample entity at first ID: {{ userStore.entityMap()[userStore.selectedIds()[0]]?.id || 'N/A' }}
+        <br />
+        All entity keys: {{ Object.keys(userStore.entityMap()).slice(0, 3) | json }}
       </span>
       @if (selectedUsers().length > 0) {
         <span class="navigation-info">

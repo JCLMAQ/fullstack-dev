@@ -4,7 +4,7 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
 import { addEntity, setAllEntities } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
-type UsersEntitiesStore = { usersEntities: () => Record<string, User> };
+type UsersEntitiesStore = { entityMap: () => Record<string, User> };
 type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
@@ -25,7 +25,7 @@ export const withUserMethods = signalStoreFeature(
 
     selectAll() {
       const ents = store as unknown as UsersEntitiesStore;
-      const allIds = Object.keys(ents.usersEntities());
+      const allIds = Object.keys(ents.entityMap());
       patchState(store, { selectedIds: allIds });
     },
 
@@ -38,7 +38,7 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const users = await userService.listUsers(options);
-        patchState(store, setAllEntities(users, { collection: 'users' }), { loading: false });
+        patchState(store, setAllEntities(users), { loading: false });
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement des utilisateurs' });
       }
@@ -52,7 +52,7 @@ export const withUserMethods = signalStoreFeature(
         // Use addEntity to properly add user to the collection with correct selectId
         patchState(
           store,
-          addEntity(user, { collection: 'users' }),
+          addEntity(user),
           { selectedUser: user, loading: false }
         );
       } catch {
