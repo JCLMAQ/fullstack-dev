@@ -209,3 +209,20 @@
     </section>
   }
 </section>
+
+  <div>
+    @if (store.selection().selected.length) {
+      <span class="selected-text"> ({{store.selection().selected.length}} items selected)</span>
+      <span> {{store.selection().selected | json}}  </span>
+    }
+    <br>
+    <span> {{store.users().length}} data length </span>
+    <br>
+    <span> Selected Items: {{store.selectedUsers() | json}} </span>
+    <span> Selected Entries {{store.selection().selected.entries }} | json </span>
+    <br>
+    <span>Initial Selected ID: {{ store.selectedId() }} </span>
+    <br>
+    <span> Initial selected Item: {{ store.selectedUser() | json }} </span>
+
+  </div>
