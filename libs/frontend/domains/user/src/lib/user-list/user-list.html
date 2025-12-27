@@ -27,7 +27,7 @@
     </div>
   } @else {
     <div class="table-container">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="users()" matSort>
         <!-- Colonne Sélection -->
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>

@@ -1,4 +1,4 @@
-import { Component, effect, inject, viewChild } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { User } from '@db/prisma';
 import { UserStore } from '../store/user-store';
 
 @Component({
@@ -41,7 +40,8 @@ export class UserList {
   protected readonly sort = viewChild(MatSort);
   protected readonly paginator = viewChild(MatPaginator);
 
-  // Signals exposés au template
+  // Signals exposés au template - utilisation directe des entities du store
+  protected readonly usersEntities = this.store.usersEntities;
   protected readonly users = this.store.users;
   protected readonly isLoading = this.store.isLoading;
   protected readonly hasError = this.store.hasError;
@@ -54,25 +54,6 @@ export class UserList {
 
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
-  protected readonly dataSource = new MatTableDataSource<User>([]);
-
-  constructor() {
-    // Synchroniser les données du store avec la table
-    effect(() => {
-      this.dataSource.data = this.users() as User[];
-    });
-
-    // Configurer le tri et la pagination après initialisation de la vue
-    effect(() => {
-      const sort = this.sort();
-      const paginator = this.paginator();
-
-      if (sort && paginator) {
-        this.dataSource.sort = sort;
-        this.dataSource.paginator = paginator;
-      }
-    });
-  }
 
   // Actions
   protected refreshUsers(): void {
