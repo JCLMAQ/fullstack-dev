@@ -6,7 +6,6 @@ export interface UserState {
     ownerId: string | null
     orgId: string | null,
   },
-  selectedId: string | null,
   selectedIds: string[],
   selection: SelectionModel<User>,
 	selectedUser: User | null;
@@ -22,7 +21,6 @@ export const initialUserState: UserState = {
     ownerId: "test",
     orgId: "test"
   },
-  selectedId: null,
   selectedIds: [],
   selection: new SelectionModel<User>(true, []),
 	selectedUser: null,

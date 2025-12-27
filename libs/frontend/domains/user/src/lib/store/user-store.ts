@@ -16,9 +16,7 @@ const userConfig = entityConfig({
 
 export const UserStore = signalStore(
   withState(initialUserState),
-  withState({ selectedIds: [] as string[] }),
   withEntities(userConfig),
-
   withNavigationMethods<User>(),
   withCallState({ collection: 'users' }),
   withUserMethods,
@@ -114,6 +112,22 @@ export const UserStore = signalStore(
           patchState(store, { selectedIds: [ ...store['selectedIds'](), selectedRowId] });
           patchState(store,{ selectedId: selectedRowId })
         }
+      },
+
+      selectMultiple(userIds: string[]) {
+        const currentIds = store['selectedIds']();
+        const newIds = userIds.filter(id => !currentIds.includes(id));
+        patchState(store, { selectedIds: [...currentIds, ...newIds] });
+      },
+
+      deselectMultiple(userIds: string[]) {
+        const currentIds = store['selectedIds']();
+        const filteredIds = currentIds.filter(id => !userIds.includes(id));
+        patchState(store, { selectedIds: filteredIds });
+      },
+
+      clearSelectedIds() {
+        patchState(store, { selectedIds: [] });
       }
     })),
   withHooks({

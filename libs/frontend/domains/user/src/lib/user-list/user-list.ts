@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -8,6 +8,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { User } from '@db/prisma';
+import { MATERIAL } from '@fe/material';
 import { UserStore } from '../store/user-store';
 
 @Component({
@@ -21,13 +23,15 @@ import { UserStore } from '../store/user-store';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    ...MATERIAL
   ],
   providers: [UserStore],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
 })
 export class UserList {
-  private readonly store = inject(UserStore);
+
+  readonly store = inject(UserStore);
   private readonly router = inject(Router);
 
   routeToDetail = "users/user";
@@ -52,8 +56,40 @@ export class UserList {
   protected readonly hasFollowers = this.store.hasFollowers;
   protected readonly hasFollowing = this.store.hasFollowing;
 
+  // Filtrage
+  protected readonly filterValue = signal('');
+  protected readonly filteredUsers = computed(() => {
+    const filter = this.filterValue().toLowerCase();
+    if (!filter) {
+      return this.users();
+    }
+    return this.users().filter(user =>
+      user.firstName?.toLowerCase().includes(filter) ||
+      user.lastName?.toLowerCase().includes(filter) ||
+      user.email?.toLowerCase().includes(filter)
+    );
+  });
+
+  // Pagination
+  protected readonly pageIndex = signal(0);
+  protected readonly pageSize = signal(5);
+
+  protected readonly paginatedUsers = computed(() => {
+    const users = this.filteredUsers();
+    const start = this.pageIndex() * this.pageSize();
+    const end = start + this.pageSize();
+    return users.slice(start, end);
+  });
+
+  protected readonly totalUsers = computed(() => this.filteredUsers().length);
+
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
+  columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
+  // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
+  expandedElement!: User | null;
+
 
   // Actions
   protected refreshUsers(): void {
@@ -71,7 +107,21 @@ export class UserList {
 
   // Sélection
   protected isAllSelected(): boolean {
-    return this.store.isAllSelected();
+    // Vérifie si tous les utilisateurs paginés sont sélectionnés
+    const numPaginated = this.paginatedUsers().length;
+    const numSelected = this.paginatedUsers().filter(user =>
+      this.store.selection().isSelected(user)
+    ).length;
+    return numPaginated > 0 && numSelected === numPaginated;
+  }
+
+  protected isSomeSelected(): boolean {
+    // Vérifie si certains (mais pas tous) utilisateurs paginés sont sélectionnés
+    const numPaginated = this.paginatedUsers().length;
+    const numSelected = this.paginatedUsers().filter(user =>
+      this.store.selection().isSelected(user)
+    ).length;
+    return numSelected > 0 && numSelected < numPaginated;
   }
 
   protected toggleAll(): void {
@@ -95,33 +145,17 @@ export class UserList {
   }
 
   // Méthodes d'actions sur les utilisateurs
-/*
-  navigateButton( id: string, mode: string ) {
-    this.todoStore.todoIdSelectedId(id);
-    this.todoStore.initNavButton(id);
+
+  /**
+   * Navigue vers le formulaire de détail d'un utilisateur.
+   * @param id - ID de l'utilisateur à afficher
+   * @param mode - Mode d'affichage du formulaire (par exemple, 'view', 'edit', 'create')
+   */
+ navigateButton( id: string, mode: string ) {
+    this.store.todoIdSelectedId(id);
+    this.store.initNavButton(id);
     this.router.navigate([this.routeToDetail, id, mode]);
   }
-
-  addOne() {
-    this.router.navigate([this.routeToDetail, '', 'create']);
-  }
-
-// Delete the selected item
-  async remove( id: string ) {
-
-  }
-
-  virtualRemove(id: string) {
-
-  }
-
-*/
-
-  protected navigateButton(id: string, mode: string): void {
-    this.selectUser(id);
-    this.router.navigate(['/users/detail', id]);
-  }
-
 
 
   protected editUser(id: string): void {
@@ -144,4 +178,50 @@ export class UserList {
     console.log('Hard delete utilisateur:', id);
     // this.store.hardDeleteUser(id);
   }
+
+  protected applyFilter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.filterValue.set(value.trim());
+    // Reset à la première page
+    this.pageIndex.set(0);
+  }
+
+  protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
+  checkboxLabel(row: User): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.store.selection().isSelected(row) ? 'deselect' : 'select'}`;
+  }
+
+  protected masterToggle(): void {
+    const isAllSelected = this.isAllSelected();
+
+    if (isAllSelected) {
+      // Désélectionner tous les utilisateurs paginés
+      this.paginatedUsers().forEach((user: User) => {
+        this.store.selection().deselect(user);
+      });
+      // Retirer leurs IDs de selectedIds
+      const paginatedIds = this.paginatedUsers().map(user => user.id);
+      this.store.deselectMultiple(paginatedIds);
+    } else {
+      // Sélectionner tous les utilisateurs paginés
+      this.paginatedUsers().forEach((user: User) => {
+        this.store.selection().select(user);
+      });
+      // Ajouter leurs IDs à selectedIds
+      const paginatedIds = this.paginatedUsers().map(user => user.id);
+      this.store.selectMultiple(paginatedIds);
+    }
+  }
+
+  protected addOne(): void {
+    this.router.navigate([this.routeToDetail, '', 'create']);
+  }
+
 }
