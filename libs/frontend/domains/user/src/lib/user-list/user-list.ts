@@ -154,7 +154,7 @@ export class UserList {
    */
   navigateButton( id: string, mode: string ) {
     // Définir l'utilisateur sélectionné avant de naviguer
-    this.store.todoIdSelectedId(id);
+    this.store.setSelectedId(id);
     // Naviguer vers le détail
     this.router.navigate([this.routeToDetail, id]);
   }
@@ -202,6 +202,8 @@ export class UserList {
 
   protected masterToggle(): void {
     const isAllSelected = this.isAllSelected();
+    const paginatedIds = this.paginatedUsers().map(user => user.id);
+    const currentIds = this.store.selectedIds();
 
     if (isAllSelected) {
       // Désélectionner tous les utilisateurs paginés
@@ -209,23 +211,23 @@ export class UserList {
         this.store.selection().deselect(user);
       });
       // Retirer leurs IDs de selectedIds
-      const paginatedIds = this.paginatedUsers().map(user => user.id);
-      this.store.deselectMultiple(paginatedIds);
+      const filteredIds = currentIds.filter(id => !paginatedIds.includes(id));
+      this.store.setSelection(filteredIds);
     } else {
       // Sélectionner tous les utilisateurs paginés
       this.paginatedUsers().forEach((user: User) => {
         this.store.selection().select(user);
       });
       // Ajouter leurs IDs à selectedIds
-      const paginatedIds = this.paginatedUsers().map(user => user.id);
-      this.store.selectMultiple(paginatedIds);
+      const newIds = paginatedIds.filter(id => !currentIds.includes(id));
+      this.store.setSelection([...currentIds, ...newIds]);
     }
   }
 
   protected toggleRowSelection(user: User): void {
     // Synchroniser selection() et selectedIds
     this.store.selection().toggle(user);
-    this.store.toggleSelected(user.id);
+    this.store.toggleSelection(user.id);
   }
 
   protected addOne(): void {

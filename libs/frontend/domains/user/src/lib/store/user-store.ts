@@ -1,8 +1,8 @@
 import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed } from "@angular/core";
 import { User } from "@db/prisma";
-import { withNavigationMethods } from "@fe/stores";
-import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
+import { withNavigationMethods, withSelectionMethods } from "@fe/stores";
+import { signalStore, type, withComputed, withHooks, withState } from "@ngrx/signals";
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
@@ -19,6 +19,7 @@ export const UserStore = signalStore(
   withEntities(userConfig),
   withNavigationMethods<User>(),
   withCallState({ collection: 'user' }),
+  withSelectionMethods<User>({ collection: 'user' }),
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
@@ -50,73 +51,6 @@ export const UserStore = signalStore(
       return total > 0 && sel === total;
     }),
   })),
-  withMethods((store) => ({
-    initSelectedID() {
-        const firstIndex = Object.values(store['userEntityMap']())[0]?.id;
-        patchState(store, { selectedId: firstIndex })
-      },
-
-      todoIdSelectedId(selectedRowId: string) {
-        patchState(store, { selectedId: selectedRowId })
-      },
-
-      toggleSelected( selectedRowId: string) {
-        const allSelectedRowId = store['selectedIds']();
-        const existSelectedRowId = allSelectedRowId.filter((item: string) => item === selectedRowId)
-        if(existSelectedRowId.length === 0) {
-          patchState(store, { selectedIds: [ ...store['selectedIds'](), selectedRowId] })
-          patchState(store, { selectedId: selectedRowId })
-        } else {
-          const updateSelectedRowId = allSelectedRowId.filter((item: string) => item !== selectedRowId)
-          patchState(store, { selectedIds: updateSelectedRowId })
-          patchState(store, { selectedId: "" })
-        }
-      },
-
-      newSelectedSelectionItem(newSelectedSelectionItemIndex: number) {
-        const users = Object.values(store['userEntityMap']());
-        const newSelectedSelectionItem = users[newSelectedSelectionItemIndex];
-        if (newSelectedSelectionItem) {
-          patchState(store, { selectedId: newSelectedSelectionItem.id });
-        }
-      },
-
-      newSelectedItem(newSelectedItemIndex: number) {
-        const selectedItem = Object.values(store['userEntityMap']())[newSelectedItemIndex]
-        patchState(store,{ selectedId: selectedItem.id })
-      },
-
-      selectedItemUpdate(selectedRowId: string){
-        const allSelectedRowId = store['selectedIds']();
-        if(allSelectedRowId.length > 0 ) {
-          const existSelectedRowId = allSelectedRowId.filter((item: string) => item === selectedRowId);
-          if(existSelectedRowId.length === 0) {
-            patchState(store, { selectedIds: [ ...store['selectedIds'](), selectedRowId] })
-          };
-          patchState(store, { selectedIds: [ ...store['selectedIds']()] })
-          patchState(store,{ selectedId: selectedRowId })
-        } else {
-          patchState(store, { selectedIds: [ ...store['selectedIds'](), selectedRowId] });
-          patchState(store,{ selectedId: selectedRowId })
-        }
-      },
-
-      selectMultiple(userIds: string[]) {
-        const currentIds = store['selectedIds']();
-        const newIds = userIds.filter(id => !currentIds.includes(id));
-        patchState(store, { selectedIds: [...currentIds, ...newIds] });
-      },
-
-      deselectMultiple(userIds: string[]) {
-        const currentIds = store['selectedIds']();
-        const filteredIds = currentIds.filter(id => !userIds.includes(id));
-        patchState(store, { selectedIds: filteredIds });
-      },
-
-      clearSelectedIds() {
-        patchState(store, { selectedIds: [] });
-      }
-    })),
   withHooks({
     onInit: (store) => {
       console.log('UserStore initialized');

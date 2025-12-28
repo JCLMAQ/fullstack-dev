@@ -10,30 +10,6 @@ type SelectionStore = { selectedIds: () => string[] };
 export const withUserMethods = signalStoreFeature(
   withMethods((store, userService = inject(UserService)) => ({
 
-  toggleSelection(id: string) {
-      const sel = store as unknown as SelectionStore;
-      const current: string[] = sel.selectedIds();
-      const next = current.includes(id)
-        ? current.filter((x: string) => x !== id)
-        : [...current, id];
-      patchState(store, { selectedIds: next });
-    },
-
-    clearSelection() {
-      patchState(store, { selectedIds: [] });
-    },
-
-    selectAll() {
-      const ents = store as unknown as UsersEntitiesStore;
-      const allIds = Object.keys(ents.userEntityMap());
-      patchState(store, { selectedIds: allIds });
-    },
-
-    setSelection(ids: string[]) {
-      const unique = Array.from(new Set(ids));
-      patchState(store, { selectedIds: unique });
-    },
-
     async loadUsers(options?: UsersQueryOptions) {
       try {
         patchState(store, { loading: true, error: null });

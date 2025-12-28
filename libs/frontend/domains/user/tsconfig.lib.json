@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../stores/src/lib/store-features/custom-store-features/with-selected-entity/with-selection-methods.ts"]
 }
