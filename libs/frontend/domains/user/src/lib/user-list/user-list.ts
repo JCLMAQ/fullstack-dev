@@ -31,7 +31,7 @@ import { UserStore } from '../store/user-store';
   styleUrl: './user-list.scss',
   styles: [`
     :host ::ng-deep .mat-mdc-row:hover {
-      background-color: var(--mat-sys-primary-container) !important;
+      background-color: var(--mat-sys-secondary-container) !important;
       cursor: pointer;
     }
   `]
