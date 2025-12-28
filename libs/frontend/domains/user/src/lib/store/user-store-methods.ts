@@ -4,7 +4,7 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
 import { addEntity, setAllEntities } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
-type UsersEntitiesStore = { userEntityMap: () => Record<string, User> };
+// type UsersEntitiesStore = { userEntityMap: () => Record<string, User> };
 type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
