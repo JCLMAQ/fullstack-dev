@@ -132,6 +132,25 @@ export class UserDetail {
     });
     disabled(path.emergencyContactName, ({ valueOf }) => !valueOf(path.hasEmergencyContact));
     disabled(path.emergencyContactPhone, ({ valueOf }) => !valueOf(path.hasEmergencyContact));
+
+    // Disable all fields except emergency contact when in view mode
+    disabled(path.email, () => this.mode() === 'view');
+    disabled(path.firstName, () => this.mode() === 'view');
+    disabled(path.lastName, () => this.mode() === 'view');
+    disabled(path.title, () => this.mode() === 'view');
+    disabled(path.nickName, () => this.mode() === 'view');
+    disabled(path.Gender, () => this.mode() === 'view');
+    disabled(path.Language, () => this.mode() === 'view');
+    disabled(path.photoUrl, () => this.mode() === 'view');
+    disabled(path.dateOfBirth, () => this.mode() === 'view');
+    disabled(path.hasEmergencyContact, () => this.mode() === 'view');
+    disabled(path.position, () => this.mode() === 'view');
+    disabled(path.jobTitle, () => this.mode() === 'view');
+    disabled(path.managerId, () => this.mode() === 'view');
+    disabled(path.published, () => this.mode() === 'view');
+    disabled(path.isPublic, () => this.mode() === 'view');
+    disabled(path.isValidated, () => this.mode() === 'view');
+    disabled(path.isSuspended, () => this.mode() === 'view');
   });
 
   // Options for selects

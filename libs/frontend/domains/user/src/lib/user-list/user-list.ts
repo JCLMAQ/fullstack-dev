@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -40,6 +40,19 @@ export class UserList {
 
   readonly store = inject(UserStore);
   private readonly router = inject(Router);
+
+  constructor() {
+    // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
+    effect(() => {
+      const userCount = this.store.userCount();
+      const isLoading = this.store.isLoading();
+      const hasError = this.store.hasError();
+
+      if (userCount === 0 && !isLoading && !hasError) {
+        this.store.loadUsers();
+      }
+    });
+  }
 
   routeToDetail = "/users/detail";
 
