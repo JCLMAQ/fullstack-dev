@@ -70,7 +70,12 @@ export class UserDetail {
 
   // Computed derived signals
   protected readonly isLoading = computed(() => this.userStore.isLoading());
-  protected readonly selectedUsers = computed(() => this.userStore.selectedUsers());
+  protected readonly selectedUsers = computed(() => {
+    const entities = this.userStore.userEntityMap();
+    return this.userStore.selectedIds()
+      .map((id: string) => entities[id as keyof typeof entities])
+      .filter((user): user is User => user !== undefined);
+  });
   protected readonly isFirst = computed(() => this.currentIndex() === 0);
   protected readonly isLast = computed(
     () => this.currentIndex() === this.selectedUsers().length - 1,

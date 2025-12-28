@@ -45,7 +45,7 @@
                 <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null"
-                                  [checked]="isAllSelected()"
+                                  [checked]="store.isAllSelected()"
                                   [indeterminate]="isSomeSelected()">
                     </mat-checkbox>
                   </th>
@@ -218,7 +218,6 @@
     <br>
     <span> {{store.users().length}} data length </span>
     <br>
-    <span> Selected Items: {{store.selectedUsers() | json}} </span>
     <span> Selected Entries {{store.selection().selected.entries }} | json </span>
     <br>
     <span>Initial Selected ID: {{ store.selectedId() }} </span>

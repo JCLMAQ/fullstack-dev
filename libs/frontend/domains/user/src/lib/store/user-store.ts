@@ -25,26 +25,20 @@ export const UserStore = signalStore(
   withUndoRedo({
   }),
   withComputed(({ userEntityMap, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
-    // withComputed(({ usersEntities, followers, following, organizations, selectedUser, loading, error, selectedIds, selectedId, selection }) => ({
     // Conversion des entités en tableau pour la compatibilité
     users: computed(() => Object.values(userEntityMap())),
 
     isLoading: computed(() => loading()),
     hasError: computed(() => !!error()),
+
     userCount: computed(() => Object.keys(userEntityMap()).length),
+
     hasFollowers: computed(() => followers().length > 0),
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
 
     selectedUserId: computed(() => selectedUser()?.id ?? null),
     selectedIdSet: computed(() => new Set(selectedIds())),
-    selectedCount: computed(() => selectedIds().length),
-    selectedUsers: computed(() => {
-      const entities = userEntityMap();
-      return selectedIds()
-        .map((id: string) => entities[id as keyof typeof entities])
-        .filter((user): user is User => user !== undefined);
-    }),
     isAllSelected: computed(() => {
       const total = Object.keys(userEntityMap()).length;
       const sel = selectedIds().length;

@@ -107,14 +107,6 @@ export class UserList {
   }
 
   // Sélection
-  protected isAllSelected(): boolean {
-    // Vérifie si tous les utilisateurs paginés sont sélectionnés
-    const numPaginated = this.paginatedUsers().length;
-    const numSelected = this.paginatedUsers().filter(user =>
-      this.store.selection().isSelected(user)
-    ).length;
-    return numPaginated > 0 && numSelected === numPaginated;
-  }
 
   protected isSomeSelected(): boolean {
     // Vérifie si certains (mais pas tous) utilisateurs paginés sont sélectionnés
@@ -126,7 +118,7 @@ export class UserList {
   }
 
   protected toggleAll(): void {
-    if (this.isAllSelected()) {
+    if (this.store.isAllSelected()) {
       this.store.clearSelection();
     } else {
       this.store.selectAll();
@@ -195,13 +187,13 @@ export class UserList {
 
   checkboxLabel(row: User): string {
     if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+      return `${this.store.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.store.selection().isSelected(row) ? 'deselect' : 'select'}`;
   }
 
   protected masterToggle(): void {
-    const isAllSelected = this.isAllSelected();
+    const isAllSelected = this.store.isAllSelected();
     const paginatedIds = this.paginatedUsers().map(user => user.id);
     const currentIds = this.store.selectedIds();
 
