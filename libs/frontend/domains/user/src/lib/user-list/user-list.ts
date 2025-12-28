@@ -46,7 +46,7 @@ export class UserList {
   protected readonly paginator = viewChild(MatPaginator);
 
   // Signals exposés au template - utilisation directe des entities du store
-  protected readonly usersEntities = this.store.entityMap;
+  protected readonly usersEntities = this.store.userEntityMap;
   protected readonly users = this.store.users;
   protected readonly isLoading = this.store.isLoading;
   protected readonly hasError = this.store.hasError;
