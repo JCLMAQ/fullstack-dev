@@ -14,8 +14,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserStore } from '../store/user-store';
 import { User } from '@db/prisma';
+import { UserStore } from '../store/user-store';
 
 interface UserFormModel {
   id: string;
@@ -78,9 +78,6 @@ export class UserDetail {
   protected readonly hasPrevious = computed(() => this.currentIndex() > 0);
   protected readonly hasNext = computed(() => this.currentIndex() < this.selectedUsers().length - 1);
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
-
-  // Expose Object for template debugging
-  protected readonly Object = Object;
 
   constructor() {
     // Load user from route params
