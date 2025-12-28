@@ -39,6 +39,10 @@
   gap: 1.5rem;
 }
 
+.tab-content {
+  padding: 1.5rem 0;
+}
+
 .form-section {
   display: flex;
   flex-direction: column;
@@ -109,6 +113,12 @@
   }
 }
 
+ .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
 
 // .user-detail-container {
 //   display: flex;
@@ -306,5 +316,5 @@
         text-align: center;
       }
     }
-  }
-}
+
+
