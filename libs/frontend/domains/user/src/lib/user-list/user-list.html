@@ -14,14 +14,14 @@
     </div>
   </header>
 
-  @if (hasError()) {
+  @if (this.store.hasError()) {
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>Une erreur est survenue lors du chargement des données.</span>
     </div>
   }
 
-  @if (isLoading()) {
+  @if (this.store.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>

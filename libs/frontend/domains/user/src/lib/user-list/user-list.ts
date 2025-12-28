@@ -51,21 +51,14 @@ export class UserList {
   protected readonly sort = viewChild(MatSort);
   protected readonly paginator = viewChild(MatPaginator);
 
-  // Signals exposés au template - utilisation directe des entities du store
-  protected readonly usersEntities = this.store.userEntityMap;
-  protected readonly users = this.store.users;
-
-  protected readonly isLoading = this.store.isLoading;
-  protected readonly hasError = this.store.hasError;
-
   // Filtrage
   protected readonly filterValue = signal('');
   protected readonly filteredUsers = computed(() => {
     const filter = this.filterValue().toLowerCase();
     if (!filter) {
-      return this.users();
+      return this.store.users();
     }
-    return this.users().filter(user =>
+    return this.store.users().filter(user =>
       user.firstName?.toLowerCase().includes(filter) ||
       user.lastName?.toLowerCase().includes(filter) ||
       user.email?.toLowerCase().includes(filter)
