@@ -48,14 +48,9 @@ export class UserList {
   // Signals exposés au template - utilisation directe des entities du store
   protected readonly usersEntities = this.store.userEntityMap;
   protected readonly users = this.store.users;
+
   protected readonly isLoading = this.store.isLoading;
   protected readonly hasError = this.store.hasError;
-  protected readonly userCount = this.store.userCount;
-  protected readonly selectedUserId = this.store.selectedUserId;
-  protected readonly followers = this.store.followers;
-  protected readonly following = this.store.following;
-  protected readonly hasFollowers = this.store.hasFollowers;
-  protected readonly hasFollowing = this.store.hasFollowing;
 
   // Filtrage
   protected readonly filterValue = signal('');

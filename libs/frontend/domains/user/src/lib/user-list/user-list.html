@@ -8,7 +8,7 @@
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
-          {{ userCount() }} utilisateurs
+          {{ this.store.userCount() }} utilisateurs
         </mat-chip>
       </mat-chip-set>
     </div>
@@ -162,7 +162,7 @@
     </div>
   }
 
-  @if (selectedUserId()) {
+  @if (this.store.selectedUserId()) {
     <section class="relations">
       <h3>Relations pour l'utilisateur sélectionné</h3>
       <div class="relations-grid">
@@ -170,13 +170,13 @@
           <h4>
             <mat-icon>person_add</mat-icon>
             Followers
-            @if (hasFollowers()) {
-              <mat-chip>{{ followers().length }}</mat-chip>
+            @if (this.store.hasFollowers()) {
+              <mat-chip>{{ this.store.followers().length }}</mat-chip>
             }
           </h4>
-          @if (hasFollowers()) {
+          @if (this.store.hasFollowers()) {
             <ul>
-              @for (f of followers(); track f.id) {
+              @for (f of this.store.followers(); track f.id) {
                 <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
               }
             </ul>
@@ -189,13 +189,13 @@
           <h4>
             <mat-icon>person</mat-icon>
             Following
-            @if (hasFollowing()) {
-              <mat-chip>{{ following().length }}</mat-chip>
+            @if (this.store.hasFollowing()) {
+              <mat-chip>{{ this.store.following().length }}</mat-chip>
             }
           </h4>
-          @if (hasFollowing()) {
+          @if (this.store.hasFollowing()) {
             <ul>
-              @for (f of following(); track f.id) {
+              @for (f of this.store.following(); track f.id) {
                 <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
               }
             </ul>
