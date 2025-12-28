@@ -60,11 +60,11 @@
     width: 100%;
   }
 
-  .selected-row {
-    background-color: var(--mat-sys-primary-container);
-
-    &:hover {
+  // Ciblage direct des lignes Material avec ::ng-deep
+  ::ng-deep {
+    tbody tr.mat-mdc-row:not(.detail-row):hover {
       background-color: var(--mat-sys-primary-container) !important;
+      cursor: pointer !important;
     }
   }
 
@@ -154,14 +154,6 @@ tr.detail-row {
     border-bottom-width: 0;
     padding: 0 !important;
   }
-}
-
-.element-row:not(.example-expanded-row):hover {
-  background-color: var(--mat-sys-surface-container-highest);
-}
-
-.element-row:not(.example-expanded-row):active {
-  background-color: var(--mat-sys-surface-container-high);
 }
 
 .element-detail {

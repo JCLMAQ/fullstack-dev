@@ -61,10 +61,34 @@
           flex-direction: column;
           gap: 16px;
 
-          mat-form-field {
-            &.full-width {
-              width: 100%;
+          .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+
+            .section-title {
+              grid-column: 1 / -1;
+              font-size: 18px;
+              font-weight: 500;
+              color: var(--mat-sys-on-surface);
+              margin: 16px 0 8px 0;
+              padding-bottom: 8px;
+              border-bottom: 1px solid var(--mat-sys-outline-variant);
             }
+
+            .full-width {
+              grid-column: 1 / -1;
+            }
+
+            .checkbox-field {
+              display: flex;
+              align-items: center;
+              padding: 8px 0;
+            }
+          }
+
+          mat-form-field {
+            width: 100%;
 
             ::ng-deep .mdc-text-field {
               width: 100%;
@@ -137,6 +161,18 @@
 
       .form-card {
         margin: 0;
+
+        mat-card-content {
+          form {
+            .form-grid {
+              grid-template-columns: 1fr;
+
+              .section-title {
+                margin-top: 24px;
+              }
+            }
+          }
+        }
       }
     }
 

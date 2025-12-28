@@ -19,6 +19,11 @@
           {{ currentIndex() + 1 }} / {{ selectedUsers().length }}
         </span>
       }
+      @if (mode() === 'view') {
+        <button mat-icon-button matTooltip="Edit" (click)="mode.set('edit')">
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
     </mat-toolbar>
 
     <!-- Main Content -->
@@ -27,7 +32,7 @@
         <mat-card-header>
           <mat-card-title>
             @if (mode() === 'view') {
-              {{ userForm.value.firstName }} {{ userForm.value.lastName }}
+              {{ userForm().value().firstName }} {{ userForm().value().lastName }}
             } @else {
               Ajouter / Modifier un utilisateur
             }
@@ -35,75 +40,336 @@
         </mat-card-header>
 
         <mat-card-content>
-          <form [formGroup]="userForm">
-            <!-- ID (readonly) -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>ID</mat-label>
-              <input matInput formControlName="id" readonly />
-            </mat-form-field>
+          <form>
+            <div class="form-grid">
+              <!-- Section: Informations de base -->
+              <h3 class="section-title">Informations de base</h3>
 
-            <!-- First Name -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>First Name</mat-label>
-              <input
-                matInput
-                formControlName="firstName"
-                [readonly]="mode() === 'view'"
-                placeholder="Enter first name"
-              />
-              @if (userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched) {
-                <mat-error>
-                  @if (userForm.get('firstName')?.errors?.['required']) {
-                    First name is required
-                  }
-                  @if (userForm.get('firstName')?.errors?.['maxlength']) {
-                    First name must not exceed 100 characters
-                  }
-                </mat-error>
-              }
-            </mat-form-field>
+              <!-- ID (readonly) -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>ID</mat-label>
+                <input matInput [value]="userForm().value().id" readonly />
+              </mat-form-field>
 
-            <!-- Last Name -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Last Name</mat-label>
-              <input
-                matInput
-                formControlName="lastName"
-                [readonly]="mode() === 'view'"
-                placeholder="Enter last name"
-              />
-              @if (userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched) {
-                <mat-error>
-                  @if (userForm.get('lastName')?.errors?.['required']) {
-                    Last name is required
-                  }
-                  @if (userForm.get('lastName')?.errors?.['maxlength']) {
-                    Last name must not exceed 100 characters
-                  }
-                </mat-error>
-              }
-            </mat-form-field>
+              <!-- Email -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().email"
+                    type="email"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.email"
+                    type="email"
+                    placeholder="Enter email"
+                  />
+                  <lib-field-error [fieldError]="userForm.email()" />
+                }
+              </mat-form-field>
 
-            <!-- Email -->
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input
-                matInput
-                formControlName="email"
-                [readonly]="mode() === 'view'"
-                placeholder="Enter email"
-              />
-              @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
-                <mat-error>
-                  @if (userForm.get('email')?.errors?.['required']) {
-                    Email is required
-                  }
-                  @if (userForm.get('email')?.errors?.['email']) {
-                    Please enter a valid email address
-                  }
-                </mat-error>
-              }
-            </mat-form-field>
+              <!-- First Name -->
+              <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().firstName"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.firstName"
+                    placeholder="Enter first name"
+                  />
+                  <lib-field-error [fieldError]="userForm.firstName()" />
+                }
+              </mat-form-field>
+
+              <!-- Last Name -->
+              <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().lastName"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.lastName"
+                    placeholder="Enter last name"
+                  />
+                  <lib-field-error [fieldError]="userForm.lastName()" />
+                }
+              </mat-form-field>
+
+              <!-- Title -->
+              <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().title ?? ''" readonly />
+                } @else {
+                  <mat-select [field]="userForm.title">
+                    <mat-option [value]="null">None</mat-option>
+                    @for (title of titleOptions; track title) {
+                      <mat-option [value]="title">{{ title }}</mat-option>
+                    }
+                  </mat-select>
+                }
+              </mat-form-field>
+
+              <!-- Nick Name -->
+              <mat-form-field appearance="outline">
+                <mat-label>Nick Name</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().nickName"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.nickName"
+                    placeholder="Enter nick name"
+                  />
+                }
+              </mat-form-field>
+
+              <!-- Gender -->
+              <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().Gender ?? ''" readonly />
+                } @else {
+                  <mat-select [field]="userForm.Gender">
+                    <mat-option [value]="null">None</mat-option>
+                    @for (gender of genderOptions; track gender) {
+                      <mat-option [value]="gender">{{ gender }}</mat-option>
+                    }
+                  </mat-select>
+                }
+              </mat-form-field>
+
+              <!-- Language -->
+              <mat-form-field appearance="outline">
+                <mat-label>Language</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().Language ?? ''" readonly />
+                } @else {
+                  <mat-select [field]="userForm.Language">
+                    <mat-option [value]="null">None</mat-option>
+                    @for (lang of languageOptions; track lang) {
+                      <mat-option [value]="lang">{{ lang }}</mat-option>
+                    }
+                  </mat-select>
+                }
+              </mat-form-field>
+
+              <!-- Date of Birth -->
+              <mat-form-field appearance="outline">
+                <mat-label>Date of Birth</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().dateOfBirth | date" readonly />
+                } @else {
+                  <ng-container>
+                    <input matInput [field]="userForm.dateOfBirth" [matDatepicker]="dobPicker" />
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker></mat-datepicker>
+                  </ng-container>
+                }
+              </mat-form-field>
+
+              <!-- Photo URL -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Photo URL</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().photoUrl"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.photoUrl"
+                    placeholder="Enter photo URL"
+                  />
+                }
+              </mat-form-field>
+
+              <!-- Section: Professional Information -->
+              <h3 class="section-title">Professional Information</h3>
+
+              <!-- Position -->
+              <mat-form-field appearance="outline">
+                <mat-label>Position</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().position ?? ''" readonly />
+                } @else {
+                  <mat-select [field]="userForm.position">
+                    <mat-option [value]="null">None</mat-option>
+                    @for (pos of positionOptions; track pos) {
+                      <mat-option [value]="pos">{{ pos }}</mat-option>
+                    }
+                  </mat-select>
+                }
+              </mat-form-field>
+
+              <!-- Job Title -->
+              <mat-form-field appearance="outline">
+                <mat-label>Job Title</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().jobTitle"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.jobTitle"
+                    placeholder="Enter job title"
+                  />
+                }
+              </mat-form-field>
+
+              <!-- Manager ID -->
+              <mat-form-field appearance="outline">
+                <mat-label>Manager ID</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().managerId"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.managerId"
+                    placeholder="Enter manager ID"
+                  />
+                }
+              </mat-form-field>
+
+              <!-- Section: Emergency Contact -->
+              <h3 class="section-title">Emergency Contact</h3>
+
+              <!-- Has Emergency Contact -->
+              <div class="checkbox-field">
+                @if (mode() === 'view') {
+                  <mat-checkbox [checked]="userForm().value().hasEmergencyContact" disabled>
+                    Has Emergency Contact
+                  </mat-checkbox>
+                } @else {
+                  <mat-checkbox [field]="userForm.hasEmergencyContact">
+                    Has Emergency Contact
+                  </mat-checkbox>
+                }
+              </div>
+
+              <!-- Emergency Contact Name -->
+              <mat-form-field appearance="outline">
+                <mat-label>Emergency Contact Name</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().emergencyContactName"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.emergencyContactName"
+                    placeholder="Enter emergency contact name"
+                  />
+                  <lib-field-error [fieldError]="userForm.emergencyContactName()" />
+                }
+              </mat-form-field>
+
+              <!-- Emergency Contact Phone -->
+              <mat-form-field appearance="outline">
+                <mat-label>Emergency Contact Phone</mat-label>
+                @if (mode() === 'view') {
+                  <input
+                    matInput
+                    [value]="userForm().value().emergencyContactPhone"
+                    readonly
+                  />
+                } @else {
+                  <input
+                    matInput
+                    [field]="userForm.emergencyContactPhone"
+                    placeholder="Enter emergency contact phone"
+                  />
+                  <lib-field-error [fieldError]="userForm.emergencyContactPhone()" />
+                }
+              </mat-form-field>
+
+              <!-- Section: Account Status -->
+              <h3 class="section-title">Account Status</h3>
+
+              <!-- Published -->
+              <div class="checkbox-field">
+                @if (mode() === 'view') {
+                  <mat-checkbox [checked]="userForm().value().published ?? false" disabled>
+                    Published
+                  </mat-checkbox>
+                } @else {
+                  <mat-checkbox [field]="userForm.published">
+                    Published
+                  </mat-checkbox>
+                }
+              </div>
+
+              <!-- Is Public -->
+              <div class="checkbox-field">
+                @if (mode() === 'view') {
+                  <mat-checkbox [checked]="userForm().value().isPublic ?? false" disabled>
+                    Is Public
+                  </mat-checkbox>
+                } @else {
+                  <mat-checkbox [field]="userForm.isPublic">
+                    Is Public
+                  </mat-checkbox>
+                }
+              </div>
+
+              <!-- Is Validated -->
+              <mat-form-field appearance="outline">
+                <mat-label>Is Validated</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().isValidated | date" readonly />
+                } @else {
+                  <ng-container>
+                    <input matInput [field]="userForm.isValidated" [matDatepicker]="validatedPicker" />
+                    <mat-datepicker-toggle matSuffix [for]="validatedPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #validatedPicker></mat-datepicker>
+                  </ng-container>
+                }
+              </mat-form-field>
+
+              <!-- Is Suspended -->
+              <mat-form-field appearance="outline">
+                <mat-label>Is Suspended</mat-label>
+                @if (mode() === 'view') {
+                  <input matInput [value]="userForm().value().isSuspended | date" readonly />
+                } @else {
+                  <ng-container>
+                    <input matInput [field]="userForm.isSuspended" [matDatepicker]="suspendedPicker" />
+                    <mat-datepicker-toggle matSuffix [for]="suspendedPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #suspendedPicker></mat-datepicker>
+                  </ng-container>
+                }
+              </mat-form-field>
+            </div>
           </form>
         </mat-card-content>
       </mat-card>
@@ -156,7 +422,7 @@
       <button
         mat-icon-button
         matTooltip="Save changes"
-        [disabled]="mode() === 'view' || !userForm.valid"
+        [disabled]="mode() === 'view'"
         (click)="save()"
         class="success-btn"
       >

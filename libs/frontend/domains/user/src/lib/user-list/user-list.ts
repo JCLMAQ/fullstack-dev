@@ -29,6 +29,12 @@ import { UserStore } from '../store/user-store';
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
+  styles: [`
+    :host ::ng-deep .mat-mdc-row:hover {
+      background-color: var(--mat-sys-primary-container) !important;
+      cursor: pointer;
+    }
+  `]
 })
 export class UserList {
 
