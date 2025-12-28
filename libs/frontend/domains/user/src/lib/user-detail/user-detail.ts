@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, Language, Position, Title, User } from '@db/prisma';
 import { FieldError } from '@fe/signalform-utilities';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
 type UserFormData = {
@@ -66,6 +67,7 @@ type UserFormData = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    TranslateModule,
   ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
