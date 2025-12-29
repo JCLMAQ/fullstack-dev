@@ -179,7 +179,7 @@ export class UserDetail {
     effect(() => {
       const selectedUser = this.userStore.selectedUser();
       if (selectedUser) {
-        this.userData.set({
+        this.userForm().reset({
           id: selectedUser.id,
           email: selectedUser.email,
           firstName: selectedUser.firstName ?? '',
@@ -228,7 +228,7 @@ export class UserDetail {
   protected cancel(): void {
     const selectedUser = this.userStore.selectedUser();
     if (selectedUser) {
-      this.userData.set({
+      this.userForm().reset({
         id: selectedUser.id,
         email: selectedUser.email,
         firstName: selectedUser.firstName ?? '',
@@ -276,7 +276,7 @@ export class UserDetail {
     // Set mode to add
     this.mode.set('add');
     // Clear form for new user
-    this.userData.set({
+    this.userForm().reset({
       id: '',
       email: '',
       firstName: '',

@@ -64,9 +64,12 @@ export function withSelectionMethods<Entity>(config?: { collection?: string }) {
       },
       /**
        * Set the currently active/focused entity ID (singular)
+       * Also updates selectedUser with the corresponding entity
        */
       setSelectedId(id: string | null) {
-        patchState(store, { selectedId: id });
+        const entityMap = (store as any)[entityMapKey]();
+        const selectedEntity = id ? entityMap[id] : null;
+        patchState(store, { selectedId: id, selectedUser: selectedEntity });
       },    }))
   );
 }
