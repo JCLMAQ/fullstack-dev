@@ -23,8 +23,8 @@
           <form class="form-container">
             <mat-tab-group>
               <!-- Tab: Basic Information -->
-              <section class="form-section">
-                <mat-tab label="{{ 'userProfile.basicInfoSection' | translate }}">
+              <mat-tab label="{{ 'userProfile.basicInfoSection' | translate }}">
+                <section class="form-section">
                   <div class="tab-content">
                     <div class="form-grid">
                       <!-- ID (readonly) -->
@@ -75,8 +75,16 @@
                           </mat-error>
                         </mat-form-field>
                       </div>
-                    </mat-tab>
-                      <mat-tab label="{{ 'userProfile.additionalInfoSection' | translate }}">
+                    </div>
+                  </div>
+                </section>
+              </mat-tab>
+
+              <mat-tab label="{{ 'userProfile.additionalInfoSection' | translate }}">
+                <section class="form-section">
+                  <div class="tab-content">
+                    <div class="form-grid">
+                      <div class="field-row">
                       <!-- Title -->
                       <mat-form-field appearance="outline">
                         <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>
@@ -95,21 +103,22 @@
 
                       <!-- Nick Name -->
                       <mat-form-field appearance="outline">
-                        <mat-label>Nick Name</mat-label>
+                        <mat-label>{{'userProfile.nickNameLabel' | translate}}</mat-label>
                         <input
                           matInput
                           [field]="userForm.nickName"
                           [readOnly]="mode() ? 'view' : 'edit'"
-                          placeholder="Enter nick name"
+                          placeholder="{{'userProfile.nickNamePlaceholder' | translate}}"
                         />
                         <mat-error>
                           <lib-field-error [fieldError]="userForm.nickName()" />
                         </mat-error>
                       </mat-form-field>
-
+                    </div>
+                    <div class="field-row">
                       <!-- Gender -->
                       <mat-form-field appearance="outline">
-                        <mat-label>Gender</mat-label>
+                        <mat-label>{{'userProfile.genderLabel' | translate}}</mat-label>
                         @if (mode() === 'view') {
                           <input matInput [value]="userForm().value().Gender ?? ''" readonly />
                         } @else {
@@ -124,7 +133,7 @@
 
                       <!-- Language -->
                       <mat-form-field appearance="outline">
-                        <mat-label>Language</mat-label>
+                        <mat-label>{{'userProfile.languageLabel' | translate}}</mat-label>
                         @if (mode() === 'view') {
                           <input matInput [value]="userForm().value().Language ?? ''" readonly />
                         } @else {
@@ -139,7 +148,7 @@
 
                       <!-- Date of Birth -->
                       <mat-form-field appearance="outline">
-                        <mat-label>Date of Birth</mat-label>
+                        <mat-label>{{'userProfile.dateOfBirthLabel' | translate}}</mat-label>
                         <ng-container>
                           <input matInput
                             [field]="userForm.dateOfBirth"
@@ -152,21 +161,22 @@
 
                       <!-- Photo URL -->
                       <mat-form-field appearance="outline" class="full-width">
-                        <mat-label>Photo URL</mat-label>
+                        <mat-label>{{'userProfile.photoUrlLabel' | translate}}</mat-label>
                         <input
                           matInput
                           [field]="userForm.photoUrl"
                           [readOnly]="mode() ? 'view' : 'edit'"
-                          placeholder="Enter photo URL"
+                          placeholder="{{'userProfile.photoUrlPlaceholder' | translate}}"
                         />
                         <mat-error>
                           <lib-field-error [fieldError]="userForm.photoUrl()" />
                         </mat-error>
                       </mat-form-field>
                     </div>
+                    </div>
                   </div>
-                </mat-tab>
               </section>
+            </mat-tab>
 
               <!-- Tab: Professional Information -->
               <mat-tab label="Informations professionnelles">
@@ -174,7 +184,7 @@
                   <div class="form-grid">
                     <!-- Position -->
                     <mat-form-field appearance="outline">
-                      <mat-label>Position</mat-label>
+                      <mat-label>{{'userProfile.positionLabel' | translate}}</mat-label>
                       @if (mode() === 'view') {
                         <input matInput [value]="userForm().value().position ?? ''" readonly />
                       } @else {
@@ -189,12 +199,12 @@
 
                     <!-- Job Title -->
                     <mat-form-field appearance="outline">
-                      <mat-label>Job Title</mat-label>
+                      <mat-label>{{'userProfile.jobTitleLabel' | translate}}</mat-label>
                       <input
                         matInput
                         [field]="userForm.jobTitle"
                         [readOnly]="mode() ? 'view' : 'edit'"
-                        placeholder="Enter job title"
+                        placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}"
                       />
                       <mat-error>
                         <lib-field-error [fieldError]="userForm.jobTitle()" />
@@ -333,7 +343,7 @@
         </mat-card-content>
       </mat-card>
 
-     <mat-divider [vertical]="true"></mat-divider>
+     <!-- <mat-divider [vertical]="true"></mat-divider> -->
 
     <!-- Bottom Toolbar with Commands -->
     <mat-toolbar class="bottom-toolbar">

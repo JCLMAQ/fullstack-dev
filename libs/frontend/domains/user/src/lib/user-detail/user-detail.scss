@@ -113,7 +113,7 @@
   }
 }
 
- .loading-spinner {
+.loading-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -298,23 +298,23 @@
 //       }
 //     }
 
-    .bottom-toolbar {
-      flex-wrap: wrap;
-      gap: 4px;
-      padding: 8px 4px;
+    // .bottom-toolbar {
+    //   flex-wrap: wrap;
+    //   gap: 4px;
+    //   padding: 8px 4px;
 
-      button {
-        padding: 8px;
-      }
+    //   button {
+    //     padding: 8px;
+    //   }
 
-      mat-divider {
-        display: none;
-      }
+    //   mat-divider {
+    //     display: none;
+    //   }
 
-      .navigation-indicator {
-        flex-basis: 100%;
-        text-align: center;
-      }
-    }
+    //   .navigation-indicator {
+    //     flex-basis: 100%;
+    //     text-align: center;
+    //   }
+    // }
 
 
