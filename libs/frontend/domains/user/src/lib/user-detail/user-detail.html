@@ -1,12 +1,13 @@
 <div class="container">
+
   <!-- Loading Spinner -->
-  @if (isLoading()) {
+  @if (this.userStore.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
   }
 
-  @if (!isLoading()) {
+  @if (!this.userStore.isLoading()) {
 
     <div class="header">
       <h1 class="mat-headline-4">{{ 'userProfile.title' | translate }}</h1>
@@ -14,183 +15,158 @@
         {{ 'userProfile.profileSubtitle' | translate }}
       </p>
     </div>
-        <!-- Toolbar Header -->
-        <mat-toolbar color="primary">
-          <button mat-icon-button (click)="goBack()" matTooltip="Back to list">
-            <mat-icon>arrow_back</mat-icon>
-          </button>
-          <span class="toolbar-title">User Detail</span>
-          <span class="spacer"></span>
-          @if (selectedUsers().length > 0) {
-            <span class="navigation-info">
-              {{ currentIndex() + 1 }} / {{ selectedUsers().length }}
-            </span>
-          }
-          @if (mode() === 'view') {
-            <button mat-icon-button matTooltip="Edit" (click)="mode.set('edit')">
-              <mat-icon>edit</mat-icon>
-            </button>
-          }
-        </mat-toolbar>
 
     <!-- Main Content -->
     <div class="content">
       <mat-card class="form-card">
-        <mat-card-header>
-          <mat-card-title>
-            @if (mode() === 'view') {
-              {{ userForm().value().firstName }} {{ userForm().value().lastName }}
-            } @else {
-              Ajouter / Modifier un utilisateur
-            }
-          </mat-card-title>
-        </mat-card-header>
-
         <mat-card-content>
           <form class="form-container">
             <mat-tab-group>
               <!-- Tab: Basic Information -->
-              <mat-tab label="Informations de base">
-                <div class="tab-content">
-                  <div class="form-grid">
-                    <!-- ID (readonly) -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>ID</mat-label>
-                      <input matInput [value]="userForm().value().id" readonly />
-                    </mat-form-field>
-
-                    <!-- Email -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Email</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.email"
-                        [readOnly]="mode() ? 'view' : 'edit'"
-                        type="email"
-                        placeholder="Enter email"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.email()" />
-                      </mat-error>
-                    </mat-form-field>
-
-                    <!-- First Name -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>First Name</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.firstName"
-                        [readOnly]="mode() ? 'view' : 'edit'"
-                        placeholder="Enter first name"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.firstName()" />
-                      </mat-error>
-                    </mat-form-field>
-
-                    <!-- Last Name -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Last Name</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.lastName"
-                        [readOnly]="mode() ? 'view' : 'edit'"
-                        placeholder="Enter last name"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.lastName()" />
-                      </mat-error>
-                    </mat-form-field>
-
-                    <!-- Title -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Title</mat-label>
-                      @if (mode() === 'view') {
+              <section class="form-section">
+                <mat-tab label="{{ 'userProfile.basicInfoSection' | translate }}">
+                  <div class="tab-content">
+                    <div class="form-grid">
+                      <!-- ID (readonly) -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>ID</mat-label>
+                        <input matInput [value]="userForm().value().id" readonly />
+                      </mat-form-field>
+                      <!-- Email -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
                         <input
-                          matInput [value]="userForm().value().title ?? ''" readonly />
-                      } @else {
-                        <mat-select [field]="userForm.title">
-                          <mat-option [value]="null">None</mat-option>
-                          @for (title of titleOptions; track title) {
-                            <mat-option [value]="title">{{ title }}</mat-option>
-                          }
-                        </mat-select>
-                      }
-                    </mat-form-field>
+                          matInput
+                          [field]="userForm.email"
+                          [readOnly]="mode() === 'view' || mode() === 'edit'"
+                          type="email"
+                          placeholder="Enter email"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.email()" />
+                        </mat-error>
+                      </mat-form-field>
+                      <div class="field-row">
+                        <!-- First Name -->
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{ 'userProfile.firstNameLabel' | translate }}</mat-label>
+                          <input
+                            matInput
+                            [field]="userForm.firstName"
+                            [readOnly]="mode() ? 'view' : 'edit'"
+                            placeholder="{{ 'userProfile.firstNamePlaceholder' | translate }}"
+                          />
+                          <mat-error>
+                            <lib-field-error [fieldError]="userForm.firstName()" />
+                          </mat-error>
+                        </mat-form-field>
 
-                    <!-- Nick Name -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Nick Name</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.nickName"
-                        [readOnly]="mode() ? 'view' : 'edit'"
-                        placeholder="Enter nick name"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.nickName()" />
-                      </mat-error>
-                    </mat-form-field>
+                        <!-- Last Name -->
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{ 'userProfile.lastNameLabel' | translate }}</mat-label>
+                          <input
+                            matInput
+                            [field]="userForm.lastName"
+                            [readOnly]="mode() ? 'view' : 'edit'"
+                            placeholder="{{ 'userProfile.lastNamePlaceholder' | translate }}"
+                          />
+                          <mat-error>
+                            <lib-field-error [fieldError]="userForm.lastName()" />
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </mat-tab>
+                      <mat-tab label="{{ 'userProfile.additionalInfoSection' | translate }}">
+                      <!-- Title -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>
+                        @if (mode() === 'view') {
+                          <input
+                            matInput [value]="userForm().value().title ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.title">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (title of titleOptions; track title) {
+                              <mat-option [value]="title">{{ title }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
 
-                    <!-- Gender -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Gender</mat-label>
-                      @if (mode() === 'view') {
-                        <input matInput [value]="userForm().value().Gender ?? ''" readonly />
-                      } @else {
-                        <mat-select [field]="userForm.Gender">
-                          <mat-option [value]="null">None</mat-option>
-                          @for (gender of genderOptions; track gender) {
-                            <mat-option [value]="gender">{{ gender }}</mat-option>
-                          }
-                        </mat-select>
-                      }
-                    </mat-form-field>
-
-                    <!-- Language -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Language</mat-label>
-                      @if (mode() === 'view') {
-                        <input matInput [value]="userForm().value().Language ?? ''" readonly />
-                      } @else {
-                        <mat-select [field]="userForm.Language">
-                          <mat-option [value]="null">None</mat-option>
-                          @for (lang of languageOptions; track lang) {
-                            <mat-option [value]="lang">{{ lang }}</mat-option>
-                          }
-                        </mat-select>
-                      }
-                    </mat-form-field>
-
-                    <!-- Date of Birth -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Date of Birth</mat-label>
-                      <ng-container>
-                        <input matInput
-                          [field]="userForm.dateOfBirth"
+                      <!-- Nick Name -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Nick Name</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.nickName"
                           [readOnly]="mode() ? 'view' : 'edit'"
-                          [matDatepicker]="dobPicker" />
-                        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #dobPicker></mat-datepicker>
-                      </ng-container>
-                    </mat-form-field>
+                          placeholder="Enter nick name"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.nickName()" />
+                        </mat-error>
+                      </mat-form-field>
 
-                    <!-- Photo URL -->
-                    <mat-form-field appearance="outline" class="full-width">
-                      <mat-label>Photo URL</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.photoUrl"
-                        [readOnly]="mode() ? 'view' : 'edit'"
-                        placeholder="Enter photo URL"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.photoUrl()" />
-                      </mat-error>
-                    </mat-form-field>
+                      <!-- Gender -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        @if (mode() === 'view') {
+                          <input matInput [value]="userForm().value().Gender ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.Gender">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (gender of genderOptions; track gender) {
+                              <mat-option [value]="gender">{{ gender }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
+
+                      <!-- Language -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Language</mat-label>
+                        @if (mode() === 'view') {
+                          <input matInput [value]="userForm().value().Language ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.Language">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (lang of languageOptions; track lang) {
+                              <mat-option [value]="lang">{{ lang }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
+
+                      <!-- Date of Birth -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Date of Birth</mat-label>
+                        <ng-container>
+                          <input matInput
+                            [field]="userForm.dateOfBirth"
+                            [readOnly]="mode() ? 'view' : 'edit'"
+                            [matDatepicker]="dobPicker" />
+                          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #dobPicker></mat-datepicker>
+                        </ng-container>
+                      </mat-form-field>
+
+                      <!-- Photo URL -->
+                      <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Photo URL</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.photoUrl"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="Enter photo URL"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.photoUrl()" />
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
                   </div>
-                </div>
-              </mat-tab>
+                </mat-tab>
+              </section>
 
               <!-- Tab: Professional Information -->
               <mat-tab label="Informations professionnelles">
@@ -413,19 +389,25 @@
         <mat-icon>check_circle</mat-icon>
       </button>
 
+      <button mat-icon-button matTooltip="Edit"
+        [disabled]="mode() === 'edit'"
+        (click)="mode.set('edit')">
+        <mat-icon>edit</mat-icon>
+      </button>
+
       <mat-divider [vertical]="true"></mat-divider>
 
       <!-- Debug Navigation -->
       <!-- <span style="color: red; font-size: 0.8rem; margin: 0 0.5rem;">
-        Nav: {{ selectedUsers().length }} users
+        Nav: {{ this.userStore.selectedUsers().length }} users
       </span> -->
 
       <!-- Navigation Buttons -->
-      @if (selectedUsers().length > 1) {
+      @if (this.userStore.selectedUsers().length > 1) {
         <button
           mat-icon-button
           matTooltip="First record"
-          [disabled]="isFirst()"
+          [disabled]="userStore.navigation().isFirst"
           (click)="first()"
         >
           <mat-icon>first_page</mat-icon>
@@ -433,18 +415,18 @@
         <button
           mat-icon-button
           matTooltip="Previous record"
-          [disabled]="!hasPrevious()"
+          [disabled]="!userStore.navigation().hasPrevious"
           (click)="previous()"
         >
           <mat-icon>skip_previous</mat-icon>
         </button>
         <span class="navigation-indicator">
-          {{ currentIndex() + 1 }} / {{ selectedUsers().length}}
+          {{ userStore.currentPosition() + 1 }} / {{ this.userStore.selectedUsers().length}}
         </span>
         <button
           mat-icon-button
           matTooltip="Next record"
-          [disabled]="!hasNext()"
+          [disabled]="!userStore.navigation().hasNext"
           (click)="next()"
         >
           <mat-icon>skip_next</mat-icon>
@@ -452,7 +434,7 @@
         <button
           mat-icon-button
           matTooltip="Last record"
-          [disabled]="isLast()"
+          [disabled]="userStore.navigation().isLast"
           (click)="last()"
         >
           <mat-icon>last_page</mat-icon>
