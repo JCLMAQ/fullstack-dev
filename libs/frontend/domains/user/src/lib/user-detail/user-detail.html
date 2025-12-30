@@ -1,13 +1,12 @@
 <div class="container">
 
   <!-- Loading Spinner -->
-
   @if (this.userStore.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
   }
-
+<!-- When loaded -->
   @if (!this.userStore.isLoading()) {
 
     <div class="header">
@@ -28,16 +27,164 @@
                 <section class="form-section">
                   <div class="tab-content">
                     <div class="fields-row">
+                      <!-- ID (readonly) -->
                       <mat-form-field appearance="outline">
                         <mat-label>ID</mat-label>
                         <input matInput [value]="userForm().value().id" readonly />
                       </mat-form-field>
+                      <!-- Email (readonly) -->
                       <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput [field]="userForm.email" [readOnly]="mode() === 'view' || mode() === 'edit'" type="email" placeholder="Enter email" />
+                        <mat-label>{{ 'userProfile.emailLabel' | translate }}</mat-label>
+                        <input matInput
+                          [field]="userForm.email"
+                          [readOnly]="mode() === 'view' || mode() === 'edit'"
+                          type="email"
+                          placeholder="{{'userProfile.emailPlaceholder' | translate}}" />
+                      <mat-error>
+                          <lib-field-error [fieldError]="userForm.email()" />
+                        </mat-error>
+                      </mat-form-field>
+                      <!-- First Name -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ 'userProfile.firstNameLabel' | translate }}</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.firstName"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="{{ 'userProfile.firstNamePlaceholder' | translate }}"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.firstName()" />
+                        </mat-error>
+                      </mat-form-field>
+                      <!-- Last Name -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{ 'userProfile.lastNameLabel' | translate }}</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.lastName"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="{{ 'userProfile.lastNamePlaceholder' | translate }}"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.lastName()" />
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+                </section>
+              </mat-tab>
+              <!-- Onglet Informations additionnelles -->
+              <mat-tab label="{{ 'userProfile.additionalInfoSection' | translate }}">
+                <section class="form-section">
+                  <div class="tab-content">
+                    <div class="fields-row">
+                    <!-- Title -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>
+                      @if (mode() === 'view') {
+                        <input
+                          matInput [value]="userForm().value().title ?? ''" readonly />
+                      } @else {
+                        <mat-select [field]="userForm.title">
+                          <mat-option [value]="null">None</mat-option>
+                          @for (title of titleOptions; track title) {
+                            <mat-option [value]="title">{{ title }}</mat-option>
+                          }
+                        </mat-select>
+                      }
+                    </mat-form-field>
+                    <!-- Nick Name -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'userProfile.nickNameLabel' | translate}}</mat-label>
+                      <input
+                        matInput
+                        [field]="userForm.nickName"
+                        [readOnly]="mode() ? 'view' : 'edit'"
+                        placeholder="{{'userProfile.nickNamePlaceholder' | translate}}"
+                      />
+                      <mat-error>
+                        <lib-field-error [fieldError]="userForm.nickName()" />
+                      </mat-error>
+                    </mat-form-field>
+                    <!-- Gender -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'userProfile.genderLabel' | translate}}</mat-label>
+                        @if (mode() === 'view') {
+                          <input matInput [value]="userForm().value().Gender ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.Gender">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (gender of genderOptions; track gender) {
+                              <mat-option [value]="gender">{{ gender }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
+                      <!-- Language -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'userProfile.languageLabel' | translate}}</mat-label>
+                        @if (mode() === 'view') {
+                          <input matInput [value]="userForm().value().Language ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.Language">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (lang of languageOptions; track lang) {
+                              <mat-option [value]="lang">{{ lang }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
+                      <!-- Date of Birth -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'userProfile.dateOfBirthLabel' | translate}}</mat-label>
+                        <ng-container>
+                          <input matInput
+                            [field]="userForm.dateOfBirth"
+                            [readOnly]="mode() ? 'view' : 'edit'"
+                            [matDatepicker]="dobPicker" />
+                          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                          <mat-datepicker #dobPicker></mat-datepicker>
+                        </ng-container>
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.dateOfBirth()" />
+                        </mat-error>
+                      </mat-form-field>
+                      <!-- Photo URL -->
+                      <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>{{'userProfile.photoUrlLabel' | translate}}</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.photoUrl"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="{{'userProfile.photoUrlPlaceholder' | translate}}"
+                        />
                       </mat-form-field>
                     </div>
+                  </div>
+                </section>
+              </mat-tab>
+              <!-- Tab: Professional Information -->
+              <mat-tab label="{{ 'userProfile.professionnalInfoSection' | translate }}">
+                <section class="form-section">
+                  <div class="tab-content">
                     <div class="fields-row">
+                      <!-- Position -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'userProfile.positionLabel' | translate}}</mat-label>
+                        @if (mode() === 'view') {
+                          <input matInput [value]="userForm().value().position ?? ''" readonly />
+                        } @else {
+                          <mat-select [field]="userForm.position">
+                            <mat-option [value]="null">None</mat-option>
+                            @for (pos of positionOptions; track pos) {
+                              <mat-option [value]="pos">{{ pos }}</mat-option>
+                            }
+                          </mat-select>
+                        }
+                      </mat-form-field>
+                      <!-- Job Title -->
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.jobTitleLabel' | translate}}</mat-label>
                         <input matInput [field]="userForm.jobTitle" [readOnly]="mode() === 'view' || mode() === 'edit'" placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}" />
@@ -45,23 +192,128 @@
                           <lib-field-error [fieldError]="userForm.jobTitle()" />
                         </mat-error>
                       </mat-form-field>
+                      <!-- Manager ID -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Manager ID</mat-label>
+                        @if (mode() === 'view') {
+                          <input
+                            matInput
+                            [value]="userForm().value().managerId"
+                            readonly
+                          />
+                        } @else {
+                          <input
+                            matInput
+                            [field]="userForm.managerId"
+                            placeholder="Enter manager ID"
+                          />
+                        }
+                      </mat-form-field>
+
                     </div>
                   </div>
                 </section>
               </mat-tab>
-              <!-- Onglet Statut -->
-              <mat-tab label="{{ 'userProfile.statusSection' | translate }}">
+
+              <!-- Tab: Emergency Contact -->
+              <mat-tab label="{{ 'userProfile.emergencyContactSection' | translate }}">
                 <section class="form-section">
                   <div class="tab-content">
                     <div class="fields-row">
+
+                      <!-- Has Emergency Contact -->
+                      <div class="checkbox-field">
+                        @if (mode() === 'view') {
+                          <mat-checkbox [checked]="userForm().value().hasEmergencyContact" disabled>
+                            Has Emergency Contact
+                          </mat-checkbox>
+                        } @else {
+                          <mat-checkbox [field]="userForm.hasEmergencyContact">
+                            Has Emergency Contact
+                          </mat-checkbox>
+                        }
+                      </div>
+
+                      <!-- Emergency Contact Name -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Emergency Contact Name</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.emergencyContactName"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="Enter emergency contact name"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.emergencyContactName()" />
+                        </mat-error>
+                      </mat-form-field>
+
+                      <!-- Emergency Contact Phone -->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Emergency Contact Phone</mat-label>
+                        <input
+                          matInput
+                          [field]="userForm.emergencyContactPhone"
+                          [readOnly]="mode() ? 'view' : 'edit'"
+                          placeholder="Enter emergency contact phone"
+                        />
+                        <mat-error>
+                          <lib-field-error [fieldError]="userForm.emergencyContactPhone()" />
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+                </section>
+              </mat-tab>
+              <!-- Tab: Account Status  -->
+              <mat-tab label="{{ 'userProfile.accountStatusSection' | translate }}">
+                <section class="form-section">
+                  <div class="tab-content">
+                    <div class="fields-row">
+
+                    <!-- Is Public -->
+                      <div class="checkbox-field">
+                        @if (mode() === 'view') {
+                          <mat-checkbox [checked]="userForm().value().isPublic ?? false" disabled>
+                            Is Public
+                          </mat-checkbox>
+                        } @else {
+                          <mat-checkbox [field]="userForm.isPublic">
+                            Is Public
+                          </mat-checkbox>
+                        }
+                      </div>
+
+                      <!-- Published -->
+                      <div class="checkbox-field">
+                        @if (mode() === 'view') {
+                          <mat-checkbox [checked]="userForm().value().published ?? false" disabled>
+                            Published
+                          </mat-checkbox>
+                        } @else {
+                          <mat-checkbox [field]="userForm.published">
+                            Published
+                          </mat-checkbox>
+                        }
+                      </div>
+
+                      <!-- Is Validated -->
                       <mat-form-field appearance="outline">
                         <mat-label>Is Validated</mat-label>
                         <ng-container>
-                          <input matInput [field]="userForm.isValidated" [readOnly]="mode() === 'view' || mode() === 'edit'" [matDatepicker]="validatedPicker" />
+                          <input matInput
+                            [field]="userForm.isValidated"
+                            [readOnly]="mode() ? 'view' : 'edit'"
+                            [matDatepicker]="validatedPicker" />
                           <mat-datepicker-toggle matSuffix [for]="validatedPicker"></mat-datepicker-toggle>
                           <mat-datepicker #validatedPicker></mat-datepicker>
                         </ng-container>
                       </mat-form-field>
+
+
+
+                      <!-- Account suspended -->
                       <mat-form-field appearance="outline">
                         <mat-label>Is Suspended</mat-label>
                         <ng-container>
@@ -69,23 +321,6 @@
                           <mat-datepicker-toggle matSuffix [for]="suspendedPicker"></mat-datepicker-toggle>
                           <mat-datepicker #suspendedPicker></mat-datepicker>
                         </ng-container>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </section>
-              </mat-tab>
-              <!-- Onglet Contact (exemple, à adapter selon les champs disponibles) -->
-              <mat-tab label="{{ 'userProfile.contactSection' | translate }}">
-                <section class="form-section">
-                  <div class="tab-content">
-                    <div class="fields-row">
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{'userProfile.firstNameLabel' | translate}}</mat-label>
-                        <input matInput [field]="userForm.firstName" [readOnly]="mode() === 'view' || mode() === 'edit'" placeholder="{{'userProfile.firstNamePlaceholder' | translate}}" />
-                      </mat-form-field>
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{'userProfile.lastNameLabel' | translate}}</mat-label>
-                        <input matInput [field]="userForm.lastName" [readOnly]="mode() === 'view' || mode() === 'edit'" placeholder="{{'userProfile.lastNamePlaceholder' | translate}}" />
                       </mat-form-field>
                     </div>
                   </div>
