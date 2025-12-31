@@ -158,22 +158,26 @@ export class UserDetail {
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
 
   constructor() {
-    // Load user id and mode from route params and set selected user in store
-      const params = this.route.snapshot.params;
-      // user id from route
-      this.userId.set(params['id'] ?? null);
-      if((this.userId() === undefined )|| (this.userId() === null)){
-        this.userId.set(this.store.userEntities().at(0)?.id ?? null);
-      }
-      // mode from route
-      this.mode.set((params['mode'] ?? null));
-      if(this.mode() === undefined || this.mode() === null) {
-        this.mode.set('view');
-      }
-      // Set selected user in store
-      if (this.userId()) {
-        this.store.setSelectedId(this.userId());
-      }
+    // Récupère l'id utilisateur depuis les params de route
+    const params = this.route.snapshot.params;
+    this.userId.set(params['id'] ?? null);
+    if ((this.userId() === undefined) || (this.userId() === null)) {
+      this.userId.set(this.store.userEntities().at(0)?.id ?? null);
+    }
+    // Récupère le mode depuis la query string (?mode=view) ou matrix param (;mode=view)
+    const queryMode = this.route.snapshot.queryParamMap.get('mode');
+    const matrixMode = this.route.snapshot.paramMap.get('mode');
+    if (queryMode) {
+      this.mode.set(queryMode as 'view' | 'edit' | 'add');
+    } else if (matrixMode) {
+      this.mode.set(matrixMode as 'view' | 'edit' | 'add');
+    } else {
+      this.mode.set('view');
+    }
+    // Set selected user in store
+    if (this.userId()) {
+      this.store.setSelectedId(this.userId());
+    }
 
     // Populate form when selectedUser changes
     effect(() => {

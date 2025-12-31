@@ -159,11 +159,10 @@ export class UserList {
    */
   navigateButton( id: string, mode: string ) {
     // Définir l'utilisateur sélectionné avant de naviguer
-
     this.store.setSelectedId(id);
     this.store.initNavButton(id);
-    // Naviguer vers le détail
-    this.router.navigate([this.routeToDetail, id, mode ]);
+    // Naviguer vers le détail avec le mode en query param
+    this.router.navigate([this.routeToDetail, id], { queryParams: { mode } });
   }
 
 
