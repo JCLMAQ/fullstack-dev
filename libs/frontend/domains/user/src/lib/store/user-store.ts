@@ -17,9 +17,9 @@ const userConfig = entityConfig({
 export const UserStore = signalStore(
   withState(initialUserState),
   withEntities(userConfig),
-  withNavigationMethods<User>(),
   withCallState({ collection: 'user' }),
   withSelectionMethods<User>({ collection: 'user' }),
+  withNavigationMethods<User>(),
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
