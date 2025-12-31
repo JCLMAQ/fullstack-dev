@@ -2,7 +2,7 @@ import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/n
 import { computed } from "@angular/core";
 import { User } from "@db/prisma";
 import { withNavigationMethods, withSelectionMethods } from "@fe/stores";
-import { signalStore, type, withComputed, withHooks, withState } from "@ngrx/signals";
+import { signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
@@ -43,6 +43,14 @@ export const UserStore = signalStore(
       const ids = selectedIds();
       const map = userEntityMap();
       return ids.map(id => map[id]).filter(Boolean);
+    }),
+    selection: computed(() => {
+      const ids = selectedIds();
+      const map = userEntityMap();
+      return {
+        selected: ids.map(id => map[id]).filter(Boolean),
+        isSelected: (id: string) => ids.includes(id),
+      };
     }),
     isAllSelected: computed(() => {
       const total = Object.keys(userEntityMap()).length;

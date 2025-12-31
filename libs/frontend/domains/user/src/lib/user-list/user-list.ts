@@ -225,7 +225,7 @@ export class UserList {
 
   protected toggleRowSelection(user: User): void {
     // Synchroniser selection() et selectedIds
-    this.store.selection().toggle(user);
+    // this.store.toggleSelection(user);
     this.store.toggleSelection(user.id);
   }
 
