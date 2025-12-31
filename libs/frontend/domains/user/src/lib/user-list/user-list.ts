@@ -56,7 +56,7 @@ export class UserList {
 
   routeToDetail = "/users/detail";
 
-  mode: 'Edit' | 'View' | 'Update' | undefined ;
+  mode: 'Edit' | 'View' | 'add' | undefined ;
   master = false; // true : button is disable
   owner = false; // true button is disable
 
@@ -115,14 +115,20 @@ export class UserList {
 
   // Sélection
 
-  protected isSomeSelected(): boolean {
-    // Vérifie si certains (mais pas tous) utilisateurs paginés sont sélectionnés
-    const numPaginated = this.paginatedUsers().length;
-    const numSelected = this.paginatedUsers().filter(user =>
-      this.store.selection().isSelected(user)
-    ).length;
-    return numSelected > 0 && numSelected < numPaginated;
-  }
+
+  /**
+   * True si tous les utilisateurs paginés sont sélectionnés
+   */
+  readonly isAllPaginatedSelected = computed(() => {
+    const paginated = this.paginatedUsers();
+    return paginated.length > 0 && paginated.every(user => this.store.selection().isSelected(user));
+  });
+
+  readonly isSomePaginatedSelected = computed(() => {
+    const paginated = this.paginatedUsers();
+    const numSelected = paginated.filter(user => this.store.selection().isSelected(user)).length;
+    return numSelected > 0 && numSelected < paginated.length;
+  });
 
   protected toggleAll(): void {
     if (this.store.isAllSelected()) {
@@ -153,9 +159,11 @@ export class UserList {
    */
   navigateButton( id: string, mode: string ) {
     // Définir l'utilisateur sélectionné avant de naviguer
+
     this.store.setSelectedId(id);
+    this.store.initNavButton(id);
     // Naviguer vers le détail
-    this.router.navigate([this.routeToDetail, id]);
+    this.router.navigate([this.routeToDetail, id, mode ]);
   }
 
 
@@ -200,32 +208,24 @@ export class UserList {
   }
 
   protected masterToggle(): void {
-    const isAllSelected = this.store.isAllSelected();
-    const paginatedIds = this.paginatedUsers().map(user => user.id);
-    const currentIds = this.store.selectedIds();
-
-    if (isAllSelected) {
-      // Désélectionner tous les utilisateurs paginés
-      this.paginatedUsers().forEach((user: User) => {
-        this.store.selection().deselect(user);
+    const paginatedUsers = this.paginatedUsers();
+    const allSelected = paginatedUsers.length > 0 && paginatedUsers.every(user => this.store.selection().isSelected(user));
+    if (allSelected) {
+      paginatedUsers.forEach(user => {
+        if (this.store.selection().isSelected(user)) {
+          this.store.toggleSelection(user.id);
+        }
       });
-      // Retirer leurs IDs de selectedIds
-      const filteredIds = currentIds.filter(id => !paginatedIds.includes(id));
-      this.store.setSelection(filteredIds);
     } else {
-      // Sélectionner tous les utilisateurs paginés
-      this.paginatedUsers().forEach((user: User) => {
-        this.store.selection().select(user);
+      paginatedUsers.forEach(user => {
+        if (!this.store.selection().isSelected(user)) {
+          this.store.toggleSelection(user.id);
+        }
       });
-      // Ajouter leurs IDs à selectedIds
-      const newIds = paginatedIds.filter(id => !currentIds.includes(id));
-      this.store.setSelection([...currentIds, ...newIds]);
     }
   }
 
   protected toggleRowSelection(user: User): void {
-    // Synchroniser selection() et selectedIds
-    // this.store.toggleSelection(user);
     this.store.toggleSelection(user.id);
   }
 

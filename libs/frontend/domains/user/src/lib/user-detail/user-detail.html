@@ -1,13 +1,13 @@
 <div class="container">
 
   <!-- Loading Spinner -->
-  @if (this.userStore.isLoading()) {
+  @if (this.store.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
   }
 <!-- When loaded -->
-  @if (!this.userStore.isLoading()) {
+  @if (!this.store.isLoading()) {
 
     <div class="header">
       <h1 class="mat-headline-4">{{ 'userProfile.title' | translate }}</h1>
@@ -362,20 +362,20 @@
       </button>
       <mat-divider [vertical]="true"></mat-divider>
       <!-- Navigation Buttons -->
-      @if (this.userStore.selectedUsers().length > 1) {
-        <button mat-icon-button matTooltip="First record" [disabled]="userStore.navigation().isFirst" (click)="first()">
+      @if (this.store.selectedUsers().length > 1) {
+        <button mat-icon-button matTooltip="First record" [disabled]="store.navigation().isFirst" (click)="first()">
           <mat-icon>first_page</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Previous record" [disabled]="!userStore.navigation().hasPrevious" (click)="previous()">
+        <button mat-icon-button matTooltip="Previous record" [disabled]="!store.navigation().hasPrevious" (click)="previous()">
           <mat-icon>skip_previous</mat-icon>
         </button>
         <span class="navigation-indicator">
-          {{ userStore.currentPosition() + 1 }} / {{ this.userStore.selectedUsers().length}}
+          {{ store.currentPosition() + 1 }} / {{ this.store.selectedUsers().length}}
         </span>
-        <button mat-icon-button matTooltip="Next record" [disabled]="!userStore.navigation().hasNext" (click)="next()">
+        <button mat-icon-button matTooltip="Next record" [disabled]="!store.navigation().hasNext" (click)="next()">
           <mat-icon>skip_next</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Last record" [disabled]="userStore.navigation().isLast" (click)="last()">
+        <button mat-icon-button matTooltip="Last record" [disabled]="store.navigation().isLast" (click)="last()">
           <mat-icon>last_page</mat-icon>
         </button>
       }
@@ -389,3 +389,22 @@
       </button>
     </mat-toolbar>
   }
+</div>
+
+  <div>
+    @if (store.selection().selected.length) {
+      <span class="selected-text"> ({{store.selection().selected.length}} items selected)</span>
+      <span> {{store.selection().selected | json}}  </span>
+    }
+    <br>
+    <span style="color: orange; font-weight: bold;">selectedIds Array: {{ store.selectedIds() | json }}</span>
+    <br>
+    <span> {{store.users().length}} data length </span>
+    <br>
+    <span> Selected Entries {{store.selection().selected.entries }} | json </span>
+    <br>
+    <span>Initial Selected ID: {{ store.selectedId() }} </span>
+    <br>
+    <span> Initial selected Item: {{ store.selectedUser() | json }} </span>
+
+  </div>

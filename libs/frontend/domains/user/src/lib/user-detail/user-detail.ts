@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { customError, disabled, Field, form, required, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -68,12 +68,13 @@ type UserFormData = {
     MatDatepickerModule,
     MatNativeDateModule,
     TranslateModule,
+    JsonPipe
   ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
 })
 export class UserDetail {
-  protected readonly userStore = inject(UserStore);
+  protected readonly store = inject(UserStore);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -162,22 +163,21 @@ export class UserDetail {
       // user id from route
       this.userId.set(params['id'] ?? null);
       if((this.userId() === undefined )|| (this.userId() === null)){
-        this.userId.set(this.userStore.userEntities().at(0)?.id ?? null);
+        this.userId.set(this.store.userEntities().at(0)?.id ?? null);
       }
       // mode from route
       this.mode.set((params['mode'] ?? null));
       if(this.mode() === undefined || this.mode() === null) {
         this.mode.set('view');
       }
-      // Set selected user in store and initialize navigation
+      // Set selected user in store
       if (this.userId()) {
-        this.userStore.setSelectedId(this.userId());
-        this.userStore.initNavButton(this.userId()!);
+        this.store.setSelectedId(this.userId());
       }
 
     // Populate form when selectedUser changes
     effect(() => {
-      const selectedUser = this.userStore.selectedUser();
+      const selectedUser = this.store.selectedUser();
       if (selectedUser) {
         this.userForm().reset({
           id: selectedUser.id,
@@ -220,13 +220,13 @@ export class UserDetail {
       return;
     }
 
-    this.userStore.updateUser(userId, formValue);
+    this.store.updateUser(userId, formValue);
     this.snackBar.open('Utilisateur sauvegardé avec succès', 'OK', { duration: 3000 });
     this.mode.set('view');
   }
 
   protected cancel(): void {
-    const selectedUser = this.userStore.selectedUser();
+    const selectedUser = this.store.selectedUser();
     if (selectedUser) {
       this.userForm().reset({
         id: selectedUser.id,
@@ -257,7 +257,7 @@ export class UserDetail {
   protected remove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?')) {
-      this.userStore.deleteUser(userId);
+      this.store.deleteUser(userId);
       this.snackBar.open('Utilisateur supprimé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
@@ -266,7 +266,7 @@ export class UserDetail {
   protected virtualRemove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')) {
-      this.userStore.softDeleteUser(userId);
+      this.store.softDeleteUser(userId);
       this.snackBar.open('Utilisateur désactivé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
@@ -302,15 +302,15 @@ export class UserDetail {
   }
 
   // Navigation between selected users - delegate to store
-  protected first = () => this.userStore.first();
-  protected previous = () => this.userStore.previous();
-  protected next = () => this.userStore.next();
-  protected last = () => this.userStore.last();
+  protected first = () => this.store.first();
+  protected previous = () => this.store.previous();
+  protected next = () => this.store.next();
+  protected last = () => this.store.last();
 
   protected reload(): void {
     const userId = this.userForm().value().id;
     if (userId) {
-      this.userStore.loadUser(userId);
+      this.store.loadUser(userId);
     }
   }
 

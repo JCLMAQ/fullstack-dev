@@ -49,7 +49,7 @@ export const UserStore = signalStore(
       const map = userEntityMap();
       return {
         selected: ids.map(id => map[id]).filter(Boolean),
-        isSelected: (id: string) => ids.includes(id),
+        isSelected: (user: User) => ids.includes(user.id),
       };
     }),
     isAllSelected: computed(() => {
