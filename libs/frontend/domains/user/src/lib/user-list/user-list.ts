@@ -143,11 +143,11 @@ export class UserList {
   }
 
   protected isSelected(id: string): boolean {
-    return this.store.selectedIdSet().has(id);
+    return this.store.selectedIds().includes(id);
   }
 
   protected selectedSize(): number {
-    return this.store.selectedIdSet().size;
+    return this.store.selectedIds().length;
   }
 
   // Méthodes d'actions sur les utilisateurs

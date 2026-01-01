@@ -37,13 +37,13 @@ export const UserStore = signalStore(
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
 
-    selectedUserId: computed(() => selectedItem()?.id ?? null),
-    selectedIdSet: computed(() => new Set(selectedIds())),
-    selectedUsers: computed(() => {
-      const ids = selectedIds();
-      const map = userEntityMap();
-      return ids.map(id => map[id]).filter(Boolean);
-    }),
+    // selectedUserId: computed(() => selectedItem()?.id ?? null),
+    // selectedIdSet: computed(() => new Set(selectedIds())),
+    // selectedUsers: computed(() => {
+    //   const ids = selectedIds();
+    //   const map = userEntityMap();
+    //   return ids.map(id => map[id]).filter(Boolean);
+    // }),
     selection: computed(() => {
       const ids = selectedIds();
       const map = userEntityMap();
