@@ -19,7 +19,7 @@ export const UserStore = signalStore(
   withEntities(userConfig),
   withCallState({ collection: 'user' }),
   withSelectionMethods<User>({ collection: 'user' }),
-  withNavigationMethods<User>(),
+  withNavigationMethods(),
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
