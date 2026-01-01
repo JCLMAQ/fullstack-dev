@@ -9,6 +9,7 @@ export type NavigationStore<Entity extends EntityWithId> = WritableStateSource<o
   lastPosition: () => number;
   navigation: () => NavigationState['navigation'];
   selectedIds: () => string[];
+  effectiveSelectedIds?: () => string[];
   selectedItemId: () => string | null;
   selectedItem: () => Entity | null;
   items?: () => Entity[];
@@ -33,7 +34,7 @@ export function getEntityMap<Entity extends EntityWithId>(store: NavigationStore
 
 export function resolveSource<Entity extends EntityWithId>(store: NavigationStore<Entity>): Entity[] {
   const map = getEntityMap(store);
-  const ids = store.selectedIds();
+  const ids = store.effectiveSelectedIds ? store.effectiveSelectedIds() : store.selectedIds();
   if (ids.length > 0) {
     return ids
       .map((id) => map[id])
@@ -106,7 +107,7 @@ export function resolveTargetId<Entity extends EntityWithId>(
   if (selectedItem) {
     return selectedItem.id;
   }
-  const selectedIds = store.selectedIds();
+  const selectedIds = store.effectiveSelectedIds ? store.effectiveSelectedIds() : store.selectedIds();
   if (selectedIds.length > 0) {
     return selectedIds[0];
   }

@@ -6,6 +6,7 @@ export interface UserState {
     orgId: string | null,
   },
   selectedIds: string[],
+  sortedSelectedIds: string[],
   selectedItemId: string | null,
   selectedItem: User | null;
   // selectionInList: SelectionModel<User>,
@@ -22,6 +23,7 @@ export const initialUserState: UserState = {
     orgId: "test"
   },
   selectedIds: [],
+  sortedSelectedIds: [],
   selectedItemId: null,
   selectedItem: null,
   // selectionInList: new SelectionModel<User>(true, []),

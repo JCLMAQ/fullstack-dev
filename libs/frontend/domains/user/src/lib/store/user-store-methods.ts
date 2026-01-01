@@ -141,6 +141,9 @@ export const withUserMethods = signalStoreFeature(
       }
     },
 
+    setSortedSelection(sortedIds: string[]) {
+      patchState(store, { sortedSelectedIds: sortedIds });
+    },
 
 
   }))

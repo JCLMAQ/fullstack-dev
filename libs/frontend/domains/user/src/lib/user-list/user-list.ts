@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
@@ -52,6 +52,12 @@ export class UserList {
         this.store.loadUsers();
       }
     });
+
+    // Synchroniser l'ordre de sélection avec le tri courant pour la vue détail
+    effect(() => {
+      const ordered = this.sortedSelectedIds();
+      this.store.setSortedSelection(ordered);
+    });
   }
 
   routeToDetail = "/users/detail";
@@ -63,6 +69,7 @@ export class UserList {
   // ViewChild pour tri et pagination
   protected readonly sort = viewChild(MatSort);
   protected readonly paginator = viewChild(MatPaginator);
+  protected readonly sortState = signal<Sort>({ active: '', direction: '' });
 
   // Filtrage
   protected readonly filterValue = signal('');
@@ -82,14 +89,43 @@ export class UserList {
   protected readonly pageIndex = signal(0);
   protected readonly pageSize = signal(5);
 
+  protected readonly sortedUsers = computed(() => {
+    const users = [...this.filteredUsers()];
+    const { active, direction } = this.sortState();
+    if (!active || !direction) {
+      return users;
+    }
+    return users.sort((a, b) => {
+      const aValue = (a as Record<string, unknown>)[active];
+      const bValue = (b as Record<string, unknown>)[active];
+      if (aValue == null && bValue == null) {
+        return 0;
+      }
+      if (aValue == null) {
+        return 1;
+      }
+      if (bValue == null) {
+        return -1;
+      }
+      const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
+      return direction === 'asc' ? comparison : -comparison;
+    });
+  });
+
   protected readonly paginatedUsers = computed(() => {
-    const users = this.filteredUsers();
+    const users = this.sortedUsers();
     const start = this.pageIndex() * this.pageSize();
     const end = start + this.pageSize();
     return users.slice(start, end);
   });
 
   protected readonly totalUsers = computed(() => this.filteredUsers().length);
+
+  protected readonly sortedSelectedIds = computed(() =>
+    this.sortedUsers()
+      .filter(user => this.store.selection().isSelected(user))
+      .map(user => user.id)
+  );
 
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
@@ -197,6 +233,11 @@ export class UserList {
   protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
+  }
+
+  protected onSortChange(sort: Sort): void {
+    this.sortState.set(sort);
+    this.pageIndex.set(0);
   }
 
   checkboxLabel(row: User): string {

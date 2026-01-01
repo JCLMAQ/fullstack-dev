@@ -41,6 +41,16 @@ export const UserStore = signalStore(
 
       selection,
       isAllSelected,
+      sortedSelectedItems: computed(() =>
+        store.sortedSelectedIds()
+          .map(id => store.userEntityMap()[id])
+          .filter((user): user is User => !!user)
+      ),
+      // Utilise sortedSelectedIds si disponible, sinon selectedIds
+      effectiveSelectedIds: computed(() => {
+        const sorted = store.sortedSelectedIds();
+        return sorted.length > 0 ? sorted : store.selectedIds();
+      }),
     };
   }),
   withHooks({

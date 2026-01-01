@@ -35,7 +35,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
 
-      <table mat-table [dataSource]="paginatedUsers()" multiTemplateDataRows matSort>
+      <table mat-table [dataSource]="paginatedUsers()" multiTemplateDataRows matSort (matSortChange)="onSortChange($event)">
 
 
         <!-- Data Columns -->
@@ -215,6 +215,8 @@
     } -->
     <br>
     <span style="color: orange; font-weight: bold;">selectedIds Array: {{ store.selectedIds() | json }}</span>
+    <br>
+    <span style="color: blue; font-weight: bold;">effectiveSelectedIds Array: {{ store.effectiveSelectedIds() | json }}</span>
     <br>
     <span> {{store.users().length}} data length </span>
     <br>
