@@ -111,7 +111,8 @@ type PatchableStore = Parameters<typeof patchState>[0];
  * );
  * ```
  */
-export function withNavigationMethods(){
+export function withNavigationMethods<Item extends { id: string }>(config: NavigationConfig<Item> = {}) {
+  const getId = config.selectId ?? ((item: Item) => item.id);
 
   return signalStoreFeature(
     withState<NavigationState>(initialNavigationState),

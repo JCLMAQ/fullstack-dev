@@ -18,7 +18,14 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
       withSelectionMethods<Post>(), // ✅ Utilise entityMap par défaut
       ...
     );
+
+    * @template Entity - Type of the entity managed by the store
+    * Needs from the store:
+    *   selectedIds: string[] in the state
+    *   selectedId: string | null and
+    *   selectedItem: Entity | null are optional but recommended
 */
+
 export function withSelectionMethods<Entity>(config?: { collection?: string }) {
   const collectionName = config?.collection;
   const entityMapKey = collectionName ? `${collectionName}EntityMap` : 'entityMap';
@@ -66,7 +73,7 @@ export function withSelectionMethods<Entity>(config?: { collection?: string }) {
       setSelectedId(id: string | null) {
         const entityMap = (store as any)[entityMapKey]();
         const selectedEntity = id ? entityMap[id] : null;
-        patchState(store, { selectedId: id, selectedItem: selectedEntity });
+        patchState(store, { selectedItemId: id, selectedItem: selectedEntity });
       },
     }))
   );
