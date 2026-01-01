@@ -1,7 +1,7 @@
 import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed } from "@angular/core";
 import { User } from "@db/prisma";
-import { withNavigationMethods, withSelectionMethods } from "@fe/stores";
+import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { initialUserState } from "./user-slice";
@@ -24,40 +24,26 @@ export const UserStore = signalStore(
   withDevtools('UserStore'),
   withUndoRedo({
   }),
-  withComputed(({ userEntityMap, followers, following, organizations, selectedItem, loading, error, selectedIds }) => ({
-    // Conversion des entités en tableau pour la compatibilité
-    users: computed(() => Object.values(userEntityMap())),
+  withComputed((store) => {
+    const { selection, selectedEntities, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');
+    return {
+      // Conversion des entités en tableau pour la compatibilité
+      users: computed(() => Object.values(store.userEntityMap())),
 
-    isLoading: computed(() => loading()),
-    hasError: computed(() => !!error()),
+      isLoading: computed(() => store.loading()),
+      hasError: computed(() => !!store.error()),
 
-    userCount: computed(() => Object.keys(userEntityMap()).length),
+      userCount: computed(() => Object.keys(store.userEntityMap()).length),
 
-    hasFollowers: computed(() => followers().length > 0),
-    hasFollowing: computed(() => following().length > 0),
-    hasOrganizations: computed(() => organizations().length > 0),
+      hasFollowers: computed(() => store.followers().length > 0),
+      hasFollowing: computed(() => store.following().length > 0),
+      hasOrganizations: computed(() => store.organizations().length > 0),
 
-    // selectedUserId: computed(() => selectedItem()?.id ?? null),
-    // selectedIdSet: computed(() => new Set(selectedIds())),
-    // selectedUsers: computed(() => {
-    //   const ids = selectedIds();
-    //   const map = userEntityMap();
-    //   return ids.map(id => map[id]).filter(Boolean);
-    // }),
-    selection: computed(() => {
-      const ids = selectedIds();
-      const map = userEntityMap();
-      return {
-        selected: ids.map(id => map[id]).filter(Boolean),
-        isSelected: (user: User) => ids.includes(user.id),
-      };
-    }),
-    isAllSelected: computed(() => {
-      const total = Object.keys(userEntityMap()).length;
-      const sel = selectedIds().length;
-      return total > 0 && sel === total;
-    }),
-  })),
+      selection,
+      selectedUsers: selectedEntities,
+      isAllSelected,
+    };
+  }),
   withHooks({
     onInit: (store) => {
       console.log('UserStore initialized');
