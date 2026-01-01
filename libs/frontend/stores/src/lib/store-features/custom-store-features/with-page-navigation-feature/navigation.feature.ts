@@ -1,16 +1,9 @@
 import { patchState, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
-import { clampPosition } from './navigation.helper';
-/**
- * État de navigation pour parcourir une liste d'éléments
- * @property currentPosition - Position actuelle dans la liste (index)
- * @property lastPosition - Dernière position disponible (length - 1)
- * @property selectedId - ID de l'élément actuellement sélectionné
- * @property navigation - Indicateurs de navigation (next, previous, first, last)
- */
-export type NavigationState = {
+import { clampPosition, computeNavigation } from './navigation.helper';
+
+type NavigationState = {
   currentPosition: number;
   lastPosition: number;
-  selectedId: string | null;
   navigation: {
     hasNext: boolean;
     hasPrevious: boolean;
@@ -19,11 +12,9 @@ export type NavigationState = {
   };
 };
 
-/** État initial de la navigation */
 const initialNavigationState: NavigationState = {
   currentPosition: 0,
   lastPosition: 0,
-  selectedId: null,
   navigation: {
     hasNext: false,
     hasPrevious: false,
@@ -31,186 +22,151 @@ const initialNavigationState: NavigationState = {
     isLast: true,
   },
 };
-/**
- * Configuration pour la feature de navigation
- * @property selectId - Fonction optionnelle pour extraire l'ID d'un élément
- */
-// export type NavigationConfig<Item> = {
-//   selectId?: (item: Item) => string;
-// };
 
-/**
- * Type représentant une sélection d'éléments (compatible avec SelectionModel)
- */
-// type SelectionLike<Item> = {
-//   isEmpty?: () => boolean;
-//   selected: Item[];
-// };
-
-/** Type pour un store pouvant être patché */
 type PatchableStore = Parameters<typeof patchState>[0];
+type EntityWithId = { id: string };
 
-/**
- * Type pour un store avec capacités de navigation
- * Étend PatchableStore avec les propriétés et méthodes nécessaires
- *
- * @requires items - Signal obligatoire fourni par le store parent (liste complète des éléments)
- * @optional selection - Signal optionnel pour la gestion de sélections multiples
- */
-// type NavigationStore<Item> = PatchableStore & {
-//   currentPosition: () => number;
-//   lastPosition: () => number;
-//   items?: () => Item[];
-//   selection?: () => SelectionLike<Item>;
-//   selectedId?: () => string | null;
-// };
+type NavigationStore<Entity extends EntityWithId> = PatchableStore & {
+  currentPosition: () => number;
+  lastPosition: () => number;
+  navigation: () => NavigationState['navigation'];
+  selectedIds: () => string[];
+  selectedItemId: () => string | null;
+  selectedItem: () => Entity | null;
+  items?: () => Entity[];
+};
 
+type EntityMap<Entity extends EntityWithId> = Record<string, Entity>;
 
+function getEntityMap<Entity extends EntityWithId>(store: NavigationStore<Entity>): EntityMap<Entity> {
+  const entry = Object.entries(store as Record<string, unknown>).find(
+    ([key, value]) => (key === 'entityMap' || key.endsWith('EntityMap')) && typeof value === 'function'
+  );
+  if (!entry) {
+    return {} as EntityMap<Entity>;
+  }
+  const selector = entry[1] as () => unknown;
+  const mapCandidate = selector();
+  if (mapCandidate && typeof mapCandidate === 'object' && !Array.isArray(mapCandidate)) {
+    return mapCandidate as EntityMap<Entity>;
+  }
+  return {} as EntityMap<Entity>;
+}
 
+function resolveSource<Entity extends EntityWithId>(store: NavigationStore<Entity>): Entity[] {
+  const map = getEntityMap(store);
+  const ids = store.selectedIds();
+  if (ids.length > 0) {
+    return ids
+      .map((id) => map[id])
+      .filter((item): item is Entity => Boolean(item));
+  }
+  if (store.items) {
+    return store.items();
+  }
+  return Object.values(map);
+}
 
+function selectById<Entity extends EntityWithId>(
+  store: NavigationStore<Entity>,
+  map: EntityMap<Entity>,
+  id: string | null
+) {
+  const setSelectedId = (store as { setSelectedId?: (value: string | null) => void }).setSelectedId;
+  if (setSelectedId) {
+    setSelectedId(id);
+    return;
+  }
+  const selectedItem = id ? map[id] ?? null : null;
+  patchState(store, { selectedItemId: id, selectedItem });
+}
 
-/**
- * Applique l'état de navigation au store
- * Met à jour la position courante, dernière position et les indicateurs
- * @param store - Store à mettre à jour
- * @param current - Nouvelle position courante
- * @param last - Nouvelle dernière position
- */
-// function applyNavigationState(store: PatchableStore, current: number, last: number) {
-//   const navigation = computeNavigation(current, last);
-//   patchState(store, { currentPosition: current, lastPosition: last, navigation });
-// }
+function applyNavigation<Entity extends EntityWithId>(
+  store: NavigationStore<Entity>,
+  source: Entity[],
+  targetIndex: number
+) {
+  if (source.length === 0) {
+    patchState(store, {
+      currentPosition: 0,
+      lastPosition: 0,
+      navigation: computeNavigation(0, 0),
+    });
+    selectById(store, {} as EntityMap<Entity>, null);
+    return;
+  }
 
-/**
- * Feature NgRx Signals Store pour la navigation dans une liste d'éléments
- *
- * Fournit des méthodes pour naviguer (next, previous, first, last) dans une collection
- * Gère automatiquement les états de navigation (hasNext, hasPrevious, etc.)
- * Compatible avec les sélections multiples via SelectionModel
- *
- * @template Item - Type des éléments de la liste (doit avoir une propriété id)
- *
- * @requires Le store parent DOIT fournir SOIT :
- * - Un signal `items()` retournant Item[]
- * - Un signal `*Entities()` (EntityMap) qui sera automatiquement converti en Item[]
- *
- * @example Avec entities (auto-détection)
- * ```ts
- * export const UserStore = signalStore(
- *   withEntities({ collection: 'users' }),
- *   withNavigationMethods<User>()  // Utilise usersEntities() automatiquement
- * );
- * ```
- *
- * @example Avec items computed
- * ```ts
- * export const MyStore = signalStore(
- *   withState({ items: [] }),
- *   withComputed(() => ({ items: computed(() => [...]) })),
- *   withNavigationMethods<MyItem>()
- * );
- * ```
- */
-export function withNavigationMethods(){
+  const last = source.length - 1;
+  const { current, last: safeLast } = clampPosition(targetIndex, last);
+  const navigation = computeNavigation(current, safeLast);
+  const map = getEntityMap(store);
+  patchState(store, { currentPosition: current, lastPosition: safeLast, navigation });
+  selectById(store, map, source[current].id);
+}
 
+function resolveIndex<Entity extends EntityWithId>(source: Entity[], selectedId: string | null) {
+  if (!selectedId) {
+    return 0;
+  }
+  const index = source.findIndex((item) => item.id === selectedId);
+  return index === -1 ? 0 : index;
+}
+
+function resolveTargetId<Entity extends EntityWithId>(store: NavigationStore<Entity>, source: Entity[], initialItemId?: string) {
+  if (initialItemId) {
+    return initialItemId;
+  }
+  const selectedId = store.selectedItemId();
+  if (selectedId) {
+    return selectedId;
+  }
+  const selectedItem = store.selectedItem();
+  if (selectedItem) {
+    return selectedItem.id;
+  }
+  const selectedIds = store.selectedIds();
+  if (selectedIds.length > 0) {
+    return selectedIds[0];
+  }
+  return source.length > 0 ? source[0].id : null;
+}
+
+export function withNavigationMethods<Entity extends EntityWithId>() {
   return signalStoreFeature(
     withState<NavigationState>(initialNavigationState),
-    withMethods((store) => ({
-      /**
-       * Initialise les boutons de navigation avec un élément sélectionné
-       * Détermine automatiquement la source (sélection ou liste complète)
-       * Détecte automatiquement items() ou *Entities() dans le store
-       *
-       * @param initialItemId - ID de l'élément initial à sélectionner
-       */
-      initNavButton(initialItemId: string) {
-        const navStore = store as NavigationStore<Item>;
-        const selection = navStore.selection?.();
-
-        // Détermine si on a une sélection active
-        const hasSelection = selection
-          ? typeof selection.isEmpty === 'function'
-            ? !selection.isEmpty()
-            : selection.selected.length > 0
-          : false;
-
-        // Récupère la liste complète : items() ou conversion depuis *Entities()
-        let allItems: Item[] = [];
-        if (navStore.items) {
-          allItems = navStore.items();
-        } else {
-          // Cherche un signal *Entities() dans le store
-          const entitiesKey = Object.keys(navStore).find(key => key.endsWith('Entities'));
-          if (entitiesKey) {
-            const entities = (navStore as any)[entitiesKey]();
-            allItems = Object.values(entities);
-          }
-        }
-
-        // Utilise la sélection si disponible, sinon la liste complète
-        const source: Item[] = hasSelection && selection ? selection.selected : allItems;
-
-        // Trouve la position de l'élément initial
-        let currentPosition = source.findIndex((item) => getId(item) === initialItemId);
-        if (currentPosition === -1) currentPosition = 0;
-
-        let lastPosition = source.length - 1;
-        if (lastPosition < 0) lastPosition = 0;
-
-        const { current, last } = clampPosition(currentPosition, lastPosition);
-        applyNavigationState(store, current, last);
-        patchState(store, { selectedId: initialItemId });
+    withMethods((store) => {
+      const navStore = store as unknown as NavigationStore<Entity>;
+      return {
+      initNavButton(initialItemId?: string) {
+        const source = resolveSource(navStore);
+        const targetId = resolveTargetId(navStore, source, initialItemId);
+        const index = resolveIndex(source, targetId);
+        applyNavigation(navStore, source, index);
       },
-
-      /**
-       * Gère manuellement l'état de navigation avec des positions spécifiques
-       * Utile pour synchroniser la navigation avec un état externe
-       *
-       * @param currentPosition - Nouvelle position courante
-       * @param lastPosition - Nouvelle dernière position
-       */
       navStateMgt(currentPosition: number, lastPosition: number) {
-        const { current, last } = clampPosition(currentPosition, lastPosition);
-            applyNavigationState(store, current, last);
+        const source = resolveSource(navStore);
+        const { current } = clampPosition(currentPosition, Math.max(source.length - 1, lastPosition));
+        applyNavigation(navStore, source, current);
       },
-
-      /**
-       * Navigue vers l'élément suivant
-       * Ne fait rien si déjà sur le dernier élément
-       */
       next() {
-        const navStore = store as NavigationStore<Item>;
-        const { current, last } = clampPosition(navStore.currentPosition() + 1, navStore.lastPosition());
-        applyNavigationState(store, current, last);
+        const source = resolveSource(navStore);
+        const current = resolveIndex(source, navStore.selectedItemId());
+        applyNavigation(navStore, source, current + 1);
       },
-
-      /**
-       * Navigue vers le dernier élément de la liste
-       */
       last() {
-        const navStore = store as NavigationStore<Item>;
-        const last = navStore.lastPosition();
-        applyNavigationState(store, last, last);
+        const source = resolveSource(navStore);
+        applyNavigation(navStore, source, source.length - 1);
       },
-
-      /**
-       * Navigue vers le premier élément de la liste
-       */
       first() {
-        const navStore = store as NavigationStore<Item>;
-        const last = navStore.lastPosition();
-        applyNavigationState(store, 0, last);
+        const source = resolveSource(navStore);
+        applyNavigation(navStore, source, 0);
       },
-
-      /**
-       * Navigue vers l'élément précédent
-       * Ne fait rien si déjà sur le premier élément
-       */
       previous() {
-        const navStore = store as NavigationStore<Item>;
-        const { current, last } = clampPosition(navStore.currentPosition() - 1, navStore.lastPosition());
-        applyNavigationState(store, current, last);
+        const source = resolveSource(navStore);
+        const current = resolveIndex(source, navStore.selectedItemId());
+        applyNavigation(navStore, source, current - 1);
       },
-    }))
+    }; })
   );
 }
+
