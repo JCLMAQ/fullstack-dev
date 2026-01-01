@@ -97,7 +97,7 @@ export const UserStore = signalStore(
   withState(initialState),
   withEntities(userEntityConfig),
   withComputed(({ usersEntities, usersEntityMap, selectedUserId }) => ({
-    selectedUser: computed(() => {
+    selectedItem: computed(() => {
       const id = selectedUserId();
       return id ? usersEntityMap()[id] : undefined;
     }),
@@ -248,7 +248,7 @@ export class UsersContainerComponent implements OnInit {
   readonly userStore = inject(UserStore);
 
   selectedUserName = computed(() => {
-    const user = this.userStore.selectedUser();
+    const user = this.userStore.selectedItem();
     return user ? user.name : "None";
   });
 

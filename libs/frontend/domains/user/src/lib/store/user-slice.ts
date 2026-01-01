@@ -1,4 +1,3 @@
-import { SelectionModel } from "@angular/cdk/collections";
 import { Organization, User } from "@db/prisma";
 
 export interface UserState {
@@ -7,8 +6,9 @@ export interface UserState {
     orgId: string | null,
   },
   selectedIds: string[],
-  selection: SelectionModel<User>,
-	selectedUser: User | null;
+  selectedItemId: string | null,
+  selectedItem: User | null;
+  // selectionInList: SelectionModel<User>,
 	organizations: Organization[];
 	followers: User[];
 	following: User[];
@@ -22,8 +22,9 @@ export const initialUserState: UserState = {
     orgId: "test"
   },
   selectedIds: [],
-  selection: new SelectionModel<User>(true, []),
-	selectedUser: null,
+  selectedItemId: null,
+  selectedItem: null,
+  // selectionInList: new SelectionModel<User>(true, []),
 	organizations: [],
 	followers: [],
 	following: [],

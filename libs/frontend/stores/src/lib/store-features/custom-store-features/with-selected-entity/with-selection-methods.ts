@@ -3,25 +3,29 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
 /**
  * Generic selection feature for entity stores
  * Provides methods to manage selection state (selectedIds)
- */
-
-/*
-// Pour un store de tasks avec collection
-export const TaskStore = signalStore(
-  withEntities(taskConfig),
-  withSelectionMethods<Task>({ collection: 'task' }), // ✅ Réutilisable
- ...
-);
-
+  * Can be configured with a collection name to target specific entity maps
+  * @example With collection name
+    // Pour un store de tasks avec collection
+    export const TaskStore = signalStore(
+      withEntities(taskConfig),
+      withSelectionMethods<Task>({ collection: 'task' }), // ✅ Réutilisable
+    ...
+    );
+  * @example Without collection name
   // Pour un store sans collection nommée
-export const PostStore = signalStore(
-  withEntities(postConfig),
-  withSelectionMethods<Post>(), // ✅ Utilise entityMap par défaut
-  ...
-);
+    export const PostStore = signalStore(
+      withEntities(postConfig),
+      withSelectionMethods<Post>(), // ✅ Utilise entityMap par défaut
+      ...
+    );
 
-
+    * @template Entity - Type of the entity managed by the store
+    * Needs from the store:
+    *   selectedIds: string[] in the state
+    *   selectedId: string | null and
+    *   selectedItem: Entity | null are optional but recommended
 */
+
 export function withSelectionMethods<Entity>(config?: { collection?: string }) {
   const collectionName = config?.collection;
   const entityMapKey = collectionName ? `${collectionName}EntityMap` : 'entityMap';
@@ -64,12 +68,13 @@ export function withSelectionMethods<Entity>(config?: { collection?: string }) {
       },
       /**
        * Set the currently active/focused entity ID (singular)
-       * Also updates selectedUser with the corresponding entity
+       * Also updates selectedItem with the corresponding entity
        */
       setSelectedId(id: string | null) {
         const entityMap = (store as any)[entityMapKey]();
         const selectedEntity = id ? entityMap[id] : null;
-        patchState(store, { selectedId: id, selectedUser: selectedEntity });
-      },    }))
+        patchState(store, { selectedItemId: id, selectedItem: selectedEntity });
+      },
+    }))
   );
 }

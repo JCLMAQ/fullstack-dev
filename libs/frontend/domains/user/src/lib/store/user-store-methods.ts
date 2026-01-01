@@ -29,7 +29,7 @@ export const withUserMethods = signalStoreFeature(
         patchState(
           store,
           addEntity(user, { collection: 'user' }),
-          { selectedUser: user, loading: false }
+          { selectedItem: user, loading: false }
         );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement de l\'utilisateur' });
@@ -70,7 +70,7 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const updated = await userService.updateUser(id, data);
-        patchState(store, { selectedUser: updated, loading: false });
+        patchState(store, { selectedItem: updated, loading: false });
         // Update in entities - access via cast
         const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
         const current = storeWithEntities.usersEntities();
@@ -93,7 +93,7 @@ export const withUserMethods = signalStoreFeature(
         delete updated[id];
         patchState(store, {
           usersEntities: updated,
-          selectedUser: null,
+          selectedItem: null,
           loading: false,
         } as any);
         // Remove from selection
@@ -116,7 +116,7 @@ export const withUserMethods = signalStoreFeature(
           const updated = { ...current[id], isDeleted: 1 };
           patchState(store, {
             usersEntities: { ...current, [id]: updated },
-            selectedUser: current[id]?.id === id ? (updated as User) : null,
+            selectedItem: current[id]?.id === id ? (updated as User) : null,
             loading: false,
           } as any);
         }
@@ -129,7 +129,7 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const created = await userService.createUser(data);
-        patchState(store, { selectedUser: created, loading: false });
+        patchState(store, { selectedItem: created, loading: false });
         // Add to entities
         const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
         const current = storeWithEntities.usersEntities();

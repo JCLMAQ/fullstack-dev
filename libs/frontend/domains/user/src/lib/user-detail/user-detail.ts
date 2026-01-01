@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { customError, disabled, Field, form, required, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -68,12 +68,13 @@ type UserFormData = {
     MatDatepickerModule,
     MatNativeDateModule,
     TranslateModule,
+    JsonPipe
   ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
 })
 export class UserDetail {
-  protected readonly userStore = inject(UserStore);
+  protected readonly store = inject(UserStore);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -157,49 +158,52 @@ export class UserDetail {
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
 
   constructor() {
-    // Load user id and mode from route params and set selected user in store
-      const params = this.route.snapshot.params;
-      // user id from route
-      this.userId.set(params['id'] ?? null);
-      if((this.userId() === undefined )|| (this.userId() === null)){
-        this.userId.set(this.userStore.userEntities().at(0)?.id ?? null);
-      }
-      // mode from route
-      this.mode.set((params['mode'] ?? null));
-      if(this.mode() === undefined || this.mode() === null) {
-        this.mode.set('view');
-      }
-      // Set selected user in store and initialize navigation
-      if (this.userId()) {
-        this.userStore.setSelectedId(this.userId());
-        this.userStore.initNavButton(this.userId()!);
-      }
+    // Récupère l'id utilisateur depuis les params de route
+    const params = this.route.snapshot.params;
+    this.userId.set(params['id'] ?? null);
+    if ((this.userId() === undefined) || (this.userId() === null)) {
+      this.userId.set(this.store.userEntities().at(0)?.id ?? null);
+    }
+    // Récupère le mode depuis la query string (?mode=view) ou matrix param (;mode=view)
+    const queryMode = this.route.snapshot.queryParamMap.get('mode');
+    const matrixMode = this.route.snapshot.paramMap.get('mode');
+    if (queryMode) {
+      this.mode.set(queryMode as 'view' | 'edit' | 'add');
+    } else if (matrixMode) {
+      this.mode.set(matrixMode as 'view' | 'edit' | 'add');
+    } else {
+      this.mode.set('view');
+    }
+    // Set selected user in store
+    if (this.userId()) {
+      this.store.setSelectedId(this.userId());
+    }
 
-    // Populate form when selectedUser changes
+    // Populate form when selectedItem changes
     effect(() => {
-      const selectedUser = this.userStore.selectedUser();
-      if (selectedUser) {
+      const selectedItem = this.store.selectedItem();
+      if (selectedItem) {
         this.userForm().reset({
-          id: selectedUser.id,
-          email: selectedUser.email,
-          firstName: selectedUser.firstName ?? '',
-          lastName: selectedUser.lastName ?? '',
-          title: selectedUser.title,
-          nickName: selectedUser.nickName ?? '',
-          Gender: selectedUser.Gender,
-          Language: selectedUser.Language,
-          photoUrl: selectedUser.photoUrl ?? '',
-          dateOfBirth: selectedUser.dateOfBirth,
-          hasEmergencyContact: selectedUser.hasEmergencyContact ?? false,
-          emergencyContactName: selectedUser.emergencyContactName ?? '',
-          emergencyContactPhone: selectedUser.emergencyContactPhone ?? '',
-          position: selectedUser.position,
-          jobTitle: selectedUser.jobTitle ?? '',
-          isValidated: selectedUser.isValidated,
-          isSuspended: selectedUser.isSuspended,
-          managerId: selectedUser.managerId ?? '',
-          published: selectedUser.published,
-          isPublic: selectedUser.isPublic,
+          id: selectedItem.id,
+          email: selectedItem.email,
+          firstName: selectedItem.firstName ?? '',
+          lastName: selectedItem.lastName ?? '',
+          title: selectedItem.title,
+          nickName: selectedItem.nickName ?? '',
+          Gender: selectedItem.Gender,
+          Language: selectedItem.Language,
+          photoUrl: selectedItem.photoUrl ?? '',
+          dateOfBirth: selectedItem.dateOfBirth,
+          hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+          emergencyContactName: selectedItem.emergencyContactName ?? '',
+          emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+          position: selectedItem.position,
+          jobTitle: selectedItem.jobTitle ?? '',
+          isValidated: selectedItem.isValidated,
+          isSuspended: selectedItem.isSuspended,
+          managerId: selectedItem.managerId ?? '',
+          published: selectedItem.published,
+          isPublic: selectedItem.isPublic,
         });
       }
     });
@@ -220,35 +224,35 @@ export class UserDetail {
       return;
     }
 
-    this.userStore.updateUser(userId, formValue);
+    this.store.updateUser(userId, formValue);
     this.snackBar.open('Utilisateur sauvegardé avec succès', 'OK', { duration: 3000 });
     this.mode.set('view');
   }
 
   protected cancel(): void {
-    const selectedUser = this.userStore.selectedUser();
-    if (selectedUser) {
+    const selectedItem = this.store.selectedItem();
+    if (selectedItem) {
       this.userForm().reset({
-        id: selectedUser.id,
-        email: selectedUser.email,
-        firstName: selectedUser.firstName ?? '',
-        lastName: selectedUser.lastName ?? '',
-        title: selectedUser.title,
-        nickName: selectedUser.nickName ?? '',
-        Gender: selectedUser.Gender,
-        Language: selectedUser.Language,
-        photoUrl: selectedUser.photoUrl ?? '',
-        dateOfBirth: selectedUser.dateOfBirth,
-        hasEmergencyContact: selectedUser.hasEmergencyContact ?? false,
-        emergencyContactName: selectedUser.emergencyContactName ?? '',
-        emergencyContactPhone: selectedUser.emergencyContactPhone ?? '',
-        position: selectedUser.position,
-        jobTitle: selectedUser.jobTitle ?? '',
-        isValidated: selectedUser.isValidated,
-        isSuspended: selectedUser.isSuspended,
-        managerId: selectedUser.managerId ?? '',
-        published: selectedUser.published,
-        isPublic: selectedUser.isPublic,
+        id: selectedItem.id,
+        email: selectedItem.email,
+        firstName: selectedItem.firstName ?? '',
+        lastName: selectedItem.lastName ?? '',
+        title: selectedItem.title,
+        nickName: selectedItem.nickName ?? '',
+        Gender: selectedItem.Gender,
+        Language: selectedItem.Language,
+        photoUrl: selectedItem.photoUrl ?? '',
+        dateOfBirth: selectedItem.dateOfBirth,
+        hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+        emergencyContactName: selectedItem.emergencyContactName ?? '',
+        emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+        position: selectedItem.position,
+        jobTitle: selectedItem.jobTitle ?? '',
+        isValidated: selectedItem.isValidated,
+        isSuspended: selectedItem.isSuspended,
+        managerId: selectedItem.managerId ?? '',
+        published: selectedItem.published,
+        isPublic: selectedItem.isPublic,
       });
     }
     this.mode.set('view');
@@ -257,7 +261,7 @@ export class UserDetail {
   protected remove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?')) {
-      this.userStore.deleteUser(userId);
+      this.store.deleteUser(userId);
       this.snackBar.open('Utilisateur supprimé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
@@ -266,7 +270,7 @@ export class UserDetail {
   protected virtualRemove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')) {
-      this.userStore.softDeleteUser(userId);
+      this.store.softDeleteUser(userId);
       this.snackBar.open('Utilisateur désactivé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
@@ -302,15 +306,15 @@ export class UserDetail {
   }
 
   // Navigation between selected users - delegate to store
-  protected first = () => this.userStore.first();
-  protected previous = () => this.userStore.previous();
-  protected next = () => this.userStore.next();
-  protected last = () => this.userStore.last();
+  protected first = () => this.store.first();
+  protected previous = () => this.store.previous();
+  protected next = () => this.store.next();
+  protected last = () => this.store.last();
 
   protected reload(): void {
     const userId = this.userForm().value().id;
     if (userId) {
-      this.userStore.loadUser(userId);
+      this.store.loadUser(userId);
     }
   }
 

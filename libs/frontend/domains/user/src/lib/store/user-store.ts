@@ -2,7 +2,7 @@ import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/n
 import { computed } from "@angular/core";
 import { User } from "@db/prisma";
 import { withNavigationMethods, withSelectionMethods } from "@fe/stores";
-import { signalStore, type, withComputed, withHooks, withState } from "@ngrx/signals";
+import { signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
@@ -17,14 +17,14 @@ const userConfig = entityConfig({
 export const UserStore = signalStore(
   withState(initialUserState),
   withEntities(userConfig),
-  withNavigationMethods<User>(),
   withCallState({ collection: 'user' }),
   withSelectionMethods<User>({ collection: 'user' }),
+  withNavigationMethods<User>(),
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
   }),
-  withComputed(({ userEntityMap, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
+  withComputed(({ userEntityMap, followers, following, organizations, selectedItem, loading, error, selectedIds }) => ({
     // Conversion des entités en tableau pour la compatibilité
     users: computed(() => Object.values(userEntityMap())),
 
@@ -37,12 +37,20 @@ export const UserStore = signalStore(
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
 
-    selectedUserId: computed(() => selectedUser()?.id ?? null),
+    selectedUserId: computed(() => selectedItem()?.id ?? null),
     selectedIdSet: computed(() => new Set(selectedIds())),
     selectedUsers: computed(() => {
       const ids = selectedIds();
       const map = userEntityMap();
       return ids.map(id => map[id]).filter(Boolean);
+    }),
+    selection: computed(() => {
+      const ids = selectedIds();
+      const map = userEntityMap();
+      return {
+        selected: ids.map(id => map[id]).filter(Boolean),
+        isSelected: (user: User) => ids.includes(user.id),
+      };
     }),
     isAllSelected: computed(() => {
       const total = Object.keys(userEntityMap()).length;
