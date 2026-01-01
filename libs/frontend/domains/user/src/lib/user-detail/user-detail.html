@@ -362,7 +362,7 @@
       </button>
       <mat-divider [vertical]="true"></mat-divider>
       <!-- Navigation Buttons -->
-      @if (this.store.selectedUsers().length > 1) {
+      @if (this.store.selectedIds().length > 1) {
         <button mat-icon-button matTooltip="First record" [disabled]="store.navigation().isFirst" (click)="first()">
           <mat-icon>first_page</mat-icon>
         </button>
@@ -370,7 +370,7 @@
           <mat-icon>skip_previous</mat-icon>
         </button>
         <span class="navigation-indicator">
-          {{ store.currentPosition() + 1 }} / {{ this.store.selectedUsers().length}}
+          {{ store.currentPosition() + 1 }} / {{ this.store.selectedIds().length}}
         </span>
         <button mat-icon-button matTooltip="Next record" [disabled]="!store.navigation().hasNext" (click)="next()">
           <mat-icon>skip_next</mat-icon>

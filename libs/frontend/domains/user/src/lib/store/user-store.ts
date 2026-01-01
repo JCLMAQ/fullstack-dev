@@ -25,7 +25,7 @@ export const UserStore = signalStore(
   withUndoRedo({
   }),
   withComputed((store) => {
-    const { selection, selectedEntities, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');
+    const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');
     return {
       // Conversion des entités en tableau pour la compatibilité
       users: computed(() => Object.values(store.userEntityMap())),
@@ -40,7 +40,6 @@ export const UserStore = signalStore(
       hasOrganizations: computed(() => store.organizations().length > 0),
 
       selection,
-      selectedUsers: selectedEntities,
       isAllSelected,
     };
   }),
