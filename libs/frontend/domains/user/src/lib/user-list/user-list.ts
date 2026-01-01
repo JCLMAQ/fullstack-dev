@@ -56,7 +56,7 @@ export class UserList {
 
   routeToDetail = "/users/detail";
 
-  mode: 'Edit' | 'View' | 'add' | undefined ;
+  mode: 'Edit' | 'View' | undefined ;
   master = false; // true : button is disable
   owner = false; // true button is disable
 
