@@ -24,7 +24,7 @@ export const UserStore = signalStore(
   withDevtools('UserStore'),
   withUndoRedo({
   }),
-  withComputed(({ userEntityMap, followers, following, organizations, selectedUser, loading, error, selectedIds }) => ({
+  withComputed(({ userEntityMap, followers, following, organizations, selectedItem, loading, error, selectedIds }) => ({
     // Conversion des entités en tableau pour la compatibilité
     users: computed(() => Object.values(userEntityMap())),
 
@@ -37,7 +37,7 @@ export const UserStore = signalStore(
     hasFollowing: computed(() => following().length > 0),
     hasOrganizations: computed(() => organizations().length > 0),
 
-    selectedUserId: computed(() => selectedUser()?.id ?? null),
+    selectedUserId: computed(() => selectedItem()?.id ?? null),
     selectedIdSet: computed(() => new Set(selectedIds())),
     selectedUsers: computed(() => {
       const ids = selectedIds();

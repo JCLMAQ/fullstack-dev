@@ -179,31 +179,31 @@ export class UserDetail {
       this.store.setSelectedId(this.userId());
     }
 
-    // Populate form when selectedUser changes
+    // Populate form when selectedItem changes
     effect(() => {
-      const selectedUser = this.store.selectedUser();
-      if (selectedUser) {
+      const selectedItem = this.store.selectedItem();
+      if (selectedItem) {
         this.userForm().reset({
-          id: selectedUser.id,
-          email: selectedUser.email,
-          firstName: selectedUser.firstName ?? '',
-          lastName: selectedUser.lastName ?? '',
-          title: selectedUser.title,
-          nickName: selectedUser.nickName ?? '',
-          Gender: selectedUser.Gender,
-          Language: selectedUser.Language,
-          photoUrl: selectedUser.photoUrl ?? '',
-          dateOfBirth: selectedUser.dateOfBirth,
-          hasEmergencyContact: selectedUser.hasEmergencyContact ?? false,
-          emergencyContactName: selectedUser.emergencyContactName ?? '',
-          emergencyContactPhone: selectedUser.emergencyContactPhone ?? '',
-          position: selectedUser.position,
-          jobTitle: selectedUser.jobTitle ?? '',
-          isValidated: selectedUser.isValidated,
-          isSuspended: selectedUser.isSuspended,
-          managerId: selectedUser.managerId ?? '',
-          published: selectedUser.published,
-          isPublic: selectedUser.isPublic,
+          id: selectedItem.id,
+          email: selectedItem.email,
+          firstName: selectedItem.firstName ?? '',
+          lastName: selectedItem.lastName ?? '',
+          title: selectedItem.title,
+          nickName: selectedItem.nickName ?? '',
+          Gender: selectedItem.Gender,
+          Language: selectedItem.Language,
+          photoUrl: selectedItem.photoUrl ?? '',
+          dateOfBirth: selectedItem.dateOfBirth,
+          hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+          emergencyContactName: selectedItem.emergencyContactName ?? '',
+          emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+          position: selectedItem.position,
+          jobTitle: selectedItem.jobTitle ?? '',
+          isValidated: selectedItem.isValidated,
+          isSuspended: selectedItem.isSuspended,
+          managerId: selectedItem.managerId ?? '',
+          published: selectedItem.published,
+          isPublic: selectedItem.isPublic,
         });
       }
     });
@@ -230,29 +230,29 @@ export class UserDetail {
   }
 
   protected cancel(): void {
-    const selectedUser = this.store.selectedUser();
-    if (selectedUser) {
+    const selectedItem = this.store.selectedItem();
+    if (selectedItem) {
       this.userForm().reset({
-        id: selectedUser.id,
-        email: selectedUser.email,
-        firstName: selectedUser.firstName ?? '',
-        lastName: selectedUser.lastName ?? '',
-        title: selectedUser.title,
-        nickName: selectedUser.nickName ?? '',
-        Gender: selectedUser.Gender,
-        Language: selectedUser.Language,
-        photoUrl: selectedUser.photoUrl ?? '',
-        dateOfBirth: selectedUser.dateOfBirth,
-        hasEmergencyContact: selectedUser.hasEmergencyContact ?? false,
-        emergencyContactName: selectedUser.emergencyContactName ?? '',
-        emergencyContactPhone: selectedUser.emergencyContactPhone ?? '',
-        position: selectedUser.position,
-        jobTitle: selectedUser.jobTitle ?? '',
-        isValidated: selectedUser.isValidated,
-        isSuspended: selectedUser.isSuspended,
-        managerId: selectedUser.managerId ?? '',
-        published: selectedUser.published,
-        isPublic: selectedUser.isPublic,
+        id: selectedItem.id,
+        email: selectedItem.email,
+        firstName: selectedItem.firstName ?? '',
+        lastName: selectedItem.lastName ?? '',
+        title: selectedItem.title,
+        nickName: selectedItem.nickName ?? '',
+        Gender: selectedItem.Gender,
+        Language: selectedItem.Language,
+        photoUrl: selectedItem.photoUrl ?? '',
+        dateOfBirth: selectedItem.dateOfBirth,
+        hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+        emergencyContactName: selectedItem.emergencyContactName ?? '',
+        emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+        position: selectedItem.position,
+        jobTitle: selectedItem.jobTitle ?? '',
+        isValidated: selectedItem.isValidated,
+        isSuspended: selectedItem.isSuspended,
+        managerId: selectedItem.managerId ?? '',
+        published: selectedItem.published,
+        isPublic: selectedItem.isPublic,
       });
     }
     this.mode.set('view');

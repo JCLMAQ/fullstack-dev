@@ -8,7 +8,7 @@ export interface UserState {
   },
   selectedIds: string[],
   selection: SelectionModel<User>,
-	selectedUser: User | null;
+	selectedItem: User | null;
 	organizations: Organization[];
 	followers: User[];
 	following: User[];
@@ -23,7 +23,7 @@ export const initialUserState: UserState = {
   },
   selectedIds: [],
   selection: new SelectionModel<User>(true, []),
-	selectedUser: null,
+	selectedItem: null,
 	organizations: [],
 	followers: [],
 	following: [],
