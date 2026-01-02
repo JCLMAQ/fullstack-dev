@@ -150,7 +150,32 @@ export class UserDetail {
     required(path.jobTitle, {
       message: 'Fonction requise',
       when: ({ valueOf }) => valueOf(path.position) === 'Manager'
-    })
+    });
+
+    // désactivation globale en mode view
+    const disableInView = () => this.mode() === 'view';
+    (
+      [
+        path.email,
+        path.firstName,
+        path.lastName,
+        path.title,
+        path.nickName,
+        path.Gender,
+        path.Language,
+        path.photoUrl,
+        path.dateOfBirth,
+        path.hasEmergencyContact,
+        path.position,
+        // path.jobTitle,
+        path.managerId,
+        path.published,
+        path.isPublic,
+        path.isValidated,
+        path.isSuspended,
+      ] as const
+    ).forEach((p) => disabled(p as any, disableInView));
+
   });
 
   // Options for selects

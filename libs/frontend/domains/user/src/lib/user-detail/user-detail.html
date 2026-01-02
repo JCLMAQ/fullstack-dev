@@ -37,7 +37,6 @@
                         <mat-label>{{ 'userProfile.emailLabel' | translate }}</mat-label>
                         <input matInput
                           [field]="userForm.email"
-                          [readOnly]="mode() === 'view'"
                           type="email"
                           placeholder="{{'userProfile.emailPlaceholder' | translate}}" />
                       <mat-error>
@@ -50,7 +49,6 @@
                         <input
                           matInput
                           [field]="userForm.firstName"
-                          [readOnly]="mode() === 'view'"
                           placeholder="{{ 'userProfile.firstNamePlaceholder' | translate }}"
                         />
                         <mat-error>
@@ -63,7 +61,6 @@
                         <input
                           matInput
                           [field]="userForm.lastName"
-                          [readOnly]="mode() === 'view'"
                           placeholder="{{ 'userProfile.lastNamePlaceholder' | translate }}"
                         />
                         <mat-error>
@@ -101,7 +98,6 @@
                       <input
                         matInput
                         [field]="userForm.nickName"
-                        [readOnly]="mode() === 'view'"
                         placeholder="{{'userProfile.nickNamePlaceholder' | translate}}"
                       />
                       <mat-error>
@@ -142,7 +138,6 @@
                         <ng-container>
                           <input matInput
                             [field]="userForm.dateOfBirth"
-                            [readOnly]="mode() === 'view'"
                             [matDatepicker]="dobPicker" />
                           <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
                           <mat-datepicker #dobPicker></mat-datepicker>
@@ -157,7 +152,6 @@
                         <input
                           matInput
                           [field]="userForm.photoUrl"
-                          [readOnly]="mode() === 'view'"
                           placeholder="{{'userProfile.photoUrlPlaceholder' | translate}}"
                         />
                       </mat-form-field>
@@ -187,7 +181,7 @@
                       <!-- Job Title -->
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.jobTitleLabel' | translate}}</mat-label>
-                        <input matInput [field]="userForm.jobTitle" [readOnly]="mode() === 'view' || mode() === 'edit'" placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}" />
+                        <input matInput [field]="userForm.jobTitle" placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}" />
                         <mat-error>
                           <lib-field-error [fieldError]="userForm.jobTitle()" />
                         </mat-error>
@@ -240,7 +234,6 @@
                         <input
                           matInput
                           [field]="userForm.emergencyContactName"
-                          [readOnly]="mode() === 'view'"
                           placeholder="Enter emergency contact name"
                         />
                         <mat-error>
@@ -254,7 +247,6 @@
                         <input
                           matInput
                           [field]="userForm.emergencyContactPhone"
-                          [readOnly]="mode() === 'view'"
                           placeholder="Enter emergency contact phone"
                         />
                         <mat-error>
@@ -304,7 +296,6 @@
                         <ng-container>
                           <input matInput
                             [field]="userForm.isValidated"
-                            [readOnly]="mode() === 'view'"
                             [matDatepicker]="validatedPicker" />
                           <mat-datepicker-toggle matSuffix [for]="validatedPicker"></mat-datepicker-toggle>
                           <mat-datepicker #validatedPicker></mat-datepicker>
