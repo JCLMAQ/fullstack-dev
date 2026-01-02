@@ -361,6 +361,27 @@
         <mat-icon>edit</mat-icon>
       </button>
       <mat-divider [vertical]="true"></mat-divider>
+      <!-- Selection Order Menu -->
+      @if (this.store.selectedIds().length > 0) {
+        <button mat-icon-button [matMenuTriggerFor]="orderMenu" matTooltip="Ordre de navigation">
+          <mat-icon>sort</mat-icon>
+        </button>
+        <mat-menu #orderMenu="matMenu">
+          <button mat-menu-item (click)="applySelectionOrder('selection')">
+            <mat-icon>touch_app</mat-icon>
+            <span>Ordre de sélection</span>
+          </button>
+          <button mat-menu-item (click)="applySelectionOrder('store')">
+            <mat-icon>storage</mat-icon>
+            <span>Ordre des enregistrements</span>
+          </button>
+          <button mat-menu-item (click)="applySelectionOrder('sort')" [disabled]="!hasActiveSort()">
+            <mat-icon>sort_by_alpha</mat-icon>
+            <span>Ordre du tri</span>
+          </button>
+        </mat-menu>
+      }
+      <mat-divider [vertical]="true"></mat-divider>
       <!-- Navigation Buttons -->
       @if (this.store.selectedIds().length > 1) {
         <button mat-icon-button matTooltip="First record" [disabled]="store.navigation().isFirst" (click)="first()">

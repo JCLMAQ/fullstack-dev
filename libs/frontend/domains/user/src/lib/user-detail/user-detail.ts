@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -67,6 +68,7 @@ type UserFormData = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
     TranslateModule,
     JsonPipe
   ],
@@ -313,6 +315,69 @@ export class UserDetail {
   protected previous = () => this.store.previous();
   protected next = () => this.store.next();
   protected last = () => this.store.last();
+
+  /**
+   * Apply selection order based on mode:
+   * - 'selection': Order based on selection sequence
+   * - 'store': Order based on store/database sequence
+   * - 'sort': Order based on current sort if active
+   */
+  protected applySelectionOrder(mode: 'selection' | 'store' | 'sort'): void {
+    const selectedIds = this.store.selectedIds();
+
+    if (selectedIds.length === 0) {
+      this.store.clearSortedSelection();
+      return;
+    }
+
+    if (mode === 'selection') {
+      this.store.setSortedSelection(selectedIds);
+      this.snackBar.open('Ordre de sélection appliqué', 'OK', { duration: 2000 });
+      return;
+    }
+
+    const currentSort = this.store.currentSort();
+    const hasSort = currentSort?.active && currentSort?.direction;
+    const sourceUsers = mode === 'sort' && hasSort ? this.getSortedUsers() : this.store.users();
+
+    const ordered = sourceUsers
+      .filter((user) => selectedIds.includes(user.id))
+      .map((user) => user.id);
+
+    this.store.setSortedSelection(ordered);
+
+    const message = mode === 'sort'
+      ? 'Ordre du tri appliqué'
+      : 'Ordre des enregistrements appliqué';
+    this.snackBar.open(message, 'OK', { duration: 2000 });
+  }
+
+  /**
+   * Get sorted users based on current sort state
+   */
+  private getSortedUsers() {
+    const users = [...this.store.users()];
+    const currentSort = this.store.currentSort();
+
+    if (!currentSort?.active || !currentSort?.direction) {
+      return users;
+    }
+
+    return users.sort((a, b) => {
+      const aValue = (a as Record<string, unknown>)[currentSort.active];
+      const bValue = (b as Record<string, unknown>)[currentSort.active];
+      if (aValue == null && bValue == null) return 0;
+      if (aValue == null) return 1;
+      if (bValue == null) return -1;
+      const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
+      return currentSort.direction === 'asc' ? comparison : -comparison;
+    });
+  }
+
+  protected readonly hasActiveSort = computed(() => {
+    const currentSort = this.store.currentSort();
+    return currentSort?.active && currentSort?.direction;
+  });
 
   protected reload(): void {
     const userId = this.userForm().value().id;
