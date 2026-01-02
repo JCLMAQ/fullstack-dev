@@ -1,6 +1,6 @@
 import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, disabled, Field, form, required } from '@angular/forms/signals';
+import { apply, disabled, Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,7 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, Language, Position, Title } from '@db/prisma';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
-import { baseTextSchemaMax50, emailSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
+import { baseTextSchemaMax50, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
@@ -35,9 +35,11 @@ type UserFormData = {
   Language: Language | null;
   photoUrl: string;
   dateOfBirth: Date | null;
-  hasEmergencyContact: boolean;
-  emergencyContactName: string;
-  emergencyContactPhone: string;
+  emergencyContact: {
+    hasEmergencyContact: boolean;
+    emergencyContactName: string;
+    emergencyContactPhone: string;
+  };
   position: Position | null;
   jobTitle: string;
   isValidated: Date | null;
@@ -100,9 +102,11 @@ export class UserDetail {
     Language: null,
     photoUrl: '',
     dateOfBirth: null,
-    hasEmergencyContact: false,
-    emergencyContactName: '',
-    emergencyContactPhone: '',
+    emergencyContact: {
+      hasEmergencyContact: false,
+      emergencyContactName: '',
+      emergencyContactPhone: '',
+    },
     position: null,
     jobTitle: '',
     isValidated: null,
@@ -119,31 +123,14 @@ export class UserDetail {
     apply(path.lastName, personNameSchema);
     apply(path.nickName, baseTextSchemaMax50);
 
-    // Emergency contact conditional validation
-    required(path.emergencyContactName, {
-      message: 'Nom du contact d\'urgence requis',
-      when: ({ valueOf }) => valueOf(path.hasEmergencyContact) === true
-    });
-    required(path.emergencyContactPhone, {
-      message: 'Téléphone du contact d\'urgence requis',
-      when: ({ valueOf }) => valueOf(path.hasEmergencyContact) === true
-    });
-    disabled(path.emergencyContactName, ({ valueOf }) => !valueOf(path.hasEmergencyContact));
-    disabled(path.emergencyContactPhone, ({ valueOf }) => !valueOf(path.hasEmergencyContact));
+    // Apply emergency contact schema to nested structure
+    apply(path.emergencyContact, emergencyContactSchema);
 
     // Date of birth conditional validation
-    required(path.dateOfBirth, {
-      message: 'Date de naissance requise',
-      when: ({ valueOf }) => valueOf(path.position) === 'Individual'
-    });
     disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual');
 
     // Job title conditional validation
     disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager');
-    required(path.jobTitle, {
-      message: 'Fonction requise',
-      when: ({ valueOf }) => valueOf(path.position) === 'Manager'
-    });
 
     // désactivation globale en mode view
     const disableInView = () => this.mode() === 'view';
@@ -158,7 +145,7 @@ export class UserDetail {
         path.Language,
         path.photoUrl,
         path.dateOfBirth,
-        path.hasEmergencyContact,
+        path.emergencyContact.hasEmergencyContact,
         path.position,
         // path.jobTitle,
         path.managerId,
@@ -219,9 +206,11 @@ export class UserDetail {
           Language: selectedItem.Language,
           photoUrl: selectedItem.photoUrl ?? '',
           dateOfBirth: selectedItem.dateOfBirth,
-          hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
-          emergencyContactName: selectedItem.emergencyContactName ?? '',
-          emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+          emergencyContact: {
+            hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+            emergencyContactName: selectedItem.emergencyContactName ?? '',
+            emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+          },
           position: selectedItem.position,
           jobTitle: selectedItem.jobTitle ?? '',
           isValidated: selectedItem.isValidated,
@@ -268,9 +257,11 @@ export class UserDetail {
         Language: selectedItem.Language,
         photoUrl: selectedItem.photoUrl ?? '',
         dateOfBirth: selectedItem.dateOfBirth,
-        hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
-        emergencyContactName: selectedItem.emergencyContactName ?? '',
-        emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+        emergencyContact: {
+          hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+          emergencyContactName: selectedItem.emergencyContactName ?? '',
+          emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+        },
         position: selectedItem.position,
         jobTitle: selectedItem.jobTitle ?? '',
         isValidated: selectedItem.isValidated,
@@ -316,9 +307,11 @@ export class UserDetail {
       Language: null,
       photoUrl: '',
       dateOfBirth: null,
-      hasEmergencyContact: false,
-      emergencyContactName: '',
-      emergencyContactPhone: '',
+      emergencyContact: {
+        hasEmergencyContact: false,
+        emergencyContactName: '',
+        emergencyContactPhone: '',
+      },
       position: null,
       jobTitle: '',
       isValidated: null,

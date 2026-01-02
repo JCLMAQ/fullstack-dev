@@ -218,11 +218,11 @@
                       <!-- Has Emergency Contact -->
                       <div class="checkbox-field">
                         @if (mode() === 'view') {
-                          <mat-checkbox [checked]="userForm().value().hasEmergencyContact" disabled>
+                          <mat-checkbox [checked]="userForm().value().emergencyContact.hasEmergencyContact" disabled>
                             Has Emergency Contact
                           </mat-checkbox>
                         } @else {
-                          <mat-checkbox [field]="userForm.hasEmergencyContact">
+                          <mat-checkbox [field]="userForm.emergencyContact.hasEmergencyContact">
                             Has Emergency Contact
                           </mat-checkbox>
                         }
@@ -233,11 +233,11 @@
                         <mat-label>Emergency Contact Name</mat-label>
                         <input
                           matInput
-                          [field]="userForm.emergencyContactName"
+                          [field]="userForm.emergencyContact.emergencyContactName"
                           placeholder="Enter emergency contact name"
                         />
                         <mat-error>
-                          <lib-field-error [fieldError]="userForm.emergencyContactName()" />
+                          <lib-field-error [fieldError]="userForm.emergencyContact.emergencyContactName()" />
                         </mat-error>
                       </mat-form-field>
 
@@ -246,11 +246,11 @@
                         <mat-label>Emergency Contact Phone</mat-label>
                         <input
                           matInput
-                          [field]="userForm.emergencyContactPhone"
+                          [field]="userForm.emergencyContact.emergencyContactPhone"
                           placeholder="Enter emergency contact phone"
                         />
                         <mat-error>
-                          <lib-field-error [fieldError]="userForm.emergencyContactPhone()" />
+                          <lib-field-error [fieldError]="userForm.emergencyContact.emergencyContactPhone()" />
                         </mat-error>
                       </mat-form-field>
 
