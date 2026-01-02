@@ -1,0 +1,15 @@
+@if(required()){
+    <span class="required-asterisk">*</span>
+  }
+    <div class="star-rating">
+      @for (star of stars; track $index) {
+        <mat-icon
+          class="star"
+          [class.filled]="star <= value()"
+          (click)="setRating(star)"
+          (mouseenter)="!disabled() && (hoverRating = star)"
+          (mouseleave)="hoverRating = 0">
+          {{ (hoverRating >= star || value() >= star) ? 'star' : 'star_border' }}
+        </mat-icon>
+      }
+    </div>

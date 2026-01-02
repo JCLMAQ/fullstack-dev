@@ -136,7 +136,10 @@
       "@fullstack-dev/todo": ["libs/frontend/domains/todo/src/index.ts"],
       "@fullstack-dev/task": ["libs/frontend/domains/task/src/index.ts"],
       "@fullstack-dev/post": ["libs/frontend/domains/post/src/index.ts"],
-      "@fullstack-dev/comment": ["libs/frontend/domains/comment/src/index.ts"]
+      "@fullstack-dev/comment": ["libs/frontend/domains/comment/src/index.ts"],
+      "@fullstack-dev/star-rating": [
+        "libs/frontend/features/components/star-rating/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
