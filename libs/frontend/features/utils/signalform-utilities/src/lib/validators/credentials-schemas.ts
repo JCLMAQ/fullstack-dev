@@ -127,6 +127,22 @@ export const dateOfBirthSchema = schema<Date>((path) => [
 /*
 * Emergency Contact Schema
 */
+/*
+
+  protected readonly userData = signal<UserFormData>({
+   ...
+    dateOfBirth: null,
+    emergencyContact: {
+      hasEmergencyContact: false,
+      emergencyContactName: '',
+      emergencyContactPhone: '',
+    },
+    position: null,
+  ..
+  });
+
+*/
+
 export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; emergencyContactName: string; emergencyContactPhone: string }>((path) => [
   required(path.emergencyContactName, {
       message: 'signalFormError.contactNameRequired', // 'Contact name is required'
