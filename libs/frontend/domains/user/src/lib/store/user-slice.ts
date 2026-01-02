@@ -1,3 +1,4 @@
+import { Sort } from "@angular/material/sort";
 import { Organization, User } from "@db/prisma";
 
 export interface UserState {
@@ -6,7 +7,8 @@ export interface UserState {
     orgId: string | null,
   },
   selectedIds: string[],
-  sortedSelectedIds: string[],
+  effectiveSelectedIds: string[],
+  currentSort: Sort | null,
   selectedItemId: string | null,
   selectedItem: User | null;
   // selectionInList: SelectionModel<User>,
@@ -23,7 +25,8 @@ export const initialUserState: UserState = {
     orgId: "test"
   },
   selectedIds: [],
-  sortedSelectedIds: [],
+  effectiveSelectedIds: [],
+  currentSort: null,
   selectedItemId: null,
   selectedItem: null,
   // selectionInList: new SelectionModel<User>(true, []),

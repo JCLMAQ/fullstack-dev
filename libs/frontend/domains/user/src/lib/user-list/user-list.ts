@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -40,8 +40,15 @@ export class UserList {
 
   readonly store = inject(UserStore);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
+    // Initialiser le tri depuis le store s'il a été sauvegardé
+    const savedSort = this.store.currentSort();
+    if (savedSort) {
+      this.sortState.set(savedSort as Sort);
+    }
+
     // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
     effect(() => {
       const userCount = this.store.userCount();
@@ -53,10 +60,24 @@ export class UserList {
       }
     });
 
-    // Synchroniser l'ordre de sélection avec le tri courant pour la vue détail
+    // Sauvegarder le tri dans le store quand il change
     effect(() => {
-      const ordered = this.sortedSelectedIds();
-      this.store.setSortedSelection(ordered);
+      const currentSort = this.sortState();
+      if (currentSort.active && currentSort.direction) {
+        this.store.setCurrentSort(currentSort);
+      }
+    });
+
+    // Synchroniser l'affichage des flèches de tri avec le store
+    effect(() => {
+      const savedSort = this.store.currentSort();
+      const matSort = this.sort();
+      if (savedSort && matSort) {
+        matSort.active = savedSort.active;
+        matSort.direction = (savedSort.direction as 'asc' | 'desc');
+        // Émettre l'event sortChange pour que MatSort se mette à jour
+        matSort.sortChange.emit(savedSort as Sort);
+      }
     });
   }
 
@@ -121,12 +142,6 @@ export class UserList {
 
   protected readonly totalUsers = computed(() => this.filteredUsers().length);
 
-  protected readonly sortedSelectedIds = computed(() =>
-    this.sortedUsers()
-      .filter(user => this.store.selection().isSelected(user))
-      .map(user => user.id)
-  );
-
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
   columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
@@ -169,6 +184,7 @@ export class UserList {
   protected toggleAll(): void {
     if (this.store.isAllSelected()) {
       this.store.clearSelection();
+      this.store.clearSortedSelection();
     } else {
       this.store.selectAll();
     }
@@ -176,6 +192,10 @@ export class UserList {
 
   protected toggleSelection(id: string): void {
     this.store.toggleSelection(id);
+    // Si aucun utilisateur n'est sélectionné, vider l'ordre trié
+    if (this.store.selectedIds().length === 0) {
+      this.store.clearSortedSelection();
+    }
   }
 
   protected isSelected(id: string): boolean {
@@ -238,6 +258,35 @@ export class UserList {
   protected onSortChange(sort: Sort): void {
     this.sortState.set(sort);
     this.pageIndex.set(0);
+
+    // Si pas de tri actif, remettre l'ordre de selectedIds
+    if (!sort.active || !sort.direction) {
+      this.store.setSortedSelection(this.store.selectedIds());
+      this.store.setCurrentSort(null);
+      return;
+    }
+
+    const filtered = this.filteredUsers();
+    const sorted: User[] = [...filtered];
+
+    if (sort.active && sort.direction) {
+      sorted.sort((a: User, b: User) => {
+        const aValue = (a as Record<string, unknown>)[sort.active];
+        const bValue = (b as Record<string, unknown>)[sort.active];
+        if (aValue == null && bValue == null) return 0;
+        if (aValue == null) return 1;
+        if (bValue == null) return -1;
+        const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
+        return sort.direction === 'asc' ? comparison : -comparison;
+      });
+    }
+
+    // Extraire les IDs des sélectionnés dans l'ordre trié
+    const sortedSelectedIds = sorted
+      .filter((user: User) => this.store.selection().isSelected(user))
+      .map((user: User) => user.id);
+
+    this.store.setSortedSelection(sortedSelectedIds);
   }
 
   checkboxLabel(row: User): string {

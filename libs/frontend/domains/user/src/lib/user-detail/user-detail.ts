@@ -183,6 +183,9 @@ export class UserDetail {
     effect(() => {
       const selectedItem = this.store.selectedItem();
       if (selectedItem) {
+        // Réinitialiser la navigation avec l'utilisateur sélectionné
+        this.store.initNavButton(selectedItem.id);
+
         this.userForm().reset({
           id: selectedItem.id,
           email: selectedItem.email,

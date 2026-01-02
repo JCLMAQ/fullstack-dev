@@ -1,8 +1,8 @@
 import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { computed } from "@angular/core";
+import { computed, effect } from "@angular/core";
 import { User } from "@db/prisma";
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
-import { signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
@@ -41,22 +41,23 @@ export const UserStore = signalStore(
 
       selection,
       isAllSelected,
-      sortedSelectedItems: computed(() =>
-        store.sortedSelectedIds()
-          .map(id => store.userEntityMap()[id])
-          .filter((user): user is User => !!user)
-      ),
-      // Utilise sortedSelectedIds si disponible, sinon selectedIds
-      effectiveSelectedIds: computed(() => {
-        const sorted = store.sortedSelectedIds();
-        return sorted.length > 0 ? sorted : store.selectedIds();
-      }),
     };
   }),
   withHooks({
     onInit: (store) => {
       console.log('UserStore initialized');
       store['loadUsers']();
+
+      // Synchroniser effectiveSelectedIds avec selectedIds quand la sélection change
+      effect(() => {
+        const selected = (store as unknown as { selectedIds: () => string[] }).selectedIds();
+        const effective = (store as unknown as { effectiveSelectedIds: () => string[] }).effectiveSelectedIds();
+        // Si la longueur a changé, c'est qu'on a ajouté/retiré une sélection
+        // Resync effectiveSelectedIds avec selectedIds (le tri est réinitialisé)
+        if (effective.length !== selected.length) {
+          patchState(store, { effectiveSelectedIds: selected });
+        }
+      });
     },
   })
 );
