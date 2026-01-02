@@ -213,18 +213,12 @@ export class UserList {
    * @param id - ID de l'utilisateur à afficher
    * @param mode - Mode d'affichage (non utilisé - le mode est géré dans le composant de détail)
    */
-  navigateButton( id: string, mode: string ) {
+  navigateButton( id: string, mode: string ) { // Vers le formulaire de détail
     // Définir l'utilisateur sélectionné avant de naviguer
     this.store.setSelectedId(id);
     this.store.initNavButton(id);
     // Naviguer vers le détail avec le mode en query param
     this.router.navigate([this.routeToDetail, id], { queryParams: { mode } });
-  }
-
-
-  protected editUser(id: string): void {
-    // TODO: Implémenter la navigation vers le formulaire d'édition
-    console.log('Éditer utilisateur:', id);
   }
 
   protected viewUser(id: string): void {
@@ -320,6 +314,7 @@ export class UserList {
 
   protected addOne(): void {
     // Navigation pour créer un nouvel utilisateur (ID vide)
+    // TODO : Gérer la création d'un nouvel utilisateur via le store si nécessaire
     this.router.navigate([this.routeToDetail, '']);
   }
 

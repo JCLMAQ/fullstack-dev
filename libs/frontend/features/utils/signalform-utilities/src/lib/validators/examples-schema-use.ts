@@ -1,4 +1,3 @@
-import { apply, email, maxLength, minLength, pattern, required, schema } from '@angular/forms/signals';
 
 // From: https://javascript.plainenglish.io/angular-signal-based-forms-why-theyre-about-to-change-everything-you-know-about-form-handling-0db6f81e89c9
 
@@ -10,40 +9,15 @@ registrationForm = form(this.userRegistration, (path) => [
 */
 
 // Define reusable validation schemas
-export const nameSchema = schema<string>((path) => [
-  required(path, { message: 'signalFormError.required' }),
-  minLength(path, 2, { message: 'signalFormError.minLength' }),
-  pattern(path, /^[a-zA-Z\\s'-]+$/, {
-    message: 'signalFormError.invalidCharactersDetected'
-  })
-]);
-
-export const emailSchema = schema<string>((path) => [
-  required(path, { message: 'signalFormError.emailRequired' }),
-  email(path, { message: 'signalFormError.invalidEmail' })
-]);
-
-export const businessEmailSchema = schema<string>((path) => [
-  required(path, { message: 'signalFormError.businessEmailRequired' }),
-  email(path, { message: 'signalFormError.invalidEmail' }),
-  pattern(path, /^[a-zA-Z0-9._%+-]+@(?!gmail|yahoo|hotmail|outlook)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/, {
-    message: 'signalFormError.businessDomainRequired'
-  })
-]);
+// export const nameSchema = schema<string>((path) => [
+//   required(path, { message: 'signalFormError.required' }),
+//   minLength(path, 2, { message: 'signalFormError.minLength' }),
+//   pattern(path, /^[a-zA-Z\\s'-]+$/, {
+//     message: 'signalFormError.invalidCharactersDetected'
+//   })
+// ]);
 
 
-// Base schema for all text inputs
-export const baseTextSchema = schema<string>((path) => [
-  required(path, { message: 'signalFormError.required' }), // 'This field is required' }),
-  minLength(path, 1, { message: 'signalFormError.minLength' })
-]);
-
-// Extended schema for names
-export const enhancedNameSchema = schema<string>((path) => [
-  apply(path, baseTextSchema),
-  maxLength(path, 50, { message: 'signalFormError.nameMaxLength' }),
-  pattern(path, /^[a-zA-Z\\s'-]+$/, { message: 'signalFormError.invalidCharactersDetected' })
-]);
 
 // Usage in form with complex conditions
 /*

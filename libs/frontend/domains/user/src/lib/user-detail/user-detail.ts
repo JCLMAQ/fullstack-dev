@@ -1,6 +1,6 @@
 import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { customError, disabled, Field, form, required, validate } from '@angular/forms/signals';
+import { apply, disabled, Field, form, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,7 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, Language, Position, Title } from '@db/prisma';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
-import { FieldError } from '@fe/signalform-utilities';
+import { baseTextSchemaMax50, emailSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
@@ -114,17 +114,10 @@ export class UserDetail {
 
   // Form with Angular Signal Forms
   protected readonly userForm = form(this.userData, (path) => {
-    required(path.email, { message: 'Email est requis' });
-    validate(path.email, ({ value }) => {
-      const email = value();
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return customError({
-          kind: 'email',
-          message: 'Email invalide'
-        });
-      }
-      return null;
-    });
+    apply(path.email, emailSchema);
+    apply(path.firstName, personNameSchema);
+    apply(path.lastName, personNameSchema);
+    apply(path.nickName, baseTextSchemaMax50);
 
     // Emergency contact conditional validation
     required(path.emergencyContactName, {
@@ -178,7 +171,7 @@ export class UserDetail {
 
   });
 
-  // Options for selects
+  // Options for selects // TODO : get from Enum within Prisma or from backend service
   protected readonly titleOptions: Title[] = ['Mr', 'Mme', 'Dct'];
   protected readonly genderOptions: Gender[] = ['MALE', 'FEMELE', 'UNKNOWN', 'NONE'];
   protected readonly languageOptions: Language[] = ['en', 'fr'];

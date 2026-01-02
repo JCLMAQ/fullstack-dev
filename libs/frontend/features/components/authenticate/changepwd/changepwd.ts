@@ -176,7 +176,6 @@ export class Changepwd {
 
     const formValue = formState.value();
     console.log('✅ Change password:', formValue);
-    // TODO: Implement password change logic
       await (this.changePwdService as ChangePwdService).changePassword(
         formValue.oldPassword,
         formValue.newPassword,

@@ -9,27 +9,45 @@ registrationForm = form(this.userRegistration, (path) => [
 ]);
 */
 
-import { customError, disabled, minLength, pattern, required, schema, validate } from '@angular/forms/signals';
+import { apply, customError, disabled, email, maxLength, minLength, pattern, required, schema, validate } from '@angular/forms/signals';
+/*
+* Email Schemas
+*/
+// Standard Email Schema
+export const emailSchema = schema<string>((path) => [
+  required(path, { message: 'signalFormError.emailRequired' }), // 'Email is required'
+  email(path, { message: 'signalFormError.invalidEmail' }),
+  pattern(path, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+    message: 'signalFormError.invalidEmail' // 'Invalid email format'
+  })
+]);
+// Business Email Schema
+export const businessEmailSchema = schema<string>((path) => [
+  required(path, { message: 'signalFormError.businessEmailRequired' }),
+  email(path, { message: 'signalFormError.invalidEmail' }),
+  pattern(path, /^[a-zA-Z0-9._%+-]+@(?!gmail|yahoo|hotmail|outlook|mac|icloud)[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/, {
+    message: 'signalFormError.businessDomainRequired'
+  })
+]);
 
-// Email Schema (already dans personnal-info-schemas.ts)
-// export const emailSchema = schema<string>((path) => [
-//   required(path, { message: 'signalFormError.emailRequired' }), // 'Email is required'
-//   email(path, { message: 'signalFormError.invalidEmail' }),
-//   pattern(path, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
-//     message: 'signalFormError.invalidEmail' // 'Invalid email format'
-//   })
-// ]);
-
+/*
+* End of Email Schemas
+*/
 
 // Person Name Schema
 export const personNameSchema = schema<string>((path) => [
   required(path, { message: 'signalFormError.required' }), // 'This field is required'
   minLength(path, 2, { message: 'signalFormError.minLength' }), // 'Must be at least 2 characters'
   pattern(path, /^[a-zA-Z\\s'-]+$/, {
-    message: 'signalFormError.invalidName' // 'Only letters, spaces, hyphens, and apostrophes are allowed'
+    message: 'signalFormError.invalidCharactersDetected' // 'Only letters, spaces, hyphens, and apostrophes are allowed'
   })
 ]);
 
+/*
+*
+* Password Schemas
+*
+*/
 // Strong Password Schema
 export const strongPasswordSchema = schema<string>((path) => [
   required(path, { message: 'signalFormError.passwordRequired' }), // 'Password is required'
@@ -61,8 +79,33 @@ export const passwordWithConfirmSchema = schema<{ password: string; confirmPassw
     return null;
   }),
 ]);
+/*
+* End of Password Schemas
+*/
 
-// Date of Birth schema with minimum age validation
+/*
+* Base schema for all text inputs
+*/
+export const baseTextSchema = schema<string>((path) => [
+  minLength(path, 1, { message: 'signalFormError.minLength' })
+]);
+
+export const baseTextSchemaMax50 = schema<string>((path) => [
+  apply(path, baseTextSchema),
+  maxLength(path, 50, { message: 'signalFormError.nameMaxLength' })
+]);
+
+export const baseTextSchemRequired = schema<string>((path) => [
+  apply(path, baseTextSchema),
+  required(path, { message: 'signalFormError.required' }) // 'This field is required' }),
+]);
+/*
+* End of Base schema for all text inputs
+*/
+
+/*
+* Date of Birth Schema with minimum age validation
+*/
 export const dateOfBirthSchema = schema<Date>((path) => [
   required(path, { message: 'signalFormError.dateDobRequired' }), // 'Date of birth is required'
   validate(path, ({ value }) => {
@@ -77,10 +120,13 @@ export const dateOfBirthSchema = schema<Date>((path) => [
     return null;
   }),
 ]);
+/*
+* End of Date of Birth Schema
+*/
 
-
-
-// Emergency Contact Schema
+/*
+* Emergency Contact Schema
+*/
 export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; emergencyContactName: string; emergencyContactPhone: string }>((path) => [
   required(path.emergencyContactName, {
       message: 'signalFormError.contactNameRequired', // 'Contact name is required'
@@ -98,7 +144,9 @@ export const emergencyContactSchema = schema<{ hasEmergencyContact: boolean; eme
 ]);
 
 
-// password is different from Email validator
+/*
+* Password password is different from Email validator
+*/
 export const passwordDifferentFromEmail = schema<{ email: string; password: string; confirmPassword?: string }>(
   (path) => [
     validate(path.password, ({ valueOf }) => {
@@ -113,9 +161,12 @@ export const passwordDifferentFromEmail = schema<{ email: string; password: stri
         : null;
     }),
   ]);
+/*
+* End of Password different from Email validator
+*/
 
-
-/* In your component (from signal-forms-preview master)
+/*
+* Example of use: In your component (from signal-forms-preview master)
 
 export type PersonalInfo = {
   firstName: string;
