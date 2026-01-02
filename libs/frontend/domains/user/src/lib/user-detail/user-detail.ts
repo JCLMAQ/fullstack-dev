@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, Language, Position, Title } from '@db/prisma';
+import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { FieldError } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
@@ -69,6 +70,7 @@ type UserFormData = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
+    PreventReadonlyInteractionDirective,
     TranslateModule,
     JsonPipe
   ],

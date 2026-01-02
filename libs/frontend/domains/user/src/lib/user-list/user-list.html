@@ -209,10 +209,7 @@
 </section>
 
   <div>
-    <!-- @if (store.selection().selected.length) {
-      <span class="selected-text"> ({{store.selection().selected.length}} items selected)</span>
-      <span> {{store.selection().selected | json}}  </span>
-    } -->
+    <h3>Debug Info</h3>
     <br>
     <span style="color: orange; font-weight: bold;">selectedIds Array: {{ store.selectedIds() | json }}</span>
     <br>
@@ -220,9 +217,5 @@
     <br>
     <span> {{store.users().length}} data length </span>
     <br>
-    <br>
-    <span>Initial Selected ID: {{ store.selectedItemId() }} </span>
-    <br>
-    <span> Initial selected Item: {{ store.selectedItem() | json }} </span>
 
   </div>
