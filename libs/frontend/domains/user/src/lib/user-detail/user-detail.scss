@@ -1,3 +1,9 @@
+// Affichage de l'ID utilisateur en grisé et petit
+.user-id-muted {
+  color: var(--gray-500, #888);
+  font-size: 0.85em;
+  opacity: 0.7;
+}
 .header {
   display: flex;
   flex-direction: column;
