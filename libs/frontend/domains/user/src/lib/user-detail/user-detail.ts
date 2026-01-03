@@ -165,7 +165,7 @@ export class UserDetail {
   protected readonly positionOptions: Position[] = ['Individual', 'Manager', 'Member', 'Secretary'];
 
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
-
+  // protected readonly userId = computed(() => this.userForm().value()?.id ?? '');
   constructor() {
     // Récupère l'id utilisateur depuis les params de route
     const params = this.route.snapshot.params;
