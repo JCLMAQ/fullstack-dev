@@ -139,6 +139,9 @@
       "@fullstack-dev/comment": ["libs/frontend/domains/comment/src/index.ts"],
       "@fullstack-dev/star-rating": [
         "libs/frontend/features/components/star-rating/src/index.ts"
+      ],
+      "@fe/phone-number": [
+        "libs/frontend/features/components/phone-number/src/index.ts"
       ]
     }
   },

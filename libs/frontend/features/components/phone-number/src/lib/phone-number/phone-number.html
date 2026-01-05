@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+      <div class="col-xs-12 col-sm-12">
+        <form [formGroup]="myForm" (ngSubmit)="submitPhone()">
+          <div class="form-width">
+              <mat-form-field appearance="outline" >
+                  <ngx-material-intl-tel-input formControlName="phone"
+                  [preferredCountries]="['de', 'us']"
+                  [enablePlaceholder]="true"
+                  [enableSearch]="true" name="phone" #phone  >
+                </ngx-material-intl-tel-input>
+                <mat-hint>eg : {{phone.prefixCtrl.value?.placeHolder}}</mat-hint>
+              </mat-form-field>
+
+          </div>
+          <div class="m-t-10">
+            <button  mat-raised-button color="primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      @if (phoneNumber) {
+        <div class="m-t-10">
+          Entered Phone number : {{phoneNumber}}
+        </div>
+      }
+      @if (phoneValue.touched && phoneValue.invalid) {
+        <div class="m-t-10 error">phone number invalid</div>
+      }
+  </div>
+</div>

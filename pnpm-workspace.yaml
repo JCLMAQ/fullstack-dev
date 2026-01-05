@@ -5,6 +5,7 @@ onlyBuiltDependencies:
   - '@scarf/scarf'
   - '@swc/core'
   - bcrypt
+  - core-js-pure
   - esbuild
   - less
   - lmdb
