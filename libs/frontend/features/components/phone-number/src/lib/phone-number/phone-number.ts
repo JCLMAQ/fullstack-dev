@@ -1,46 +1,45 @@
 
-
-
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Field, form, required, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
+
+interface PhoneFormModel {
+  phone: string;
+}
+
+const phoneSchema = schema<PhoneFormModel>((f) => {
+  required(f.phone, { message: 'Phone number is required' });
+});
 
 @Component({
   selector: 'lib-phone-number',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    Field,
     MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
     MatHint,
     NgxMaterialIntlTelInputComponent
   ],
   templateUrl: './phone-number.html',
   styleUrl: './phone-number.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneNumber {
-  myForm: FormGroup;
-  phoneNumber: string | undefined;
+  private readonly phoneState = signal<PhoneFormModel>({ phone: '' });
 
-  constructor() {
-    const fb = inject(FormBuilder);
-    this.myForm = fb.group({
-      phone: [undefined, [Validators.required]],
-    });
-  }
+  readonly phoneForm = form(this.phoneState, phoneSchema);
+
+  phoneNumber: string | null = null;
 
   submitPhone() {
-    if (this.myForm.valid) {
-      const phoneCtrl = this.myForm.get('phone');
-      this.phoneNumber = phoneCtrl ? phoneCtrl.value : undefined;
+    if (!this.phoneForm().valid()) {
+      this.phoneForm.phone().markAsTouched();
+      return;
     }
-  }
 
-  get phoneValue() {
-    return this.myForm.controls['phone'];
+    this.phoneNumber = this.phoneState().phone;
   }
 }

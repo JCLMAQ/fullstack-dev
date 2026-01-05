@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
       <div class="col-xs-12 col-sm-12">
-        <form [formGroup]="myForm" (ngSubmit)="submitPhone()">
+        <form (ngSubmit)="submitPhone()">
           <div class="form-width">
               <mat-form-field appearance="outline" >
-                  <ngx-material-intl-tel-input formControlName="phone"
+                  <ngx-material-intl-tel-input [field]="phoneForm.phone"
                   [preferredCountries]="['de', 'us']"
                   [enablePlaceholder]="true"
                   [enableSearch]="true" name="phone" #phone  >
@@ -14,7 +14,7 @@
 
           </div>
           <div class="m-t-10">
-            <button  mat-raised-button color="primary">Submit</button>
+            <button  mat-raised-button color="primary" type="submit" [disabled]="!phoneForm().valid()">Submit</button>
           </div>
         </form>
       </div>
@@ -23,7 +23,7 @@
           Entered Phone number : {{phoneNumber}}
         </div>
       }
-      @if (phoneValue.touched && phoneValue.invalid) {
+      @if (phoneForm.phone().touched() && phoneForm.phone().invalid()) {
         <div class="m-t-10 error">phone number invalid</div>
       }
   </div>
