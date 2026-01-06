@@ -133,15 +133,15 @@
       "@fe/directives": [
         "libs/frontend/features/utils/directives/src/index.ts"
       ],
-      "@fullstack-dev/todo": ["libs/frontend/domains/todo/src/index.ts"],
-      "@fullstack-dev/task": ["libs/frontend/domains/task/src/index.ts"],
-      "@fullstack-dev/post": ["libs/frontend/domains/post/src/index.ts"],
-      "@fullstack-dev/comment": ["libs/frontend/domains/comment/src/index.ts"],
-      "@fullstack-dev/star-rating": [
+      "@fe/todo": ["libs/frontend/domains/todo/src/index.ts"],
+      "@fe/task": ["libs/frontend/domains/task/src/index.ts"],
+      "@fe/post": ["libs/frontend/domains/post/src/index.ts"],
+      "@fe/comment": ["libs/frontend/domains/comment/src/index.ts"],
+      "@fe/star-rating": [
         "libs/frontend/features/components/star-rating/src/index.ts"
       ],
-      "@fe/phone-number": [
-        "libs/frontend/features/components/phone-number/src/index.ts"
+      "@fe/phone": [
+        "libs/frontend/features/components/phone/src/index.ts"
       ]
     }
   },

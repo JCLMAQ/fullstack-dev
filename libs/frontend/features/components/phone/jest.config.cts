@@ -1,9 +1,9 @@
 module.exports = {
-  displayName: 'phone-number',
+  displayName: 'phone',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../coverage/libs/frontend/features/components/phone-number',
+    '../../../../../coverage/libs/frontend/features/components/phone',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

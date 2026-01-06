@@ -1,7 +1,7 @@
-# phone-number
+# phone
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test phone-number` to execute the unit tests.
+Run `nx test phone` to execute the unit tests.
