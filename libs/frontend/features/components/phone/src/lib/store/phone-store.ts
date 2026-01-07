@@ -58,6 +58,17 @@ export const PhoneStore = signalStore (
       };
     }),
 
+    /*
+ import { updateEntity } from '@ngrx/signals/entities';
+// Pour mettre à jour un phone existant (par exemple après une mutation update)
+patchState(store, updateEntity(
+  { id: phone.id, changes: { ...tesChangements } },
+  phoneConfig
+));
+import { removeEntity } from '@ngrx/signals/entities';
+// Pour supprimer un phone par son id
+patchState(store, removeEntity(phoneId, phoneConfig));
+    */
 
 )
 
