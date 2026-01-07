@@ -4,7 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Phone } from "@db/prisma";
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withProps, withState } from '@ngrx/signals';
-import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
+import { addEntity, entityConfig, removeEntity, withEntities } from "@ngrx/signals/entities";
 import { PhoneService } from "../services/phone-service";
 import { initialPhoneState } from "./phone-slice";
 
@@ -39,6 +39,17 @@ export const PhoneStore = signalStore (
         console.error(error);
       },
     }),
+    deletePhone: store._phoneService.createDeleteMutation({
+      onSuccess(id: string) {
+        patchState(store, removeEntity(id, phoneConfig));
+        store._snackBar.open('Phone deleted', 'OK');
+      },
+      onError(error: unknown) {
+        store._snackBar.open('Error deleting phone!', 'OK');
+        console.error(error);
+      },
+    }),
+
   })),
   withDevtools('PhoneStore'),
   withUndoRedo({collections: ['phone'],}),
@@ -65,7 +76,7 @@ patchState(store, updateEntity(
   { id: phone.id, changes: { ...tesChangements } },
   phoneConfig
 ));
-import { removeEntity } from '@ngrx/signals/entities';
+
 // Pour supprimer un phone par son id
 patchState(store, removeEntity(phoneId, phoneConfig));
     */

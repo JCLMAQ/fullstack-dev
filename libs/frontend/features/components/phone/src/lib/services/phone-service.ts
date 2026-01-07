@@ -1,8 +1,8 @@
+
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Signal } from '@angular/core';
 import { Phone } from '@db/prisma';
-
 
 export type MutationSettings<Params, Result> = Omit<
   HttpMutationOptions<Params, Result>,
@@ -14,9 +14,7 @@ export class PhoneService {
   private readonly baseUrl = '/api/phones';
 
   getAllPhones() {
-    return httpResource<Phone[]>({
-      url: this.baseUrl,
-    });
+    return httpResource<Phone[]>(() => ({ url: this.baseUrl }));
   }
 
   // Détail d'un téléphone par ID
@@ -45,7 +43,7 @@ export class PhoneService {
 
 
   /** Liste des téléphones par email utilisateur */
-  getPhonesByUserEmail (email: Signal<string>) {
+  getPhonesByUserEmail(email: Signal<string>) {
     return httpResource<Phone[]>(() =>
       !email() ? undefined : {
         url: this.baseUrl,
@@ -54,7 +52,7 @@ export class PhoneService {
         },
       },
     );
-  };
+  }
 
   createSaveMutation(options: Partial<HttpMutationOptions<Phone, Phone>>) {
     return httpMutation({
@@ -63,16 +61,6 @@ export class PhoneService {
         url: this.baseUrl,
         method: 'POST',
         body: phone,
-      }),
-      operator: concatOp
-    });
-  }
-
- deleteMutation(id: Signal<string>) {
-    return httpMutation({
-      request: (id) => ({
-        url: `${this.baseUrl}/${id}`,
-        method: 'DELETE',
       }),
       operator: concatOp
     });
