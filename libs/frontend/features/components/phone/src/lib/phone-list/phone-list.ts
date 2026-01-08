@@ -11,7 +11,6 @@ import { PhoneStore } from '../store/phone-store';
 })
 export class PhoneList {
 
-
   #store = inject(PhoneStore);
 
   // Correction du nom et liaison avec le store
