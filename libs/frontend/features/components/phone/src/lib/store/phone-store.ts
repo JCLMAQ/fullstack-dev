@@ -40,8 +40,8 @@ export const PhoneStore = signalStore (
       },
     }),
     deletePhone: store._phoneService.createDeleteMutation({
-      onSuccess(id: string) {
-        patchState(store, removeEntity(id, phoneConfig));
+      onSuccess(result: { id: string }) {
+        patchState(store, removeEntity(result.id, phoneConfig));
         store._snackBar.open('Phone deleted', 'OK');
       },
       onError(error: unknown) {
@@ -70,15 +70,15 @@ export const PhoneStore = signalStore (
     }),
 
     /*
- import { updateEntity } from '@ngrx/signals/entities';
-// Pour mettre à jour un phone existant (par exemple après une mutation update)
-patchState(store, updateEntity(
-  { id: phone.id, changes: { ...tesChangements } },
-  phoneConfig
-));
+      import { updateEntity } from '@ngrx/signals/entities';
+      // Pour mettre à jour un phone existant (par exemple après une mutation update)
+      patchState(store, updateEntity(
+        { id: phone.id, changes: { ...tesChangements } },
+        phoneConfig
+      ));
 
-// Pour supprimer un phone par son id
-patchState(store, removeEntity(phoneId, phoneConfig));
+      // Pour supprimer un phone par son id
+      patchState(store, removeEntity(phoneId, phoneConfig));
     */
 
 )

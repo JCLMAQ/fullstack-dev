@@ -4,12 +4,13 @@ import { PhoneInclude } from './phone-include/phone-include';
 import { PhoneList } from './phone-list/phone-list';
 import { PhoneNumber } from './phone-number/phone-number';
 import { Phone } from './phone/phone';
+import { PhoneStore } from './store/phone-store';
 
 
-export const userRoutes: Route[] = [
+export const phoneRoutes: Route[] = [
   {
-    path: 'phone',
-    // providers: [PhoneStore], // Store partagé pour toutes les routes enfants
+    path: '',
+    providers: [PhoneStore], // Store partagé pour toutes les routes enfants
     children: [
       { path: '', component: Phone },
       { path: 'phoneinclude', component: PhoneInclude },

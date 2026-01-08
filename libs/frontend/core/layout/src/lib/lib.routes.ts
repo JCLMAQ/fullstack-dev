@@ -28,6 +28,10 @@ children: [
         loadChildren: () => import('@fe/user').then((m) => m.userRoutes),
       },
       {
+        path: 'phones',
+        loadChildren: () => import('@fe/phone').then((m) => m.phoneRoutes),
+      },
+      {
         path: 'dashboard',
         loadChildren: () =>
           import('@fe/dashboard').then((m) => m.dashboardRoutes),

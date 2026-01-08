@@ -65,5 +65,16 @@ export class PhoneService {
       operator: concatOp
     });
   }
+  createDeleteMutation(options: Partial<HttpMutationOptions<string, { id: string }>>) {
+    return httpMutation({
+      ...options,
+      request: (id: string) => ({
+        url: this.baseUrl,
+        method: 'DELETE',
+        body: { id },
+      }),
+      operator: concatOp
+    });
+  }
 
 }
