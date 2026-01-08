@@ -1,3 +1,7 @@
+
+
+
+
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma';
@@ -35,9 +39,49 @@ import { UserStorageService } from './services/user-storage/user-storage-service
   providedIn: 'root',
 })
 export class IamAuth {
+  /**
+   * 🔄 Rafraîchir le token d'accès via le refreshToken
+   */
+  async refreshToken(): Promise<{ accessToken: string; refreshToken: string }> {
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) {
+      throw new Error('Aucun refreshToken disponible');
+    }
+    const response = await this.loginService.refreshToken(refreshToken);
+    this.tokenStorage.setToken(response.accessToken);
+    this.tokenStorage.setRefreshToken(response.refreshToken);
+    return response;
+  }
+
+  /**
+   * Gestion du refreshToken (stockage, accès, suppression)
+   */
+  setRefreshToken(token: string): void {
+    this.tokenStorage.setRefreshToken(token);
+  }
+
+  getRefreshToken(): string | undefined {
+    // refreshToken est une propriété signal, il faut l'appeler comme une fonction
+    return this.tokenStorage.refreshToken();
+  }
+
+  clearRefreshToken(): void {
+    this.tokenStorage.clearRefreshToken();
+  }
+
+  /**
+   * Accès au token d'accès (getter/setter)
+   */
+  getAccessToken(): string | undefined {
+    return this.tokenStorage.authToken();
+  }
+
+  setAccessToken(token: string): void {
+    this.tokenStorage.setToken(token);
+  }
   private router = inject(Router);
-    // private appStore = inject(AppStore);
-    // private injector = inject(Injector);
+  // private appStore = inject(AppStore);
+  // private injector = inject(Injector);
 
   // private localStorageCleaner = inject(LocalStorageCleanerService);
 
@@ -45,12 +89,11 @@ export class IamAuth {
   private loginService = inject(LoginService);
   private registerService = inject(RegisterService);
   private userFetchService = inject(UserFetchService);
-  private tokenStorage = inject(TokenStorageService);
+  private tokenStorage: TokenStorageService = inject(TokenStorageService);
   private userStorage = inject(UserStorageService);
   private profileService = inject(UserProfileService);
   private changePwdService = inject(ChangePwdService);
   private resetPasswordService = inject(ResetPwdService);
-
 
   // État d'authentification (compatibilité)
   private authenticated = false;
@@ -61,6 +104,20 @@ export class IamAuth {
     // console.log('🚀 IamAuth initialized (Facade Pattern)');
     // console.log('👤 User loaded:', this.userSignal()?.email || 'undefined');
     // console.log('🔐 Token loaded:', this.authTokenAppStore() ? '***' : 'undefined');
+  }
+
+
+  /**
+   * Déconnexion complète de l'utilisateur
+   */
+  logout(): void {
+    this.tokenStorage.clearToken();
+    this.tokenStorage.clearRefreshToken();
+    this.userStorage.clearUser();
+    this.logoutAsUserOrAdmin();
+    this.adminRole = false;
+    this.userSignal.set(null);
+    // Redirection éventuelle ou autres actions post-logout
   }
 
   /**

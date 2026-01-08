@@ -22,6 +22,34 @@ import { UserStorageService } from '../user-storage/user-storage-service';
   providedIn: 'root',
 })
 export class LoginService {
+
+    /**
+     * 🔄 REFRESH TOKEN avec endpoint IAM
+     * IAM: POST /api/authentication/refresh-token ✅
+     *
+     * interface ILoginResponse {
+     *   accessToken: string;
+     *   refreshToken: string;
+     * }
+     */
+    async refreshToken(refreshToken: string): Promise<ILoginResponse> {
+      const apiPrefix = this.environment.API_BACKEND_PREFIX
+        ?.replace(/^\//, '')
+        .replace(/\/$/, '');
+      const pathUrl = `${apiPrefix}/authentication/refresh-token`;
+      console.log('🔄 Attempting refreshToken...');
+      const refresh$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, { refreshToken });
+      const response = await firstValueFrom(refresh$);
+      if (response.accessToken) {
+        this.tokenStorage.setToken(response.accessToken);
+        console.log('✅ New accessToken stored');
+      }
+      if (response.refreshToken) {
+        this.tokenStorage.setRefreshToken(response.refreshToken);
+        console.log('✅ New refreshToken stored');
+      }
+      return response;
+    }
   private httpClient = inject(HttpClient);
   private tokenStorage = inject(TokenStorageService);
   private userStorage = inject(UserStorageService);
