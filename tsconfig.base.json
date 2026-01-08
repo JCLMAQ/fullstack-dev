@@ -140,8 +140,9 @@
       "@fe/star-rating": [
         "libs/frontend/features/components/star-rating/src/index.ts"
       ],
-      "@fe/phone": [
-        "libs/frontend/features/components/phone/src/index.ts"
+      "@fe/phone": ["libs/frontend/features/components/phone/src/index.ts"],
+      "@fe/toast-container": [
+        "libs/frontend/features/components/toast-container/src/index.ts"
       ]
     }
   },
