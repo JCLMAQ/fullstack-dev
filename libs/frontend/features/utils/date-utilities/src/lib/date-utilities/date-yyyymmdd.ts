@@ -29,3 +29,4 @@ function normalize(flight: Flight): Flight {
 flight = linkedSignal(() => normalize(this.store.flightValue()));
 
 */
+
