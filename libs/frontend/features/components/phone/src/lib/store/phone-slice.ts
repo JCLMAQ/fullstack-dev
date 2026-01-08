@@ -16,7 +16,7 @@ export interface PhoneState {
 
 export const initialPhoneState: PhoneState = {
   filter: {
-    ownerId: "test",
+    ownerId: "019b6054-e5ea-7736-bc38-d1fc033d5976",
   },
   selectedIds: [],
   effectiveSelectedIds: [],

@@ -1,4 +1,4 @@
-import { withDevtools, withMutations, withResource, withUndoRedo } from "@angular-architects/ngrx-toolkit";
+import { withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Phone } from "@db/prisma";
@@ -13,6 +13,13 @@ const phoneConfig = entityConfig({
   collection: 'phone',
   selectId: (phone: Phone) => phone.id,
 });
+/*
+withEntityResources(() => ({
+    todos: resource({ loader: () => Promise.resolve([] as Todo[]), defaultValue: [] }),
+    projects: resource({ loader: () => Promise.resolve([] as { id: number; name: string }[]), defaultValue: [] }),
+  })),
+withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] }
+*/
 
 export const PhoneStore = signalStore (
   withState(initialPhoneState),
@@ -23,8 +30,8 @@ export const PhoneStore = signalStore (
       _phoneService: inject(PhoneService),
       _snackBar: inject(MatSnackBar),
     })),
-  withResource((store) => ({
-      phones: store._phoneService.getPhonesByUserId(store.filter.ownerId ?? '' as string)
+  withEntityResources((store) => ({
+      phone: store._phoneService.getPhonesByUserId(store.filter.ownerId ?? '' as string)
     })),
 
   withMutations((store) => ({
