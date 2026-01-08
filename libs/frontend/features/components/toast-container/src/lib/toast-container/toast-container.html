@@ -1,1 +1,14 @@
-<p>ToastContainer works!</p>
+ <div class="toast-wrapper">
+      @for (toast of toastService.toasts(); track toast.id) {
+        <div
+          class="toast-card"
+          [class]="toast.type"
+          tabindex="0"
+          role="button"
+          aria-label="Fermer la notification"
+          (click)="toastService.remove(toast.id)"
+          (keydown.enter)="toastService.remove(toast.id)">
+          {{ toast.message }}
+        </div>
+      }
+</div>
