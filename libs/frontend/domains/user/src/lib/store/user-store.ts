@@ -23,6 +23,7 @@ export const UserStore = signalStore(
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
+    collections: [ userConfig.collection ]
   }),
   withComputed((store) => {
     const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');

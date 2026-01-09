@@ -357,4 +357,19 @@ export class UsersController {
       );
     }
   }
+
+// GET User(s) with links
+
+  @Get('alluserswithalllinks')
+  async getAllUsersWithAllLinks(): Promise<User[]> {
+    const users: User[] = await this.usersService.getAllUsersWithAllLinks()
+    return users
+  }
+
+  @Get('useremailalllinks/:email')
+  async getOneUserWithAllLinks(@Param('email') email: string): Promise<User | null> {
+    return await this.usersService.getOneUserByUniqueWithAllLinks({ email: String(email) });
+  }
+
+
 }
