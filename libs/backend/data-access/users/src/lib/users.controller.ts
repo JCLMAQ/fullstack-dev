@@ -1,3 +1,4 @@
+import { Public } from '@be/iam';
 import * as Prisma from '@db/prisma';
 import { Organization, User } from '@db/prisma';
 import {
@@ -360,10 +361,21 @@ export class UsersController {
 
 // GET User(s) with links
 
+  @Public()
   @Get('alluserswithalllinks')
   async getAllUsersWithAllLinks(): Promise<User[]> {
-    const users: User[] = await this.usersService.getAllUsersWithAllLinks()
-    return users
+    console.log('[UsersController] Entrée dans alluserswithalllinks');
+    const users: User[] = await this.usersService.getAllUsersWithAllLinks();
+    if (!users || users.length === 0) {
+      console.warn('[UsersController] Aucun utilisateur trouvé pour alluserswithalllinks');
+      return [];
+    }
+    console.log(`[UsersController] Utilisateurs trouvés: ${users.length}`);
+    // Affiche les ids et emails pour debug (limite à 10)
+    users.slice(0, 10).forEach((u, i) => {
+      console.log(`[UsersController] User[${i}]: id=${u.id}, email=${u.email}`);
+    });
+    return users;
   }
 
   @Get('useremailalllinks/:email')

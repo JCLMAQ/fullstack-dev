@@ -84,20 +84,26 @@ CRUD for User with all links
 async getAllUsersWithAllLinks(): Promise<User[]> {
   return await this.prisma.user.findMany({
     include: {
-      manager: true, // Return all fields
+      manager: true,
       Team: true,
       Profiles: true,
       Groups: true,
       Posts: true,
       Comments: true,
       Tasks: true,
-      Phones: true,
-      addresses: true,
-      Todos: true,
+      Todo: true, // UserTodoLink
+      TodosAuthor: true,
+      TasksAuthor: true,
+      address: true,
+      phone: true,
+      ChangesLogs: true,
       followers: true,
       followings: true,
-      // UserTodoLink: true,
-      ChangesLogs: true,
+      ownedFiles: true,
+      uploadedFiles: true,
+      profileFiles: true,
+      uploadedImages: true,
+      profileImages: true,
     },
   })
   }
@@ -106,19 +112,26 @@ async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqu
   const user = await this.prisma.user.findUnique({
     where: userWhereUniqueInput,
     include: {
-      manager: true, // Return all fields
+      manager: true,
       Team: true,
       Profiles: true,
       Groups: true,
       Posts: true,
       Comments: true,
       Tasks: true,
-      Phones: true,
-      addresses: true,
-      Todos: true,
+      Todo: true,
+      TodosAuthor: true,
+      TasksAuthor: true,
+      address: true,
+      phone: true,
       ChangesLogs: true,
       followers: true,
       followings: true,
+      ownedFiles: true,
+      uploadedFiles: true,
+      profileFiles: true,
+      uploadedImages: true,
+      profileImages: true,
     },
   })
   return user
