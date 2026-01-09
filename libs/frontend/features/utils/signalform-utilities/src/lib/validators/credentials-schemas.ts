@@ -9,7 +9,7 @@ registrationForm = form(this.userRegistration, (path) => [
 ]);
 */
 
-import { apply, customError, disabled, email, maxLength, minLength, pattern, required, schema, validate } from '@angular/forms/signals';
+import { apply, disabled, email, maxLength, minLength, pattern, required, schema, validate } from '@angular/forms/signals';
 /*
 * Email Schemas
 */
@@ -71,10 +71,10 @@ export const passwordWithConfirmSchema = schema<{ password: string; confirmPassw
     const confirmPassword = valueOf(path.confirmPassword);
 
     if (password && confirmPassword && password !== confirmPassword) {
-      return customError({
+      return {
         kind: 'passwordsMismatch',
         message: 'signalFormError.passwordMismatch' // 'Passwords do not match',
-      });
+      };
     }
     return null;
   }),
@@ -111,10 +111,10 @@ export const dateOfBirthSchema = schema<Date>((path) => [
   validate(path, ({ value }) => {
     const years = new Date().getFullYear() - value().getFullYear();
     if (years < 18) {
-      return customError({
+      return {
         message: 'signalFormError.age18Plus', // 'You must be at least 18 years old',
         kind: 'minAge',
-      });
+      };
     }
 
     return null;
@@ -170,10 +170,10 @@ export const passwordDifferentFromEmail = schema<{ email: string; password: stri
       const password = valueOf(path.password);
 
       return email && password && email.toLowerCase() === password.toLowerCase()
-        ? customError({
+        ? {
             kind: 'password-different-from-email',
             message: 'signalFormError.passwordDifferentFromEmail', // 'Password should not be the same as email'
-          })
+          }
         : null;
     }),
   ]);

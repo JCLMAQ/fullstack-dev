@@ -3,7 +3,6 @@ import { Component, signal } from '@angular/core';
 import {
   Field,
   apply,
-  customError,
   disabled,
   form,
   required,
@@ -29,10 +28,10 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
       const confirmPassword = valueOf(path.confirmPassword);
 
       if (password && confirmPassword && password !== confirmPassword) {
-        return customError({
+        return {
           kind: 'passwordsMismatch',
           message: 'signalFormError.passwordMatch',
-        });
+        };
       }
 
       return null;
@@ -77,10 +76,10 @@ export class UserProfile {
     validate(path.dateOfBirth, ({ value }) => {
       const years = new Date().getFullYear() - value().getFullYear();
       if (years < 18) {
-        return customError({
+        return {
           message: 'signalFormError.minAge',
           kind: 'minAge',
-        });
+        };
       }
 
       return null;

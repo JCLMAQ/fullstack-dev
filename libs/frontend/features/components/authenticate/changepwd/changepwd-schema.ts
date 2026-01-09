@@ -1,5 +1,4 @@
 import {
-  customError,
   minLength,
   pattern,
   required,
@@ -52,10 +51,10 @@ export const changePasswordSchema = schema<ChangePasswordModel>((path) => [
       confirmPassword &&
       newPassword !== confirmPassword
     ) {
-      return customError({
+      return {
         kind: 'passwordsMismatch',
         message: 'signalFormError.passwordMismatch',
-      });
+      };
     }
     return null;
   }),
@@ -66,10 +65,10 @@ export const changePasswordSchema = schema<ChangePasswordModel>((path) => [
     const newPassword = valueOf(path.newPassword);
 
     if (oldPassword && newPassword && oldPassword === newPassword) {
-      return customError({
+      return {
         kind: 'samePassword',
         message: 'signalFormError.newPasswordMustBeDifferent',
-      });
+      };
     }
     return null;
   }),

@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
-import { ChildFieldContext, customError, Field, form, minLength, pattern, required, schema, validate, validateAsync } from '@angular/forms/signals';
+import { ChildFieldContext, Field, form, minLength, pattern, required, schema, validate, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -93,13 +93,27 @@ export class Changepwd {
         confirmPassword &&
         newPassword !== confirmPassword
       ) {
-        return customError({
+        return {
           kind: 'passwordsMismatch',
           message: 'signalFormError.passwordMismatch',
-        });
+        };
       }
       return null;
     }),
+
+    /*
+urlForm = form(this.urlModel, (schemaPath) => {
+    validate(schemaPath.website, ({value}) => {
+      if (!value().startsWith('https://')) {
+        return {
+          kind: 'https',
+          message: 'URL must start with https://'
+        }
+      }
+      return null
+    })
+  })
+    */
 
     // Validation que le nouveau mot de passe est différent de l'ancien
     validate(path, ({ valueOf }) => {
@@ -107,10 +121,10 @@ export class Changepwd {
       const newPassword = valueOf(path.newPassword);
 
       if (oldPassword && newPassword && oldPassword === newPassword) {
-        return customError({
+        return {
           kind: 'samePassword',
           message: 'signalFormError.newPasswordMustBeDifferent',
-        });
+        };
       }
       return null;
     }),
@@ -138,15 +152,15 @@ export class Changepwd {
       onSuccess: (isValid: boolean | null) =>
         (isValid === null || isValid)
           ? undefined
-          : customError({
+          : {
               kind: 'invalid-old-password',
               message: 'signalFormError.invalidOldPassword'
-            }),
-      onError: () =>
-        customError({
+            },
+      onError: () => (
+        {
           kind: 'verification-error',
           message: 'signalFormError.verificationError'
-        })
+        }),
     }),
   ]);
 
