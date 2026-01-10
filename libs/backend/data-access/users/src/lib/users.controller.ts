@@ -1,4 +1,3 @@
-import { Public } from '@be/iam';
 import * as Prisma from '@db/prisma';
 import { Organization, User } from '@db/prisma';
 import {
@@ -15,6 +14,13 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
+/* Important : Ordre des routes pour éviter les conflits
+@Get('alluserswlinks')        // ✅ Route spécifique en PREMIER
+@Get('email/:email')           // ✅ Route spécifique
+@Get(':id/organizations')      // ✅ Route semi-spécifique
+@Get(':id/posts')              // ✅ Route semi-spécifique
+@Get(':id')                    // ⚠️ Route dynamique en DERNIER
+*/
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -86,31 +92,34 @@ export class UsersController {
     }
   }
 
+ // ⚠️ IMPORTANT: Routes spécifiques AVANT les routes dynamiques
+
   /**
-   * Récupère un utilisateur par son ID
+   * Récupère tous les utilisateurs avec leurs relations
    */
-  @Get(':id')
-  async getUser(@Param('id') id: string): Promise<User> {
+  @Get('alluserswlinks')
+  async getAllUsersWithAllLinks(): Promise<User[] | []> {
     try {
-      const user = await this.usersService.user({ id });
-
-      if (!user) {
-        throw new HttpException(
-          'Utilisateur non trouvé',
-          HttpStatus.NOT_FOUND
-        );
+      console.log('[UsersController] Entrée dans alluserswlinks');
+      const users: User[] = await this.usersService.getAllUsersWithAllLinks();
+      if (!users || users.length === 0) {
+        console.warn('[UsersController] Aucun utilisateur trouvé');
+        return [];
       }
-
-      return user;
+      console.log(`[UsersController] Utilisateurs trouvés: ${users.length}`);
+      users.slice(0, 10).forEach((u, i) => {
+        console.log(`[UsersController] User[${i}]: id=${u.id}, email=${u.email}`);
+      });
+      return users;
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException(
-        'Erreur lors de la récupération de l\'utilisateur',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
+      console.error('[UsersController] Erreur:', error);
+      throw error;
     }
+  }
+
+  @Get('useremailalllinks/:email')
+  async getOneUserWithAllLinks(@Param('email') email: string): Promise<User | null> {
+    return await this.usersService.getOneUserByUniqueWithAllLinks({ email: String(email) });
   }
 
   /**
@@ -140,7 +149,7 @@ export class UsersController {
     }
   }
 
-    /**
+     /**
    * Récupère les organisations liées à un utilisateur par id ou email
    */
   @Get(':id/organizations')
@@ -158,6 +167,132 @@ export class UsersController {
       );
     }
   }
+
+  /**
+   * Récupère les posts d'un utilisateur
+   */
+  @Get(':id/posts')
+  async getUserPosts(@Param('id') id: string) {
+    try {
+      const user = await this.usersService.user({ id });
+      if (!user) {
+        throw new HttpException(
+          'Utilisateur non trouvé',
+          HttpStatus.NOT_FOUND
+        );
+      }
+
+      // Note: Cette fonctionnalité nécessiterait une modification du service
+      // pour inclure les relations posts ou un service posts séparé
+      throw new HttpException(
+        'Fonctionnalité non implémentée - nécessite l\'intégration avec le service posts',
+        HttpStatus.NOT_IMPLEMENTED
+      );
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erreur lors de la récupération des posts de l\'utilisateur',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  /**
+   * Récupère les followers d'un utilisateur
+   */
+  @Get(':id/followers')
+  async getUserFollowers(@Param('id') id: string) {
+    try {
+      const user = await this.usersService.user({ id });
+      if (!user) {
+        throw new HttpException(
+          'Utilisateur non trouvé',
+          HttpStatus.NOT_FOUND
+        );
+      }
+
+      // Note: Cette fonctionnalité nécessiterait une modification du service
+      // pour inclure les relations followers
+      throw new HttpException(
+        'Fonctionnalité non implémentée - nécessite l\'extension du service pour inclure les followers',
+        HttpStatus.NOT_IMPLEMENTED
+      );
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erreur lors de la récupération des followers',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  /**
+   * Récupère les utilisateurs suivis par un utilisateur
+   */
+  @Get(':id/following')
+  async getUserFollowing(@Param('id') id: string) {
+    try {
+      const user = await this.usersService.user({ id });
+      if (!user) {
+        throw new HttpException(
+          'Utilisateur non trouvé',
+          HttpStatus.NOT_FOUND
+        );
+      }
+
+      // Note: Cette fonctionnalité nécessiterait une modification du service
+      // pour inclure les relations following
+      throw new HttpException(
+        'Fonctionnalité non implémentée - nécessite l\'extension du service pour inclure les following',
+        HttpStatus.NOT_IMPLEMENTED
+      );
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erreur lors de la récupération des utilisateurs suivis',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+    /**
+   * Récupère un utilisateur par son ID
+   * ⚠️ Cette route doit être APRÈS toutes les routes spécifiques
+   */
+  /**
+   * Récupère un utilisateur par son ID
+   */
+  @Get(':id')
+  async getUser(@Param('id') id: string): Promise<User> {
+    try {
+      const user = await this.usersService.user({ id });
+
+      if (!user) {
+        throw new HttpException(
+          'Utilisateur non trouvé',
+          HttpStatus.NOT_FOUND
+        );
+      }
+
+      return user;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erreur lors de la récupération de l\'utilisateur',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+
   /**
    * Crée un nouvel utilisateur
    */
@@ -266,122 +401,6 @@ export class UsersController {
     }
   }
 
-  /**
-   * Récupère les posts d'un utilisateur
-   */
-  @Get(':id/posts')
-  async getUserPosts(@Param('id') id: string) {
-    try {
-      const user = await this.usersService.user({ id });
-      if (!user) {
-        throw new HttpException(
-          'Utilisateur non trouvé',
-          HttpStatus.NOT_FOUND
-        );
-      }
-
-      // Note: Cette fonctionnalité nécessiterait une modification du service
-      // pour inclure les relations posts ou un service posts séparé
-      throw new HttpException(
-        'Fonctionnalité non implémentée - nécessite l\'intégration avec le service posts',
-        HttpStatus.NOT_IMPLEMENTED
-      );
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException(
-        'Erreur lors de la récupération des posts de l\'utilisateur',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
-  }
-
-  /**
-   * Récupère les followers d'un utilisateur
-   */
-  @Get(':id/followers')
-  async getUserFollowers(@Param('id') id: string) {
-    try {
-      const user = await this.usersService.user({ id });
-      if (!user) {
-        throw new HttpException(
-          'Utilisateur non trouvé',
-          HttpStatus.NOT_FOUND
-        );
-      }
-
-      // Note: Cette fonctionnalité nécessiterait une modification du service
-      // pour inclure les relations followers
-      throw new HttpException(
-        'Fonctionnalité non implémentée - nécessite l\'extension du service pour inclure les followers',
-        HttpStatus.NOT_IMPLEMENTED
-      );
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException(
-        'Erreur lors de la récupération des followers',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
-  }
-
-  /**
-   * Récupère les utilisateurs suivis par un utilisateur
-   */
-  @Get(':id/following')
-  async getUserFollowing(@Param('id') id: string) {
-    try {
-      const user = await this.usersService.user({ id });
-      if (!user) {
-        throw new HttpException(
-          'Utilisateur non trouvé',
-          HttpStatus.NOT_FOUND
-        );
-      }
-
-      // Note: Cette fonctionnalité nécessiterait une modification du service
-      // pour inclure les relations following
-      throw new HttpException(
-        'Fonctionnalité non implémentée - nécessite l\'extension du service pour inclure les following',
-        HttpStatus.NOT_IMPLEMENTED
-      );
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException(
-        'Erreur lors de la récupération des utilisateurs suivis',
-        HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
-  }
-
-// GET User(s) with links
-
-  @Public()
-  @Get('alluserswithalllinks')
-  async getAllUsersWithAllLinks(): Promise<User[]> {
-    console.log('[UsersController] Entrée dans alluserswithalllinks');
-    const users: User[] = await this.usersService.getAllUsersWithAllLinks();
-    if (!users || users.length === 0) {
-      console.warn('[UsersController] Aucun utilisateur trouvé pour alluserswithalllinks');
-      return [];
-    }
-    console.log(`[UsersController] Utilisateurs trouvés: ${users.length}`);
-    // Affiche les ids et emails pour debug (limite à 10)
-    users.slice(0, 10).forEach((u, i) => {
-      console.log(`[UsersController] User[${i}]: id=${u.id}, email=${u.email}`);
-    });
-    return users;
-  }
-
-  @Get('useremailalllinks/:email')
-  async getOneUserWithAllLinks(@Param('email') email: string): Promise<User | null> {
-    return await this.usersService.getOneUserByUniqueWithAllLinks({ email: String(email) });
-  }
 
 
 }
