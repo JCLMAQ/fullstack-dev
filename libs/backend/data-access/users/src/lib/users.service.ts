@@ -30,6 +30,27 @@ export class UsersService {
       cursor,
       where,
       orderBy,
+      include: {
+        manager: true,
+        Team: true,
+        Profiles: true,
+        Groups: true,
+        Posts: true,
+        Comments: true,
+        Tasks: true,
+        Todo: true,
+        TodosAuthor: true,
+        TasksAuthor: true,
+        address: true,
+        phone: true,
+        followers: true,
+        followings: true,
+        ownedFiles: true,
+        uploadedFiles: true,
+        profileFiles: true,
+        uploadedImages: true,
+        profileImages: true,
+      },
     });
   }
 

@@ -40,7 +40,8 @@ export class UserService {
 
 	async listUsers(options?: UsersQueryOptions): Promise<User[]> {
 		const params = this.buildParams(options);
-		const url = this.baseUrl;
+		// const url = this.baseUrl;
+    const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
 		return await firstValueFrom(this.http.get<User[]>(url, { params }));
 	}
 
