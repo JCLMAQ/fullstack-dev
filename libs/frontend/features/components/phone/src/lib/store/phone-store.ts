@@ -3,7 +3,7 @@ import { computed, inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Phone } from "@db/prisma";
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
-import { patchState, signalStore, type, withComputed, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
 import { addEntity, entityConfig, removeEntity, withEntities } from "@ngrx/signals/entities";
 import { PhoneService } from "../services/phone-service";
 import { initialPhoneState } from "./phone-slice";
@@ -13,12 +13,12 @@ const phoneConfig = entityConfig({
   collection: 'phone',
   selectId: (phone: Phone) => phone.id,
 });
-/*
+/* Examples d'utilisation des ressources dans le store avec withEntityResources et resource:
 withEntityResources(() => ({
     todos: resource({ loader: () => Promise.resolve([] as Todo[]), defaultValue: [] }),
     projects: resource({ loader: () => Promise.resolve([] as { id: number; name: string }[]), defaultValue: [] }),
   })),
-withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] }
+withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] })),
 */
 
 export const PhoneStore = signalStore (
@@ -30,9 +30,18 @@ export const PhoneStore = signalStore (
       _phoneService: inject(PhoneService),
       _snackBar: inject(MatSnackBar),
     })),
+  withComputed((store) => ({
+    ownerIdOrDefault: computed(() => store.filter.ownerId() ?? ''),
+  })),
   withEntityResources((store) => ({
-      phone: store._phoneService.getPhonesByUserId(store.filter.ownerId ?? '' as string)
+      phone: store._phoneService.getPhonesByUserId(store.ownerIdOrDefault)
     })),
+
+  withMethods((store) => ({
+    setOwnerId(ownerId: string) {
+      patchState(store, { filter: { ownerId } });
+    },
+  })),
 
   withMutations((store) => ({
     savePhone: store._phoneService.createSaveMutation({

@@ -13,6 +13,10 @@ export class PhoneList {
 
   #store = inject(PhoneStore);
 
+  constructor() {
+    this.#store.setOwnerId('019ba824-40b2-71bd-9dff-6f5c382e0fd1');
+  }
+
   // Correction du nom et liaison avec le store
   itemsEntities: Signal<Phone[]> = computed(() => {
     const map = this.#store.phoneEntityMap();

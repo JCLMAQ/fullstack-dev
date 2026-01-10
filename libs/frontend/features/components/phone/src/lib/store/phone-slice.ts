@@ -3,7 +3,7 @@ import { Phone } from "@db/prisma";
 
 export interface PhoneState {
   filter: {
-    ownerId: string
+    ownerId: string | null
   },
   selectedIds: string[],
   effectiveSelectedIds: string[],
@@ -16,7 +16,7 @@ export interface PhoneState {
 
 export const initialPhoneState: PhoneState = {
   filter: {
-    ownerId: "019b6054-e5ea-7736-bc38-d1fc033d5976",
+    ownerId: null,
   },
   selectedIds: [],
   effectiveSelectedIds: [],
