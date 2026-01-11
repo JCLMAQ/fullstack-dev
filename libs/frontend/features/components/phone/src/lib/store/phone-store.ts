@@ -30,9 +30,11 @@ export const PhoneStore = signalStore (
       _phoneService: inject(PhoneService),
       _snackBar: inject(MatSnackBar),
     })),
+
   withComputed((store) => ({
     ownerIdOrDefault: computed(() => store.filter.ownerId() ?? ''),
   })),
+
   withEntityResources((store) => ({
       phone: store._phoneService.getPhonesByUserId(store.ownerIdOrDefault)
     })),

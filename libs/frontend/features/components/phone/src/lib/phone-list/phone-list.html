@@ -1,17 +1,17 @@
 <p>phone-list works!</p>
 
-  @if (itemsLoading()) {
+  @if (store.isLoading()) {
     <p>Loading Items...</p>
   }
 
-  @if (itemsLoaded()) {
+  @if (!this.store.isLoading()) {
     <p>Items Loaded</p>
   }
 
 
   <br>
   <span>Phones - from entities within store</span>
-  @for (item of itemsEntities() ; track item.id) {
+  @for (item of store.phoneEntities() ; track item.id) {
     <li>{{item.number }} {{ item.id }}</li>
   }  @empty {
     <p>No Phones!</p>
