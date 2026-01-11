@@ -5,10 +5,9 @@ import {
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideTranslateService } from '@ngx-translate/core';
-import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { LocalStorageCleanerService } from '@fe/shared';
 import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
@@ -20,6 +19,7 @@ import { APP_MENU_ITEMS } from './data/menu-items';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
 import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
+import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
         // 1. Success State: Green ring when valid and dirty (user typed something correct)
@@ -35,6 +35,16 @@ const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
         'animate-pulse': ({ state }) => state().pending(),
         'bg-blue-50': ({ state }) => state().pending(),
 };
+
+// From https://dev.to/gramli/angular-custom-multi-file-translation-loader-for-ngx-translate-2lcd?context=digest
+
+export function HttpLoaderFactory(http: HttpClient) : TranslateLoader {
+  return new MultiTranslateHttpLoader(http, [
+    { prefix: './i18n/', suffix: '.json' },
+    { prefix: './i18n/domains/', suffix: '.json' },
+    { prefix: './i18n/features/', suffix: '.json' }
+  ]);
+}
 
 
 export const appConfig: ApplicationConfig = {
@@ -54,15 +64,23 @@ export const appConfig: ApplicationConfig = {
           ]),
         ),
 
+    // provideTranslateService({
+    //   lang: 'fr',
+    //   fallbackLang: 'en',
+    //   loader: provideTranslateHttpLoader({
+    //     prefix:"i18n/",
+    //     suffix:".json",
+    //     enforceLoading: true,
+    //     useHttpBackend: true,
+    //   }),
+    // }),
+
     provideTranslateService({
-      lang: 'fr',
-      fallbackLang: 'en',
-      loader: provideTranslateHttpLoader({
-        prefix:"i18n/",
-        suffix:".json",
-        enforceLoading: true,
-        useHttpBackend: true,
-      }),
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      }
     }),
 
     provideNativeDateAdapter(),

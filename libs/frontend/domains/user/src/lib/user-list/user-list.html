@@ -123,6 +123,14 @@
                 <div class="element-position">
                   <strong>Email:</strong> {{element.email}}<br>
                   <strong>Nom complet:</strong> {{element.firstName}} {{element.lastName}}<br>
+                  @if (element.phone && element.phone.length > 0) {
+                    <strong>Phone:</strong>
+                    @for (tel of element.phone; track $index) {
+                      {{tel.countryCode}} - {{tel.prefix}} / {{tel.number}}
+                      @if (!$last) { , }
+                    }
+                    <br>
+                  }
                   @if (element.numSeq) {
                     <strong>Numéro:</strong> {{element.numSeq}}<br>
                   }
