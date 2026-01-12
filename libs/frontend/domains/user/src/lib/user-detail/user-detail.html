@@ -134,13 +134,25 @@
                   </div>
                 </section>
               </mat-tab>
+
+              <!-- Onglet Informations d'adresse  -->
+              <mat-tab label="{{ 'userProfile.addressSection' | translate }}">
+                <!-- <section class="form-section"> -->
+                  <!-- <div class="tab-content">
+                    <div class="fields-row"> -->
+                      <lib-address-form [form]="userForm.address" />
+                    <!-- </div> -->
+                  <!-- </div>
+                </section> -->
+              </mat-tab>
+
               <!-- Onglet Informations additionnelles -->
               <mat-tab label="{{ 'userProfile.additionalInfoSection' | translate }}">
                 <section class="form-section">
                   <div class="tab-content">
                     <div class="fields-row">
 
-                       <lib-address-form [form]="userForm.address" />
+
                     <!-- Title -->
                     <!-- <mat-form-field appearance="outline">
                       <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>

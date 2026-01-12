@@ -1,27 +1,52 @@
 <div class="form">
-  <h3>Shipping Address</h3>
-  <div class="field-group">
-    <label>
-      Street
-      <input type="text" [field]="form().street" />
-      <lib-validation-errors [fieldState]="form().street()" />
-    </label>
-    <div class="row">
-      <label>
-        City
-        <input type="text" [field]="form().city" />
-        <lib-validation-errors [fieldState]="form().city()" />
-      </label>
-      <label>
-        State
-        <input type="text" [field]="form().state" />
-        <lib-validation-errors [fieldState]="form().state()" />
-      </label>
-      <label>
-        ZIP
-        <input type="text" [field]="form().zipCode" />
-        <lib-validation-errors [fieldState]="form().zipCode()" />
-      </label>
-    </div>
-  </div>
+  <h3>{{'address.addressMain' | translate}}</h3>
+  <br/>
+  <!-- <div class="field-group"> -->
+    <section class="form-section">
+      <div class="tab-content">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'address.street' | translate }}</mat-label>
+              <input
+                matInput
+                [field]="form().street"
+                placeholder="{{ 'address.streetPlaceholder' | translate }}"
+              />
+              <mat-error>
+                <lib-validation-errors [fieldState]="form().street()"/>
+              </mat-error>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="fields-row">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'address.city' | translate }}</mat-label>
+            <input matInput [field]="form().city" placeholder="{{ 'address.cityPlaceholder' | translate }}" />
+            <mat-error>
+              <lib-validation-errors [fieldState]="form().city()" />
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'address.state' | translate }}</mat-label>
+              <input
+                matInput
+                [field]="form().state"
+                placeholder="{{ 'address.statePlaceholder' | translate }}" />
+              <mat-error>
+                <lib-validation-errors [fieldState]="form().state()" />
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
+              <input
+                matInput
+                [field]="form().zipCode"
+                placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
+              <mat-error>
+                <lib-validation-errors [fieldState]="form().zipCode()" />
+              </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </section>
 </div>
