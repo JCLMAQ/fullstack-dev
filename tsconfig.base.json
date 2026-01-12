@@ -143,6 +143,9 @@
       "@fe/phone": ["libs/frontend/features/components/phone/src/index.ts"],
       "@fe/toast-container": [
         "libs/frontend/features/components/toast-container/src/index.ts"
+      ],
+      "@fe/address": [
+        "libs/frontend/features/components/address/address-ui/src/index.ts"
       ]
     }
   },
