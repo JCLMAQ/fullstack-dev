@@ -1,9 +1,9 @@
 module.exports = {
-  displayName: 'address-ui',
+  displayName: 'address-form',
   preset: '../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../../coverage/libs/frontend/features/components/address/address-ui',
+    '../../../../../../coverage/libs/frontend/features/components/address/address-form',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

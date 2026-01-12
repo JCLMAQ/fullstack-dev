@@ -1,7 +1,7 @@
-# address-ui
+# address-form
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test address-ui` to execute the unit tests.
+Run `nx test address-form` to execute the unit tests.

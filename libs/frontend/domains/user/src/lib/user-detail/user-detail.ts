@@ -18,7 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Gender, Language, Position, Title } from '@db/prisma';
+import { Address, Gender, Language, Position, Title } from '@db/prisma';
+import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
@@ -47,6 +48,7 @@ type UserFormData = {
   managerId: string;
   published: boolean | null;
   isPublic: boolean | null;
+  address: Address;
 };
 
 
@@ -74,7 +76,8 @@ type UserFormData = {
     MatMenuModule,
     PreventReadonlyInteractionDirective,
     TranslateModule,
-    JsonPipe
+    JsonPipe,
+    AddressForm,
   ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
@@ -114,6 +117,7 @@ export class UserDetail {
     managerId: '',
     published: null,
     isPublic: null,
+    address: createAddressModel(),
   });
 
   // Form with Angular Signal Forms
@@ -122,6 +126,7 @@ export class UserDetail {
     apply(path.firstName, personNameSchema);
     apply(path.lastName, personNameSchema);
     apply(path.nickName, baseTextSchemaMax50);
+    buildAddressSection(path.address!);
 
     // Apply emergency contact schema to nested structure
     apply(path.emergencyContact, emergencyContactSchema);
@@ -153,6 +158,7 @@ export class UserDetail {
         path.isPublic,
         path.isValidated,
         path.isSuspended,
+        path.address,
       ] as const
     ).forEach((p) => disabled(p as any, disableInView));
 
@@ -213,6 +219,7 @@ export class UserDetail {
           },
           position: selectedItem.position,
           jobTitle: selectedItem.jobTitle ?? '',
+          address: createAddressModel(),
           isValidated: selectedItem.isValidated,
           isSuspended: selectedItem.isSuspended,
           managerId: selectedItem.managerId ?? '',
@@ -263,6 +270,7 @@ export class UserDetail {
           emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
         },
         position: selectedItem.position,
+        address: createAddressModel(),
         jobTitle: selectedItem.jobTitle ?? '',
         isValidated: selectedItem.isValidated,
         isSuspended: selectedItem.isSuspended,
@@ -313,6 +321,7 @@ export class UserDetail {
         emergencyContactPhone: '',
       },
       position: null,
+      address: createAddressModel(),
       jobTitle: '',
       isValidated: null,
       isSuspended: null,

@@ -145,7 +145,7 @@
         "libs/frontend/features/components/toast-container/src/index.ts"
       ],
       "@fe/address": [
-        "libs/frontend/features/components/address/address-ui/src/index.ts"
+        "libs/frontend/features/components/address/address-form/src/index.ts"
       ]
     }
   },

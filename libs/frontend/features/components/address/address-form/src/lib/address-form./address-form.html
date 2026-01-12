@@ -1,0 +1,27 @@
+<div class="form">
+  <h3>Shipping Address</h3>
+  <div class="field-group">
+    <label>
+      Street
+      <input type="text" [field]="form().street" />
+      <lib-validation-errors [fieldState]="form().street()" />
+    </label>
+    <div class="row">
+      <label>
+        City
+        <input type="text" [field]="form().city" />
+        <lib-validation-errors [fieldState]="form().city()" />
+      </label>
+      <label>
+        State
+        <input type="text" [field]="form().state" />
+        <lib-validation-errors [fieldState]="form().state()" />
+      </label>
+      <label>
+        ZIP
+        <input type="text" [field]="form().zipCode" />
+        <lib-validation-errors [fieldState]="form().zipCode()" />
+      </label>
+    </div>
+  </div>
+</div>
