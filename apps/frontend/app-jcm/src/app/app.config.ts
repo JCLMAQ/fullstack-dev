@@ -21,6 +21,9 @@ import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErr
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
+// import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
 const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
         // 1. Success State: Green ring when valid and dirty (user typed something correct)
         // 'ring-2': ({ state }) => state().valid() && state().dirty(),
@@ -38,11 +41,12 @@ const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
 
 // From https://dev.to/gramli/angular-custom-multi-file-translation-loader-for-ngx-translate-2lcd?context=digest
 
-export function HttpLoaderFactory(http: HttpClient) : TranslateLoader {
+export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new MultiTranslateHttpLoader(http, [
-    { prefix: './i18n/', suffix: '.json' },
-    { prefix: './i18n/domains/', suffix: '.json' },
-    { prefix: './i18n/features/', suffix: '.json' }
+    { prefix: '/i18n/', suffix: '.json' },
+    { prefix: '/i18n/domains/', suffix: '.json' },
+    { prefix: '/i18n/features/', suffix: '.json' },
+    { prefix: '/i18n/utils/', suffix: '.json' }
   ]);
 }
 
@@ -76,6 +80,8 @@ export const appConfig: ApplicationConfig = {
     // }),
 
     provideTranslateService({
+      lang: 'fr',
+      fallbackLang: 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
