@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { apply, disabled, Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,7 +56,6 @@ type UserFormData = {
 @Component({
   selector: 'lib-user-detail',
   imports: [
-    DatePipe,
     Field,
     FieldError,
     MatButtonModule,

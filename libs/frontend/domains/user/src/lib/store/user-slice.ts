@@ -1,6 +1,5 @@
 import { Sort } from "@angular/material/sort";
-import { Address, Organization, User } from "@db/prisma";
-import { UserWithRelations } from "../models/user-model";
+import { Address, Organization, User, UserWithRelations } from "@db/prisma";
 
 
 

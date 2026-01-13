@@ -1,4 +1,4 @@
-import { Address, Organization, User } from "@db/prisma";
+import { Address, Organization, User } from "./generated/prisma/client";
 
 export type UserWithRelations = User & {
   Address: Address[];
@@ -6,3 +6,6 @@ export type UserWithRelations = User & {
   Followers: Array<{ user: User }>;
   Followings: Array<{ follower: User }>;
 };
+
+export { };
+

@@ -1,8 +1,7 @@
 import * as Prisma from '@db/prisma';
-import { Address, Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { UserWithRelations } from './users.model';
 
 @Injectable()
 export class UsersService {

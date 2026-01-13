@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Address, Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
-import { UserWithRelations } from '../models/user-model';
 
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';

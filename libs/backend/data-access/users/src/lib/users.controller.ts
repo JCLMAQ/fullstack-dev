@@ -1,5 +1,5 @@
 import * as Prisma from '@db/prisma';
-import { Address, Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import {
   Body,
   Controller,
@@ -12,7 +12,6 @@ import {
   Put,
   Query
 } from '@nestjs/common';
-import { UserWithRelations } from './users.model';
 import { UsersService } from './users.service';
 
 /* Important : Ordre des routes pour éviter les conflits
