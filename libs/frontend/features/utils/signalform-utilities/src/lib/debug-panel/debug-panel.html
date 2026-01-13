@@ -18,10 +18,12 @@
     <strong>Form Touched:</strong>
     <span>{{ formTouched() }}</span>
   </div>
-  @if (formErrors().length > 0) {
-    <div class="debug-section">
-      <strong>Form Errors:</strong>
+  <div class="debug-section">
+    <strong>Form Errors:</strong>
+    @if (formErrors() && formErrors().length > 0) {
       <pre>{{ formErrors() | json }}</pre>
-    </div>
-  }
+    } @else {
+      <span>No errors</span>
+    }
+  </div>
 </div>
