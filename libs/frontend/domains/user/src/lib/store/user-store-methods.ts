@@ -36,6 +36,16 @@ export const withUserMethods = signalStoreFeature(
       }
     },
 
+    async loadAddresses(userId: string) {
+      try {
+        patchState(store, { loading: true, error: null });
+        const addresses = await userService.getUserAddresses(userId);
+        patchState(store, { addresses, loading: false });
+      } catch {
+        patchState(store, { loading: false, error: 'Erreur lors du chargement des adresses' });
+      }
+    },
+
     async loadOrganizations(id: string) {
       try {
         patchState(store, { loading: true, error: null });

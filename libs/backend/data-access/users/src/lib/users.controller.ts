@@ -1,5 +1,5 @@
 import * as Prisma from '@db/prisma';
-import { Organization, User } from '@db/prisma';
+import { Address, Organization, User } from '@db/prisma';
 import {
   Body,
   Controller,
@@ -148,6 +148,14 @@ export class UsersController {
       );
     }
   }
+
+/*
+*. Récupère les adresses liées à un utilisateur par id
+*/
+  @Get(':id/addresses')
+async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
+  return this.usersService.getUserAddresses(id);
+}
 
      /**
    * Récupère les organisations liées à un utilisateur par id ou email

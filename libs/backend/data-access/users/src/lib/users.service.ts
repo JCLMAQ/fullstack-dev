@@ -1,5 +1,5 @@
 import * as Prisma from '@db/prisma';
-import { Organization, User } from '@db/prisma';
+import { Address, Organization, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 @Injectable()
@@ -96,6 +96,17 @@ export class UsersService {
     return user.Orgs ?? [];
   }
 
+  async getUserAddresses(userId: string): Promise<Address[]> {
+    if (!userId) {
+      throw new BadRequestException('userId must be provided');
+    }
+
+    const addresses = await this.prisma.address.findMany({
+      where: { userId: userId }
+    });
+
+    return addresses ?? [];
+  }
 /*
 CRUD for User with all links
 */
