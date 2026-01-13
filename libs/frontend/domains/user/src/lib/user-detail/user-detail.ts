@@ -21,7 +21,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Gender, Language, Position, Title } from '@db/prisma';
 import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
-import { baseTextSchemaMax50, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
+import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
@@ -78,7 +78,8 @@ type UserFormData = {
     TranslateModule,
     JsonPipe,
     AddressForm,
-  ],
+    DebugPanel
+],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
 })

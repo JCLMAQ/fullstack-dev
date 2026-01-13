@@ -146,63 +146,6 @@
                 <section class="form-section">
                   <div class="tab-content">
                     <div class="fields-row">
-
-
-                    <!-- Title -->
-                    <!-- <mat-form-field appearance="outline">
-                      <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>
-                      @if (mode() === 'view') {
-                        <input
-                          matInput [value]="userForm().value().title ?? ''" readonly />
-                      } @else {
-                        <mat-select [field]="userForm.title">
-                          <mat-option [value]="null">None</mat-option>
-                          @for (title of titleOptions; track title) {
-                            <mat-option [value]="title">{{ title }}</mat-option>
-                          }
-                        </mat-select>
-                      }
-                    </mat-form-field> -->
-                    <!-- Nick Name -->
-                    <!-- <mat-form-field appearance="outline">
-                      <mat-label>{{'userProfile.nickNameLabel' | translate}}</mat-label>
-                      <input
-                        matInput
-                        [field]="userForm.nickName"
-                        placeholder="{{'userProfile.nickNamePlaceholder' | translate}}"
-                      />
-                      <mat-error>
-                        <lib-field-error [fieldError]="userForm.nickName()" />
-                      </mat-error>
-                    </mat-form-field> -->
-                    <!-- Gender -->
-                    <!-- <mat-form-field appearance="outline">
-                        <mat-label>{{'userProfile.genderLabel' | translate}}</mat-label>
-                        @if (mode() === 'view') {
-                          <input matInput [value]="userForm().value().Gender ?? ''" readonly />
-                        } @else {
-                          <mat-select [field]="userForm.Gender">
-                            <mat-option [value]="null">None</mat-option>
-                            @for (gender of genderOptions; track gender) {
-                              <mat-option [value]="gender">{{ gender }}</mat-option>
-                            }
-                          </mat-select>
-                        }
-                      </mat-form-field> -->
-                      <!-- Language -->
-                      <!-- <mat-form-field appearance="outline">
-                        <mat-label>{{'userProfile.languageLabel' | translate}}</mat-label>
-                        @if (mode() === 'view') {
-                          <input matInput [value]="userForm().value().Language ?? ''" readonly />
-                        } @else {
-                          <mat-select [field]="userForm.Language">
-                            <mat-option [value]="null">None</mat-option>
-                            @for (lang of languageOptions; track lang) {
-                              <mat-option [value]="lang">{{ lang }}</mat-option>
-                            }
-                          </mat-select> -->
-                        <!-- } -->
-                      <!-- </mat-form-field> -->
                       <!-- Date of Birth -->
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.dateOfBirthLabel' | translate}}</mat-label>
@@ -474,7 +417,10 @@
     </mat-toolbar>
   }
 </div>
-
+<div>
+  <h3>Debug Form</h3>
+ <lib-debug-panel [form]="userForm()" />
+</div>
   <div>
     <h3>Debug Info</h3>
     <br>

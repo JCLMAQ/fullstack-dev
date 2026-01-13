@@ -10,4 +10,18 @@
       {{ formValid() }}
     </span>
   </div>
+  <div class="debug-section">
+    <strong>Form Dirty:</strong>
+    <span>{{ formDirty() }}</span>
+  </div>
+  <div class="debug-section">
+    <strong>Form Touched:</strong>
+    <span>{{ formTouched() }}</span>
+  </div>
+  @if (formErrors().length > 0) {
+    <div class="debug-section">
+      <strong>Form Errors:</strong>
+      <pre>{{ formErrors() | json }}</pre>
+    </div>
+  }
 </div>
