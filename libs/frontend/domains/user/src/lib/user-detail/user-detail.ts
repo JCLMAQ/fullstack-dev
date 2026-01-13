@@ -1,6 +1,6 @@
 import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, disabled, Field, form } from '@angular/forms/signals';
+import { apply, disabled, Field, form, pattern, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,10 +18,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address, Gender, Language, Position, Title } from '@db/prisma';
-import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
+import { Address, Gender, Language, Position, Title, User } from '@db/prisma';
+import { createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
-import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
+import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
@@ -51,6 +51,8 @@ type UserFormData = {
   address: Address;
 };
 
+type UserWithAddress = User & { address?: Address | null };
+
 
 @Component({
   selector: 'lib-user-detail',
@@ -58,6 +60,7 @@ type UserFormData = {
     DatePipe,
     Field,
     FieldError,
+    ValidationErrors,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -77,7 +80,6 @@ type UserFormData = {
     PreventReadonlyInteractionDirective,
     TranslateModule,
     JsonPipe,
-    AddressForm,
     DebugPanel
 ],
   templateUrl: './user-detail.html',
@@ -122,48 +124,55 @@ export class UserDetail {
   });
 
   // Form with Angular Signal Forms
-  protected readonly userForm = form(this.userData, (path) => {
-    apply(path.email, emailSchema);
-    apply(path.firstName, personNameSchema);
-    apply(path.lastName, personNameSchema);
-    apply(path.nickName, baseTextSchemaMax50);
-    buildAddressSection(path.address!);
-
-    // Apply emergency contact schema to nested structure
-    apply(path.emergencyContact, emergencyContactSchema);
+  protected readonly userForm = form(this.userData, (path) => [
+    apply(path.email, emailSchema),
+    apply(path.firstName, personNameSchema),
+    apply(path.lastName, personNameSchema),
+    apply(path.nickName, baseTextSchemaMax50),
+    apply(path.emergencyContact, emergencyContactSchema),
 
     // Date of birth conditional validation
-    disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual');
+    disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual'),
 
     // Job title conditional validation
-    disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager');
+    disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager'),
 
     // désactivation globale en mode view
-    const disableInView = () => this.mode() === 'view';
-    (
-      [
-        path.email,
-        path.firstName,
-        path.lastName,
-        path.title,
-        path.nickName,
-        path.Gender,
-        path.Language,
-        path.photoUrl,
-        path.dateOfBirth,
-        path.emergencyContact.hasEmergencyContact,
-        path.position,
-        // path.jobTitle,
-        path.managerId,
-        path.published,
-        path.isPublic,
-        path.isValidated,
-        path.isSuspended,
-        path.address,
-      ] as const
-    ).forEach((p) => disabled(p as any, disableInView));
+    ...(() => {
+      const disableInView = () => this.mode() === 'view';
+      return (
+        [
+          path.email,
+          path.firstName,
+          path.lastName,
+          path.title,
+          path.nickName,
+          path.Gender,
+          path.Language,
+          path.photoUrl,
+          path.dateOfBirth,
+          path.emergencyContact.hasEmergencyContact,
+          path.position,
+          path.managerId,
+          path.published,
+          path.isPublic,
+          path.isValidated,
+          path.isSuspended,
+          path.address.street,
+          path.address.zipCode,
+          path.address.city,
+          path.address.state,
+        ] as const
+      ).map((p) => disabled(p as any, disableInView));
+    })(),
 
-  });
+    // Address field validations (applied after disabled)
+    required(path.address.street, { message: 'Street is required' }),
+    required(path.address.zipCode, { message: 'ZIP code is required' }),
+    required(path.address.city, { message: 'City is required' }),
+    required(path.address.state, { message: 'State is required' }),
+    pattern(path.address.zipCode, /^\d{5}$/, { message: 'ZIP code must be 5 digits' }),
+  ]);
 
   // Options for selects // TODO : get from Enum within Prisma or from backend service
   protected readonly titleOptions: Title[] = ['Mr', 'Mme', 'Dct'];
@@ -197,7 +206,7 @@ export class UserDetail {
 
     // Populate form when selectedItem changes
     effect(() => {
-      const selectedItem = this.store.selectedItem();
+      const selectedItem = this.store.selectedItem() as UserWithAddress | null;
       if (selectedItem) {
         // Réinitialiser la navigation avec l'utilisateur sélectionné
         this.store.initNavButton(selectedItem.id);
@@ -220,7 +229,7 @@ export class UserDetail {
           },
           position: selectedItem.position,
           jobTitle: selectedItem.jobTitle ?? '',
-          address: createAddressModel(),
+          address: selectedItem.address ?? createAddressModel(),
           isValidated: selectedItem.isValidated,
           isSuspended: selectedItem.isSuspended,
           managerId: selectedItem.managerId ?? '',
@@ -252,7 +261,7 @@ export class UserDetail {
   }
 
   protected cancel(): void {
-    const selectedItem = this.store.selectedItem();
+    const selectedItem = this.store.selectedItem() as UserWithAddress | null;
     if (selectedItem) {
       this.userForm().reset({
         id: selectedItem.id,
@@ -271,7 +280,7 @@ export class UserDetail {
           emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
         },
         position: selectedItem.position,
-        address: createAddressModel(),
+        address: selectedItem.address ?? createAddressModel(),
         jobTitle: selectedItem.jobTitle ?? '',
         isValidated: selectedItem.isValidated,
         isSuspended: selectedItem.isSuspended,

@@ -56,8 +56,15 @@
   gap: 1.5rem;
 }
 
+// Ensure tab content is visible and properly styled
+::ng-deep .mat-mdc-tab-body-content {
+  overflow: visible !important;
+}
+
 .tab-content {
   padding: 1.5rem 0;
+  display: block;
+  min-height: 100px;
 }
 
 .form-section {
