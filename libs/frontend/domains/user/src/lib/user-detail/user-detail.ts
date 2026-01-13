@@ -49,6 +49,7 @@ type UserFormData = {
   published: boolean | null;
   isPublic: boolean | null;
   address: Address;
+  addresses: Address[];
 };
 
 
@@ -119,6 +120,7 @@ export class UserDetail {
     published: null,
     isPublic: null,
     address: createAddressModel(),
+    addresses: [],
   });
 
   // Form with Angular Signal Forms
@@ -128,7 +130,6 @@ export class UserDetail {
     apply(path.lastName, personNameSchema);
     apply(path.nickName, baseTextSchemaMax50);
     buildAddressSection(path.address!);
-
     // Apply emergency contact schema to nested structure
     apply(path.emergencyContact, emergencyContactSchema);
 
@@ -221,6 +222,7 @@ export class UserDetail {
           position: selectedItem.position,
           jobTitle: selectedItem.jobTitle ?? '',
           address: createAddressModel(),
+          addresses: selectedItem.addresses ?? [],
           isValidated: selectedItem.isValidated,
           isSuspended: selectedItem.isSuspended,
           managerId: selectedItem.managerId ?? '',
@@ -272,6 +274,7 @@ export class UserDetail {
         },
         position: selectedItem.position,
         address: createAddressModel(),
+        addresses: selectedItem.addresses ?? [],
         jobTitle: selectedItem.jobTitle ?? '',
         isValidated: selectedItem.isValidated,
         isSuspended: selectedItem.isSuspended,
@@ -323,6 +326,7 @@ export class UserDetail {
       },
       position: null,
       address: createAddressModel(),
+      addresses: [],
       jobTitle: '',
       isValidated: null,
       isSuspended: null,
