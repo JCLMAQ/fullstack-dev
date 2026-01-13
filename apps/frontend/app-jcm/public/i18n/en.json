@@ -1,5 +1,5 @@
 {
-  "Common": {
+  "common": {
     "close": "Close",
     "save": "Save",
     "cancel": "Cancel",
@@ -10,7 +10,11 @@
     "no": "No",
     "search": "Search",
     "loading": "Loading...",
-    "selectLanguage": "Select Language"
+    "selectLanguage": "Select Language",
+    "loadingError": "Error loading data. Please try again later.",
+    "noData": "No data available",
+    "reloadData": "Reload Data",
+    "users": "Users"
   },
   "HEADER.CHOOSE": "Choose your language",
   "SITETITLE": "New Angular Site",

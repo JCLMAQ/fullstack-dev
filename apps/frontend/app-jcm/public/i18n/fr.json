@@ -1,5 +1,5 @@
 {
-  "Common": {
+  "common": {
     "close": "Fermer",
     "save": "Sauvegarder",
     "cancel": "Annuler",
@@ -10,7 +10,11 @@
     "no": "Non",
     "search": "Rechercher",
     "loading": "Chargement...",
-    "selectLanguage": "Choisir la langue"
+    "selectLanguage": "Choisir la langue",
+    "loadingError": "Erreur lors du chargement des données. Veuillez réessayer plus tard.",
+    "noData": "Aucune donnée disponible",
+    "reloadData": "Recharger les données",
+    "users": "Utilisateurs"
   },
     "HEADER.CHOOSE": "Choix de la langue",
     "SITETITLE": "Nouveau site Angular",
@@ -20,7 +24,7 @@
     "PhoneNo": "Numéro de téléphone",
     "Password": "Mot de passe",
     "Bio": "Votre bio",
-    "TermsConditions": "J'acczepter les termes et conditions.",
+    "TermsConditions": "J'accepte les termes et conditions.",
     "Submit": "Soumettre",
     "portal": {
       "title": "Translation demo",

@@ -1,14 +1,16 @@
+
+
 <section class="user-list">
   <header class="toolbar">
-    <h2>Utilisateurs</h2>
+    <h2>{{'common.users' | translate}}</h2>
     <div class="toolbar-actions">
       <button mat-raised-button color="primary" (click)="refreshUsers()">
         <mat-icon>refresh</mat-icon>
-        Recharger
+       {{'common.reloadData' | translate}}
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
-          {{ this.store.userCount() }} utilisateurs
+          {{ this.store.userCount() }} {{'common.users' | translate}}
         </mat-chip>
       </mat-chip-set>
     </div>
@@ -17,7 +19,7 @@
   @if (this.store.hasError()) {
     <div class="error-banner">
       <mat-icon>error</mat-icon>
-      <span>Une erreur est survenue lors du chargement des données.</span>
+      <span>{{'common.loadingError' | translate}}</span>
     </div>
   }
 

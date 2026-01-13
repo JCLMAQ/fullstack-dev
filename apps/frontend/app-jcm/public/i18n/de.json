@@ -1,5 +1,5 @@
 {
-  "Common": {
+  "common": {
     "close": "Schließen",
     "save": "Speichern",
     "cancel": "Abbrechen",
@@ -10,7 +10,11 @@
     "no": "Nein",
     "search": "Suchen",
     "loading": "Lädt...",
-    "selectLanguage": "Sprache wählen"
+    "selectLanguage": "Sprache wählen",
+    "loadingError": "Fehler beim Laden der Daten. Bitte versuchen Sie es später erneut.",
+    "noData": "Keine Daten verfügbar",
+    "reloadData": "Daten neu laden",
+    "users": "Benutzer"
   },
     "HEADER.CHOOSE": "Wählen Sie Ihre Sprache",
     "SITETITLE": "Neue Angular-Seite",
