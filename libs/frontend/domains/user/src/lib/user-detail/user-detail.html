@@ -152,22 +152,23 @@
                   <!-- </div>
                 </section> -->
 
-<section class="form-section">
-    <div class="tab-content">
+                <section class="form-section">
+                    <div class="tab-content">
 
-      <!-- Liste des adresses -->
-      @if (userForm.addresses && userForm.addresses.length > 0) {
-        @for (address of userForm.addresses; track address; let i = $index) {
-          <div class="address-card">
-            <h4>{{ 'userProfile.addressLabel' | translate }} {{ i + 1 }}</h4>
-            <lib-address-form [form]="address" />
+                      <!-- Liste des adresses -->
+                      @if (userForm.addresses() && userForm.addresses.length > 0) {
+                        @for (address of userForm.addresses; track address; let i = $index) {
+                          <div class="address-card">
+                            <h4>{{ 'userProfile.addressLabel' | translate }} {{ i + 1 }}</h4>
+                            <lib-address-form [form]="address" />
 
-          </div>
-        }
-      } @else {
-        <p class="no-data">{{ 'userProfile.noAddresses' | translate }}</p>
-      }
-
+                          </div>
+                        }
+                      } @else {
+                        <p class="no-data">{{ 'userProfile.noAddresses' | translate }}</p>
+                      }
+                    </div>
+                  </section>
 
               </mat-tab>
 

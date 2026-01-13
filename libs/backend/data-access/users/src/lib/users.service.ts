@@ -2,6 +2,13 @@ import * as Prisma from '@db/prisma';
 import { Address, Organization, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
+export type UserWithRelations = User & {
+  address: Address[];
+  organizations: Organization[];
+  followers: User[];
+  followings: User[];
+};
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaClientService) {}
@@ -21,37 +28,23 @@ export class UsersService {
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
-  }) : Promise<User[]> {
+  }) : Promise<UserWithRelations[]> {
     const { skip, take, cursor, where, orderBy } = options;
 
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
       include: {
-        manager: true,
-        Team: true,
-        Profiles: true,
-        Groups: true,
-        Posts: true,
-        Comments: true,
-        Tasks: true,
-        Todo: true,
-        TodosAuthor: true,
-        TasksAuthor: true,
         address: true,
-        phone: true,
+        organization: true,
         followers: true,
         followings: true,
-        ownedFiles: true,
-        uploadedFiles: true,
-        profileFiles: true,
-        uploadedImages: true,
-        profileImages: true,
       },
     });
+    return users as UserWithRelations[];
   }
 
   async createUser(data: Prisma.UserCreateInput) {
@@ -116,30 +109,15 @@ CRUD for User with all links
 async getAllUsersWithAllLinks(): Promise<User[] | []> {
   const users =  await this.prisma.user.findMany({
     include: {
-      manager: true,
-      Team: true,
-      Profiles: true,
-      Groups: true,
-      Posts: true,
-      Comments: true,
-      Tasks: true,
-      Todo: true,
-      TodosAuthor: true,
-      TasksAuthor: true,
-      address: true,
-      phone: true,
+      addresses: true,
+      organizations: true,
       followers: true,
-      followings: true,
-      ownedFiles: true,
-      uploadedFiles: true,
-      profileFiles: true,
-      uploadedImages: true,
-      profileImages: true,
+      following: true,
     },
   });
   console.log(`[UsersService] getAllUsersWithAllLinks: found ${users.length} users with all links.`);
-  return users
-  }
+  return users as UserWithRelations[];
+}
 
 async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null> {
   const user = await this.prisma.user.findUnique({

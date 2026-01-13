@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Address, Organization, User } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
+import { UserWithRelations } from '../models/user-model';
 
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';
@@ -38,11 +39,11 @@ export class UserService {
 	// Promise-based methods
 	// --------------------
 
-	async listUsers(options?: UsersQueryOptions): Promise<User[]> {
+	async listUsers(options?: UsersQueryOptions): Promise<UserWithRelations[]> {
 		const params = this.buildParams(options);
 		const url = this.baseUrl;
     // const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
-		return await firstValueFrom(this.http.get<User[]>(url, { params }));
+		return await firstValueFrom(this.http.get<UserWithRelations[]>(url, { params }));
 	}
 
 	async getUserById(id: string): Promise<User> {
