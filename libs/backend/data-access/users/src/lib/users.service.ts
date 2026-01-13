@@ -2,13 +2,8 @@ import * as Prisma from '@db/prisma';
 import { Address, Organization, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { UserWithRelations } from './users.model';
 
-export type UserWithRelations = User & {
-  address: Address[];
-  organizations: Organization[];
-  followers: User[];
-  followings: User[];
-};
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaClientService) {}
@@ -38,13 +33,21 @@ export class UsersService {
       where,
       orderBy,
       include: {
-        address: true,
-        organization: true,
-        followers: true,
-        followings: true,
+        Address: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
       },
     });
-    return users as UserWithRelations[];
+    return users;
   }
 
   async createUser(data: Prisma.UserCreateInput) {
@@ -106,20 +109,28 @@ CRUD for User with all links
 
 /* GET with all links */
 
-async getAllUsersWithAllLinks(): Promise<User[] | []> {
+async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
   const users =  await this.prisma.user.findMany({
     include: {
-      addresses: true,
-      organizations: true,
-      followers: true,
-      following: true,
+      Address: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
     },
   });
   console.log(`[UsersService] getAllUsersWithAllLinks: found ${users.length} users with all links.`);
-  return users as UserWithRelations[];
+  return users;
 }
 
-async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null> {
+async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithRelations | null> {
   const user = await this.prisma.user.findUnique({
     where: userWhereUniqueInput,
     include: {
@@ -133,10 +144,19 @@ async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqu
       Todo: true,
       TodosAuthor: true,
       TasksAuthor: true,
-      address: true,
-      phone: true,
-      followers: true,
-      followings: true,
+      Address: true,
+      Phones: true,
+      Orgs: true,
+      Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
       ownedFiles: true,
       uploadedFiles: true,
       profileFiles: true,

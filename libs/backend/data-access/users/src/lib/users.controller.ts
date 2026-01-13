@@ -12,6 +12,7 @@ import {
   Put,
   Query
 } from '@nestjs/common';
+import { UserWithRelations } from './users.model';
 import { UsersService } from './users.service';
 
 /* Important : Ordre des routes pour éviter les conflits
@@ -35,7 +36,7 @@ export class UsersController {
     @Query('search') search?: string,
     @Query('orderBy') orderBy?: string,
     @Query('sortOrder') sortOrder?: 'asc' | 'desc'
-  ): Promise<User[]> {
+  ): Promise<UserWithRelations[]> {
     try {
       const options: {
         skip?: number;
@@ -98,10 +99,10 @@ export class UsersController {
    * Récupère tous les utilisateurs avec leurs relations
    */
   @Get('alluserswlinks')
-  async getAllUsersWithAllLinks(): Promise<User[] | []> {
+  async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
     try {
       console.log('[UsersController] Entrée dans alluserswlinks');
-      const users: User[] = await this.usersService.getAllUsersWithAllLinks();
+      const users: UserWithRelations[] = await this.usersService.getAllUsersWithAllLinks();
       if (!users || users.length === 0) {
         console.warn('[UsersController] Aucun utilisateur trouvé');
         return [];
@@ -118,7 +119,7 @@ export class UsersController {
   }
 
   @Get('useremailalllinks/:email')
-  async getOneUserWithAllLinks(@Param('email') email: string): Promise<User | null> {
+  async getOneUserWithAllLinks(@Param('email') email: string): Promise<UserWithRelations | null> {
     return await this.usersService.getOneUserByUniqueWithAllLinks({ email: String(email) });
   }
 

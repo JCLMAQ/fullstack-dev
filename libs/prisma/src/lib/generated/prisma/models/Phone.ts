@@ -320,7 +320,7 @@ export type PhoneCreateInput = {
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
   isPrimary?: boolean
-  user: Prisma.UserCreateNestedOneWithoutPhoneInput
+  user: Prisma.UserCreateNestedOneWithoutPhonesInput
 }
 
 export type PhoneUncheckedCreateInput = {
@@ -343,7 +343,7 @@ export type PhoneUpdateInput = {
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user?: Prisma.UserUpdateOneRequiredWithoutPhoneNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutPhonesNestedInput
 }
 
 export type PhoneUncheckedUpdateInput = {
