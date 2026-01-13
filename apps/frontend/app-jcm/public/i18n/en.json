@@ -14,7 +14,14 @@
     "loadingError": "Error loading data. Please try again later.",
     "noData": "No data available",
     "reloadData": "Reload Data",
-    "users": "Users"
+    "users": "Users",
+    "filters": "Filters",
+    "tools": "Tools",
+    "numSeq": "N°",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone"
   },
   "HEADER.CHOOSE": "Choose your language",
   "SITETITLE": "New Angular Site",

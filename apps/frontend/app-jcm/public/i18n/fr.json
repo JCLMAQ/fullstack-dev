@@ -14,7 +14,14 @@
     "loadingError": "Erreur lors du chargement des données. Veuillez réessayer plus tard.",
     "noData": "Aucune donnée disponible",
     "reloadData": "Recharger les données",
-    "users": "Utilisateurs"
+    "users": "Utilisateurs",
+    "filters": "Filtres",
+    "tools": "Outils",
+    "numSeq": "N°",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Téléphone"
   },
     "HEADER.CHOOSE": "Choix de la langue",
     "SITETITLE": "Nouveau site Angular",

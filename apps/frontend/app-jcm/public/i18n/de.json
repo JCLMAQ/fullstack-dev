@@ -14,7 +14,14 @@
     "loadingError": "Fehler beim Laden der Daten. Bitte versuchen Sie es später erneut.",
     "noData": "Keine Daten verfügbar",
     "reloadData": "Daten neu laden",
-    "users": "Benutzer"
+    "users": "Benutzer",
+    "filters": "Filter",
+    "tools": "Werkzeuge",
+    "numSeq": "Nr.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon"
   },
     "HEADER.CHOOSE": "Wählen Sie Ihre Sprache",
     "SITETITLE": "Neue Angular-Seite",
