@@ -43,11 +43,6 @@
                     </div>
                     <br>
                     <div class="fields-row">
-                      <!-- ID (readonly) -->
-                      <!-- <mat-form-field appearance="outline">
-                        <mat-label>ID</mat-label>
-                        <input matInput [value]="userForm().value().id" readonly />
-                      </mat-form-field> -->
 
                       <!-- First Name -->
                       <mat-form-field appearance="outline">
@@ -73,7 +68,7 @@
                           <lib-field-error [fieldError]="userForm.lastName()" />
                         </mat-error>
                       </mat-form-field>
- <!-- Title -->
+                      <!-- Title -->
                     <mat-form-field appearance="outline">
                       <mat-label>{{ 'userProfile.titleLabel' | translate }}</mat-label>
                       @if (mode() === 'view') {

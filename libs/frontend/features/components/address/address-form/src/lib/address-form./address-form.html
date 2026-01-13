@@ -20,6 +20,15 @@
         <br>
         <div class="fields-row">
           <mat-form-field appearance="outline">
+            <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
+              <input matInput
+                [field]="form().zipCode"
+                placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
+              <mat-error>
+                <lib-validation-errors [fieldState]="form().zipCode()" />
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>{{ 'address.city' | translate }}</mat-label>
             <input matInput [field]="form().city" placeholder="{{ 'address.cityPlaceholder' | translate }}" />
             <mat-error>
@@ -28,22 +37,11 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{ 'address.state' | translate }}</mat-label>
-              <input
-                matInput
+              <input matInput
                 [field]="form().state"
                 placeholder="{{ 'address.statePlaceholder' | translate }}" />
               <mat-error>
                 <lib-validation-errors [fieldState]="form().state()" />
-              </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
-              <input
-                matInput
-                [field]="form().zipCode"
-                placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
-              <mat-error>
-                <lib-validation-errors [fieldState]="form().zipCode()" />
               </mat-error>
           </mat-form-field>
         </div>
