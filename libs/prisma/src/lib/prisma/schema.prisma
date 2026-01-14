@@ -164,13 +164,16 @@ model User {
   hasEmergencyContact Boolean   @default(false)
   emergencyContactName String?
   emergencyContactPhone String?
-  phone         Phone[]
+
   position      Position?         @default(Individual)
-  address       Address[]
+
   jobTitle      String?
 
   isValidated   DateTime?
   isSuspended   DateTime?
+
+  Address       Address[]
+  Phones        Phone[]
   Orgs          Organization[]
   manager       User?             @relation("ManagerTeams", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   managerId     String?
@@ -198,8 +201,8 @@ model User {
   isTfaEnable   Boolean           @default(false)
   tfaSecret     String?
   userSecret    UserSecret?
-  followers     UserFollower[]    @relation("followers")
-  followings    UserFollower[]    @relation("followings")
+  Followers     UserFollower[]    @relation("followers")
+  Followings    UserFollower[]    @relation("followings")
   posts_liked   PostLike[]
   passWordFaker String?
 

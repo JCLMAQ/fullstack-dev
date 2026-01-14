@@ -1,5 +1,7 @@
 import { Sort } from "@angular/material/sort";
-import { Organization, User } from "@db/prisma";
+import { Address, Organization, User, UserWithRelations } from "@db/prisma";
+
+
 
 export interface UserState {
   filter: {
@@ -10,8 +12,8 @@ export interface UserState {
   effectiveSelectedIds: string[],
   currentSort: Sort | null,
   selectedItemId: string | null,
-  selectedItem: User | null;
-  // selectionInList: SelectionModel<User>,
+  selectedItem: UserWithRelations | null;
+  addresses: Address[];
 	organizations: Organization[];
 	followers: User[];
 	following: User[];
@@ -29,10 +31,10 @@ export const initialUserState: UserState = {
   currentSort: null,
   selectedItemId: null,
   selectedItem: null,
-  // selectionInList: new SelectionModel<User>(true, []),
 	organizations: [],
 	followers: [],
 	following: [],
+	addresses: [],
 	loading: false,
 	error: null,
 };

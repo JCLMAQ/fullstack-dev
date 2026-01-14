@@ -1,7 +1,8 @@
 import * as Prisma from '@db/prisma';
-import { Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaClientService) {}
@@ -21,37 +22,31 @@ export class UsersService {
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
-  }) : Promise<User[]> {
+  }) : Promise<UserWithRelations[]> {
     const { skip, take, cursor, where, orderBy } = options;
 
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       skip,
       take,
       cursor,
       where,
       orderBy,
       include: {
-        manager: true,
-        Team: true,
-        Profiles: true,
-        Groups: true,
-        Posts: true,
-        Comments: true,
-        Tasks: true,
-        Todo: true,
-        TodosAuthor: true,
-        TasksAuthor: true,
-        address: true,
-        phone: true,
-        followers: true,
-        followings: true,
-        ownedFiles: true,
-        uploadedFiles: true,
-        profileFiles: true,
-        uploadedImages: true,
-        profileImages: true,
+        Address: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
       },
     });
+    return users;
   }
 
   async createUser(data: Prisma.UserCreateInput) {
@@ -96,41 +91,45 @@ export class UsersService {
     return user.Orgs ?? [];
   }
 
+  async getUserAddresses(userId: string): Promise<Address[]> {
+    if (!userId) {
+      throw new BadRequestException('userId must be provided');
+    }
+
+    const addresses = await this.prisma.address.findMany({
+      where: { userId: userId }
+    });
+
+    return addresses ?? [];
+  }
 /*
 CRUD for User with all links
 */
 
 /* GET with all links */
 
-async getAllUsersWithAllLinks(): Promise<User[] | []> {
+async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
   const users =  await this.prisma.user.findMany({
     include: {
-      manager: true,
-      Team: true,
-      Profiles: true,
-      Groups: true,
-      Posts: true,
-      Comments: true,
-      Tasks: true,
-      Todo: true,
-      TodosAuthor: true,
-      TasksAuthor: true,
-      address: true,
-      phone: true,
-      followers: true,
-      followings: true,
-      ownedFiles: true,
-      uploadedFiles: true,
-      profileFiles: true,
-      uploadedImages: true,
-      profileImages: true,
+      Address: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
     },
   });
   console.log(`[UsersService] getAllUsersWithAllLinks: found ${users.length} users with all links.`);
-  return users
-  }
+  return users;
+}
 
-async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null> {
+async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithRelations | null> {
   const user = await this.prisma.user.findUnique({
     where: userWhereUniqueInput,
     include: {
@@ -144,10 +143,19 @@ async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqu
       Todo: true,
       TodosAuthor: true,
       TasksAuthor: true,
-      address: true,
-      phone: true,
-      followers: true,
-      followings: true,
+      Address: true,
+      Phones: true,
+      Orgs: true,
+      Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
       ownedFiles: true,
       uploadedFiles: true,
       profileFiles: true,

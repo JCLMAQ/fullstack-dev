@@ -1,5 +1,5 @@
 {
-    "Common": {
+    "common": {
       "close": "Sluiten",
       "save": "Opslaan",
       "cancel": "Annuleren",
@@ -10,7 +10,18 @@
       "no": "Nee",
       "search": "Zoeken",
       "loading": "Bezig met laden...",
-      "selectLanguage": "Selecteer taal"
+      "selectLanguage": "Selecteer taal",
+      "loadingError": "Fout bij het laden van gegevens. Probeer het later opnieuw.",
+      "noData": "Geen gegevens beschikbaar",
+      "reloadData": "Gegevens opnieuw laden",
+      "users": "Gebruikers",
+      "filters": "Filters",
+      "tools": "Gereedschap",
+      "numSeq": "Nr.",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mail",
+      "phone": "Telefoon"
     },
     "HEADER.CHOOSE": "Kies uw taal",
     "SITETITLE": "Nieuwe Angular-site",

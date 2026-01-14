@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 
@@ -38,11 +38,11 @@ export class UserService {
 	// Promise-based methods
 	// --------------------
 
-	async listUsers(options?: UsersQueryOptions): Promise<User[]> {
+	async listUsers(options?: UsersQueryOptions): Promise<UserWithRelations[]> {
 		const params = this.buildParams(options);
-		// const url = this.baseUrl;
-    const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
-		return await firstValueFrom(this.http.get<User[]>(url, { params }));
+		const url = this.baseUrl;
+    // const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
+		return await firstValueFrom(this.http.get<UserWithRelations[]>(url, { params }));
 	}
 
 	async getUserById(id: string): Promise<User> {
@@ -56,6 +56,12 @@ export class UserService {
 		const url = `${this.baseUrl}/email/${encodeURIComponent(email)}`;
 		return await firstValueFrom(this.http.get<User>(url));
 	}
+
+  async getUserAddresses(userId: string): Promise<Address[]> {
+    if (!userId) throw new Error('userId requis');
+    const url = `${this.baseUrl}/${encodeURIComponent(userId)}/addresses`;
+    return await firstValueFrom(this.http.get<Address[]>(url));
+  }
 
 	async getUserOrganizations(id: string): Promise<Organization[]> {
 		if (!id) throw new Error("l'id utilisateur est requis");

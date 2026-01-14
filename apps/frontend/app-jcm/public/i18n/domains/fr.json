@@ -79,6 +79,7 @@
       "isValidatedLabel": "Validé",
       "notValidatedLabel": "Non Validé",
       "isSuspendedLabel": "Suspendu",
-      "notSuspendedLabel": "Non Suspendu"
+      "notSuspendedLabel": "Non Suspendu",
+      "email": "Email"
     }
   }

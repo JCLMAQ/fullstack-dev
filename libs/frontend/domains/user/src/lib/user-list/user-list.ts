@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma';
 import { MATERIAL } from '@fe/material';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
 @Component({
@@ -25,6 +26,7 @@ import { UserStore } from '../store/user-store';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    TranslateModule,
     ...MATERIAL
   ],
   templateUrl: './user-list.html',
@@ -313,9 +315,6 @@ export class UserList {
   }
 
   protected addOne(): void {
-    // Navigation pour créer un nouvel utilisateur (ID vide)
-    // TODO : Gérer la création d'un nouvel utilisateur via le store si nécessaire
     this.router.navigate([this.routeToDetail, '']);
   }
-
 }

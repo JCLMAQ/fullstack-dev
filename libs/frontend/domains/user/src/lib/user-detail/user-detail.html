@@ -132,53 +132,25 @@
 
               <!-- Onglet Informations d'adresse  -->
               <mat-tab label="{{ 'userProfile.addressSection' | translate }}">
+
                 <section class="form-section">
-                  <div class="tab-content">
-                    <h3>{{'address.addressMain' | translate}}</h3>
-                    <div>
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ 'address.street' | translate }}</mat-label>
-                        <input
-                          matInput
-                          [field]="userForm.address.street"
-                          placeholder="{{ 'address.streetPlaceholder' | translate }}"
-                        />
-                        <mat-error>
-                          <lib-validation-errors [fieldState]="userForm.address.street()" />
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="fields-row">
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
-                        <input matInput
-                          [field]="userForm.address.zipCode"
-                          placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
-                        <mat-error>
-                          <lib-validation-errors [fieldState]="userForm.address.zipCode()" />
-                        </mat-error>
-                      </mat-form-field>
+                    <div class="tab-content">
 
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ 'address.city' | translate }}</mat-label>
-                        <input matInput [field]="userForm.address.city" placeholder="{{ 'address.cityPlaceholder' | translate }}" />
-                        <mat-error>
-                          <lib-validation-errors [fieldState]="userForm.address.city()" />
-                        </mat-error>
-                      </mat-form-field>
+                      <!-- Liste des adresses -->
+                      @if (userForm.addresses() && userForm.addresses.length > 0) {
+                        @for (address of userForm.addresses; track address; let i = $index) {
+                          <div class="address-card">
+                            <h4>{{ 'userProfile.addressLabel' | translate }} {{ i + 1 }}</h4>
+                            <lib-address-form [form]="address" />
 
-                      <mat-form-field appearance="outline">
-                        <mat-label>{{ 'address.state' | translate }}</mat-label>
-                        <input matInput
-                          [field]="userForm.address.state"
-                          placeholder="{{ 'address.statePlaceholder' | translate }}" />
-                        <mat-error>
-                          <lib-validation-errors [fieldState]="userForm.address.state()" />
-                        </mat-error>
-                      </mat-form-field>
+                          </div>
+                        }
+                      } @else {
+                        <p class="no-data">{{ 'userProfile.noAddresses' | translate }}</p>
+                      }
                     </div>
-                  </div>
-                </section>
+                  </section>
+
               </mat-tab>
 
               <!-- Onglet Informations additionnelles -->
@@ -472,7 +444,7 @@
     <br>
     <span> {{store.users().length}} data length </span>
     <br>
-    <span> Selected Entries {{store.selection().selected.entries }} | json </span>
+    <span> Selected Entries {{store.selection().selected.entries() | json }} </span>
     <br>
     <span>Initial Selected ID: {{ store.selectedItemId() }} </span>
     <br>

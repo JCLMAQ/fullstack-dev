@@ -36,6 +36,7 @@ export const UserStore = signalStore(
 
       userCount: computed(() => Object.keys(store.userEntityMap()).length),
 
+      hasAddresses: computed(() => store.addresses().length > 0),
       hasFollowers: computed(() => store.followers().length > 0),
       hasFollowing: computed(() => store.following().length > 0),
       hasOrganizations: computed(() => store.organizations().length > 0),

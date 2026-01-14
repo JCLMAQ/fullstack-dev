@@ -1,5 +1,5 @@
 import * as Prisma from '@db/prisma';
-import { Organization, User } from '@db/prisma';
+import { Address, Organization, User, UserWithRelations } from '@db/prisma';
 import {
   Body,
   Controller,
@@ -35,7 +35,7 @@ export class UsersController {
     @Query('search') search?: string,
     @Query('orderBy') orderBy?: string,
     @Query('sortOrder') sortOrder?: 'asc' | 'desc'
-  ): Promise<User[]> {
+  ): Promise<UserWithRelations[]> {
     try {
       const options: {
         skip?: number;
@@ -98,10 +98,10 @@ export class UsersController {
    * Récupère tous les utilisateurs avec leurs relations
    */
   @Get('alluserswlinks')
-  async getAllUsersWithAllLinks(): Promise<User[] | []> {
+  async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
     try {
       console.log('[UsersController] Entrée dans alluserswlinks');
-      const users: User[] = await this.usersService.getAllUsersWithAllLinks();
+      const users: UserWithRelations[] = await this.usersService.getAllUsersWithAllLinks();
       if (!users || users.length === 0) {
         console.warn('[UsersController] Aucun utilisateur trouvé');
         return [];
@@ -118,7 +118,7 @@ export class UsersController {
   }
 
   @Get('useremailalllinks/:email')
-  async getOneUserWithAllLinks(@Param('email') email: string): Promise<User | null> {
+  async getOneUserWithAllLinks(@Param('email') email: string): Promise<UserWithRelations | null> {
     return await this.usersService.getOneUserByUniqueWithAllLinks({ email: String(email) });
   }
 
@@ -148,6 +148,14 @@ export class UsersController {
       );
     }
   }
+
+/*
+*. Récupère les adresses liées à un utilisateur par id
+*/
+  @Get(':id/addresses')
+async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
+  return this.usersService.getUserAddresses(id);
+}
 
      /**
    * Récupère les organisations liées à un utilisateur par id ou email

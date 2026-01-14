@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { apply, disabled, Field, form, pattern, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,8 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address, Gender, Language, Position, Title, User } from '@db/prisma';
-import { createAddressModel } from '@fe/address';
+import { Address, Gender, Language, Position, Title } from '@db/prisma';
+import { AddressForm } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
@@ -48,7 +48,8 @@ type UserFormData = {
   managerId: string;
   published: boolean | null;
   isPublic: boolean | null;
-  address: Address;
+  // address: Address;
+  addresses: Address[];
 };
 
 type UserWithAddress = User & { address?: Address | null };
@@ -57,7 +58,6 @@ type UserWithAddress = User & { address?: Address | null };
 @Component({
   selector: 'lib-user-detail',
   imports: [
-    DatePipe,
     Field,
     FieldError,
     ValidationErrors,
@@ -120,16 +120,19 @@ export class UserDetail {
     managerId: '',
     published: null,
     isPublic: null,
-    address: createAddressModel(),
+    // address: createAddressModel(),
+    addresses: [],
   });
 
   // Form with Angular Signal Forms
-  protected readonly userForm = form(this.userData, (path) => [
-    apply(path.email, emailSchema),
-    apply(path.firstName, personNameSchema),
-    apply(path.lastName, personNameSchema),
-    apply(path.nickName, baseTextSchemaMax50),
-    apply(path.emergencyContact, emergencyContactSchema),
+  protected readonly userForm = form(this.userData, (path) => {
+    apply(path.email, emailSchema);
+    apply(path.firstName, personNameSchema);
+    apply(path.lastName, personNameSchema);
+    apply(path.nickName, baseTextSchemaMax50);
+    // buildAddressSection(path.address!);
+    // Apply emergency contact schema to nested structure
+    apply(path.emergencyContact, emergencyContactSchema);
 
     // Date of birth conditional validation
     disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual'),
@@ -138,33 +141,30 @@ export class UserDetail {
     disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager'),
 
     // désactivation globale en mode view
-    ...(() => {
-      const disableInView = () => this.mode() === 'view';
-      return (
-        [
-          path.email,
-          path.firstName,
-          path.lastName,
-          path.title,
-          path.nickName,
-          path.Gender,
-          path.Language,
-          path.photoUrl,
-          path.dateOfBirth,
-          path.emergencyContact.hasEmergencyContact,
-          path.position,
-          path.managerId,
-          path.published,
-          path.isPublic,
-          path.isValidated,
-          path.isSuspended,
-          path.address.street,
-          path.address.zipCode,
-          path.address.city,
-          path.address.state,
-        ] as const
-      ).map((p) => disabled(p as any, disableInView));
-    })(),
+    const disableInView = () => this.mode() === 'view';
+    (
+      [
+        path.email,
+        path.firstName,
+        path.lastName,
+        path.title,
+        path.nickName,
+        path.Gender,
+        path.Language,
+        path.photoUrl,
+        path.dateOfBirth,
+        path.emergencyContact.hasEmergencyContact,
+        path.position,
+        // path.jobTitle,
+        path.managerId,
+        path.published,
+        path.isPublic,
+        path.isValidated,
+        path.isSuspended,
+        // path.address,
+        path.addresses
+      ] as const
+    ).forEach((p) => disabled(p as any, disableInView));
 
     // Address field validations (applied after disabled)
     required(path.address.street, { message: 'Street is required' }),
@@ -229,7 +229,8 @@ export class UserDetail {
           },
           position: selectedItem.position,
           jobTitle: selectedItem.jobTitle ?? '',
-          address: selectedItem.address ?? createAddressModel(),
+          // address: createAddressModel(),
+          addresses: selectedItem.Address ?? [],
           isValidated: selectedItem.isValidated,
           isSuspended: selectedItem.isSuspended,
           managerId: selectedItem.managerId ?? '',
@@ -280,7 +281,8 @@ export class UserDetail {
           emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
         },
         position: selectedItem.position,
-        address: selectedItem.address ?? createAddressModel(),
+        // address: createAddressModel(),
+        addresses: selectedItem.Address ?? [],
         jobTitle: selectedItem.jobTitle ?? '',
         isValidated: selectedItem.isValidated,
         isSuspended: selectedItem.isSuspended,
@@ -331,7 +333,8 @@ export class UserDetail {
         emergencyContactPhone: '',
       },
       position: null,
-      address: createAddressModel(),
+      // address: createAddressModel(),
+      addresses: [],
       jobTitle: '',
       isValidated: null,
       isSuspended: null,
