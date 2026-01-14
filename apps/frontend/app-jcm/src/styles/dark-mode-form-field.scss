@@ -1,0 +1,71 @@
+/* Dark mode form field overrides for better contrast */
+
+@media (prefers-color-scheme: dark) {
+  /* Override form field background color in dark mode */
+  .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+    background-color: var(--mat-sys-surface-dim) !important;
+  }
+
+  /* Filled form field background in dark mode */
+  .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-text-field-wrapper {
+    background-color: var(--mat-sys-surface-container) !important;
+  }
+
+  /* Ensure text is readable in dark mode */
+  .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-input-element,
+  .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-input-element {
+    color: var(--mat-sys-on-surface) !important;
+  }
+
+  /* Form field label color in dark mode */
+  .mat-mdc-form-field .mat-mdc-floating-label {
+    color: var(--mat-sys-on-surface-variant) !important;
+  }
+
+  /* Outline form field in dark mode */
+  .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-notched-outline__trailing {
+    border-color: var(--mat-sys-outline-variant) !important;
+  }
+
+  /* Hover state for outline */
+  .mat-mdc-form-field.mat-form-field-appearance-outline:hover .mat-mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-form-field-appearance-outline:hover .mat-mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-form-field-appearance-outline:hover .mat-mdc-notched-outline__trailing {
+    border-color: var(--mat-sys-on-surface) !important;
+  }
+
+  /* Focused state */
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline .mat-mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline .mat-mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline .mat-mdc-notched-outline__trailing {
+    border-color: var(--mat-sys-primary) !important;
+  }
+
+  /* Valid/successful state */
+  .mat-mdc-form-field.mat-form-field-valid.mat-form-field-appearance-outline .mat-mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-form-field-valid.mat-form-field-appearance-outline .mat-mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-form-field-valid.mat-form-field-appearance-outline .mat-mdc-notched-outline__trailing {
+    border-color: var(--mat-sys-primary) !important;
+  }
+
+  /* Error state */
+  .mat-mdc-form-field.mat-form-field-invalid.mat-form-field-appearance-outline .mat-mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-form-field-invalid.mat-form-field-appearance-outline .mat-mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-form-field-invalid.mat-form-field-appearance-outline .mat-mdc-notched-outline__trailing {
+    border-color: var(--mat-sys-error) !important;
+  }
+
+  /* Placeholder text in dark mode */
+  .mat-mdc-input-element::placeholder {
+    color: var(--mat-sys-on-surface-variant) !important;
+    opacity: 0.7;
+  }
+
+  /* Disabled state */
+  .mat-mdc-form-field.mat-form-field-disabled .mat-mdc-input-element {
+    color: var(--mat-sys-on-surface) !important;
+    opacity: 0.5;
+  }
+}
