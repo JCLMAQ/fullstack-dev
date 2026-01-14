@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, disabled, Field, form } from '@angular/forms/signals';
+import { apply, applyEach, disabled, Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,7 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Gender, Language, Position, Title, UserWithBasicRelations } from '@db/prisma';
-import { AddressForm } from '@fe/address';
+import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
@@ -121,8 +121,8 @@ export class UserDetail {
     managerId: '',
     published: null,
     isPublic: null,
-    // address: createAddressModel(),
-    addresses: [],
+    addresses: [createAddressModel()],
+    // addresses: [],
   });
 
   // Form with Angular Signal Forms
@@ -131,7 +131,10 @@ export class UserDetail {
     apply(path.firstName, personNameSchema);
     apply(path.lastName, personNameSchema);
     apply(path.nickName, baseTextSchemaMax50);
-    // buildAddressSection(path.address!);
+  // Valider chaque adresse du tableau
+    applyEach(path.addresses, (address) => {
+      buildAddressSection(address);
+    });
     // Apply emergency contact schema to nested structure
     apply(path.emergencyContact, emergencyContactSchema);
 
