@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, disabled, Field, form, pattern, required } from '@angular/forms/signals';
+import { apply, disabled, Field, form } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,7 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address, Gender, Language, Position, Title } from '@db/prisma';
+import { Address, Gender, Language, Position, Title, UserWithBasicRelations } from '@db/prisma';
 import { AddressForm } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';
@@ -52,7 +52,7 @@ type UserFormData = {
   addresses: Address[];
 };
 
-type UserWithAddress = User & { address?: Address | null };
+// type UserWithAddress = User & { address?: Address | null };
 
 
 @Component({
@@ -80,7 +80,8 @@ type UserWithAddress = User & { address?: Address | null };
     PreventReadonlyInteractionDirective,
     TranslateModule,
     JsonPipe,
-    DebugPanel
+    DebugPanel,
+    AddressForm
 ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
@@ -135,13 +136,14 @@ export class UserDetail {
     apply(path.emergencyContact, emergencyContactSchema);
 
     // Date of birth conditional validation
-    disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual'),
+    disabled(path.dateOfBirth, ({ valueOf }) => valueOf(path.position) !== 'Individual');
 
     // Job title conditional validation
-    disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager'),
+    disabled(path.jobTitle, ({ valueOf }) => valueOf(path.position) !== 'Manager');
 
     // désactivation globale en mode view
     const disableInView = () => this.mode() === 'view';
+  // });
     (
       [
         path.email,
@@ -166,13 +168,7 @@ export class UserDetail {
       ] as const
     ).forEach((p) => disabled(p as any, disableInView));
 
-    // Address field validations (applied after disabled)
-    required(path.address.street, { message: 'Street is required' }),
-    required(path.address.zipCode, { message: 'ZIP code is required' }),
-    required(path.address.city, { message: 'City is required' }),
-    required(path.address.state, { message: 'State is required' }),
-    pattern(path.address.zipCode, /^\d{5}$/, { message: 'ZIP code must be 5 digits' }),
-  ]);
+});
 
   // Options for selects // TODO : get from Enum within Prisma or from backend service
   protected readonly titleOptions: Title[] = ['Mr', 'Mme', 'Dct'];
@@ -206,7 +202,7 @@ export class UserDetail {
 
     // Populate form when selectedItem changes
     effect(() => {
-      const selectedItem = this.store.selectedItem() as UserWithAddress | null;
+      const selectedItem = this.store.selectedItem() as UserWithBasicRelations | null;
       if (selectedItem) {
         // Réinitialiser la navigation avec l'utilisateur sélectionné
         this.store.initNavButton(selectedItem.id);
@@ -262,7 +258,7 @@ export class UserDetail {
   }
 
   protected cancel(): void {
-    const selectedItem = this.store.selectedItem() as UserWithAddress | null;
+    const selectedItem = this.store.selectedItem() as UserWithBasicRelations | null;
     if (selectedItem) {
       this.userForm().reset({
         id: selectedItem.id,
