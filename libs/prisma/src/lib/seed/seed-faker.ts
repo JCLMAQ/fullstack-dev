@@ -47,10 +47,10 @@ async function main() {
   // Create posts, groups and tasks linked to user and Organization
   let iOrg = 0;
   let iUser= 0;
-  for ( let org of orgs) { // 2 Organizations
+  for ( const org of orgs) { // 2 Organizations
     iOrg = iOrg+1;
     const usersFound = await prisma.user.findMany( { where: { Orgs: { every: { id: org.id}}}}) //where: { enrollmentCourse: { every: { userId: user.id } } },
-    for ( let user of usersFound) { // 4 users
+    for ( const user of usersFound) { // 4 users
         iUser = iUser+1;
         // each user has 2 posts
         for (let z = 0; z < 2; z++) {
@@ -91,10 +91,10 @@ async function main() {
     }
 }
 // let's make first 2 users follow each other
-await prisma.userFollower.create({
+await prisma.userFollowerLink.create({
   data: dataUserFollower(users[0], users[1]),
 });
-await prisma.userFollower.create({
+await prisma.userFollowerLink.create({
   data: dataUserFollower(users[1], users[0]),
 });
 
@@ -102,7 +102,7 @@ const posts = await prisma.post.findMany();
 
 //let's make the second user likes 3 post of first user
 for (let i = 0; i < 3; i++) {
-  await prisma.postLike.create({ data: dataPostLike(users[1], posts[i]) });
+  await prisma.userPostLikeLink.create({ data: dataPostLike(users[1], posts[i]) });
 }
 
 }

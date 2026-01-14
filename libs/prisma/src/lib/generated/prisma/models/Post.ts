@@ -293,7 +293,7 @@ export type PostWhereInput = {
   groups?: Prisma.GroupListRelationFilter
   Categories?: Prisma.CategoryListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
-  LikedBys?: Prisma.PostLikeListRelationFilter
+  LikedBys?: Prisma.UserPostLikeLinkListRelationFilter
   Images?: Prisma.ImageListRelationFilter
   Files?: Prisma.FileListRelationFilter
 }
@@ -317,7 +317,7 @@ export type PostOrderByWithRelationInput = {
   groups?: Prisma.GroupOrderByRelationAggregateInput
   Categories?: Prisma.CategoryOrderByRelationAggregateInput
   Comments?: Prisma.CommentOrderByRelationAggregateInput
-  LikedBys?: Prisma.PostLikeOrderByRelationAggregateInput
+  LikedBys?: Prisma.UserPostLikeLinkOrderByRelationAggregateInput
   Images?: Prisma.ImageOrderByRelationAggregateInput
   Files?: Prisma.FileOrderByRelationAggregateInput
 }
@@ -344,7 +344,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   groups?: Prisma.GroupListRelationFilter
   Categories?: Prisma.CategoryListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
-  LikedBys?: Prisma.PostLikeListRelationFilter
+  LikedBys?: Prisma.UserPostLikeLinkListRelationFilter
   Images?: Prisma.ImageListRelationFilter
   Files?: Prisma.FileListRelationFilter
 }, "id">
@@ -406,7 +406,7 @@ export type PostCreateInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -428,7 +428,7 @@ export type PostUncheckedCreateInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -450,7 +450,7 @@ export type PostUpdateInput = {
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -472,7 +472,7 @@ export type PostUncheckedUpdateInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -839,7 +839,7 @@ export type PostCreateWithoutOrgInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -860,7 +860,7 @@ export type PostUncheckedCreateWithoutOrgInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -926,7 +926,7 @@ export type PostCreateWithoutOwnerInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -947,7 +947,7 @@ export type PostUncheckedCreateWithoutOwnerInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -994,7 +994,7 @@ export type PostCreateWithoutGroupsInput = {
   org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -1015,7 +1015,7 @@ export type PostUncheckedCreateWithoutGroupsInput = {
   content?: string | null
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -1057,7 +1057,7 @@ export type PostCreateWithoutCategoriesInput = {
   org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -1078,7 +1078,7 @@ export type PostUncheckedCreateWithoutCategoriesInput = {
   content?: string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -1120,7 +1120,7 @@ export type PostCreateWithoutCommentsInput = {
   org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
@@ -1141,7 +1141,7 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   content?: string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
@@ -1178,7 +1178,7 @@ export type PostUpdateWithoutCommentsInput = {
   org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -1199,7 +1199,7 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1221,7 +1221,7 @@ export type PostCreateWithoutFilesInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
 }
 
@@ -1242,7 +1242,7 @@ export type PostUncheckedCreateWithoutFilesInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
 }
 
@@ -1279,7 +1279,7 @@ export type PostUpdateWithoutFilesInput = {
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
 }
 
@@ -1300,7 +1300,7 @@ export type PostUncheckedUpdateWithoutFilesInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
 }
 
@@ -1421,7 +1421,7 @@ export type PostCreateWithoutImagesInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
 }
 
@@ -1442,7 +1442,7 @@ export type PostUncheckedCreateWithoutImagesInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
-  LikedBys?: Prisma.PostLikeUncheckedCreateNestedManyWithoutPostInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
 }
 
@@ -1479,7 +1479,7 @@ export type PostUpdateWithoutImagesInput = {
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
 
@@ -1500,7 +1500,7 @@ export type PostUncheckedUpdateWithoutImagesInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
 
@@ -1535,7 +1535,7 @@ export type PostUpdateWithoutOrgInput = {
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -1556,7 +1556,7 @@ export type PostUncheckedUpdateWithoutOrgInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1607,7 +1607,7 @@ export type PostUpdateWithoutOwnerInput = {
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -1628,7 +1628,7 @@ export type PostUncheckedUpdateWithoutOwnerInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1664,7 +1664,7 @@ export type PostUpdateWithoutGroupsInput = {
   org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -1685,7 +1685,7 @@ export type PostUncheckedUpdateWithoutGroupsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Categories?: Prisma.CategoryUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1722,7 +1722,7 @@ export type PostUpdateWithoutCategoriesInput = {
   org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
 }
@@ -1743,7 +1743,7 @@ export type PostUncheckedUpdateWithoutCategoriesInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
-  LikedBys?: Prisma.PostLikeUncheckedUpdateManyWithoutPostNestedInput
+  LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1822,7 +1822,7 @@ export type PostCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.E
  * PostCountOutputType without action
  */
 export type PostCountOutputTypeCountLikedBysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PostLikeWhereInput
+  where?: Prisma.UserPostLikeLinkWhereInput
 }
 
 /**
@@ -1946,7 +1946,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     groups: Prisma.$GroupPayload<ExtArgs>[]
     Categories: Prisma.$CategoryPayload<ExtArgs>[]
     Comments: Prisma.$CommentPayload<ExtArgs>[]
-    LikedBys: Prisma.$PostLikePayload<ExtArgs>[]
+    LikedBys: Prisma.$UserPostLikeLinkPayload<ExtArgs>[]
     Images: Prisma.$ImagePayload<ExtArgs>[]
     Files: Prisma.$FilePayload<ExtArgs>[]
   }
@@ -2363,7 +2363,7 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
   groups<T extends Prisma.Post$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Categories<T extends Prisma.Post$CategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$CategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Comments<T extends Prisma.Post$CommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$CommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  LikedBys<T extends Prisma.Post$LikedBysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$LikedBysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  LikedBys<T extends Prisma.Post$LikedBysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$LikedBysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPostLikeLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Images<T extends Prisma.Post$ImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$ImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Files<T extends Prisma.Post$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2880,23 +2880,23 @@ export type Post$CommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
  */
 export type Post$LikedBysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PostLike
+   * Select specific fields to fetch from the UserPostLikeLink
    */
-  select?: Prisma.PostLikeSelect<ExtArgs> | null
+  select?: Prisma.UserPostLikeLinkSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PostLike
+   * Omit specific fields from the UserPostLikeLink
    */
-  omit?: Prisma.PostLikeOmit<ExtArgs> | null
+  omit?: Prisma.UserPostLikeLinkOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PostLikeInclude<ExtArgs> | null
-  where?: Prisma.PostLikeWhereInput
-  orderBy?: Prisma.PostLikeOrderByWithRelationInput | Prisma.PostLikeOrderByWithRelationInput[]
-  cursor?: Prisma.PostLikeWhereUniqueInput
+  include?: Prisma.UserPostLikeLinkInclude<ExtArgs> | null
+  where?: Prisma.UserPostLikeLinkWhereInput
+  orderBy?: Prisma.UserPostLikeLinkOrderByWithRelationInput | Prisma.UserPostLikeLinkOrderByWithRelationInput[]
+  cursor?: Prisma.UserPostLikeLinkWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PostLikeScalarFieldEnum | Prisma.PostLikeScalarFieldEnum[]
+  distinct?: Prisma.UserPostLikeLinkScalarFieldEnum | Prisma.UserPostLikeLinkScalarFieldEnum[]
 }
 
 /**

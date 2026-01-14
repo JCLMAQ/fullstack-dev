@@ -68,8 +68,8 @@ export const ModelName = {
   Category: 'Category',
   Comment: 'Comment',
   File: 'File',
-  UserFollower: 'UserFollower',
-  PostLike: 'PostLike',
+  UserFollowerLink: 'UserFollowerLink',
+  UserPostLikeLink: 'UserPostLikeLink',
   Story: 'Story',
   Image: 'Image',
   ConfigParam: 'ConfigParam',
@@ -441,24 +441,24 @@ export const FileScalarFieldEnum = {
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
-export const UserFollowerScalarFieldEnum = {
+export const UserFollowerLinkScalarFieldEnum = {
   user_id: 'user_id',
   follower_id: 'follower_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserFollowerScalarFieldEnum = (typeof UserFollowerScalarFieldEnum)[keyof typeof UserFollowerScalarFieldEnum]
+export type UserFollowerLinkScalarFieldEnum = (typeof UserFollowerLinkScalarFieldEnum)[keyof typeof UserFollowerLinkScalarFieldEnum]
 
 
-export const PostLikeScalarFieldEnum = {
+export const UserPostLikeLinkScalarFieldEnum = {
   user_id: 'user_id',
   post_id: 'post_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PostLikeScalarFieldEnum = (typeof PostLikeScalarFieldEnum)[keyof typeof PostLikeScalarFieldEnum]
+export type UserPostLikeLinkScalarFieldEnum = (typeof UserPostLikeLinkScalarFieldEnum)[keyof typeof UserPostLikeLinkScalarFieldEnum]
 
 
 export const StoryScalarFieldEnum = {

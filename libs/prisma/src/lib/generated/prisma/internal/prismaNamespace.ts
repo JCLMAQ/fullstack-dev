@@ -401,8 +401,8 @@ export const ModelName = {
   Category: 'Category',
   Comment: 'Comment',
   File: 'File',
-  UserFollower: 'UserFollower',
-  PostLike: 'PostLike',
+  UserFollowerLink: 'UserFollowerLink',
+  UserPostLikeLink: 'UserPostLikeLink',
   Story: 'Story',
   Image: 'Image',
   ConfigParam: 'ConfigParam',
@@ -429,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollower" | "postLike" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation"
+    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollowerLink" | "userPostLikeLink" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1691,151 +1691,151 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    UserFollower: {
-      payload: Prisma.$UserFollowerPayload<ExtArgs>
-      fields: Prisma.UserFollowerFieldRefs
+    UserFollowerLink: {
+      payload: Prisma.$UserFollowerLinkPayload<ExtArgs>
+      fields: Prisma.UserFollowerLinkFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.UserFollowerFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload> | null
+          args: Prisma.UserFollowerLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.UserFollowerFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         findFirst: {
-          args: Prisma.UserFollowerFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload> | null
+          args: Prisma.UserFollowerLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.UserFollowerFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         findMany: {
-          args: Prisma.UserFollowerFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>[]
+          args: Prisma.UserFollowerLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>[]
         }
         create: {
-          args: Prisma.UserFollowerCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         createMany: {
-          args: Prisma.UserFollowerCreateManyArgs<ExtArgs>
+          args: Prisma.UserFollowerLinkCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.UserFollowerCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>[]
+          args: Prisma.UserFollowerLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>[]
         }
         delete: {
-          args: Prisma.UserFollowerDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         update: {
-          args: Prisma.UserFollowerUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         deleteMany: {
-          args: Prisma.UserFollowerDeleteManyArgs<ExtArgs>
+          args: Prisma.UserFollowerLinkDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.UserFollowerUpdateManyArgs<ExtArgs>
+          args: Prisma.UserFollowerLinkUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.UserFollowerUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>[]
+          args: Prisma.UserFollowerLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>[]
         }
         upsert: {
-          args: Prisma.UserFollowerUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerPayload>
+          args: Prisma.UserFollowerLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowerLinkPayload>
         }
         aggregate: {
-          args: Prisma.UserFollowerAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUserFollower>
+          args: Prisma.UserFollowerLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserFollowerLink>
         }
         groupBy: {
-          args: Prisma.UserFollowerGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserFollowerGroupByOutputType>[]
+          args: Prisma.UserFollowerLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFollowerLinkGroupByOutputType>[]
         }
         count: {
-          args: Prisma.UserFollowerCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserFollowerCountAggregateOutputType> | number
+          args: Prisma.UserFollowerLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFollowerLinkCountAggregateOutputType> | number
         }
       }
     }
-    PostLike: {
-      payload: Prisma.$PostLikePayload<ExtArgs>
-      fields: Prisma.PostLikeFieldRefs
+    UserPostLikeLink: {
+      payload: Prisma.$UserPostLikeLinkPayload<ExtArgs>
+      fields: Prisma.UserPostLikeLinkFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.PostLikeFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload> | null
+          args: Prisma.UserPostLikeLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.PostLikeFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         findFirst: {
-          args: Prisma.PostLikeFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload> | null
+          args: Prisma.UserPostLikeLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.PostLikeFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         findMany: {
-          args: Prisma.PostLikeFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          args: Prisma.UserPostLikeLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>[]
         }
         create: {
-          args: Prisma.PostLikeCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         createMany: {
-          args: Prisma.PostLikeCreateManyArgs<ExtArgs>
+          args: Prisma.UserPostLikeLinkCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.PostLikeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          args: Prisma.UserPostLikeLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>[]
         }
         delete: {
-          args: Prisma.PostLikeDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         update: {
-          args: Prisma.PostLikeUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         deleteMany: {
-          args: Prisma.PostLikeDeleteManyArgs<ExtArgs>
+          args: Prisma.UserPostLikeLinkDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.PostLikeUpdateManyArgs<ExtArgs>
+          args: Prisma.UserPostLikeLinkUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.PostLikeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>[]
+          args: Prisma.UserPostLikeLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>[]
         }
         upsert: {
-          args: Prisma.PostLikeUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostLikePayload>
+          args: Prisma.UserPostLikeLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPostLikeLinkPayload>
         }
         aggregate: {
-          args: Prisma.PostLikeAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePostLike>
+          args: Prisma.UserPostLikeLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserPostLikeLink>
         }
         groupBy: {
-          args: Prisma.PostLikeGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PostLikeGroupByOutputType>[]
+          args: Prisma.UserPostLikeLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPostLikeLinkGroupByOutputType>[]
         }
         count: {
-          args: Prisma.PostLikeCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PostLikeCountAggregateOutputType> | number
+          args: Prisma.UserPostLikeLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserPostLikeLinkCountAggregateOutputType> | number
         }
       }
     }
@@ -3034,24 +3034,24 @@ export const FileScalarFieldEnum = {
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
-export const UserFollowerScalarFieldEnum = {
+export const UserFollowerLinkScalarFieldEnum = {
   user_id: 'user_id',
   follower_id: 'follower_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserFollowerScalarFieldEnum = (typeof UserFollowerScalarFieldEnum)[keyof typeof UserFollowerScalarFieldEnum]
+export type UserFollowerLinkScalarFieldEnum = (typeof UserFollowerLinkScalarFieldEnum)[keyof typeof UserFollowerLinkScalarFieldEnum]
 
 
-export const PostLikeScalarFieldEnum = {
+export const UserPostLikeLinkScalarFieldEnum = {
   user_id: 'user_id',
   post_id: 'post_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PostLikeScalarFieldEnum = (typeof PostLikeScalarFieldEnum)[keyof typeof PostLikeScalarFieldEnum]
+export type UserPostLikeLinkScalarFieldEnum = (typeof UserPostLikeLinkScalarFieldEnum)[keyof typeof UserPostLikeLinkScalarFieldEnum]
 
 
 export const StoryScalarFieldEnum = {
@@ -3666,8 +3666,8 @@ export type GlobalOmitConfig = {
   category?: Prisma.CategoryOmit
   comment?: Prisma.CommentOmit
   file?: Prisma.FileOmit
-  userFollower?: Prisma.UserFollowerOmit
-  postLike?: Prisma.PostLikeOmit
+  userFollowerLink?: Prisma.UserFollowerLinkOmit
+  userPostLikeLink?: Prisma.UserPostLikeLinkOmit
   story?: Prisma.StoryOmit
   image?: Prisma.ImageOmit
   configParam?: Prisma.ConfigParamOmit

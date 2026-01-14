@@ -85,6 +85,7 @@ enum TokenType {
   REFREZH
 }
 
+// Organization model for managing organizations
 model Organization {
   id           String         @id() @default(uuid(7))
   numSeq       Int            @default(autoincrement())
@@ -113,6 +114,7 @@ model Organization {
   Images       Image[]        @relation("OrgImages")
 }
 
+// Organization Email model for managing organization emails
 model OrgEmail {
   id             Int             @id() @default(autoincrement())
   createdAt      DateTime        @default(now())
@@ -128,6 +130,7 @@ model OrgEmail {
   OrgEmailUseTos OrgEmailUseTo[]
 }
 
+// Organization Domain model for managing organization domains
 model OrgDomain {
   id          Int           @id() @default(autoincrement())
   createdAt   DateTime      @default(now())
@@ -201,15 +204,17 @@ model User {
   isTfaEnable   Boolean           @default(false)
   tfaSecret     String?
   userSecret    UserSecret?
-  Followers     UserFollower[]    @relation("followers")
-  Followings    UserFollower[]    @relation("followings")
-  posts_liked   PostLike[]
+  Followers     UserFollowerLink[]    @relation("followers")
+  Followings    UserFollowerLink[]    @relation("followings")
+  posts_liked   UserPostLikeLink[]
   passWordFaker String?
 
   // Image relations
   uploadedImages Image[]          @relation("ImageUploads")
   profileImages  Image[]          @relation("UserProfileImages")
 }
+
+// Phone model for user phone numbers
 model Phone {
   id          Int      @id() @default(autoincrement())
   createdAt   DateTime @default(now())
@@ -223,6 +228,7 @@ model Phone {
   isPrimary   Boolean  @default(false)
 }
 
+// Address model for user addresses
 model Address {
   id          Int         @id() @default(autoincrement())
   createdAt   DateTime    @default(now())
@@ -237,6 +243,8 @@ model Address {
   addressType AddressType? @default(Home)
   isPrimary   Boolean      @default(false)
 }
+
+// UserSecret model for storing sensitive user information
 model UserSecret {
   id        Int      @id() @default(autoincrement())
   createdAt DateTime @default(now())
@@ -248,6 +256,7 @@ model UserSecret {
   isAdmin   Boolean? @default(false)
 }
 
+// Profile model for user profiles
 model Profile {
   id           Int       @id() @default(autoincrement())
   createdAt    DateTime  @default(now())
@@ -261,6 +270,7 @@ model Profile {
   bio          String
 }
 
+// Group model for organizing users within an organization
 model Group {
   id          Int          @id() @default(autoincrement())
   createdAt   DateTime     @default(now())
@@ -282,6 +292,7 @@ model Group {
   orgId       String
 }
 
+// Todo model for task management linked to users and organizations
 model Todo {
   id          String         @id() @default(uuid(7))
   numSeq      Int            @default(autoincrement())
@@ -307,6 +318,7 @@ model Todo {
   Tasks       Task[]
 }
 
+// Junction table for users assigned to todos
 model UserTodoLink {
   user       User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId     String
@@ -321,6 +333,7 @@ model UserTodoLink {
   @@id([userId, todoId])
 }
 
+// Task model for tasks linked to users and organizations
 model Task {
   id          String         @id() @default(uuid(7))
   numSeq      Int            @default(autoincrement())
@@ -347,6 +360,7 @@ model Task {
   todoId      String?
 }
 
+// Junction table for users assigned to tasks
 model UserTaskLink {
   user       User     @relation(fields: [userId], references: [id])
   userId     String
@@ -361,6 +375,7 @@ model UserTaskLink {
   @@id([userId, taskId])
 }
 
+// Post model for user-generated content linked to organizations and users
 model Post {
   id          String       @id() @default(uuid(7))
   numSeq      Int          @default(autoincrement())
@@ -380,11 +395,12 @@ model Post {
   content     String?
   Categories  Category[]   @relation("PostsCategory")
   Comments    Comment[]
-  LikedBys    PostLike[]
+  LikedBys    UserPostLikeLink[]
   Images      Image[]      @relation("PostImages")
   Files       File[]       @relation("PostFiles")
 }
 
+// Category model for post categorization
 model Category {
   id            String    @id() @default(uuid(7))
   numSeq        Int       @default(autoincrement())
@@ -399,6 +415,7 @@ model Category {
   Posts         Post[]    @relation("PostsCategory")
 }
 
+// Comment model for user comments on posts (linked to users and posts)
 model Comment {
   id           String    @id() @default(uuid(7))
   numSeq       Int       @default(autoincrement())
@@ -519,7 +536,8 @@ model File {
   @@index([tags])
 }
 
-model UserFollower {
+// Junction table for user followers and followings
+model UserFollowerLink {
   user_id     String
   user        User     @relation("followers", fields: [user_id], references: [id])
   follower_id String
@@ -529,8 +547,8 @@ model UserFollower {
 
   @@id([user_id, follower_id])
 }
-
-model PostLike {
+// Junction table for users liking posts
+model UserPostLikeLink{
   user_id   String
   user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   post_id   String
@@ -541,6 +559,7 @@ model PostLike {
   @@id([user_id, post_id])
 }
 
+// Story model for short-lived content pieces linked to users
 model Story {
   id          String    @id() @default(uuid(7))
   numSeq      Int       @default(autoincrement())
@@ -624,7 +643,7 @@ model Image {
   @@index([mimeType])
   @@index([isDeleted])
 }
-
+// App configuration parameters model
 model ConfigParam {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -638,6 +657,7 @@ model ConfigParam {
   utility     String
 }
 
+// Organization Email Domain model for managing allowed email domains
 model OrgEmailUseTo {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -651,7 +671,7 @@ model OrgEmailUseTo {
   emailOrg    OrgEmail  @relation(fields: [emailOrgId], references: [id])
   emailOrgId  Int
 }
-
+// Email domain model for allowed or blocked domains in the App
 model AppEmailDomain {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -663,7 +683,7 @@ model AppEmailDomain {
   domain      String    @unique()
   allowed     Boolean
 }
-
+// RefreshToken model for managing user refresh tokens
 model RefreshToken {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -676,6 +696,7 @@ model RefreshToken {
   tokenId     String    @unique()
 }
 
+// ApiKey model for managing API keys linked to users
 model ApiKey {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -691,6 +712,7 @@ model ApiKey {
   Scopes      Scope[]   @relation("apikeysscopes")
 }
 
+// Scope model for API keys
 model Scope {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -703,6 +725,7 @@ model Scope {
   ApiKey      ApiKey[]  @relation("apikeysscopes")
 }
 
+// Token model for various token types linked to users
 model Token {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
@@ -720,6 +743,7 @@ model Token {
   userId      String
 }
 
+// Changes tracking model to log modifications across the Database with which user made the change, when, and what was changed.
 model ChangesTracking {
   id           Int       @id() @default(autoincrement())
   createdAt    DateTime  @default(now())
@@ -738,6 +762,7 @@ model ChangesTracking {
   oldData      Json
 }
 
+// AccountValidation model for validating user accounts
 model AccountValidation {
   id          String    @id() @default(uuid(7))
   numSeq      Int       @default(autoincrement())

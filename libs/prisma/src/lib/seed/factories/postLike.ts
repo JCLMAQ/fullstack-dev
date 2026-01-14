@@ -4,7 +4,7 @@ import { Post, Prisma, User } from '../../generated/prisma/client';
 export const dataPostLike = (
   user: User,
   post: Post
-): Prisma.PostLikeCreateInput => ({
+): Prisma.UserPostLikeLinkCreateInput => ({
   user: { connect: { id: user.id } },
   post: { connect: { id: post.id } },
 });

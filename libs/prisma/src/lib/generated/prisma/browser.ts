@@ -103,15 +103,15 @@ export type Comment = Prisma.CommentModel
  */
 export type File = Prisma.FileModel
 /**
- * Model UserFollower
+ * Model UserFollowerLink
  * 
  */
-export type UserFollower = Prisma.UserFollowerModel
+export type UserFollowerLink = Prisma.UserFollowerLinkModel
 /**
- * Model PostLike
+ * Model UserPostLikeLink
  * 
  */
-export type PostLike = Prisma.PostLikeModel
+export type UserPostLikeLink = Prisma.UserPostLikeLinkModel
 /**
  * Model Story
  * 

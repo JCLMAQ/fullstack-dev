@@ -4,7 +4,7 @@ import { Prisma, User } from '../../generated/prisma/client';
 export const dataUserFollower = (
   user: User,
   follower: User
-): Prisma.UserFollowerCreateInput => ({
+): Prisma.UserFollowerLinkCreateInput => ({
   user: { connect: { id: user.id } },
   follower: { connect: { id: follower.id } },
 });
