@@ -289,8 +289,6 @@
       "state": "État/Région",
       "zipCode": "Code Postal",
       "street": "Rue",
-      "number": "Numéro",
-      "apartment": "Appartement/Suite",
       "default": "Par Défaut",
       "setAsDefault": "Définir comme Adresse par Défaut",
       "addressMain": "Adresse Principale",
@@ -299,7 +297,17 @@
       "cityPlaceholder": "Introduire votre ville ici...",
       "statePlaceholder": "Introduire votre état/région ici...",
       "countryPlaceholder": "Sélectionner votre pays...",
-      "apartmentPlaceholder": "Introduire votre numéro d'appartement ici...",
-      "numberPlaceholder": "Introduire votre numéro de maison ici..."
+      "aptNumberPlaceholder": "Introduire votre numéro d'appartement ici...",
+      "buildingNumberPlaceholder": "Introduire votre numéro de maison ici...",
+      "buildingNumber": "Numéro",
+      "aptNumber": "Appartement",
+      "streetRequired": "La rue est obligatoire.",
+      "buildingNumberRequired": "Le numéro de maison est obligatoire.",
+      "cityRequired": "La ville est obligatoire.",
+      "stateRequired": "L'état/région est obligatoire.",
+      "countryRequired": "Le pays est obligatoire.",
+      "zipCodeRequired": "Le code postal est obligatoire.",
+      "zipMinLength": "Le code postal doit comporter au moins 4 caractères.",
+      "zipMaxLength": "Le code postal ne doit pas dépasser 10 caractères."
     }
   }

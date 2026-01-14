@@ -289,8 +289,6 @@
       "state": "State/Region",
       "zipCode": "Zip Code",
       "street": "Street",
-      "number": "Number",
-      "apartment": "Apartment/Suite",
       "default": "Default",
       "setAsDefault": "Set as Default Address",
       "addressMain": "Main Address",
@@ -299,7 +297,17 @@
       "cityPlaceholder": "Enter your city here...",
       "statePlaceholder": "Enter your state/region here...",
       "countryPlaceholder": "Select your country...",
-      "apartmentPlaceholder": "Enter your apartment number here...",
-      "numberPlaceholder": "Enter your house number here..."
+      "aptNumberPlaceholder": "Enter your apartment number here...",
+      "buildingNumberPlaceholder": "Enter your house number here...",
+      "buildingNumber": "Number",
+      "aptNumber": "Apartment",
+      "streetRequired": "Street is required.",
+      "buildingNumberRequired": "Building number is required.",
+      "cityRequired": "City is required.",
+      "stateRequired": "State/Region is required.",
+      "countryRequired": "Country is required.",
+      "zipCodeRequired": "Zip code is required.",
+      "zipMinLength": "Zip code must be at least 4 characters long.",
+      "zipMaxLength": "Zip code must not exceed 10 characters."
     }
 }
