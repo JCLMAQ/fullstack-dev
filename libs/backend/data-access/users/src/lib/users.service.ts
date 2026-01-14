@@ -1,7 +1,8 @@
 import * as Prisma from '@db/prisma';
-import { Address, Organization, User, UserWithRelations } from '@db/prisma';
+import { Address, Organization, User, UserWithBasicRelations, UserWithRelations } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,7 @@ export class UsersService {
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithRelationInput;
-  }) : Promise<UserWithRelations[]> {
+  }) : Promise<UserWithBasicRelations[]> {
     const { skip, take, cursor, where, orderBy } = options;
 
     const users = await this.prisma.user.findMany({
@@ -108,7 +109,47 @@ CRUD for User with all links
 
 /* GET with all links */
 
-async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
+async getAllUsersWithAllLinks(): Promise<UserWithRelations[]> {
+  const users =  await this.prisma.user.findMany({
+    include: {
+        manager: true,
+        Team: true,
+        Profiles: true,
+        Groups: true,
+        Posts: true,
+        Comments: true,
+        Stories: true,
+        Tasks: true,
+        Todo: true,
+        TodosAuthor: true,
+        TasksAuthor: true,
+        Address: true,
+        Phones: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
+        ownedFiles: true,
+        uploadedFiles: true,
+        profileFiles: true,
+        uploadedImages: true,
+        profileImages: true,
+        ChangesLogs: true,
+        posts_liked: true,
+      },
+  });
+  console.log(`[UsersService] getAllUsersWithAllLinks: found ${users.length} users with all links.`);
+  return users;
+}
+
+async getAllUsersWithBasicLinks(): Promise<UserWithBasicRelations[]> {
   const users =  await this.prisma.user.findMany({
     include: {
       Address: true,
@@ -125,28 +166,30 @@ async getAllUsersWithAllLinks(): Promise<UserWithRelations[] | []> {
         },
     },
   });
-  console.log(`[UsersService] getAllUsersWithAllLinks: found ${users.length} users with all links.`);
+  console.log(`[UsersService] getAllUsersWithBasicLinks: found ${users.length} users with basic links.`);
   return users;
 }
+
 
 async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithRelations | null> {
   const user = await this.prisma.user.findUnique({
     where: userWhereUniqueInput,
     include: {
-      manager: true,
-      Team: true,
-      Profiles: true,
-      Groups: true,
-      Posts: true,
-      Comments: true,
-      Tasks: true,
-      Todo: true,
-      TodosAuthor: true,
-      TasksAuthor: true,
-      Address: true,
-      Phones: true,
-      Orgs: true,
-      Followers: {
+        manager: true,
+        Team: true,
+        Profiles: true,
+        Groups: true,
+        Posts: true,
+        Comments: true,
+        Stories: true,
+        Tasks: true,
+        Todo: true,
+        TodosAuthor: true,
+        TasksAuthor: true,
+        Address: true,
+        Phones: true,
+        Orgs: true,
+        Followers: {
           include: {
             user: true,
           },
@@ -156,17 +199,38 @@ async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqu
             follower: true,
           },
         },
-      ownedFiles: true,
-      uploadedFiles: true,
-      profileFiles: true,
-      uploadedImages: true,
-      profileImages: true,
-    },
+        ownedFiles: true,
+        uploadedFiles: true,
+        profileFiles: true,
+        uploadedImages: true,
+        profileImages: true,
+        ChangesLogs: true,
+        posts_liked: true,
+      },
   })
   return user
 }
 
-
+async getOneUserByUniqueWithBasicLinks(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<UserWithBasicRelations | null> {
+  const user = await this.prisma.user.findUnique({
+    where: userWhereUniqueInput,
+    include: {
+      Address: true,
+        Orgs: true,
+        Followers: {
+          include: {
+            user: true,
+          },
+        },
+        Followings: {
+          include: {
+            follower: true,
+          },
+        },
+    },
+  })
+  return user
+}
 /*
 END End CRUD for User with secret
 */

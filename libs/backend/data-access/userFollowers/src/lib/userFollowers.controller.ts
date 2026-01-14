@@ -1,16 +1,16 @@
 import { Prisma } from '@db/prisma';
 import {
-    BadRequestException,
-    Body,
-    Controller,
-    DefaultValuePipe,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
-    ParseIntPipe,
-    Post,
-    Query,
+  BadRequestException,
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { UserFollowersService } from './userFollowers.service';
 
@@ -26,7 +26,7 @@ export class UserFollowersController {
 
   // POST /userFollowers - Create a new follow relationship
   @Post()
-  async create(@Body() createUserFollowerDto: Prisma.UserFollowerCreateInput) {
+  async create(@Body() createUserFollowerDto: Prisma.UserFollowerLinkCreateInput) {
     try {
       return await this.userFollowersService.create(createUserFollowerDto);
     } catch (error) {
@@ -98,7 +98,7 @@ export class UserFollowersController {
     @Query('followerId') followerId?: string,
   ) {
     try {
-      const where: Prisma.UserFollowerWhereInput = {};
+      const where: Prisma.UserFollowerLinkWhereInput = {};
 
       if (userId) {
         where.user_id = userId;

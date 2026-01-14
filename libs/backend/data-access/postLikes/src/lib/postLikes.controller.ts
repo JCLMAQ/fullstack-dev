@@ -1,16 +1,16 @@
 import { Prisma } from '@db/prisma';
 import {
-    BadRequestException,
-    Body,
-    Controller,
-    DefaultValuePipe,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
-    ParseIntPipe,
-    Post,
-    Query,
+  BadRequestException,
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { PostLikesService } from './postLikes.service';
 
@@ -26,7 +26,7 @@ export class PostLikesController {
 
   // POST /postLikes - Create a new post like
   @Post()
-  async create(@Body() createPostLikeDto: Prisma.PostLikeCreateInput) {
+  async create(@Body() createPostLikeDto: Prisma.UserPostLikeLinkCreateInput) {
     try {
       return await this.postLikesService.create(createPostLikeDto);
     } catch (error) {
@@ -98,7 +98,7 @@ export class PostLikesController {
     @Query('postId') postId?: string,
   ) {
     try {
-      const where: Prisma.PostLikeWhereInput = {};
+      const where: Prisma.UserPostLikeLinkWhereInput = {};
 
       if (userId) {
         where.user_id = userId;

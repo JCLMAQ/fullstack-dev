@@ -1,4 +1,4 @@
-import { Prisma, UserFollower } from '@db/prisma';
+import { Prisma, UserFollowerLink } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 
@@ -13,9 +13,9 @@ export class UserFollowersService {
   constructor(private readonly prisma: PrismaClientService) {}
 
   // Create a new user follow relationship
-  async create(data: Prisma.UserFollowerCreateInput): Promise<UserFollower> {
+  async create(data: Prisma.UserFollowerLinkCreateInput): Promise<UserFollowerLink> {
     try {
-      return await this.prisma.userFollower.create({
+      return await this.prisma.userFollowerLink.create({
         data,
         include: {
           user: true,
@@ -28,7 +28,7 @@ export class UserFollowersService {
   }
 
   // Follow a user (simplified method)
-  async followUser(userId: string, followerId: string): Promise<UserFollower> {
+  async followUser(userId: string, followerId: string): Promise<UserFollowerLink> {
     try {
       if (userId === followerId) {
         throw new Error('Users cannot follow themselves');
@@ -44,14 +44,14 @@ export class UserFollowersService {
   }
 
   // Unfollow a user (remove follow relationship)
-  async unfollowUser(userId: string, followerId: string): Promise<UserFollower> {
+  async unfollowUser(userId: string, followerId: string): Promise<UserFollowerLink> {
     try {
       const existingFollow = await this.findOne(userId, followerId);
       if (!existingFollow) {
         throw new Error('Follow relationship not found');
       }
 
-      return await this.prisma.userFollower.delete({
+      return await this.prisma.userFollowerLink.delete({
         where: {
           user_id_follower_id: {
             user_id: userId,
@@ -72,13 +72,13 @@ export class UserFollowersService {
   async findAll(params: {
     skip?: number;
     take?: number;
-    cursor?: Prisma.UserFollowerWhereUniqueInput;
-    where?: Prisma.UserFollowerWhereInput;
-    orderBy?: Prisma.UserFollowerOrderByWithRelationInput;
-  }): Promise<UserFollower[]> {
+    cursor?: Prisma.UserFollowerLinkWhereUniqueInput;
+    where?: Prisma.UserFollowerLinkWhereInput;
+    orderBy?: Prisma.UserFollowerLinkOrderByWithRelationInput;
+  }): Promise<UserFollowerLink[]> {
     try {
       const { skip, take, cursor, where, orderBy } = params;
-      return await this.prisma.userFollower.findMany({
+      return await this.prisma.userFollowerLink.findMany({
         skip,
         take,
         cursor,
@@ -95,9 +95,9 @@ export class UserFollowersService {
   }
 
   // Find a specific follow relationship by user and follower IDs
-  async findOne(userId: string, followerId: string): Promise<UserFollower | null> {
+  async findOne(userId: string, followerId: string): Promise<UserFollowerLink | null> {
     try {
-      return await this.prisma.userFollower.findUnique({
+      return await this.prisma.userFollowerLink.findUnique({
         where: {
           user_id_follower_id: {
             user_id: userId,
@@ -125,7 +125,7 @@ export class UserFollowersService {
   }
 
   // Get all followers of a specific user
-  async getFollowers(userId: string): Promise<UserFollower[]> {
+  async getFollowers(userId: string): Promise<UserFollowerLink[]> {
     try {
       return await this.findAll({
         where: { user_id: userId },
@@ -137,7 +137,7 @@ export class UserFollowersService {
   }
 
   // Get all users that a specific user is following
-  async getFollowing(followerId: string): Promise<UserFollower[]> {
+  async getFollowing(followerId: string): Promise<UserFollowerLink[]> {
     try {
       return await this.findAll({
         where: { follower_id: followerId },
@@ -151,7 +151,7 @@ export class UserFollowersService {
   // Count followers for a specific user
   async countFollowers(userId: string): Promise<number> {
     try {
-      return await this.prisma.userFollower.count({
+      return await this.prisma.userFollowerLink.count({
         where: { user_id: userId },
       });
     } catch (error) {
@@ -162,7 +162,7 @@ export class UserFollowersService {
   // Count users that a specific user is following
   async countFollowing(followerId: string): Promise<number> {
     try {
-      return await this.prisma.userFollower.count({
+      return await this.prisma.userFollowerLink.count({
         where: { follower_id: followerId },
       });
     } catch (error) {
@@ -171,7 +171,7 @@ export class UserFollowersService {
   }
 
   // Get mutual follows (users who follow each other)
-  async getMutualFollows(userId: string): Promise<UserFollower[]> {
+  async getMutualFollows(userId: string): Promise<UserFollowerLink[]> {
     try {
       // Get users that this user follows
       const following = await this.getFollowing(userId);
@@ -193,7 +193,7 @@ export class UserFollowersService {
   // Get users with most followers
   async getMostFollowedUsers(limit = 10): Promise<{ user_id: string; _count: number }[]> {
     try {
-      const result = await this.prisma.userFollower.groupBy({
+      const result = await this.prisma.userFollowerLink.groupBy({
         by: ['user_id'],
         _count: {
           user_id: true,
@@ -218,7 +218,7 @@ export class UserFollowersService {
   // Get users who follow the most users
   async getMostActiveFollowers(limit = 10): Promise<{ follower_id: string; _count: number }[]> {
     try {
-      const result = await this.prisma.userFollower.groupBy({
+      const result = await this.prisma.userFollowerLink.groupBy({
         by: ['follower_id'],
         _count: {
           follower_id: true,
@@ -241,7 +241,7 @@ export class UserFollowersService {
   }
 
   // Get recent follow relationships (latest follows across all users)
-  async getRecentFollows(limit = 20): Promise<UserFollower[]> {
+  async getRecentFollows(limit = 20): Promise<UserFollowerLink[]> {
     try {
       return await this.findAll({
         take: limit,
@@ -253,7 +253,7 @@ export class UserFollowersService {
   }
 
   // Get follow relationships for multiple users
-  async getFollowsForUsers(userIds: string[]): Promise<UserFollower[]> {
+  async getFollowsForUsers(userIds: string[]): Promise<UserFollowerLink[]> {
     try {
       return await this.findAll({
         where: {
@@ -269,7 +269,7 @@ export class UserFollowersService {
   }
 
   // Get follow relationships by date range
-  async getFollowsByDateRange(startDate: Date, endDate: Date): Promise<UserFollower[]> {
+  async getFollowsByDateRange(startDate: Date, endDate: Date): Promise<UserFollowerLink[]> {
     try {
       return await this.findAll({
         where: {
@@ -286,7 +286,7 @@ export class UserFollowersService {
   }
 
   // Toggle follow (follow if not following, unfollow if following)
-  async toggleFollow(userId: string, followerId: string): Promise<{ action: 'followed' | 'unfollowed'; follow?: UserFollower }> {
+  async toggleFollow(userId: string, followerId: string): Promise<{ action: 'followed' | 'unfollowed'; follow?: UserFollowerLink }> {
     try {
       if (userId === followerId) {
         throw new Error('Users cannot follow themselves');
@@ -311,8 +311,8 @@ export class UserFollowersService {
     followersCount: number;
     followingCount: number;
     mutualFollowsCount: number;
-    recentFollowers: UserFollower[];
-    recentFollowing: UserFollower[];
+    recentFollowers: UserFollowerLink[];
+    recentFollowing: UserFollowerLink[];
   }> {
     try {
       const [followersCount, followingCount, mutualFollows, recentFollowers, recentFollowing] = await Promise.all([

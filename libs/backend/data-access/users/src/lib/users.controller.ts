@@ -1,5 +1,5 @@
 import * as Prisma from '@db/prisma';
-import { Address, Organization, User, UserWithRelations } from '@db/prisma';
+import { Address, Organization, User, UserWithBasicRelations, UserWithRelations } from '@db/prisma';
 import {
   Body,
   Controller,
@@ -35,7 +35,7 @@ export class UsersController {
     @Query('search') search?: string,
     @Query('orderBy') orderBy?: string,
     @Query('sortOrder') sortOrder?: 'asc' | 'desc'
-  ): Promise<UserWithRelations[]> {
+  ): Promise<UserWithBasicRelations[]> {
     try {
       const options: {
         skip?: number;
@@ -157,7 +157,7 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
   return this.usersService.getUserAddresses(id);
 }
 
-     /**
+    /**
    * Récupère les organisations liées à un utilisateur par id ou email
    */
   @Get(':id/organizations')
