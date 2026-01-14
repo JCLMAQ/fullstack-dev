@@ -13,12 +13,35 @@
         <lib-validation-errors [fieldState]="form().street()" />
       </mat-error>
     </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'address.buildingNum' | translate }}</mat-label>
+      <input
+        matInput
+        [field]="form().buildingNum"
+        placeholder="{{ 'address.buildingNumPlaceholder' | translate }}"
+      />
+      <mat-error>
+        <lib-validation-errors [fieldState]="form().buildingNum()" />
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'address.aptNum' | translate }}</mat-label>
+      <input
+        matInput
+        [field]="form().aptNum"
+        placeholder="{{ 'address.aptNumPlaceholder' | translate }}"
+      />
+      <mat-error>
+        <lib-validation-errors [fieldState]="form().aptNum()" />
+      </mat-error>
+    </mat-form-field>
   </div>
 
   <div class="fields-row">
     <mat-form-field appearance="outline">
       <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
-      <input matInput
+      <input
+        matInput
         [field]="form().zipCode"
         placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
       <mat-error>
@@ -28,7 +51,10 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'address.city' | translate }}</mat-label>
-      <input matInput [field]="form().city" placeholder="{{ 'address.cityPlaceholder' | translate }}" />
+      <input
+        matInput
+        [field]="form().city"
+        placeholder="{{ 'address.cityPlaceholder' | translate }}" />
       <mat-error>
         <lib-validation-errors [fieldState]="form().city()" />
       </mat-error>
@@ -36,7 +62,8 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'address.state' | translate }}</mat-label>
-      <input matInput
+      <input
+        matInput
         [field]="form().state"
         placeholder="{{ 'address.statePlaceholder' | translate }}" />
       <mat-error>

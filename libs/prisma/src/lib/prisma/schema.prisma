@@ -237,7 +237,7 @@ model Address {
   userId      String
   street      String
   buildingNum      String
-  aptNum      String?
+  aptNum      String
   city        String
   state       String
   zipCode     String

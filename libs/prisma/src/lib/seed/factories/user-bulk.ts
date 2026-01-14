@@ -61,7 +61,8 @@ export const createBulkUsers = async (
         Address: {
           create: Array.from({ length: addressPerUser }).map(() => ({
             street: faker.location.street(),
-            number: faker.location.buildingNumber(),
+            buildingNum: faker.location.buildingNumber(),
+            aptNum: faker.number.int({ min: 1, max: 999 }).toString(),
             city: faker.location.city(),
             state: faker.location.state(),
             zipCode: faker.location.zipCode(),
