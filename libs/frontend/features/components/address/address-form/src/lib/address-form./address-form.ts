@@ -20,5 +20,5 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './address-form.scss',
 })
 export class AddressForm {
-readonly form = input.required<FieldTree<Address>>();
+  readonly form = input.required<FieldTree<Address>>();
 }

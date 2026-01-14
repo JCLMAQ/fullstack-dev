@@ -1,4 +1,4 @@
-import { pattern, required, SchemaPathTree } from '@angular/forms/signals';
+import { pattern, required, schema, SchemaPathTree } from '@angular/forms/signals';
 import { Address } from '@db/prisma';
 
 // Model factory for address form
@@ -18,7 +18,16 @@ export function createAddressModel(): Address {
   };
 }
 
-// Form builder for address fields
+// Schema for address validation
+export const addressSchema = schema<Address>((a) => [
+  required(a.street, { message: 'Street is required' }),
+  required(a.city, { message: 'City is required' }),
+  required(a.state, { message: 'State is required' }),
+  required(a.zipCode, { message: 'ZIP code is required' }),
+  pattern(a.zipCode, /^\d{5}$/, { message: 'ZIP code must be 5 digits' }),
+]);
+
+// Form builder for address fields (legacy - use addressSchema instead)
 export function buildAddressSection(a: SchemaPathTree<Address>) {
   required(a.street, { message: 'Street is required' });
   required(a.city, { message: 'City is required' });

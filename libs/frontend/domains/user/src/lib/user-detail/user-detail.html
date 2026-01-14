@@ -23,7 +23,7 @@
       <mat-card class="form-card">
         <mat-card-content>
           <form class="form-container">
-            <mat-tab-group>
+            <mat-tab-group [preserveContent]="true">
               <!-- Onglet Informations de base -->
               <mat-tab label="{{ 'userProfile.basicInfoSection' | translate }}">
                 <section class="form-section">
