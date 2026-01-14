@@ -209,6 +209,7 @@ export const AddressScalarFieldEnum = {
   updatedAt: 'updatedAt',
   userId: 'userId',
   street: 'street',
+  number: 'number',
   city: 'city',
   state: 'state',
   zipCode: 'zipCode',
