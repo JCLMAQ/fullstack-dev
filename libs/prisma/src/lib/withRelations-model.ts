@@ -1,50 +1,56 @@
 import {
-  Address,
-  ChangesTracking,
-  Comment,
-  File,
-  Group,
-  Image,
-  Organization,
-  PermissionClaim,
-  Phone,
-  Post,
-  PostLike,
-  Profile,
-  Role,
-  Story,
-  Task,
-  Todo,
-  User,
-  UserTaskLink,
-  UserTodoLink
+    Prisma
 } from './generated/prisma/client';
 
-export type UserWithRelations = User & {
-  Address: Address[];
-  Phones: Phone[];
-  Orgs: Organization[];
-  manager: User | null;
-  Team: User[];
-  Profiles: Profile[];
-  Groups: Group[];
-  Posts: Post[];
-  Comments: Comment[];
-  Stories: Story[];
-  Todo: UserTodoLink[];
-  TodosAuthor: Todo[];
-  Tasks: UserTaskLink[];
-  TasksAuthor: Task[];
-  ownedFiles: File[];
-  uploadedFiles: File[];
-  profileFiles: File[];
-  ChangesLogs: ChangesTracking[];
-  Roles: Role[];
-  Permissions: PermissionClaim[];
-  Followers: Array<{ user: User }>;
-  Followings: Array<{ follower: User }>;
-  posts_liked: PostLike[];
-  uploadedImages: Image[];
-  profileImages: Image[];
-};
+export type UserWithRelations = Prisma.UserGetPayload<{
+  include: {
+    manager: true;
+    Team: true;
+    Profiles: true;
+    Groups: true;
+    Posts: true;
+    Comments: true;
+    Stories: true;
+    Tasks: true;
+    Todo: true;
+    TodosAuthor: true;
+    TasksAuthor: true;
+    Address: true;
+    Phones: true;
+    Orgs: true;
+    Followers: {
+      include: {
+        user: true;
+      };
+    };
+    Followings: {
+      include: {
+        follower: true;
+      };
+    };
+    ownedFiles: true;
+    uploadedFiles: true;
+    profileFiles: true;
+    uploadedImages: true;
+    profileImages: true;
+    ChangesLogs: true;
+    posts_liked: true;
+  };
+}>;
 
+export type UserWithBasicRelations = Prisma.UserGetPayload<{
+  include: {
+    Address: true;
+    Orgs: true;
+    Followers: {
+      include: {
+        user: true;
+      };
+    };
+    Followings: {
+      include: {
+        follower: true;
+      };
+    };
+  };
+}>;
