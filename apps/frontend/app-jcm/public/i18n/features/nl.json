@@ -277,5 +277,29 @@
   "CANCEL": "Annuleren",
   "SAVE": "Opslaan",
   "SAVING": "Bezig met opslaan..."
+},
+"addresses": {
+  "noAddresses": "Pas d'adresses disponibles.",
+  "addAddress": "Ajouter une Adresse",
+  "editAddress": "Modifier l'Adresse",
+  "deleteAddress": "Supprimer l'Adresse",
+  "address": "Adresse",
+  "country": "Pays",
+  "city": "Ville",
+  "state": "État/Région",
+  "zipCode": "Code Postal",
+  "street": "Rue",
+  "number": "Numéro",
+  "apartment": "Appartement/Suite",
+  "default": "Par Défaut",
+  "setAsDefault": "Définir comme Adresse par Défaut",
+  "addressMain": "Adresse Principale",
+  "streetPlaceholder": "Introduire votre rue ici...",
+  "zipCodePlaceholder": "Introduire votre code postal ici...",
+  "cityPlaceholder": "Introduire votre ville ici...",
+  "statePlaceholder": "Introduire votre état/région ici...",
+  "countryPlaceholder": "Sélectionner votre pays...",
+  "apartmentPlaceholder": "Introduire votre numéro d'appartement ici...",
+  "numberPlaceholder": "Introduire votre numéro de maison ici..."
 }
 }

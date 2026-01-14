@@ -80,6 +80,10 @@
       "notValidatedLabel": "Non Validé",
       "isSuspendedLabel": "Suspendu",
       "notSuspendedLabel": "Non Suspendu",
-      "email": "Email"
+      "email": "Email",
+      "noAddresses ": "Pas d'adresses disponibles.",
+      "addAddress": "Ajouter une Adresse",
+      "editAddress": "Modifier l'Adresse",
+      "deleteAddress": "Supprimer l'Adresse"
     }
   }

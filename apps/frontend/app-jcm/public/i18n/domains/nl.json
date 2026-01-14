@@ -80,6 +80,10 @@
   "notValidatedLabel": "Niet Gevalideerd",
   "isSuspendedLabel": "Geschorst",
   "notSuspendedLabel": "Niet Geschorst",
-  "email": "E-mail"
+  "email": "E-mail",
+  "noAddresses ": "Geen adressen beschikbaar.",
+  "addAddress": "Adres toevoegen",
+  "editAddress": "Adres bewerken",
+  "deleteAddress": "Adres verwijderen"
 }
 }

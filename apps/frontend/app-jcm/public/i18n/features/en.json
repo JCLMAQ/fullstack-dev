@@ -277,5 +277,29 @@
       "CANCEL": "Cancel",
       "SAVE": "Save",
       "SAVING": "Saving..."
+    },
+    "addresses": {
+      "noAddresses": "No addresses available.",
+      "addAddress": "Add Address",
+      "editAddress": "Edit Address",
+      "deleteAddress": "Delete Address",
+      "address": "Address",
+      "country": "Country",
+      "city": "City",
+      "state": "State/Region",
+      "zipCode": "Zip Code",
+      "street": "Street",
+      "number": "Number",
+      "apartment": "Apartment/Suite",
+      "default": "Default",
+      "setAsDefault": "Set as Default Address",
+      "addressMain": "Main Address",
+      "streetPlaceholder": "Enter your street here...",
+      "zipCodePlaceholder": "Enter your zip code here...",
+      "cityPlaceholder": "Enter your city here...",
+      "statePlaceholder": "Enter your state/region here...",
+      "countryPlaceholder": "Select your country...",
+      "apartmentPlaceholder": "Enter your apartment number here...",
+      "numberPlaceholder": "Enter your house number here..."
     }
 }

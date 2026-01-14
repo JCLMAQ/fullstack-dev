@@ -277,5 +277,29 @@
       "CANCEL": "Abbrechen",
       "SAVE": "Speichern",
       "SAVING": "Wird gespeichert..."
+    },
+    "addresses": {
+      "noAddresses": "Keine Adressen verfügbar.",
+      "addAddress": "Adresse hinzufügen",
+      "editAddress": "Adresse bearbeiten",
+      "deleteAddress": "Adresse löschen",
+      "address": "Adresse",
+      "country": "Land",
+      "city": "Stadt",
+      "state": "Bundesland/Region",
+      "zipCode": "Postleitzahl",
+      "street": "Straße",
+      "number": "Nummer",
+      "apartment": "Appartement/Suite",
+      "default": "Par Défaut",
+      "setAsDefault": "Définir comme Adresse par Défaut",
+      "addressMain": "Adresse Principale",
+      "streetPlaceholder": "Introduire votre rue ici...",
+      "zipCodePlaceholder": "Introduire votre code postal ici...",
+      "cityPlaceholder": "Introduire votre ville ici...",
+      "statePlaceholder": "Introduire votre état/région ici...",
+      "countryPlaceholder": "Sélectionner votre pays...",
+      "apartmentPlaceholder": "Introduire votre numéro d'appartement ici...",
+      "numberPlaceholder": "Introduire votre numéro de maison ici..."
     }
 }
