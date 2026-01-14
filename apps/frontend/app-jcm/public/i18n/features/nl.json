@@ -301,13 +301,13 @@
   "buildingNumberPlaceholder": "Voer hier uw huisnummer in...",
   "buildingNumber": "Nummer",
   "aptNumber": "Appartement",
-  "streetRequired": "La rue est obligatoire.",
+  "streetRequired": "Straat is verplicht.",
   "buildingNumberRequired": "Huisnummer is verplicht.",
-  "cityRequired": "La ville est obligatoire.",
-  "stateRequired": "L'état/région est obligatoire.",
-  "countryRequired": "Le pays est obligatoire.",
-  "zipCodeRequired": "Le code postal est obligatoire.",
-  "zipMinLength": "Le code postal doit comporter au moins 4 caractères.",
-  "zipMaxLength": "Le code postal ne doit pas dépasser 10 caractères."
+  "cityRequired": "Stad is verplicht.",
+  "stateRequired": "Staat/Regio is verplicht.",
+  "countryRequired": "Land is verplicht.",
+  "zipCodeRequired": "Postcode is verplicht.",
+  "zipMinLength": "De postcode moet minimaal 4 tekens bevatten.",
+  "zipMaxLength": "De postcode mag niet meer dan 10 tekens bevatten."
   }
 }

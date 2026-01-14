@@ -22,22 +22,22 @@ export function createAddressModel(): Address {
 
 // Schema for address validation
 export const addressSchema = schema<Address>((a) => [
-  required(a.street, { message: 'Street is required' }),
-  required(a.buildingNum, { message: 'Building number is required' }),
-  required(a.city, { message: 'City is required' }),
-  required(a.country, { message: 'Country is required' }),
-  required(a.zipCode, { message: 'ZIP code is required' }),
-  pattern(a.zipCode, /^\d{5}$/, { message: 'ZIP code must be 5 digits' }),
+  required(a.street, { message: 'address.streetRequired' }),
+  required(a.buildingNum, { message: 'address.buildingNumberRequired' }),
+  required(a.city, { message: 'address.cityRequired' }),
+  required(a.country, { message: 'address.countryRequired' }),
+  required(a.zipCode, { message: 'address.zipCodeRequired' }),
+  pattern(a.zipCode, /^\d{5}$/, { message: 'address.zipCodeMustBe5Digits' }),
 ]);
 
 // Form builder for address fields (legacy - use addressSchema instead)
 export function buildAddressSection(a: SchemaPathTree<Address>) {
-  required(a.street, { message: 'Street is required' });
-  required(a.buildingNum, { message: 'Building number is required' });
-  required(a.city, { message: 'City is required' });
-  required(a.country, { message: 'Country is required' });
-  required(a.zipCode, { message: 'ZIP code is required' });
-  pattern(a.zipCode, /^\d{5}$/, { message: 'ZIP code must be 5 digits' });
+  required(a.street, { message: 'address.streetRequired' });
+  required(a.buildingNum, { message: 'address.buildingNumberRequired' });
+  required(a.city, { message: 'address.cityRequired' });
+  required(a.country, { message: 'address.countryRequired' });
+  required(a.zipCode, { message: 'address.zipCodeRequired' });
+  pattern(a.zipCode, /^\d{5}$/, { message: 'address.zipCodeMustBe5Digits' });
 }
 
 

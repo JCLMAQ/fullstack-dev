@@ -308,6 +308,7 @@
       "countryRequired": "Le pays est obligatoire.",
       "zipCodeRequired": "Le code postal est obligatoire.",
       "zipMinLength": "Le code postal doit comporter au moins 4 caractères.",
-      "zipMaxLength": "Le code postal ne doit pas dépasser 10 caractères."
+      "zipMaxLength": "Le code postal ne doit pas dépasser 10 caractères.",
+      "zipCodeMustBe5Digits": "Le code postal doit comporter 5 chiffres."
     }
   }
