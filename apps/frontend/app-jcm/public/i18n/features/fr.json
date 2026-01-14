@@ -278,7 +278,7 @@
       "SAVE": "Enregistrer",
       "SAVING": "Enregistrement..."
     },
-    "addresses": {
+    "address": {
       "noAddresses": "Pas d'adresses disponibles.",
       "addAddress": "Ajouter une Adresse",
       "editAddress": "Modifier l'Adresse",

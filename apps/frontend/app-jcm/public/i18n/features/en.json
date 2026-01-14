@@ -278,7 +278,7 @@
       "SAVE": "Save",
       "SAVING": "Saving..."
     },
-    "addresses": {
+    "address": {
       "noAddresses": "No addresses available.",
       "addAddress": "Add Address",
       "editAddress": "Edit Address",

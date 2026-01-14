@@ -84,6 +84,7 @@
   "noAddresses ": "Geen adressen beschikbaar.",
   "addAddress": "Adres toevoegen",
   "editAddress": "Adres bewerken",
-  "deleteAddress": "Adres verwijderen"
+  "deleteAddress": "Adres verwijderen",
+  "addressSection": "Adressen"
 }
 }

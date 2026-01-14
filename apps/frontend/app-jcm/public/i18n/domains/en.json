@@ -84,6 +84,7 @@
     "noAddresses ": "No addresses available.",
     "addAddress": "Add Address",
     "editAddress": "Edit Address",
-    "deleteAddress": "Delete Address"
+    "deleteAddress": "Delete Address",
+    "addressSection": "Addresses"
   }
 }

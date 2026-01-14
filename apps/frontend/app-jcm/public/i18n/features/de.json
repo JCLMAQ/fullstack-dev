@@ -278,7 +278,7 @@
       "SAVE": "Speichern",
       "SAVING": "Wird gespeichert..."
     },
-    "addresses": {
+    "address": {
       "noAddresses": "Keine Adressen verfügbar.",
       "addAddress": "Adresse hinzufügen",
       "editAddress": "Adresse bearbeiten",

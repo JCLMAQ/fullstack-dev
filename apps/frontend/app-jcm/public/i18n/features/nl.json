@@ -278,7 +278,7 @@
   "SAVE": "Opslaan",
   "SAVING": "Bezig met opslaan..."
 },
-"addresses": {
+"address": {
   "noAddresses": "Pas d'adresses disponibles.",
   "addAddress": "Ajouter une Adresse",
   "editAddress": "Modifier l'Adresse",
