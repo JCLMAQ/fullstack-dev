@@ -40,6 +40,7 @@ export type PhoneMinAggregateOutputType = {
   updatedAt: Date | null
   userId: string | null
   countryCode: string | null
+  countryIso: string | null
   number: string | null
   extension: string | null
   phoneType: $Enums.PhoneType | null
@@ -52,6 +53,7 @@ export type PhoneMaxAggregateOutputType = {
   updatedAt: Date | null
   userId: string | null
   countryCode: string | null
+  countryIso: string | null
   number: string | null
   extension: string | null
   phoneType: $Enums.PhoneType | null
@@ -64,6 +66,7 @@ export type PhoneCountAggregateOutputType = {
   updatedAt: number
   userId: number
   countryCode: number
+  countryIso: number
   number: number
   extension: number
   phoneType: number
@@ -86,6 +89,7 @@ export type PhoneMinAggregateInputType = {
   updatedAt?: true
   userId?: true
   countryCode?: true
+  countryIso?: true
   number?: true
   extension?: true
   phoneType?: true
@@ -98,6 +102,7 @@ export type PhoneMaxAggregateInputType = {
   updatedAt?: true
   userId?: true
   countryCode?: true
+  countryIso?: true
   number?: true
   extension?: true
   phoneType?: true
@@ -110,6 +115,7 @@ export type PhoneCountAggregateInputType = {
   updatedAt?: true
   userId?: true
   countryCode?: true
+  countryIso?: true
   number?: true
   extension?: true
   phoneType?: true
@@ -209,6 +215,7 @@ export type PhoneGroupByOutputType = {
   updatedAt: Date
   userId: string
   countryCode: string
+  countryIso: string
   number: string
   extension: string | null
   phoneType: $Enums.PhoneType | null
@@ -244,6 +251,7 @@ export type PhoneWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Phone"> | Date | string
   userId?: Prisma.StringFilter<"Phone"> | string
   countryCode?: Prisma.StringFilter<"Phone"> | string
+  countryIso?: Prisma.StringFilter<"Phone"> | string
   number?: Prisma.StringFilter<"Phone"> | string
   extension?: Prisma.StringNullableFilter<"Phone"> | string | null
   phoneType?: Prisma.EnumPhoneTypeNullableFilter<"Phone"> | $Enums.PhoneType | null
@@ -257,6 +265,7 @@ export type PhoneOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   countryCode?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   number?: Prisma.SortOrder
   extension?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,6 +282,7 @@ export type PhoneWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Phone"> | Date | string
   userId?: Prisma.StringFilter<"Phone"> | string
   countryCode?: Prisma.StringFilter<"Phone"> | string
+  countryIso?: Prisma.StringFilter<"Phone"> | string
   number?: Prisma.StringFilter<"Phone"> | string
   extension?: Prisma.StringNullableFilter<"Phone"> | string | null
   phoneType?: Prisma.EnumPhoneTypeNullableFilter<"Phone"> | $Enums.PhoneType | null
@@ -286,6 +296,7 @@ export type PhoneOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   countryCode?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   number?: Prisma.SortOrder
   extension?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -306,6 +317,7 @@ export type PhoneScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Phone"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Phone"> | string
   countryCode?: Prisma.StringWithAggregatesFilter<"Phone"> | string
+  countryIso?: Prisma.StringWithAggregatesFilter<"Phone"> | string
   number?: Prisma.StringWithAggregatesFilter<"Phone"> | string
   extension?: Prisma.StringNullableWithAggregatesFilter<"Phone"> | string | null
   phoneType?: Prisma.EnumPhoneTypeNullableWithAggregatesFilter<"Phone"> | $Enums.PhoneType | null
@@ -316,6 +328,7 @@ export type PhoneCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -329,6 +342,7 @@ export type PhoneUncheckedCreateInput = {
   updatedAt?: Date | string
   userId: string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -339,6 +353,7 @@ export type PhoneUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -352,6 +367,7 @@ export type PhoneUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -364,6 +380,7 @@ export type PhoneCreateManyInput = {
   updatedAt?: Date | string
   userId: string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -374,6 +391,7 @@ export type PhoneUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -386,6 +404,7 @@ export type PhoneUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -408,6 +427,7 @@ export type PhoneCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   countryCode?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   number?: Prisma.SortOrder
   extension?: Prisma.SortOrder
   phoneType?: Prisma.SortOrder
@@ -424,6 +444,7 @@ export type PhoneMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   countryCode?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   number?: Prisma.SortOrder
   extension?: Prisma.SortOrder
   phoneType?: Prisma.SortOrder
@@ -436,6 +457,7 @@ export type PhoneMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   countryCode?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   number?: Prisma.SortOrder
   extension?: Prisma.SortOrder
   phoneType?: Prisma.SortOrder
@@ -496,6 +518,7 @@ export type PhoneCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -507,6 +530,7 @@ export type PhoneUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -548,6 +572,7 @@ export type PhoneScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Phone"> | Date | string
   userId?: Prisma.StringFilter<"Phone"> | string
   countryCode?: Prisma.StringFilter<"Phone"> | string
+  countryIso?: Prisma.StringFilter<"Phone"> | string
   number?: Prisma.StringFilter<"Phone"> | string
   extension?: Prisma.StringNullableFilter<"Phone"> | string | null
   phoneType?: Prisma.EnumPhoneTypeNullableFilter<"Phone"> | $Enums.PhoneType | null
@@ -559,6 +584,7 @@ export type PhoneCreateManyUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   countryCode: string
+  countryIso: string
   number: string
   extension?: string | null
   phoneType?: $Enums.PhoneType | null
@@ -569,6 +595,7 @@ export type PhoneUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -580,6 +607,7 @@ export type PhoneUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -591,6 +619,7 @@ export type PhoneUncheckedUpdateManyWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   number?: Prisma.StringFieldUpdateOperationsInput | string
   extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneType?: Prisma.NullableEnumPhoneTypeFieldUpdateOperationsInput | $Enums.PhoneType | null
@@ -605,6 +634,7 @@ export type PhoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   userId?: boolean
   countryCode?: boolean
+  countryIso?: boolean
   number?: boolean
   extension?: boolean
   phoneType?: boolean
@@ -618,6 +648,7 @@ export type PhoneSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   userId?: boolean
   countryCode?: boolean
+  countryIso?: boolean
   number?: boolean
   extension?: boolean
   phoneType?: boolean
@@ -631,6 +662,7 @@ export type PhoneSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   userId?: boolean
   countryCode?: boolean
+  countryIso?: boolean
   number?: boolean
   extension?: boolean
   phoneType?: boolean
@@ -644,13 +676,14 @@ export type PhoneSelectScalar = {
   updatedAt?: boolean
   userId?: boolean
   countryCode?: boolean
+  countryIso?: boolean
   number?: boolean
   extension?: boolean
   phoneType?: boolean
   isPrimary?: boolean
 }
 
-export type PhoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "countryCode" | "number" | "extension" | "phoneType" | "isPrimary", ExtArgs["result"]["phone"]>
+export type PhoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "countryCode" | "countryIso" | "number" | "extension" | "phoneType" | "isPrimary", ExtArgs["result"]["phone"]>
 export type PhoneInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -672,6 +705,7 @@ export type $PhonePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     updatedAt: Date
     userId: string
     countryCode: string
+    countryIso: string
     number: string
     extension: string | null
     phoneType: $Enums.PhoneType | null
@@ -1105,6 +1139,7 @@ export interface PhoneFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"Phone", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Phone", 'String'>
   readonly countryCode: Prisma.FieldRef<"Phone", 'String'>
+  readonly countryIso: Prisma.FieldRef<"Phone", 'String'>
   readonly number: Prisma.FieldRef<"Phone", 'String'>
   readonly extension: Prisma.FieldRef<"Phone", 'String'>
   readonly phoneType: Prisma.FieldRef<"Phone", 'PhoneType'>

@@ -222,6 +222,7 @@ model Phone {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   countryCode String
+  countryIso  String
   number      String
   extension   String?
   phoneType   PhoneType? @default(Mobile)
@@ -242,6 +243,7 @@ model Address {
   state       String
   zipCode     String
   country     String
+  countryIso  String
   addressType AddressType? @default(Home)
   isPrimary   Boolean      @default(false)
 }

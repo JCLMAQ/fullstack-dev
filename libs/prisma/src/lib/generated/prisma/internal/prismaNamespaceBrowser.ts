@@ -194,6 +194,7 @@ export const PhoneScalarFieldEnum = {
   updatedAt: 'updatedAt',
   userId: 'userId',
   countryCode: 'countryCode',
+  countryIso: 'countryIso',
   number: 'number',
   extension: 'extension',
   phoneType: 'phoneType',
@@ -215,6 +216,7 @@ export const AddressScalarFieldEnum = {
   state: 'state',
   zipCode: 'zipCode',
   country: 'country',
+  countryIso: 'countryIso',
   addressType: 'addressType',
   isPrimary: 'isPrimary'
 } as const

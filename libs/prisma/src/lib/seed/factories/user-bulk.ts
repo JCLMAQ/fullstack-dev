@@ -67,6 +67,7 @@ export const createBulkUsers = async (
             state: faker.location.state(),
             zipCode: faker.location.zipCode(),
             country: faker.location.country(),
+            countryIso: faker.location.countryCode('alpha-2'),
             addressType: faker.helpers.arrayElement(['Home', 'Work', 'Organisation', 'Other']),
             isPrimary: Math.random() < 0.3,
           })),
@@ -74,6 +75,7 @@ export const createBulkUsers = async (
         Phones: {
           create: Array.from({ length: phonesPerUser }).map(() => ({
             countryCode: faker.location.countryCode(),
+            countryIso: faker.location.countryCode('alpha-2'),
             number: faker.phone.number(),
             phoneType: faker.helpers.arrayElement(['Mobile', 'Home', 'Work', 'Organisation', 'Other']),
             isPrimary: Math.random() < 0.3,

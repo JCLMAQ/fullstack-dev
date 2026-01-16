@@ -46,6 +46,7 @@ export type AddressMinAggregateOutputType = {
   state: string | null
   zipCode: string | null
   country: string | null
+  countryIso: string | null
   addressType: $Enums.AddressType | null
   isPrimary: boolean | null
 }
@@ -62,6 +63,7 @@ export type AddressMaxAggregateOutputType = {
   state: string | null
   zipCode: string | null
   country: string | null
+  countryIso: string | null
   addressType: $Enums.AddressType | null
   isPrimary: boolean | null
 }
@@ -78,6 +80,7 @@ export type AddressCountAggregateOutputType = {
   state: number
   zipCode: number
   country: number
+  countryIso: number
   addressType: number
   isPrimary: number
   _all: number
@@ -104,6 +107,7 @@ export type AddressMinAggregateInputType = {
   state?: true
   zipCode?: true
   country?: true
+  countryIso?: true
   addressType?: true
   isPrimary?: true
 }
@@ -120,6 +124,7 @@ export type AddressMaxAggregateInputType = {
   state?: true
   zipCode?: true
   country?: true
+  countryIso?: true
   addressType?: true
   isPrimary?: true
 }
@@ -136,6 +141,7 @@ export type AddressCountAggregateInputType = {
   state?: true
   zipCode?: true
   country?: true
+  countryIso?: true
   addressType?: true
   isPrimary?: true
   _all?: true
@@ -239,6 +245,7 @@ export type AddressGroupByOutputType = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType: $Enums.AddressType | null
   isPrimary: boolean
   _count: AddressCountAggregateOutputType | null
@@ -278,6 +285,7 @@ export type AddressWhereInput = {
   state?: Prisma.StringFilter<"Address"> | string
   zipCode?: Prisma.StringFilter<"Address"> | string
   country?: Prisma.StringFilter<"Address"> | string
+  countryIso?: Prisma.StringFilter<"Address"> | string
   addressType?: Prisma.EnumAddressTypeNullableFilter<"Address"> | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFilter<"Address"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -295,6 +303,7 @@ export type AddressOrderByWithRelationInput = {
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   addressType?: Prisma.SortOrderInput | Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -315,6 +324,7 @@ export type AddressWhereUniqueInput = Prisma.AtLeast<{
   state?: Prisma.StringFilter<"Address"> | string
   zipCode?: Prisma.StringFilter<"Address"> | string
   country?: Prisma.StringFilter<"Address"> | string
+  countryIso?: Prisma.StringFilter<"Address"> | string
   addressType?: Prisma.EnumAddressTypeNullableFilter<"Address"> | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFilter<"Address"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -332,6 +342,7 @@ export type AddressOrderByWithAggregationInput = {
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   addressType?: Prisma.SortOrderInput | Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
   _count?: Prisma.AddressCountOrderByAggregateInput
@@ -356,6 +367,7 @@ export type AddressScalarWhereWithAggregatesInput = {
   state?: Prisma.StringWithAggregatesFilter<"Address"> | string
   zipCode?: Prisma.StringWithAggregatesFilter<"Address"> | string
   country?: Prisma.StringWithAggregatesFilter<"Address"> | string
+  countryIso?: Prisma.StringWithAggregatesFilter<"Address"> | string
   addressType?: Prisma.EnumAddressTypeNullableWithAggregatesFilter<"Address"> | $Enums.AddressType | null
   isPrimary?: Prisma.BoolWithAggregatesFilter<"Address"> | boolean
 }
@@ -370,6 +382,7 @@ export type AddressCreateInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
   user: Prisma.UserCreateNestedOneWithoutAddressInput
@@ -387,6 +400,7 @@ export type AddressUncheckedCreateInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
 }
@@ -401,6 +415,7 @@ export type AddressUpdateInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutAddressNestedInput
@@ -418,6 +433,7 @@ export type AddressUncheckedUpdateInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -434,6 +450,7 @@ export type AddressCreateManyInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
 }
@@ -448,6 +465,7 @@ export type AddressUpdateManyMutationInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -464,6 +482,7 @@ export type AddressUncheckedUpdateManyInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -490,6 +509,7 @@ export type AddressCountOrderByAggregateInput = {
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   addressType?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
 }
@@ -510,6 +530,7 @@ export type AddressMaxOrderByAggregateInput = {
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   addressType?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
 }
@@ -526,6 +547,7 @@ export type AddressMinOrderByAggregateInput = {
   state?: Prisma.SortOrder
   zipCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  countryIso?: Prisma.SortOrder
   addressType?: Prisma.SortOrder
   isPrimary?: Prisma.SortOrder
 }
@@ -590,6 +612,7 @@ export type AddressCreateWithoutUserInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
 }
@@ -605,6 +628,7 @@ export type AddressUncheckedCreateWithoutUserInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
 }
@@ -650,6 +674,7 @@ export type AddressScalarWhereInput = {
   state?: Prisma.StringFilter<"Address"> | string
   zipCode?: Prisma.StringFilter<"Address"> | string
   country?: Prisma.StringFilter<"Address"> | string
+  countryIso?: Prisma.StringFilter<"Address"> | string
   addressType?: Prisma.EnumAddressTypeNullableFilter<"Address"> | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFilter<"Address"> | boolean
 }
@@ -665,6 +690,7 @@ export type AddressCreateManyUserInput = {
   state: string
   zipCode: string
   country: string
+  countryIso: string
   addressType?: $Enums.AddressType | null
   isPrimary?: boolean
 }
@@ -679,6 +705,7 @@ export type AddressUpdateWithoutUserInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -694,6 +721,7 @@ export type AddressUncheckedUpdateWithoutUserInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -709,6 +737,7 @@ export type AddressUncheckedUpdateManyWithoutUserInput = {
   state?: Prisma.StringFieldUpdateOperationsInput | string
   zipCode?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  countryIso?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.NullableEnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType | null
   isPrimary?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
@@ -727,6 +756,7 @@ export type AddressSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   state?: boolean
   zipCode?: boolean
   country?: boolean
+  countryIso?: boolean
   addressType?: boolean
   isPrimary?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -744,6 +774,7 @@ export type AddressSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   state?: boolean
   zipCode?: boolean
   country?: boolean
+  countryIso?: boolean
   addressType?: boolean
   isPrimary?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -761,6 +792,7 @@ export type AddressSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   state?: boolean
   zipCode?: boolean
   country?: boolean
+  countryIso?: boolean
   addressType?: boolean
   isPrimary?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -778,11 +810,12 @@ export type AddressSelectScalar = {
   state?: boolean
   zipCode?: boolean
   country?: boolean
+  countryIso?: boolean
   addressType?: boolean
   isPrimary?: boolean
 }
 
-export type AddressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "street" | "buildingNum" | "aptNum" | "city" | "state" | "zipCode" | "country" | "addressType" | "isPrimary", ExtArgs["result"]["address"]>
+export type AddressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "userId" | "street" | "buildingNum" | "aptNum" | "city" | "state" | "zipCode" | "country" | "countryIso" | "addressType" | "isPrimary", ExtArgs["result"]["address"]>
 export type AddressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -810,6 +843,7 @@ export type $AddressPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     state: string
     zipCode: string
     country: string
+    countryIso: string
     addressType: $Enums.AddressType | null
     isPrimary: boolean
   }, ExtArgs["result"]["address"]>
@@ -1247,6 +1281,7 @@ export interface AddressFieldRefs {
   readonly state: Prisma.FieldRef<"Address", 'String'>
   readonly zipCode: Prisma.FieldRef<"Address", 'String'>
   readonly country: Prisma.FieldRef<"Address", 'String'>
+  readonly countryIso: Prisma.FieldRef<"Address", 'String'>
   readonly addressType: Prisma.FieldRef<"Address", 'AddressType'>
   readonly isPrimary: Prisma.FieldRef<"Address", 'Boolean'>
 }
