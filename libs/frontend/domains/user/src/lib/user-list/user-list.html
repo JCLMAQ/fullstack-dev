@@ -125,6 +125,8 @@
                 <div class="element-position">
                   <strong>Email:</strong> {{element.email}}<br>
                   <strong>Nom complet:</strong> {{element.firstName}} {{element.lastName}}<br>
+                  <strong>Followers:</strong> {{element.nbrOfFollowers}}<br>
+                  <strong>Following:</strong> {{element.hasFollowing}}<br>
                   @if (element.phone && element.phone.length > 0) {
                     <strong>Phone:</strong>
                     @for (tel of element.phone; track $index) {
@@ -180,14 +182,14 @@
           <h4>
             <mat-icon>person_add</mat-icon>
             Followers
-            @if (this.store.hasFollowers()) {
-              <mat-chip>{{ this.store.followers().length }}</mat-chip>
+            @if (this.store.selectedItem()?.Followers?.length) {
+              <mat-chip>{{ this.store.selectedItem()?.Followers?.length }}</mat-chip>
             }
           </h4>
-          @if (this.store.hasFollowers()) {
+          @if (this.store.selectedItem()?.Followers?.length) {
             <ul>
-              @for (f of this.store.followers(); track f.id) {
-                <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+              @for (f of this.store.selectedItem()?.Followers; track f.follower_id) {
+                <li>{{ f.follower?.firstName }} {{ f.follower?.lastName }} ({{ f.follower?.email }})</li>
               }
             </ul>
           } @else {
@@ -195,24 +197,24 @@
           }
         </div>
 
-        <div class="rel-group">
+        <!-- <div class="rel-group">
           <h4>
             <mat-icon>person</mat-icon>
             Following
-            @if (this.store.hasFollowing()) {
-              <mat-chip>{{ this.store.following().length }}</mat-chip>
+            @if (this.store.selectedItem()?.Following?.length) {
+              <mat-chip>{{ this.store.selectedItem()?.Following?.length }}</mat-chip>
             }
           </h4>
-          @if (this.store.hasFollowing()) {
+          @if (this.store.selectedItem()?.Following?.length) {
             <ul>
-              @for (f of this.store.following(); track f.id) {
-                <li>{{ f.firstName }} {{ f.lastName }} ({{ f.email }})</li>
+              @for (f of this.store.selectedItem()?.Following; track f.following_id) {
+                <li>{{ f.user?.firstName }} {{ f.user?.lastName }} ({{ f.user?.email }})</li>
               }
             </ul>
           } @else {
             <p class="empty-state">Aucun abonnement</p>
           }
-        </div>
+        </div> -->
       </div>
     </section>
   }

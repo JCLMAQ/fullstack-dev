@@ -1,5 +1,5 @@
 import {
-    Prisma
+  Prisma
 } from './generated/prisma/client';
 
 export type UserWithRelations = Prisma.UserGetPayload<{
@@ -20,12 +20,14 @@ export type UserWithRelations = Prisma.UserGetPayload<{
     Orgs: true;
     Followers: {
       include: {
-        user: true;
+        // user: true;
+        follower: true;
       };
     };
     Followings: {
       include: {
-        follower: true;
+        // follower: true;
+        user: true;
       };
     };
     ownedFiles: true;

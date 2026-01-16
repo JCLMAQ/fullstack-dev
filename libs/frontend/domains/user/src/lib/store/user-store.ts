@@ -38,6 +38,7 @@ export const UserStore = signalStore(
 
       hasAddresses: computed(() => store.addresses().length > 0),
       hasFollowers: computed(() => store.followers().length > 0),
+      nbrOfFollowers: computed(() => store.selectedItem()?.Followers.length),
       hasFollowing: computed(() => store.following().length > 0),
       hasOrganizations: computed(() => store.organizations().length > 0),
 

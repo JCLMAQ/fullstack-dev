@@ -435,6 +435,11 @@
   <h3>Debug Form</h3>
  <lib-debug-panel [form]="userForm()" />
 </div>
+  <section class="relations">
+  <h3>Debug: selectedItemId = {{ this.store.selectedItemId() }}</h3>
+  <h3>Debug: followers = {{ this.store.selectedItem()?.Followers?.length| json }}</h3>
+  <h3>Debug: hasFollowers = {{ this.store.hasFollowers() }}</h3>
+  </section>
   <div>
     <h3>Debug Info</h3>
     <br>
