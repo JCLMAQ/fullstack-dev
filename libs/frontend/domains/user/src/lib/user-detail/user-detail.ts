@@ -4,6 +4,7 @@ import { apply, applyEach, disabled, form, FormField } from '@angular/forms/sign
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChip } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
@@ -81,7 +82,8 @@ type UserFormData = {
     TranslateModule,
     JsonPipe,
     DebugPanel,
-    AddressForm
+    AddressForm,
+    MatChip
 ],
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
