@@ -2,7 +2,7 @@ import { User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { authenticator } from 'otplib';
+import { generateSecret, verify } from 'otplib';
 @Injectable()
 export class OtpAuthenticationService {
   constructor(
@@ -11,20 +11,18 @@ export class OtpAuthenticationService {
   ) {}
 
   async generateSecret(email: string) {
-    const secret = authenticator.generateSecret();
+    const secret = generateSecret();
     const appName = this.configService.getOrThrow('TFA_APP_NAME');
-    const uri = authenticator.keyuri(email, appName, secret);
+    const uri = `otpauth://totp/${encodeURIComponent(appName)}:${encodeURIComponent(email)}?secret=${secret}&issuer=${encodeURIComponent(appName)}`;
     return {
       uri,
       secret,
     };
   }
 
-  verifyCode(code: string, secret: string) {
-    return authenticator.verify({
-      token: code,
-      secret,
-    });
+  async verifyCode(code: string, secret: string) {
+    const result = await verify({ secret, token: code });
+    return result.valid;
   }
 
   async enableTfaForUser(email: string, secret: string) {

@@ -37,12 +37,13 @@ export class UsersService {
         Orgs: true,
         Followers: {
           include: {
-            user: true,
+            follower: true,
           },
         },
         Followings: {
           include: {
-            follower: true,
+            user: true,
+            // follower: true,
           },
         },
       },
@@ -128,11 +129,12 @@ async getAllUsersWithAllLinks(): Promise<UserWithRelations[]> {
         Orgs: true,
         Followers: {
           include: {
-            user: true,
+            follower: true,
           },
         },
         Followings: {
           include: {
+            user: true,
             follower: true,
           },
         },
@@ -156,12 +158,13 @@ async getAllUsersWithBasicLinks(): Promise<UserWithBasicRelations[]> {
         Orgs: true,
         Followers: {
           include: {
-            user: true,
+            follower: true,
           },
         },
         Followings: {
           include: {
             follower: true,
+            user: true,
           },
         },
     },
@@ -191,11 +194,12 @@ async getOneUserByUniqueWithAllLinks(userWhereUniqueInput: Prisma.UserWhereUniqu
         Orgs: true,
         Followers: {
           include: {
-            user: true,
+            follower: true,
           },
         },
         Followings: {
           include: {
+            user: true,
             follower: true,
           },
         },
@@ -219,12 +223,12 @@ async getOneUserByUniqueWithBasicLinks(userWhereUniqueInput: Prisma.UserWhereUni
         Orgs: true,
         Followers: {
           include: {
-            user: true,
+            follower: true,
           },
         },
         Followings: {
           include: {
-            follower: true,
+            user: true,
           },
         },
     },

@@ -46,12 +46,14 @@ export type UserWithBasicRelations = Prisma.UserGetPayload<{
     Orgs: true;
     Followers: {
       include: {
-        user: true;
+        // user: true;
+        follower: true;
       };
     };
     Followings: {
       include: {
-        follower: true;
+      // follower: true;
+        user: true;
       };
     };
   };
