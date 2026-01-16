@@ -11,7 +11,28 @@
   <br>
   <span>Phones - from entities within store</span>
   @for (item of store.phoneEntities() ; track item.id) {
-    <li>{{item.number }} {{ item.id }}</li>
+    <li>
+      <span>{{ item.number }} {{ item.id }}</span>
+      <button mat-icon-button (click)="showDetail(item.id)" aria-label="Voir le détail inline">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="navigateToDetail(item.id)">
+        <mat-icon>open_in_new</mat-icon>
+        Ouvrir
+      </button>
+    </li>
   }  @empty {
     <p>No Phones!</p>
+  }
+
+  @if (store.selectedItem()) {
+    <div class="phone-detail">
+      <h4>Détail du téléphone</h4>
+      <p>Numéro: {{ store.selectedItem()?.number }}</p>
+      <p>ID: {{ store.selectedItem()?.id }}</p>
+      <button mat-stroked-button (click)="closeDetail()">
+        <mat-icon>close</mat-icon>
+        Fermer
+      </button>
+    </div>
   }
