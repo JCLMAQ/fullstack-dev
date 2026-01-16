@@ -11,9 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
-import { Phone, PhoneType } from '@db/prisma/browser';
+import { Phone, PhoneType } from '@db/prisma';
 import { map } from 'rxjs';
-import { PhoneNumber } from '../phone-number/phone-number';
 import { PhoneService } from '../services/phone-service';
 
 interface PhoneFormModel {
@@ -38,6 +37,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
   required(f.number, { message: 'Numéro requis' });
   minLength(f.number, 6, { message: 'Numéro trop court' });
 });
+
 @Component({
   selector: 'lib-phone-detail',
   imports: [
@@ -51,14 +51,12 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    PhoneNumber
   ],
   templateUrl: './phone-detail.html',
   styleUrl: './phone-detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneDetail {
-
   private readonly route = inject(ActivatedRoute);
   private readonly phoneService = inject(PhoneService);
 
