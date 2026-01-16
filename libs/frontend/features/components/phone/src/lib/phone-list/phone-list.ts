@@ -1,5 +1,5 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PhoneStore } from '../store/phone-store';
 
 @Component({
@@ -8,23 +8,14 @@ import { PhoneStore } from '../store/phone-store';
   templateUrl: './phone-list.html',
   styleUrl: './phone-list.scss',
 })
-export class PhoneList {
+export class PhoneList implements OnInit {
 
-  store = inject(PhoneStore);
+  protected readonly store = inject(PhoneStore);
 
-  constructor() {
-    this.store.setOwnerId('019ba824-40b2-71bd-9dff-6f5c382e0fd1');
+  ngOnInit() {
+    console.log('PhoneList ngOnInit - Loading phones...');
+    this.store.loadAllPhones();
+    console.log('Loading state:', this.store.isLoading());
+    console.log('Phone entities:', this.store.phoneEntities());
   }
-
-  // // Correction du nom et liaison avec le store
-  // itemsEntities: Signal<Phone[]> = computed(() => {
-  //   const map = this.store.phoneEntityMap();
-  //   return map && typeof map === 'object' ? Object.values(map) : [];
-  // });
-
-  // // Liaison des signaux de loading/loaded
-  // itemsLoading = this.store.isLoading;
-  // itemsLoaded = computed(() => !this.store.isLoading() && this.itemsEntities().length > 0);
-  // itemsError = this.store.hasError;
-
 }

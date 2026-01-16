@@ -1,9 +1,10 @@
 
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
-import { HttpClient, httpResource } from '@angular/common/http';
-import { inject, Injectable, Signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Phone } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
+import { firstValueFrom } from 'rxjs';
 
 export type MutationSettings<Params, Result> = Omit<
   HttpMutationOptions<Params, Result>,
@@ -24,37 +25,22 @@ export class PhoneService {
 		return `${this.apiPrefix}/phones`;
   }
 
-  getAllPhones() {
-    return httpResource<Phone[]>(() => ({ url: this.baseUrl }));
+  getAllPhones(): Promise<Phone[]> {
+    return firstValueFrom(
+      this.http.get<{ data: Phone[]; total: number }>(this.baseUrl)
+    ).then(response => response.data);
   }
 
-  // Détail d'un téléphone par ID
-  getPhoneById(id: Signal<number>) {
-    return httpResource<Phone>(() =>
-      !id() ? undefined : {
-        url: `${this.baseUrl}/${id()}`,
-      }
-    );
+  getPhoneById(id: string): Promise<Phone> {
+    return firstValueFrom(this.http.get<Phone>(`${this.baseUrl}/${id}`));
   }
 
-  /** Liste des téléphones par userId */
-  getPhonesByUserId(userId: Signal<string>) {
-    return httpResource<Phone[]>(
-      () =>
-        !userId() ? undefined : {
-          url: `${this.baseUrl}/user/${userId()}`,
-        }
-    );
+  getPhonesByUserId(userId: string): Promise<Phone[]> {
+    return firstValueFrom(this.http.get<Phone[]>(`${this.baseUrl}/user/${userId}`));
   }
 
-
-  /** Liste des téléphones par email utilisateur */
-  getPhonesByUserEmail(email: Signal<string>) {
-    return httpResource<Phone[]>(() =>
-      !email() ? undefined : {
-        url: `${this.baseUrl}/user-email/${encodeURIComponent(email())}`,
-      }
-    );
+  getPhonesByUserEmail(email: string): Promise<Phone[]> {
+    return firstValueFrom(this.http.get<Phone[]>(`${this.baseUrl}/user-email/${encodeURIComponent(email)}`));
   }
 
   createSaveMutation(options: Partial<HttpMutationOptions<Phone, Phone>>) {

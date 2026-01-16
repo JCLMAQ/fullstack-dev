@@ -1,10 +1,10 @@
-import { withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
+import { withDevtools, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Phone } from "@db/prisma";
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
-import { addEntity, entityConfig, removeEntity, withEntities } from "@ngrx/signals/entities";
+import { addEntity, entityConfig, removeEntity, setAllEntities, withEntities } from "@ngrx/signals/entities";
 import { PhoneService } from "../services/phone-service";
 import { initialPhoneState } from "./phone-slice";
 
@@ -13,15 +13,9 @@ const phoneConfig = entityConfig({
   collection: 'phone',
   selectId: (phone: Phone) => phone.id,
 });
-/* Examples d'utilisation des ressources dans le store avec withEntityResources et resource:
-withEntityResources(() => ({
-    todos: resource({ loader: () => Promise.resolve([] as Todo[]), defaultValue: [] }),
-    projects: resource({ loader: () => Promise.resolve([] as { id: number; name: string }[]), defaultValue: [] }),
-  })),
-withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] })),
-*/
 
 export const PhoneStore = signalStore (
+  { providedIn: 'root' },
   withState(initialPhoneState),
   withEntities(phoneConfig),
   withSelectionMethods<Phone>({ collection: 'phone' }),
@@ -35,11 +29,29 @@ export const PhoneStore = signalStore (
     ownerIdOrDefault: computed(() => store.filter.ownerId() ?? ''),
   })),
 
-  withEntityResources((store) => ({
-      phone: store._phoneService.getPhonesByUserId(store.ownerIdOrDefault)
-    })),
-
   withMethods((store) => ({
+    async loadAllPhones() {
+      try {
+        patchState(store, { loading: true, error: null });
+        const phones = await store._phoneService.getAllPhones();
+        patchState(store, setAllEntities(phones, phoneConfig), { loading: false });
+      } catch (error) {
+        patchState(store, { loading: false, error: 'Erreur lors du chargement des téléphones' });
+        console.error('Error loading phones:', error);
+      }
+    },
+
+    async loadPhonesByUserId(userId: string) {
+      try {
+        patchState(store, { loading: true, error: null });
+        const phones = await store._phoneService.getPhonesByUserId(userId);
+        patchState(store, setAllEntities(phones, phoneConfig), { loading: false });
+      } catch (error) {
+        patchState(store, { loading: false, error: 'Erreur lors du chargement des téléphones' });
+        console.error('Error loading phones:', error);
+      }
+    },
+
     setOwnerId(ownerId: string) {
       patchState(store, { filter: { ownerId } });
     },
@@ -75,7 +87,7 @@ export const PhoneStore = signalStore (
       const { selection, isAllSelected } = buildSelectionComputed<Phone>(store, 'phoneEntityMap');
       return {
         // Conversion des entités en tableau pour la compatibilité
-        users: computed(() => Object.values(store.phoneEntityMap())),
+        phoneEntities: computed(() => Object.values(store.phoneEntityMap())),
 
         isLoading: computed(() => store.loading()),
         hasError: computed(() => !!store.error()),
