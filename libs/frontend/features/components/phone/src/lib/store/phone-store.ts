@@ -1,67 +1,63 @@
-import { withDevtools, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { computed, inject } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Phone } from "@db/prisma";
-import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
-import { patchState, signalStore, type, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
-import { addEntity, entityConfig, removeEntity, setAllEntities, withEntities } from "@ngrx/signals/entities";
-import { PhoneService } from "../services/phone-service";
-import { initialPhoneState } from "./phone-slice";
+import { withDevtools, withEntityResources, withMutations, withUndoRedo } from '@angular-architects/ngrx-toolkit';
+import { computed, inject, resource } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Phone } from '@db/prisma';
+import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from '@fe/stores';
+import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
+import { addEntity, removeEntity } from '@ngrx/signals/entities';
+import { PhoneService } from '../services/phone-service';
+import { initialPhoneState } from './phone-slice';
 
-const phoneConfig = entityConfig({
-  entity: type<Phone>(),
-  collection: 'phone',
-  selectId: (phone: Phone) => phone.id,
-});
-
-export const PhoneStore = signalStore (
-  { providedIn: 'root' },
+export const PhoneStore = signalStore(
+  // { providedIn: 'root' },
   withState(initialPhoneState),
-  withEntities(phoneConfig),
-  withSelectionMethods<Phone>({ collection: 'phone' }),
-  withNavigationMethods(),
   withProps(() => ({
-      _phoneService: inject(PhoneService),
-      _snackBar: inject(MatSnackBar),
-    })),
-
-  withComputed((store) => ({
-    ownerIdOrDefault: computed(() => store.filter.ownerId() ?? ''),
+    _phoneService: inject(PhoneService),
+    _snackBar: inject(MatSnackBar),
   })),
 
+  withEntityResources((store) => ({
+    phones: resource({
+      loader: async () => {
+        const ownerId = store.filter().ownerId;
+        return ownerId
+          ? store._phoneService.getPhonesByUserId(ownerId)
+          : store._phoneService.getAllPhones();
+      },
+      defaultValue: [],
+    }),
+  })),
+
+  withSelectionMethods<Phone>({ collection: 'phones' }),
+  withNavigationMethods(),
+
   withMethods((store) => ({
-    async loadAllPhones() {
-      try {
-        patchState(store, { loading: true, error: null });
-        const phones = await store._phoneService.getAllPhones();
-        patchState(store, setAllEntities(phones, phoneConfig), { loading: false });
-      } catch (error) {
-        patchState(store, { loading: false, error: 'Erreur lors du chargement des téléphones' });
-        console.error('Error loading phones:', error);
-      }
+    loadAllPhones() {
+      patchState(store, { filter: { ownerId: null } });
+      store._phonesReload();
     },
 
-    async loadPhonesByUserId(userId: string) {
-      try {
-        patchState(store, { loading: true, error: null });
-        const phones = await store._phoneService.getPhonesByUserId(userId);
-        patchState(store, setAllEntities(phones, phoneConfig), { loading: false });
-      } catch (error) {
-        patchState(store, { loading: false, error: 'Erreur lors du chargement des téléphones' });
-        console.error('Error loading phones:', error);
-      }
+    loadPhonesByUserId(userId: string) {
+      patchState(store, { filter: { ownerId: userId } });
+      store._phonesReload();
     },
 
-    setOwnerId(ownerId: string) {
+    setOwnerId(ownerId: string | null) {
       patchState(store, { filter: { ownerId } });
+      store._phonesReload();
+    },
+  })),
+
+  withHooks((store) => ({
+    onInit() {
+      store.loadAllPhones();
     },
   })),
 
   withMutations((store) => ({
     savePhone: store._phoneService.createSaveMutation({
       onSuccess(phone: Phone) {
-        // Ajoute ou met à jour l'entité Phone dans le store via withEntities
-        patchState(store, addEntity(phone, phoneConfig));
+        patchState(store, addEntity(phone, { collection: 'phones' }));
         store._snackBar.open('Phone saved', 'OK');
       },
       onError(error: unknown) {
@@ -71,7 +67,7 @@ export const PhoneStore = signalStore (
     }),
     deletePhone: store._phoneService.createDeleteMutation({
       onSuccess(result: { id: string }) {
-        patchState(store, removeEntity(result.id, phoneConfig));
+        patchState(store, removeEntity(result.id, { collection: 'phones' }));
         store._snackBar.open('Phone deleted', 'OK');
       },
       onError(error: unknown) {
@@ -82,34 +78,21 @@ export const PhoneStore = signalStore (
 
   })),
   withDevtools('PhoneStore'),
-  withUndoRedo({collections: ['phone'],}),
+  withUndoRedo({ collections: ['phones'] }),
   withComputed((store) => {
-      const { selection, isAllSelected } = buildSelectionComputed<Phone>(store, 'phoneEntityMap');
-      return {
-        // Conversion des entités en tableau pour la compatibilité
-        phoneEntities: computed(() => Object.values(store.phoneEntityMap())),
+    const { selection, isAllSelected } = buildSelectionComputed<Phone>(store, 'phonesEntityMap');
+    return {
+      ownerIdOrDefault: computed(() => store.filter().ownerId ?? ''),
+      phoneEntities: computed(() => store.phonesEntities()),
 
-        isLoading: computed(() => store.loading()),
-        hasError: computed(() => !!store.error()),
+      isLoading: computed(() => store.phonesIsLoading()),
+      hasError: computed(() => !!store.phonesError()),
 
-        phoneCount: computed(() => Object.keys(store.phoneEntityMap()).length),
+      phoneCount: computed(() => store.phonesIds().length),
 
-        selection,
-        isAllSelected,
-      };
-    }),
-
-    /*
-      import { updateEntity } from '@ngrx/signals/entities';
-      // Pour mettre à jour un phone existant (par exemple après une mutation update)
-      patchState(store, updateEntity(
-        { id: phone.id, changes: { ...tesChangements } },
-        phoneConfig
-      ));
-
-      // Pour supprimer un phone par son id
-      patchState(store, removeEntity(phoneId, phoneConfig));
-    */
-
-)
+      selection,
+      isAllSelected,
+    };
+  }),
+);
 
