@@ -308,6 +308,8 @@
       "countryRequired": "Land ist erforderlich.",
       "zipCodeRequired": "Postleitzahl ist erforderlich.",
       "zipMinLength": "Postleitzahl muss mindestens 4 Zeichen lang sein.",
-      "zipMaxLength": "Postleitzahl darf nicht länger als 10 Zeichen sein."
+      "zipMaxLength": "Postleitzahl darf nicht länger als 10 Zeichen sein.",
+      "countryIso": "Ländercode (ISO)",
+      "countryIsoPlaceholder": "Geben Sie hier den ISO-Ländercode ein..."
     }
 }

@@ -60,7 +60,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+<mat-form-field appearance="outline">
       <mat-label>{{ 'address.state' | translate }}</mat-label>
       <input
         matInput
@@ -70,5 +70,29 @@
         <lib-validation-errors [fieldState]="form().state()" />
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'address.countryIso' | translate }}</mat-label>
+      <input
+        matInput
+        [formField]="form().countryIso"
+        placeholder="{{ 'address.countryIsoPlaceholder' | translate }}" />
+      <mat-error>
+        <lib-validation-errors [fieldState]="form().countryIso()" />
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'address.country' | translate }}</mat-label>
+      <input
+        matInput
+        [formField]="form().country"
+        placeholder="{{ 'address.countryPlaceholder' | translate }}" />
+      <mat-error>
+        <lib-validation-errors [fieldState]="form().countryIso()" />
+      </mat-error>
+    </mat-form-field>
+
+
   </div>
 </div>

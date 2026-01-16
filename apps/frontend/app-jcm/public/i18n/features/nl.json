@@ -308,6 +308,8 @@
   "countryRequired": "Land is verplicht.",
   "zipCodeRequired": "Postcode is verplicht.",
   "zipMinLength": "De postcode moet minimaal 4 tekens bevatten.",
-  "zipMaxLength": "De postcode mag niet meer dan 10 tekens bevatten."
+  "zipMaxLength": "De postcode mag niet meer dan 10 tekens bevatten.",
+  "countryIso": "ISO-landcode",
+  "countryIsoPlaceholder": "Voer hier de ISO-landcode in..."
   }
 }

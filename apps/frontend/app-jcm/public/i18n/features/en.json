@@ -308,6 +308,8 @@
       "countryRequired": "Country is required.",
       "zipCodeRequired": "Zip code is required.",
       "zipMinLength": "Zip code must be at least 4 characters long.",
-      "zipMaxLength": "Zip code must not exceed 10 characters."
+      "zipMaxLength": "Zip code must not exceed 10 characters.",
+      "countryIso": "Country ISO Code",
+      "countryIsoPlaceholder": "Enter the country ISO code here..."
     }
 }
