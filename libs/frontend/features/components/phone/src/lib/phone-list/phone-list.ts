@@ -1,5 +1,5 @@
 
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { PhoneStore } from '../store/phone-store';
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './phone-list.html',
   styleUrl: './phone-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneList {
   readonly store = inject(PhoneStore);

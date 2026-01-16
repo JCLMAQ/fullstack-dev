@@ -11,7 +11,7 @@
   <br>
   <span>Phones - from entities within store</span>
   @for (item of store.phoneEntities() ; track item.id) {
-   <li>
+    <li>
       <span>{{ item.number }} {{ item.id }}</span>
       <button mat-icon-button (click)="showDetail(item.id)" aria-label="Voir le détail inline">
         <mat-icon>visibility</mat-icon>
