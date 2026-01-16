@@ -110,6 +110,9 @@ importers:
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      google-libphonenumber:
+        specifier: ^3.2.43
+        version: 3.2.43
       handlebars:
         specifier: ^4.7.8
         version: 4.7.8
@@ -134,6 +137,9 @@ importers:
       nestjs-i18n:
         specifier: ^10.6.0
         version: 10.6.0(@nestjs/common@11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12)(class-validator@0.14.3)(rxjs@7.8.2)
+      ngx-mat-select-search:
+        specifier: ^8.0.4
+        version: 8.0.4(@angular/material@21.1.0(00ce9e8f8e3b439afea953e45617674b))
       ngx-material-intl-tel-input:
         specifier: ^21.0.0
         version: 21.0.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(@angular/forms@21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(@angular/platform-browser@21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(rxjs@7.8.2))(@angular/platform-browser@21.1.0(@angular/common@21.1.0(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.1.0(@angular/compiler@21.1.0)(rxjs@7.8.2)))(rxjs@7.8.2)

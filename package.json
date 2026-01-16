@@ -87,6 +87,8 @@
     "sharp": "^0.34.5",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^13.0.0",
+    "google-libphonenumber": "^3.2.43",
+    "ngx-mat-select-search": "^8.0.4",
     "zod": "^4.3.5"
   },
   "devDependencies": {
