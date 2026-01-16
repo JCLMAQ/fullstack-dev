@@ -15,6 +15,7 @@ export function createAddressModel(): Address {
     state: '',
     zipCode: '',
     country: '',
+    countryIso: '',
     addressType: null,
     isPrimary: false
   };

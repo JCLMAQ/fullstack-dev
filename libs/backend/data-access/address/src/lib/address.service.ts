@@ -13,7 +13,7 @@ export class AddressService {
   constructor(private prisma: PrismaClientService) {}
 
   // Create a new address
-  async create(data: Prisma.AddressCreateInput): Promise<Address> {
+  async create(data: Prisma.AddressCreateInput & { countryIso: string }): Promise<Address> {
     try {
       // If this address is set as primary, unset other primary addresses for the same user
       if (data.isPrimary) {
