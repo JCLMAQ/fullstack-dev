@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
-import { ChildFieldContext, Field, form, minLength, pattern, required, schema, validate, validateAsync } from '@angular/forms/signals';
+import { ChildFieldContext, form, FormField, minLength, pattern, required, schema, validate, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +30,7 @@ export type ChangePasswordModel = {
     MatIconModule,
     MatProgressSpinnerModule,
     JsonPipe,
-    Field,
+    FormField,
     FieldError,
     PasswordStrength,
     PasswordMatch,

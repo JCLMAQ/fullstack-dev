@@ -2,7 +2,7 @@ import { Component, input, model } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
  // from: https://anglebrackets-dev.medium.com/signal-forms-4c4c647d1e6a
-// Use: <app-rating id="rating" [field]="movieForm.rating" />
+// Use: <app-rating id="rating" [formField]="movieForm.rating" />
 
  @Component({
   selector: 'lib-star-rating',

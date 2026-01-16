@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { apply, applyEach, disabled, Field, form } from '@angular/forms/signals';
+import { apply, applyEach, disabled, form, FormField } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -58,7 +58,7 @@ type UserFormData = {
 @Component({
   selector: 'lib-user-detail',
   imports: [
-    Field,
+    FormField,
     FieldError,
     ValidationErrors,
     MatButtonModule,

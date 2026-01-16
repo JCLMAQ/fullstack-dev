@@ -4,7 +4,7 @@
         <form (ngSubmit)="submitPhone()">
           <div class="form-width">
               <mat-form-field appearance="outline" >
-                  <ngx-material-intl-tel-input [field]="phoneForm.phone"
+                  <ngx-material-intl-tel-input [formField]="phoneForm.phone"
                   [preferredCountries]="['de', 'us']"
                   [enablePlaceholder]="true"
                   [enableSearch]="true" name="phone" #phone  >

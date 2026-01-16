@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import {
-  Field,
+  FormField,
   apply,
   disabled,
   form,
@@ -44,7 +44,7 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
   imports: [
     JsonPipe,
     FieldError,
-    Field,
+    FormField,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,

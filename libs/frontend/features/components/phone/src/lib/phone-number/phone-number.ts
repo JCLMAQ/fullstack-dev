@@ -1,6 +1,6 @@
 
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { Field, form, required, schema } from '@angular/forms/signals';
+import { form, FormField, required, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
 import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
@@ -17,7 +17,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
   selector: 'lib-phone-number',
   standalone: true,
   imports: [
-    Field,
+    FormField,
     MatFormFieldModule,
     MatButtonModule,
     MatHint,

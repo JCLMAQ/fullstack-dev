@@ -21,7 +21,7 @@
                 <input
                   matInput
                   type="text"
-                  [field]="personalForm.firstName"
+                  [formField]="personalForm.firstName"
                   placeholder="{{ 'userProfile.firstNamePlaceholder' | translate }}"
                 />
                 <mat-error>
@@ -35,7 +35,7 @@
                 <input
                   matInput
                   type="text"
-                  [field]="personalForm.lastName"
+                  [formField]="personalForm.lastName"
                   placeholder="{{ 'userProfile.lastNamePlaceholder' | translate }}"
                 />
                 <mat-error>
@@ -50,7 +50,7 @@
               <input
                 matInput
                 type="date"
-                [field]="personalForm.dateOfBirth"
+                [formField]="personalForm.dateOfBirth"
                 placeholder="{{ 'userProfile.dobPlaceholder' | translate }}"
               />
               <mat-error>
@@ -72,7 +72,7 @@
                 <input
                   matInput
                   type="password"
-                  [field]="personalForm.password"
+                  [formField]="personalForm.password"
                   placeholder="{{ 'userProfile.passwordPlaceholder' | translate }}"
                 />
                 <mat-error>
@@ -86,7 +86,7 @@
                 <input
                   matInput
                   type="password"
-                  [field]="personalForm.confirmPassword"
+                  [formField]="personalForm.confirmPassword"
                   placeholder="{{ 'userProfile.confirmPasswordPlaceholder' | translate }}"
                 />
                 <mat-error>
@@ -104,7 +104,7 @@
 
             <!-- Emergency Contact (Conditional Field) -->
             <div class="emergency-contact">
-              <mat-checkbox [field]="personalForm.hasEmergencyContact">
+              <mat-checkbox [formField]="personalForm.hasEmergencyContact">
                 {{ 'userProfile.emergencyContactExist' | translate }}
               </mat-checkbox>
 
@@ -114,7 +114,7 @@
                   <input
                     matInput
                     type="text"
-                    [field]="personalForm.emergencyContactName"
+                    [formField]="personalForm.emergencyContactName"
                     placeholder="{{ 'userProfile.emergecyContactPlaceholder' | translate }}"
                   />
                   <mat-error>
@@ -127,7 +127,7 @@
                   <input
                     matInput
                     type="tel"
-                    [field]="personalForm.emergencyContactPhone"
+                    [formField]="personalForm.emergencyContactPhone"
                     placeholder="{{ 'userProfile.emergencyContactPhonePlaceholder' | translate }}"
                   />
                   <mat-error>

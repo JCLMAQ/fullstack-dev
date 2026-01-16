@@ -10,7 +10,7 @@ class="flex gap-2 min-h-screen items-center justify-center bg-background"
       <mat-form-field class="w-full" [fieldState]="forgotPwdForm.email()">
         <mat-label>{{ 'FORGOTPWD.emailLabel' | translate }}</mat-label>
         <input matInput
-          [field]="forgotPwdForm.email"
+          [formField]="forgotPwdForm.email"
           placeholder="{{ 'FORGOTPWD.emailPlaceholder' | translate }}"
           type="email" />
         <mat-icon matSuffix>email</mat-icon>

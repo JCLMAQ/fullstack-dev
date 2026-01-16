@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { apply, Field, form, schema, SchemaPath } from '@angular/forms/signals';
+import { apply, form, FormField, schema, SchemaPath } from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -35,7 +35,7 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<R
     MatCardHeader,
     MatCardTitle,
     MatFormField,
-    Field,
+    FormField,
     MatFormField,
     MatLabel,
     MatInput,

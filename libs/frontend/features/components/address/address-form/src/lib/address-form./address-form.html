@@ -6,7 +6,7 @@
       <mat-label>{{ 'address.street' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().street"
+        [formField]="form().street"
         placeholder="{{ 'address.streetPlaceholder' | translate }}"
       />
       <mat-error>
@@ -17,7 +17,7 @@
       <mat-label>{{ 'address.buildingNum' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().buildingNum"
+        [formField]="form().buildingNum"
         placeholder="{{ 'address.buildingNumPlaceholder' | translate }}"
       />
       <mat-error>
@@ -28,7 +28,7 @@
       <mat-label>{{ 'address.aptNum' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().aptNum"
+        [formField]="form().aptNum"
         placeholder="{{ 'address.aptNumPlaceholder' | translate }}"
       />
       <mat-error>
@@ -42,7 +42,7 @@
       <mat-label>{{ 'address.zipCode' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().zipCode"
+        [formField]="form().zipCode"
         placeholder="{{ 'address.zipCodePlaceholder' | translate }}" />
       <mat-error>
         <lib-validation-errors [fieldState]="form().zipCode()" />
@@ -53,7 +53,7 @@
       <mat-label>{{ 'address.city' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().city"
+        [formField]="form().city"
         placeholder="{{ 'address.cityPlaceholder' | translate }}" />
       <mat-error>
         <lib-validation-errors [fieldState]="form().city()" />
@@ -64,7 +64,7 @@
       <mat-label>{{ 'address.state' | translate }}</mat-label>
       <input
         matInput
-        [field]="form().state"
+        [formField]="form().state"
         placeholder="{{ 'address.statePlaceholder' | translate }}" />
       <mat-error>
         <lib-validation-errors [fieldState]="form().state()" />

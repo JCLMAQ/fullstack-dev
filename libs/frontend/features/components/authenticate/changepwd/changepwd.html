@@ -23,7 +23,7 @@
           [type]="hideOldPassword() ? 'password' : 'text'"
           placeholder="{{ 'CHANGEPWD.currentPasswordPlaceholder' | translate }}"
           autocomplete="current-password"
-          [field]="changepwdForm.oldPassword"
+          [formField]="changepwdForm.oldPassword"
         />
         @if (changepwdForm.oldPassword().pending()) {
           <mat-spinner matSuffix diameter="20"></mat-spinner>
@@ -53,7 +53,7 @@
           [type]="hideNewPassword() ? 'password' : 'text'"
           placeholder="{{ 'CHANGEPWD.newPasswordPlaceholder' | translate }}"
           autocomplete="new-password"
-          [field]="changepwdForm.newPassword"
+          [formField]="changepwdForm.newPassword"
         />
         <button
           mat-icon-button
@@ -81,7 +81,7 @@
           [type]="hideConfirmPassword() ? 'password' : 'text'"
           placeholder="{{ 'CHANGEPWD.confirmNewPasswordPlaceholder' | translate }}"
           autocomplete="new-password"
-          [field]="changepwdForm.confirmPassword"
+          [formField]="changepwdForm.confirmPassword"
         />
         <button
           mat-icon-button

@@ -1,7 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
-import { apply, ChildFieldContext, debounce, email as emailValidator, Field, form, required, schema, submit, validateAsync } from '@angular/forms/signals';
+import { apply, ChildFieldContext, debounce, email as emailValidator, form, FormField, required, schema, submit, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +30,7 @@ export interface RegisterFormModel {
     MatInput,
     MatIcon,
     MatButtonModule,
-    Field,
+    FormField,
     FieldError,
     PasswordStrength,
     PasswordMatch,

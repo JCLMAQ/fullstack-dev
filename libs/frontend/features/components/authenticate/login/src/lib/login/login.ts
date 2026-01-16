@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 // import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
-import { apply, email, Field, form, required, schema, submit } from '@angular/forms/signals';
+import { apply, email, form, FormField, required, schema, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,7 +31,7 @@ const loginUserSchema = schema<LoginUser>((path) => {
     MatInput,
     MatIcon,
     MatButtonModule,
-    Field,
+    FormField,
     TranslateModule,
     FieldError,
     JsonPipe,

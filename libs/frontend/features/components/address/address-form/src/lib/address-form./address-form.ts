@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Field, FieldTree } from '@angular/forms/signals';
+import { FieldTree, FormField } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Address } from '@db/prisma';
@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'lib-address-form',
   imports: [
     ValidationErrors,
-    Field,
+    FormField,
     MatFormFieldModule,
     MatInputModule,
     TranslateModule,

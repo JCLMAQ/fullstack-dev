@@ -33,7 +33,7 @@
                       <mat-form-field appearance="outline">
                         <mat-label>{{ 'userProfile.emailLabel' | translate }}</mat-label>
                         <input matInput
-                          [field]="userForm.email"
+                          [formField]="userForm.email"
                           type="email"
                           placeholder="{{'userProfile.emailPlaceholder' | translate}}" />
                         <mat-error>
@@ -49,7 +49,7 @@
                         <mat-label>{{ 'userProfile.firstNameLabel' | translate }}</mat-label>
                         <input
                           matInput
-                          [field]="userForm.firstName"
+                          [formField]="userForm.firstName"
                           placeholder="{{ 'userProfile.firstNamePlaceholder' | translate }}"
                         />
                         <mat-error>
@@ -61,7 +61,7 @@
                         <mat-label>{{ 'userProfile.lastNameLabel' | translate }}</mat-label>
                         <input
                           matInput
-                          [field]="userForm.lastName"
+                          [formField]="userForm.lastName"
                           placeholder="{{ 'userProfile.lastNamePlaceholder' | translate }}"
                         />
                         <mat-error>
@@ -77,7 +77,7 @@
                           readonly
                           placeholder="{{'userProfile.titlePlaceholder' | translate}}"/>
                       } @else {
-                        <mat-select [field]="userForm.title">
+                        <mat-select [formField]="userForm.title">
                           <mat-option [value]="null">None</mat-option>
                           @for (title of titleOptions; track title) {
                             <mat-option [value]="title">{{ title }}</mat-option>
@@ -90,7 +90,7 @@
                       <mat-label>{{'userProfile.nickNameLabel' | translate}}</mat-label>
                       <input
                         matInput
-                        [field]="userForm.nickName"
+                        [formField]="userForm.nickName"
                         placeholder="{{'userProfile.nickNamePlaceholder' | translate}}"
                       />
                       <mat-error>
@@ -103,7 +103,7 @@
                         @if (mode() === 'view') {
                           <input matInput [value]="userForm().value().Gender ?? ''" readonly />
                         } @else {
-                          <mat-select [field]="userForm.Gender">
+                          <mat-select [formField]="userForm.Gender">
                             <mat-option [value]="null">None</mat-option>
                             @for (gender of genderOptions; track gender) {
                               <mat-option [value]="gender">{{ gender }}</mat-option>
@@ -117,7 +117,7 @@
                         @if (mode() === 'view') {
                           <input matInput [value]="userForm().value().Language ?? ''" readonly />
                         } @else {
-                          <mat-select [field]="userForm.Language">
+                          <mat-select [formField]="userForm.Language">
                             <mat-option [value]="null">None</mat-option>
                             @for (lang of languageOptions; track lang) {
                               <mat-option [value]="lang">{{ lang }}</mat-option>
@@ -165,7 +165,7 @@
                         <mat-label>{{'userProfile.dateOfBirthLabel' | translate}}</mat-label>
                         <ng-container>
                           <input matInput
-                            [field]="userForm.dateOfBirth"
+                            [formField]="userForm.dateOfBirth"
                             [matDatepicker]="dobPicker" />
                           <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
                           <mat-datepicker #dobPicker></mat-datepicker>
@@ -179,7 +179,7 @@
                         <mat-label>{{'userProfile.profilePictureLabel' | translate}}</mat-label>
                         <input
                           matInput
-                          [field]="userForm.photoUrl"
+                          [formField]="userForm.photoUrl"
                           placeholder="{{'userProfile.profilePicturePlaceholder' | translate}}"
                         />
                       </mat-form-field>
@@ -198,7 +198,7 @@
                         @if (mode() === 'view') {
                           <input matInput [value]="userForm().value().position ?? ''" readonly />
                         } @else {
-                          <mat-select [field]="userForm.position">
+                          <mat-select [formField]="userForm.position">
                             <mat-option [value]="null">None</mat-option>
                             @for (pos of positionOptions; track pos) {
                               <mat-option [value]="pos">{{ pos }}</mat-option>
@@ -209,7 +209,7 @@
                       <!-- Job Title -->
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.jobTitleLabel' | translate}}</mat-label>
-                        <input matInput [field]="userForm.jobTitle" placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}" />
+                        <input matInput [formField]="userForm.jobTitle" placeholder="{{'userProfile.jobTitlePlaceholder' | translate}}" />
                         <mat-error>
                           <lib-field-error [fieldError]="userForm.jobTitle()" />
                         </mat-error>
@@ -226,7 +226,7 @@
                         } @else {
                           <input
                             matInput
-                            [field]="userForm.managerId"
+                            [formField]="userForm.managerId"
                             placeholder="Enter manager ID"
                           />
                         }
@@ -250,7 +250,7 @@
                             {{'userProfile.emergencyContactExist' | translate}}
                           </mat-checkbox>
                         } @else {
-                          <mat-checkbox [field]="userForm.emergencyContact.hasEmergencyContact">
+                          <mat-checkbox [formField]="userForm.emergencyContact.hasEmergencyContact">
                             {{'userProfile.emergencyContactExist' | translate}}
                           </mat-checkbox>
                         }
@@ -261,7 +261,7 @@
                         <mat-label>{{'userProfile.emergencyContactLabel' | translate}}</mat-label>
                         <input
                           matInput
-                          [field]="userForm.emergencyContact.emergencyContactName"
+                          [formField]="userForm.emergencyContact.emergencyContactName"
                           placeholder="{{'userProfile.emergencyContactPlaceholder' | translate}}"
                         />
                         <mat-error>
@@ -274,7 +274,7 @@
                         <mat-label>{{'userProfile.emergencyContactPhoneLabel' | translate}}</mat-label>
                         <input
                           matInput
-                          [field]="userForm.emergencyContact.emergencyContactPhone"
+                          [formField]="userForm.emergencyContact.emergencyContactPhone"
                           placeholder="{{'userProfile.emergencyContactPhonePlaceholder' | translate}}"
                         />
                         <mat-error>
@@ -299,7 +299,7 @@
                             {{'userProfile.isPublicLabel' | translate}}
                           </mat-checkbox>
                         } @else {
-                          <mat-checkbox [field]="userForm.isPublic">
+                          <mat-checkbox [formField]="userForm.isPublic">
                             {{'userProfile.isPublicLabel' | translate}}
                           </mat-checkbox>
                         }
@@ -312,7 +312,7 @@
                             {{'userProfile.isPublishedLabel' | translate}}
                           </mat-checkbox>
                         } @else {
-                          <mat-checkbox [field]="userForm.published">
+                          <mat-checkbox [formField]="userForm.published">
                             {{'userProfile.isPublishedLabel' | translate}}
                           </mat-checkbox>
                         }
@@ -323,7 +323,7 @@
                         <mat-label>{{'userProfile.isValidatedLabel' | translate}}</mat-label>
                         <ng-container>
                           <input matInput
-                            [field]="userForm.isValidated"
+                            [formField]="userForm.isValidated"
                             [matDatepicker]="validatedPicker"
                           />
                           <mat-datepicker-toggle matSuffix [for]="validatedPicker"></mat-datepicker-toggle>
@@ -337,7 +337,7 @@
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.isSuspendedLabel' | translate}}</mat-label>
                         <ng-container>
-                          <input matInput [field]="userForm.isSuspended" [readOnly]="mode() === 'view' || mode() === 'edit'" [matDatepicker]="suspendedPicker" />
+                          <input matInput [formField]="userForm.isSuspended" [readOnly]="mode() === 'view' || mode() === 'edit'" [matDatepicker]="suspendedPicker" />
                           <mat-datepicker-toggle matSuffix [for]="suspendedPicker"></mat-datepicker-toggle>
                           <mat-datepicker #suspendedPicker></mat-datepicker>
                         </ng-container>

@@ -12,7 +12,7 @@
           matInput
           [type]="hidePassword() ? 'password' : 'text'"
           placeholder="{{'RESETPWD.newPasswordPlaceholder' | translate}}"
-          [field]="resetpwdForm.password"
+          [formField]="resetpwdForm.password"
         />
       <button
         mat-icon-button
@@ -33,7 +33,7 @@
           matInput
           [type]="hideConfirmPassword() ? 'password' : 'text'"
           placeholder="{{'RESETPWD.confirmPasswordPlaceholder' | translate}}"
-          [field]="resetpwdForm.confirmPassword"
+          [formField]="resetpwdForm.confirmPassword"
         />
       <button
         mat-icon-button

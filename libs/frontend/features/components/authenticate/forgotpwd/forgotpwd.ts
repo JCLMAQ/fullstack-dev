@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject, resource, ResourceLoaderParams, Signal, signal } from '@angular/core';
-import { ChildFieldContext, email, Field, form, required, schema, submit, validateAsync } from '@angular/forms/signals';
+import { ChildFieldContext, email, form, FormField, required, schema, submit, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +25,7 @@ export interface EmailUserFormModel {
     MatInput,
     MatIcon,
     MatButtonModule,
-    Field,
+    FormField,
     TranslateModule,
     FieldError,
     JsonPipe,
