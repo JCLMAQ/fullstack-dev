@@ -1,0 +1,92 @@
+.phone-detail {
+	display: flex;
+	justify-content: center;
+	padding: 24px;
+}
+
+.detail-card {
+	width: min(100%, 960px);
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	border-radius: 16px;
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 16px;
+}
+
+.title-block {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.identifier {
+	font-weight: 600;
+}
+
+.identifier.muted {
+	color: var(--mat-sys-on-surface-variant, #5f6368);
+}
+
+.meta {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	color: var(--mat-sys-on-surface-variant, #5f6368);
+	font-size: 0.875rem;
+}
+
+.loading-state {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 0;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.grid {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.checkbox-row {
+	display: flex;
+	align-items: center;
+	padding: 8px 4px;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	padding: 12px 16px 4px;
+}
+
+.error-state {
+	color: var(--mat-form-field-error-text-color, #b3261e);
+	font-weight: 600;
+	padding: 4px 0 0 4px;
+}
+
+.preview {
+	padding: 12px 0 4px;
+}
+
+.preview pre {
+	background: var(--mat-sys-surface-container-low, #f7f7f7);
+	padding: 12px;
+	border-radius: 12px;
+	margin: 0;
+	overflow: auto;
+	font-size: 0.9rem;
+}

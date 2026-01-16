@@ -1,1 +1,134 @@
-<p>phone-detail works!</p>
+<div class="phone-detail">
+	<mat-card class="detail-card">
+		<div class="card-header">
+			<div class="title-block">
+				<h2>Phone detail</h2>
+				@if (hasExistingId()) {
+					<span class="identifier">ID {{ phoneState().id ?? '—' }}</span>
+				} @else {
+					<span class="identifier muted">Nouveau téléphone</span>
+				}
+			</div>
+			<div class="meta">
+				@if (phoneState().createdAt) {
+					<span>Créé le {{ phoneState().createdAt }}</span>
+				}
+				@if (phoneState().updatedAt) {
+					<span>Mis à jour le {{ phoneState().updatedAt }}</span>
+				}
+			</div>
+		</div>
+
+		@if (isLoading()) {
+			<div class="loading-state">
+				<mat-progress-spinner diameter="32" mode="indeterminate"></mat-progress-spinner>
+				<span>Chargement du téléphone…</span>
+			</div>
+		} @else {
+			@if (loadError()) {
+				<div class="error-state">{{ loadError() }}</div>
+			}
+
+			<form class="form" (ngSubmit)="submit()">
+				<mat-card-content>
+					<div class="grid">
+						<mat-form-field appearance="outline">
+							<mat-label>ID</mat-label>
+							<input matInput [value]="phoneState().id ?? '—'" readonly>
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>ID utilisateur</mat-label>
+							<input matInput placeholder="User ID" [formField]="phoneForm.userId">
+							@if (phoneForm.userId().touched() && phoneForm.userId().errors().length) {
+								<mat-error>
+									@for (error of phoneForm.userId().errors(); track error.kind) {
+										<span>{{ error.message }}</span>
+									}
+								</mat-error>
+							}
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Indicatif pays</mat-label>
+							<input matInput placeholder="+33" [formField]="phoneForm.countryCode">
+							@if (phoneForm.countryCode().touched() && phoneForm.countryCode().errors().length) {
+								<mat-error>
+									@for (error of phoneForm.countryCode().errors(); track error.kind) {
+										<span>{{ error.message }}</span>
+									}
+								</mat-error>
+							}
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>ISO pays</mat-label>
+							<input matInput placeholder="FR" [formField]="phoneForm.countryIso">
+							@if (phoneForm.countryIso().touched() && phoneForm.countryIso().errors().length) {
+								<mat-error>
+									@for (error of phoneForm.countryIso().errors(); track error.kind) {
+										<span>{{ error.message }}</span>
+									}
+								</mat-error>
+							}
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Numéro</mat-label>
+							<input matInput placeholder="0601020304" [formField]="phoneForm.number">
+							@if (phoneForm.number().touched() && phoneForm.number().errors().length) {
+								<mat-error>
+									@for (error of phoneForm.number().errors(); track error.kind) {
+										<span>{{ error.message }}</span>
+									}
+								</mat-error>
+							}
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Extension</mat-label>
+							<input matInput placeholder="101" [formField]="phoneForm.extension">
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Type</mat-label>
+							<mat-select [formField]="phoneForm.phoneType">
+								@for (option of phoneTypeOptions; track option) {
+									<mat-option [value]="option">{{ option }}</mat-option>
+								}
+							</mat-select>
+						</mat-form-field>
+
+						<div class="checkbox-row">
+							<mat-checkbox [formField]="phoneForm.isPrimary">Numéro principal</mat-checkbox>
+						</div>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Créé le</mat-label>
+							<input matInput [value]="phoneState().createdAt || 'Non renseigné'" readonly>
+						</mat-form-field>
+
+						<mat-form-field appearance="outline">
+							<mat-label>Mis à jour le</mat-label>
+							<input matInput [value]="phoneState().updatedAt || 'Non renseigné'" readonly>
+						</mat-form-field>
+					</div>
+				</mat-card-content>
+
+				<mat-divider></mat-divider>
+
+				<mat-card-actions class="actions">
+					<button mat-raised-button color="primary" type="submit" [disabled]="isLoading()">Enregistrer</button>
+				</mat-card-actions>
+			</form>
+		}
+
+		@if (submittedPhone()) {
+			<mat-divider></mat-divider>
+			<div class="preview">
+				<h3>Résumé du formulaire</h3>
+				<pre>{{ submittedPhone() | json }}</pre>
+			</div>
+		}
+	</mat-card>
+</div>
