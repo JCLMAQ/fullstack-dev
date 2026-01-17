@@ -1,7 +1,7 @@
 import { withDevtools, withEntityResources, withMutations, withUndoRedo } from '@angular-architects/ngrx-toolkit';
 import { computed, inject, resource } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Phone } from '@db/prisma';
+import { Phone } from '@db/prisma/browser';
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from '@fe/stores';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { addEntity, removeEntity } from '@ngrx/signals/entities';

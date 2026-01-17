@@ -7,7 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Image } from '@db/prisma';
+import { Image } from '@db/prisma/browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { ImageService } from '../services/image.service';
 

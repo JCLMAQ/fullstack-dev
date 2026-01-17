@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
 import { addEntity, setAllEntities } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';

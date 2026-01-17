@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import type { Image } from '@db/prisma';
+import type { Image } from '@db/prisma/browser';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';

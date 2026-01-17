@@ -22,4 +22,10 @@ module.exports = {
       sourceMaps: true,
     }),
   ],
+  externals: {
+            // Mark Node.js built-in modules as external
+            // This is a common pattern for server-side bundles
+            'url': 'commonjs url',
+            // Add other Node.js built-ins if needed, e.g., 'path', 'fs'
+          },
 };

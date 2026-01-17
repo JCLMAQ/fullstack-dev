@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 const httpOptions = {

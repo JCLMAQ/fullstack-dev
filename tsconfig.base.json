@@ -17,6 +17,7 @@
     "ignoreDeprecations": "5.0",
     "paths": {
       "@db/prisma": ["libs/prisma/src/index.ts"],
+      "@db/prisma/browser": ["libs/prisma/src/browser.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"

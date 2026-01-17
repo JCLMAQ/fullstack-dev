@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 import { MATERIAL } from '@fe/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';

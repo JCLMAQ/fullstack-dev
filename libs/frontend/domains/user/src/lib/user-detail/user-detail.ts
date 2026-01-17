@@ -19,7 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address, Gender, Language, Position, Title, UserWithBasicRelations } from '@db/prisma';
+import { Address, Gender, Language, Position, Title, UserWithBasicRelations } from '@db/prisma/browser';
 import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';

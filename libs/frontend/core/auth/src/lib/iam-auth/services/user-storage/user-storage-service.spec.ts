@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 import { UserStorageService } from './user-storage-service';
 
 describe('UserStorageService', () => {
@@ -30,15 +30,15 @@ describe('UserStorageService', () => {
   beforeEach(() => {
     // Mock localStorage
     localStorageMock = {};
-    
+
     spyOn(localStorage, 'getItem').and.callFake((key: string) => {
       return localStorageMock[key] || null;
     });
-    
+
     spyOn(localStorage, 'setItem').and.callFake((key: string, value: string) => {
       localStorageMock[key] = value;
     });
-    
+
     spyOn(localStorage, 'removeItem').and.callFake((key: string) => {
       delete localStorageMock[key];
     });
@@ -48,7 +48,7 @@ describe('UserStorageService', () => {
     TestBed.configureTestingModule({
       providers: [UserStorageService],
     });
-    
+
     service = TestBed.inject(UserStorageService);
   });
 
@@ -59,10 +59,10 @@ describe('UserStorageService', () => {
   describe('User Management', () => {
     it('should load user from localStorage on initialization', () => {
       localStorageMock['user'] = JSON.stringify(mockUser);
-      
+
       // Create new service instance to trigger constructor
       const newService = new UserStorageService();
-      
+
       expect(newService.user()?.email).toBe(mockUser.email);
     });
 
@@ -72,13 +72,13 @@ describe('UserStorageService', () => {
 
     it('should set a new user', () => {
       service.setUser(mockUser);
-      
+
       expect(service.user()).toEqual(mockUser);
     });
 
     it('should sync user to localStorage when set', (done) => {
       service.setUser(mockUser);
-      
+
       // Effect runs asynchronously, wait a bit
       setTimeout(() => {
         expect(localStorage.setItem).toHaveBeenCalledWith('user', JSON.stringify(mockUser));
@@ -88,10 +88,10 @@ describe('UserStorageService', () => {
 
     it('should update user partially', () => {
       service.setUser(mockUser);
-      
+
       const updates = { firstName: 'Updated', lastName: 'Name' };
       service.updateUser(updates);
-      
+
       const updatedUser = service.user();
       expect(updatedUser?.firstName).toBe('Updated');
       expect(updatedUser?.lastName).toBe('Name');
@@ -100,15 +100,15 @@ describe('UserStorageService', () => {
 
     it('should not update if no user exists', () => {
       service.updateUser({ firstName: 'Updated' });
-      
+
       expect(service.user()).toBeUndefined();
     });
 
     it('should clear user', () => {
       service.setUser(mockUser);
-      
+
       service.clearUser();
-      
+
       expect(service.user()).toBeUndefined();
       expect(localStorage.removeItem).toHaveBeenCalledWith('user');
     });
@@ -123,10 +123,10 @@ describe('UserStorageService', () => {
     it('should update signal when user changes', () => {
       const user1 = { ...mockUser, email: 'user1@test.com' };
       const user2 = { ...mockUser, email: 'user2@test.com' };
-      
+
       service.setUser(user1);
       expect(service.user()?.email).toBe('user1@test.com');
-      
+
       service.setUser(user2);
       expect(service.user()?.email).toBe('user2@test.com');
     });
@@ -140,7 +140,7 @@ describe('UserStorageService', () => {
     it('should update only photoUrl', () => {
       const newPhotoUrl = 'https://example.com/new-photo.jpg';
       service.updateUser({ photoUrl: newPhotoUrl });
-      
+
       expect(service.user()?.photoUrl).toBe(newPhotoUrl);
       expect(service.user()?.email).toBe(mockUser.email);
     });
@@ -151,7 +151,7 @@ describe('UserStorageService', () => {
         lastName: 'NewLast',
         nickName: 'NewNick',
       });
-      
+
       const user = service.user();
       expect(user?.firstName).toBe('NewFirst');
       expect(user?.lastName).toBe('NewLast');

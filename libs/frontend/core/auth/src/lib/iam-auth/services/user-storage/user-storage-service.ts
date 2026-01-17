@@ -1,5 +1,5 @@
 import { effect, Injectable, signal } from '@angular/core';
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 
 const USER_STORAGE_KEY = 'user';
 

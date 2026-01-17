@@ -1,5 +1,5 @@
 import { pattern, required, schema, SchemaPathTree } from '@angular/forms/signals';
-import { Address } from '@db/prisma';
+import { Address } from '@db/prisma/browser';
 
 // Model factory for address form
 export function createAddressModel(): Address {

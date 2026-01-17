@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import type { Image } from '@db/prisma';
+import type { Image } from '@db/prisma/browser';
 import { CarouselConfig } from '@fe/carousel';
 
 @Component({

@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
-import { Phone, PhoneType } from '@db/prisma';
+import { Phone, PhoneType } from '@db/prisma/browser';
 import { map } from 'rxjs';
 import { PhoneService } from '../services/phone-service';
 

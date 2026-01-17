@@ -10,7 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Image } from '@db/prisma';
+import { Image } from '@db/prisma/browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { ImageTagEditorComponent } from '../image-tag-editor/image-tag-editor';
 import { ImageViewerComponent } from '../image-viewer/image-viewer';

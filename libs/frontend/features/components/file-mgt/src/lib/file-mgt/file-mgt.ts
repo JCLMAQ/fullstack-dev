@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import type { File } from '@db/prisma';
+import type { File } from '@db/prisma/browser';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileService, SearchFilesDto } from '../services/file.service';

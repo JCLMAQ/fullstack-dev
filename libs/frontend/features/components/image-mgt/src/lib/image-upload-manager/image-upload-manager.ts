@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import type { Image } from '@db/prisma';
+import type { Image } from '@db/prisma/browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { ImageService } from '../services/image.service';
 

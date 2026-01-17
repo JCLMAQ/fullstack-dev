@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import type { Image } from '@db/prisma';
+import type { Image } from '@db/prisma/browser';
 import { UserStorageService } from '@fe/auth';
 import { ImageService } from '@fe/image-mgt';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';

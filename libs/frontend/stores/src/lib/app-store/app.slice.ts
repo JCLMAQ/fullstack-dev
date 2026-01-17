@@ -1,4 +1,4 @@
-import { User } from '@db/prisma';
+import { User } from '@db/prisma/browser';
 
 export type AppSlice = {
   readonly user: User | undefined;

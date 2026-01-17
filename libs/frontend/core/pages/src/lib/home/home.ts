@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import type { Image } from '@db/prisma';
+import type { Image } from '@db/prisma/browser';
 import { Carousel, type ICarouselConfig } from '@fe/carousel';
 
 @Component({

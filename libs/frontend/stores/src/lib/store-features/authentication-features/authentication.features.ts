@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Organization, User } from '@db/prisma';
+import { Organization, User } from '@db/prisma/browser';
 import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
 import {
   ENVIRONMENT_TOKEN,

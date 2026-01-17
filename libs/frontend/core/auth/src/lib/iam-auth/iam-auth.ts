@@ -4,7 +4,7 @@
 
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Organization, User } from '@db/prisma';
+import { Organization, User } from '@db/prisma/browser';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { ChangePwdService } from './services/changepwd/changepwd-service';
 import { LoginService } from './services/login/login-service';

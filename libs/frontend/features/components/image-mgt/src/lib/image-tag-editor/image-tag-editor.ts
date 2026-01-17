@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Image } from '@db/prisma';
+import { Image } from '@db/prisma/browser';
 
 export interface ImageTagEditorData {
   image: Image;
