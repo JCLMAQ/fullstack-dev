@@ -92,6 +92,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@types/google-libphonenumber": "^7.4.30",
     "@angular-devkit/architect": "^0.2101.0",
     "@angular-devkit/core": "^21.1.0",
     "@angular-devkit/schematics": "^21.1.0",
