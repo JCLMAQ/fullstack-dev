@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Phone, PhoneType } from '@db/prisma/browser';
 import { map } from 'rxjs';
 import { PhoneService } from '../services/phone-service';
+ import { PhoneNumber } from '../phone-number/phone-number';
 
 interface PhoneFormModel {
   id: number | null;
@@ -50,6 +51,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    PhoneNumber
   ],
   templateUrl: './phone-detail.html',
   styleUrl: './phone-detail.scss',

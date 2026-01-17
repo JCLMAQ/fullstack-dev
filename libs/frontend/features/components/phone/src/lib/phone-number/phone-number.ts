@@ -12,6 +12,7 @@ import { PhoneNumberFormat } from 'google-libphonenumber';
 import { compatForm } from '@angular/forms/signals/compat';
 
 
+
 interface PhoneFormModel {
   phone: string;
 }
@@ -36,6 +37,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+
   ],
   templateUrl: './phone-number.html',
   styleUrl: './phone-number.scss',
