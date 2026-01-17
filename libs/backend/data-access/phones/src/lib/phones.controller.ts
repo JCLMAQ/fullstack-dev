@@ -13,6 +13,7 @@ import {
     Put,
     Query,
 } from '@nestjs/common';
+import { Public } from '@be/iam';
 import { firstValueFrom } from 'rxjs';
 import { PhonesService } from './phones.service';
 
@@ -31,6 +32,7 @@ export class PhonesController {
   /**
    * Récupère la géolocalisation de l'utilisateur via ipapi.co
    */
+  @Public()
   @Get('geo-location')
   async getGeoLocation() {
     try {
