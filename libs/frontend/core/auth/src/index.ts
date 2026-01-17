@@ -3,6 +3,9 @@
 // Auth exports
 export * from './lib/iam-auth/services/changepwd/changepwd-service';
 
+// Guards
+export * from './lib/guards/auth.guard';
+
 // IAM Auth exports
 export * from './lib/iam-auth/iam-auth';
 export * from './lib/iam-auth/services/changepwd/changepwd-service';
