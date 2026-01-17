@@ -1,4 +1,5 @@
 import { PhoneType, Prisma } from '@db/prisma';
+import { HttpService } from '@nestjs/axios';
 import {
     Body,
     Controller,
@@ -12,6 +13,7 @@ import {
     Put,
     Query,
 } from '@nestjs/common';
+import { firstValueFrom } from 'rxjs';
 import { PhonesService } from './phones.service';
 
 // Helper pour récupérer le message d'erreur
@@ -21,7 +23,28 @@ function getErrorMessage(error: unknown): string {
 
 @Controller('phones')
 export class PhonesController {
-  constructor(private phonesService: PhonesService) {}
+  constructor(
+    private phonesService: PhonesService,
+    private httpService: HttpService
+  ) {}
+
+  /**
+   * Récupère la géolocalisation de l'utilisateur via ipapi.co
+   */
+  @Get('geo-location')
+  async getGeoLocation() {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.get<{ country_code: string }>('https://ipapi.co/json/')
+      );
+      return response.data;
+    } catch (error) {
+      throw new HttpException(
+        `Impossible de récupérer la géolocalisation: ${getErrorMessage(error)}`,
+        HttpStatus.SERVICE_UNAVAILABLE
+      );
+    }
+  }
 
   /**
    * Récupère tous les téléphones avec pagination et filtres

@@ -74,4 +74,14 @@ export class PhoneService {
     });
   }
 
+  async getUserCountry(): Promise<{ country_code: string }> {
+    try {
+      return await firstValueFrom(
+        this.http.get<{ country_code: string }>(`${this.baseUrl}/geo-location`)
+      );
+    } catch {
+      return { country_code: 'US' };
+    }
+  }
+
 }
