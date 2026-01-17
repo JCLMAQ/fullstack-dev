@@ -37,15 +37,17 @@
       [fieldControl]="phoneControl"
       [emojiFlags]="false"
       [includeDialCode]="false"
-      [useMask]="false"
+      [useMask]="true"
       [forceSelectedCountryCode]="false"
       [showMaskPlaceholder]="true"
       [localizeCountryNames]="false"
       [outputNumberFormat]="PhoneNumberFormat.INTERNATIONAL"
-      [appearance]="'fill'"
+      [appearance]="'outline'"
       [autoIpLookup]="false"
       [autoSelectCountry]="true"
-      [autoSelectedCountry]="'fr'"
+      [autoSelectedCountry]="'be'"
+      [enableSearch]="true"
+      [preferredCountries]="['fr', 'be', 'nl', 'lu', 'de', 'us', 'gb']"
     ></ngx-material-intl-tel-input>
     <button
       mat-flat-button

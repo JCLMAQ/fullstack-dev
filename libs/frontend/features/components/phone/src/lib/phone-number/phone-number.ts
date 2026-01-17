@@ -1,15 +1,15 @@
 
-import { Component, signal } from '@angular/core';
-import { FormField, required, schema } from '@angular/forms/signals';
-import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormField, required, schema } from '@angular/forms/signals';
+import { compatForm } from '@angular/forms/signals/compat';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PhoneNumberFormat } from 'google-libphonenumber';
-import { compatForm } from '@angular/forms/signals/compat';
+import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
 
 
 
@@ -41,6 +41,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
   ],
   templateUrl: './phone-number.html',
   styleUrl: './phone-number.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneNumber {
   readonly phoneControl = new FormControl('', { nonNullable: true });

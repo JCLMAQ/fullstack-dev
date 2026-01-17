@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormField, form, maxLength, minLength, required, schema } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,8 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { Phone, PhoneType } from '@db/prisma/browser';
 import { map } from 'rxjs';
+import { PhoneNumber } from '../phone-number/phone-number';
 import { PhoneService } from '../services/phone-service';
- import { PhoneNumber } from '../phone-number/phone-number';
 
 interface PhoneFormModel {
   id: number | null;
@@ -55,6 +55,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
   ],
   templateUrl: './phone-detail.html',
   styleUrl: './phone-detail.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneDetail {
 
