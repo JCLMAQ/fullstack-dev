@@ -1,9 +1,9 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberFormat } from 'google-libphonenumber';
-import TelValidators from './tel.validators';
+import { CountryISO } from '../../enums/country-iso.enum';
 import { Country } from '../types/country.model';
-import { CountryISO } from '../enums/country-iso.enum';
 import * as phoneNumberUtils from '../utils/phone-number.utils';
+import TelValidators from './tel.validators';
 
 // Mock the phone number utils
 jest.mock('../utils/phone-number.utils', () => ({

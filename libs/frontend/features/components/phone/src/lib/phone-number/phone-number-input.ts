@@ -36,15 +36,15 @@ import {
   PhoneNumberUtil
 } from 'google-libphonenumber';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { CountryCode } from '../data/country-code';
-import { CountryISO } from '../enums/country-iso.enum';
-import { CountryDataService } from '../services/country-data/country-data.service';
-import { GeoIpService } from '../services/geo-ip/geo-ip.service';
-import { Country } from '../types/country.model';
-import { GeoData } from '../types/geo.type';
-import { TextLabels } from '../types/text-labels.type';
-import { getMaxPhoneNumberLength } from '../utils/phone-number.utils';
+import { CountryCode } from './data/country-code';
+import { CountryISO } from './enums/country-iso.enum';
 import { PhoneIcon } from './phone-icon/phone-icon';
+import { CountryDataService } from './services/country-data/country-data.service';
+import { GeoIpService } from './services/geo-ip/geo-ip.service';
+import { Country } from './types/country.model';
+import { GeoData } from './types/geo.type';
+import { TextLabels } from './types/text-labels.type';
+import { getMaxPhoneNumberLength } from './utils/phone-number.utils';
 
 // Interface pour l'état du formulaire téléphone
 interface TelFormState {

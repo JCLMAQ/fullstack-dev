@@ -1,5 +1,5 @@
 <section>
-  <div class="header">
+  <!-- <div class="header">
     <h2>ngx-material-intl-tel-input Demo</h2>
     <button
       mat-icon-button
@@ -13,10 +13,10 @@
         <mat-icon>dark_mode</mat-icon>
       }
     </button>
-  </div>
+  </div> -->
 
   <!-- Language selector -->
-  <div class="language-controls">
+  <!-- <div class="language-controls">
     <mat-form-field appearance="fill">
       <mat-label>Language</mat-label>
       <mat-select
@@ -35,16 +35,16 @@
     >
       Enable i18n
     </mat-checkbox>
-  </div>
+  </div> -->
 
   <form (ngSubmit)="onSubmit($event)">
-    <ngx-material-intl-tel-input
+    <lib-phone-number
       (currentValue)="getValue($event)"
       (currentCountryCode)="getCountryCode($event)"
       (currentCountryISO)="getCountryISO($event)"
       [initialValue]="phoneValue()"
       [enableI18n]="enableI18n()"
-      [emojiFlags]="false"
+      [emojiFlags]="true"
       [includeDialCode]="false"
       [useMask]="false"
       [forceSelectedCountryCode]="false"
@@ -52,7 +52,7 @@
       [localizeCountryNames]="false"
       [outputNumberFormat]="PhoneNumberFormat.INTERNATIONAL"
       [appearance]="'fill'"
-    ></ngx-material-intl-tel-input>
+    ></lib-phone-number>
     <button
       mat-flat-button
       type="submit"

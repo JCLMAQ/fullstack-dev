@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-import { GeoIpService } from './geo-ip.service';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting
 } from '@angular/common/http/testing';
-import { GeoData } from '../../types/geo.type';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { GeoData } from '../../../types/geo.type';
+import { GeoIpService } from './geo-ip.service';
 
 describe('GeoIpService', () => {
   let service: GeoIpService;

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { CountryDataService } from './country-data.service';
-import { Country } from '../../types/country.model';
-import { CountryCode, CountryData } from '../../data/country-code';
-import { CountryISO } from '../../enums/country-iso.enum';
 import {
   PhoneNumberFormat,
   PhoneNumberType,
   PhoneNumberUtil
 } from 'google-libphonenumber';
+import { CountryCode, CountryData } from '../../../data/country-code';
+import { CountryISO } from '../../../enums/country-iso.enum';
+import { Country } from '../../../types/country.model';
+import { CountryDataService } from './country-data.service';
 
 describe('CountryDataService', () => {
   let service: CountryDataService;

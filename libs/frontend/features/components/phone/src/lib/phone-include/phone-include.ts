@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,22 +10,25 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PhoneNumberFormat } from 'google-libphonenumber';
+import { PhoneNumberInput } from '../phone-number/phone-number-input';
 
 @Component({
   selector: 'lib-phone-include',
   imports: [
     RouterOutlet,
     FormsModule,
+    PhoneNumberInput,
     MatButtonModule,
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatIconModule
-  ],
+    MatIconModule,
+],
   templateUrl: './phone-include.html',
   styleUrl: './phone-include.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhoneInclude {
 

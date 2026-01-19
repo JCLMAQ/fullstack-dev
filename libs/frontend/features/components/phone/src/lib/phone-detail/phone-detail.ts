@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { Phone, PhoneType } from '@db/prisma';
 import { map } from 'rxjs';
+import { PhoneInclude } from '../phone-include/phone-include';
 import { PhoneService } from '../services/phone-service';
 
 interface PhoneFormModel {
@@ -51,6 +52,7 @@ const phoneSchema = schema<PhoneFormModel>((f) => {
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    PhoneInclude
   ],
   templateUrl: './phone-detail.html',
   styleUrl: './phone-detail.scss',
