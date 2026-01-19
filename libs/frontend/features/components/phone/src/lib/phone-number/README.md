@@ -1,5 +1,7 @@
 # README
 
+Base on: <https://github.com/juanjotorres90/ngx-material-intl-tel-input>
+
 ## Localization
 
 The country selector now supports locale-aware display names and accent-insensitive search. Enable localization per instance with `[localizeCountryNames]="true"`. When disabled (default) the component keeps the original English dataset.
@@ -28,35 +30,70 @@ bootstrapApplication(AppComponent, {
 
 ## Options
 
-| Options                  | Type                       | Default                                                                                                                                                                                                                                                                                                      | Description                                                                    |
-| ------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| fieldControl             | `FormControl`              | `FormControl('')`                                                                                                                                                                                                                                                                                            | Form control required to retrieve the value.                                   |
-| fieldControlName         | `string`                   | `''`                                                                                                                                                                                                                                                                                                         | Form control name to assign the control from a FormGroup.                      |
-| required                 | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Telephone field input required.                                                |
-| disabled                 | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Telephone field input disabled.                                                |
-| appearance               | `'fill' \| 'outline'`      | `fill`                                                                                                                                                                                                                                                                                                       | Material form field appearance.                                                |
-| autoIpLookup             | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Sets initial country code based on user's ip.                                  |
-| autoSelectCountry        | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Enables or disables auto selecting a country on initialization.                |
-| autoSelectedCountry      | `CountryISO \| string`     | `''`                                                                                                                                                                                                                                                                                                         | Sets the country to be auto selected.                                          |
-| numberValidation         | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Enables or disables phone number validation.                                   |
-| enableSearch             | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Enables or disables country search.                                            |
-| includeDialCode          | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Includes the dial code in the phone number input.                              |
-| emojiFlags               | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Use standard emoji icons for the country flags.                                |
-| hidePhoneIcon            | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Hides phone icon.                                                              |
-| preferredCountries       | `(CountryISO \| string)[]` | `[]`                                                                                                                                                                                                                                                                                                         | Shows the specified countries on top of the list.                              |
-| visibleCountries         | `(CountryISO \| string)[]` | `[]`                                                                                                                                                                                                                                                                                                         | Shows only the specified countries.                                            |
-| excludedCountries        | `(CountryISO \| string)[]` | `[]`                                                                                                                                                                                                                                                                                                         | Exclude the specified countries from the list.                                 |
-| enablePlaceholder        | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Input placeholder text for every country national number.                      |
-| iconMakeCall             | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Click on phone icon to trigger call action.                                    |
-| initialValue             | `string`                   | `''`                                                                                                                                                                                                                                                                                                         | Sets initial telephone number value                                            |
-| useMask                  | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Use mask for phone number input.                                               |
-| forceSelectedCountryCode | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | If useMask is active it forces the selected country code to be displayed       |
-| showMaskPlaceholder      | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | If useMask is active it shows the placeholder for the mask                     |
-| outputNumberFormat       | `PhoneNumberFormat`        | `PhoneNumberFormat.INTERNATIONAL`                                                                                                                                                                                                                                                                            | Sets the output number format to INTERNATIONAL, E164, or RFC3966 format        |
-| enableInputMaxLength     | `boolean`                  | `true`                                                                                                                                                                                                                                                                                                       | Enables or disables the input max length.                                      |
-| localizeCountryNames     | `boolean`                  | `false`                                                                                                                                                                                                                                                                                                      | Opt-in to locale-aware country names.                                          |
-| textLabels               | `TextLabels`               | {mainLabel: 'Phone number', codePlaceholder: 'Code', searchPlaceholderLabel: 'Search', noEntriesFoundLabel: 'No countries found', nationalNumberLabel: 'Number', hintLabel: 'Select country and type your phone number', invalidNumberError: 'Number is not valid', requiredError: 'This field is required'} | Overrides all component text labels                                            |
-| mainLabel                | `string`                   | `''`                                                                                                                                                                                                                                                                                                         | Sets the main label of the input field. It overrides the textLabels.mainLabel. |
+### Display Options
+
+| Option                 | Type      | Default     | Description                             |
+|------------------------|-----------|-------------|-----------------------------------------|
+| `appearance`           | `'fill'   | 'outline'`  | Material form field appearance          |
+| `emojiFlags`           | `boolean` | `false`     | Use emoji icons instead of SVG flags    |
+| `hidePhoneIcon`        | `boolean` | `false`     | Hide the phone icon                     |
+| `enablePlaceholder`.   | `boolean` | `true`      | Show input placeholder for each country |
+| `iconMakeCall`         | `boolean` | `true`      | Enable click-to-call on phone icon      |
+| `localizeCountryNames` | `boolean` | `false`     | Use locale-aware country names          |
+
+### Country Selection
+
+| Option                | Type                       | Default | Description                      |
+|-----------------------|----------------------------|---------|----------------------------------|
+| `autoSelectCountry`   | `boolean`                  | `true`  | Country to auto-select           |
+| `autoIpLookup`        | `boolean`                  | `true`  | Detect country from IP address   |
+| `preferredCountries`  | `(CountryISO \| string)[]` | `[]`    | Countries to show at top of list |
+| `visibleCountries`    | `(CountryISO \| string)[]` | `[]`    | Only show these countries        |
+| `excludedCountries`   | `(CountryISO \| string)[]` | `[]`    | Exclude these countries.         |
+
+### Input Behavior
+
+| Option                 | Type      | Default | Description               |
+|------------------------|-----------|---------|---------------------------|
+| `required`             | `boolean` | `false` | Make phone field required |
+| `disabled`             | `boolean` | `false` | Disable phone field       |
+| `enableSearch`         | `boolean` | `true`  | Enable country search     |
+| `numberValidation`     | `boolean` | `true`  | Validate phone numbers    |
+| `enableInputMaxLength` | `boolean` | `true`  | Enforce max length        |
+
+### Input Format
+
+| Option                     | Type                | Default         | Description                                  |
+|----------------------------|---------------------|-----------------|----------------------------------------------|
+| `initialValue`             | `string`            | `''`            | Initial phone number                         |
+| `useMask`                  | `boolean`           | `false`         | Use input mask for formatting                |
+| `forceSelectedCountryCode` | `boolean`           | `false`         | Show country code with mask                  |
+| `showMaskPlaceholder`      | `boolean`           | `false`         | Show mask placeholder                        |
+| `includeDialCode`          | `boolean`           | `false`         | Include dial code in number                  |
+| `outputNumberFormat`       | `PhoneNumberFormat` | `INTERNATIONAL` | Output format (INTERNATIONAL, E164, RFC3966) |
+
+### Labels & Text
+
+| Option | Type | Default          | Description |.                            |
+|---------------|------------------|-------------|-----------------------------|
+| `mainLabel`   | `string`         | `''`        | Override main field label   |
+| `textLabels`  | `TextLabels`     | *See below* | Override all component text |
+
+**Default TextLabels:**
+
+```typescript
+{
+  mainLabel: 'Phone number',
+  codePlaceholder: 'Code',
+  searchPlaceholderLabel: 'Search',
+  noEntriesFoundLabel: 'No countries found',
+  nationalNumberLabel: 'Number',
+  hintLabel: 'Select country and type your phone number',
+  invalidNumberError: 'Number is not valid',
+  requiredError: 'This field is required',
+  numberTooLongError: 'Phone number is too long'
+}
+```
 
 ## Events
 
