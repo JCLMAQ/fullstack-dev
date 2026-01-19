@@ -64,8 +64,8 @@ export class PhoneInclude {
 
   constructor() {
     // Définir la langue par défaut
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    // this.translate.setDefaultLang('en');
+    // this.translate.use('en');
 
     // Effet pour gérer le changement de thème
     effect(() => {
