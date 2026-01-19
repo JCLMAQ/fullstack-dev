@@ -1,8 +1,7 @@
 import {
   ApplicationConfig,
-  LOCALE_ID,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+  provideZonelessChangeDetection
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -18,7 +17,7 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
-import { COUNTRY_NAME_OVERRIDES, CountryNameOverrides } from '@fe/phone';
+import { CountryNameOverrides } from '@fe/phone';
 import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
@@ -123,11 +122,12 @@ export const appConfig: ApplicationConfig = {
       },
     },
     // For the Phone-number-input
-    { provide: LOCALE_ID, useValue: 'be-BE' },
-    {
-      provide: COUNTRY_NAME_OVERRIDES,
-      useValue: spanishCountryOverrides
-    },
+    // { provide: LOCALE_ID, useValue: 'be-BE' },
+    // {
+    //   provide: COUNTRY_NAME_OVERRIDES,
+    //   useValue: spanishCountryOverrides
+    // },
+
     provideAppErrorHandler(),
 
     // https://medium.com/@amosisaila/angular-21-0-1-the-missing-style-link-in-signal-forms-bb8571e90f61

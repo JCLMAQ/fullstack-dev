@@ -4,8 +4,8 @@ import {
   PhoneNumberType,
   PhoneNumberUtil
 } from 'google-libphonenumber';
-import { CountryCode, CountryData } from '../../../data/country-code';
-import { CountryISO } from '../../../enums/country-iso.enum';
+import { CountryCode, CountryData } from '../../data/country-code';
+import { CountryISO } from '../../enums/country-iso.enum';
 import { Country } from '../../types/country.model';
 import { CountryDisplayNameService } from '../country-display-name/country-display-name.service';
 
