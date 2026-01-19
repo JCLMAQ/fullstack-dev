@@ -1,6 +1,6 @@
 import { Image } from '@db/prisma';
-import { Prisma } from '@db/prisma/client';
 import { PrismaClientService } from '@db/prisma-client';
+import { Prisma } from '@db/prisma/client';
 import { Injectable } from '@nestjs/common';
 import { unlink } from 'fs/promises';
 import { join } from 'path';
