@@ -10,6 +10,21 @@ export function LanguageInterceptor(
     return next(request);
   }
 
+  // URLs externes qui ne doivent pas recevoir de headers personnalisés
+  const externalUrls = [
+    'ipapi.co',
+    'api.country.is',
+    'ip-api.com',
+    'geolocation-db.com'
+  ];
+
+  const isExternalUrl = externalUrls.some((url) => request.url.includes(url));
+
+  if (isExternalUrl) {
+    console.log('🌍 LanguageInterceptor - URL externe, pas de header x-custom-lang');
+    return next(request);
+  }
+
   // Read language from localStorage (set by AppStore/TranslateService)
   const storedAppState = localStorage.getItem('AppStore');
   let currentLang = 'fr'; // default fallback

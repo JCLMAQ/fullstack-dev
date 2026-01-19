@@ -22,6 +22,21 @@ export function AuthInterceptor (request: HttpRequest<unknown>, next: HttpHandle
         '/authentication/forgot-password',
     ];
 
+    // URLs externes qui ne doivent pas recevoir withCredentials ni token
+    const externalUrls = [
+        'ipapi.co',
+        'api.country.is',
+        'ip-api.com',
+        'geolocation-db.com'
+    ];
+
+    const isExternalUrl = externalUrls.some((url) => request.url.includes(url));
+
+    if (isExternalUrl) {
+        console.log('🌍 URL externe - pas de token ni credentials');
+        return next(request);
+    }
+
     const isPublicRoute = publicRoutes.some((route) => request.url.includes(route));
 
     if (isPublicRoute) {

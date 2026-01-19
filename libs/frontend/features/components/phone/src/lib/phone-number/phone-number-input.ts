@@ -342,17 +342,21 @@ export class PhoneNumberInput
   private geoIpLookup(): void {
     this.geoIpService.geoIpLookup().subscribe({
       next: (data: GeoData) => {
+        console.log('GeoIP detected country:', data.country_code);
         const country =
           this.allCountries?.find(
             (c) => c.iso2 === data.country_code?.toLowerCase()
           ) || null;
         if (country) {
+          console.log('Country found:', country.name, country.dialCode);
           this.updatePrefix(country);
         } else {
+          console.warn('Country not found in list, using fallback');
           this.setAutoSelectedCountry();
         }
       },
-      error: () => {
+      error: (err) => {
+        console.error('GeoIP lookup failed:', err);
         this.setAutoSelectedCountry();
       },
       complete: () => {
@@ -526,15 +530,19 @@ export class PhoneNumberInput
     );
 
     if (autoSelectedCountry) {
+      console.log('Using autoSelectedCountry input:', autoSelectedCountry.name);
       this.updatePrefix(autoSelectedCountry);
     } else {
       const defaultCountry = this.allCountries?.find(
-        (country) => country?.iso2 === CountryISO.Spain
+        (country) => country?.iso2 === CountryISO.Belgium
       );
       if (defaultCountry) {
+        console.log('Using Belgium as default:', defaultCountry.name, defaultCountry.dialCode);
         this.updatePrefix(defaultCountry);
       } else {
-        this.updatePrefix(this.allCountries?.[0] || null);
+        const firstCountry = this.allCountries?.[0];
+        console.log('Belgium not found, using first country:', firstCountry?.name, firstCountry?.dialCode);
+        this.updatePrefix(firstCountry || null);
       }
     }
   }
