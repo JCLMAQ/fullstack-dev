@@ -1,4 +1,5 @@
-import { Image, Prisma } from '@db/prisma';
+import { Image } from '@db/prisma';
+import { Prisma } from '@db/prisma/client';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { unlink } from 'fs/promises';
