@@ -1,1 +1,108 @@
-<p>phone-include works!</p>
+<section>
+  <div class="header">
+    <h2>ngx-material-intl-tel-input Demo</h2>
+    <button
+      mat-icon-button
+      (click)="toggleDarkMode()"
+      class="theme-toggle"
+      [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      @if (isDarkMode()) {
+        <mat-icon>light_mode</mat-icon>
+      } @else {
+        <mat-icon>dark_mode</mat-icon>
+      }
+    </button>
+  </div>
+
+  <!-- Language selector -->
+  <div class="language-controls">
+    <mat-form-field appearance="fill">
+      <mat-label>Language</mat-label>
+      <mat-select
+        [ngModel]="selectedLanguage()"
+        (ngModelChange)="switchLanguage($event)"
+      >
+        @for (lang of availableLanguages; track lang.code) {
+          <mat-option [value]="lang.code">{{ lang.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox
+      [ngModel]="enableI18n()"
+      (ngModelChange)="toggleI18n()"
+    >
+      Enable i18n
+    </mat-checkbox>
+  </div>
+
+  <form (ngSubmit)="onSubmit($event)">
+    <ngx-material-intl-tel-input
+      (currentValue)="getValue($event)"
+      (currentCountryCode)="getCountryCode($event)"
+      (currentCountryISO)="getCountryISO($event)"
+      [initialValue]="phoneValue()"
+      [enableI18n]="enableI18n()"
+      [emojiFlags]="false"
+      [includeDialCode]="false"
+      [useMask]="false"
+      [forceSelectedCountryCode]="false"
+      [showMaskPlaceholder]="true"
+      [localizeCountryNames]="false"
+      [outputNumberFormat]="PhoneNumberFormat.INTERNATIONAL"
+      [appearance]="'fill'"
+    ></ngx-material-intl-tel-input>
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="!isFormValid()"
+    >
+      Submit
+    </button>
+    <button mat-flat-button (click)="resetForm()" type="button">Reset</button>
+
+    <mat-checkbox (change)="toggleShowSetPhoneInput()"
+      >Show input to change number</mat-checkbox
+    >
+    @if (showSetPhoneInput()) {
+      <mat-form-field>
+        <mat-label>Set phone number</mat-label>
+        <input
+          matInput
+          type="text"
+          [ngModel]="setPhoneInputValue()"
+          (ngModelChange)="updateSetPhoneInput($event)"
+        />
+      </mat-form-field>
+      <button mat-flat-button (click)="setPhone()" type="button">
+        Set phone number
+      </button>
+    }
+  </form>
+  @if (currentPhoneValue()) {
+    <div>
+      Returned value: <br /><mat-chip>{{ currentPhoneValue() }}</mat-chip>
+    </div>
+    <div class="current-country-code-container">
+      @if (currentCountryCode()) {
+        <div>
+          Country code: <br /><mat-chip>{{ currentCountryCode() }}</mat-chip>
+        </div>
+      }
+      @if (currentCountryISO()) {
+        <div>
+          Country ISO: <br /><mat-chip>{{ currentCountryISO() }}</mat-chip>
+        </div>
+      }
+    </div>
+  } @else {
+    <div>No value returned</div>
+  }
+  @if (submittedPhoneValue()) {
+    <div>
+      Submitted value: <br /><mat-chip>{{ submittedPhoneValue() }}</mat-chip>
+    </div>
+  }
+  <router-outlet></router-outlet>
+</section>

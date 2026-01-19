@@ -1,0 +1,158 @@
+<section>
+  @if (mainLabel() || translatedLabels().mainLabel) {
+    <mat-label class="main-label">{{
+      mainLabel() || translatedLabels().mainLabel
+    }}</mat-label>
+  }
+  <div
+    class="tel-form"
+    [ngClass]="{ 'is-focused': isFocused() && appearance() !== 'outline' }"
+  >
+    <mat-form-field
+      [appearance]="appearance()"
+      class="prefix-form-field"
+      matTooltip="{{ selectedPrefix()?.name }}"
+    >
+      <mat-select
+        [ngModel]="selectedPrefix()"
+        (ngModelChange)="onPrefixChange($event)"
+        [placeholder]="(!isLoading() && translatedLabels().codePlaceholder) || ''"
+        #singleSelect
+        panelClass="tel-mat-select-panel"
+        [required]="required()"
+        [disabled]="disabled()"
+      >
+        <mat-select-trigger>
+          <div class="country-option">
+            <div class="country-option-flag-container">
+              @if (emojiFlags()) {
+                <div>
+                  <span class="flag-emoji">{{
+                    selectedPrefix()?.emojiFlag
+                  }}</span>
+                </div>
+              } @else {
+                <div
+                  class="country-option-flag"
+                  [ngClass]="selectedPrefix()?.flagClass"
+                ></div>
+              }
+            </div>
+            @if (includeDialCode() || selectedPrefix()?.iso2 === 'mp') {
+              <div>{{ selectedPrefix()?.iso2?.toUpperCase() || '' }}</div>
+            } @else {
+              <div>+{{ selectedPrefix()?.dialCode || '' }}</div>
+            }
+          </div>
+        </mat-select-trigger>
+
+        @if (enableSearch()) {
+          <mat-option>
+            <ngx-mat-select-search
+              [ngModel]="searchFilter()"
+              (ngModelChange)="onSearchChange($event)"
+              [placeholderLabel]="translatedLabels().searchPlaceholderLabel || ''"
+              [noEntriesFoundLabel]="translatedLabels().noEntriesFoundLabel || ''"
+            >
+              <svg
+                ngxMatSelectSearchClear
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-x"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+              </svg>
+            </ngx-mat-select-search>
+          </mat-option>
+        }
+
+        @for (country of filteredCountries(); track country.iso2) {
+          <mat-option [value]="country">
+            <div
+              class="country-option"
+              style="display: flex; align-items: center; font-size: 14px"
+            >
+              <div class="country-option-flag-container">
+                @if (emojiFlags()) {
+                  <div>
+                    <span class="flag-emoji">{{ country.emojiFlag }}</span>
+                  </div>
+                } @else {
+                  <div
+                    class="country-option-flag"
+                    [ngClass]="country.flagClass"
+                  ></div>
+                }
+              </div>
+              <div>{{ country.name }}</div>
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance()" class="number-form-field">
+      @if (translatedLabels().nationalNumberLabel) {
+        <mat-label>{{ translatedLabels().nationalNumberLabel }}</mat-label>
+      }
+      <input
+        matInput
+        type="tel"
+        [ngModel]="phoneNumber()"
+        (ngModelChange)="onNumberChange($event)"
+        [placeholder]="selectedPrefix()?.placeHolder || ''"
+        autocomplete="off"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        [required]="required()"
+        [disabled]="disabled()"
+        [attr.maxlength]="
+          enableInputMaxLength()
+            ? getMaxInputLength(selectedPrefix()?.iso2)
+            : null
+        "
+        #numberInput
+        [imask]="selectedPrefix()?.mask"
+      />
+
+      @if (!hidePhoneIcon()) {
+        <mat-icon matSuffix>
+          @if (
+            iconMakeCall() && !validationError() && formattedPhoneNumber()
+          ) {
+            <a href="tel:{{ formattedPhoneNumber() }}">
+              <lib-phone-icon></lib-phone-icon>
+            </a>
+          } @else {
+            <lib-phone-icon></lib-phone-icon>
+          }
+        </mat-icon>
+      }
+    </mat-form-field>
+  </div>
+
+  @if (translatedLabels().hintLabel) {
+    <mat-hint>{{ translatedLabels().hintLabel }}</mat-hint>
+  }
+  @if (
+    required() &&
+    !phoneNumber() &&
+    translatedLabels().requiredError
+  ) {
+    <mat-error>{{ translatedLabels().requiredError }}</mat-error>
+  }
+  @if (
+    validationError()?.['invalidPhoneNumber'] && translatedLabels().invalidNumberError
+  ) {
+    <mat-error>{{ translatedLabels().invalidNumberError }}</mat-error>
+  }
+</section>

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PhoneNumber } from './phone-number';
+import { PhoneNumber } from './phone-number-input';
 
 describe('PhoneNumber', () => {
   let component: PhoneNumber;
