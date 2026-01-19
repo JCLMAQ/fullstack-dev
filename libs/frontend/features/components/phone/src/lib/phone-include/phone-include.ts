@@ -48,13 +48,13 @@ export class PhoneInclude {
   PhoneNumberFormat = PhoneNumberFormat;
 
   // Liste des langues disponibles
-  availableLanguages = [
-    { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
-    // { code: 'es', label: 'Español' },
-    { code: 'de', label: 'Deutsch' },
-    { code: 'nl', label: 'Nederlands' }
-  ];
+  // availableLanguages = [
+  //   { code: 'en', label: 'English' },
+  //   { code: 'fr', label: 'Français' },
+  //   // { code: 'es', label: 'Español' },
+  //   { code: 'de', label: 'Deutsch' },
+  //   { code: 'nl', label: 'Nederlands' }
+  // ];
 
   // Computed pour la validation du formulaire
   isFormValid = computed(() => {

@@ -4,10 +4,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
 import { of, Subject } from 'rxjs';
-import { Country } from '../types/country.model';
-import { GeoData } from '../types/geo.type';
 import { PhoneNumberInput } from './phone-number-input';
 import { GeoIpService } from './services/geo-ip/geo-ip.service';
+import { Country } from './types/country.model';
+import { GeoData } from './types/geo.type';
 
 describe('PhoneNumber', () => {
   let component: PhoneNumberInput;
