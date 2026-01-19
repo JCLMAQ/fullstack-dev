@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  LOCALE_ID,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -17,12 +18,16 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
+import { COUNTRY_NAME_OVERRIDES, CountryNameOverrides } from '@fe/phone';
 import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
-// import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
+const spanishCountryOverrides: CountryNameOverrides = {
+  US: 'Estados Unidos de América',
+  MX: 'Estados Unidos Mexicanos'
+};
 
 // const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
 //         // 1. Success State: Green ring when valid and dirty (user typed something correct)
@@ -87,17 +92,6 @@ export const appConfig: ApplicationConfig = {
           ]),
         ),
 
-    // provideTranslateService({
-    //   lang: 'fr',
-    //   fallbackLang: 'en',
-    //   loader: provideTranslateHttpLoader({
-    //     prefix:"i18n/",
-    //     suffix:".json",
-    //     enforceLoading: true,
-    //     useHttpBackend: true,
-    //   }),
-    // }),
-
     provideTranslateService({
       lang: 'fr',
       fallbackLang: 'en',
@@ -127,6 +121,12 @@ export const appConfig: ApplicationConfig = {
         floatLabel: 'never',
         subscriptSizing: 'dynamic',
       },
+    },
+    // For the Phone-number-input
+    { provide: LOCALE_ID, useValue: 'be-BE' },
+    {
+      provide: COUNTRY_NAME_OVERRIDES,
+      useValue: spanishCountryOverrides
     },
     provideAppErrorHandler(),
 
