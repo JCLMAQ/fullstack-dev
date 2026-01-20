@@ -1,7 +1,7 @@
 import {
-  ApplicationConfig,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection
+    ApplicationConfig,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -17,8 +17,9 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
+import { iamAuthInterceptorFn } from '@fe/core/auth';
 import { CountryNameOverrides } from '@fe/phone';
-import { AuthInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
+import { LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
@@ -83,13 +84,13 @@ export const appConfig: ApplicationConfig = {
     // provideAnimations(),
 
     provideHttpClient(
-          withFetch(),
-          withInterceptors([
-            AuthInterceptor,
-            LanguageInterceptor,
-            LoggingInterceptor,
-          ]),
-        ),
+      withFetch(),
+      withInterceptors([
+        iamAuthInterceptorFn,
+        LanguageInterceptor,
+        LoggingInterceptor,
+      ]),
+    ),
 
     provideTranslateService({
       lang: 'fr',

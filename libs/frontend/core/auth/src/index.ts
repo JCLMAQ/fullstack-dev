@@ -8,6 +8,8 @@ export * from './lib/guards/auth.guard';
 
 // IAM Auth exports
 export * from './lib/iam-auth/iam-auth';
+export * from './lib/iam-auth/iam-auth.interceptor';
+export * from './lib/iam-auth/iam-auth.interceptor-fn';
 export * from './lib/iam-auth/services/changepwd/changepwd-service';
 export * from './lib/iam-auth/services/login/login-service';
 export * from './lib/iam-auth/services/register/register-service';
