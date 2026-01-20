@@ -1,43 +1,97 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
 
-## Core Principles
+# Constitution du projet fullstack-dev
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## Principes Fondamentaux
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. Architecture DDD & Nx Monorepo
+Le projet est structuré par domaines métier (DDD), chaque domaine étant organisé en sous-dossiers `feature/`, `ui/`, `data/`, `util/`. L’ensemble du code (backend, frontend, libs partagées) est géré dans un monorepo Nx.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Stack Technique Imposée
+- Backend : NestJS, Prisma, class-validator, class-transformer
+- Frontend : Angular 21+, NgRx Signals Store, Angular Material v3, SCSS, Vitest, Playwright
+- Build : @angular/build (esbuild)
+- Lint/Format : ESLint (Angular rules), Prettier, Lefthook
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### III. Testabilité & Qualité
+Tests unitaires (Vitest + ng-mocks) et E2E (Playwright) obligatoires pour toute nouvelle fonctionnalité. Code testable, pur, typé strictement, sans duplication ni code mort.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### IV. Sécurité & Validation
+Sanitization systématique des entrées utilisateur, validation forte côté backend et frontend, guards sur routes sensibles, intercepteurs HTTP pour gestion des erreurs et headers auth.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. Simplicité, Performance & Accessibilité
+Favoriser la simplicité, la lisibilité, l’accessibilité (a11y), l’optimisation des performances (OnPush, signals, lazy loading, pas de fuites mémoire).
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+---
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Contraintes et Standards Additionnels
 
-[SECTION_3_CONTENT]
+- **Organisation des dossiers** :
+  - `apps/backend/nest-app` : Application NestJS principale
+  - `apps/frontend/app-jcm` : Application Angular principale
+  - `libs/backend/*` et `libs/frontend/*` : bibliothèques par domaine
+  - `libs/prisma` : schéma et client Prisma
+  - `scripts/` : scripts de configuration
+- **DDD** : chaque composant/directive/pipe dans un sous-dossier dédié
+- **Pas de NgModules** (Angular 21+ standalone components)
+- **Pas de données statiques/in-memory** dans le code applicatif
+- **Accès aux données uniquement via API**
+- **State management** : NgRx Signals Store
+- **UI** : Angular Material v3, theming SCSS, dark mode support
+- **Formulaires** : Signal Forms uniquement
+- **Injection** : `inject()` partout (pas de décorateur)
+- **Contrôle de flux moderne** : `@if`, `@for`, `@switch`
+- **input()/output() functions** (pas de décorateurs)
+- **ChangeDetection** : OnPush par défaut
+- **NgOptimizedImage** pour images statiques
+- **Validation et sécurité** : forms validés, inputs typés et validés
+- **Soft delete** sur les entités (`isDeleted`, `isDeletedDT`)
+- **Email validation** avec tokens
+- **Import Prisma** : `@db/prisma` pour le service, `@prisma/client` pour les types
+- **Variables critiques** dans `.env` : `DATABASE_URL`, `API_*`, `NEST_SERVER_*`
+
+---
+
+## Workflows de Développement
+
+1. **Démarrage** :
+	- `pnpm run db:docker:up` (DB)
+	- `pnpm run start:backend:dev` (backend, génère proxy)
+	- `pnpm run start:frontend:dev` (frontend, génère env + proxy)
+2. **Modification du schéma Prisma** :
+	- Modifier `libs/prisma/src/lib/prisma/schema.prisma`
+	- `pnpm run start:prisma` (génère + migre)
+	- Redémarrer les services
+3. **Seeding** :
+	- `pnpm run seed-param`, `pnpm run seed-faker`, `pnpm run seed-org`
+
+---
+
+## Règles de Codage et Conventions
+
+- TypeScript strict partout, pas de `any`, types explicites
+- Fonctions pures et testables, SRP appliqué
+- Pas de duplication : réutiliser les utilitaires existants
+- Nommage descriptif et conventions Angular/TypeScript
+- Pas de commentaires inutiles
+- Pas de code mort ou legacy
+- Pas de dépendances inutiles
+- Validation et sanitation de tous les inputs utilisateurs
+- Pas d’accès direct au DOM (Angular)
+- Respect du style Angular Material pour l’UI
+- Accessibilité (a11y) obligatoire
+- Tests unitaires et E2E pour toute nouvelle fonctionnalité
+
+---
+
+## Documentation & Partage
+
+- README à jour pour chaque app/lib
+- JSDoc pour logique complexe
+- Pas de documentation inutile sur code trivial
+
+---
+
+Ce document fait foi pour toute évolution du projet. Toute modification de structure, stack ou convention doit être validée par l’équipe technique.
 <!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
 
 ## Governance
