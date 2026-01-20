@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 // Ce test suppose un utilisateur de test existant avec email et mot de passe valides
 const TEST_EMAIL = 'test-refresh@example.com';
