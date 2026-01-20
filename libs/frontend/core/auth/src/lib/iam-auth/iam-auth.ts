@@ -115,6 +115,9 @@ export class IamAuth {
     this.tokenStorage.clearRefreshToken();
     this.userStorage.clearUser();
     this.logoutAsUserOrAdmin();
+    // Suppression des flags d'authentification du localStorage
+    localStorage.removeItem('authenticated');
+    localStorage.removeItem('adminRole');
     this.adminRole = false;
     this.userSignal.set(null);
     // Redirection éventuelle ou autres actions post-logout
