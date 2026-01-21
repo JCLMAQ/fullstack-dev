@@ -1,13 +1,4 @@
-  /**
-   * Déconnexion explicite : invalide le refresh token côté backend
-   */
-  @Auth(AuthType.Bearer)
-  @Post('logout')
-  @HttpCode(HttpStatus.OK)
-  async logout(@ActiveUser() activeUser: ActiveUserData): Promise<{ success: boolean }> {
-    await this.authenticationService.logout(activeUser.sub);
-    return { success: true };
-  }
+
 import { ActiveUser, ActiveUserData } from '@be/common';
 import { PrismaClientService } from '@db/prisma-client';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
@@ -38,7 +29,6 @@ import { OtpAuthenticationService } from './otp-authentication/otp-authenticatio
 import { PasswordResetService } from './password-reset/password-reset.service';
 import { UserProfileService } from './user-profile/user-profile.service';
 
-
 @Auth(AuthType.None) // This allows public routes
 @Controller('authentication')
 export class AuthenticationController {
@@ -51,6 +41,17 @@ export class AuthenticationController {
     private readonly i18n: I18nService,
     private readonly prisma: PrismaClientService
   ) {}
+
+  /**
+   * Déconnexion explicite : invalide le refresh token côté backend
+   */
+  @Auth(AuthType.Bearer)
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  async logout(@ActiveUser() activeUser: ActiveUserData): Promise<{ success: boolean }> {
+    await this.authenticationService.logout(activeUser.sub);
+    return { success: true };
+  }
 
   @Post('sign-up')
   async signUp(@Body() signUpDto: SignUpDto) {

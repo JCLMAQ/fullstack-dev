@@ -1,24 +1,16 @@
-  /**
-   * Invalide le refresh token pour l'utilisateur (déconnexion)
-   */
-  async logout(userId: string): Promise<void> {
-    await this.refreshTokenIdsStorage.invalidate(userId);
-  }
 import { ActiveUserData, HashingService } from '@be/common';
+import jwtConfig from '@be/jwtconfig';
 import { Gender, Language, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
-  ConflictException,
-  Inject,
-  Injectable,
-  UnauthorizedException,
+    ConflictException,
+    Inject,
+    Injectable,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
-
-// import jwtConfig from '@be/common';
-import jwtConfig from '@be/jwtconfig';
 import { ApiKeysService } from './api-keys/api-keys.service';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -40,6 +32,13 @@ export class AuthenticationService {
     private readonly otpAuthService: OtpAuthenticationService,
     private readonly prisma: PrismaClientService,
   ) {}
+
+  /**
+   * Invalide le refresh token pour l'utilisateur (déconnexion)
+   */
+  async logout(userId: string): Promise<void> {
+    await this.refreshTokenIdsStorage.invalidate(userId);
+  }
 
 
   async emailCheck(email: string): Promise<boolean> {
