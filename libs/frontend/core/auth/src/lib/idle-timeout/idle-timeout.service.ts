@@ -84,6 +84,7 @@ export class IdleTimeoutService {
     });
     this.warningDialogRef.afterClosed().subscribe((result: 'stay' | undefined) => {
       this.warningDialogRef = null;
+      if (this.isLoggedOut) return; // Ne jamais relancer logout si déjà déconnecté
       if (result === 'stay') {
         this.resetTimers();
       } else {
