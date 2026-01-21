@@ -102,6 +102,20 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       logout: async () => {
         // Nettoyage complet via le service d'authentification (backend + signaux)
         await store._authService.logout();
+        // Nettoyage ciblé du localStorage (uniquement les clés utilisateur/session)
+        [
+          'authJwtToken',
+          'refreshJwtToken',
+          'user',
+          'adminRole',
+          'authenticated',
+          'isAdmin',
+          'orgId',
+          'isLoggedIn',
+          'accessToken',
+          'refreshToken',
+        ].forEach((key) => localStorage.removeItem(key));
+        // Reset signaux globaux si besoin (user, tokens, etc.)
         store._localStorageCleaner.clearAllUserData(); // user and tokens
         patchState(store, {
           user: undefined,
@@ -110,7 +124,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           orgId: undefined,
           isLoggedIn: false,
         });
-        store._router.navigate(['pages/home']);
+        // Redirection vers la page de login
+        store._router.navigate(['/auth/login']);
       },
 
       loginAsAdmin: async () => {

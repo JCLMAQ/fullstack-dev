@@ -105,13 +105,23 @@ export class IdleTimeoutService {
     this.closeWarning();
     await this.appStore['logout']();
     // Affiche un feedback UX après déconnexion automatique
-    this.dialog.open(IdleWarningDialog, {
-      disableClose: true,
-      width: '420px',
-      maxWidth: '90vw',
-      data: { remaining: 0, loggedOut: true } satisfies IdleWarningDialogData,
-    });
-    // Correction: redirige vers /auth/login
-    this.router.navigate(['/auth/login']);
+    if (!this.warningDialogRef) {
+      this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
+        disableClose: true,
+        width: '420px',
+        maxWidth: '90vw',
+        data: { remaining: 0, loggedOut: true } satisfies IdleWarningDialogData,
+      });
+      this.warningDialogRef.afterClosed().subscribe(() => {
+        this.warningDialogRef = null;
+        this.router.navigate(['/auth/login']);
+      });
+    } else {
+      // Si déjà ouvert, juste naviguer après fermeture
+      this.warningDialogRef.afterClosed().subscribe(() => {
+        this.warningDialogRef = null;
+        this.router.navigate(['/auth/login']);
+      });
+    }
   }
 }

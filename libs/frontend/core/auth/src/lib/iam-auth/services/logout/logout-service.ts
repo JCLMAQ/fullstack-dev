@@ -38,6 +38,11 @@ export class LogoutService {
   async logoutBackend(refreshToken?: string): Promise<{ success: boolean; message?: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\/|\/$/g, '');
     const pathUrl = `${apiPrefix}/authentication/logout`;
+    // Vérifie la présence d'un token avant d'appeler l'API
+    const token = this.tokenStorage.authToken();
+    if (!token) {
+      return { success: true, message: 'No token, logout already done client-side.' };
+    }
     try {
       const response$ = this.httpClient.post<{ success: boolean; message?: string }>(
         pathUrl,

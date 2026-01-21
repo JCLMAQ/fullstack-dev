@@ -32,6 +32,9 @@ export class IdleWarningDialog {
   }
 
   public closeDialog() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
     this.dialogRef.close();
   }
 
