@@ -10,6 +10,9 @@
         AUTO_REGISTRATION_ENABLE: "0",
         REGISTRATION_VALIDATION: "0",
         PWDLESS_LOGIN_ENABLE: "0",
-        defaultLanguage: "en",
-        supportedLanguages: ['en', 'fr']
+        DEFAULT_LANGUAGE: "en",
+        SUPPORTED_LANGUAGE: ['en', 'fr', 'de', 'nl'],
+        SESSION_TIMEOUT_ENABLE: 1,
+        SESSION_TIMEOUT: 3600,
+        SESSION_TIMEOUT_REMINDER: 300
     };

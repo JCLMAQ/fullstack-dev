@@ -1,3 +1,9 @@
+  /**
+   * Invalide le refresh token pour l'utilisateur (déconnexion)
+   */
+  async logout(userId: string): Promise<void> {
+    await this.refreshTokenIdsStorage.invalidate(userId);
+  }
 import { ActiveUserData, HashingService } from '@be/common';
 import { Gender, Language, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';

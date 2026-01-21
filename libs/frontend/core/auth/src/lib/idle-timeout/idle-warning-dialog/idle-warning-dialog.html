@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>
+  @if (!loggedOut) {
+    Inactivité détectée
+  } @else {
+    Déconnexion automatique
+  }
+</h2>
+<div mat-dialog-content>
+  @if (!loggedOut) {
+    <p>Vous allez être déconnecté dans <b>{{ remaining() }}</b> secondes pour cause d'inactivité.</p>
+  } @else {
+    <p>Vous avez été déconnecté pour cause d'inactivité.<br>Merci de vous reconnecter pour continuer.</p>
+  }
+</div>
+<div mat-dialog-actions *ngIf="!loggedOut">
+  <button mat-raised-button color="primary" (click)="stayConnected()">Rester connecté</button>
+</div>

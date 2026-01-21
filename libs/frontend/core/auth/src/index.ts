@@ -24,6 +24,9 @@ export * from './lib/iam-auth/iam-auth.token';
 // Auth models
 export * from './lib/models/auth.model';
 
+//  Export des timers d'inactivité
+export * from './lib/idle-timeout/index';
+
 
 
 

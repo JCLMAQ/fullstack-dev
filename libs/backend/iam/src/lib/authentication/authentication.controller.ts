@@ -1,3 +1,13 @@
+  /**
+   * Déconnexion explicite : invalide le refresh token côté backend
+   */
+  @Auth(AuthType.Bearer)
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  async logout(@ActiveUser() activeUser: ActiveUserData): Promise<{ success: boolean }> {
+    await this.authenticationService.logout(activeUser.sub);
+    return { success: true };
+  }
 import { ActiveUser, ActiveUserData } from '@be/common';
 import { PrismaClientService } from '@db/prisma-client';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';

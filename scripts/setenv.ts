@@ -24,6 +24,9 @@ const required = [
   'PWDLESS_LOGIN_ENABLE',
   'DEFAULT_LANGUAGE',
   'SUPPORTED_LANGUAGE',
+  'SESSION_TIMEOUT_ENABLE',
+  'SESSION_TIMEOUT',
+  'SESSION_TIMEOUT_REMINDER'
 ];
 
 const missing = required.filter((k) => !(k in process.env));
@@ -50,8 +53,11 @@ function generateEnvironmentContent(isProduction: boolean): string {
         AUTO_REGISTRATION_ENABLE: "${process.env.AUTO_REGISTRATION_ENABLE}",
         REGISTRATION_VALIDATION: "${process.env.REGISTRATION_VALIDATION}",
         PWDLESS_LOGIN_ENABLE: "${process.env.PWDLESS_LOGIN_ENABLE}",
-        defaultLanguage: "${process.env.DEFAULT_LANGUAGE}",
-        supportedLanguages: ${process.env.SUPPORTED_LANGUAGE}
+        DEFAULT_LANGUAGE: "${process.env.DEFAULT_LANGUAGE}",
+        SUPPORTED_LANGUAGE: ${process.env.SUPPORTED_LANGUAGE},
+        SESSION_TIMEOUT_ENABLE: ${process.env.SESSION_TIMEOUT_ENABLE},
+        SESSION_TIMEOUT: ${parseInt(process.env.SESSION_TIMEOUT || '0', 10)},
+        SESSION_TIMEOUT_REMINDER: ${parseInt(process.env.SESSION_TIMEOUT_REMINDER || '0', 10)}
     };`;
 }
 

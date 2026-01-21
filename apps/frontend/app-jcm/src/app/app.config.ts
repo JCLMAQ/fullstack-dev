@@ -12,22 +12,25 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { LocalStorageCleanerService } from '@fe/shared';
 import { DICTIONARIES_TOKEN, ENVIRONMENT_TOKEN, LOCALSTORAGE_CLEANER_TOKEN, MENU_ITEMS_TOKEN } from '@fe/tokens';
 // import { DICTIONARIES_TOKEN } from '@fe/util/tokens/dictionaries.token';
+
 import { appRoutes } from './app.routes';
 import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
 import { iamAuthInterceptorFn } from '@fe/core/auth';
-import { CountryNameOverrides } from '@fe/phone';
 import { LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
+// Ajout Idle Timeout
+import { IdleTimeoutService, IdleWarningDialog } from '@fe/auth';
 
-const spanishCountryOverrides: CountryNameOverrides = {
-  US: 'Estados Unidos de América',
-  MX: 'Estados Unidos Mexicanos'
-};
+
+// const countryOverrides: CountryNameOverrides = {
+//   US: 'Estados Unidos de América',
+//   MX: 'Estados Unidos Mexicanos'
+// };
 
 // const NG_STATUS_CLASSES: SignalFormsConfig['classes'] = {
 //         // 1. Success State: Green ring when valid and dirty (user typed something correct)
@@ -126,7 +129,7 @@ export const appConfig: ApplicationConfig = {
     // { provide: LOCALE_ID, useValue: 'be-BE' },
     // {
     //   provide: COUNTRY_NAME_OVERRIDES,
-    //   useValue: spanishCountryOverrides
+    //   useValue: countryOverrides
     // },
 
     provideAppErrorHandler(),
@@ -134,7 +137,11 @@ export const appConfig: ApplicationConfig = {
     // https://medium.com/@amosisaila/angular-21-0-1-the-missing-style-link-in-signal-forms-bb8571e90f61
     provideSignalFormsConfig({
       classes: NG_STATUS_CLASSES
-    })
+    }),
+
+    // Idle Timeout (inactivité)
+    IdleTimeoutService,
+    IdleWarningDialog,
   ],
 };
 
