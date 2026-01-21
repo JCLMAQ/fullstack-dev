@@ -234,6 +234,7 @@
     "STAY_CONNECTED_BUTTON": "Verbonden blijven",
     "INNACTIVITY_DETECTED": "Inactiviteit gedetecteerd",
     "INNACTIVITY_MESSAGE": "U bent afgemeld wegens een lange periode van inactiviteit. Log opnieuw in om verder te gaan.",
-    "DECONNECTION_AUTOMATIC_MESSAGE": "U wordt automatisch afgemeld over: {{remaining()}} seconden.<br>"
+    "DECONNECTION_AUTOMATIC_MESSAGE": "U wordt automatisch afgemeld over: {{remaining()}} ",
+    "TIME_BEFORE_LOGOUT": "seconden vanwege inactiviteit."
   }
 }

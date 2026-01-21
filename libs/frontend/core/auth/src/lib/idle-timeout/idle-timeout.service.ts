@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AppStore } from '@fe/stores';
 import { ENVIRONMENT_DATA } from 'apps/frontend/app-jcm/environments/environment';
-import { LogoutService } from '../iam-auth/services/login/logout-service';
+import { LogoutService } from '../iam-auth/services/logout/logout-service';
 import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
 import { IdleWarningDialog, IdleWarningDialogData } from '../idle-timeout/idle-warning-dialog/idle-warning-dialog';
 

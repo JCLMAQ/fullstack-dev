@@ -8,7 +8,7 @@ import { Organization, User } from '@db/prisma/browser';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { ChangePwdService } from './services/changepwd/changepwd-service';
 import { LoginService } from './services/login/login-service';
-import { LogoutService } from './services/login/logout-service';
+import { LogoutService } from './services/logout/logout-service';
 import { RegisterService } from './services/register/register-service';
 import { ResetPwdService } from './services/resetpwd/resetpwd-service';
 import { TokenStorageService } from './services/token-storage/token-storage-service';

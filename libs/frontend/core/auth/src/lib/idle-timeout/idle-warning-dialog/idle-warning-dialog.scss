@@ -1,69 +1,81 @@
 
 
 
-:host ::ng-deep .mat-mdc-dialog-container,
-:host ::ng-deep .mat-dialog-container {
-  min-width: 420px !important;
-  max-width: 420px !important;
-  width: 420px !important;
-  min-height: 220px !important;
-  max-height: 90vh !important;
-  height: 320px !important;
-  padding: 2rem 1.5rem 1.5rem 1.5rem !important;
-  border-radius: 16px !important;
-  box-shadow: 0 4px 32px rgba(0,0,0,0.18) !important;
-  background: var(--mat-dialog-background, #fff) !important;
-  overflow: visible !important;
+
+.idle-warning-dialog-container {
+  background: var(--mat-sys-surface-container, #fff);
+  border: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  border-radius: 1.25rem; /* 20px */
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-:host ::ng-deep .mat-mdc-dialog-container {
-  --mdc-dialog-min-width: 420px !important;
-  --mdc-dialog-max-width: 420px !important;
-  --mdc-dialog-container-color: var(--mat-dialog-background, #fff) !important;
-}
-
-.mat-dialog-title {
-  font-size: 1.3rem;
+.idle-warning-dialog-container h2 {
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--mat-dialog-title-color, #222);
+  margin-bottom: 1.2rem;
+  color: var(--mat-sys-on-surface, #222);
+  text-align: center;
 }
 
-.mat-dialog-content {
+.idle-warning-dialog-container .mat-dialog-content {
   font-size: 1.1rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--mat-dialog-content-color, #333);
+  color: var(--mat-sys-on-surface, #333);
 }
 
-.mat-dialog-actions {
+.idle-warning-dialog-container .mat-dialog-actions {
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
-button[mat-raised-button] {
+.idle-warning-dialog-container button[mat-raised-button] {
   min-width: 160px;
+  max-width: 220px;
+  width: 100%;
   font-size: 1rem;
   font-weight: 500;
   margin: 0 auto;
   display: block;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  padding: 0.75rem 0;
+}
+
+@media (max-width: 500px) {
+  .idle-warning-dialog-container {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    max-width: 98vw;
+  }
+  .idle-warning-dialog-container h2 {
+    font-size: 1.1rem;
+  }
 }
 
 /* Dark mode support */
 
-:host-context(.dark) ::ng-deep .mat-mdc-dialog-container,
-:host-context(.dark) ::ng-deep .mat-dialog-container {
+
+:host-context(.dark) .idle-warning-dialog-container {
   background: #23272e !important;
   color: #f1f1f1 !important;
+  border-color: #343a40 !important;
 }
-:host-context(.dark) ::ng-deep .mat-dialog-title {
+:host-context(.dark) .idle-warning-dialog-container h2 {
   color: #f1f1f1 !important;
 }
-:host-context(.dark) ::ng-deep .mat-dialog-content {
+:host-context(.dark) .idle-warning-dialog-container .mat-dialog-content {
   color: #e0e0e0 !important;
 }
-:host-context(.dark) ::ng-deep button[mat-raised-button] {
+:host-context(.dark) .idle-warning-dialog-container button[mat-raised-button] {
   background: #1976d2 !important;
   color: #fff !important;
 }
