@@ -113,21 +113,11 @@ export class IamAuth {
    * Déconnexion complète de l'utilisateur
    */
   logout(): void {
-    // Appel backend pour invalider le refreshToken
     const refreshToken = this.getRefreshToken();
-    this.logoutService.logoutBackend(refreshToken)
-      .finally(() => {
-        this.tokenStorage.clearToken();
-        this.tokenStorage.clearRefreshToken();
-        this.userStorage.clearUser();
-        this.logoutAsUserOrAdmin();
-        // Suppression des flags d'authentification du localStorage
-        localStorage.removeItem('authenticated');
-        localStorage.removeItem('adminRole');
-        this.adminRole = false;
-        this.userSignal.set(null);
-        // Redirection éventuelle ou autres actions post-logout
-      });
+    this.logoutService.logoutComplet(refreshToken, this.userSignal).finally(() => {
+      this.logoutAsUserOrAdmin();
+      this.adminRole = false;
+    });
   }
 
   /**

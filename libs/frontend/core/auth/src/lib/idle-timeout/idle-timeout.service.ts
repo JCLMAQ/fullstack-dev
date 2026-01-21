@@ -1,8 +1,8 @@
-
 import { Injectable, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ENVIRONMENT_DATA } from 'apps/frontend/app-jcm/environments/environment';
+import { LogoutService } from '../iam-auth/services/login/logout-service';
 import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
 import { IdleWarningDialog, IdleWarningDialogData } from '../idle-timeout/idle-warning-dialog/idle-warning-dialog';
 
@@ -20,6 +20,7 @@ export class IdleTimeoutService {
   private readonly tokenStorage = inject(TokenStorageService);
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
+  private readonly logoutService = inject(LogoutService);
 
   // Configurable via ENV
   private readonly enableTimeout: boolean;
@@ -95,30 +96,8 @@ export class IdleTimeoutService {
   private async logout() {
     this.clearTimers();
     this.closeWarning();
-    let logoutOk = false;
-    try {
-      const authToken = this.tokenStorage.authToken();
-      if (authToken) {
-        const apiPrefix = ENVIRONMENT_DATA.API_BACKEND_PREFIX?.replace(/^\/+/, '').replace(/\/+$/, '');
-        const logoutUrl = `${ENVIRONMENT_DATA.API_BACKEND_URL}/${apiPrefix}/authentication/logout`;
-        const resp = await fetch(logoutUrl, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        logoutOk = resp.ok;
-      }
-    } catch (e) {
-      // Optionnel: log erreur
-    }
-    if (logoutOk) {
-      this.tokenStorage.clearToken();
-      this.tokenStorage.clearRefreshToken();
-    }
-    this.tokenStorage.clearToken();
-    this.tokenStorage.clearRefreshToken();
+    const refreshToken = this.tokenStorage.refreshToken();
+    await this.logoutService.logoutComplet(refreshToken);
     // Affiche un feedback UX après déconnexion automatique
     this.dialog.open(IdleWarningDialog, {
       disableClose: true,
