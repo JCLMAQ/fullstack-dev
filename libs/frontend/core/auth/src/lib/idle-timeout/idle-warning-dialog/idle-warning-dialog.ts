@@ -29,6 +29,10 @@ export class IdleWarningDialog {
     }
   }
 
+  public closeDialog() {
+    this.dialogRef.close();
+  }
+
   private startCountdown() {
     this.intervalId = setInterval(() => {
       const next = this.remaining() - 1;

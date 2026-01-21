@@ -1,8 +1,8 @@
 import {
-    ApplicationConfig,
-    inject,
-    provideBrowserGlobalErrorListeners,
-    provideZonelessChangeDetection
+  ApplicationConfig,
+  inject,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -140,7 +140,7 @@ export const appConfig: ApplicationConfig = {
       classes: NG_STATUS_CLASSES
     }),
 
-     {
+    {
     provide: 'IDLE_TIMEOUT_INIT',
     useFactory: () => inject(IdleTimeoutService),
   },

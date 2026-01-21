@@ -8,6 +8,7 @@ import { Organization, User } from '@db/prisma/browser';
 import { ILoginResponse, IRegisterResponse } from '../models/auth.model';
 import { ChangePwdService } from './services/changepwd/changepwd-service';
 import { LoginService } from './services/login/login-service';
+import { LogoutService } from './services/login/logout-service';
 import { RegisterService } from './services/register/register-service';
 import { ResetPwdService } from './services/resetpwd/resetpwd-service';
 import { TokenStorageService } from './services/token-storage/token-storage-service';
@@ -87,6 +88,7 @@ export class IamAuth {
 
   // 🔧 Services spécialisés injectés
   private loginService = inject(LoginService);
+  private logoutService = inject(LogoutService);
   private registerService = inject(RegisterService);
   private userFetchService = inject(UserFetchService);
   private tokenStorage: TokenStorageService = inject(TokenStorageService);
@@ -111,16 +113,21 @@ export class IamAuth {
    * Déconnexion complète de l'utilisateur
    */
   logout(): void {
-    this.tokenStorage.clearToken();
-    this.tokenStorage.clearRefreshToken();
-    this.userStorage.clearUser();
-    this.logoutAsUserOrAdmin();
-    // Suppression des flags d'authentification du localStorage
-    localStorage.removeItem('authenticated');
-    localStorage.removeItem('adminRole');
-    this.adminRole = false;
-    this.userSignal.set(null);
-    // Redirection éventuelle ou autres actions post-logout
+    // Appel backend pour invalider le refreshToken
+    const refreshToken = this.getRefreshToken();
+    this.logoutService.logoutBackend(refreshToken)
+      .finally(() => {
+        this.tokenStorage.clearToken();
+        this.tokenStorage.clearRefreshToken();
+        this.userStorage.clearUser();
+        this.logoutAsUserOrAdmin();
+        // Suppression des flags d'authentification du localStorage
+        localStorage.removeItem('authenticated');
+        localStorage.removeItem('adminRole');
+        this.adminRole = false;
+        this.userSignal.set(null);
+        // Redirection éventuelle ou autres actions post-logout
+      });
   }
 
   /**

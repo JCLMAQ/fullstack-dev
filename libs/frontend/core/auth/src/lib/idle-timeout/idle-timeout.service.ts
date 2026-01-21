@@ -71,6 +71,8 @@ export class IdleTimeoutService {
     if (this.warningDialogRef) return;
     this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
       disableClose: true,
+      width: '420px',
+      maxWidth: '90vw',
       data: { remaining: Math.floor(this.warningDurationMs / 1000) } satisfies IdleWarningDialogData,
     });
     this.warningDialogRef.afterClosed().subscribe((result: 'stay' | undefined) => {
@@ -93,31 +95,38 @@ export class IdleTimeoutService {
   private async logout() {
     this.clearTimers();
     this.closeWarning();
+    let logoutOk = false;
     try {
       const authToken = this.tokenStorage.authToken();
       if (authToken) {
-        // Correction : inclure le préfixe API_BACKEND_PREFIX
         const apiPrefix = ENVIRONMENT_DATA.API_BACKEND_PREFIX?.replace(/^\/+/, '').replace(/\/+$/, '');
         const logoutUrl = `${ENVIRONMENT_DATA.API_BACKEND_URL}/${apiPrefix}/authentication/logout`;
-        await fetch(logoutUrl, {
+        const resp = await fetch(logoutUrl, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${authToken}`,
             'Content-Type': 'application/json',
           },
         });
+        logoutOk = resp.ok;
       }
     } catch (e) {
       // Optionnel: log erreur
+    }
+    if (logoutOk) {
+      this.tokenStorage.clearToken();
+      this.tokenStorage.clearRefreshToken();
     }
     this.tokenStorage.clearToken();
     this.tokenStorage.clearRefreshToken();
     // Affiche un feedback UX après déconnexion automatique
     this.dialog.open(IdleWarningDialog, {
       disableClose: true,
+      width: '420px',
+      maxWidth: '90vw',
       data: { remaining: 0, loggedOut: true } satisfies IdleWarningDialogData,
     });
-    // Correction : redirige vers /auth/login
+    // Correction: redirige vers /auth/login
     this.router.navigate(['/auth/login']);
   }
 }

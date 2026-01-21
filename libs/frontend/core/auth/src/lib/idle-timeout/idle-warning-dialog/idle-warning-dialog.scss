@@ -1,10 +1,14 @@
 
 
+
 :host ::ng-deep .mat-mdc-dialog-container,
 :host ::ng-deep .mat-dialog-container {
   min-width: 420px !important;
   max-width: 420px !important;
   width: 420px !important;
+  min-height: 220px !important;
+  max-height: 90vh !important;
+  height: 320px !important;
   padding: 2rem 1.5rem 1.5rem 1.5rem !important;
   border-radius: 16px !important;
   box-shadow: 0 4px 32px rgba(0,0,0,0.18) !important;

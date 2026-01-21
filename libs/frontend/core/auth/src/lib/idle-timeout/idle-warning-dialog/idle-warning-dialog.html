@@ -12,12 +12,16 @@
     <p>{{ 'DECONNECT_DIALOG.INNACTIVITY_MESSAGE' | translate }}</p>
   }
 </div>
-@if (!loggedOut) {
-  <div mat-dialog-actions>
+<div mat-dialog-actions>
+  @if (!loggedOut) {
     <button mat-raised-button color="primary" (click)="stayConnected()">
       {{ 'DECONNECT_DIALOG.STAY_CONNECTED_BUTTON' | translate }}
     </button>
-  </div>
-}
+  } @else {
+    <button mat-raised-button color="primary" (click)="closeDialog()">
+      OK
+    </button>
+  }
+</div>
 
 <!-- <b>{{ remaining() }}</b> -->
