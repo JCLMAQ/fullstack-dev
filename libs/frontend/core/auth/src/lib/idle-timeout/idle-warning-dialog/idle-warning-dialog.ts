@@ -1,5 +1,7 @@
 
+
 import { Component, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,7 +11,7 @@ export type IdleWarningDialogData = { remaining: number, loggedOut?: boolean };
   selector: 'lib-auth-idle-warning-dialog',
   templateUrl: './idle-warning-dialog.html',
   styleUrls: ['./idle-warning-dialog.scss'],
-  imports: [TranslateModule]
+  imports: [TranslateModule, MatButtonModule]
 })
 export class IdleWarningDialog {
   public data: IdleWarningDialogData;
