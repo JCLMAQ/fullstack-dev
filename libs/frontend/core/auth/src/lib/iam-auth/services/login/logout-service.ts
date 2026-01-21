@@ -37,7 +37,7 @@ export class LogoutService {
    */
   async logoutBackend(refreshToken?: string): Promise<{ success: boolean; message?: string }> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\/|\/$/g, '');
-    const pathUrl = `${apiPrefix}/authentication/sign-out`;
+    const pathUrl = `${apiPrefix}/authentication/logout`;
     try {
       const response$ = this.httpClient.post<{ success: boolean; message?: string }>(
         pathUrl,

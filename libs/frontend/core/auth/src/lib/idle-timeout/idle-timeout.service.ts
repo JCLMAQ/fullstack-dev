@@ -17,6 +17,7 @@ export class IdleTimeoutService {
   private warningDialogRef: any = null;
   private warningTimeout: any = null;
   private logoutTimeout: any = null;
+  private isLoggedOut = false;
 
   private readonly tokenStorage = inject(TokenStorageService);
   private readonly router = inject(Router);
@@ -52,17 +53,19 @@ export class IdleTimeoutService {
     window.addEventListener('scroll', reset);
   }
 
+  private resetTimers() {
+    if (this.isLoggedOut || !this.appStore.user()) return;
+    this.lastActivity.set(Date.now());
+    this.closeWarning();
+    this.startTimers();
+  }
+
   private startTimers() {
+    if (this.isLoggedOut || !this.appStore.user()) return;
     this.clearTimers();
     const timeToWarning = this.inactivityLimitMs - this.warningDurationMs;
     this.warningTimeout = setTimeout(() => this.showWarning(), timeToWarning);
     this.logoutTimeout = setTimeout(() => this.logout(), this.inactivityLimitMs);
-  }
-
-  private resetTimers() {
-    this.lastActivity.set(Date.now());
-    this.closeWarning();
-    this.startTimers();
   }
 
   private clearTimers() {
@@ -71,6 +74,7 @@ export class IdleTimeoutService {
   }
 
   private showWarning() {
+    if (this.isLoggedOut || !this.appStore.user()) return;
     if (this.warningDialogRef) return;
     this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
       disableClose: true,
@@ -96,6 +100,7 @@ export class IdleTimeoutService {
   }
 
   private async logout() {
+    this.isLoggedOut = true;
     this.clearTimers();
     this.closeWarning();
     await this.appStore['logout']();
