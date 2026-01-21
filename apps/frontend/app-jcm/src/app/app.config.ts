@@ -1,5 +1,6 @@
 import {
     ApplicationConfig,
+    inject,
     provideBrowserGlobalErrorListeners,
     provideZonelessChangeDetection
 } from '@angular/core';
@@ -18,13 +19,13 @@ import { DICTIONARIES } from './data/dictionaries';
 import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
-import { iamAuthInterceptorFn } from '@fe/core/auth';
+import { iamAuthInterceptorFn, IDLE_WARNING_DIALOG_PROVIDERS } from '@fe/core/auth';
 import { LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
 // Ajout Idle Timeout
-import { IdleTimeoutService, IdleWarningDialog } from '@fe/auth';
+import { IdleTimeoutService } from '@fe/auth';
 
 
 // const countryOverrides: CountryNameOverrides = {
@@ -139,9 +140,13 @@ export const appConfig: ApplicationConfig = {
       classes: NG_STATUS_CLASSES
     }),
 
+     {
+    provide: 'IDLE_TIMEOUT_INIT',
+    useFactory: () => inject(IdleTimeoutService),
+  },
     // Idle Timeout (inactivité)
     IdleTimeoutService,
-    IdleWarningDialog,
+    ...IDLE_WARNING_DIALOG_PROVIDERS,
   ],
 };
 

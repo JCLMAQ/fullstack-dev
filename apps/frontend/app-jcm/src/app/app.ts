@@ -1,9 +1,12 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { IdleTimeoutService } from '@fe/auth';
 
 import { AppStore } from '@fe/stores';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SUPPORTED_LANGS } from './data/dictionaries';
+
+// TODO : solve Circular dependency issue
 
 @Component({
   imports: [
@@ -20,6 +23,9 @@ export class App {
 
   appStore = inject(AppStore);
   ngxtranslateService = inject(TranslateService);
+
+  // Force l'instanciation du service IdleTimeoutService pour activer l'auto-logout
+  private _idleTimeout = inject(IdleTimeoutService);
 
    currentLang = signal(this.ngxtranslateService.getCurrentLang()); // get current language
 

@@ -7,7 +7,7 @@
 </h2>
 <div mat-dialog-content>
   @if (!loggedOut) {
-    <p>{{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC_MESSAGE' | translate }} <b>{{ remaining() }}</b> secondes pour cause d'inactivité.</p>
+    <p>{{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC_MESSAGE' | translate }}  secondes pour cause d'inactivité.</p>
   } @else {
     <p>{{ 'DECONNECT_DIALOG.INNACTIVITY_MESSAGE' | translate }}</p>
   }
@@ -19,3 +19,5 @@
     </button>
   </div>
 }
+
+<!-- <b>{{ remaining() }}</b> -->

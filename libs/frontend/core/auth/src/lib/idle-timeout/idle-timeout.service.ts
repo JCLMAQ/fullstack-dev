@@ -96,7 +96,10 @@ export class IdleTimeoutService {
     try {
       const authToken = this.tokenStorage.authToken();
       if (authToken) {
-        await fetch(`${ENVIRONMENT_DATA.API_BACKEND_URL}/authentication/logout`, {
+        // Correction : inclure le préfixe API_BACKEND_PREFIX
+        const apiPrefix = ENVIRONMENT_DATA.API_BACKEND_PREFIX?.replace(/^\/+/, '').replace(/\/+$/, '');
+        const logoutUrl = `${ENVIRONMENT_DATA.API_BACKEND_URL}/${apiPrefix}/authentication/logout`;
+        await fetch(logoutUrl, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${authToken}`,
@@ -114,6 +117,7 @@ export class IdleTimeoutService {
       disableClose: true,
       data: { remaining: 0, loggedOut: true } satisfies IdleWarningDialogData,
     });
-    this.router.navigate(['/login']);
+    // Correction : redirige vers /auth/login
+    this.router.navigate(['/auth/login']);
   }
 }
