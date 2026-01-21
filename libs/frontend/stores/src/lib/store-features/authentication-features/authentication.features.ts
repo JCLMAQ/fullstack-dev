@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma/browser';
 import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
+
+// TODO Circular dependency avec IamAuth
 import {
   ENVIRONMENT_TOKEN,
   LOCALSTORAGE_CLEANER_TOKEN,
@@ -98,8 +100,9 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       },
 
       logout: async () => {
+        // Nettoyage complet via le service d'authentification (backend + signaux)
+        await store._authService.logout();
         store._localStorageCleaner.clearAllUserData(); // user and tokens
-
         patchState(store, {
           user: undefined,
           authToken: undefined,
@@ -107,7 +110,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           orgId: undefined,
           isLoggedIn: false,
         });
-        // await store._authService.logout();
         store._router.navigate(['pages/home']);
       },
 

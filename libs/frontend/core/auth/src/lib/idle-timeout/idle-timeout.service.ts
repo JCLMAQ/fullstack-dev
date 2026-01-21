@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AppStore } from '@fe/stores';
 import { ENVIRONMENT_DATA } from 'apps/frontend/app-jcm/environments/environment';
 import { LogoutService } from '../iam-auth/services/login/logout-service';
 import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
@@ -21,6 +22,7 @@ export class IdleTimeoutService {
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly logoutService = inject(LogoutService);
+  private readonly appStore = inject(AppStore);
 
   // Configurable via ENV
   private readonly enableTimeout: boolean;
@@ -96,8 +98,7 @@ export class IdleTimeoutService {
   private async logout() {
     this.clearTimers();
     this.closeWarning();
-    const refreshToken = this.tokenStorage.refreshToken();
-    await this.logoutService.logoutComplet(refreshToken);
+    await this.appStore['logout']();
     // Affiche un feedback UX après déconnexion automatique
     this.dialog.open(IdleWarningDialog, {
       disableClose: true,
