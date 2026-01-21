@@ -234,7 +234,7 @@
     "STAY_CONNECTED_BUTTON": "Stay Connected",
     "INNACTIVITY_DETECTED": "Inactivity detected",
     "INNACTIVITY_MESSAGE": "You have been logged out due to a long period of inactivity. Please log in again to continue.",
-    "DECONNECTION_AUTOMATIC_MESSAGE": "You will be automatically logged out in: {{remaining()}} ",
+    "DECONNECTION_AUTOMATIC_MESSAGE": "You will be automatically logged out in: ",
     "TIME_BEFORE_LOGOUT": "seconds due to inactivity."
   }
 }

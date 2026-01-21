@@ -238,7 +238,7 @@
       "STAY_CONNECTED_BUTTON": "Rester Connecté",
       "INNACTIVITY_DETECTED": "Inactivité détectée",
       "INNACTIVITY_MESSAGE": "Vous avez été déconnecté en raison d'une période d'inactivité prolongée. Veuillez vous reconnecter pour continuer.",
-      "DECONNECTION_AUTOMATIC_MESSAGE": "Vous allez être déconnecté automatiquement dans: {{remaining()}}",
+      "DECONNECTION_AUTOMATIC_MESSAGE": "Vous allez être déconnecté automatiquement dans: ",
       "TIME_BEFORE_LOGOUT": "secondes pour cause d'inactivité."
     }
   }

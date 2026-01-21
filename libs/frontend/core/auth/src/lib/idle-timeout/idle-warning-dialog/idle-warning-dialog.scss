@@ -76,7 +76,7 @@
 :host-context(.dark) .idle-warning-dialog-container .mat-dialog-content {
   color: #e0e0e0 !important;
 }
-:host-context(.dark) .idle-warning-dialog-container button[mat-raised-button] {
-  background: #1976d2 !important;
-  color: #fff !important;
-}
+
+// Correction : ne rien surcharger en mode clair, et cibler uniquement le bouton primaire en dark mode
+
+/* Suppression de toute surcharge de couleur sur le bouton primaire pour laisser Material gérer */

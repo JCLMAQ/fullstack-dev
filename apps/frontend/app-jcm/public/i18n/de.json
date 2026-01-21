@@ -234,7 +234,7 @@
     "STAY_CONNECTED_BUTTON": "Angemeldet bleiben",
     "INNACTIVITY_DETECTED": "Inaktivität erkannt",
     "INNACTIVITY_MESSAGE": "Sie wurden aufgrund einer längeren Inaktivitätsperiode abgemeldet. Bitte melden Sie sich erneut an, um fortzufahren.",
-    "DECONNECTION_AUTOMATIC_MESSAGE": "Sie werden automatisch abgemeldet in: {{remaining()}} ",
+    "DECONNECTION_AUTOMATIC_MESSAGE": "Sie werden automatisch abgemeldet in:  ",
     "TIME_BEFORE_LOGOUT": "Sekunden aufgrund von Inaktivität."
   }
 }
