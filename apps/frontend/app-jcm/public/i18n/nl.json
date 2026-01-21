@@ -224,5 +224,16 @@
   "EDIT_PROFILE_ARIA": "Bewerk je profiel",
   "USER_PROFILE_PICTURE": "Profielfoto gebruiker",
   "DEFAULT_USER": "Gebruiker"
-}
+},
+  "DECONNECT_DIALOG": {
+    "TITLE": "Afmelden",
+    "DECONNECTION_AUTOMATIC": "Automatisch afmelden",
+    "MESSAGE": "Weet u zeker dat u wilt uitloggen?",
+    "CANCEL_BUTTON": "Annuleren",
+    "CONFIRM_BUTTON": "Uitloggen",
+    "STAY_CONNECTED_BUTTON": "Verbonden blijven",
+    "INNACTIVITY_DETECTED": "Inactiviteit gedetecteerd",
+    "INNACTIVITY_MESSAGE": "U bent afgemeld wegens een lange periode van inactiviteit. Log opnieuw in om verder te gaan.",
+    "DECONNECTION_AUTOMATIC_MESSAGE": "U wordt automatisch afgemeld over: {{remaining()}} seconden.<br>"
+  }
 }

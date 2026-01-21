@@ -228,5 +228,16 @@
       "EDIT_PROFILE_ARIA": "Modifier votre profil",
       "USER_PROFILE_PICTURE": "Photo de profil de l'utilisateur",
       "DEFAULT_USER": "Utilisateur"
+    },
+    "DECONNECT_DIALOG": {
+      "TITLE": "Déconnexion",
+      "DECONNECTION_AUTOMATIC": "Déconnexion automatique",
+      "MESSAGE": "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "CANCEL_BUTTON": "Annuler",
+      "CONFIRM_BUTTON": "Se Déconnecter",
+      "STAY_CONNECTED_BUTTON": "Rester Connecté",
+      "INNACTIVITY_DETECTED": "Inactivité détectée",
+      "INNACTIVITY_MESSAGE": "Vous avez été déconnecté en raison d'une période d'inactivité prolongée. Veuillez vous reconnecter pour continuer.",
+      "DECONNECTION_AUTOMATIC_MESSAGE": "Vous allez être déconnecté automatiquement dans: {{remaining()}} secondes.<br>"
     }
   }

@@ -219,10 +219,21 @@
     "nameMaxLength": "Der Name darf nicht länger als 50 Zeichen sein",
     "invalidCharactersDetected": "Ungültige Zeichen erkannt"
   },
-    "SIDENAV_HEADER": {
-      "EDIT_PROFILE_TOOLTIP": "Klicken Sie, um Ihr Profil zu bearbeiten",
-      "EDIT_PROFILE_ARIA": "Profil bearbeiten",
-      "USER_PROFILE_PICTURE": "Profilbild",
-      "DEFAULT_USER": "Benutzer"
-    }
+  "SIDENAV_HEADER": {
+    "EDIT_PROFILE_TOOLTIP": "Klicken Sie, um Ihr Profil zu bearbeiten",
+    "EDIT_PROFILE_ARIA": "Profil bearbeiten",
+    "USER_PROFILE_PICTURE": "Profilbild",
+    "DEFAULT_USER": "Benutzer"
+  },
+  "DECONNECT_DIALOG": {
+    "TITLE": "Abmeldung",
+    "DECONNECTION_AUTOMATIC": "Automatische Abmeldung",
+    "MESSAGE": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+    "CANCEL_BUTTON": "Abbrechen",
+    "CONFIRM_BUTTON": "Abmelden",
+    "STAY_CONNECTED_BUTTON": "Angemeldet bleiben",
+    "INNACTIVITY_DETECTED": "Inaktivität erkannt",
+    "INNACTIVITY_MESSAGE": "Sie wurden aufgrund einer längeren Inaktivitätsperiode abgemeldet. Bitte melden Sie sich erneut an, um fortzufahren.",
+    "DECONNECTION_AUTOMATIC_MESSAGE": "Sie werden automatisch abgemeldet in: {{remaining()}} Sekunden.<br>"
+  }
 }

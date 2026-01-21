@@ -219,10 +219,21 @@
     "nameMaxLength": "Name must not exceed 50 characters",
     "invalidCharactersDetected": "Invalid characters detected"
   },
-    "SIDENAV_HEADER": {
-      "EDIT_PROFILE_TOOLTIP": "Click to edit your profile",
-      "EDIT_PROFILE_ARIA": "Edit your profile",
-      "USER_PROFILE_PICTURE": "User profile picture",
-      "DEFAULT_USER": "User"
-    }
+  "SIDENAV_HEADER": {
+    "EDIT_PROFILE_TOOLTIP": "Click to edit your profile",
+    "EDIT_PROFILE_ARIA": "Edit your profile",
+    "USER_PROFILE_PICTURE": "User profile picture",
+    "DEFAULT_USER": "User"
+  },
+  "DECONNECT_DIALOG": {
+    "TITLE": "Logout",
+    "DECONNECTION_AUTOMATIC": "Automatic Logout",
+    "MESSAGE": "Are you sure you want to log out?",
+    "CANCEL_BUTTON": "Cancel",
+    "CONFIRM_BUTTON": "Log Out",
+    "STAY_CONNECTED_BUTTON": "Stay Connected",
+    "INNACTIVITY_DETECTED": "Inactivity detected",
+    "INNACTIVITY_MESSAGE": "You have been logged out due to a long period of inactivity. Please log in again to continue.",
+    "DECONNECTION_AUTOMATIC_MESSAGE": "You will be automatically logged out in: {{remaining()}} seconds.<br>"
+  }
 }
