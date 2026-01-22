@@ -14,5 +14,5 @@
         SUPPORTED_LANGUAGE: ['en', 'fr', 'de', 'nl'],
         SESSION_TIMEOUT_ENABLE: 1,
         SESSION_TIMEOUT: 15,
-        SESSION_TIMEOUT_REMINDER: 5
+        SESSION_TIMEOUT_REMINDER: 10
     };
