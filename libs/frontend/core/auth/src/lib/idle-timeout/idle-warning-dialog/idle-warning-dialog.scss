@@ -1,4 +1,20 @@
 
+button.text-primary,
+a.text-primary {
+  color: var(--mat-sys-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+button.text-primary:hover,
+a.text-primary:hover {
+  color: var(--mat-sys-primary);
+  opacity: 0.8;
+}
 
 
 
@@ -16,66 +32,66 @@
   align-items: center;
 }
 
-.idle-warning-dialog-container h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  color: var(--mat-sys-on-surface, #222);
-  text-align: center;
-}
+// .idle-warning-dialog-container h2 {
+//   font-size: 1.5rem;
+//   font-weight: 600;
+//   margin-bottom: 1.2rem;
+//   color: var(--mat-sys-on-surface, #222);
+//   text-align: center;
+// }
 
-.idle-warning-dialog-container .mat-dialog-content {
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: var(--mat-sys-on-surface, #333);
-}
+// .idle-warning-dialog-container .mat-dialog-content {
+//   font-size: 1.1rem;
+//   text-align: center;
+//   margin-bottom: 1.5rem;
+//   color: var(--mat-sys-on-surface, #333);
+// }
 
-.idle-warning-dialog-container .mat-dialog-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-  width: 100%;
-}
+// .idle-warning-dialog-container .mat-dialog-actions {
+//   display: flex;
+//   justify-content: center;
+//   margin-top: 1.5rem;
+//   width: 100%;
+// }
 
-.idle-warning-dialog-container button[mat-raised-button] {
-  min-width: 160px;
-  max-width: 220px;
-  width: 100%;
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0 auto;
-  display: block;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-  padding: 0.75rem 0;
-  /* Ne pas forcer background ni color ici, laisser Material gérer */
-}
+// .idle-warning-dialog-container button[mat-raised-button] {
+//   min-width: 160px;
+//   max-width: 220px;
+//   width: 100%;
+//   font-size: 1rem;
+//   font-weight: 500;
+//   margin: 0 auto;
+//   display: block;
+//   border-radius: 0.75rem;
+//   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+//   padding: 0.75rem 0;
+//   /* Ne pas forcer background ni color ici, laisser Material gérer */
+// }
 
-@media (max-width: 500px) {
-  .idle-warning-dialog-container {
-    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
-    max-width: 98vw;
-  }
-  .idle-warning-dialog-container h2 {
-    font-size: 1.1rem;
-  }
-}
+// @media (max-width: 500px) {
+//   .idle-warning-dialog-container {
+//     padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+//     max-width: 98vw;
+//   }
+//   .idle-warning-dialog-container h2 {
+//     font-size: 1.1rem;
+//   }
+// }
 
-/* Dark mode support */
+// /* Dark mode support */
 
 
-:host-context(.dark) .idle-warning-dialog-container {
-  background: #23272e !important;
-  color: #f1f1f1 !important;
-  border-color: #343a40 !important;
-}
-:host-context(.dark) .idle-warning-dialog-container h2 {
-  color: #f1f1f1 !important;
-}
-:host-context(.dark) .idle-warning-dialog-container .mat-dialog-content {
-  color: #e0e0e0 !important;
-}
+// :host-context(.dark) .idle-warning-dialog-container {
+//   background: #23272e !important;
+//   color: #f1f1f1 !important;
+//   border-color: #343a40 !important;
+// }
+// :host-context(.dark) .idle-warning-dialog-container h2 {
+//   color: #f1f1f1 !important;
+// }
+// :host-context(.dark) .idle-warning-dialog-container .mat-dialog-content {
+//   color: #e0e0e0 !important;
+// }
 
 // Correction : ne rien surcharger en mode clair, et cibler uniquement le bouton primaire en dark mode
 
