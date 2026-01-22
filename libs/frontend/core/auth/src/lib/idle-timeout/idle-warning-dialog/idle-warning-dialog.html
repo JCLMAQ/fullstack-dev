@@ -1,6 +1,46 @@
 
-<div class="idle-warning-dialog-container bg-surface-container p-8 max-w-[400px] w-full mx-auto">
-  <!-- <div class="idle-warning-dialog-container bg-surface-container border border-outline-variant rounded-2xl shadow-xl p-8 max-w-[400px] w-full mx-auto"> -->
+<h2 mat-dialog-title class="text-2xl mb-4 text-on-surface font-semibold text-center">
+   @if (!loggedOut) {
+      {{ 'DECONNECT_DIALOG.INNACTIVITY_DETECTED' | translate }}
+    } @else {
+      {{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC' | translate }}
+    }
+</h2>
+<mat-dialog-content class="text-base text-center text-on-surface mb-6">
+  @if (!loggedOut) {
+      <p>{{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC_MESSAGE' | translate }} <b>{{ remaining() }}</b> {{ 'DECONNECT_DIALOG.TIME_BEFORE_LOGOUT' | translate }}.</p>
+    } @else {
+      <p>{{ 'DECONNECT_DIALOG.INNACTIVITY_MESSAGE' | translate }}</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-center mt-4">
+  @if (!loggedOut) {
+      <button matButton="filled" (click)="stayConnected()">
+        {{ 'DECONNECT_DIALOG.STAY_CONNECTED_BUTTON' | translate }}
+      </button>
+    } @else {
+      <!-- <button  matButton [mat-dialog-close]="closeDialog()" cdkFocusInitial> -->
+      <button matButton class= "justify-center text-center"  (click)="closeDialog()" cdkFocusInitial>
+        <mat-icon>check</mat-icon>
+      </button>
+    }
+  </mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="idle-warning-dialog-container bg-surface-container p-8 max-w-[400px] w-full mx-auto">
+ <div class="idle-warning-dialog-container bg-surface-container border border-outline-variant rounded-2xl shadow-xl p-8 max-w-[400px] w-full mx-auto">
   <h2 class="text-2xl mb-4 text-on-surface font-semibold text-center" mat-dialog-title>
     @if (!loggedOut) {
       {{ 'DECONNECT_DIALOG.INNACTIVITY_DETECTED' | translate }}
@@ -26,5 +66,5 @@
       </button>
     }
   </div>
-</div>
+</div> -->
 
