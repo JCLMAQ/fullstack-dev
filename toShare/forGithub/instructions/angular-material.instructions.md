@@ -114,3 +114,14 @@ These guidelines define how to implement, structure, and maintain themes using A
   - Always import theme files before component styles in `styles.scss`.
 - **Documentation:**
   - Document all customizations and overrides in the theme file.
+
+- **Regular Updates:**
+  - Keep Angular Material and theming practices up to date with the latest versions and best practices
+  - Review and refactor theme files periodically to ensure consistency and maintainability.
+- **Testing:**
+  - Test themes across different components and screen sizes to ensure visual consistency and accessibility.
+- **Accessibility:**
+  - Ensure color contrast ratios meet accessibility standards for readability and usability.
+- **Version Control:**
+  - Use version control to track changes in theme files and collaborate effectively with the team.
+  

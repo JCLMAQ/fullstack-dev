@@ -40,5 +40,5 @@
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true
     },
-    "window.autoDetectColorScheme": true
+    "window.autoDetectColorScheme": false
 }

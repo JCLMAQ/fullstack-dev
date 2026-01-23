@@ -16,7 +16,7 @@ This document outlines the state management patterns used in our Angular applica
 - **Store Composition:** Stores compose using features and providers
 - **Reactivity:** UIs build on automatic change detection
 - **Signal Interoperability:** Signals integrate with existing RxJS-based systems
-- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration. When a service returns an Observable, always use `rxMethod` for side effects instead of converting to Promise or using async/await.
+- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration. When a service returns an Observable convert it to Promise or use async/await.
 
 ## 2. Signal Store Structure
 
@@ -140,7 +140,7 @@ export const UserStore = signalStore(
 - **State Updates:** `patchState(store, newStateSlice)` or `patchState(store, (currentState) => newStateSlice)` updates state immutably
 - **Async Operations:** Methods handle async operations and update loading/error states
 - **Computed Properties:** `withComputed` defines derived state
-- **RxJS Integration:** `rxMethod` integrates RxJS streams. Use `rxMethod` for all store methods that interact with Observable-based APIs or services. Avoid using async/await with Observables in store methods.
+- **RxJS Integration:** Avoid to use `rxMethod`. Use async/await with Observables in store methods.
 
 ```typescript
 // Signal store method patterns
@@ -231,7 +231,7 @@ export const UserStore = signalStore(
 ```typescript
 // Component integration patterns
 @Component({
-  standalone: true,
+  standalone: true, // not needed anymore with standalone components - delete if still existing
   imports: [UserListComponent],
   template: `
     @if (userStore.users().length > 0) {
@@ -242,7 +242,7 @@ export const UserStore = signalStore(
 
     <div>Selected user: {{ selectedUserName() }}</div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush, // not needed anymore with standalone components - delete if still existing
 })
 export class UsersContainerComponent implements OnInit {
   readonly userStore = inject(UserStore);
@@ -309,11 +309,32 @@ export const UserStore = signalStore(
 - **Feature Composition:** Multiple features compose together
 - **Cross-Cutting Concerns:** Features handle logging, undo/redo, and other concerns
 - **State Slices:** Features define and manage specific state slices
+- **Expected Elements:** Features include state, computed properties, and methods références wich are expected by the signalStoreFeature
 
 ```typescript
+ 
+
 // Signal store feature patterns
 export function withUserFeature() {
   return signalStoreFeature(
+
+       // First parameter contains
+        // Our expectations to the store:
+        // If they are not fulfilled, TypeScript
+        // will prevent adding this feature!
+        {
+            state: type<{
+                callState: CallState,
+                entityMap: Record<EntityId, E>,
+                ids: EntityId[]
+            }>(),
+            signals: type<{
+                entities: Signal<Entity[]>
+            }>(),
+            methods: type<{}>()
+        },
+      
+
     withState<UserFeatureState>({
       /* feature state */
     }),
@@ -340,10 +361,7 @@ export const AppStore = signalStore(
 
 - **Signal Conversion:** `toSignal()` and `toObservable()` convert between Signals and Observables
 - **Effects:** Angular's `effect()` function reacts to signal changes
-- **RxJS Method:** `rxMethod<T>(pipeline)` handles Observable-based side effects. Always prefer `rxMethod` for Observable-based service calls in stores. Do not convert Observables to Promises for store logic.
-  - Accepts input values, Observables, or Signals
-  - Manages subscription lifecycle automatically
-- **Reactive Patterns:** Signals combine with RxJS for complex asynchronous operations
+- **Reactive Patterns:** Signals combine with RxJS for complex asynchronous operations only. Async and Await is preferred. toSignal and toObservable should be avoided when possible. toPromise can be used instead.
 
 ```typescript
 // Signal and RxJS integration patterns
