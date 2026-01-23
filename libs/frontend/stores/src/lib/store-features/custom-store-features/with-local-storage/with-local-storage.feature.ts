@@ -7,6 +7,7 @@ import {
   withHooks,
 } from '@ngrx/signals';
 
+// Prefer withLocalStorage instead of withStorageSync for better control
 export function withLocalStorage(key: string): SignalStoreFeature {
   return signalStoreFeature(
     withHooks((store) => ({

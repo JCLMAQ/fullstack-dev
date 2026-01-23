@@ -12,28 +12,18 @@ export const AppStore = signalStore(
   withState(initialAppSlice), // État initial défini UNE SEULE FOIS
   withDevtools('AppStore'),
   withStorageSync('AppStore'),
-  // Auth part
+  // Auth part   // 🔄 Synchronisation avec service d'authentification
   withAppAuthFeatures(), // Add: login(), logout(), register()
 
   // Languages part
   withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
 
   withMethods((store) => ({
+   // Met à jour l'avatar de l'utilisateur dans le signal user
     updateUserAvatar(avatarUrl: string) {
       const user = store.user();
       if (!user) return;
       patchState(store, { user: { ...user, photoUrl: avatarUrl } });
     },
   })),
-  /**
-   * Met à jour l'avatar de l'utilisateur dans le signal user
-   */
-  //   updateUserAvatar(avatarUrl: string) {
-  //     const user = this.user();
-  //     if (!user) return;
-  //     this.user.set({ ...user, avatar: avatarUrl });
-  //   }
-  // })
-  // 🔄 Synchronisation avec service d'authentification
-  // withAuthSync(), // Synchronise avec IamAuth localStorage, évite la duplication
 );
