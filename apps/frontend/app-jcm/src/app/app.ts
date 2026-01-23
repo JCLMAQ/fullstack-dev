@@ -1,7 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IdleTimeoutService } from '@fe/auth';
-
+import { IdleTimeoutService } from '@fe/auth/idle-timeout';
 import { AppStore } from '@fe/stores';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SUPPORTED_LANGS } from './data/dictionaries';

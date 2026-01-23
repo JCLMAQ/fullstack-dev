@@ -1,10 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AppStore } from '@fe/stores';
-import { ENVIRONMENT_DATA } from 'apps/frontend/app-jcm/environments/environment';
+import { ENVIRONMENT_TOKEN, type Environment } from '@fe/tokens';
 import { LogoutService } from '../iam-auth/services/logout/logout-service';
 import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
+import { UserStorageService } from '../iam-auth/services/user-storage/user-storage-service';
 import { IdleWarningDialog, IdleWarningDialogData } from '../idle-timeout/idle-warning-dialog/idle-warning-dialog';
 
 // Valeurs par défaut (fallback)
@@ -20,10 +20,11 @@ export class IdleTimeoutService {
   private isLoggedOut = false;
 
   private readonly tokenStorage = inject(TokenStorageService);
+  private readonly userStorage = inject(UserStorageService);
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly logoutService = inject(LogoutService);
-  private readonly appStore = inject(AppStore);
+  private readonly environment = inject(ENVIRONMENT_TOKEN) as Environment;
 
   // Configurable via ENV
   private readonly enableTimeout: boolean;
@@ -32,15 +33,27 @@ export class IdleTimeoutService {
 
 
   constructor() {
-    // Lecture config depuis ENVIRONMENT_DATA
-    const env = ENVIRONMENT_DATA;
-    this.enableTimeout =  env.SESSION_TIMEOUT_ENABLE === 1;
+    // Lecture config via ENVIRONMENT_TOKEN (fourni par l'app)
+    const env = this.environment;
+    this.enableTimeout = env.SESSION_TIMEOUT_ENABLE === 1;
     this.inactivityLimitMs = Number(env.SESSION_TIMEOUT) > 0 ? Number(env.SESSION_TIMEOUT) * 1000 : DEFAULT_INACTIVITY_LIMIT_MS;
     this.warningDurationMs = Number(env.SESSION_TIMEOUT_REMINDER) > 0 ? Number(env.SESSION_TIMEOUT_REMINDER) * 1000 : DEFAULT_WARNING_DURATION_MS;
 
     if (this.enableTimeout) {
       this.initListeners();
       this.startTimers();
+
+      // Observer les changements de token/utilisateur pour réinitialiser automatiquement le service
+      effect(() => {
+        const token = this.tokenStorage.authToken();
+        const user = this.userStorage.user();
+
+        // Si un token et un utilisateur sont présents et que le service était marqué comme déconnecté
+        if (token && user && this.isLoggedOut) {
+          console.log('🔄 Détection de reconnexion - Réinitialisation du service d\'inactivité');
+          this.reset();
+        }
+      });
     }
   }
 
@@ -54,14 +67,14 @@ export class IdleTimeoutService {
   }
 
   private resetTimers() {
-    if (this.isLoggedOut || !this.appStore.user()) return;
+    if (this.isLoggedOut || !this.userStorage.user()) return;
     this.lastActivity.set(Date.now());
     this.closeWarning();
     this.startTimers();
   }
 
   private startTimers() {
-    if (this.isLoggedOut || !this.appStore.user()) return;
+    if (this.isLoggedOut || !this.userStorage.user()) return;
     this.clearTimers();
     const timeToWarning = this.inactivityLimitMs - this.warningDurationMs;
     this.warningTimeout = setTimeout(() => this.showWarning(), timeToWarning);
@@ -74,7 +87,7 @@ export class IdleTimeoutService {
   }
 
   private showWarning() {
-    if (this.isLoggedOut || !this.appStore.user()) return;
+    if (this.isLoggedOut || !this.userStorage.user()) return;
     if (this.warningDialogRef) return;
     this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
       disableClose: true,
@@ -104,7 +117,8 @@ export class IdleTimeoutService {
     this.isLoggedOut = true;
     this.clearTimers();
     this.closeWarning();
-    await this.appStore['logout']();
+    // Appel au service de logout au lieu d'AppStore pour éviter la dépendance circulaire
+    await this.logoutService.logoutComplet();
     // Affiche un feedback UX après déconnexion automatique
     if (!this.warningDialogRef) {
       this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
@@ -123,6 +137,20 @@ export class IdleTimeoutService {
         this.warningDialogRef = null;
         this.router.navigate(['/auth/login']);
       });
+    }
+  }
+
+  /**
+   * Réinitialise le service après une reconnexion
+   * À appeler après un login réussi pour réactiver la détection d'inactivité
+   */
+  public reset(): void {
+    this.isLoggedOut = false;
+    this.clearTimers();
+    this.closeWarning();
+    if (this.enableTimeout && this.userStorage.user()) {
+      this.lastActivity.set(Date.now());
+      this.startTimers();
     }
   }
 }

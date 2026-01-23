@@ -11,4 +11,9 @@ export type Environment = {
   PWDLESS_LOGIN_ENABLE: string;
   defaultLanguage: string;
   supportedLanguages: string[];
+
+  /** Idle timeout settings (seconds) */
+  SESSION_TIMEOUT_ENABLE?: number;
+  SESSION_TIMEOUT?: number;
+  SESSION_TIMEOUT_REMINDER?: number;
 };

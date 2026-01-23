@@ -3,20 +3,20 @@ import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Organization, User } from '@db/prisma/browser';
-import { IAM_AUTH_TOKEN } from '@fe/auth/iam-auth/iam-auth.token';
+import { IAM_AUTH_TOKEN, IamAuth } from '@fe/auth';
 
 // TODO Circular dependency avec IamAuth
 import {
-  ENVIRONMENT_TOKEN,
-  LOCALSTORAGE_CLEANER_TOKEN,
-  type Environment,
+    ENVIRONMENT_TOKEN,
+    LOCALSTORAGE_CLEANER_TOKEN,
+    type Environment,
 } from '@fe/tokens';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withMethods,
-  withProps,
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withMethods,
+    withProps,
 } from '@ngrx/signals';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -26,7 +26,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withProps(() => ({
       // _authService: inject(IamAuth),
-      _authService: inject(IAM_AUTH_TOKEN),
+      _authService: inject(IAM_AUTH_TOKEN) as IamAuth,
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
@@ -60,13 +60,8 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
-          const organizations = loginResponse.organizations;
-          let orgId: string[] | undefined = undefined;
-          if (organizations!.length > 0) {
-            orgId = organizations!.map((org: any) => org.id);
-          } else {
-            orgId = undefined;
-          }
+          const organizations = loginResponse.organizations ?? [];
+          const orgId = organizations.length > 0 ? organizations.map((org: Organization) => org.id) : undefined;
           patchState(store, {
             user: user,
             orgId,
@@ -167,10 +162,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         } catch (error) {
           console.error('❌ [AuthStore] Registration error caught:', {
             error,
-            message: error instanceof Error ? error.message : 'Unknown error',
-            status: (error as any)?.status,
-            statusText: (error as any)?.statusText,
-            body: (error as any)?.error
+            message: error instanceof Error ? error.message : 'Unknown error'
           });
 
           store._snackbar.open(
@@ -353,26 +345,15 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           const updatedUser = await store._authService.fetchUser();
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
-          let orgId: string[] | undefined = undefined;
-          const organizations = await store._authService.fetchUserOrganizationsIamAuth(
-            updatedUser?.id,
-            updatedUser ? updatedUser : undefined,
-          );
-          if (organizations!.length > 0) {
-            orgId = organizations!.map((org: any) => org.id);
-          } else {
-            orgId = undefined;
-          }
-
-          if (
-            updatedUser &&
-            Array.isArray(organizations) &&
-            organizations.length > 0
-          ) {
-            orgId = organizations.map((org: any) => org.id);
-          } else {
-            orgId = undefined;
-          }
+          const organizations =
+            (await store._authService.fetchUserOrganizationsIamAuth(
+              updatedUser?.id,
+              updatedUser ?? undefined,
+            )) ?? [];
+          const orgId =
+            updatedUser && organizations.length > 0
+              ? organizations.map((org: Organization) => org.id)
+              : undefined;
           if (updatedUser) {
             patchState(store, {
               user: updatedUser,
