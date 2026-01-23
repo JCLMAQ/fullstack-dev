@@ -20,12 +20,13 @@
   <!-- <div class="mat-dialog-actions flex justify-center mt-4"> -->
     <mat-dialog-actions class="flex justify-center mt-4">
     @if (!loggedOut) {
-      <button mat-button  class="flex justify-centerw-full max-w-[220px] text-base font-medium py-2" (click)="stayConnected()">
+      <button mat-flat-button class="w-full mt-3 flex justify-center" (click)="stayConnected()">
         {{ 'DECONNECT_DIALOG.STAY_CONNECTED_BUTTON' | translate }}
       </button>
     } @else {
-      <button mat-button class="flex justify-center w-full max-w-[220px] text-base font-medium py-2" (click)="closeDialog()">
-        OK
+      <button mat-flat-button class="mt-3" (click)="closeDialog()">
+        <!-- <mat-icon>account_circle</mat-icon> -->
+        Ok
       </button>
     }
     </mat-dialog-actions>
