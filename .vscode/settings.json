@@ -41,5 +41,5 @@
         ".specify/scripts/powershell/": true
     },
     "window.autoDetectColorScheme": false,
-    "workbench.colorTheme": "Tomorrow Night Blue"
+    "workbench.colorTheme": "Default Dark Modern"
 }
