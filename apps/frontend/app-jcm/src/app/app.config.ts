@@ -4,7 +4,7 @@ import {
   provideZonelessChangeDetection
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withExperimentalAutoCleanupInjectors } from '@angular/router';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 
 import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
@@ -82,7 +82,10 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(appRoutes, withComponentInputBinding()),
+    provideRouter(
+      appRoutes,
+      withComponentInputBinding(),
+      withExperimentalAutoCleanupInjectors()),
     // provideAnimations(),
 
     provideHttpClient(
