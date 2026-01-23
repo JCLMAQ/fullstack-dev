@@ -1,30 +1,48 @@
 
-<div class="idle-warning-dialog-container bg-surface-container p-8 max-w-[400px] w-full mx-auto">
+<!-- <div class="idle-warning-dialog-container bg-surface-container p-8 max-w-[400px] w-full mx-auto"> -->
   <!-- <div class="idle-warning-dialog-container bg-surface-container border border-outline-variant rounded-2xl shadow-xl p-8 max-w-[400px] w-full mx-auto"> -->
-  <h2 class="text-2xl mb-4 text-on-surface font-semibold text-center" mat-dialog-title>
+  <h2 mat-dialog-title class="text-2xl mb-4 text-on-surface font-semibold text-center">
     @if (!loggedOut) {
       {{ 'DECONNECT_DIALOG.INNACTIVITY_DETECTED' | translate }}
     } @else {
       {{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC' | translate }}
     }
   </h2>
-  <div class="mat-dialog-content text-base text-center text-on-surface mb-6">
+  <!-- <div class="mat-dialog-content text-base text-center text-on-surface mb-6"> -->
+    <mat-dialog-content class="text-base text-center text-on-surface mb-6">
     @if (!loggedOut) {
       <p>{{ 'DECONNECT_DIALOG.DECONNECTION_AUTOMATIC_MESSAGE' | translate }} <b>{{ remaining() }}</b> {{ 'DECONNECT_DIALOG.TIME_BEFORE_LOGOUT' | translate }}.</p>
     } @else {
       <p>{{ 'DECONNECT_DIALOG.INNACTIVITY_MESSAGE' | translate }}</p>
     }
-  </div>
-  <div class="mat-dialog-actions flex justify-center mt-4">
+    </mat-dialog-content>
+  <!-- </div> -->
+  <!-- <div class="mat-dialog-actions flex justify-center mt-4"> -->
+    <mat-dialog-actions class="flex justify-center mt-4">
     @if (!loggedOut) {
-      <button mat-raised-button color="primary" class="w-full max-w-[220px] text-base font-medium py-2" (click)="stayConnected()">
+      <button mat-button  class="flex justify-centerw-full max-w-[220px] text-base font-medium py-2" (click)="stayConnected()">
         {{ 'DECONNECT_DIALOG.STAY_CONNECTED_BUTTON' | translate }}
       </button>
     } @else {
-      <button mat-raised-button color="primary" class="w-full max-w-[220px] text-base font-medium py-2" (click)="closeDialog()">
+      <button mat-button class="flex justify-center w-full max-w-[220px] text-base font-medium py-2" (click)="closeDialog()">
         OK
       </button>
     }
-  </div>
-</div>
+    </mat-dialog-actions>
+  <!-- </div> -->
+<!-- </div> -->
 
+<!--
+<h2 mat-dialog-title>Hi {{data.name}}</h2>
+<mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="animal" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="onNoClick()">No Thanks</button>
+  <button matButton [mat-dialog-close]="animal()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
+-->
