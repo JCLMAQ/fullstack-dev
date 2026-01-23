@@ -40,5 +40,6 @@
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true
     },
-    "window.autoDetectColorScheme": false
+    "window.autoDetectColorScheme": false,
+    "workbench.colorTheme": "Tomorrow Night Blue"
 }

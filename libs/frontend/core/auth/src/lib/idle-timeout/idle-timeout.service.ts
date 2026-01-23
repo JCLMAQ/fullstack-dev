@@ -1,6 +1,7 @@
 import { Injectable, effect, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AppStore } from '@fe/stores';
 import { ENVIRONMENT_TOKEN, type Environment } from '@fe/tokens';
 import { LogoutService } from '../iam-auth/services/logout/logout-service';
 import { TokenStorageService } from '../iam-auth/services/token-storage/token-storage-service';
@@ -24,6 +25,7 @@ export class IdleTimeoutService {
   private readonly router = inject(Router);
   private readonly dialog = inject(MatDialog);
   private readonly logoutService = inject(LogoutService);
+  private readonly appStore = inject(AppStore);
   private readonly environment = inject(ENVIRONMENT_TOKEN) as Environment;
 
   // Configurable via ENV
@@ -43,14 +45,18 @@ export class IdleTimeoutService {
       this.initListeners();
       this.startTimers();
 
-      // Observer les changements de token/utilisateur pour réinitialiser automatiquement le service
+      // Observer les changements de token/utilisateur pour (re)démarrer le service
+      // Ceci démarre les timers lorsque l'utilisateur se connecte après
+      // l'instanciation du service (cas où App démarre avant le store).
       effect(() => {
         const token = this.tokenStorage.authToken();
         const user = this.userStorage.user();
 
-        // Si un token et un utilisateur sont présents et que le service était marqué comme déconnecté
-        if (token && user && this.isLoggedOut) {
-          console.log('🔄 Détection de reconnexion - Réinitialisation du service d\'inactivité');
+        // Si un token et un utilisateur sont présents, (re)initialise le service
+        if (token && user) {
+          if (this.isLoggedOut) {
+            console.log('🔄 Détection de reconnexion - Réinitialisation du service d\'inactivité');
+          }
           this.reset();
         }
       });
@@ -117,8 +123,20 @@ export class IdleTimeoutService {
     this.isLoggedOut = true;
     this.clearTimers();
     this.closeWarning();
-    // Appel au service de logout au lieu d'AppStore pour éviter la dépendance circulaire
-    await this.logoutService.logoutComplet();
+    // Use AppStore.logout() to ensure in-memory store is reset as well
+    try {
+      // TS4111: use bracket access because logout is provided via store feature index signature
+      const fn = (this.appStore as any)['logout'];
+      if (typeof fn === 'function') {
+        await fn.call(this.appStore);
+      } else {
+        throw new Error('AppStore.logout is not a function');
+      }
+    } catch (err) {
+      // Fallback to logout service if AppStore.logout fails for any reason
+      console.error('IdleTimeout: AppStore.logout failed, falling back to logoutService.logoutComplet', err);
+      await this.logoutService.logoutComplet();
+    }
     // Affiche un feedback UX après déconnexion automatique
     if (!this.warningDialogRef) {
       this.warningDialogRef = this.dialog.open(IdleWarningDialog, {
