@@ -25,6 +25,19 @@ export class RegisterService {
   private environment = inject(ENVIRONMENT_TOKEN);
 
   /**
+   * Détecte la langue du navigateur sans dépendance à TranslateService
+   * pour éviter les dépendances circulaires avec les intercepteurs HTTP
+   */
+  private getBrowserLanguage(): string {
+    if (typeof navigator !== 'undefined' && navigator.language) {
+      const browserLang = navigator.language.split('-')[0]; // 'en-US' → 'en'
+      const supportedLangs = ['en', 'fr', 'de', 'nl'];
+      return supportedLangs.includes(browserLang) ? browserLang : 'en';
+    }
+    return 'en';
+  }
+
+  /**
    * 📝 REGISTER avec endpoint IAM
    * IAM: POST /api/authentication/register-extended ✅
    */
@@ -32,14 +45,19 @@ export class RegisterService {
     email: string,
     password: string,
     confirmPassword: string,
+    languageCode?: string,
   ): Promise<IRegisterResponse> {
     const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
     const pathUrl = `${apiPrefix}/authentication/register-extended`;
+
+    // Déterminer la langue: paramètre > navigateur > défaut 'en'
+    const userLanguage = languageCode || this.getBrowserLanguage();
 
     const payload = {
       email,
       password,
       verifyPassword: confirmPassword,
+      languageCode: userLanguage,
     };
 
     console.log('📝 Registering User (IAM):', { url: pathUrl, payload });

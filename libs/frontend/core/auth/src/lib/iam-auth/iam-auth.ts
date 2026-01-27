@@ -156,8 +156,9 @@ export class IamAuth {
     email: string,
     password: string,
     confirmPassword: string,
+    languageCode?: string,
   ): Promise<IRegisterResponse> {
-    const response = await this.registerService.register(email, password, confirmPassword);
+    const response = await this.registerService.register(email, password, confirmPassword, languageCode);
     return response
   }
 

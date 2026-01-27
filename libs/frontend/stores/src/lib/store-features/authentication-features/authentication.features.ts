@@ -146,7 +146,12 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
 
-          const response = await store._authService.registerIamAuth( email, password, confirmPassword );
+          // Détection de la langue du navigateur avec fallback 'en'
+          const browserLang = store._translate.getBrowserLang();
+          const supportedLangs = ['en', 'fr', 'de', 'nl'];
+          const languageCode = browserLang && supportedLangs.includes(browserLang) ? browserLang : 'en';
+
+          const response = await store._authService.registerIamAuth( email, password, confirmPassword, languageCode );
 
           console.log('✅ Registration successful:', { email, response });
 

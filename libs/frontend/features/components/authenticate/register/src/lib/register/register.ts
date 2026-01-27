@@ -206,9 +206,14 @@ submitForm() { // Register the user
       // The form() gives you the latest value
       const { email, password, confirmPassword } = form().value();
 
-      console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email);
+      // Détection de la langue du navigateur avec fallback 'en'
+      const browserLang = typeof navigator !== 'undefined' ? navigator.language?.split('-')[0] : undefined;
+      const supportedLangs = ['en', 'fr', 'de', 'nl'];
+      const languageCode = browserLang && supportedLangs.includes(browserLang) ? browserLang : 'en';
 
-      const result = await this._authService.registerIamAuth(email, password, confirmPassword);
+      console.log('📤 [Submit] Envoi de la requête d\'inscription pour:', email, 'avec langue:', languageCode);
+
+      const result = await this._authService.registerIamAuth(email, password, confirmPassword, languageCode);
 
       console.log('📤 [Submit] Inscription réussie pour:', email, 'Result:', result);
 

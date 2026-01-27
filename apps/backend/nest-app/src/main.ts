@@ -7,6 +7,7 @@ import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/comm
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
 import { ClsMiddleware } from 'nestjs-cls';
 import { AppModule } from './app/app.module';
 // import { PrismaClientService } from '@db/prisma-client';
@@ -17,6 +18,9 @@ async function bootstrap() {
 const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'], // Activez tous les niveaux de log
   });
+
+  // Configure class-validator to use NestJS DI container
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   // const app = await NestFactory.create<NestExpressApplication>(AppModule);
 

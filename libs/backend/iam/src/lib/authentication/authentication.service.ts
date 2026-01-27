@@ -1,6 +1,6 @@
 import { ActiveUserData, HashingService } from '@be/common';
 import jwtConfig from '@be/jwtconfig';
-import { Gender, Language, Role, User } from '@db/prisma';
+import { Gender, Role, User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import {
     ConflictException,
@@ -102,7 +102,7 @@ export class AuthenticationService {
     firstName?: string;
     nickName?: string;
     Gender?: Gender;
-    Language?: Language;
+    languageCode?: string;
     Roles?: Role[];
   }) {
     try {
@@ -117,11 +117,24 @@ export class AuthenticationService {
       const payload = await this.apiKeysService.createAndHash(uuid);
       const key = payload.hashedKey;
 
+      // Find language by code if provided
+      let languageId: number | undefined;
+      if (signUpDto.languageCode) {
+        const language = await this.prisma.language.findUnique({
+          where: { code: signUpDto.languageCode },
+        });
+        if (language) {
+          languageId = language.id;
+        }
+      }
+
       const data = {
         email: signUpDto.email.toLowerCase(),
         lastName: signUpDto.lastName || null,
         firstName: signUpDto.firstName || null,
         nickName: signUpDto.nickName || null,
+        Gender: signUpDto.Gender || null,
+        languageId: languageId || null,
         userSecret: {
           create: {
             pwdHash: password,
@@ -135,7 +148,7 @@ export class AuthenticationService {
         },
       };
 
-      // TODO: Add Gender, Language, and Roles after fixing Prisma types
+      // TODO: Add Roles after implementing proper role assignment
 
       const user = await this.prisma.user.create({ data });
       const apiUserKey = payload.apiKey;
