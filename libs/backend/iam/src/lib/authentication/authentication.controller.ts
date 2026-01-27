@@ -9,16 +9,16 @@ import { AccountValidationService } from './account-validation/account-validatio
 import { AuthenticationService } from './authentication.service';
 import { Auth } from './decorators/auth.decorator';
 import {
-  AuthResponse,
-  RequestAccountValidationDto,
-  UserProfile,
-  UserProfileResponse
+    AuthResponse,
+    RequestAccountValidationDto,
+    UserProfile,
+    UserProfileResponse
 } from './dto/account-validation.dto/account-validation.dto';
 import { ExtendedSignUpDto } from './dto/extended-sign-up.dto/extended-sign-up.dto';
 import {
-  ChangePasswordDto,
-  ForgotPasswordDto,
-  ResetPasswordDto
+    ChangePasswordDto,
+    ForgotPasswordDto,
+    ResetPasswordDto
 } from './dto/password-management.dto/password-management.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
@@ -261,7 +261,7 @@ export class AuthenticationController {
       title: user.title || undefined,
       Gender: user.Gender || undefined,
       Role: user.Roles ? user.Roles.map(role => role.toString()) : undefined,
-      Language: user.Language || undefined,
+      Language: user.Language?.code || undefined,
       photoUrl: user.photoUrl || undefined
     };
 

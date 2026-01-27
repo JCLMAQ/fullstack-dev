@@ -16,7 +16,8 @@ export class UserProfileService {
   async getUserByEmail(email: string, lang = 'en'): Promise<UserProfileResponse | AuthResponse> {
     try {
       const user = await this.prisma.user.findUnique({
-        where: { email: email.toLowerCase() }
+        where: { email: email.toLowerCase() },
+        include: { Language: true }
       });
 
       if (!user) {
@@ -42,7 +43,7 @@ export class UserProfileService {
         title: user.title || undefined,
         Gender: user.Gender || undefined,
         Role: user.Roles ? user.Roles.map(role => role.toString()) : undefined,
-        Language: user.Language || undefined,
+        Language: user.Language?.code || undefined,
         photoUrl: user.photoUrl || undefined
       };
 

@@ -19,6 +19,7 @@ import { InvalidatedRefreshTokenError } from './authentication/refresh-token-ids
 import { RefreshTokenIdsStorage } from './authentication/refresh-token-ids.storage/refresh-token-ids.storage';
 import { RefreshTokenIdsStorageService } from './authentication/refresh-token-ids.storage/refresh-token-ids.storage.service';
 import { UserProfileService } from './authentication/user-profile/user-profile.service';
+import { IsLanguageCodeExistsConstraint } from './authentication/validators/is-language-code-exists.validator';
 import { PermissionsGuard } from './authorization/guards/permissions/permissions.guard';
 import { PoliciesGuard } from './authorization/guards/polycies/policies.guard';
 import { RolesGuard } from './authorization/guards/roles/roles.guard';
@@ -83,7 +84,8 @@ import { UploadController } from './upload/upload.controller';
     PasswordResetService,
     UserProfileService,
     AvatarBase64Service,
-    Logger
+    Logger,
+    IsLanguageCodeExistsConstraint
 
   ],
   exports: [],

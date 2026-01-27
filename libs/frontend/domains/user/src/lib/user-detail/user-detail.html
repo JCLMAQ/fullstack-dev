@@ -115,12 +115,12 @@
                       <mat-form-field appearance="outline">
                         <mat-label>{{'userProfile.languageLabel' | translate}}</mat-label>
                         @if (mode() === 'view') {
-                          <input matInput [value]="userForm().value().Language ?? ''" readonly />
+                          <input matInput [value]="userForm().value().Language?.name ?? ''" readonly />
                         } @else {
                           <mat-select [formField]="userForm.Language">
                             <mat-option [value]="null">None</mat-option>
-                            @for (lang of languageOptions; track lang) {
-                              <mat-option [value]="lang">{{ lang }}</mat-option>
+                            @for (lang of languageOptions(); track lang.id) {
+                              <mat-option [value]="lang">{{ lang.name }}</mat-option>
                             }
                           </mat-select>
                         }

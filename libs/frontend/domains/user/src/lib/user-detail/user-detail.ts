@@ -19,11 +19,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address, Gender, Language, Position, Title, UserWithBasicRelations } from '@db/prisma/browser';
+import { Address, Gender, Position, Title, UserWithBasicRelations } from '@db/prisma/browser';
 import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
-import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema, ValidationErrors } from '@fe/signalform-utilities';
+import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
+import { Language, LanguageDataService } from '../data/language/language-data.service';
 import { UserStore } from '../store/user-store';
 
 type UserFormData = {
@@ -61,7 +62,6 @@ type UserFormData = {
   imports: [
     FormField,
     FieldError,
-    ValidationErrors,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -178,7 +178,7 @@ export class UserDetail {
   // Options for selects // TODO : get from Enum within Prisma or from backend service
   protected readonly titleOptions: Title[] = ['Mr', 'Mme', 'Dct'];
   protected readonly genderOptions: Gender[] = ['MALE', 'FEMELE', 'UNKNOWN', 'NONE'];
-  protected readonly languageOptions: Language[] = ['en', 'fr'];
+  protected readonly languageOptions = inject(LanguageDataService).getLanguagesSignal();
   protected readonly positionOptions: Position[] = ['Individual', 'Manager', 'Member', 'Secretary'];
 
   protected readonly isAdmin = computed(() => true); // TODO: Get from auth service
@@ -220,7 +220,7 @@ export class UserDetail {
           title: selectedItem.title,
           nickName: selectedItem.nickName ?? '',
           Gender: selectedItem.Gender,
-          Language: selectedItem.Language,
+          Language: this.languageOptions().find(l => l.id === selectedItem.languageId) ?? null,
           photoUrl: selectedItem.photoUrl ?? '',
           dateOfBirth: selectedItem.dateOfBirth,
           emergencyContact: {
@@ -273,7 +273,7 @@ export class UserDetail {
         title: selectedItem.title,
         nickName: selectedItem.nickName ?? '',
         Gender: selectedItem.Gender,
-        Language: selectedItem.Language,
+        Language: this.languageOptions().find(l => l.id === selectedItem.languageId) ?? null,
         photoUrl: selectedItem.photoUrl ?? '',
         dateOfBirth: selectedItem.dateOfBirth,
         emergencyContact: {

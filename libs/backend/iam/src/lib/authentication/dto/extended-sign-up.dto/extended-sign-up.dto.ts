@@ -1,4 +1,4 @@
-import { Gender, Language, Role } from '@db/prisma';
+import { Gender, Role } from '@db/prisma';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsArray,
@@ -9,6 +9,7 @@ import {
     MaxLength,
     MinLength,
 } from 'class-validator';
+import { IsLanguageCodeExists } from '../../validators/is-language-code-exists.validator';
 import { SignUpDto } from '../sign-up.dto/sign-up.dto';
 
 /**
@@ -84,13 +85,13 @@ export class ExtendedSignUpDto extends SignUpDto {
   Gender?: Gender;
 
   @ApiPropertyOptional({
-    description: 'User preferred language',
-    enum: Language,
-    example: Language.en,
+    description: "User's preferred language code (ISO 639-1, ex: 'en', 'fr'). Must match an existing language code.",
+    example: 'en',
   })
   @IsOptional()
-  @IsEnum(Language, { message: 'Language must be a valid value' })
-  Language?: Language;
+  @IsString()
+  @IsLanguageCodeExists({ message: "Language code must exist in the database" })
+  languageCode?: string;
 
   @ApiPropertyOptional({
     description: 'User roles',
