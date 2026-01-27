@@ -13,12 +13,14 @@ import {
     Query,
 } from '@nestjs/common';
 import { LanguagesService } from './languages.service';
+import { Public } from '@be/iam';
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
   return String(error);
 }
 
+@Public()
 @Controller('languages')
 export class LanguagesController {
   constructor(private readonly languagesService: LanguagesService) {}
