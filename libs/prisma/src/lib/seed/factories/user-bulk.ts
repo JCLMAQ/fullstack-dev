@@ -8,6 +8,7 @@ interface BulkUserOptions {
   passwordFaker?: string;
   addressPerUser?: number;
   phonesPerUser?: number;
+  languages?: Array<{ id: number; code: string; name: string }>;
 }
 
 function hashPassword(plainTextPassword: string, salt: string): string {
@@ -27,6 +28,7 @@ export const createBulkUsers = async (
     passwordFaker = 'Pwd!123465',
     addressPerUser = 2,
     phonesPerUser = 2,
+    languages = [],
   } = options;
 
   const users: User[] = [];
@@ -40,6 +42,8 @@ export const createBulkUsers = async (
     const lastName = faker.person.lastName();
     const email = faker.internet.email({ provider: 'example.com' });
 
+    const randomLanguage = languages.length > 0 ? faker.helpers.arrayElement(languages) : null;
+
     const user = await prisma.user.create({
       data: {
         email,
@@ -52,6 +56,7 @@ export const createBulkUsers = async (
         photoUrl: faker.image.avatar(),
         jobTitle: faker.person.jobTitle(),
         position: faker.helpers.arrayElement(['Manager', 'Member', 'Individual', 'Secretary']),
+        ...(randomLanguage && { languageId: randomLanguage.id }),
         Orgs: {
           connect: {
             id: faker.helpers.arrayElement(orgsIds),

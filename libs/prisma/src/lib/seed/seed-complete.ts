@@ -30,6 +30,13 @@ async function main() {
   console.log('📧 Setting up app email domains...');
   await createAppEmailDomain(prisma);
 
+  // Step 1.5: Fetch languages
+  console.log('\n🌐 Fetching languages...');
+  const languages = await prisma.language.findMany();
+  if (languages.length < 4) {
+    console.warn(`⚠️  Expected 4 languages, but found ${languages.length}. Make sure seed-param has been run first.`);
+  }
+
   // Step 2: Create 3 Organizations
   console.log('\n🏢 Creating 3 organizations...');
   const orgs = await create3Orgs(prisma);
@@ -42,6 +49,7 @@ async function main() {
     orgsIds: orgIds,
     addressPerUser: 2,
     phonesPerUser: 2,
+    languages: languages,
   });
 
   // Step 3.5: Create profiles and assign to users
