@@ -1,6 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client';
 // const { PrismaClient } = require('@prisma/client');
+import { languageFactory } from './factories/language';
 
 const adapter = new PrismaPg({
   connectionString: process.env['DATABASE_URL'] || 'postgresql://postgres:password@localhost:5432/postgres',
@@ -146,6 +147,16 @@ async function main() {
       }
     ]
   })
+
+  // Seed des langues principales
+  await prisma.language.createMany({
+    data: [
+      languageFactory('en', 'English'),
+      languageFactory('fr', 'Français'),
+      languageFactory('de', 'Deutsch'),
+      languageFactory('nl', 'Nederlands'),
+    ]
+  });
 }
 main().catch(e => {
     console.log(e);
