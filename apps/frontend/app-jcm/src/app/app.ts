@@ -3,9 +3,8 @@ import { RouterModule } from '@angular/router';
 import { IdleTimeoutService } from '@fe/auth/idle-timeout';
 import { AppStore } from '@fe/stores';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SUPPORTED_LANGS } from './data/dictionaries';
 
-// TODO : solve Circular dependency issue
+
 
 @Component({
   imports: [
@@ -30,8 +29,15 @@ export class App {
 
   constructor() {
     const translateService = this.ngxtranslateService;
-    translateService.addLangs(SUPPORTED_LANGS);
-    // translateService.use(translateService.getBrowserLang() || 'en'); // use browser language by default
+
+    // Watch availableLanguages from store and add them to ngx-translate
+    effect(() => {
+      const availableLanguages = this.appStore['availableLanguages']();
+      if (availableLanguages.length > 0) {
+        translateService.addLangs(availableLanguages);
+        console.log(`✅ Languages added to ngx-translate: ${availableLanguages.join(', ')}`);
+      }
+    });
 
 
 // Synchronisation de la langue entre le store et ngxTranslate
