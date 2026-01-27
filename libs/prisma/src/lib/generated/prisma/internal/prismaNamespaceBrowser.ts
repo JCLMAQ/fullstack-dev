@@ -80,7 +80,10 @@ export const ModelName = {
   Scope: 'Scope',
   Token: 'Token',
   ChangesTracking: 'ChangesTracking',
-  AccountValidation: 'AccountValidation'
+  AccountValidation: 'AccountValidation',
+  Language: 'Language',
+  Word: 'Word',
+  Translation: 'Translation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -167,7 +170,7 @@ export const UserScalarFieldEnum = {
   nickName: 'nickName',
   Gender: 'Gender',
   social: 'social',
-  Language: 'Language',
+  languageId: 'languageId',
   photoUrl: 'photoUrl',
   dateOfBirth: 'dateOfBirth',
   hasEmergencyContact: 'hasEmergencyContact',
@@ -665,6 +668,36 @@ export const AccountValidationScalarFieldEnum = {
 } as const
 
 export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
+
+
+export const LanguageScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name'
+} as const
+
+export type LanguageScalarFieldEnum = (typeof LanguageScalarFieldEnum)[keyof typeof LanguageScalarFieldEnum]
+
+
+export const WordScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  createdAt: 'createdAt',
+  type: 'type'
+} as const
+
+export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
+
+
+export const TranslationScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  definition: 'definition',
+  wordId: 'wordId',
+  languageId: 'languageId'
+} as const
+
+export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
 
 
 export const SortOrder = {

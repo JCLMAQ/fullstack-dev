@@ -167,3 +167,18 @@ export type ChangesTracking = Prisma.ChangesTrackingModel
  * 
  */
 export type AccountValidation = Prisma.AccountValidationModel
+/**
+ * Model Language
+ * 
+ */
+export type Language = Prisma.LanguageModel
+/**
+ * Model Word
+ * 
+ */
+export type Word = Prisma.WordModel
+/**
+ * Model Translation
+ * 
+ */
+export type Translation = Prisma.TranslationModel

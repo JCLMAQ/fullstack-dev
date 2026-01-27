@@ -413,7 +413,10 @@ export const ModelName = {
   Scope: 'Scope',
   Token: 'Token',
   ChangesTracking: 'ChangesTracking',
-  AccountValidation: 'AccountValidation'
+  AccountValidation: 'AccountValidation',
+  Language: 'Language',
+  Word: 'Word',
+  Translation: 'Translation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -429,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollowerLink" | "userPostLikeLink" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation"
+    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollowerLink" | "userPostLikeLink" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation" | "language" | "word" | "translation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2653,6 +2656,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Language: {
+      payload: Prisma.$LanguagePayload<ExtArgs>
+      fields: Prisma.LanguageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LanguageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LanguageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        findFirst: {
+          args: Prisma.LanguageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LanguageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        findMany: {
+          args: Prisma.LanguageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>[]
+        }
+        create: {
+          args: Prisma.LanguageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        createMany: {
+          args: Prisma.LanguageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LanguageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>[]
+        }
+        delete: {
+          args: Prisma.LanguageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        update: {
+          args: Prisma.LanguageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        deleteMany: {
+          args: Prisma.LanguageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LanguageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LanguageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>[]
+        }
+        upsert: {
+          args: Prisma.LanguageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LanguagePayload>
+        }
+        aggregate: {
+          args: Prisma.LanguageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLanguage>
+        }
+        groupBy: {
+          args: Prisma.LanguageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LanguageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LanguageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LanguageCountAggregateOutputType> | number
+        }
+      }
+    }
+    Word: {
+      payload: Prisma.$WordPayload<ExtArgs>
+      fields: Prisma.WordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        findFirst: {
+          args: Prisma.WordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        findMany: {
+          args: Prisma.WordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+        }
+        create: {
+          args: Prisma.WordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        createMany: {
+          args: Prisma.WordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+        }
+        delete: {
+          args: Prisma.WordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        update: {
+          args: Prisma.WordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        deleteMany: {
+          args: Prisma.WordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>[]
+        }
+        upsert: {
+          args: Prisma.WordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WordPayload>
+        }
+        aggregate: {
+          args: Prisma.WordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWord>
+        }
+        groupBy: {
+          args: Prisma.WordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WordCountAggregateOutputType> | number
+        }
+      }
+    }
+    Translation: {
+      payload: Prisma.$TranslationPayload<ExtArgs>
+      fields: Prisma.TranslationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TranslationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TranslationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        findFirst: {
+          args: Prisma.TranslationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TranslationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        findMany: {
+          args: Prisma.TranslationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>[]
+        }
+        create: {
+          args: Prisma.TranslationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        createMany: {
+          args: Prisma.TranslationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TranslationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>[]
+        }
+        delete: {
+          args: Prisma.TranslationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        update: {
+          args: Prisma.TranslationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        deleteMany: {
+          args: Prisma.TranslationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TranslationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TranslationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>[]
+        }
+        upsert: {
+          args: Prisma.TranslationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TranslationPayload>
+        }
+        aggregate: {
+          args: Prisma.TranslationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTranslation>
+        }
+        groupBy: {
+          args: Prisma.TranslationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TranslationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TranslationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TranslationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2760,7 +2985,7 @@ export const UserScalarFieldEnum = {
   nickName: 'nickName',
   Gender: 'Gender',
   social: 'social',
-  Language: 'Language',
+  languageId: 'languageId',
   photoUrl: 'photoUrl',
   dateOfBirth: 'dateOfBirth',
   hasEmergencyContact: 'hasEmergencyContact',
@@ -3260,6 +3485,36 @@ export const AccountValidationScalarFieldEnum = {
 export type AccountValidationScalarFieldEnum = (typeof AccountValidationScalarFieldEnum)[keyof typeof AccountValidationScalarFieldEnum]
 
 
+export const LanguageScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name'
+} as const
+
+export type LanguageScalarFieldEnum = (typeof LanguageScalarFieldEnum)[keyof typeof LanguageScalarFieldEnum]
+
+
+export const WordScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  createdAt: 'createdAt',
+  type: 'type'
+} as const
+
+export type WordScalarFieldEnum = (typeof WordScalarFieldEnum)[keyof typeof WordScalarFieldEnum]
+
+
+export const TranslationScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  definition: 'definition',
+  wordId: 'wordId',
+  languageId: 'languageId'
+} as const
+
+export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3406,20 +3661,6 @@ export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
 
 
 /**
- * Reference to a field of type 'Language'
- */
-export type EnumLanguageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Language'>
-    
-
-
-/**
- * Reference to a field of type 'Language[]'
- */
-export type ListEnumLanguageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Language[]'>
-    
-
-
-/**
  * Reference to a field of type 'Position'
  */
 export type EnumPositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Position'>
@@ -3542,6 +3783,20 @@ export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'TokenType[]'
  */
 export type ListEnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DictioEntryType'
+ */
+export type EnumDictioEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DictioEntryType'>
+    
+
+
+/**
+ * Reference to a field of type 'DictioEntryType[]'
+ */
+export type ListEnumDictioEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DictioEntryType[]'>
     
 
 
@@ -3683,6 +3938,9 @@ export type GlobalOmitConfig = {
   token?: Prisma.TokenOmit
   changesTracking?: Prisma.ChangesTrackingOmit
   accountValidation?: Prisma.AccountValidationOmit
+  language?: Prisma.LanguageOmit
+  word?: Prisma.WordOmit
+  translation?: Prisma.TranslationOmit
 }
 
 /* Types for Logging */

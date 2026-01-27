@@ -29,11 +29,13 @@ export type AggregateUser = {
 export type UserAvgAggregateOutputType = {
   numSeq: number | null
   isDeleted: number | null
+  languageId: number | null
 }
 
 export type UserSumAggregateOutputType = {
   numSeq: number | null
   isDeleted: number | null
+  languageId: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -51,7 +53,7 @@ export type UserMinAggregateOutputType = {
   title: $Enums.Title | null
   nickName: string | null
   Gender: $Enums.Gender | null
-  Language: $Enums.Language | null
+  languageId: number | null
   photoUrl: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean | null
@@ -82,7 +84,7 @@ export type UserMaxAggregateOutputType = {
   title: $Enums.Title | null
   nickName: string | null
   Gender: $Enums.Gender | null
-  Language: $Enums.Language | null
+  languageId: number | null
   photoUrl: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean | null
@@ -114,7 +116,7 @@ export type UserCountAggregateOutputType = {
   nickName: number
   Gender: number
   social: number
-  Language: number
+  languageId: number
   photoUrl: number
   dateOfBirth: number
   hasEmergencyContact: number
@@ -137,11 +139,13 @@ export type UserCountAggregateOutputType = {
 export type UserAvgAggregateInputType = {
   numSeq?: true
   isDeleted?: true
+  languageId?: true
 }
 
 export type UserSumAggregateInputType = {
   numSeq?: true
   isDeleted?: true
+  languageId?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -159,7 +163,7 @@ export type UserMinAggregateInputType = {
   title?: true
   nickName?: true
   Gender?: true
-  Language?: true
+  languageId?: true
   photoUrl?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
@@ -190,7 +194,7 @@ export type UserMaxAggregateInputType = {
   title?: true
   nickName?: true
   Gender?: true
-  Language?: true
+  languageId?: true
   photoUrl?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
@@ -222,7 +226,7 @@ export type UserCountAggregateInputType = {
   nickName?: true
   Gender?: true
   social?: true
-  Language?: true
+  languageId?: true
   photoUrl?: true
   dateOfBirth?: true
   hasEmergencyContact?: true
@@ -343,7 +347,7 @@ export type UserGroupByOutputType = {
   nickName: string | null
   Gender: $Enums.Gender | null
   social: runtime.JsonValue | null
-  Language: $Enums.Language | null
+  languageId: number | null
   photoUrl: string | null
   dateOfBirth: Date | null
   hasEmergencyContact: boolean
@@ -400,7 +404,7 @@ export type UserWhereInput = {
   nickName?: Prisma.StringNullableFilter<"User"> | string | null
   Gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
   social?: Prisma.JsonNullableFilter<"User">
-  Language?: Prisma.EnumLanguageNullableFilter<"User"> | $Enums.Language | null
+  languageId?: Prisma.IntNullableFilter<"User"> | number | null
   photoUrl?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
@@ -416,6 +420,7 @@ export type UserWhereInput = {
   isTfaEnable?: Prisma.BoolFilter<"User"> | boolean
   tfaSecret?: Prisma.StringNullableFilter<"User"> | string | null
   passWordFaker?: Prisma.StringNullableFilter<"User"> | string | null
+  Language?: Prisma.XOR<Prisma.LanguageNullableScalarRelationFilter, Prisma.LanguageWhereInput> | null
   Address?: Prisma.AddressListRelationFilter
   Phones?: Prisma.PhoneListRelationFilter
   Orgs?: Prisma.OrganizationListRelationFilter
@@ -460,7 +465,7 @@ export type UserOrderByWithRelationInput = {
   nickName?: Prisma.SortOrderInput | Prisma.SortOrder
   Gender?: Prisma.SortOrderInput | Prisma.SortOrder
   social?: Prisma.SortOrderInput | Prisma.SortOrder
-  Language?: Prisma.SortOrderInput | Prisma.SortOrder
+  languageId?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
@@ -476,6 +481,7 @@ export type UserOrderByWithRelationInput = {
   isTfaEnable?: Prisma.SortOrder
   tfaSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   passWordFaker?: Prisma.SortOrderInput | Prisma.SortOrder
+  Language?: Prisma.LanguageOrderByWithRelationInput
   Address?: Prisma.AddressOrderByRelationAggregateInput
   Phones?: Prisma.PhoneOrderByRelationAggregateInput
   Orgs?: Prisma.OrganizationOrderByRelationAggregateInput
@@ -523,7 +529,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   nickName?: Prisma.StringNullableFilter<"User"> | string | null
   Gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
   social?: Prisma.JsonNullableFilter<"User">
-  Language?: Prisma.EnumLanguageNullableFilter<"User"> | $Enums.Language | null
+  languageId?: Prisma.IntNullableFilter<"User"> | number | null
   photoUrl?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
@@ -539,6 +545,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isTfaEnable?: Prisma.BoolFilter<"User"> | boolean
   tfaSecret?: Prisma.StringNullableFilter<"User"> | string | null
   passWordFaker?: Prisma.StringNullableFilter<"User"> | string | null
+  Language?: Prisma.XOR<Prisma.LanguageNullableScalarRelationFilter, Prisma.LanguageWhereInput> | null
   Address?: Prisma.AddressListRelationFilter
   Phones?: Prisma.PhoneListRelationFilter
   Orgs?: Prisma.OrganizationListRelationFilter
@@ -583,7 +590,7 @@ export type UserOrderByWithAggregationInput = {
   nickName?: Prisma.SortOrderInput | Prisma.SortOrder
   Gender?: Prisma.SortOrderInput | Prisma.SortOrder
   social?: Prisma.SortOrderInput | Prisma.SortOrder
-  Language?: Prisma.SortOrderInput | Prisma.SortOrder
+  languageId?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
@@ -625,7 +632,7 @@ export type UserScalarWhereWithAggregatesInput = {
   nickName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   Gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
   social?: Prisma.JsonNullableWithAggregatesFilter<"User">
-  Language?: Prisma.EnumLanguageNullableWithAggregatesFilter<"User"> | $Enums.Language | null
+  languageId?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -659,7 +666,6 @@ export type UserCreateInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -674,6 +680,7 @@ export type UserCreateInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -718,7 +725,7 @@ export type UserUncheckedCreateInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -777,7 +784,6 @@ export type UserUpdateInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -792,6 +798,7 @@ export type UserUpdateInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -836,7 +843,7 @@ export type UserUncheckedUpdateInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -895,7 +902,7 @@ export type UserCreateManyInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -929,7 +936,6 @@ export type UserUpdateManyMutationInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -962,7 +968,7 @@ export type UserUncheckedUpdateManyInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1027,7 +1033,7 @@ export type UserCountOrderByAggregateInput = {
   nickName?: Prisma.SortOrder
   Gender?: Prisma.SortOrder
   social?: Prisma.SortOrder
-  Language?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
@@ -1048,6 +1054,7 @@ export type UserCountOrderByAggregateInput = {
 export type UserAvgOrderByAggregateInput = {
   numSeq?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -1065,7 +1072,7 @@ export type UserMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   nickName?: Prisma.SortOrder
   Gender?: Prisma.SortOrder
-  Language?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
@@ -1096,7 +1103,7 @@ export type UserMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   nickName?: Prisma.SortOrder
   Gender?: Prisma.SortOrder
-  Language?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   hasEmergencyContact?: Prisma.SortOrder
@@ -1115,6 +1122,7 @@ export type UserMinOrderByAggregateInput = {
 export type UserSumOrderByAggregateInput = {
   numSeq?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -1194,10 +1202,6 @@ export type NullableEnumTitleFieldUpdateOperationsInput = {
 
 export type NullableEnumGenderFieldUpdateOperationsInput = {
   set?: $Enums.Gender | null
-}
-
-export type NullableEnumLanguageFieldUpdateOperationsInput = {
-  set?: $Enums.Language | null
 }
 
 export type NullableEnumPositionFieldUpdateOperationsInput = {
@@ -1630,6 +1634,48 @@ export type UserUpdateOneRequiredWithoutChangesLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChangesLogsInput, Prisma.UserUpdateWithoutChangesLogsInput>, Prisma.UserUncheckedUpdateWithoutChangesLogsInput>
 }
 
+export type UserCreateNestedManyWithoutLanguageInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput> | Prisma.UserCreateWithoutLanguageInput[] | Prisma.UserUncheckedCreateWithoutLanguageInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLanguageInput | Prisma.UserCreateOrConnectWithoutLanguageInput[]
+  createMany?: Prisma.UserCreateManyLanguageInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutLanguageInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput> | Prisma.UserCreateWithoutLanguageInput[] | Prisma.UserUncheckedCreateWithoutLanguageInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLanguageInput | Prisma.UserCreateOrConnectWithoutLanguageInput[]
+  createMany?: Prisma.UserCreateManyLanguageInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutLanguageNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput> | Prisma.UserCreateWithoutLanguageInput[] | Prisma.UserUncheckedCreateWithoutLanguageInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLanguageInput | Prisma.UserCreateOrConnectWithoutLanguageInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutLanguageInput | Prisma.UserUpsertWithWhereUniqueWithoutLanguageInput[]
+  createMany?: Prisma.UserCreateManyLanguageInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutLanguageInput | Prisma.UserUpdateWithWhereUniqueWithoutLanguageInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutLanguageInput | Prisma.UserUpdateManyWithWhereWithoutLanguageInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutLanguageNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput> | Prisma.UserCreateWithoutLanguageInput[] | Prisma.UserUncheckedCreateWithoutLanguageInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLanguageInput | Prisma.UserCreateOrConnectWithoutLanguageInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutLanguageInput | Prisma.UserUpsertWithWhereUniqueWithoutLanguageInput[]
+  createMany?: Prisma.UserCreateManyLanguageInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutLanguageInput | Prisma.UserUpdateWithWhereUniqueWithoutLanguageInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutLanguageInput | Prisma.UserUpdateManyWithWhereWithoutLanguageInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
 export type UserCreateWithoutOrgsInput = {
   id?: string
   numSeq?: number
@@ -1646,7 +1692,6 @@ export type UserCreateWithoutOrgsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -1661,6 +1706,7 @@ export type UserCreateWithoutOrgsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
@@ -1704,7 +1750,7 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -1786,7 +1832,7 @@ export type UserScalarWhereInput = {
   nickName?: Prisma.StringNullableFilter<"User"> | string | null
   Gender?: Prisma.EnumGenderNullableFilter<"User"> | $Enums.Gender | null
   social?: Prisma.JsonNullableFilter<"User">
-  Language?: Prisma.EnumLanguageNullableFilter<"User"> | $Enums.Language | null
+  languageId?: Prisma.IntNullableFilter<"User"> | number | null
   photoUrl?: Prisma.StringNullableFilter<"User"> | string | null
   dateOfBirth?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   hasEmergencyContact?: Prisma.BoolFilter<"User"> | boolean
@@ -1820,7 +1866,6 @@ export type UserCreateWithoutTeamInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -1835,6 +1880,7 @@ export type UserCreateWithoutTeamInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -1878,7 +1924,7 @@ export type UserUncheckedCreateWithoutTeamInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -1941,7 +1987,6 @@ export type UserCreateWithoutManagerInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -1956,6 +2001,7 @@ export type UserCreateWithoutManagerInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -1999,7 +2045,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2078,7 +2124,6 @@ export type UserUpdateWithoutTeamInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2093,6 +2138,7 @@ export type UserUpdateWithoutTeamInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -2136,7 +2182,7 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2210,7 +2256,6 @@ export type UserCreateWithoutPhonesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2225,6 +2270,7 @@ export type UserCreateWithoutPhonesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
@@ -2268,7 +2314,7 @@ export type UserUncheckedCreateWithoutPhonesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2342,7 +2388,6 @@ export type UserUpdateWithoutPhonesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2357,6 +2402,7 @@ export type UserUpdateWithoutPhonesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
@@ -2400,7 +2446,7 @@ export type UserUncheckedUpdateWithoutPhonesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2458,7 +2504,6 @@ export type UserCreateWithoutAddressInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2473,6 +2518,7 @@ export type UserCreateWithoutAddressInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
   manager?: Prisma.UserCreateNestedOneWithoutTeamInput
@@ -2516,7 +2562,7 @@ export type UserUncheckedCreateWithoutAddressInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2590,7 +2636,6 @@ export type UserUpdateWithoutAddressInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2605,6 +2650,7 @@ export type UserUpdateWithoutAddressInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
@@ -2648,7 +2694,7 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2706,7 +2752,6 @@ export type UserCreateWithoutUserSecretInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2721,6 +2766,7 @@ export type UserCreateWithoutUserSecretInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -2764,7 +2810,7 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2838,7 +2884,6 @@ export type UserUpdateWithoutUserSecretInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2853,6 +2898,7 @@ export type UserUpdateWithoutUserSecretInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -2896,7 +2942,7 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2954,7 +3000,6 @@ export type UserCreateWithoutProfilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -2969,6 +3014,7 @@ export type UserCreateWithoutProfilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -3012,7 +3058,7 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3091,7 +3137,6 @@ export type UserCreateWithoutGroupsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3106,6 +3151,7 @@ export type UserCreateWithoutGroupsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -3149,7 +3195,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3228,7 +3274,6 @@ export type UserCreateWithoutTodosAuthorInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3243,6 +3288,7 @@ export type UserCreateWithoutTodosAuthorInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -3286,7 +3332,7 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3360,7 +3406,6 @@ export type UserUpdateWithoutTodosAuthorInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3375,6 +3420,7 @@ export type UserUpdateWithoutTodosAuthorInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -3418,7 +3464,7 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3476,7 +3522,6 @@ export type UserCreateWithoutTodoInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3491,6 +3536,7 @@ export type UserCreateWithoutTodoInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -3534,7 +3580,7 @@ export type UserUncheckedCreateWithoutTodoInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3608,7 +3654,6 @@ export type UserUpdateWithoutTodoInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3623,6 +3668,7 @@ export type UserUpdateWithoutTodoInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -3666,7 +3712,7 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3724,7 +3770,6 @@ export type UserCreateWithoutTasksAuthorInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3739,6 +3784,7 @@ export type UserCreateWithoutTasksAuthorInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -3782,7 +3828,7 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3856,7 +3902,6 @@ export type UserUpdateWithoutTasksAuthorInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3871,6 +3916,7 @@ export type UserUpdateWithoutTasksAuthorInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -3914,7 +3960,7 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3972,7 +4018,6 @@ export type UserCreateWithoutTasksInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -3987,6 +4032,7 @@ export type UserCreateWithoutTasksInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -4030,7 +4076,7 @@ export type UserUncheckedCreateWithoutTasksInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4104,7 +4150,6 @@ export type UserUpdateWithoutTasksInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4119,6 +4164,7 @@ export type UserUpdateWithoutTasksInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -4162,7 +4208,7 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4220,7 +4266,6 @@ export type UserCreateWithoutPostsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4235,6 +4280,7 @@ export type UserCreateWithoutPostsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -4278,7 +4324,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4352,7 +4398,6 @@ export type UserUpdateWithoutPostsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4367,6 +4412,7 @@ export type UserUpdateWithoutPostsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -4410,7 +4456,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4468,7 +4514,6 @@ export type UserCreateWithoutCommentsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4483,6 +4528,7 @@ export type UserCreateWithoutCommentsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -4526,7 +4572,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4600,7 +4646,6 @@ export type UserUpdateWithoutCommentsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4615,6 +4660,7 @@ export type UserUpdateWithoutCommentsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -4658,7 +4704,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4716,7 +4762,6 @@ export type UserCreateWithoutOwnedFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4731,6 +4776,7 @@ export type UserCreateWithoutOwnedFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -4774,7 +4820,7 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4837,7 +4883,6 @@ export type UserCreateWithoutUploadedFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4852,6 +4897,7 @@ export type UserCreateWithoutUploadedFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -4895,7 +4941,7 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4958,7 +5004,6 @@ export type UserCreateWithoutProfileFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -4973,6 +5018,7 @@ export type UserCreateWithoutProfileFilesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -5016,7 +5062,7 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5090,7 +5136,6 @@ export type UserUpdateWithoutOwnedFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5105,6 +5150,7 @@ export type UserUpdateWithoutOwnedFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -5148,7 +5194,7 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5217,7 +5263,6 @@ export type UserUpdateWithoutUploadedFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5232,6 +5277,7 @@ export type UserUpdateWithoutUploadedFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -5275,7 +5321,7 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5344,7 +5390,6 @@ export type UserUpdateWithoutProfileFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5359,6 +5404,7 @@ export type UserUpdateWithoutProfileFilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -5402,7 +5448,7 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5460,7 +5506,6 @@ export type UserCreateWithoutFollowersInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5475,6 +5520,7 @@ export type UserCreateWithoutFollowersInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -5518,7 +5564,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5581,7 +5627,6 @@ export type UserCreateWithoutFollowingsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5596,6 +5641,7 @@ export type UserCreateWithoutFollowingsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -5639,7 +5685,7 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5713,7 +5759,6 @@ export type UserUpdateWithoutFollowersInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5728,6 +5773,7 @@ export type UserUpdateWithoutFollowersInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -5771,7 +5817,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5840,7 +5886,6 @@ export type UserUpdateWithoutFollowingsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5855,6 +5900,7 @@ export type UserUpdateWithoutFollowingsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -5898,7 +5944,7 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5956,7 +6002,6 @@ export type UserCreateWithoutPosts_likedInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -5971,6 +6016,7 @@ export type UserCreateWithoutPosts_likedInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -6014,7 +6060,7 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6088,7 +6134,6 @@ export type UserUpdateWithoutPosts_likedInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6103,6 +6148,7 @@ export type UserUpdateWithoutPosts_likedInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -6146,7 +6192,7 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6204,7 +6250,6 @@ export type UserCreateWithoutStoriesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6219,6 +6264,7 @@ export type UserCreateWithoutStoriesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -6262,7 +6308,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6336,7 +6382,6 @@ export type UserUpdateWithoutStoriesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6351,6 +6396,7 @@ export type UserUpdateWithoutStoriesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -6394,7 +6440,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6452,7 +6498,6 @@ export type UserCreateWithoutUploadedImagesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6467,6 +6512,7 @@ export type UserCreateWithoutUploadedImagesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -6510,7 +6556,7 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6573,7 +6619,6 @@ export type UserCreateWithoutProfileImagesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6588,6 +6633,7 @@ export type UserCreateWithoutProfileImagesInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -6631,7 +6677,7 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6705,7 +6751,6 @@ export type UserUpdateWithoutUploadedImagesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6720,6 +6765,7 @@ export type UserUpdateWithoutUploadedImagesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -6763,7 +6809,7 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6832,7 +6878,6 @@ export type UserUpdateWithoutProfileImagesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6847,6 +6892,7 @@ export type UserUpdateWithoutProfileImagesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -6890,7 +6936,7 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6948,7 +6994,6 @@ export type UserCreateWithoutApiKeysInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -6963,6 +7008,7 @@ export type UserCreateWithoutApiKeysInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -7006,7 +7052,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7080,7 +7126,6 @@ export type UserUpdateWithoutApiKeysInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7095,6 +7140,7 @@ export type UserUpdateWithoutApiKeysInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -7138,7 +7184,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7196,7 +7242,6 @@ export type UserCreateWithoutTokensInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7211,6 +7256,7 @@ export type UserCreateWithoutTokensInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -7254,7 +7300,7 @@ export type UserUncheckedCreateWithoutTokensInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7328,7 +7374,6 @@ export type UserUpdateWithoutTokensInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7343,6 +7388,7 @@ export type UserUpdateWithoutTokensInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -7386,7 +7432,7 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7444,7 +7490,6 @@ export type UserCreateWithoutChangesLogsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7459,6 +7504,7 @@ export type UserCreateWithoutChangesLogsInput = {
   isTfaEnable?: boolean
   tfaSecret?: string | null
   passWordFaker?: string | null
+  Language?: Prisma.LanguageCreateNestedOneWithoutUsersInput
   Address?: Prisma.AddressCreateNestedManyWithoutUserInput
   Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
   Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
@@ -7502,7 +7548,7 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7576,7 +7622,6 @@ export type UserUpdateWithoutChangesLogsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7591,6 +7636,7 @@ export type UserUpdateWithoutChangesLogsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -7634,7 +7680,7 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7676,6 +7722,148 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
 }
 
+export type UserCreateWithoutLanguageInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  Address?: Prisma.AddressCreateNestedManyWithoutUserInput
+  Phones?: Prisma.PhoneCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationCreateNestedManyWithoutMembersInput
+  manager?: Prisma.UserCreateNestedOneWithoutTeamInput
+  Team?: Prisma.UserCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileCreateNestedManyWithoutProfileUserInput
+  ChangesLogs?: Prisma.ChangesTrackingCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretCreateNestedOneWithoutUserInput
+  Followers?: Prisma.UserFollowerLinkCreateNestedManyWithoutUserInput
+  Followings?: Prisma.UserFollowerLinkCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.UserPostLikeLinkCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserUncheckedCreateWithoutLanguageInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  managerId?: string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+  Address?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  Phones?: Prisma.PhoneUncheckedCreateNestedManyWithoutUserInput
+  Orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutMembersInput
+  Team?: Prisma.UserUncheckedCreateNestedManyWithoutManagerInput
+  Profiles?: Prisma.ProfileUncheckedCreateNestedManyWithoutUsersInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutUsersInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutOwnerInput
+  Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  Stories?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  Todo?: Prisma.UserTodoLinkUncheckedCreateNestedManyWithoutUserInput
+  TodosAuthor?: Prisma.TodoUncheckedCreateNestedManyWithoutOwnerInput
+  Tasks?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutUserInput
+  TasksAuthor?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+  ownedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutOwnerInput
+  uploadedFiles?: Prisma.FileUncheckedCreateNestedManyWithoutUploadedByInput
+  profileFiles?: Prisma.FileUncheckedCreateNestedManyWithoutProfileUserInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedCreateNestedManyWithoutModifiedByInput
+  Tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
+  ApiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  userSecret?: Prisma.UserSecretUncheckedCreateNestedOneWithoutUserInput
+  Followers?: Prisma.UserFollowerLinkUncheckedCreateNestedManyWithoutUserInput
+  Followings?: Prisma.UserFollowerLinkUncheckedCreateNestedManyWithoutFollowerInput
+  posts_liked?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutUserInput
+  uploadedImages?: Prisma.ImageUncheckedCreateNestedManyWithoutUploadedByInput
+  profileImages?: Prisma.ImageUncheckedCreateNestedManyWithoutProfileUserInput
+}
+
+export type UserCreateOrConnectWithoutLanguageInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput>
+}
+
+export type UserCreateManyLanguageInputEnvelope = {
+  data: Prisma.UserCreateManyLanguageInput | Prisma.UserCreateManyLanguageInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutLanguageInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLanguageInput, Prisma.UserUncheckedUpdateWithoutLanguageInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLanguageInput, Prisma.UserUncheckedCreateWithoutLanguageInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutLanguageInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLanguageInput, Prisma.UserUncheckedUpdateWithoutLanguageInput>
+}
+
+export type UserUpdateManyWithWhereWithoutLanguageInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutLanguageInput>
+}
+
 export type UserUpdateWithoutOrgsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   numSeq?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7692,7 +7880,6 @@ export type UserUpdateWithoutOrgsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7707,6 +7894,7 @@ export type UserUpdateWithoutOrgsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
@@ -7750,7 +7938,7 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7808,7 +7996,7 @@ export type UserUncheckedUpdateManyWithoutOrgsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7842,7 +8030,7 @@ export type UserCreateManyManagerInput = {
   nickName?: string | null
   Gender?: $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: $Enums.Language | null
+  languageId?: number | null
   photoUrl?: string | null
   dateOfBirth?: Date | string | null
   hasEmergencyContact?: boolean
@@ -7875,7 +8063,6 @@ export type UserUpdateWithoutManagerInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7890,6 +8077,7 @@ export type UserUpdateWithoutManagerInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -7933,7 +8121,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -7991,7 +8179,7 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8024,7 +8212,6 @@ export type UserUpdateWithoutProfilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8039,6 +8226,7 @@ export type UserUpdateWithoutProfilesInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -8082,7 +8270,7 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8140,7 +8328,7 @@ export type UserUncheckedUpdateManyWithoutProfilesInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8174,7 +8362,6 @@ export type UserUpdateWithoutGroupsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8189,6 +8376,7 @@ export type UserUpdateWithoutGroupsInput = {
   isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Language?: Prisma.LanguageUpdateOneWithoutUsersNestedInput
   Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
   Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
   Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
@@ -8232,7 +8420,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8290,7 +8478,189 @@ export type UserUncheckedUpdateManyWithoutGroupsInput = {
   nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  Language?: Prisma.NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
+  languageId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type UserCreateManyLanguageInput = {
+  id?: string
+  numSeq?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  email: string
+  lastName?: string | null
+  firstName?: string | null
+  title?: $Enums.Title | null
+  nickName?: string | null
+  Gender?: $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  photoUrl?: string | null
+  dateOfBirth?: Date | string | null
+  hasEmergencyContact?: boolean
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  position?: $Enums.Position | null
+  jobTitle?: string | null
+  isValidated?: Date | string | null
+  isSuspended?: Date | string | null
+  managerId?: string | null
+  Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserCreatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: boolean
+  tfaSecret?: string | null
+  passWordFaker?: string | null
+}
+
+export type UserUpdateWithoutLanguageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Address?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  Phones?: Prisma.PhoneUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUpdateManyWithoutMembersNestedInput
+  manager?: Prisma.UserUpdateOneWithoutTeamNestedInput
+  Team?: Prisma.UserUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUpdateManyWithoutProfileUserNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUpdateOneWithoutUserNestedInput
+  Followers?: Prisma.UserFollowerLinkUpdateManyWithoutUserNestedInput
+  Followings?: Prisma.UserFollowerLinkUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.UserPostLikeLinkUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLanguageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
+  Permissions?: Prisma.UserUpdatePermissionsInput | $Enums.PermissionClaim[]
+  isTfaEnable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tfaSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passWordFaker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Address?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  Phones?: Prisma.PhoneUncheckedUpdateManyWithoutUserNestedInput
+  Orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutMembersNestedInput
+  Team?: Prisma.UserUncheckedUpdateManyWithoutManagerNestedInput
+  Profiles?: Prisma.ProfileUncheckedUpdateManyWithoutUsersNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutUsersNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutOwnerNestedInput
+  Comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  Stories?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  Todo?: Prisma.UserTodoLinkUncheckedUpdateManyWithoutUserNestedInput
+  TodosAuthor?: Prisma.TodoUncheckedUpdateManyWithoutOwnerNestedInput
+  Tasks?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutUserNestedInput
+  TasksAuthor?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+  ownedFiles?: Prisma.FileUncheckedUpdateManyWithoutOwnerNestedInput
+  uploadedFiles?: Prisma.FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileFiles?: Prisma.FileUncheckedUpdateManyWithoutProfileUserNestedInput
+  ChangesLogs?: Prisma.ChangesTrackingUncheckedUpdateManyWithoutModifiedByNestedInput
+  Tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
+  ApiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  userSecret?: Prisma.UserSecretUncheckedUpdateOneWithoutUserNestedInput
+  Followers?: Prisma.UserFollowerLinkUncheckedUpdateManyWithoutUserNestedInput
+  Followings?: Prisma.UserFollowerLinkUncheckedUpdateManyWithoutFollowerNestedInput
+  posts_liked?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutUserNestedInput
+  uploadedImages?: Prisma.ImageUncheckedUpdateManyWithoutUploadedByNestedInput
+  profileImages?: Prisma.ImageUncheckedUpdateManyWithoutProfileUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutLanguageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  numSeq?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableEnumTitleFieldUpdateOperationsInput | $Enums.Title | null
+  nickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  Gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  social?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   hasEmergencyContact?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -8562,7 +8932,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   nickName?: boolean
   Gender?: boolean
   social?: boolean
-  Language?: boolean
+  languageId?: boolean
   photoUrl?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
@@ -8578,6 +8948,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   Address?: boolean | Prisma.User$AddressArgs<ExtArgs>
   Phones?: boolean | Prisma.User$PhonesArgs<ExtArgs>
   Orgs?: boolean | Prisma.User$OrgsArgs<ExtArgs>
@@ -8623,7 +8994,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   nickName?: boolean
   Gender?: boolean
   social?: boolean
-  Language?: boolean
+  languageId?: boolean
   photoUrl?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
@@ -8639,6 +9010,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -8658,7 +9030,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   nickName?: boolean
   Gender?: boolean
   social?: boolean
-  Language?: boolean
+  languageId?: boolean
   photoUrl?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
@@ -8674,6 +9046,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTfaEnable?: boolean
   tfaSecret?: boolean
   passWordFaker?: boolean
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -8693,7 +9066,7 @@ export type UserSelectScalar = {
   nickName?: boolean
   Gender?: boolean
   social?: boolean
-  Language?: boolean
+  languageId?: boolean
   photoUrl?: boolean
   dateOfBirth?: boolean
   hasEmergencyContact?: boolean
@@ -8711,8 +9084,9 @@ export type UserSelectScalar = {
   passWordFaker?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "Language" | "photoUrl" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "position" | "jobTitle" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "languageId" | "photoUrl" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "position" | "jobTitle" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   Address?: boolean | Prisma.User$AddressArgs<ExtArgs>
   Phones?: boolean | Prisma.User$PhonesArgs<ExtArgs>
   Orgs?: boolean | Prisma.User$OrgsArgs<ExtArgs>
@@ -8742,15 +9116,18 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   manager?: boolean | Prisma.User$managerArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    Language: Prisma.$LanguagePayload<ExtArgs> | null
     Address: Prisma.$AddressPayload<ExtArgs>[]
     Phones: Prisma.$PhonePayload<ExtArgs>[]
     Orgs: Prisma.$OrganizationPayload<ExtArgs>[]
@@ -8794,7 +9171,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     nickName: string | null
     Gender: $Enums.Gender | null
     social: runtime.JsonValue | null
-    Language: $Enums.Language | null
+    languageId: number | null
     photoUrl: string | null
     dateOfBirth: Date | null
     hasEmergencyContact: boolean
@@ -9204,6 +9581,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Language<T extends Prisma.User$LanguageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$LanguageArgs<ExtArgs>>): Prisma.Prisma__LanguageClient<runtime.Types.Result.GetResult<Prisma.$LanguagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   Address<T extends Prisma.User$AddressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$AddressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Phones<T extends Prisma.User$PhonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$PhonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PhonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Orgs<T extends Prisma.User$OrgsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$OrgsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9274,7 +9652,7 @@ export interface UserFieldRefs {
   readonly nickName: Prisma.FieldRef<"User", 'String'>
   readonly Gender: Prisma.FieldRef<"User", 'Gender'>
   readonly social: Prisma.FieldRef<"User", 'Json'>
-  readonly Language: Prisma.FieldRef<"User", 'Language'>
+  readonly languageId: Prisma.FieldRef<"User", 'Int'>
   readonly photoUrl: Prisma.FieldRef<"User", 'String'>
   readonly dateOfBirth: Prisma.FieldRef<"User", 'DateTime'>
   readonly hasEmergencyContact: Prisma.FieldRef<"User", 'Boolean'>
@@ -9683,6 +10061,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.Language
+ */
+export type User$LanguageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Language
+   */
+  select?: Prisma.LanguageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Language
+   */
+  omit?: Prisma.LanguageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LanguageInclude<ExtArgs> | null
+  where?: Prisma.LanguageWhereInput
 }
 
 /**

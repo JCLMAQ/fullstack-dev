@@ -58,11 +58,6 @@ enum AddressType {
   Other
 }
 
-enum Language {
-  en
-  fr
-}
-
 enum Role {
   GUEST
   USER
@@ -161,7 +156,8 @@ model User {
   nickName      String?
   Gender        Gender?           @default(UNKNOWN)
   social        Json?             @db.Json()
-  Language      Language?         @default(en)
+  Language      Language?         @relation(fields: [languageId], references: [id])
+  languageId    Int?
   photoUrl      String?
   dateOfBirth   DateTime?
   hasEmergencyContact Boolean   @default(false)
@@ -779,4 +775,46 @@ model AccountValidation {
   isValidated Boolean   @default(false)
   emailToken  String    @unique()
   timeStamp   DateTime
+}
+
+// Dictionary models for multilingual word and phrase management
+model Language {
+  id           Int           @id @default(autoincrement())
+  code         String        @unique // e.g., "en", "es", "fr"
+  name         String        // e.g., "English", "Spanish"
+  translations Translation[]
+  users        User[]
+
+}
+
+model Word {
+  id           Int           @id @default(autoincrement())
+  slug         String        @unique // A unique identifier like "apple-fruit"
+  createdAt    DateTime      @default(now())
+  type         DictioEntryType     @default(WORD)
+  translations Translation[]
+}
+
+model Translation {
+  id          Int      @id @default(autoincrement())
+  text        String   // The word in the specific language - Can be "Apple" or "The apple is on the table."
+  definition  String?  // Optional definition/description
+
+  // Relations
+  wordId      Int
+  word        Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  languageId  Int
+  language    Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+
+  // Ensure one translation per word per language
+  @@unique([wordId, languageId])
+  // @@fulltext([text]) // Optimization: Allow searching for specific words within the sentence - not supported with Postgres
+}
+
+enum DictioEntryType {
+  WORD
+  PHRASE
+  SENTENCE
+  IDIOM
 }

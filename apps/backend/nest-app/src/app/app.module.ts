@@ -10,6 +10,7 @@ import { FilesJcmModule } from '@be/files-jcm';
 import { GroupsModule } from '@be/groups';
 import { IamModule } from '@be/iam';
 import { ImagesModule } from '@be/images';
+import { LanguagesModule } from '@be/languages';
 import { MailsModule } from '@be/mails';
 import { OrganizationsModule } from '@be/organizations';
 import { OrgDomainsModule } from '@be/orgDomains';
@@ -23,8 +24,10 @@ import { StoriesModule } from '@be/stories';
 import { TasksModule } from '@be/tasks';
 import { TimeUtilModule, TimeUtilService } from '@be/time-util';
 import { TodosModule } from '@be/todos';
+import { TranslationsModule } from '@be/translations';
 import { UserFollowersModule } from '@be/userFollowers';
 import { UsersModule } from '@be/users';
+import { WordsModule } from '@be/words';
 import { PrismaClientModule } from '@db/prisma-client';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -35,6 +38,7 @@ import path from 'path';
 import { validateEnvironment } from '../config/env.validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
 
 @Module({
   imports: [
@@ -132,7 +136,10 @@ import { AppService } from './app.service';
     UserFollowersModule,
     UsersModule,
     FilesJcmModule,
-    MailsModule
+    MailsModule,
+    WordsModule,
+    TranslationsModule,
+    LanguagesModule
 
   ],
   controllers: [AppController],

@@ -79,14 +79,6 @@ export const AddressType = {
 export type AddressType = (typeof AddressType)[keyof typeof AddressType]
 
 
-export const Language = {
-  en: 'en',
-  fr: 'fr'
-} as const
-
-export type Language = (typeof Language)[keyof typeof Language]
-
-
 export const Role = {
   GUEST: 'GUEST',
   USER: 'USER',
@@ -116,3 +108,13 @@ export const TokenType = {
 } as const
 
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
+
+
+export const DictioEntryType = {
+  WORD: 'WORD',
+  PHRASE: 'PHRASE',
+  SENTENCE: 'SENTENCE',
+  IDIOM: 'IDIOM'
+} as const
+
+export type DictioEntryType = (typeof DictioEntryType)[keyof typeof DictioEntryType]

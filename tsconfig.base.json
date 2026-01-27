@@ -67,6 +67,11 @@
       ],
       "@be/address": ["libs/backend/data-access/address/src/index.ts"],
       "@be/files-jcm": ["libs/backend/files-jcm/src/index.ts"],
+      "@be/translations": [
+        "libs/backend/data-access/translations/src/index.ts"
+      ],
+      "@be/words": ["libs/backend/data-access/words/src/index.ts"],
+      "@be/languages": ["libs/backend/data-access/languages/src/index.ts"],
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
