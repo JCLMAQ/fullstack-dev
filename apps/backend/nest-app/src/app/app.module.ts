@@ -38,6 +38,7 @@ import path from 'path';
 import { validateEnvironment } from '../config/env.validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DictionariesModule } from './dictionaries';
 
 
 @Module({
@@ -139,7 +140,8 @@ import { AppService } from './app.service';
     MailsModule,
     WordsModule,
     TranslationsModule,
-    LanguagesModule
+    LanguagesModule,
+    DictionariesModule,
 
   ],
   controllers: [AppController],

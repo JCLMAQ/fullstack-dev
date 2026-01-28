@@ -1,6 +1,6 @@
 import {
-  withDevtools,
-  withStorageSync,
+    withDevtools,
+    withStorageSync,
 } from '@angular-architects/ngrx-toolkit';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
@@ -14,9 +14,10 @@ export const AppStore = signalStore(
   withDevtools('AppStore'),
   withStorageSync({
     key: 'AppStore',
-    // Exclude availableLanguages from persisted state (reload from API on every startup)
+    // Exclude dynamic data from persisted state (reload from API on every startup)
     select: (state) => {
-      const { availableLanguages, ...rest } = state as Record<string, unknown>;
+      const { availableLanguages, _dictionaries, _dictionariesLoaded, _dictionariesLoading, _dictionariesError, ...rest } =
+        state as Record<string, unknown>;
       return rest;
     },
   }),
@@ -24,7 +25,7 @@ export const AppStore = signalStore(
   withAppAuthFeatures(), // Add: login(), logout(), register()
 
   // Languages part
-  withDictionariesFeatures(), // Add  selectedLanguage, possibleLanguages, selectedDictionary, changeLanguage()
+  withDictionariesFeatures(), // Add selectedLanguage, loadDictionaries(), changeLanguage(), switchLanguage()
   withLoadLanguagesFeature(), // Add availableLanguages, loadLanguages()
 
   withMethods((store) => ({

@@ -1,30 +1,44 @@
 import { inject, Injectable } from '@angular/core';
-import { Dictionary } from '@fe/stores';
-import { DICTIONARIES_TOKEN } from '@fe/tokens';
+import type { Dictionary } from '@fe/models';
+import { AppStore } from '@fe/stores';
 import { TranslateService } from '@ngx-translate/core';
-import { getDictionaryHelper } from '../../store/dictionary/dictionary.helpers';
 
+/**
+ * Service for dictionary operations
+ * Now delegates to AppStore which loads dictionaries from API
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class DictionaryService {
   readonly ngxtranslateService = inject(TranslateService);
+  readonly #appStore = inject(AppStore);
 
-  readonly #dictionaries = inject(DICTIONARIES_TOKEN);
-
-  readonly languages = Object.keys(this.#dictionaries);
-
-  private dictionaryOf(language: string) {
-    // Return the dictionary of the passed language
-    return getDictionaryHelper(language, this.#dictionaries);
+  /**
+   * Get available language codes
+   */
+  get languages(): string[] {
+    return Object.keys(this.#appStore._dictionaries());
   }
 
+  /**
+   * Get dictionary for a specific language
+   */
   getDictionary(language: string): Dictionary {
-    // Return the dictionary of the passed language key (en, fr, ...) and fix the ngx translate to use it
+    const dictionaries = this.#appStore._dictionaries();
+
     if (!this.languages.includes(language)) {
       throw new Error(`Language ${language} not found in dictionaries`);
     }
+
     this.ngxtranslateService.use(language);
-    return this.dictionaryOf(language);
+    return dictionaries[language] || {};
+  }
+
+  /**
+   * Get current selected dictionary
+   */
+  get currentDictionary(): Dictionary {
+    return this.#appStore.selectedDictionary() || {};
   }
 }
