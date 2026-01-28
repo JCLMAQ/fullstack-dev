@@ -107,6 +107,7 @@ CREATE TABLE "User" (
     "emergencyContactName" TEXT,
     "emergencyContactPhone" TEXT,
     "position" "Position" DEFAULT 'Individual',
+    "preference" JSON,
     "jobTitle" TEXT,
     "isValidated" TIMESTAMP(3),
     "isSuspended" TIMESTAMP(3),
@@ -640,13 +641,13 @@ CREATE TABLE "TagMgt" (
     "isDeletedDT" TIMESTAMP(3),
     "name" TEXT NOT NULL,
     "position" INTEGER NOT NULL DEFAULT 0,
-    "tagMgtModelId" INTEGER NOT NULL,
+    "tagMgtTypeId" INTEGER NOT NULL,
 
     CONSTRAINT "TagMgt_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "TagMgtModel" (
+CREATE TABLE "TagMgtType" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -658,7 +659,7 @@ CREATE TABLE "TagMgtModel" (
     "description" TEXT,
     "recordId" TEXT NOT NULL,
 
-    CONSTRAINT "TagMgtModel_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "TagMgtType_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -1014,7 +1015,7 @@ ALTER TABLE "Translation" ADD CONSTRAINT "Translation_wordId_fkey" FOREIGN KEY (
 ALTER TABLE "Translation" ADD CONSTRAINT "Translation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TagMgt" ADD CONSTRAINT "TagMgt_tagMgtModelId_fkey" FOREIGN KEY ("tagMgtModelId") REFERENCES "TagMgtModel"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TagMgt" ADD CONSTRAINT "TagMgt_tagMgtTypeId_fkey" FOREIGN KEY ("tagMgtTypeId") REFERENCES "TagMgtType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TagDictionary" ADD CONSTRAINT "TagDictionary_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

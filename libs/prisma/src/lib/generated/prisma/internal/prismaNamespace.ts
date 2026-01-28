@@ -3219,7 +3219,6 @@ export const UserScalarFieldEnum = {
   position: 'position',
   preference: 'preference',
   jobTitle: 'jobTitle',
-  preferences: 'preferences',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
   managerId: 'managerId',
