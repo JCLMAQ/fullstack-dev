@@ -60,6 +60,7 @@ export class Resetpwd implements OnInit {
   private  router: Router = inject(Router);
   private  route: ActivatedRoute = inject(ActivatedRoute);
   private  http: HttpClient = inject(HttpClient);
+    // Todo  refactor with httpResource
   private  snackBar: MatSnackBar = inject(MatSnackBar);
   private  environment: Environment = inject<Environment>(ENVIRONMENT_TOKEN);
 

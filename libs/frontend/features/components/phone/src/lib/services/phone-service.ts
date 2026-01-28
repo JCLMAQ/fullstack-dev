@@ -14,6 +14,7 @@ export type MutationSettings<Params, Result> = Omit<
 @Injectable({ providedIn: 'root' })
 export class PhoneService {
   private readonly http = inject(HttpClient);
+    // Todo  refactor with httpResource
   private readonly environment = inject(ENVIRONMENT_TOKEN);
 
   private get apiPrefix(): string {

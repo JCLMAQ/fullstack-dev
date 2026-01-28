@@ -13,6 +13,7 @@ import type { Dictionaries, DictionariesResponse, Word, WordWithTranslations } f
 })
 export class DictionaryApiService {
   readonly #http = inject(HttpClient);
+    // Todo  refactor with httpResource
   readonly #environment = inject(ENVIRONMENT_TOKEN);
 
   /**

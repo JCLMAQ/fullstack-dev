@@ -20,7 +20,7 @@ export class ChangePwdService {
         // const pathUrl = `${apiPrefix}/authentication/change-password`;
 
         console.log('🔐 Attempting password change:', { oldPassword, newPassword, verifyPassword });
-
+  // Todo  refactor with httpResource
         const changePassword$ = this.httpClient.post<ILoginResponse>(`${this.pathUrl}`, {
           oldPassword,
           newPassword,

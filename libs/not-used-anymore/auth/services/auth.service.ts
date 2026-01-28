@@ -10,6 +10,7 @@ export interface AuthTokens {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
+    // Todo  refactor with httpResource
   private readonly router = inject(Router);
 
   private readonly accessToken = signal<string | null>(this.getToken('accessToken'));

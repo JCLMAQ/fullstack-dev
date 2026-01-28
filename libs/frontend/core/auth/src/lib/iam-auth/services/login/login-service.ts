@@ -38,6 +38,9 @@ export class LoginService {
         .replace(/\/$/, '');
       const pathUrl = `${apiPrefix}/authentication/refresh-token`;
       console.log('🔄 Attempting refreshToken...');
+
+        // Todo  refactor with httpResource
+
       const refresh$ = this.httpClient.post<ILoginResponse>(`${pathUrl}`, { refreshToken });
       const response = await firstValueFrom(refresh$);
       if (response.accessToken) {

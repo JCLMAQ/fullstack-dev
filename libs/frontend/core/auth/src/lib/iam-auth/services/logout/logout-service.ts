@@ -29,6 +29,7 @@ export class LogoutService {
       if (userSignal) userSignal.set(null);
     }
   private httpClient = inject(HttpClient);
+    // Todo  refactor with httpResource
   private environment = inject(ENVIRONMENT_TOKEN);
 
   /**

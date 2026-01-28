@@ -17,6 +17,7 @@ import { UserStorageService } from '../user-storage/user-storage-service';
 })
 export class UserProfileService {
   private httpClient = inject(HttpClient);
+    // Todo  refactor with httpResource
   private userStorage = inject(UserStorageService);
   private environment = inject(ENVIRONMENT_TOKEN);
   // private appStore = inject(AppStore);

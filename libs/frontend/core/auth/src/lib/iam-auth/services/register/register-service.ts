@@ -22,6 +22,7 @@ import { IRegisterResponse } from '../../../models/auth.model';
 })
 export class RegisterService {
   private httpClient = inject(HttpClient);
+    // Todo  refactor with httpResource
   private environment = inject(ENVIRONMENT_TOKEN);
 
   /**

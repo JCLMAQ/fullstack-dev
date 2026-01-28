@@ -9,6 +9,7 @@ export class MultiTranslateHttpLoader implements TranslateLoader {
     public resources: { prefix: string; suffix: string }[]
   ) {}
 
+  // Todo  refactor with httpResource
   public getTranslation(lang: string): Observable<any> {
     return forkJoin(
       this.resources.map((config) =>

@@ -20,6 +20,7 @@ export interface AuthResponse {
 export class ResetPwdService {
 
   private  httpClient = inject(HttpClient);
+    // Todo  refactor with httpResource
   private  environment = inject(ENVIRONMENT_TOKEN);
 
   private readonly apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');

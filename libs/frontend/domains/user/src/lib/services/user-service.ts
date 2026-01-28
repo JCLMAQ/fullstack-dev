@@ -20,6 +20,7 @@ export type UsersQueryOptions = {
 })
 export class UserService {
 	private readonly http = inject(HttpClient);
+    // Todo  refactor with httpResource
 	private readonly environment = inject(ENVIRONMENT_TOKEN);
 	private readonly resourceFactory = (httpResource as unknown) as (
 		config: { loader: () => unknown; default?: unknown }

@@ -7,16 +7,16 @@ import { IAM_AUTH_TOKEN, IamAuth } from '@fe/auth';
 
 // TODO Circular dependency avec IamAuth
 import {
-    ENVIRONMENT_TOKEN,
-    LOCALSTORAGE_CLEANER_TOKEN,
-    type Environment,
+  ENVIRONMENT_TOKEN,
+  LOCALSTORAGE_CLEANER_TOKEN,
+  type Environment,
 } from '@fe/tokens';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withMethods,
-    withProps,
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withMethods,
+  withProps,
 } from '@ngrx/signals';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -30,6 +30,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       _router: inject(Router),
       _snackbar: inject(MatSnackBar),
       _httpClient: inject(HttpClient),
+        // Todo  refactor with httpResource
       _translate: inject(TranslateService),
       _localStorageCleaner: inject(LOCALSTORAGE_CLEANER_TOKEN),
     })),
