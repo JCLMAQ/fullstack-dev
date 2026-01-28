@@ -1,7 +1,7 @@
 import {
-  ApplicationConfig,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection
+    ApplicationConfig,
+    provideBrowserGlobalErrorListeners,
+    provideZonelessChangeDetection
 } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter, withComponentInputBinding, withExperimentalAutoCleanupInjectors } from '@angular/router';
@@ -19,7 +19,7 @@ import { APP_MENU_ITEMS } from './data/menu-items';
 // import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideSignalFormsConfig, SignalFormsConfig } from '@angular/forms/signals';
 import { iamAuthInterceptorFn } from '@fe/auth';
-import { LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
+import { dictionariesErrorInterceptor, LanguageInterceptor, LoggingInterceptor, provideAppErrorHandler } from '@fe/shared';
 import { ENVIRONMENT_DATA } from '../../environments/environment';
 import { MultiTranslateHttpLoader } from './data/MultiTranslateHttpLoader';
 
@@ -92,6 +92,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         iamAuthInterceptorFn,
+        dictionariesErrorInterceptor,
         LanguageInterceptor,
         LoggingInterceptor,
       ]),

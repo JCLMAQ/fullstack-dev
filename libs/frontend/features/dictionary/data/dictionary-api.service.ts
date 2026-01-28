@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { catchError, map, Observable, of } from 'rxjs';
 import type { Dictionaries, DictionariesResponse, Word, WordWithTranslations } from '../models';
@@ -14,6 +14,12 @@ import type { Dictionaries, DictionariesResponse, Word, WordWithTranslations } f
 export class DictionaryApiService {
   readonly #http = inject(HttpClient);
   readonly #environment = inject(ENVIRONMENT_TOKEN);
+
+  /**
+   * Reactive URL signal for dictionaries endpoint
+   * Used by httpResource for automatic loading
+   */
+  readonly dictionariesUrl = computed(() => this.#buildEndpoint('/all'));
 
   /**
    * Load all dictionaries grouped by language code

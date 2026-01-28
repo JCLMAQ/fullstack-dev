@@ -1,6 +1,6 @@
+import { httpResource } from '@angular/common/http';
 import { computed, inject } from '@angular/core';
-import { DictionaryApiService } from '@fe/dictionary';
-import type { Dictionaries } from '@fe/models';
+import { DictionaryApiService, type DictionariesResponse } from '@fe/dictionary';
 import {
     patchState,
     signalStoreFeature,
@@ -10,78 +10,52 @@ import {
     withMethods,
     withState,
 } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, of, pipe, switchMap, tap } from 'rxjs';
 import { getDictionaryHelper } from './dictionaries.helpers';
 
 /**
  * Feature that manages dictionaries loaded from API
- * Replaces static DICTIONARIES_TOKEN with dynamic loading from backend
+ * Uses httpResource for automatic state management (loading, error, value)
  */
 export function withDictionariesFeatures(): SignalStoreFeature {
   return signalStoreFeature(
     withState(() => ({
       selectedLanguage: '' as string,
-      _dictionaries: {} as Dictionaries,
-      _dictionariesLoaded: false,
-      _dictionariesLoading: false,
-      _dictionariesError: null as string | null,
     })),
-    withComputed((store) => {
-      return {
-        selectedDictionary: computed(() =>
-          getDictionaryHelper(store.selectedLanguage(), store._dictionaries())
-        ),
-      };
-    }),
     withMethods(
       (
         store,
         dictionaryApi = inject(DictionaryApiService),
         translateService = inject(TranslateService)
       ) => {
+        // Create httpResource for automatic HTTP GET and state management
+        // httpResource fetches data from the URL signal and provides loading/error states
+        const dictionariesResource = httpResource<DictionariesResponse>(
+          () => dictionaryApi.dictionariesUrl()
+        );
+
         return {
+          // Expose resource through a getter method
+          getDictionariesResource: () => dictionariesResource,
+
           /**
            * Load all dictionaries from API
+           * Uses httpResource.reload() for automatic state management
            */
-
-          //!!! Todo: switch to httpResource
-
-          loadDictionaries: rxMethod<void>(
-            pipe(
-              tap(() => patchState(store, { _dictionariesLoading: true })),
-              switchMap(() =>
-                dictionaryApi.loadAllDictionaries().pipe(
-                  tap((dictionaries: Dictionaries) => {
-                    patchState(store, {
-                      _dictionaries: dictionaries,
-                      _dictionariesLoaded: true,
-                      _dictionariesLoading: false,
-                      _dictionariesError: null,
-                    });
-                    console.log(
-                      `✅ Dictionaries loaded from API: ${Object.keys(dictionaries).join(', ')}`
-                    );
-                  }),
-                  catchError((error: Error) => {
-                    patchState(store, {
-                      _dictionariesLoading: false,
-                      _dictionariesError: error.message,
-                    });
-                    console.error('❌ Failed to load dictionaries:', error);
-                    return of({} as Dictionaries);
-                  })
-                )
-              )
-            )
-          ),
+          loadDictionaries: () => {
+            const success = dictionariesResource.reload();
+            if (success) {
+              console.log('🔄 Dictionaries reload triggered');
+            }
+          },
 
           /**
            * Change to next language in the list
            */
           changeLanguage: () => {
-            const languages = Object.keys(store._dictionaries());
+            const response = dictionariesResource.value();
+            const dictionaries = response?.dictionaries ?? {};
+            const languages = Object.keys(dictionaries);
             if (languages.length === 0) return;
 
             const currentIndex = languages.indexOf(store.selectedLanguage());
@@ -107,20 +81,30 @@ export function withDictionariesFeatures(): SignalStoreFeature {
            */
           resetDictionaries: () => {
             patchState(store, {
-              _dictionaries: {},
-              _dictionariesLoaded: false,
-              _dictionariesLoading: false,
-              _dictionariesError: null,
               selectedLanguage: '',
             });
+            // Note: httpResource state is managed automatically, no manual reset needed
             console.log(`🔄 Dictionaries reset to initial state`);
           },
         };
       }
     ),
+    withComputed((store) => {
+      const resource = store.getDictionariesResource();
+      return {
+        // Expose httpResource signals
+        dictionariesValue: computed(() => resource.value()?.dictionaries ?? {}),
+        dictionariesLoading: computed(() => resource.isLoading()),
+        dictionariesError: computed(() => resource.error()),
+
+        selectedDictionary: computed(() =>
+          getDictionaryHelper(store.selectedLanguage(), resource.value()?.dictionaries ?? {})
+        ),
+      };
+    }),
     withHooks((store, translateService = inject(TranslateService)) => ({
       onInit: () => {
-        // Load dictionaries from API
+        // Load dictionaries from API using httpResource
         store.loadDictionaries();
 
         // Set browser language as default

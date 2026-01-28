@@ -1,11 +1,11 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import type { Dictionary } from '@fe/models';
 import { AppStore } from '@fe/stores';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Service for dictionary operations
- * Now delegates to AppStore which loads dictionaries from API
+ * Now delegates to AppStore which loads dictionaries from API via httpResource
  */
 @Injectable({
   providedIn: 'root',
@@ -15,19 +15,19 @@ export class DictionaryService {
   readonly #appStore = inject(AppStore);
 
   /**
-   * Get available language codes
+   * Get available language codes (reactive computed)
    */
-  get languages(): string[] {
-    return Object.keys(this.#appStore._dictionaries());
-  }
+  readonly languages = computed(() =>
+    Object.keys(this.#appStore.dictionariesValue())
+  );
 
   /**
    * Get dictionary for a specific language
    */
   getDictionary(language: string): Dictionary {
-    const dictionaries = this.#appStore._dictionaries();
+    const dictionaries = this.#appStore.dictionariesValue();
 
-    if (!this.languages.includes(language)) {
+    if (!this.languages().includes(language)) {
       throw new Error(`Language ${language} not found in dictionaries`);
     }
 

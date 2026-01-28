@@ -1,12 +1,12 @@
-import { inject } from '@angular/core';
+import { effect, inject } from '@angular/core';
 import { LanguageService } from '@fe/services';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withHooks,
-    withMethods,
-    withState,
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withHooks,
+  withMethods,
+  withState,
 } from '@ngrx/signals';
 
 /**
@@ -20,23 +20,33 @@ export function withLoadLanguagesFeature(): SignalStoreFeature {
   return signalStoreFeature(
     withState(() => ({
       availableLanguages: [] as string[],
+      availableLanguagesLoading: false,
+      availableLanguagesError: undefined as Error | undefined,
     })),
     withMethods((store, languageService: LanguageService = inject(LanguageService)) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const resource = languageService.availableLanguagesResource() as any;
       return {
         loadLanguages: () => {
-          console.log('🔄 Loading available languages from httpResource...');
-          patchState(store, {
-            availableLanguages: resource.value() ?? [],
-          });
+          languageService.reloadAvailableLanguages();
         },
       };
     }),
-    withHooks((store) => ({
-      onInit: () => {
-        store.loadLanguages();
-      },
-    })),
+    withHooks((store) => {
+      const languageService = inject(LanguageService);
+      const syncEffect = effect(() => {
+        patchState(store, {
+          availableLanguages: languageService.availableLanguageCodes(),
+          availableLanguagesLoading: languageService.availableLanguagesLoading(),
+          availableLanguagesError: languageService.availableLanguagesError(),
+        });
+      });
+      return {
+        onInit: () => {
+          store.loadLanguages();
+        },
+        onDestroy: () => {
+          syncEffect.destroy();
+        },
+      };
+    }),
   );
 }
