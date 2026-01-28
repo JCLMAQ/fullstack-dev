@@ -1,21 +1,20 @@
 import { inject } from '@angular/core';
-import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap, tap } from 'rxjs';
 import { LanguageService } from '@fe/services';
+import {
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withHooks,
+    withMethods,
+    withState,
+} from '@ngrx/signals';
 
 /**
  * Feature that manages available languages loaded from API with fallback to static list
  * Adds:
  * - State: availableLanguages (string[])
- * - Method: loadLanguages() via rxMethod
+ * - State: languagesResource (httpResource)
+ * - Method: reloadLanguages() to trigger a new fetch
  */
 export function withLoadLanguagesFeature(): SignalStoreFeature {
   return signalStoreFeature(
@@ -23,27 +22,19 @@ export function withLoadLanguagesFeature(): SignalStoreFeature {
       availableLanguages: [] as string[],
     })),
     withMethods((store, languageService: LanguageService = inject(LanguageService)) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const resource = languageService.availableLanguagesResource() as any;
       return {
-        // !! Refactoriser en utilisant httpRessource
-        loadLanguages: rxMethod<void>(
-          pipe(
-            switchMap(() => {
-              console.log('🔄 Loading available languages from API...');
-              return languageService.getAvailableLanguages();
-            }),
-            tap((languages: string[]) => {
-              patchState(store, { availableLanguages: languages });
-              console.log(
-                `✅ Available languages loaded: ${languages.join(', ')}`
-              );
-            })
-          )
-        ),
+        loadLanguages: () => {
+          console.log('🔄 Loading available languages from httpResource...');
+          patchState(store, {
+            availableLanguages: resource.value() ?? [],
+          });
+        },
       };
     }),
     withHooks((store) => ({
       onInit: () => {
-        // Load languages from API on store initialization
         store.loadLanguages();
       },
     })),
