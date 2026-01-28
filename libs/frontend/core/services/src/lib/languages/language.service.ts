@@ -1,6 +1,6 @@
 import { httpResource, type HttpResourceRef } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
-import { Language } from '@db/prisma/browser';
+import { Language } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 
 /**

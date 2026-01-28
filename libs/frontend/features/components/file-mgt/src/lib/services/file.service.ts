@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import type { File } from '@db/prisma/browser';
+import type { File } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 

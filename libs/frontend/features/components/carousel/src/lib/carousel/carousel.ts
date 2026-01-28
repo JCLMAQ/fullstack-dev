@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  DestroyRef,
-  effect,
-  inject,
-  input,
-  output,
-  resource,
-  signal,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    effect,
+    inject,
+    input,
+    output,
+    resource,
+    signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import type { Image } from '@db/prisma/browser';
+import type { Image } from '@db/prisma/frontend';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { User } from '@db/prisma/browser';
+import { User } from '@db/prisma/frontend';
 import { UserStorageService } from './user-storage-service';
 
 describe('UserStorageService', () => {

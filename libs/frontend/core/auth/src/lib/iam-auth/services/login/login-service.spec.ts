@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { User } from '@db/prisma/browser';
+import { User } from '@db/prisma/frontend';
 import { ILoginResponse } from '../../../models/auth.model';
 import { TokenStorageService } from '../token-storage/token-storage-service';
 import { UserFetchService } from '../user-fetch/user-fetch-service';

@@ -19,8 +19,8 @@ import { PrismaClient } from '@db/prisma';
 ### ✅ Frontend (Browser) - Types Only
 ```typescript
 // ✅ Use browser-safe import for types and enums
-import { User, Role, Organization, Image } from '@db/prisma/browser';
-import type { Phone, Address } from '@db/prisma/browser';
+import { User, Role, Organization, Image } from '@db/prisma/frontend';
+import type { Phone, Address } from '@db/prisma/frontend';
 ```
 
 ### ✅ Backend (Node.js) - Full Client
@@ -54,7 +54,7 @@ In `tsconfig.base.json`:
 {
   "paths": {
     "@db/prisma": ["libs/prisma/src/index.ts"],           // Backend
-    "@db/prisma/browser": ["libs/prisma/src/browser.ts"], // Frontend
+    "@db/prisma/frontend": ["libs/prisma/src/browser.ts"], // Frontend
     "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"]
   }
 }
@@ -69,11 +69,11 @@ If you see these errors in the browser console, you're importing from the wrong 
 - `Cannot find module 'node:path'`
 - `Runtime error in @prisma/client/runtime`
 
-**Solution**: Change `from '@db/prisma'` to `from '@db/prisma/browser'` in frontend files.
+**Solution**: Change `from '@db/prisma'` to `from '@db/prisma/frontend'` in frontend files.
 
 ## Code Review Checklist
 
-- [ ] All `libs/frontend/**/*.ts` files use `@db/prisma/browser`
+- [ ] All `libs/frontend/**/*.ts` files use `@db/prisma/frontend`
 - [ ] All `libs/backend/**/*.ts` files use `@db/prisma` or `@db/prisma-client`
 - [ ] No `PrismaClient` instantiation in frontend code
 - [ ] Frontend only imports types (User, Role, etc.), not runtime code

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Organization, User } from '@db/prisma/browser';
+import { Organization, User } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 import { ILoginResponse } from '../../../models/auth.model';

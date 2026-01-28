@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
-import type { Image } from '@db/prisma/browser';
+import type { Image } from '@db/prisma/frontend';
 import { Carousel, type ICarouselConfig } from '@fe/carousel';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-home',

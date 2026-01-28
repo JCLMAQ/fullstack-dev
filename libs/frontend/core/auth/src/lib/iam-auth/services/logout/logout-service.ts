@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from '@db/prisma/browser';
+import { User } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
 import { TokenStorageService } from '../token-storage/token-storage-service';
