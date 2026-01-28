@@ -630,6 +630,51 @@ CREATE TABLE "Translation" (
 );
 
 -- CreateTable
+CREATE TABLE "TagMgt" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "published" BOOLEAN NOT NULL DEFAULT true,
+    "isPublic" BOOLEAN NOT NULL DEFAULT true,
+    "isDeleted" INTEGER NOT NULL DEFAULT 0,
+    "isDeletedDT" TIMESTAMP(3),
+    "name" TEXT NOT NULL,
+    "position" INTEGER NOT NULL DEFAULT 0,
+    "tagMgtModelId" INTEGER NOT NULL,
+
+    CONSTRAINT "TagMgt_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TagMgtModel" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "published" BOOLEAN NOT NULL DEFAULT true,
+    "isPublic" BOOLEAN NOT NULL DEFAULT true,
+    "isDeleted" INTEGER NOT NULL DEFAULT 0,
+    "isDeletedDT" TIMESTAMP(3),
+    "modelName" TEXT NOT NULL,
+    "description" TEXT,
+    "recordId" TEXT NOT NULL,
+
+    CONSTRAINT "TagMgtModel_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TagDictionary" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "languageId" INTEGER NOT NULL,
+    "translation" TEXT NOT NULL,
+    "tagId" INTEGER NOT NULL,
+    "description" TEXT,
+
+    CONSTRAINT "TagDictionary_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_OrganizationToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -798,6 +843,9 @@ CREATE UNIQUE INDEX "Word_slug_key" ON "Word"("slug");
 CREATE UNIQUE INDEX "Translation_wordId_languageId_key" ON "Translation"("wordId", "languageId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "TagMgt_name_key" ON "TagMgt"("name");
+
+-- CreateIndex
 CREATE INDEX "_OrganizationToUser_B_index" ON "_OrganizationToUser"("B");
 
 -- CreateIndex
@@ -964,6 +1012,15 @@ ALTER TABLE "Translation" ADD CONSTRAINT "Translation_wordId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "Translation" ADD CONSTRAINT "Translation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TagMgt" ADD CONSTRAINT "TagMgt_tagMgtModelId_fkey" FOREIGN KEY ("tagMgtModelId") REFERENCES "TagMgtModel"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TagDictionary" ADD CONSTRAINT "TagDictionary_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TagDictionary" ADD CONSTRAINT "TagDictionary_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "TagMgt"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_OrganizationToUser" ADD CONSTRAINT "_OrganizationToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;

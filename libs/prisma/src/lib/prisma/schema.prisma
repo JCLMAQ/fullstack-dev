@@ -784,6 +784,7 @@ model Language {
   name         String        // e.g., "English", "Spanish"
   translations Translation[]
   users        User[]
+  tagDictionaries TagDictionary[]
 
 }
 
@@ -818,3 +819,46 @@ enum DictioEntryType {
   SENTENCE
   IDIOM
 }
+
+model TagMgt {
+  id          Int       @id() @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean   @default(true)
+  isPublic    Boolean   @default(true)
+  isDeleted   Int       @default(0)
+  isDeletedDT DateTime?
+  name        String    @unique()
+  position    Int       @default(0)
+  tagMgtModel    TagMgtType  @relation(fields: [tagMgtTypeId], references: [id])
+  tagMgtTypeId  Int
+  tagDictionaries TagDictionary[]
+}
+
+model TagMgtType {
+  id          Int       @id() @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean   @default(true)
+  isPublic    Boolean   @default(true)
+  isDeleted   Int       @default(0)
+  isDeletedDT DateTime?
+  modelName   String
+  description String?
+  recordId    String
+  TagMgts     TagMgt[]
+}
+
+model TagDictionary {
+  id          Int       @id() @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  language    Language  @relation(fields: [languageId], references: [id])
+  languageId  Int
+  translation String
+  tagId       Int
+  tagMgt      TagMgt       @relation(fields: [tagId], references: [id])
+  description String?
+}
+
+

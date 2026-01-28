@@ -416,7 +416,10 @@ export const ModelName = {
   AccountValidation: 'AccountValidation',
   Language: 'Language',
   Word: 'Word',
-  Translation: 'Translation'
+  Translation: 'Translation',
+  TagMgt: 'TagMgt',
+  TagMgtType: 'TagMgtType',
+  TagDictionary: 'TagDictionary'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -432,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollowerLink" | "userPostLikeLink" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation" | "language" | "word" | "translation"
+    modelProps: "organization" | "orgEmail" | "orgDomain" | "user" | "phone" | "address" | "userSecret" | "profile" | "group" | "todo" | "userTodoLink" | "task" | "userTaskLink" | "post" | "category" | "comment" | "file" | "userFollowerLink" | "userPostLikeLink" | "story" | "image" | "configParam" | "orgEmailUseTo" | "appEmailDomain" | "refreshToken" | "apiKey" | "scope" | "token" | "changesTracking" | "accountValidation" | "language" | "word" | "translation" | "tagMgt" | "tagMgtType" | "tagDictionary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2878,6 +2881,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TagMgt: {
+      payload: Prisma.$TagMgtPayload<ExtArgs>
+      fields: Prisma.TagMgtFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagMgtFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagMgtFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        findFirst: {
+          args: Prisma.TagMgtFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagMgtFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        findMany: {
+          args: Prisma.TagMgtFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>[]
+        }
+        create: {
+          args: Prisma.TagMgtCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        createMany: {
+          args: Prisma.TagMgtCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagMgtCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>[]
+        }
+        delete: {
+          args: Prisma.TagMgtDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        update: {
+          args: Prisma.TagMgtUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        deleteMany: {
+          args: Prisma.TagMgtDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagMgtUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagMgtUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>[]
+        }
+        upsert: {
+          args: Prisma.TagMgtUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtPayload>
+        }
+        aggregate: {
+          args: Prisma.TagMgtAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagMgt>
+        }
+        groupBy: {
+          args: Prisma.TagMgtGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagMgtGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagMgtCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagMgtCountAggregateOutputType> | number
+        }
+      }
+    }
+    TagMgtType: {
+      payload: Prisma.$TagMgtTypePayload<ExtArgs>
+      fields: Prisma.TagMgtTypeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagMgtTypeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagMgtTypeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        findFirst: {
+          args: Prisma.TagMgtTypeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagMgtTypeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        findMany: {
+          args: Prisma.TagMgtTypeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>[]
+        }
+        create: {
+          args: Prisma.TagMgtTypeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        createMany: {
+          args: Prisma.TagMgtTypeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagMgtTypeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>[]
+        }
+        delete: {
+          args: Prisma.TagMgtTypeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        update: {
+          args: Prisma.TagMgtTypeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        deleteMany: {
+          args: Prisma.TagMgtTypeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagMgtTypeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagMgtTypeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>[]
+        }
+        upsert: {
+          args: Prisma.TagMgtTypeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagMgtTypePayload>
+        }
+        aggregate: {
+          args: Prisma.TagMgtTypeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagMgtType>
+        }
+        groupBy: {
+          args: Prisma.TagMgtTypeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagMgtTypeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagMgtTypeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagMgtTypeCountAggregateOutputType> | number
+        }
+      }
+    }
+    TagDictionary: {
+      payload: Prisma.$TagDictionaryPayload<ExtArgs>
+      fields: Prisma.TagDictionaryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagDictionaryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagDictionaryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        findFirst: {
+          args: Prisma.TagDictionaryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagDictionaryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        findMany: {
+          args: Prisma.TagDictionaryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>[]
+        }
+        create: {
+          args: Prisma.TagDictionaryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        createMany: {
+          args: Prisma.TagDictionaryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagDictionaryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>[]
+        }
+        delete: {
+          args: Prisma.TagDictionaryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        update: {
+          args: Prisma.TagDictionaryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        deleteMany: {
+          args: Prisma.TagDictionaryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagDictionaryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagDictionaryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>[]
+        }
+        upsert: {
+          args: Prisma.TagDictionaryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagDictionaryPayload>
+        }
+        aggregate: {
+          args: Prisma.TagDictionaryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTagDictionary>
+        }
+        groupBy: {
+          args: Prisma.TagDictionaryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagDictionaryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagDictionaryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagDictionaryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3515,6 +3740,51 @@ export const TranslationScalarFieldEnum = {
 export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
 
 
+export const TagMgtScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  name: 'name',
+  position: 'position',
+  tagMgtTypeId: 'tagMgtTypeId'
+} as const
+
+export type TagMgtScalarFieldEnum = (typeof TagMgtScalarFieldEnum)[keyof typeof TagMgtScalarFieldEnum]
+
+
+export const TagMgtTypeScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  modelName: 'modelName',
+  description: 'description',
+  recordId: 'recordId'
+} as const
+
+export type TagMgtTypeScalarFieldEnum = (typeof TagMgtTypeScalarFieldEnum)[keyof typeof TagMgtTypeScalarFieldEnum]
+
+
+export const TagDictionaryScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  languageId: 'languageId',
+  translation: 'translation',
+  tagId: 'tagId',
+  description: 'description'
+} as const
+
+export type TagDictionaryScalarFieldEnum = (typeof TagDictionaryScalarFieldEnum)[keyof typeof TagDictionaryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3941,6 +4211,9 @@ export type GlobalOmitConfig = {
   language?: Prisma.LanguageOmit
   word?: Prisma.WordOmit
   translation?: Prisma.TranslationOmit
+  tagMgt?: Prisma.TagMgtOmit
+  tagMgtType?: Prisma.TagMgtTypeOmit
+  tagDictionary?: Prisma.TagDictionaryOmit
 }
 
 /* Types for Logging */
