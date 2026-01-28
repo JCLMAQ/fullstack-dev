@@ -3,21 +3,20 @@ import { inject } from '@angular/core';
 import { withBusy } from '@fe/stores';
 import { DICTIONARIES_TOKEN } from '@fe/tokens';
 import {
-  patchState,
-  signalStore,
-  withHooks,
-  withMethods,
-  withProps,
-  withState,
+    patchState,
+    signalStore,
+    withHooks,
+    withMethods,
+    withProps,
+    withState,
 } from '@ngrx/signals';
 import { DictionaryService } from '../../services/dictionaries/dictionary-service';
 import { NotificationService } from '../../services/notifications/notification-service';
 import { Dictionary } from './dictionary-token.model';
 import { initialDictionarySlice } from './dictionary.slice';
 import {
-  changeLanguageDictionary,
-  resetLanguagesDictionaries,
-  switchLanguageDictionary,
+    changeLanguageDictionary,
+    switchLanguageDictionary,
 } from './dictionary.updaters';
 
 export const DictionaryStore = signalStore(
@@ -46,8 +45,6 @@ export const DictionaryStore = signalStore(
         patchState(store, switchLanguageDictionary(language)),
       setDictionary: (dictionary: Dictionary) =>
         patchState(store, { selectedDictionary: dictionary }),
-      _resetLanguages: () =>
-        patchState(store, resetLanguagesDictionaries(languages)),
     };
   }),
   withHooks((store) => ({
@@ -55,7 +52,6 @@ export const DictionaryStore = signalStore(
       const dictionaries = inject(DICTIONARIES_TOKEN);
       const languages = Object.keys(dictionaries);
       patchState(store, {
-        possibleLanguages: languages,
         selectedLanguage: languages[0],
       });
     },

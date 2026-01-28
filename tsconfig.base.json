@@ -155,7 +155,7 @@
       "@fe/address": [
         "libs/frontend/features/components/address/address-form/src/index.ts"
       ],
-      "@fe/dictionary": ["libs/frontend/domains/dictionary/index.ts"]
+      "@fe/dictionary": ["libs/frontend/features/dictionary/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

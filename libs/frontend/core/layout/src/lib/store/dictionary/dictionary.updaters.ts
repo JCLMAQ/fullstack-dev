@@ -18,16 +18,6 @@ export function changeLanguageDictionary(
   };
 }
 
-export function resetLanguagesDictionaries(
-  languages: string[],
-): PartialStateUpdater<DictionarySlice> {
-  // reset the languages store
-  return (_) => ({
-    possibleLanguages: languages,
-    selectedLanguage: languages[0],
-  });
-}
-
 export function setDictionary(
   dictionary: Dictionary,
 ): PartialStateUpdater<DictionarySlice> {
@@ -39,10 +29,7 @@ export function switchLanguageDictionary(
   language: string,
 ): PartialStateUpdater<DictionarySlice> {
   // Change the dictionary to the selected language
-  return (state) => {
-    if (state.possibleLanguages.includes(language)) {
-      return { selectedLanguage: language };
-    }
-    throw new Error(`Language ${language} is not supported`);
-  };
+  return (_) => ({
+    selectedLanguage: language,
+  });
 }
