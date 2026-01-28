@@ -182,3 +182,18 @@ export type Word = Prisma.WordModel
  * 
  */
 export type Translation = Prisma.TranslationModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
+ * Model TagModel
+ * 
+ */
+export type TagModel = Prisma.TagModelModel
+/**
+ * Model TagDictionary
+ * 
+ */
+export type TagDictionary = Prisma.TagDictionaryModel

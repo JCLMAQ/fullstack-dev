@@ -83,7 +83,10 @@ export const ModelName = {
   AccountValidation: 'AccountValidation',
   Language: 'Language',
   Word: 'Word',
-  Translation: 'Translation'
+  Translation: 'Translation',
+  Tag: 'Tag',
+  TagModel: 'TagModel',
+  TagDictionary: 'TagDictionary'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -178,6 +181,7 @@ export const UserScalarFieldEnum = {
   emergencyContactPhone: 'emergencyContactPhone',
   position: 'position',
   jobTitle: 'jobTitle',
+  preferences: 'preferences',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
   managerId: 'managerId',
@@ -698,6 +702,51 @@ export const TranslationScalarFieldEnum = {
 } as const
 
 export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
+
+
+export const TagScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  name: 'name',
+  position: 'position',
+  tagModelId: 'tagModelId'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const TagModelScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  modelName: 'modelName',
+  description: 'description',
+  recordId: 'recordId'
+} as const
+
+export type TagModelScalarFieldEnum = (typeof TagModelScalarFieldEnum)[keyof typeof TagModelScalarFieldEnum]
+
+
+export const TagDictionaryScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  languageId: 'languageId',
+  translation: 'translation',
+  tagId: 'tagId',
+  description: 'description'
+} as const
+
+export type TagDictionaryScalarFieldEnum = (typeof TagDictionaryScalarFieldEnum)[keyof typeof TagDictionaryScalarFieldEnum]
 
 
 export const SortOrder = {
