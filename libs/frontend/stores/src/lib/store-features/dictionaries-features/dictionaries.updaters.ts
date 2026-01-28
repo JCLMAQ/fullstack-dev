@@ -33,3 +33,14 @@ export function switchLanguageDictionary(
     selectedLanguage: language,
   });
 }
+
+export function resetDictionaries(): PartialStateUpdater<any> {
+  // Reset dictionaries to their initial state (only state properties, not computed)
+  return (_) => ({
+    _dictionaries: {},
+    _dictionariesLoaded: false,
+    _dictionariesLoading: false,
+    _dictionariesError: null,
+    selectedLanguage: '',
+  });
+}

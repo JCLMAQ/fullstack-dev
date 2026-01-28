@@ -2,13 +2,13 @@ import { computed, inject } from '@angular/core';
 import { DictionaryApiService } from '@fe/dictionary';
 import type { Dictionaries } from '@fe/models';
 import {
-  patchState,
-  signalStoreFeature,
-  SignalStoreFeature,
-  withComputed,
-  withHooks,
-  withMethods,
-  withState,
+    patchState,
+    signalStoreFeature,
+    SignalStoreFeature,
+    withComputed,
+    withHooks,
+    withMethods,
+    withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
@@ -100,6 +100,20 @@ export function withDictionariesFeatures(): SignalStoreFeature {
             patchState(store, { selectedLanguage: language });
             translateService.use(language);
             console.log(`🌐 Language switched to: ${language}`);
+          },
+
+          /**
+           * Reset dictionaries to initial state (called on logout)
+           */
+          resetDictionaries: () => {
+            patchState(store, {
+              _dictionaries: {},
+              _dictionariesLoaded: false,
+              _dictionariesLoading: false,
+              _dictionariesError: null,
+              selectedLanguage: '',
+            });
+            console.log(`🔄 Dictionaries reset to initial state`);
           },
         };
       }

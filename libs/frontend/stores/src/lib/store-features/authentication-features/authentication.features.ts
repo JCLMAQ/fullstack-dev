@@ -118,6 +118,12 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           isAdmin: false,
           orgId: undefined,
           isLoggedIn: false,
+          // Reset dictionaries
+          _dictionaries: {},
+          _dictionariesLoaded: false,
+          _dictionariesLoading: false,
+          _dictionariesError: null,
+          selectedLanguage: '',
         });
         // Redirection vers la page de login
         store._router.navigate(['/auth/login']);
