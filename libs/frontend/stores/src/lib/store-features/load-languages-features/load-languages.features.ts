@@ -24,6 +24,7 @@ export function withLoadLanguagesFeature(): SignalStoreFeature {
     })),
     withMethods((store, languageService: LanguageService = inject(LanguageService)) => {
       return {
+        // !! Refactoriser en utilisant httpRessource
         loadLanguages: rxMethod<void>(
           pipe(
             switchMap(() => {

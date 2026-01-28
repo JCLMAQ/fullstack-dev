@@ -10,6 +10,7 @@ import { Observable, catchError, map, of } from 'rxjs';
  */
 const DEFAULT_FALLBACK_LANGUAGES = ['en', 'fr', 'de', 'nl'];
 
+// !!! TODO : Refactoriser en utilisant httpRessource
 @Injectable({
   providedIn: 'root',
 })
