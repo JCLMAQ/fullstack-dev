@@ -20,9 +20,6 @@ CREATE TYPE "PhoneType" AS ENUM ('Mobile', 'Home', 'Work', 'Organisation', 'Othe
 CREATE TYPE "AddressType" AS ENUM ('Home', 'Work', 'Organisation', 'Other');
 
 -- CreateEnum
-CREATE TYPE "Language" AS ENUM ('en', 'fr');
-
--- CreateEnum
 CREATE TYPE "Role" AS ENUM ('GUEST', 'USER', 'ADMIN', 'SUPERADMIN', 'REGULAR');
 
 -- CreateEnum
@@ -30,6 +27,9 @@ CREATE TYPE "PermissionClaim" AS ENUM ('CreateCoffee', 'UpdateCoffee', 'DeleteCo
 
 -- CreateEnum
 CREATE TYPE "TokenType" AS ENUM ('EMAIL', 'API', 'FORGOT', 'ACCOUNT', 'REFREZH');
+
+-- CreateEnum
+CREATE TYPE "DictioEntryType" AS ENUM ('WORD', 'PHRASE', 'SENTENCE', 'IDIOM');
 
 -- CreateTable
 CREATE TABLE "Organization" (
@@ -100,7 +100,7 @@ CREATE TABLE "User" (
     "nickName" TEXT,
     "Gender" "Gender" DEFAULT 'UNKNOWN',
     "social" JSON,
-    "Language" "Language" DEFAULT 'en',
+    "languageId" INTEGER,
     "photoUrl" TEXT,
     "dateOfBirth" TIMESTAMP(3),
     "hasEmergencyContact" BOOLEAN NOT NULL DEFAULT false,
@@ -127,6 +127,7 @@ CREATE TABLE "Phone" (
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "countryCode" TEXT NOT NULL,
+    "countryIso" TEXT NOT NULL,
     "number" TEXT NOT NULL,
     "extension" TEXT,
     "phoneType" "PhoneType" DEFAULT 'Mobile',
@@ -142,10 +143,13 @@ CREATE TABLE "Address" (
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "street" TEXT NOT NULL,
+    "buildingNum" TEXT NOT NULL,
+    "aptNum" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "zipCode" TEXT NOT NULL,
     "country" TEXT NOT NULL,
+    "countryIso" TEXT NOT NULL,
     "addressType" "AddressType" DEFAULT 'Home',
     "isPrimary" BOOLEAN NOT NULL DEFAULT false,
 
@@ -364,7 +368,7 @@ CREATE TABLE "File" (
     "uploadedById" TEXT,
     "associatedId" TEXT,
     "associationType" TEXT,
-    "orgId" TEXT NOT NULL,
+    "orgId" TEXT,
     "postId" TEXT,
     "storyId" TEXT,
     "profileUserId" TEXT,
@@ -374,23 +378,23 @@ CREATE TABLE "File" (
 );
 
 -- CreateTable
-CREATE TABLE "UserFollower" (
+CREATE TABLE "UserFollowerLink" (
     "user_id" TEXT NOT NULL,
     "follower_id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "UserFollower_pkey" PRIMARY KEY ("user_id","follower_id")
+    CONSTRAINT "UserFollowerLink_pkey" PRIMARY KEY ("user_id","follower_id")
 );
 
 -- CreateTable
-CREATE TABLE "PostLike" (
+CREATE TABLE "UserPostLikeLink" (
     "user_id" TEXT NOT NULL,
     "post_id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "PostLike_pkey" PRIMARY KEY ("user_id","post_id")
+    CONSTRAINT "UserPostLikeLink_pkey" PRIMARY KEY ("user_id","post_id")
 );
 
 -- CreateTable
@@ -596,6 +600,36 @@ CREATE TABLE "AccountValidation" (
 );
 
 -- CreateTable
+CREATE TABLE "Language" (
+    "id" SERIAL NOT NULL,
+    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Language_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Word" (
+    "id" SERIAL NOT NULL,
+    "slug" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "type" "DictioEntryType" NOT NULL DEFAULT 'WORD',
+
+    CONSTRAINT "Word_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Translation" (
+    "id" SERIAL NOT NULL,
+    "text" TEXT NOT NULL,
+    "definition" TEXT,
+    "wordId" INTEGER NOT NULL,
+    "languageId" INTEGER NOT NULL,
+
+    CONSTRAINT "Translation_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_OrganizationToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -755,6 +789,15 @@ CREATE UNIQUE INDEX "Token_emailToken_key" ON "Token"("emailToken");
 CREATE UNIQUE INDEX "AccountValidation_emailToken_key" ON "AccountValidation"("emailToken");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Language_code_key" ON "Language"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Word_slug_key" ON "Word"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Translation_wordId_languageId_key" ON "Translation"("wordId", "languageId");
+
+-- CreateIndex
 CREATE INDEX "_OrganizationToUser_B_index" ON "_OrganizationToUser"("B");
 
 -- CreateIndex
@@ -789,6 +832,9 @@ ALTER TABLE "OrgEmail" ADD CONSTRAINT "OrgEmail_orgId_fkey" FOREIGN KEY ("orgId"
 
 -- AddForeignKey
 ALTER TABLE "OrgDomain" ADD CONSTRAINT "OrgDomain_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_managerId_fkey" FOREIGN KEY ("managerId") REFERENCES "User"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -872,16 +918,16 @@ ALTER TABLE "File" ADD CONSTRAINT "File_profileUserId_fkey" FOREIGN KEY ("profil
 ALTER TABLE "File" ADD CONSTRAINT "File_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserFollower" ADD CONSTRAINT "UserFollower_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserFollowerLink" ADD CONSTRAINT "UserFollowerLink_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserFollower" ADD CONSTRAINT "UserFollower_follower_id_fkey" FOREIGN KEY ("follower_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserFollowerLink" ADD CONSTRAINT "UserFollowerLink_follower_id_fkey" FOREIGN KEY ("follower_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostLike" ADD CONSTRAINT "PostLike_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserPostLikeLink" ADD CONSTRAINT "UserPostLikeLink_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostLike" ADD CONSTRAINT "PostLike_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserPostLikeLink" ADD CONSTRAINT "UserPostLikeLink_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Story" ADD CONSTRAINT "Story_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -912,6 +958,12 @@ ALTER TABLE "Token" ADD CONSTRAINT "Token_userId_fkey" FOREIGN KEY ("userId") RE
 
 -- AddForeignKey
 ALTER TABLE "ChangesTracking" ADD CONSTRAINT "ChangesTracking_modifiedById_fkey" FOREIGN KEY ("modifiedById") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Translation" ADD CONSTRAINT "Translation_wordId_fkey" FOREIGN KEY ("wordId") REFERENCES "Word"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Translation" ADD CONSTRAINT "Translation_languageId_fkey" FOREIGN KEY ("languageId") REFERENCES "Language"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_OrganizationToUser" ADD CONSTRAINT "_OrganizationToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Organization"("id") ON DELETE CASCADE ON UPDATE CASCADE;
