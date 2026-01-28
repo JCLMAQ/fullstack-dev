@@ -103,7 +103,7 @@ model Organization {
   Members      User[]
   Posts        Post[]
   Groups       Group[]
-  Files        File[]          @relation("OrganizationFiles")
+  Files        File[]         @relation("OrganizationFiles")
   Tasks        Task[]
   Todos        Todo[]
   Images       Image[]        @relation("OrgImages")
@@ -141,99 +141,99 @@ model OrgDomain {
 }
 
 model User {
-  id            String            @id() @default(uuid(7))
-  numSeq        Int               @default(autoincrement())
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @default(now()) @updatedAt()
-  published     Boolean?          @default(false)
-  isPublic      Boolean?          @default(true)
-  isDeleted     Int?              @default(0)
-  isDeletedDT   DateTime?
-  email         String            @unique()
-  lastName      String?
-  firstName     String?
-  title         Title?
-  nickName      String?
-  Gender        Gender?           @default(UNKNOWN)
-  social        Json?             @db.Json()
-  Language      Language?         @relation(fields: [languageId], references: [id])
-  languageId    Int?
-  photoUrl      String?
-  dateOfBirth   DateTime?
-  hasEmergencyContact Boolean   @default(false)
-  emergencyContactName String?
+  id                    String    @id() @default(uuid(7))
+  numSeq                Int       @default(autoincrement())
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @default(now()) @updatedAt()
+  published             Boolean?  @default(false)
+  isPublic              Boolean?  @default(true)
+  isDeleted             Int?      @default(0)
+  isDeletedDT           DateTime?
+  email                 String    @unique()
+  lastName              String?
+  firstName             String?
+  title                 Title?
+  nickName              String?
+  Gender                Gender?   @default(UNKNOWN)
+  social                Json?     @db.Json()
+  Language              Language? @relation(fields: [languageId], references: [id])
+  languageId            Int?
+  photoUrl              String?
+  dateOfBirth           DateTime?
+  hasEmergencyContact   Boolean   @default(false)
+  emergencyContactName  String?
   emergencyContactPhone String?
 
   position      Position?         @default(Individual)
   preference    Json?             @db.Json()
   jobTitle      String?
 
-  isValidated   DateTime?
-  isSuspended   DateTime?
+  isValidated DateTime?
+  isSuspended DateTime?
 
-  Address       Address[]
-  Phones        Phone[]
-  Orgs          Organization[]
-  manager       User?             @relation("ManagerTeams", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  managerId     String?
-  Team          User[]            @relation("ManagerTeams")
-  Profiles      Profile[]         @relation("UsersProfiles")
-  Groups        Group[]
-  Posts         Post[]
-  Comments      Comment[]
-  Stories       Story[]
-  Todo          UserTodoLink[]
-  TodosAuthor   Todo[]
-  Tasks         UserTaskLink[]
-  TasksAuthor   Task[]
+  Address     Address[]
+  Phones      Phone[]
+  Orgs        Organization[]
+  manager     User?          @relation("ManagerTeams", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  managerId   String?
+  Team        User[]         @relation("ManagerTeams")
+  Profiles    Profile[]      @relation("UsersProfiles")
+  Groups      Group[]
+  Posts       Post[]
+  Comments    Comment[]
+  Stories     Story[]
+  Todo        UserTodoLink[]
+  TodosAuthor Todo[]
+  Tasks       UserTaskLink[]
+  TasksAuthor Task[]
 
   // File relations
-  ownedFiles    File[]           @relation("FilesOwned")
-  uploadedFiles File[]           @relation("FilesUploaded")
-  profileFiles  File[]           @relation("UserProfileFiles")
+  ownedFiles    File[] @relation("FilesOwned")
+  uploadedFiles File[] @relation("FilesUploaded")
+  profileFiles  File[] @relation("UserProfileFiles")
 
   ChangesLogs   ChangesTracking[]
   Roles         Role[]
   Permissions   PermissionClaim[]
   Tokens        Token[]
   ApiKeys       ApiKey[]
-  isTfaEnable   Boolean           @default(false)
+  isTfaEnable   Boolean            @default(false)
   tfaSecret     String?
   userSecret    UserSecret?
-  Followers     UserFollowerLink[]    @relation("followers")
-  Followings    UserFollowerLink[]    @relation("followings")
+  Followers     UserFollowerLink[] @relation("followers")
+  Followings    UserFollowerLink[] @relation("followings")
   posts_liked   UserPostLikeLink[]
   passWordFaker String?
 
   // Image relations
-  uploadedImages Image[]          @relation("ImageUploads")
-  profileImages  Image[]          @relation("UserProfileImages")
+  uploadedImages Image[] @relation("ImageUploads")
+  profileImages  Image[] @relation("UserProfileImages")
 }
 
 // Phone model for user phone numbers
 model Phone {
-  id          Int      @id() @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt()
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          Int        @id() @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now()) @updatedAt()
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   countryCode String
   countryIso  String
   number      String
   extension   String?
   phoneType   PhoneType? @default(Mobile)
-  isPrimary   Boolean  @default(false)
+  isPrimary   Boolean    @default(false)
 }
 
 // Address model for user addresses
 model Address {
-  id          Int         @id() @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @default(now()) @updatedAt()
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          Int          @id() @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt()
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   street      String
-  buildingNum      String
+  buildingNum String
   aptNum      String
   city        String
   state       String
@@ -377,27 +377,27 @@ model UserTaskLink {
 
 // Post model for user-generated content linked to organizations and users
 model Post {
-  id          String       @id() @default(uuid(7))
-  numSeq      Int          @default(autoincrement())
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now()) @updatedAt()
-  published   Boolean      @default(true)
-  isDeleted   Int          @default(0)
+  id          String             @id() @default(uuid(7))
+  numSeq      Int                @default(autoincrement())
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @default(now()) @updatedAt()
+  published   Boolean            @default(true)
+  isDeleted   Int                @default(0)
   isDeletedDT DateTime?
-  isPublic    Boolean      @default(false)
-  owner       User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  isPublic    Boolean            @default(false)
+  owner       User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
-  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  org         Organization       @relation(fields: [orgId], references: [id], onDelete: Cascade)
   orgId       String
   groups      Group[]
   orderPost   Int?
   title       String
   content     String?
-  Categories  Category[]   @relation("PostsCategory")
+  Categories  Category[]         @relation("PostsCategory")
   Comments    Comment[]
   LikedBys    UserPostLikeLink[]
-  Images      Image[]      @relation("PostImages")
-  Files       File[]       @relation("PostFiles")
+  Images      Image[]            @relation("PostImages")
+  Files       File[]             @relation("PostFiles")
 }
 
 // Category model for post categorization
@@ -435,91 +435,91 @@ model Comment {
 }
 
 model File {
-  id                String    @id @default(uuid())
-  numSeq            Int       @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @default(now()) @updatedAt()
-  published         Boolean   @default(true)
-  isPublic          Boolean   @default(false)
-  isDeleted         Int       @default(0)
-  isDeletedDT       DateTime?
+  id          String    @id @default(uuid())
+  numSeq      Int       @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean   @default(true)
+  isPublic    Boolean   @default(false)
+  isDeleted   Int       @default(0)
+  isDeletedDT DateTime?
 
   // File identification and metadata
-  filename          String                 // Current filename in storage
-  originalName      String                 // Original filename as uploaded
-  mimeType          String                 // MIME type (application/pdf, text/plain, etc.)
-  fileSize          Int                    // Size in bytes
-  extension         String?                // File extension (.pdf, .doc, .txt, etc.)
-  encoding          String?                // File encoding (UTF-8, etc.)
+  filename     String // Current filename in storage
+  originalName String // Original filename as uploaded
+  mimeType     String // MIME type (application/pdf, text/plain, etc.)
+  fileSize     Int // Size in bytes
+  extension    String? // File extension (.pdf, .doc, .txt, etc.)
+  encoding     String? // File encoding (UTF-8, etc.)
 
   // Storage information
-  storageType       String    @default("local")  // 'local', 's3', 'azure', 'gcs', etc.
-  storagePath       String?                // Path where file is stored
-  storageUrl        String?                // Public URL if available
-  bucketName        String?                // Bucket/container name for cloud storage
-  storageName       String?   @unique      // Unique storage identifier
+  storageType String  @default("local") // 'local', 's3', 'azure', 'gcs', etc.
+  storagePath String? // Path where file is stored
+  storageUrl  String? // Public URL if available
+  bucketName  String? // Bucket/container name for cloud storage
+  storageName String? @unique // Unique storage identifier
 
   // Binary data storage (for database storage mode)
-  binaryData        Bytes?                 // File content stored as binary data in database
+  binaryData Bytes? // File content stored as binary data in database
 
   // File categorization and metadata
-  category          String?                // Document category (pdf, document, spreadsheet, etc.)
-  tags              String[]   @default([]) // Array of tags for categorization
-  description       String?                // File description
-  version           String?    @default("1.0") // File version
+  category    String? // Document category (pdf, document, spreadsheet, etc.)
+  tags        String[] @default([]) // Array of tags for categorization
+  description String? // File description
+  version     String?  @default("1.0") // File version
 
   // File processing and validation
-  checksum          String?                // File checksum for integrity
-  isProcessed       Boolean    @default(false) // Whether file has been processed
-  processingStatus  String?    @default("pending") // processing, completed, failed
-  virusScanStatus   String?    @default("pending") // clean, infected, scanning, failed
-  ocrText           String?                // Extracted text content (for searchable documents)
+  checksum         String? // File checksum for integrity
+  isProcessed      Boolean @default(false) // Whether file has been processed
+  processingStatus String? @default("pending") // processing, completed, failed
+  virusScanStatus  String? @default("pending") // clean, infected, scanning, failed
+  ocrText          String? // Extracted text content (for searchable documents)
 
   // Access control and permissions
-  isPublicDownload  Boolean    @default(false) // Whether file can be downloaded publicly
-  downloadCount     Int        @default(0)     // Number of times file was downloaded
-  lastAccessedAt    DateTime?              // Last time file was accessed
-  expiresAt         DateTime?              // Expiration date for temporary files
-  isArchived        DateTime?              // Archive timestamp
+  isPublicDownload Boolean   @default(false) // Whether file can be downloaded publicly
+  downloadCount    Int       @default(0) // Number of times file was downloaded
+  lastAccessedAt   DateTime? // Last time file was accessed
+  expiresAt        DateTime? // Expiration date for temporary files
+  isArchived       DateTime? // Archive timestamp
 
   // Legacy compatibility
-  name              String?                // Legacy name field
-  type              String?                // Legacy type field
-  data              String?                // Legacy data field
-  size              Int?                   // Legacy size field (use fileSize instead)
+  name String? // Legacy name field
+  type String? // Legacy type field
+  data String? // Legacy data field
+  size Int? // Legacy size field (use fileSize instead)
 
   // Associations - owner and uploader
-  owner             User       @relation("FilesOwned", fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId           String
-  uploadedBy        User?      @relation("FilesUploaded", fields: [uploadedById], references: [id], onDelete: SetNull)
-  uploadedById      String?
+  owner        User    @relation("FilesOwned", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId      String
+  uploadedBy   User?   @relation("FilesUploaded", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById String?
 
   // Generic association fields for flexible linking
-  associatedId      String?                // ID of associated entity
-  associationType   String?                // Type of association (post, user, organization, etc.)
+  associatedId    String? // ID of associated entity
+  associationType String? // Type of association (post, user, organization, etc.)
 
   // Organization association
-  org               Organization? @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
-  orgId             String?
+  org   Organization? @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
+  orgId String?
 
   // Groups association (many-to-many)
-  groups            Group[]
+  groups Group[]
 
   // Post association (documents attached to posts)
-  post              Post?      @relation("PostFiles", fields: [postId], references: [id], onDelete: SetNull)
-  postId            String?
+  post   Post?   @relation("PostFiles", fields: [postId], references: [id], onDelete: SetNull)
+  postId String?
 
   // Story association (files attached to stories)
-  story             Story?     @relation("StoryFiles", fields: [storyId], references: [id], onDelete: SetNull)
-  storyId           String?
+  story   Story?  @relation("StoryFiles", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId String?
 
   // User association (profile documents, CV, etc.)
-  profileUser       User?      @relation("UserProfileFiles", fields: [profileUserId], references: [id], onDelete: SetNull)
-  profileUserId     String?
+  profileUser   User?   @relation("UserProfileFiles", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUserId String?
 
   // Comment association (files attached to comments)
-  comment           Comment?   @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
-  commentId         String?
+  comment   Comment? @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
+  commentId String?
 
   // Indexing for performance
   @@index([ownerId])
@@ -547,8 +547,9 @@ model UserFollowerLink {
 
   @@id([user_id, follower_id])
 }
+
 // Junction table for users liking posts
-model UserPostLikeLink{
+model UserPostLikeLink {
   user_id   String
   user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   post_id   String
@@ -577,63 +578,63 @@ model Story {
 }
 
 model Image {
-  id            String    @id() @default(uuid(7))
-  numSeq        Int       @default(autoincrement())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt()
-  published     Boolean   @default(true)
-  isPublic      Boolean   @default(true)
-  isDeleted     Int       @default(0)
-  isDeletedDT   DateTime?
+  id          String    @id() @default(uuid(7))
+  numSeq      Int       @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean   @default(true)
+  isPublic    Boolean   @default(true)
+  isDeleted   Int       @default(0)
+  isDeletedDT DateTime?
 
   // Image metadata
-  filename      String
-  originalName  String
-  mimeType      String
-  fileSize      Int       // Size in bytes
-  width         Int?      // Image width in pixels
-  height        Int?      // Image height in pixels
+  filename     String
+  originalName String
+  mimeType     String
+  fileSize     Int // Size in bytes
+  width        Int? // Image width in pixels
+  height       Int? // Image height in pixels
 
   // Storage information
-  storageType   String    @default("local") // "local", "s3", "cloudinary", etc.
-  storagePath   String?   // Local file path or cloud storage path
-  storageUrl    String?   // Public URL to access the image
-  bucketName    String?   // For cloud storage (S3, GCS, etc.)
+  storageType String  @default("local") // "local", "s3", "cloudinary", etc.
+  storagePath String? // Local file path or cloud storage path
+  storageUrl  String? // Public URL to access the image
+  bucketName  String? // For cloud storage (S3, GCS, etc.)
 
   // Image processing
-  isProcessed   Boolean   @default(false)
-  thumbnailUrl  String?   // URL for thumbnail version
-  variants      Json?     @db.Json() // Store different image variants (sizes, formats)
+  isProcessed  Boolean @default(false)
+  thumbnailUrl String? // URL for thumbnail version
+  variants     Json?   @db.Json() // Store different image variants (sizes, formats)
 
   // Image classification and tagging
-  tags          String[]  // Array of tags for categorization
-  altText       String?   // Alt text for accessibility
-  description   String?   // Image description
+  tags        String[] // Array of tags for categorization
+  altText     String? // Alt text for accessibility
+  description String? // Image description
 
   // Relations and associations
-  uploadedBy    User?     @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: SetNull)
-  uploadedById  String?
+  uploadedBy   User?   @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById String?
 
   // Generic association system
-  associatedId  String?   // ID of associated entity (Post, User, Organization, etc.)
+  associatedId    String? // ID of associated entity (Post, User, Organization, etc.)
   associationType String? // Type of associated entity ("post", "user", "organization", etc.)
-  sequence      Int       @default(0) // Order in a collection
+  sequence        Int     @default(0) // Order in a collection
 
   // Organization context
-  org           Organization? @relation("OrgImages", fields: [orgId], references: [id], onDelete: SetNull)
-  orgId         String?
+  org   Organization? @relation("OrgImages", fields: [orgId], references: [id], onDelete: SetNull)
+  orgId String?
 
   // Post association
-  post          Post?     @relation("PostImages", fields: [postId], references: [id], onDelete: SetNull)
-  postId        String?
+  post   Post?   @relation("PostImages", fields: [postId], references: [id], onDelete: SetNull)
+  postId String?
 
   // User profile association (for profile pictures, etc.)
-  profileUser   User?     @relation("UserProfileImages", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUser   User?   @relation("UserProfileImages", fields: [profileUserId], references: [id], onDelete: SetNull)
   profileUserId String?
 
   // Story association
-  story         Story?    @relation("StoryImages", fields: [storyId], references: [id], onDelete: SetNull)
-  storyId       String?
+  story   Story?  @relation("StoryImages", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId String?
 
   // Indexing for performance
   @@index([uploadedById])
@@ -643,6 +644,7 @@ model Image {
   @@index([mimeType])
   @@index([isDeleted])
 }
+
 // App configuration parameters model
 model ConfigParam {
   id          Int       @id() @default(autoincrement())
@@ -671,6 +673,7 @@ model OrgEmailUseTo {
   emailOrg    OrgEmail  @relation(fields: [emailOrgId], references: [id])
   emailOrgId  Int
 }
+
 // Email domain model for allowed or blocked domains in the App
 model AppEmailDomain {
   id          Int       @id() @default(autoincrement())
@@ -683,6 +686,7 @@ model AppEmailDomain {
   domain      String    @unique()
   allowed     Boolean
 }
+
 // RefreshToken model for managing user refresh tokens
 model RefreshToken {
   id          Int       @id() @default(autoincrement())
@@ -789,28 +793,28 @@ model Language {
 }
 
 model Word {
-  id           Int           @id @default(autoincrement())
-  slug         String        @unique // A unique identifier like "apple-fruit"
-  createdAt    DateTime      @default(now())
-  type         DictioEntryType     @default(WORD)
+  id           Int             @id @default(autoincrement())
+  slug         String          @unique // A unique identifier like "apple-fruit"
+  createdAt    DateTime        @default(now())
+  type         DictioEntryType @default(WORD)
   translations Translation[]
 }
 
 model Translation {
-  id          Int      @id @default(autoincrement())
-  text        String   // The word in the specific language - Can be "Apple" or "The apple is on the table."
-  definition  String?  // Optional definition/description
+  id         Int     @id @default(autoincrement())
+  text       String // The word in the specific language - Can be "Apple" or "The apple is on the table."
+  definition String? // Optional definition/description
 
   // Relations
-  wordId      Int
-  word        Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  wordId Int
+  word   Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
 
-  languageId  Int
-  language    Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  languageId Int
+  language   Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  // @@fulltext([text]) // Optimization: Allow searching for specific words within the sentence - not supported with Postgres
 
   // Ensure one translation per word per language
   @@unique([wordId, languageId])
-  // @@fulltext([text]) // Optimization: Allow searching for specific words within the sentence - not supported with Postgres
 }
 
 enum DictioEntryType {

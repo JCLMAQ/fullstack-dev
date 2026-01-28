@@ -125,6 +125,7 @@ export type UserCountAggregateOutputType = {
   position: number
   preference: number
   jobTitle: number
+  preferences: number
   isValidated: number
   isSuspended: number
   managerId: number
@@ -236,6 +237,7 @@ export type UserCountAggregateInputType = {
   position?: true
   preference?: true
   jobTitle?: true
+  preferences?: true
   isValidated?: true
   isSuspended?: true
   managerId?: true
@@ -358,6 +360,7 @@ export type UserGroupByOutputType = {
   position: $Enums.Position | null
   preference: runtime.JsonValue | null
   jobTitle: string | null
+  preferences: runtime.JsonValue | null
   isValidated: Date | null
   isSuspended: Date | null
   managerId: string | null
@@ -416,6 +419,7 @@ export type UserWhereInput = {
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
   preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
+  preferences?: Prisma.JsonNullableFilter<"User">
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -478,6 +482,7 @@ export type UserOrderByWithRelationInput = {
   position?: Prisma.SortOrderInput | Prisma.SortOrder
   preference?: Prisma.SortOrderInput | Prisma.SortOrder
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -543,6 +548,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
   preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
+  preferences?: Prisma.JsonNullableFilter<"User">
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -605,6 +611,7 @@ export type UserOrderByWithAggregationInput = {
   position?: Prisma.SortOrderInput | Prisma.SortOrder
   preference?: Prisma.SortOrderInput | Prisma.SortOrder
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -648,6 +655,7 @@ export type UserScalarWhereWithAggregatesInput = {
   position?: Prisma.EnumPositionNullableWithAggregatesFilter<"User"> | $Enums.Position | null
   preference?: Prisma.JsonNullableWithAggregatesFilter<"User">
   jobTitle?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  preferences?: Prisma.JsonNullableWithAggregatesFilter<"User">
   isValidated?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -682,6 +690,7 @@ export type UserCreateInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -743,6 +752,7 @@ export type UserUncheckedCreateInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -802,6 +812,7 @@ export type UserUpdateInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -863,6 +874,7 @@ export type UserUncheckedUpdateInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -923,6 +935,7 @@ export type UserCreateManyInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -957,6 +970,7 @@ export type UserUpdateManyMutationInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -991,6 +1005,7 @@ export type UserUncheckedUpdateManyInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1057,6 +1072,7 @@ export type UserCountOrderByAggregateInput = {
   position?: Prisma.SortOrder
   preference?: Prisma.SortOrder
   jobTitle?: Prisma.SortOrder
+  preferences?: Prisma.SortOrder
   isValidated?: Prisma.SortOrder
   isSuspended?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
@@ -1716,6 +1732,7 @@ export type UserCreateWithoutOrgsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -1776,6 +1793,7 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -1859,6 +1877,7 @@ export type UserScalarWhereInput = {
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
   preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
+  preferences?: Prisma.JsonNullableFilter<"User">
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   managerId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1893,6 +1912,7 @@ export type UserCreateWithoutTeamInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -1953,6 +1973,7 @@ export type UserUncheckedCreateWithoutTeamInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2016,6 +2037,7 @@ export type UserCreateWithoutManagerInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2076,6 +2098,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2155,6 +2178,7 @@ export type UserUpdateWithoutTeamInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2215,6 +2239,7 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2289,6 +2314,7 @@ export type UserCreateWithoutPhonesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2349,6 +2375,7 @@ export type UserUncheckedCreateWithoutPhonesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2423,6 +2450,7 @@ export type UserUpdateWithoutPhonesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2483,6 +2511,7 @@ export type UserUncheckedUpdateWithoutPhonesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2541,6 +2570,7 @@ export type UserCreateWithoutAddressInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2601,6 +2631,7 @@ export type UserUncheckedCreateWithoutAddressInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2675,6 +2706,7 @@ export type UserUpdateWithoutAddressInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2735,6 +2767,7 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2793,6 +2826,7 @@ export type UserCreateWithoutUserSecretInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -2853,6 +2887,7 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -2927,6 +2962,7 @@ export type UserUpdateWithoutUserSecretInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -2987,6 +3023,7 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3045,6 +3082,7 @@ export type UserCreateWithoutProfilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3105,6 +3143,7 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3184,6 +3223,7 @@ export type UserCreateWithoutGroupsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3244,6 +3284,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3323,6 +3364,7 @@ export type UserCreateWithoutTodosAuthorInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3383,6 +3425,7 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3457,6 +3500,7 @@ export type UserUpdateWithoutTodosAuthorInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -3517,6 +3561,7 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3575,6 +3620,7 @@ export type UserCreateWithoutTodoInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3635,6 +3681,7 @@ export type UserUncheckedCreateWithoutTodoInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3709,6 +3756,7 @@ export type UserUpdateWithoutTodoInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -3769,6 +3817,7 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3827,6 +3876,7 @@ export type UserCreateWithoutTasksAuthorInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -3887,6 +3937,7 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -3961,6 +4012,7 @@ export type UserUpdateWithoutTasksAuthorInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4021,6 +4073,7 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4079,6 +4132,7 @@ export type UserCreateWithoutTasksInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4139,6 +4193,7 @@ export type UserUncheckedCreateWithoutTasksInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4213,6 +4268,7 @@ export type UserUpdateWithoutTasksInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4273,6 +4329,7 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4331,6 +4388,7 @@ export type UserCreateWithoutPostsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4391,6 +4449,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4465,6 +4524,7 @@ export type UserUpdateWithoutPostsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4525,6 +4585,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4583,6 +4644,7 @@ export type UserCreateWithoutCommentsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4643,6 +4705,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4717,6 +4780,7 @@ export type UserUpdateWithoutCommentsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -4777,6 +4841,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4835,6 +4900,7 @@ export type UserCreateWithoutOwnedFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -4895,6 +4961,7 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -4958,6 +5025,7 @@ export type UserCreateWithoutUploadedFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5018,6 +5086,7 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5081,6 +5150,7 @@ export type UserCreateWithoutProfileFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5141,6 +5211,7 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5215,6 +5286,7 @@ export type UserUpdateWithoutOwnedFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5275,6 +5347,7 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5344,6 +5417,7 @@ export type UserUpdateWithoutUploadedFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5404,6 +5478,7 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5473,6 +5548,7 @@ export type UserUpdateWithoutProfileFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5533,6 +5609,7 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5591,6 +5668,7 @@ export type UserCreateWithoutFollowersInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5651,6 +5729,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5714,6 +5793,7 @@ export type UserCreateWithoutFollowingsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -5774,6 +5854,7 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -5848,6 +5929,7 @@ export type UserUpdateWithoutFollowersInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -5908,6 +5990,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5977,6 +6060,7 @@ export type UserUpdateWithoutFollowingsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6037,6 +6121,7 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6095,6 +6180,7 @@ export type UserCreateWithoutPosts_likedInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6155,6 +6241,7 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6229,6 +6316,7 @@ export type UserUpdateWithoutPosts_likedInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6289,6 +6377,7 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6347,6 +6436,7 @@ export type UserCreateWithoutStoriesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6407,6 +6497,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6481,6 +6572,7 @@ export type UserUpdateWithoutStoriesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6541,6 +6633,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6599,6 +6692,7 @@ export type UserCreateWithoutUploadedImagesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6659,6 +6753,7 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6722,6 +6817,7 @@ export type UserCreateWithoutProfileImagesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -6782,6 +6878,7 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -6856,6 +6953,7 @@ export type UserUpdateWithoutUploadedImagesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -6916,6 +7014,7 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6985,6 +7084,7 @@ export type UserUpdateWithoutProfileImagesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7045,6 +7145,7 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7103,6 +7204,7 @@ export type UserCreateWithoutApiKeysInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7163,6 +7265,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7237,6 +7340,7 @@ export type UserUpdateWithoutApiKeysInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7297,6 +7401,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7355,6 +7460,7 @@ export type UserCreateWithoutTokensInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7415,6 +7521,7 @@ export type UserUncheckedCreateWithoutTokensInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7489,6 +7596,7 @@ export type UserUpdateWithoutTokensInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7549,6 +7657,7 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7607,6 +7716,7 @@ export type UserCreateWithoutChangesLogsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7667,6 +7777,7 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -7741,6 +7852,7 @@ export type UserUpdateWithoutChangesLogsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -7801,6 +7913,7 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7859,6 +7972,7 @@ export type UserCreateWithoutLanguageInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -7918,6 +8032,7 @@ export type UserUncheckedCreateWithoutLanguageInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -8003,6 +8118,7 @@ export type UserUpdateWithoutOrgsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8063,6 +8179,7 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8122,6 +8239,7 @@ export type UserUncheckedUpdateManyWithoutOrgsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8157,6 +8275,7 @@ export type UserCreateManyManagerInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   Roles?: Prisma.UserCreateRolesInput | $Enums.Role[]
@@ -8190,6 +8309,7 @@ export type UserUpdateWithoutManagerInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8250,6 +8370,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8309,6 +8430,7 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8342,6 +8464,7 @@ export type UserUpdateWithoutProfilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8402,6 +8525,7 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8461,6 +8585,7 @@ export type UserUncheckedUpdateManyWithoutProfilesInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8495,6 +8620,7 @@ export type UserUpdateWithoutGroupsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8555,6 +8681,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8614,6 +8741,7 @@ export type UserUncheckedUpdateManyWithoutGroupsInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8648,6 +8776,7 @@ export type UserCreateManyLanguageInput = {
   position?: $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
   managerId?: string | null
@@ -8682,6 +8811,7 @@ export type UserUpdateWithoutLanguageInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   Roles?: Prisma.UserUpdateRolesInput | $Enums.Role[]
@@ -8741,6 +8871,7 @@ export type UserUncheckedUpdateWithoutLanguageInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8800,6 +8931,7 @@ export type UserUncheckedUpdateManyWithoutLanguageInput = {
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
   preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9073,6 +9205,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   position?: boolean
   preference?: boolean
   jobTitle?: boolean
+  preferences?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9136,6 +9269,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   position?: boolean
   preference?: boolean
   jobTitle?: boolean
+  preferences?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9173,6 +9307,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   position?: boolean
   preference?: boolean
   jobTitle?: boolean
+  preferences?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9210,6 +9345,7 @@ export type UserSelectScalar = {
   position?: boolean
   preference?: boolean
   jobTitle?: boolean
+  preferences?: boolean
   isValidated?: boolean
   isSuspended?: boolean
   managerId?: boolean
@@ -9316,6 +9452,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     position: $Enums.Position | null
     preference: runtime.JsonValue | null
     jobTitle: string | null
+    preferences: runtime.JsonValue | null
     isValidated: Date | null
     isSuspended: Date | null
     managerId: string | null
@@ -9798,6 +9935,7 @@ export interface UserFieldRefs {
   readonly position: Prisma.FieldRef<"User", 'Position'>
   readonly preference: Prisma.FieldRef<"User", 'Json'>
   readonly jobTitle: Prisma.FieldRef<"User", 'String'>
+  readonly preferences: Prisma.FieldRef<"User", 'Json'>
   readonly isValidated: Prisma.FieldRef<"User", 'DateTime'>
   readonly isSuspended: Prisma.FieldRef<"User", 'DateTime'>
   readonly managerId: Prisma.FieldRef<"User", 'String'>
