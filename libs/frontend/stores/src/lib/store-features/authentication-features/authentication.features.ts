@@ -7,16 +7,16 @@ import { IAM_AUTH_TOKEN, IamAuth } from '@fe/auth';
 
 // TODO Circular dependency avec IamAuth
 import {
-    ENVIRONMENT_TOKEN,
-    LOCALSTORAGE_CLEANER_TOKEN,
-    type Environment,
+  ENVIRONMENT_TOKEN,
+  LOCALSTORAGE_CLEANER_TOKEN,
+  type Environment,
 } from '@fe/tokens';
 import {
-    patchState,
-    signalStoreFeature,
-    SignalStoreFeature,
-    withMethods,
-    withProps,
+  patchState,
+  signalStoreFeature,
+  SignalStoreFeature,
+  withMethods,
+  withProps,
 } from '@ngrx/signals';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -33,6 +33,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         // Todo  refactor with httpResource
       _translate: inject(TranslateService),
       _localStorageCleaner: inject(LOCALSTORAGE_CLEANER_TOKEN),
+
     })),
 
     withMethods((store) => ({
@@ -85,7 +86,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         } catch (error) {
           store._snackbar.open(
             store._translate.instant('LOGIN.invalidCredentials'),
-            store._translate.instant('Common.close'),
+            store._translate.instant('common.close'),
             {
               verticalPosition: 'top',
               horizontalPosition: 'right',
@@ -138,8 +139,12 @@ export function withAppAuthFeatures(): SignalStoreFeature {
         return store._authService.hasAdminRole();
       },
 
-      registerAuthFeatureStore: async ( email: string, password: string, confirmPassword: string ) => {
-
+      registerAuthFeatureStore: async (
+        email: string,
+        password: string,
+        confirmPassword: string,
+        languageCode?: string
+      ) => {
         try {
           if (!email || !password || !confirmPassword) {
             store._snackbar.open(
@@ -153,12 +158,24 @@ export function withAppAuthFeatures(): SignalStoreFeature {
             return;
           }
 
-          // Détection de la langue du navigateur avec fallback 'en'
-          const browserLang = store._translate.getBrowserLang();
-          const supportedLangs = ['en', 'fr', 'de', 'nl'];
-          const languageCode = browserLang && supportedLangs.includes(browserLang) ? browserLang : 'en';
+          if (password !== confirmPassword) {
+            store._snackbar.open(
+              'Passwords do not match.',
+              'Close',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'right',
+              },
+            );
+            return;
+          }
 
-          const response = await store._authService.registerIamAuth( email, password, confirmPassword, languageCode );
+          // Utilise la langue passée en paramètre, sinon fallback navigateur, sinon 'en'
+          const browserLang = store._translate.getBrowserLang() || 'en';
+          const supportedLangs = ['en', 'fr', 'de', 'nl'];
+          const lang = languageCode && supportedLangs.includes(languageCode) ? languageCode : (supportedLangs.includes(browserLang) ? browserLang : 'en');
+
+          const response = await store._authService.registerIamAuth(email, password, confirmPassword, lang);
 
           console.log('✅ Registration successful:', { email, response });
 
@@ -188,7 +205,6 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           console.error('[AuthStore] Full error object:', error);
           // Optional: track error
           throw error;
-
         }
       },
 
