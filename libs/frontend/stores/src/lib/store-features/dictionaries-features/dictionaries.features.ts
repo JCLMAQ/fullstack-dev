@@ -1,6 +1,6 @@
 import { withResource } from '@angular-architects/ngrx-toolkit';
-import { HttpClient } from '@angular/common/http';
-import { computed, inject, resource } from '@angular/core';
+import { httpResource } from '@angular/common/http';
+import { computed, inject } from '@angular/core';
 import { DictionaryApiService, type DictionariesResponse } from '@fe/dictionary';
 import {
   patchState,
@@ -24,11 +24,13 @@ export function withDictionariesFeatures(): SignalStoreFeature {
       selectedLanguage: '' as string,
     })),
     withResource(
-      (store, dictionaryApi = inject(DictionaryApiService), http = inject(HttpClient)) => ({
-        dictionaries: resource<DictionariesResponse, string>({
-          params: () => dictionaryApi.dictionariesUrl(),
-          loader: ({ params }) => http.get<DictionariesResponse>(params).toPromise() as Promise<DictionariesResponse>,
-        }),
+      (store, dictionaryApi = inject(DictionaryApiService)) => ({
+        dictionaries: httpResource<DictionariesResponse>(
+          () => dictionaryApi.dictionariesUrl().toString(),
+          {
+            defaultValue: { dictionaries: {}, languages: [] },
+          }
+        ),
       }),
       { errorHandling: 'previous value' }
     ),
