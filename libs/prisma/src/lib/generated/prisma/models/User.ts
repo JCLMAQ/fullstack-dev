@@ -123,6 +123,7 @@ export type UserCountAggregateOutputType = {
   emergencyContactName: number
   emergencyContactPhone: number
   position: number
+  preference: number
   jobTitle: number
   isValidated: number
   isSuspended: number
@@ -233,6 +234,7 @@ export type UserCountAggregateInputType = {
   emergencyContactName?: true
   emergencyContactPhone?: true
   position?: true
+  preference?: true
   jobTitle?: true
   isValidated?: true
   isSuspended?: true
@@ -354,6 +356,7 @@ export type UserGroupByOutputType = {
   emergencyContactName: string | null
   emergencyContactPhone: string | null
   position: $Enums.Position | null
+  preference: runtime.JsonValue | null
   jobTitle: string | null
   isValidated: Date | null
   isSuspended: Date | null
@@ -411,6 +414,7 @@ export type UserWhereInput = {
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -472,6 +476,7 @@ export type UserOrderByWithRelationInput = {
   emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrderInput | Prisma.SortOrder
+  preference?: Prisma.SortOrderInput | Prisma.SortOrder
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -536,6 +541,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -597,6 +603,7 @@ export type UserOrderByWithAggregationInput = {
   emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   position?: Prisma.SortOrderInput | Prisma.SortOrder
+  preference?: Prisma.SortOrderInput | Prisma.SortOrder
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   isValidated?: Prisma.SortOrderInput | Prisma.SortOrder
   isSuspended?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -639,6 +646,7 @@ export type UserScalarWhereWithAggregatesInput = {
   emergencyContactName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableWithAggregatesFilter<"User"> | $Enums.Position | null
+  preference?: Prisma.JsonNullableWithAggregatesFilter<"User">
   jobTitle?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -672,6 +680,7 @@ export type UserCreateInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -732,6 +741,7 @@ export type UserUncheckedCreateInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -790,6 +800,7 @@ export type UserUpdateInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -850,6 +861,7 @@ export type UserUncheckedUpdateInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -909,6 +921,7 @@ export type UserCreateManyInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -942,6 +955,7 @@ export type UserUpdateManyMutationInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -975,6 +989,7 @@ export type UserUncheckedUpdateManyInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1040,6 +1055,7 @@ export type UserCountOrderByAggregateInput = {
   emergencyContactName?: Prisma.SortOrder
   emergencyContactPhone?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  preference?: Prisma.SortOrder
   jobTitle?: Prisma.SortOrder
   isValidated?: Prisma.SortOrder
   isSuspended?: Prisma.SortOrder
@@ -1698,6 +1714,7 @@ export type UserCreateWithoutOrgsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -1757,6 +1774,7 @@ export type UserUncheckedCreateWithoutOrgsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -1839,6 +1857,7 @@ export type UserScalarWhereInput = {
   emergencyContactName?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContactPhone?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.EnumPositionNullableFilter<"User"> | $Enums.Position | null
+  preference?: Prisma.JsonNullableFilter<"User">
   jobTitle?: Prisma.StringNullableFilter<"User"> | string | null
   isValidated?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isSuspended?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -1872,6 +1891,7 @@ export type UserCreateWithoutTeamInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -1931,6 +1951,7 @@ export type UserUncheckedCreateWithoutTeamInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -1993,6 +2014,7 @@ export type UserCreateWithoutManagerInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2052,6 +2074,7 @@ export type UserUncheckedCreateWithoutManagerInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2130,6 +2153,7 @@ export type UserUpdateWithoutTeamInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2189,6 +2213,7 @@ export type UserUncheckedUpdateWithoutTeamInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2262,6 +2287,7 @@ export type UserCreateWithoutPhonesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2321,6 +2347,7 @@ export type UserUncheckedCreateWithoutPhonesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2394,6 +2421,7 @@ export type UserUpdateWithoutPhonesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2453,6 +2481,7 @@ export type UserUncheckedUpdateWithoutPhonesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2510,6 +2539,7 @@ export type UserCreateWithoutAddressInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2569,6 +2599,7 @@ export type UserUncheckedCreateWithoutAddressInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2642,6 +2673,7 @@ export type UserUpdateWithoutAddressInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2701,6 +2733,7 @@ export type UserUncheckedUpdateWithoutAddressInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2758,6 +2791,7 @@ export type UserCreateWithoutUserSecretInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2817,6 +2851,7 @@ export type UserUncheckedCreateWithoutUserSecretInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -2890,6 +2925,7 @@ export type UserUpdateWithoutUserSecretInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2949,6 +2985,7 @@ export type UserUncheckedUpdateWithoutUserSecretInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3006,6 +3043,7 @@ export type UserCreateWithoutProfilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3065,6 +3103,7 @@ export type UserUncheckedCreateWithoutProfilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3143,6 +3182,7 @@ export type UserCreateWithoutGroupsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3202,6 +3242,7 @@ export type UserUncheckedCreateWithoutGroupsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3280,6 +3321,7 @@ export type UserCreateWithoutTodosAuthorInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3339,6 +3381,7 @@ export type UserUncheckedCreateWithoutTodosAuthorInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3412,6 +3455,7 @@ export type UserUpdateWithoutTodosAuthorInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3471,6 +3515,7 @@ export type UserUncheckedUpdateWithoutTodosAuthorInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3528,6 +3573,7 @@ export type UserCreateWithoutTodoInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3587,6 +3633,7 @@ export type UserUncheckedCreateWithoutTodoInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3660,6 +3707,7 @@ export type UserUpdateWithoutTodoInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3719,6 +3767,7 @@ export type UserUncheckedUpdateWithoutTodoInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3776,6 +3825,7 @@ export type UserCreateWithoutTasksAuthorInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3835,6 +3885,7 @@ export type UserUncheckedCreateWithoutTasksAuthorInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -3908,6 +3959,7 @@ export type UserUpdateWithoutTasksAuthorInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3967,6 +4019,7 @@ export type UserUncheckedUpdateWithoutTasksAuthorInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4024,6 +4077,7 @@ export type UserCreateWithoutTasksInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4083,6 +4137,7 @@ export type UserUncheckedCreateWithoutTasksInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4156,6 +4211,7 @@ export type UserUpdateWithoutTasksInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4215,6 +4271,7 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4272,6 +4329,7 @@ export type UserCreateWithoutPostsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4331,6 +4389,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4404,6 +4463,7 @@ export type UserUpdateWithoutPostsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4463,6 +4523,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4520,6 +4581,7 @@ export type UserCreateWithoutCommentsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4579,6 +4641,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4652,6 +4715,7 @@ export type UserUpdateWithoutCommentsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4711,6 +4775,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4768,6 +4833,7 @@ export type UserCreateWithoutOwnedFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4827,6 +4893,7 @@ export type UserUncheckedCreateWithoutOwnedFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4889,6 +4956,7 @@ export type UserCreateWithoutUploadedFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -4948,6 +5016,7 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5010,6 +5079,7 @@ export type UserCreateWithoutProfileFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5069,6 +5139,7 @@ export type UserUncheckedCreateWithoutProfileFilesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5142,6 +5213,7 @@ export type UserUpdateWithoutOwnedFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5201,6 +5273,7 @@ export type UserUncheckedUpdateWithoutOwnedFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5269,6 +5342,7 @@ export type UserUpdateWithoutUploadedFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5328,6 +5402,7 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5396,6 +5471,7 @@ export type UserUpdateWithoutProfileFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5455,6 +5531,7 @@ export type UserUncheckedUpdateWithoutProfileFilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5512,6 +5589,7 @@ export type UserCreateWithoutFollowersInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5571,6 +5649,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5633,6 +5712,7 @@ export type UserCreateWithoutFollowingsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5692,6 +5772,7 @@ export type UserUncheckedCreateWithoutFollowingsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -5765,6 +5846,7 @@ export type UserUpdateWithoutFollowersInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5824,6 +5906,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5892,6 +5975,7 @@ export type UserUpdateWithoutFollowingsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5951,6 +6035,7 @@ export type UserUncheckedUpdateWithoutFollowingsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6008,6 +6093,7 @@ export type UserCreateWithoutPosts_likedInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6067,6 +6153,7 @@ export type UserUncheckedCreateWithoutPosts_likedInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6140,6 +6227,7 @@ export type UserUpdateWithoutPosts_likedInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6199,6 +6287,7 @@ export type UserUncheckedUpdateWithoutPosts_likedInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6256,6 +6345,7 @@ export type UserCreateWithoutStoriesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6315,6 +6405,7 @@ export type UserUncheckedCreateWithoutStoriesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6388,6 +6479,7 @@ export type UserUpdateWithoutStoriesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6447,6 +6539,7 @@ export type UserUncheckedUpdateWithoutStoriesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6504,6 +6597,7 @@ export type UserCreateWithoutUploadedImagesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6563,6 +6657,7 @@ export type UserUncheckedCreateWithoutUploadedImagesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6625,6 +6720,7 @@ export type UserCreateWithoutProfileImagesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6684,6 +6780,7 @@ export type UserUncheckedCreateWithoutProfileImagesInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -6757,6 +6854,7 @@ export type UserUpdateWithoutUploadedImagesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6816,6 +6914,7 @@ export type UserUncheckedUpdateWithoutUploadedImagesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6884,6 +6983,7 @@ export type UserUpdateWithoutProfileImagesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6943,6 +7043,7 @@ export type UserUncheckedUpdateWithoutProfileImagesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7000,6 +7101,7 @@ export type UserCreateWithoutApiKeysInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7059,6 +7161,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7132,6 +7235,7 @@ export type UserUpdateWithoutApiKeysInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7191,6 +7295,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7248,6 +7353,7 @@ export type UserCreateWithoutTokensInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7307,6 +7413,7 @@ export type UserUncheckedCreateWithoutTokensInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7380,6 +7487,7 @@ export type UserUpdateWithoutTokensInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7439,6 +7547,7 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7496,6 +7605,7 @@ export type UserCreateWithoutChangesLogsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7555,6 +7665,7 @@ export type UserUncheckedCreateWithoutChangesLogsInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7628,6 +7739,7 @@ export type UserUpdateWithoutChangesLogsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7687,6 +7799,7 @@ export type UserUncheckedUpdateWithoutChangesLogsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7744,6 +7857,7 @@ export type UserCreateWithoutLanguageInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7802,6 +7916,7 @@ export type UserUncheckedCreateWithoutLanguageInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -7886,6 +8001,7 @@ export type UserUpdateWithoutOrgsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7945,6 +8061,7 @@ export type UserUncheckedUpdateWithoutOrgsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8003,6 +8120,7 @@ export type UserUncheckedUpdateManyWithoutOrgsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8037,6 +8155,7 @@ export type UserCreateManyManagerInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -8069,6 +8188,7 @@ export type UserUpdateWithoutManagerInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8128,6 +8248,7 @@ export type UserUncheckedUpdateWithoutManagerInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8186,6 +8307,7 @@ export type UserUncheckedUpdateManyWithoutManagerInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8218,6 +8340,7 @@ export type UserUpdateWithoutProfilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8277,6 +8400,7 @@ export type UserUncheckedUpdateWithoutProfilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8335,6 +8459,7 @@ export type UserUncheckedUpdateManyWithoutProfilesInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8368,6 +8493,7 @@ export type UserUpdateWithoutGroupsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8427,6 +8553,7 @@ export type UserUncheckedUpdateWithoutGroupsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8485,6 +8612,7 @@ export type UserUncheckedUpdateManyWithoutGroupsInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8518,6 +8646,7 @@ export type UserCreateManyLanguageInput = {
   emergencyContactName?: string | null
   emergencyContactPhone?: string | null
   position?: $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: string | null
   isValidated?: Date | string | null
   isSuspended?: Date | string | null
@@ -8551,6 +8680,7 @@ export type UserUpdateWithoutLanguageInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8609,6 +8739,7 @@ export type UserUncheckedUpdateWithoutLanguageInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8667,6 +8798,7 @@ export type UserUncheckedUpdateManyWithoutLanguageInput = {
   emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   position?: Prisma.NullableEnumPositionFieldUpdateOperationsInput | $Enums.Position | null
+  preference?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isValidated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isSuspended?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8939,6 +9071,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
   position?: boolean
+  preference?: boolean
   jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
@@ -9001,6 +9134,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
   position?: boolean
+  preference?: boolean
   jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
@@ -9037,6 +9171,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
   position?: boolean
+  preference?: boolean
   jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
@@ -9073,6 +9208,7 @@ export type UserSelectScalar = {
   emergencyContactName?: boolean
   emergencyContactPhone?: boolean
   position?: boolean
+  preference?: boolean
   jobTitle?: boolean
   isValidated?: boolean
   isSuspended?: boolean
@@ -9084,7 +9220,7 @@ export type UserSelectScalar = {
   passWordFaker?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "languageId" | "photoUrl" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "position" | "jobTitle" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "email" | "lastName" | "firstName" | "title" | "nickName" | "Gender" | "social" | "languageId" | "photoUrl" | "dateOfBirth" | "hasEmergencyContact" | "emergencyContactName" | "emergencyContactPhone" | "position" | "preference" | "jobTitle" | "isValidated" | "isSuspended" | "managerId" | "Roles" | "Permissions" | "isTfaEnable" | "tfaSecret" | "passWordFaker", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Language?: boolean | Prisma.User$LanguageArgs<ExtArgs>
   Address?: boolean | Prisma.User$AddressArgs<ExtArgs>
@@ -9178,6 +9314,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emergencyContactName: string | null
     emergencyContactPhone: string | null
     position: $Enums.Position | null
+    preference: runtime.JsonValue | null
     jobTitle: string | null
     isValidated: Date | null
     isSuspended: Date | null
@@ -9659,6 +9796,7 @@ export interface UserFieldRefs {
   readonly emergencyContactName: Prisma.FieldRef<"User", 'String'>
   readonly emergencyContactPhone: Prisma.FieldRef<"User", 'String'>
   readonly position: Prisma.FieldRef<"User", 'Position'>
+  readonly preference: Prisma.FieldRef<"User", 'Json'>
   readonly jobTitle: Prisma.FieldRef<"User", 'String'>
   readonly isValidated: Prisma.FieldRef<"User", 'DateTime'>
   readonly isSuspended: Prisma.FieldRef<"User", 'DateTime'>

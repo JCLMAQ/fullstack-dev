@@ -165,7 +165,7 @@ model User {
   emergencyContactPhone String?
 
   position      Position?         @default(Individual)
-
+  preference    Json?             @db.Json()
   jobTitle      String?
 
   isValidated   DateTime?

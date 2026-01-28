@@ -3217,6 +3217,7 @@ export const UserScalarFieldEnum = {
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
   position: 'position',
+  preference: 'preference',
   jobTitle: 'jobTitle',
   isValidated: 'isValidated',
   isSuspended: 'isSuspended',
