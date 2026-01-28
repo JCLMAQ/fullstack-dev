@@ -1,6 +1,6 @@
 import {
   Prisma
-} from './generated/prisma/client';
+} from '../generated/prisma/client';
 
 export type UserWithRelations = Prisma.UserGetPayload<{
   include: {
