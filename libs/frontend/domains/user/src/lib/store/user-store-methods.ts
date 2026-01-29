@@ -8,6 +8,7 @@ import { UserService, UsersQueryOptions } from '../services/user-service';
 type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
+
   withMethods((store, userService = inject(UserService)) => ({
 
     async loadUsers(options?: UsersQueryOptions) {

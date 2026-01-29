@@ -45,6 +45,14 @@ export class UserService {
     // const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
 		return await firstValueFrom(this.http.get<UserWithRelations[]>(url, { params }));
 	}
+//  listUsersResource(options?: UsersQueryOptions): Promise<UserWithRelations[]> {
+//     const url = this.buildUrlWithQuery(this.baseUrl, options);
+//     resource(() => {
+//       this.http.get<UserWithRelations[]>(url);
+//     }
+//     );
+   // return firstValueFrom(this.http.get<UserWithRelations[]>(url));
+  // }
 
 	async getUserById(id: string): Promise<User> {
 		if (!id) throw new Error('id requis');

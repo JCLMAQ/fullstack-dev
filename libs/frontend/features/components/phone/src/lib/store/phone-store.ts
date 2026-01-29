@@ -3,7 +3,7 @@ import { computed, inject, resource } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Phone } from '@db/prisma/frontend';
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from '@fe/stores';
-import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { addEntity, removeEntity } from '@ngrx/signals/entities';
 import { PhoneService } from '../services/phone-service';
 import { initialPhoneState } from './phone-slice';
@@ -31,26 +31,27 @@ export const PhoneStore = signalStore(
   withSelectionMethods<Phone>({ collection: 'phones' }),
   withNavigationMethods(),
 
-  withMethods((store) => ({
-    loadAllPhones() {
-      patchState(store, { filter: { ownerId: null } });
-      store._phonesReload();
-    },
+  // withMethods((store) => ({
+  //   loadAllPhones() {
+  //     patchState(store, { filter: { ownerId: null } });
+  //     store._phonesReload();
+  //   },
 
-    loadPhonesByUserId(userId: string) {
-      patchState(store, { filter: { ownerId: userId } });
-      store._phonesReload();
-    },
+  //   loadPhonesByUserId(userId: string) {
+  //     patchState(store, { filter: { ownerId: userId } });
+  //     store._phonesReload();
+  //   },
 
-    setOwnerId(ownerId: string | null) {
-      patchState(store, { filter: { ownerId } });
-      store._phonesReload();
-    },
-  })),
+  //   setOwnerId(ownerId: string | null) {
+  //     patchState(store, { filter: { ownerId } });
+  //     store._phonesReload();
+  //   },
+  // })),
 
   withHooks((store) => ({
     onInit() {
-      store.loadAllPhones();
+      // store.loadAllPhones();
+      store._phonesReload();
     },
   })),
 

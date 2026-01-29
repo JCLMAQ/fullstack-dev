@@ -1,9 +1,10 @@
-import { withCallState, withDevtools, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { computed, effect } from "@angular/core";
-import { User } from "@db/prisma";
+import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
+import { computed, effect, inject, resource } from "@angular/core";
+import { User } from "@db/prisma/frontend";
 import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
+import { UserService } from "../services/user-service";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
 
@@ -20,6 +21,12 @@ export const UserStore = signalStore(
   withCallState({ collection: 'user' }),
   withSelectionMethods<User>({ collection: 'user' }),
   withNavigationMethods(),
+  // test withResources
+  withEntityResources((_store, svc = inject(UserService)) => ({
+    usersList: resource({ loader: () => svc.listUsers(), defaultValue: []}),
+  })),
+//   withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] })),
+
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
@@ -65,3 +72,4 @@ export const UserStore = signalStore(
     },
   })
 );
+

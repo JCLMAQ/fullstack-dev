@@ -186,3 +186,18 @@
     <br>
 
   </div>
+
+  <div>
+
+     @if (store.isLoading()) {
+      <div>Loading...</div>
+    } @else if (store.error()) {
+      <p>An error has happened.</p>
+    } @else if (store.usersListHasValue()) {
+      <ul>
+        @for (t of store.usersListEntities(); track t.id) {
+          <li>{{ t.firstName }}- {{ t.lastName }} </li>
+        }
+      </ul>
+    }
+  </div>

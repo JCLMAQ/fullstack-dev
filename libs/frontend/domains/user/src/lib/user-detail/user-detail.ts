@@ -24,7 +24,7 @@ import { AddressForm, buildAddressSection, createAddressModel } from '@fe/addres
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
-import { Language, LanguageDataService } from '../data/language/language-data.service';
+import { Language, LanguageDataService } from '../../../../../core/services/src/lib/languages/language-data.service';
 import { UserStore } from '../store/user-store';
 
 type UserFormData = {
