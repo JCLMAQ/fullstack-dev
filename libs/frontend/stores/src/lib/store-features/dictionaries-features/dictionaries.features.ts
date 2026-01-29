@@ -1,4 +1,4 @@
-import { withResource } from '@angular-architects/ngrx-toolkit';
+import { withMutations, withResource } from '@angular-architects/ngrx-toolkit';
 import { httpResource } from '@angular/common/http';
 import { computed, inject } from '@angular/core';
 import { DictionaryApiService, type DictionariesResponse } from '@fe/dictionary';
@@ -25,7 +25,7 @@ export function withDictionariesFeatures(): SignalStoreFeature {
     })),
     withResource(
       (store, dictionaryApi = inject(DictionaryApiService)) => ({
-        dictionaries: httpResource<DictionariesResponse>(
+        dictionaries: httpResource<DictionariesResponse>( // dictionaries is the prefix for generated state and methods
           () => dictionaryApi.dictionariesUrl().toString(),
           {
             defaultValue: { dictionaries: {}, languages: [] },
@@ -34,6 +34,22 @@ export function withDictionariesFeatures(): SignalStoreFeature {
       }),
       { errorHandling: 'previous value' }
     ),
+    withMutations((store) => ({
+      // A completer mutation to save dictionaries if needed in the future
+      // saveDictionaries: store._dictionariesService.createSaveMutation({
+      //   onSuccess(dictionaries: DictionariesResponse) {
+      //     console.log('✅ Dictionaries saved successfully:', dictionaries);
+      //     // Optionally update the resource state
+      //     patchState(store, {
+      //       dictionaries: dictionaries,
+      //     });
+      //   },
+      //   onError(error: any) {
+      //     console.error('❌ Error saving dictionaries:', error);
+      //   },
+      // }),
+    })),
+
     withMethods(
       (
         store,

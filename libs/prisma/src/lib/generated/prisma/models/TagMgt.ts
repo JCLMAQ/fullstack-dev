@@ -270,6 +270,11 @@ export type TagMgtWhereInput = {
   tagMgtTypeId?: Prisma.IntFilter<"TagMgt"> | number
   tagMgtModel?: Prisma.XOR<Prisma.TagMgtTypeScalarRelationFilter, Prisma.TagMgtTypeWhereInput>
   tagDictionaries?: Prisma.TagDictionaryListRelationFilter
+  Todos?: Prisma.TodoListRelationFilter
+  Tasks?: Prisma.TaskListRelationFilter
+  Groups?: Prisma.GroupListRelationFilter
+  posts?: Prisma.PostListRelationFilter
+  Files?: Prisma.FileListRelationFilter
 }
 
 export type TagMgtOrderByWithRelationInput = {
@@ -285,6 +290,11 @@ export type TagMgtOrderByWithRelationInput = {
   tagMgtTypeId?: Prisma.SortOrder
   tagMgtModel?: Prisma.TagMgtTypeOrderByWithRelationInput
   tagDictionaries?: Prisma.TagDictionaryOrderByRelationAggregateInput
+  Todos?: Prisma.TodoOrderByRelationAggregateInput
+  Tasks?: Prisma.TaskOrderByRelationAggregateInput
+  Groups?: Prisma.GroupOrderByRelationAggregateInput
+  posts?: Prisma.PostOrderByRelationAggregateInput
+  Files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type TagMgtWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +313,11 @@ export type TagMgtWhereUniqueInput = Prisma.AtLeast<{
   tagMgtTypeId?: Prisma.IntFilter<"TagMgt"> | number
   tagMgtModel?: Prisma.XOR<Prisma.TagMgtTypeScalarRelationFilter, Prisma.TagMgtTypeWhereInput>
   tagDictionaries?: Prisma.TagDictionaryListRelationFilter
+  Todos?: Prisma.TodoListRelationFilter
+  Tasks?: Prisma.TaskListRelationFilter
+  Groups?: Prisma.GroupListRelationFilter
+  posts?: Prisma.PostListRelationFilter
+  Files?: Prisma.FileListRelationFilter
 }, "id" | "name">
 
 export type TagMgtOrderByWithAggregationInput = {
@@ -350,6 +365,11 @@ export type TagMgtCreateInput = {
   position?: number
   tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
   tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtUncheckedCreateInput = {
@@ -364,6 +384,11 @@ export type TagMgtUncheckedCreateInput = {
   position?: number
   tagMgtTypeId: number
   tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtUpdateInput = {
@@ -377,6 +402,11 @@ export type TagMgtUpdateInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
   tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
 }
 
 export type TagMgtUncheckedUpdateInput = {
@@ -391,6 +421,11 @@ export type TagMgtUncheckedUpdateInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
   tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
 }
 
 export type TagMgtCreateManyInput = {
@@ -428,6 +463,16 @@ export type TagMgtUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TagMgtListRelationFilter = {
+  every?: Prisma.TagMgtWhereInput
+  some?: Prisma.TagMgtWhereInput
+  none?: Prisma.TagMgtWhereInput
+}
+
+export type TagMgtOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TagMgtCountOrderByAggregateInput = {
@@ -483,19 +528,199 @@ export type TagMgtSumOrderByAggregateInput = {
   tagMgtTypeId?: Prisma.SortOrder
 }
 
-export type TagMgtListRelationFilter = {
-  every?: Prisma.TagMgtWhereInput
-  some?: Prisma.TagMgtWhereInput
-  none?: Prisma.TagMgtWhereInput
-}
-
-export type TagMgtOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type TagMgtScalarRelationFilter = {
   is?: Prisma.TagMgtWhereInput
   isNot?: Prisma.TagMgtWhereInput
+}
+
+export type TagMgtCreateNestedManyWithoutGroupsInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput> | Prisma.TagMgtCreateWithoutGroupsInput[] | Prisma.TagMgtUncheckedCreateWithoutGroupsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutGroupsInput | Prisma.TagMgtCreateOrConnectWithoutGroupsInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUncheckedCreateNestedManyWithoutGroupsInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput> | Prisma.TagMgtCreateWithoutGroupsInput[] | Prisma.TagMgtUncheckedCreateWithoutGroupsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutGroupsInput | Prisma.TagMgtCreateOrConnectWithoutGroupsInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUpdateManyWithoutGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput> | Prisma.TagMgtCreateWithoutGroupsInput[] | Prisma.TagMgtUncheckedCreateWithoutGroupsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutGroupsInput | Prisma.TagMgtCreateOrConnectWithoutGroupsInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutGroupsInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutGroupsInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutGroupsInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutGroupsInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutGroupsInput | Prisma.TagMgtUpdateManyWithWhereWithoutGroupsInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtUncheckedUpdateManyWithoutGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput> | Prisma.TagMgtCreateWithoutGroupsInput[] | Prisma.TagMgtUncheckedCreateWithoutGroupsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutGroupsInput | Prisma.TagMgtCreateOrConnectWithoutGroupsInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutGroupsInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutGroupsInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutGroupsInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutGroupsInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutGroupsInput | Prisma.TagMgtUpdateManyWithWhereWithoutGroupsInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtCreateNestedManyWithoutTodosInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput> | Prisma.TagMgtCreateWithoutTodosInput[] | Prisma.TagMgtUncheckedCreateWithoutTodosInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTodosInput | Prisma.TagMgtCreateOrConnectWithoutTodosInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUncheckedCreateNestedManyWithoutTodosInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput> | Prisma.TagMgtCreateWithoutTodosInput[] | Prisma.TagMgtUncheckedCreateWithoutTodosInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTodosInput | Prisma.TagMgtCreateOrConnectWithoutTodosInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUpdateManyWithoutTodosNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput> | Prisma.TagMgtCreateWithoutTodosInput[] | Prisma.TagMgtUncheckedCreateWithoutTodosInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTodosInput | Prisma.TagMgtCreateOrConnectWithoutTodosInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutTodosInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutTodosInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutTodosInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutTodosInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutTodosInput | Prisma.TagMgtUpdateManyWithWhereWithoutTodosInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtUncheckedUpdateManyWithoutTodosNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput> | Prisma.TagMgtCreateWithoutTodosInput[] | Prisma.TagMgtUncheckedCreateWithoutTodosInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTodosInput | Prisma.TagMgtCreateOrConnectWithoutTodosInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutTodosInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutTodosInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutTodosInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutTodosInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutTodosInput | Prisma.TagMgtUpdateManyWithWhereWithoutTodosInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtCreateNestedManyWithoutTasksInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput> | Prisma.TagMgtCreateWithoutTasksInput[] | Prisma.TagMgtUncheckedCreateWithoutTasksInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTasksInput | Prisma.TagMgtCreateOrConnectWithoutTasksInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUncheckedCreateNestedManyWithoutTasksInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput> | Prisma.TagMgtCreateWithoutTasksInput[] | Prisma.TagMgtUncheckedCreateWithoutTasksInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTasksInput | Prisma.TagMgtCreateOrConnectWithoutTasksInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUpdateManyWithoutTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput> | Prisma.TagMgtCreateWithoutTasksInput[] | Prisma.TagMgtUncheckedCreateWithoutTasksInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTasksInput | Prisma.TagMgtCreateOrConnectWithoutTasksInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutTasksInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutTasksInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutTasksInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutTasksInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutTasksInput | Prisma.TagMgtUpdateManyWithWhereWithoutTasksInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtUncheckedUpdateManyWithoutTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput> | Prisma.TagMgtCreateWithoutTasksInput[] | Prisma.TagMgtUncheckedCreateWithoutTasksInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutTasksInput | Prisma.TagMgtCreateOrConnectWithoutTasksInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutTasksInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutTasksInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutTasksInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutTasksInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutTasksInput | Prisma.TagMgtUpdateManyWithWhereWithoutTasksInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtCreateNestedManyWithoutPostsInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput> | Prisma.TagMgtCreateWithoutPostsInput[] | Prisma.TagMgtUncheckedCreateWithoutPostsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutPostsInput | Prisma.TagMgtCreateOrConnectWithoutPostsInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUncheckedCreateNestedManyWithoutPostsInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput> | Prisma.TagMgtCreateWithoutPostsInput[] | Prisma.TagMgtUncheckedCreateWithoutPostsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutPostsInput | Prisma.TagMgtCreateOrConnectWithoutPostsInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUpdateManyWithoutPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput> | Prisma.TagMgtCreateWithoutPostsInput[] | Prisma.TagMgtUncheckedCreateWithoutPostsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutPostsInput | Prisma.TagMgtCreateOrConnectWithoutPostsInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutPostsInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutPostsInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutPostsInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutPostsInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutPostsInput | Prisma.TagMgtUpdateManyWithWhereWithoutPostsInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtUncheckedUpdateManyWithoutPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput> | Prisma.TagMgtCreateWithoutPostsInput[] | Prisma.TagMgtUncheckedCreateWithoutPostsInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutPostsInput | Prisma.TagMgtCreateOrConnectWithoutPostsInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutPostsInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutPostsInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutPostsInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutPostsInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutPostsInput | Prisma.TagMgtUpdateManyWithWhereWithoutPostsInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtCreateNestedManyWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput> | Prisma.TagMgtCreateWithoutFilesInput[] | Prisma.TagMgtUncheckedCreateWithoutFilesInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutFilesInput | Prisma.TagMgtCreateOrConnectWithoutFilesInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUncheckedCreateNestedManyWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput> | Prisma.TagMgtCreateWithoutFilesInput[] | Prisma.TagMgtUncheckedCreateWithoutFilesInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutFilesInput | Prisma.TagMgtCreateOrConnectWithoutFilesInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+}
+
+export type TagMgtUpdateManyWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput> | Prisma.TagMgtCreateWithoutFilesInput[] | Prisma.TagMgtUncheckedCreateWithoutFilesInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutFilesInput | Prisma.TagMgtCreateOrConnectWithoutFilesInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutFilesInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutFilesInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutFilesInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutFilesInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutFilesInput | Prisma.TagMgtUpdateManyWithWhereWithoutFilesInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+}
+
+export type TagMgtUncheckedUpdateManyWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput> | Prisma.TagMgtCreateWithoutFilesInput[] | Prisma.TagMgtUncheckedCreateWithoutFilesInput[]
+  connectOrCreate?: Prisma.TagMgtCreateOrConnectWithoutFilesInput | Prisma.TagMgtCreateOrConnectWithoutFilesInput[]
+  upsert?: Prisma.TagMgtUpsertWithWhereUniqueWithoutFilesInput | Prisma.TagMgtUpsertWithWhereUniqueWithoutFilesInput[]
+  set?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  disconnect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  delete?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  connect?: Prisma.TagMgtWhereUniqueInput | Prisma.TagMgtWhereUniqueInput[]
+  update?: Prisma.TagMgtUpdateWithWhereUniqueWithoutFilesInput | Prisma.TagMgtUpdateWithWhereUniqueWithoutFilesInput[]
+  updateMany?: Prisma.TagMgtUpdateManyWithWhereWithoutFilesInput | Prisma.TagMgtUpdateManyWithWhereWithoutFilesInput[]
+  deleteMany?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
 }
 
 export type TagMgtCreateNestedManyWithoutTagMgtModelInput = {
@@ -554,6 +779,302 @@ export type TagMgtUpdateOneRequiredWithoutTagDictionariesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TagMgtUpdateToOneWithWhereWithoutTagDictionariesInput, Prisma.TagMgtUpdateWithoutTagDictionariesInput>, Prisma.TagMgtUncheckedUpdateWithoutTagDictionariesInput>
 }
 
+export type TagMgtCreateWithoutGroupsInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtUncheckedCreateWithoutGroupsInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtTypeId: number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtCreateOrConnectWithoutGroupsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput>
+}
+
+export type TagMgtUpsertWithWhereUniqueWithoutGroupsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagMgtUpdateWithoutGroupsInput, Prisma.TagMgtUncheckedUpdateWithoutGroupsInput>
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutGroupsInput, Prisma.TagMgtUncheckedCreateWithoutGroupsInput>
+}
+
+export type TagMgtUpdateWithWhereUniqueWithoutGroupsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateWithoutGroupsInput, Prisma.TagMgtUncheckedUpdateWithoutGroupsInput>
+}
+
+export type TagMgtUpdateManyWithWhereWithoutGroupsInput = {
+  where: Prisma.TagMgtScalarWhereInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutGroupsInput>
+}
+
+export type TagMgtScalarWhereInput = {
+  AND?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+  OR?: Prisma.TagMgtScalarWhereInput[]
+  NOT?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
+  id?: Prisma.IntFilter<"TagMgt"> | number
+  createdAt?: Prisma.DateTimeFilter<"TagMgt"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TagMgt"> | Date | string
+  published?: Prisma.BoolFilter<"TagMgt"> | boolean
+  isPublic?: Prisma.BoolFilter<"TagMgt"> | boolean
+  isDeleted?: Prisma.IntFilter<"TagMgt"> | number
+  isDeletedDT?: Prisma.DateTimeNullableFilter<"TagMgt"> | Date | string | null
+  name?: Prisma.StringFilter<"TagMgt"> | string
+  position?: Prisma.IntFilter<"TagMgt"> | number
+  tagMgtTypeId?: Prisma.IntFilter<"TagMgt"> | number
+}
+
+export type TagMgtCreateWithoutTodosInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtUncheckedCreateWithoutTodosInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtTypeId: number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtCreateOrConnectWithoutTodosInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput>
+}
+
+export type TagMgtUpsertWithWhereUniqueWithoutTodosInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagMgtUpdateWithoutTodosInput, Prisma.TagMgtUncheckedUpdateWithoutTodosInput>
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutTodosInput, Prisma.TagMgtUncheckedCreateWithoutTodosInput>
+}
+
+export type TagMgtUpdateWithWhereUniqueWithoutTodosInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateWithoutTodosInput, Prisma.TagMgtUncheckedUpdateWithoutTodosInput>
+}
+
+export type TagMgtUpdateManyWithWhereWithoutTodosInput = {
+  where: Prisma.TagMgtScalarWhereInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutTodosInput>
+}
+
+export type TagMgtCreateWithoutTasksInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtUncheckedCreateWithoutTasksInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtTypeId: number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtCreateOrConnectWithoutTasksInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput>
+}
+
+export type TagMgtUpsertWithWhereUniqueWithoutTasksInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagMgtUpdateWithoutTasksInput, Prisma.TagMgtUncheckedUpdateWithoutTasksInput>
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutTasksInput, Prisma.TagMgtUncheckedCreateWithoutTasksInput>
+}
+
+export type TagMgtUpdateWithWhereUniqueWithoutTasksInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateWithoutTasksInput, Prisma.TagMgtUncheckedUpdateWithoutTasksInput>
+}
+
+export type TagMgtUpdateManyWithWhereWithoutTasksInput = {
+  where: Prisma.TagMgtScalarWhereInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutTasksInput>
+}
+
+export type TagMgtCreateWithoutPostsInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtUncheckedCreateWithoutPostsInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtTypeId: number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtCreateOrConnectWithoutPostsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput>
+}
+
+export type TagMgtUpsertWithWhereUniqueWithoutPostsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagMgtUpdateWithoutPostsInput, Prisma.TagMgtUncheckedUpdateWithoutPostsInput>
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutPostsInput, Prisma.TagMgtUncheckedCreateWithoutPostsInput>
+}
+
+export type TagMgtUpdateWithWhereUniqueWithoutPostsInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateWithoutPostsInput, Prisma.TagMgtUncheckedUpdateWithoutPostsInput>
+}
+
+export type TagMgtUpdateManyWithWhereWithoutPostsInput = {
+  where: Prisma.TagMgtScalarWhereInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutPostsInput>
+}
+
+export type TagMgtCreateWithoutFilesInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtUncheckedCreateWithoutFilesInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagMgtTypeId: number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagMgtCreateOrConnectWithoutFilesInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput>
+}
+
+export type TagMgtUpsertWithWhereUniqueWithoutFilesInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagMgtUpdateWithoutFilesInput, Prisma.TagMgtUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.TagMgtCreateWithoutFilesInput, Prisma.TagMgtUncheckedCreateWithoutFilesInput>
+}
+
+export type TagMgtUpdateWithWhereUniqueWithoutFilesInput = {
+  where: Prisma.TagMgtWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateWithoutFilesInput, Prisma.TagMgtUncheckedUpdateWithoutFilesInput>
+}
+
+export type TagMgtUpdateManyWithWhereWithoutFilesInput = {
+  where: Prisma.TagMgtScalarWhereInput
+  data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutFilesInput>
+}
+
 export type TagMgtCreateWithoutTagMgtModelInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -564,6 +1085,11 @@ export type TagMgtCreateWithoutTagMgtModelInput = {
   name: string
   position?: number
   tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtUncheckedCreateWithoutTagMgtModelInput = {
@@ -577,6 +1103,11 @@ export type TagMgtUncheckedCreateWithoutTagMgtModelInput = {
   name: string
   position?: number
   tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutTagMgtInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtCreateOrConnectWithoutTagMgtModelInput = {
@@ -605,22 +1136,6 @@ export type TagMgtUpdateManyWithWhereWithoutTagMgtModelInput = {
   data: Prisma.XOR<Prisma.TagMgtUpdateManyMutationInput, Prisma.TagMgtUncheckedUpdateManyWithoutTagMgtModelInput>
 }
 
-export type TagMgtScalarWhereInput = {
-  AND?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
-  OR?: Prisma.TagMgtScalarWhereInput[]
-  NOT?: Prisma.TagMgtScalarWhereInput | Prisma.TagMgtScalarWhereInput[]
-  id?: Prisma.IntFilter<"TagMgt"> | number
-  createdAt?: Prisma.DateTimeFilter<"TagMgt"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"TagMgt"> | Date | string
-  published?: Prisma.BoolFilter<"TagMgt"> | boolean
-  isPublic?: Prisma.BoolFilter<"TagMgt"> | boolean
-  isDeleted?: Prisma.IntFilter<"TagMgt"> | number
-  isDeletedDT?: Prisma.DateTimeNullableFilter<"TagMgt"> | Date | string | null
-  name?: Prisma.StringFilter<"TagMgt"> | string
-  position?: Prisma.IntFilter<"TagMgt"> | number
-  tagMgtTypeId?: Prisma.IntFilter<"TagMgt"> | number
-}
-
 export type TagMgtCreateWithoutTagDictionariesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -631,6 +1146,11 @@ export type TagMgtCreateWithoutTagDictionariesInput = {
   name: string
   position?: number
   tagMgtModel: Prisma.TagMgtTypeCreateNestedOneWithoutTagMgtsInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtUncheckedCreateWithoutTagDictionariesInput = {
@@ -644,6 +1164,11 @@ export type TagMgtUncheckedCreateWithoutTagDictionariesInput = {
   name: string
   position?: number
   tagMgtTypeId: number
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
 }
 
 export type TagMgtCreateOrConnectWithoutTagDictionariesInput = {
@@ -672,9 +1197,259 @@ export type TagMgtUpdateWithoutTagDictionariesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
 }
 
 export type TagMgtUncheckedUpdateWithoutTagDictionariesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUpdateWithoutGroupsInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateWithoutGroupsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateManyWithoutGroupsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TagMgtUpdateWithoutTodosInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateWithoutTodosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateManyWithoutTodosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TagMgtUpdateWithoutTasksInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateWithoutTasksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateManyWithoutTasksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TagMgtUpdateWithoutPostsInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateWithoutPostsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateManyWithoutPostsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type TagMgtUpdateWithoutFilesInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtModel?: Prisma.TagMgtTypeUpdateOneRequiredWithoutTagMgtsNestedInput
+  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagMgtTypeId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagMgtUncheckedUpdateManyWithoutFilesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -709,6 +1484,11 @@ export type TagMgtUpdateWithoutTagMgtModelInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
 }
 
 export type TagMgtUncheckedUpdateWithoutTagMgtModelInput = {
@@ -722,6 +1502,11 @@ export type TagMgtUncheckedUpdateWithoutTagMgtModelInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutTagMgtNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
 }
 
 export type TagMgtUncheckedUpdateManyWithoutTagMgtModelInput = {
@@ -743,10 +1528,20 @@ export type TagMgtUncheckedUpdateManyWithoutTagMgtModelInput = {
 
 export type TagMgtCountOutputType = {
   tagDictionaries: number
+  Todos: number
+  Tasks: number
+  Groups: number
+  posts: number
+  Files: number
 }
 
 export type TagMgtCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagDictionaries?: boolean | TagMgtCountOutputTypeCountTagDictionariesArgs
+  Todos?: boolean | TagMgtCountOutputTypeCountTodosArgs
+  Tasks?: boolean | TagMgtCountOutputTypeCountTasksArgs
+  Groups?: boolean | TagMgtCountOutputTypeCountGroupsArgs
+  posts?: boolean | TagMgtCountOutputTypeCountPostsArgs
+  Files?: boolean | TagMgtCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -766,6 +1561,41 @@ export type TagMgtCountOutputTypeCountTagDictionariesArgs<ExtArgs extends runtim
   where?: Prisma.TagDictionaryWhereInput
 }
 
+/**
+ * TagMgtCountOutputType without action
+ */
+export type TagMgtCountOutputTypeCountTodosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TodoWhereInput
+}
+
+/**
+ * TagMgtCountOutputType without action
+ */
+export type TagMgtCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
+
+/**
+ * TagMgtCountOutputType without action
+ */
+export type TagMgtCountOutputTypeCountGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GroupWhereInput
+}
+
+/**
+ * TagMgtCountOutputType without action
+ */
+export type TagMgtCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostWhereInput
+}
+
+/**
+ * TagMgtCountOutputType without action
+ */
+export type TagMgtCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
 
 export type TagMgtSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -780,6 +1610,11 @@ export type TagMgtSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tagMgtTypeId?: boolean
   tagMgtModel?: boolean | Prisma.TagMgtTypeDefaultArgs<ExtArgs>
   tagDictionaries?: boolean | Prisma.TagMgt$tagDictionariesArgs<ExtArgs>
+  Todos?: boolean | Prisma.TagMgt$TodosArgs<ExtArgs>
+  Tasks?: boolean | Prisma.TagMgt$TasksArgs<ExtArgs>
+  Groups?: boolean | Prisma.TagMgt$GroupsArgs<ExtArgs>
+  posts?: boolean | Prisma.TagMgt$postsArgs<ExtArgs>
+  Files?: boolean | Prisma.TagMgt$FilesArgs<ExtArgs>
   _count?: boolean | Prisma.TagMgtCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tagMgt"]>
 
@@ -828,6 +1663,11 @@ export type TagMgtOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type TagMgtInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagMgtModel?: boolean | Prisma.TagMgtTypeDefaultArgs<ExtArgs>
   tagDictionaries?: boolean | Prisma.TagMgt$tagDictionariesArgs<ExtArgs>
+  Todos?: boolean | Prisma.TagMgt$TodosArgs<ExtArgs>
+  Tasks?: boolean | Prisma.TagMgt$TasksArgs<ExtArgs>
+  Groups?: boolean | Prisma.TagMgt$GroupsArgs<ExtArgs>
+  posts?: boolean | Prisma.TagMgt$postsArgs<ExtArgs>
+  Files?: boolean | Prisma.TagMgt$FilesArgs<ExtArgs>
   _count?: boolean | Prisma.TagMgtCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TagMgtIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -842,6 +1682,11 @@ export type $TagMgtPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     tagMgtModel: Prisma.$TagMgtTypePayload<ExtArgs>
     tagDictionaries: Prisma.$TagDictionaryPayload<ExtArgs>[]
+    Todos: Prisma.$TodoPayload<ExtArgs>[]
+    Tasks: Prisma.$TaskPayload<ExtArgs>[]
+    Groups: Prisma.$GroupPayload<ExtArgs>[]
+    posts: Prisma.$PostPayload<ExtArgs>[]
+    Files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1250,6 +2095,11 @@ export interface Prisma__TagMgtClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tagMgtModel<T extends Prisma.TagMgtTypeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgtTypeDefaultArgs<ExtArgs>>): Prisma.Prisma__TagMgtTypeClient<runtime.Types.Result.GetResult<Prisma.$TagMgtTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tagDictionaries<T extends Prisma.TagMgt$tagDictionariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$tagDictionariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagDictionaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Todos<T extends Prisma.TagMgt$TodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$TodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Tasks<T extends Prisma.TagMgt$TasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$TasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Groups<T extends Prisma.TagMgt$GroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$GroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posts<T extends Prisma.TagMgt$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Files<T extends Prisma.TagMgt$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagMgt$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1706,6 +2556,126 @@ export type TagMgt$tagDictionariesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.TagDictionaryScalarFieldEnum | Prisma.TagDictionaryScalarFieldEnum[]
+}
+
+/**
+ * TagMgt.Todos
+ */
+export type TagMgt$TodosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Todo
+   */
+  select?: Prisma.TodoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Todo
+   */
+  omit?: Prisma.TodoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TodoInclude<ExtArgs> | null
+  where?: Prisma.TodoWhereInput
+  orderBy?: Prisma.TodoOrderByWithRelationInput | Prisma.TodoOrderByWithRelationInput[]
+  cursor?: Prisma.TodoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TodoScalarFieldEnum | Prisma.TodoScalarFieldEnum[]
+}
+
+/**
+ * TagMgt.Tasks
+ */
+export type TagMgt$TasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * TagMgt.Groups
+ */
+export type TagMgt$GroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Group
+   */
+  select?: Prisma.GroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Group
+   */
+  omit?: Prisma.GroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GroupInclude<ExtArgs> | null
+  where?: Prisma.GroupWhereInput
+  orderBy?: Prisma.GroupOrderByWithRelationInput | Prisma.GroupOrderByWithRelationInput[]
+  cursor?: Prisma.GroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GroupScalarFieldEnum | Prisma.GroupScalarFieldEnum[]
+}
+
+/**
+ * TagMgt.posts
+ */
+export type TagMgt$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Post
+   */
+  select?: Prisma.PostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Post
+   */
+  omit?: Prisma.PostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
+  cursor?: Prisma.PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
+}
+
+/**
+ * TagMgt.Files
+ */
+export type TagMgt$FilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

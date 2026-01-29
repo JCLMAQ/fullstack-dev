@@ -28,30 +28,47 @@ export type AggregateWord = {
 
 export type WordAvgAggregateOutputType = {
   id: number | null
+  isDeleted: number | null
 }
 
 export type WordSumAggregateOutputType = {
   id: number | null
+  isDeleted: number | null
 }
 
 export type WordMinAggregateOutputType = {
   id: number | null
-  slug: string | null
   createdAt: Date | null
+  updatedAt: Date | null
+  published: boolean | null
+  isPublic: boolean | null
+  isDeleted: number | null
+  isDeletedDT: Date | null
+  slug: string | null
   type: $Enums.DictioEntryType | null
 }
 
 export type WordMaxAggregateOutputType = {
   id: number | null
-  slug: string | null
   createdAt: Date | null
+  updatedAt: Date | null
+  published: boolean | null
+  isPublic: boolean | null
+  isDeleted: number | null
+  isDeletedDT: Date | null
+  slug: string | null
   type: $Enums.DictioEntryType | null
 }
 
 export type WordCountAggregateOutputType = {
   id: number
-  slug: number
   createdAt: number
+  updatedAt: number
+  published: number
+  isPublic: number
+  isDeleted: number
+  isDeletedDT: number
+  slug: number
   type: number
   _all: number
 }
@@ -59,30 +76,47 @@ export type WordCountAggregateOutputType = {
 
 export type WordAvgAggregateInputType = {
   id?: true
+  isDeleted?: true
 }
 
 export type WordSumAggregateInputType = {
   id?: true
+  isDeleted?: true
 }
 
 export type WordMinAggregateInputType = {
   id?: true
-  slug?: true
   createdAt?: true
+  updatedAt?: true
+  published?: true
+  isPublic?: true
+  isDeleted?: true
+  isDeletedDT?: true
+  slug?: true
   type?: true
 }
 
 export type WordMaxAggregateInputType = {
   id?: true
-  slug?: true
   createdAt?: true
+  updatedAt?: true
+  published?: true
+  isPublic?: true
+  isDeleted?: true
+  isDeletedDT?: true
+  slug?: true
   type?: true
 }
 
 export type WordCountAggregateInputType = {
   id?: true
-  slug?: true
   createdAt?: true
+  updatedAt?: true
+  published?: true
+  isPublic?: true
+  isDeleted?: true
+  isDeletedDT?: true
+  slug?: true
   type?: true
   _all?: true
 }
@@ -175,8 +209,13 @@ export type WordGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type WordGroupByOutputType = {
   id: number
-  slug: string
   createdAt: Date
+  updatedAt: Date
+  published: boolean | null
+  isPublic: boolean | null
+  isDeleted: number | null
+  isDeletedDT: Date | null
+  slug: string
   type: $Enums.DictioEntryType
   _count: WordCountAggregateOutputType | null
   _avg: WordAvgAggregateOutputType | null
@@ -205,16 +244,26 @@ export type WordWhereInput = {
   OR?: Prisma.WordWhereInput[]
   NOT?: Prisma.WordWhereInput | Prisma.WordWhereInput[]
   id?: Prisma.IntFilter<"Word"> | number
-  slug?: Prisma.StringFilter<"Word"> | string
   createdAt?: Prisma.DateTimeFilter<"Word"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Word"> | Date | string
+  published?: Prisma.BoolNullableFilter<"Word"> | boolean | null
+  isPublic?: Prisma.BoolNullableFilter<"Word"> | boolean | null
+  isDeleted?: Prisma.IntNullableFilter<"Word"> | number | null
+  isDeletedDT?: Prisma.DateTimeNullableFilter<"Word"> | Date | string | null
+  slug?: Prisma.StringFilter<"Word"> | string
   type?: Prisma.EnumDictioEntryTypeFilter<"Word"> | $Enums.DictioEntryType
   translations?: Prisma.TranslationListRelationFilter
 }
 
 export type WordOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  published?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPublic?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
+  slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   translations?: Prisma.TranslationOrderByRelationAggregateInput
 }
@@ -226,14 +275,24 @@ export type WordWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.WordWhereInput[]
   NOT?: Prisma.WordWhereInput | Prisma.WordWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Word"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Word"> | Date | string
+  published?: Prisma.BoolNullableFilter<"Word"> | boolean | null
+  isPublic?: Prisma.BoolNullableFilter<"Word"> | boolean | null
+  isDeleted?: Prisma.IntNullableFilter<"Word"> | number | null
+  isDeletedDT?: Prisma.DateTimeNullableFilter<"Word"> | Date | string | null
   type?: Prisma.EnumDictioEntryTypeFilter<"Word"> | $Enums.DictioEntryType
   translations?: Prisma.TranslationListRelationFilter
 }, "id" | "slug">
 
 export type WordOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  published?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPublic?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
+  slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   _count?: Prisma.WordCountOrderByAggregateInput
   _avg?: Prisma.WordAvgOrderByAggregateInput
@@ -247,88 +306,145 @@ export type WordScalarWhereWithAggregatesInput = {
   OR?: Prisma.WordScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WordScalarWhereWithAggregatesInput | Prisma.WordScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Word"> | number
-  slug?: Prisma.StringWithAggregatesFilter<"Word"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Word"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Word"> | Date | string
+  published?: Prisma.BoolNullableWithAggregatesFilter<"Word"> | boolean | null
+  isPublic?: Prisma.BoolNullableWithAggregatesFilter<"Word"> | boolean | null
+  isDeleted?: Prisma.IntNullableWithAggregatesFilter<"Word"> | number | null
+  isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"Word"> | Date | string | null
+  slug?: Prisma.StringWithAggregatesFilter<"Word"> | string
   type?: Prisma.EnumDictioEntryTypeWithAggregatesFilter<"Word"> | $Enums.DictioEntryType
 }
 
 export type WordCreateInput = {
-  slug: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  slug: string
   type?: $Enums.DictioEntryType
   translations?: Prisma.TranslationCreateNestedManyWithoutWordInput
 }
 
 export type WordUncheckedCreateInput = {
   id?: number
-  slug: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  slug: string
   type?: $Enums.DictioEntryType
   translations?: Prisma.TranslationUncheckedCreateNestedManyWithoutWordInput
 }
 
 export type WordUpdateInput = {
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
   translations?: Prisma.TranslationUpdateManyWithoutWordNestedInput
 }
 
 export type WordUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
   translations?: Prisma.TranslationUncheckedUpdateManyWithoutWordNestedInput
 }
 
 export type WordCreateManyInput = {
   id?: number
-  slug: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  slug: string
   type?: $Enums.DictioEntryType
 }
 
 export type WordUpdateManyMutationInput = {
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
 }
 
 export type WordUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
 }
 
 export type WordCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  published?: Prisma.SortOrder
+  isPublic?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  isDeletedDT?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
 }
 
 export type WordAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
 }
 
 export type WordMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  published?: Prisma.SortOrder
+  isPublic?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  isDeletedDT?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
 }
 
 export type WordMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  published?: Prisma.SortOrder
+  isPublic?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  isDeletedDT?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
 }
 
 export type WordSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
 }
 
 export type WordScalarRelationFilter = {
@@ -355,15 +471,25 @@ export type WordUpdateOneRequiredWithoutTranslationsNestedInput = {
 }
 
 export type WordCreateWithoutTranslationsInput = {
-  slug: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  slug: string
   type?: $Enums.DictioEntryType
 }
 
 export type WordUncheckedCreateWithoutTranslationsInput = {
   id?: number
-  slug: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean | null
+  isPublic?: boolean | null
+  isDeleted?: number | null
+  isDeletedDT?: Date | string | null
+  slug: string
   type?: $Enums.DictioEntryType
 }
 
@@ -384,15 +510,25 @@ export type WordUpdateToOneWithWhereWithoutTranslationsInput = {
 }
 
 export type WordUpdateWithoutTranslationsInput = {
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
 }
 
 export type WordUncheckedUpdateWithoutTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isPublic?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isDeleted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumDictioEntryTypeFieldUpdateOperationsInput | $Enums.DictioEntryType
 }
 
@@ -429,8 +565,13 @@ export type WordCountOutputTypeCountTranslationsArgs<ExtArgs extends runtime.Typ
 
 export type WordSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  slug?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isDeletedDT?: boolean
+  slug?: boolean
   type?: boolean
   translations?: boolean | Prisma.Word$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.WordCountOutputTypeDefaultArgs<ExtArgs>
@@ -438,26 +579,41 @@ export type WordSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type WordSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  slug?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isDeletedDT?: boolean
+  slug?: boolean
   type?: boolean
 }, ExtArgs["result"]["word"]>
 
 export type WordSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  slug?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isDeletedDT?: boolean
+  slug?: boolean
   type?: boolean
 }, ExtArgs["result"]["word"]>
 
 export type WordSelectScalar = {
   id?: boolean
-  slug?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isDeletedDT?: boolean
+  slug?: boolean
   type?: boolean
 }
 
-export type WordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "createdAt" | "type", ExtArgs["result"]["word"]>
+export type WordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "slug" | "type", ExtArgs["result"]["word"]>
 export type WordInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   translations?: boolean | Prisma.Word$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.WordCountOutputTypeDefaultArgs<ExtArgs>
@@ -472,8 +628,13 @@ export type $WordPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    slug: string
     createdAt: Date
+    updatedAt: Date
+    published: boolean | null
+    isPublic: boolean | null
+    isDeleted: number | null
+    isDeletedDT: Date | null
+    slug: string
     type: $Enums.DictioEntryType
   }, ExtArgs["result"]["word"]>
   composites: {}
@@ -900,8 +1061,13 @@ export interface Prisma__WordClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface WordFieldRefs {
   readonly id: Prisma.FieldRef<"Word", 'Int'>
-  readonly slug: Prisma.FieldRef<"Word", 'String'>
   readonly createdAt: Prisma.FieldRef<"Word", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Word", 'DateTime'>
+  readonly published: Prisma.FieldRef<"Word", 'Boolean'>
+  readonly isPublic: Prisma.FieldRef<"Word", 'Boolean'>
+  readonly isDeleted: Prisma.FieldRef<"Word", 'Int'>
+  readonly isDeletedDT: Prisma.FieldRef<"Word", 'DateTime'>
+  readonly slug: Prisma.FieldRef<"Word", 'String'>
   readonly type: Prisma.FieldRef<"Word", 'DictioEntryType'>
 }
     

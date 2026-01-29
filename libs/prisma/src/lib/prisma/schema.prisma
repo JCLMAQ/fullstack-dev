@@ -164,9 +164,9 @@ model User {
   emergencyContactName  String?
   emergencyContactPhone String?
 
-  position      Position?         @default(Individual)
-  preference    Json?             @db.Json()
-  jobTitle      String?
+  position   Position? @default(Individual)
+  preference Json?     @db.Json()
+  jobTitle   String?
 
   isValidated DateTime?
   isSuspended DateTime?
@@ -178,7 +178,7 @@ model User {
   managerId   String?
   Team        User[]         @relation("ManagerTeams")
   Profiles    Profile[]      @relation("UsersProfiles")
-  Groups      Group[]
+  Groups      Group[]        @relation("GroupOwner")
   Posts       Post[]
   Comments    Comment[]
   Stories     Story[]
@@ -208,6 +208,8 @@ model User {
   // Image relations
   uploadedImages Image[] @relation("ImageUploads")
   profileImages  Image[] @relation("UserProfileImages")
+  group          Group?  @relation(fields: [groupId], references: [id])
+  groupId        Int?
 }
 
 // Phone model for user phone numbers
@@ -282,7 +284,7 @@ model Group {
   orderGroup  Int
   name        String
   description String?
-  owner       User         @relation(fields: [ownerId], references: [id])
+  owner       User         @relation("GroupOwner", fields: [ownerId], references: [id])
   ownerId     String
   isActiv     DateTime?
   Members     User[]
@@ -292,7 +294,7 @@ model Group {
   Files       File[]
   org         Organization @relation(fields: [orgId], references: [id])
   orgId       String
-  Tags        TagMgt[]     @relation("GroupTags")      @relation("GroupMembers")
+  Tags        TagMgt[]     @relation("GroupTags")
 }
 
 // Todo model for task management linked to users and organizations
@@ -319,7 +321,7 @@ model Todo {
   SubTodos    Todo[]         @relation("MainSubTodo")
   Users       UserTodoLink[]
   Tasks       Task[]
-  Tags        TagMgt[]        @relation("TodoTags")
+  Tags        TagMgt[]       @relation("TodoTags")
 }
 
 // Junction table for users assigned to todos
@@ -362,7 +364,7 @@ model Task {
   Users       UserTaskLink[]
   todo        Todo?          @relation(fields: [todoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   todoId      String?
-  Tags        TagMgt[]        @relation("TaskTags")
+  Tags        TagMgt[]       @relation("TaskTags")
 }
 
 // Junction table for users assigned to tasks
@@ -469,12 +471,12 @@ model File {
   binaryData Bytes? // File content stored as binary data in database
 
   // File categorization and metadata
-  category    String? // Document category (pdf, document, spreadsheet, etc.)
-  tags        String[] @default([]) // Array of tags for categorization
-  Tags      TagMgt[]  @relation("FilesTags")
+  category String? // Document category (pdf, document, spreadsheet, etc.)
+  tags     String[] @default([]) // Array of tags for categorization
+  Tags     TagMgt[] @relation("FilesTags")
 
   description String? // File description
-  version     String?  @default("1.0") // File version
+  version     String? @default("1.0") // File version
 
   // File processing and validation
   checksum         String? // File checksum for integrity
@@ -528,8 +530,6 @@ model File {
   // Comment association (files attached to comments)
   comment   Comment? @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
   commentId String?
-
-
 
   // Indexing for performance
   @@index([ownerId])
@@ -793,19 +793,23 @@ model AccountValidation {
 
 // Dictionary models for multilingual word and phrase management
 model Language {
-  id           Int           @id @default(autoincrement())
-  code         String        @unique // e.g., "en", "es", "fr"
-  name         String        // e.g., "English", "Spanish"
-  translations Translation[]
-  users        User[]
+  id              Int             @id @default(autoincrement())
+  code            String          @unique // e.g., "en", "es", "fr"
+  name            String // e.g., "English", "Spanish"
+  translations    Translation[]
+  users           User[]
   tagDictionaries TagDictionary[]
-
 }
 
 model Word {
   id           Int             @id @default(autoincrement())
-  slug         String          @unique // A unique identifier like "apple-fruit"
   createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt()
+  published    Boolean?        @default(false)
+  isPublic     Boolean?        @default(true)
+  isDeleted    Int?            @default(0)
+  isDeletedDT  DateTime?
+  slug         String          @unique // A unique identifier like "apple-fruit"
   type         DictioEntryType @default(WORD)
   translations Translation[]
 }
@@ -835,23 +839,23 @@ enum DictioEntryType {
 }
 
 model TagMgt {
-  id          Int       @id() @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt()
-  published   Boolean   @default(true)
-  isPublic    Boolean   @default(true)
-  isDeleted   Int       @default(0)
-  isDeletedDT DateTime?
-  name        String    @unique()
-  position    Int       @default(0)
-  tagMgtModel    TagMgtType  @relation(fields: [tagMgtTypeId], references: [id])
-  tagMgtTypeId  Int
+  id              Int             @id() @default(autoincrement())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @default(now()) @updatedAt()
+  published       Boolean         @default(true)
+  isPublic        Boolean         @default(true)
+  isDeleted       Int             @default(0)
+  isDeletedDT     DateTime?
+  name            String          @unique()
+  position        Int             @default(0)
+  tagMgtModel     TagMgtType      @relation(fields: [tagMgtTypeId], references: [id])
+  tagMgtTypeId    Int
   tagDictionaries TagDictionary[]
-  Todos        Todo[]   @relation("TodoTags")
-  Tasks        Task[]   @relation("TaskTags")
-  Groups       Group[]  @relation("GroupTags")
-  Posts        Post[]   @relation("PostsTags")
-  Files        File[]   @relation("FilesTags")
+  Todos           Todo[]          @relation("TodoTags")
+  Tasks           Task[]          @relation("TaskTags")
+  Groups          Group[]         @relation("GroupTags")
+  posts           Post[]          @relation("PostTags")
+  Files           File[]          @relation("FilesTags")
 }
 
 model TagMgtType {
@@ -869,15 +873,13 @@ model TagMgtType {
 }
 
 model TagDictionary {
-  id          Int       @id() @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now()) @updatedAt()
-  language    Language  @relation(fields: [languageId], references: [id])
+  id          Int      @id() @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt()
+  language    Language @relation(fields: [languageId], references: [id])
   languageId  Int
   translation String
   tagId       Int
-  tagMgt      TagMgt       @relation(fields: [tagId], references: [id])
+  tagMgt      TagMgt   @relation(fields: [tagId], references: [id])
   description String?
 }
-
-

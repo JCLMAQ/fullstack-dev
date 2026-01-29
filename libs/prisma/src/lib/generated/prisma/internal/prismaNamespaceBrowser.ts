@@ -189,7 +189,8 @@ export const UserScalarFieldEnum = {
   Permissions: 'Permissions',
   isTfaEnable: 'isTfaEnable',
   tfaSecret: 'tfaSecret',
-  passWordFaker: 'passWordFaker'
+  passWordFaker: 'passWordFaker',
+  groupId: 'groupId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -270,6 +271,7 @@ export const GroupScalarFieldEnum = {
   orderGroup: 'orderGroup',
   name: 'name',
   description: 'description',
+  ownerId: 'ownerId',
   isActiv: 'isActiv',
   orgId: 'orgId'
 } as const
@@ -685,8 +687,13 @@ export type LanguageScalarFieldEnum = (typeof LanguageScalarFieldEnum)[keyof typ
 
 export const WordScalarFieldEnum = {
   id: 'id',
-  slug: 'slug',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isDeletedDT: 'isDeletedDT',
+  slug: 'slug',
   type: 'type'
 } as const
 

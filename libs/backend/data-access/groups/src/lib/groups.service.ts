@@ -19,7 +19,7 @@ export class GroupsService {
         data,
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -49,10 +49,10 @@ export class GroupsService {
         orderBy: orderBy || { orderGroup: 'asc' },
         include: include || {
           org: true,
-          Users: true,
+          Members: true,
           _count: {
             select: {
-              Users: true,
+              Members: true,
               Tasks: true,
               Todos: true,
               Posts: true,
@@ -73,7 +73,7 @@ export class GroupsService {
         where: { id },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -110,7 +110,7 @@ export class GroupsService {
         data,
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -145,7 +145,7 @@ export class GroupsService {
         },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -171,10 +171,10 @@ export class GroupsService {
         orderBy: { orderGroup: 'asc' },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           _count: {
             select: {
-              Users: true,
+              Members: true,
               Tasks: true,
               Todos: true,
               Posts: true,
@@ -202,7 +202,7 @@ export class GroupsService {
           org: true,
           _count: {
             select: {
-              Users: true,
+              Members: true,
               Tasks: true,
               Todos: true,
               Posts: true,
@@ -221,7 +221,7 @@ export class GroupsService {
     try {
       const group = await this.prisma.group.findUnique({
         where: { id: groupId },
-        include: { Users: true },
+        include: { Members: true },
       });
 
       if (!group) {
@@ -237,7 +237,7 @@ export class GroupsService {
       }
 
       // Check if user is already in the group
-      const isUserInGroup = group.Users.some((u: { id: string }) => u.id === userId);
+      const isUserInGroup = group.Members.some((u: { id: string }) => u.id === userId);
       if (isUserInGroup) {
         throw new BadRequestException(`User is already a member of this group`);
       }
@@ -245,13 +245,13 @@ export class GroupsService {
       return await this.prisma.group.update({
         where: { id: groupId },
         data: {
-          Users: {
+          Members: {
             connect: { id: userId },
           },
         },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -271,7 +271,7 @@ export class GroupsService {
     try {
       const group = await this.prisma.group.findUnique({
         where: { id: groupId },
-        include: { Users: true },
+        include: { Members: true },
       });
 
       if (!group) {
@@ -279,7 +279,7 @@ export class GroupsService {
       }
 
       // Check if user is in the group
-      const isUserInGroup = group.Users.some((u: { id: string }) => u.id === userId);
+      const isUserInGroup = group.Members.some((u: { id: string }) => u.id === userId);
       if (!isUserInGroup) {
         throw new BadRequestException(`User is not a member of this group`);
       }
@@ -287,13 +287,13 @@ export class GroupsService {
       return await this.prisma.group.update({
         where: { id: groupId },
         data: {
-          Users: {
+          Members: {
             disconnect: { id: userId },
           },
         },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
@@ -329,7 +329,7 @@ export class GroupsService {
           org: true,
           _count: {
             select: {
-              Users: true,
+              Members: true,
               Tasks: true,
               Todos: true,
               Posts: true,
@@ -359,7 +359,7 @@ export class GroupsService {
         data: { orderGroup: newOrder },
         include: {
           org: true,
-          Users: true,
+          Members: true,
           Tasks: true,
           Todos: true,
           Posts: true,
