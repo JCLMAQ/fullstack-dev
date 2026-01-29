@@ -1,0 +1,30 @@
+.dictionary-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.mat-table {
+  width: 100%;
+  background: var(--mat-background);
+}
+
+.translations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.search-field {
+  width: 300px;
+  align-self: flex-end;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 0.5rem 1rem;
+}
+
+.mat-icon-button {
+  margin-right: 0.5rem;
+}
