@@ -4,10 +4,10 @@ import { injectDictionaryStore } from '../../data/store/dictionary.store';
 
 @Component({
   selector: 'dictionary-table',
-  templateUrl: './dictionary-table.component.html',
-  styleUrls: ['./dictionary-table.component.scss'],
+  templateUrl: './dictionary-table.html',
+  styleUrls: ['./dictionary-table.scss'],
 })
-export class DictionaryTableComponent {
+export class DictionaryTable {
   private readonly store = injectDictionaryStore();
   readonly words = this.store.words;
   readonly languages = this.store.languages;
