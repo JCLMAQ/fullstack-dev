@@ -282,14 +282,17 @@ model Group {
   orderGroup  Int
   name        String
   description String?
+  owner       User         @relation(fields: [ownerId], references: [id])
+  ownerId     String
   isActiv     DateTime?
-  Users       User[]
+  Members     User[]
   Tasks       Task[]
   Todos       Todo[]
   Posts       Post[]
   Files       File[]
   org         Organization @relation(fields: [orgId], references: [id])
   orgId       String
+  Tags        TagMgt[]     @relation("GroupTags")      @relation("GroupMembers")
 }
 
 // Todo model for task management linked to users and organizations
@@ -316,6 +319,7 @@ model Todo {
   SubTodos    Todo[]         @relation("MainSubTodo")
   Users       UserTodoLink[]
   Tasks       Task[]
+  Tags        TagMgt[]        @relation("TodoTags")
 }
 
 // Junction table for users assigned to todos
@@ -358,6 +362,7 @@ model Task {
   Users       UserTaskLink[]
   todo        Todo?          @relation(fields: [todoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   todoId      String?
+  Tags        TagMgt[]        @relation("TaskTags")
 }
 
 // Junction table for users assigned to tasks
@@ -398,6 +403,7 @@ model Post {
   LikedBys    UserPostLikeLink[]
   Images      Image[]            @relation("PostImages")
   Files       File[]             @relation("PostFiles")
+  Tags        TagMgt[]           @relation("PostTags")
 }
 
 // Category model for post categorization
@@ -465,6 +471,8 @@ model File {
   // File categorization and metadata
   category    String? // Document category (pdf, document, spreadsheet, etc.)
   tags        String[] @default([]) // Array of tags for categorization
+  Tags      TagMgt[]  @relation("FilesTags")
+
   description String? // File description
   version     String?  @default("1.0") // File version
 
@@ -520,6 +528,8 @@ model File {
   // Comment association (files attached to comments)
   comment   Comment? @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
   commentId String?
+
+
 
   // Indexing for performance
   @@index([ownerId])
@@ -837,6 +847,11 @@ model TagMgt {
   tagMgtModel    TagMgtType  @relation(fields: [tagMgtTypeId], references: [id])
   tagMgtTypeId  Int
   tagDictionaries TagDictionary[]
+  Todos        Todo[]   @relation("TodoTags")
+  Tasks        Task[]   @relation("TaskTags")
+  Groups       Group[]  @relation("GroupTags")
+  Posts        Post[]   @relation("PostsTags")
+  Files        File[]   @relation("FilesTags")
 }
 
 model TagMgtType {
