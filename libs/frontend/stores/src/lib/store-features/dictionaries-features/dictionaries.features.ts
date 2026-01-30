@@ -1,6 +1,7 @@
 import { withMutations, withResource } from '@angular-architects/ngrx-toolkit';
 import { httpResource } from '@angular/common/http';
 import { computed, inject } from '@angular/core';
+import { DictionaryApiService, type DictionariesResponse } from '@fe/dictionary';
 import {
   patchState,
   signalStoreFeature,
@@ -11,7 +12,6 @@ import {
   withState,
 } from '@ngrx/signals';
 import { TranslateService } from '@ngx-translate/core';
-import { DictionaryApiService, type DictionariesResponse } from 'libs/frontend/features/dictionary-old';
 import { getDictionaryHelper } from './dictionaries.helpers';
 
 /**

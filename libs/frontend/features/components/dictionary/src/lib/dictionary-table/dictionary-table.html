@@ -23,9 +23,11 @@
       <mat-header-cell *matHeaderCellDef> Traductions </mat-header-cell>
       <mat-cell *matCellDef="let word">
         <div class="translations">
-          <span *ngFor="let t of word.translations">
-            <strong>{{ t.language }}:</strong> {{ t.text }}
-          </span>
+          @for (t of word.translations; track t) {
+            <span>
+              <strong>{{ t.language }}:</strong> {{ t.text }}
+            </span>
+          }
         </div>
       </mat-cell>
     </ng-container>
@@ -48,6 +50,6 @@
 
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Recherche</mat-label>
-    <input matInput [(ngModel)]="filter()" placeholder="Rechercher un mot ou une traduction...">
+    <input matInput [value]="filter()" (input)="filter.set($event.target.value)" placeholder="Rechercher un mot ou une traduction...">
   </mat-form-field>
 </section>

@@ -16,14 +16,12 @@
     "baseUrl": ".",
     "ignoreDeprecations": "5.0",
     "paths": {
-      // DB and Primsa related aliases
       "@db/prisma": ["libs/prisma/src/index.ts"],
       "@db/prisma/browser": ["libs/prisma/src/browserFrontend.ts"],
       "@db/prisma/client": ["libs/prisma/src/lib/generated/prisma/client.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/prisma/backend": ["libs/prisma/src/clientBackend.ts"],
       "@db/prisma/frontend": ["libs/prisma/src/browserFrontend.ts"],
-      // Backend aliases
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],
@@ -76,11 +74,12 @@
       ],
       "@be/words": ["libs/backend/data-access/words/src/index.ts"],
       "@be/languages": ["libs/backend/data-access/languages/src/index.ts"],
-      // Frontend aliases
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
-      "@fe/auth/idle-timeout": ["libs/frontend/core/auth/src/lib/idle-timeout/index.ts"],
+      "@fe/auth/idle-timeout": [
+        "libs/frontend/core/auth/src/lib/idle-timeout/index.ts"
+      ],
       "@fe/pages": ["libs/frontend/core/pages/src/index.ts"],
       "@fe/services": ["libs/frontend/core/services/src/index.ts"],
       "@fe/stores": ["libs/frontend/stores/src/index.ts"],
@@ -160,7 +159,10 @@
       "@fe/address": [
         "libs/frontend/features/components/address/address-form/src/index.ts"
       ],
-      "@fe/dictionary": ["libs/frontend/features/dictionary/index.ts"]
+      // "@fe/dictionary": ["libs/frontend/features/dictionary/index.ts"],
+      "@fe/dictionary": [
+        "libs/frontend/features/components/dictionary/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
