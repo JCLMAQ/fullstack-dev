@@ -42,7 +42,18 @@ export default [
     },
 
   },
+  // Intégration des règles @ngrx/signals (flat config)
   {
-  "extends": ["@ngrx/signals"]
-  }
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      '@ngrx': (await import('@ngrx/eslint-plugin')).default ?? (await import('@ngrx/eslint-plugin')),
+    },
+    rules: {
+      '@ngrx/enforce-type-call': 'error',
+      '@ngrx/prefer-protected-state': 'error',
+      '@ngrx/signal-store-feature-should-use-generic-type': 'error',
+      '@ngrx/signal-state-no-arrays-at-root-level': 'error',
+      '@ngrx/with-state-no-arrays-at-root-level': 'error'
+  },
+}
 ];
