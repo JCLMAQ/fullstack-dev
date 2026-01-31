@@ -33,13 +33,15 @@ export class DictionaryTable {
   readonly selectedLanguage = this.store['selectedLanguage'];
   readonly dictionariesValue = this.store['dictionariesValue'];
 
-  // Liste des mots pour la langue sélectionnée
-  // readonly words = computed(() => {
-  //   const lang = this.selectedLanguage();
-  //   const dicts = this.dictionariesValue()?.dictionaries ?? {};
-  //   return dicts[lang] ?? [];
-  // });
+   displayedColumns = [
+    'id',
+    'slug',
+    'type',
+    'translations',
+    'actions',
+  ];
 
+  // Liste des mots pour la langue sélectionnée
 readonly words = computed(() => {
   const lang = this.selectedLanguage();
   const dicts = this.dictionariesValue()?.dictionaries ?? {};
@@ -87,15 +89,9 @@ readonly words = computed(() => {
   }
   onEdit(word: Word) {
     // this.store.editWord(word);
+  }
+  // // S'assurer que la colonne 'translations' est présente
 
-  // S'assurer que la colonne 'translations' est présente
-  displayedColumns = [
-    'id',
-    'slug',
-    'type',
-    'translations',
-    'actions',
-  ];
 
   onVirtualDelete(word: Word): void {
     // this.store.virtualDeleteWord(word);
