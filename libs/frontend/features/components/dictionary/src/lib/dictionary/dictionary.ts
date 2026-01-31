@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AppStore } from '@fe/stores';
 
 @Component({
   selector: 'lib-dictionary',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   templateUrl: './dictionary.html',
   styleUrl: './dictionary.scss',
 })
-export class Dictionary {}
+export class Dictionary {
+
+  store = inject(AppStore);
+
+
+}

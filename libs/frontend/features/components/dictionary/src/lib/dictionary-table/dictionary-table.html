@@ -1,5 +1,7 @@
+
+
 <section class="dictionary-table-container">
-  <mat-table [dataSource]="filteredWords()" class="mat-elevation-z2">
+  <mat-table [dataSource]="pagedWords()" class="mat-elevation-z2">
     <!-- Identifiant -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -19,18 +21,19 @@
     </ng-container>
 
     <!-- Traductions -->
-    <ng-container matColumnDef="translations">
-      <mat-header-cell *matHeaderCellDef> Traductions </mat-header-cell>
-      <mat-cell *matCellDef="let word">
-        <div class="translations">
-          @for (t of word.translations; track t) {
-            <span>
-              <strong>{{ t.language }}:</strong> {{ t.text }}
-            </span>
-          }
-        </div>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="translations">
+        <mat-header-cell *matHeaderCellDef> Traductions </mat-header-cell>
+        <mat-cell *matCellDef="let word">
+          <ng-container *ngIf="word.translations?.length; else noTrans">
+            <ul class="translations-list">
+              <li *ngFor="let t of word.translations">
+                {{ t.text }} <span *ngIf="t.language">({{ t.language.name }})</span>
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #noTrans><span class="no-translation">Aucune</span></ng-template>
+        </mat-cell>
+      </ng-container>
 
     <!-- Actions -->
     <ng-container matColumnDef="actions">
@@ -46,7 +49,12 @@
     <mat-row *matRowDef="let row; columns: ['id', 'text', 'type', 'translations', 'actions'];"></mat-row>
   </mat-table>
 
-  <mat-paginator [length]="filteredWords().length" [pageSize]="pageSize()" [pageIndex]="pageIndex()"></mat-paginator>
+  <mat-paginator
+    [length]="filteredWords().length"
+    [pageSize]="pageSize()"
+    [pageIndex]="pageIndex()"
+    (page)="onPage($event)">
+  </mat-paginator>
 
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Recherche</mat-label>

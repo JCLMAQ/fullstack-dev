@@ -38,6 +38,11 @@
     route: 'phones',
   },
   {
+    icon: 'dictionary',
+    label: 'SideNavMenu.Dictionary',
+    route: 'dictionary',
+  },
+  {
     icon: 'dashboard',
     label: 'SideNavMenu.Dashboard',
     route: 'dashboard',

@@ -1,1 +1,23 @@
 <p>Dictionary works!</p>
+@if (store['isLoading']()) {
+  <div>Loading...</div>
+} @else if (store['error']()) {
+  <p>Une erreur est survenue.</p>
+} @else if (store['hasValue']()) {
+  <ul>
+    @for (word of store['dictionaries']().value(); track word.id) {
+      <li>
+        <strong>{{ word.text }}</strong>
+        @if (word.translations?.length) {
+          <ul>
+            @for (translation of word.translations; track translation.id) {
+              <li>{{ translation.text }} <span>({{ translation.language?.name }})</span></li>
+            }
+          </ul>
+        } @else {
+          <span>Aucune traduction</span>
+        }
+      </li>
+    }
+  </ul>
+}
