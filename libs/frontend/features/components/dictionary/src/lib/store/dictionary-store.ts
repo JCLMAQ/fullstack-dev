@@ -1,9 +1,7 @@
 import { withEntityResources, withMutations } from "@angular-architects/ngrx-toolkit";
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { signalStore, withHooks, withProps, withState } from "@ngrx/signals";
-import { Translation } from "@ngx-translate/core";
 import { TranslationApiService } from "../services";
 import { initialPhoneState } from "./dictionary-slice";
 
@@ -25,8 +23,8 @@ export const DictionaryStore = signalStore(
     // }),
   })),
 
-  withSelectionMethods<Translation>({ collection: 'translations' }),
-  withNavigationMethods(),
+  // withSelectionMethods<Translation>({ collection: 'translations' }),
+  // withNavigationMethods(),
 
   withHooks((store) => ({
     onInit() {

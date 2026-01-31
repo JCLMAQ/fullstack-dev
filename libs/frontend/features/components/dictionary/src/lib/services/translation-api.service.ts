@@ -3,9 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { Observable } from 'rxjs';
 import type {
-  CreateTranslationDto,
-  Translation,
-  UpdateTranslationDto,
+    CreateTranslationDto,
+    Translation,
+    UpdateTranslationDto,
 } from '../models';
 
 /**
