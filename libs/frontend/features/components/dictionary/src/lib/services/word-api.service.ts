@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { Observable } from 'rxjs';
 import type {
-  Word,
   CreateWordDto,
-  UpdateWordDto,
   DictioEntryType,
+  UpdateWordDto,
+  Word,
 } from '../models';
 
 /**
@@ -20,6 +20,24 @@ export class WordApiService {
   readonly #environment = inject(ENVIRONMENT_TOKEN);
 
   /**
+   * Build API endpoint with proper prefix
+   */
+  #buildEndpoint(path: string): string {
+    const prefix = this.#environment.API_BACKEND_PREFIX ?? '';
+    const normalizedPrefix = prefix.replace(/^\//, '').replace(/\/$/, '');
+    return `${normalizedPrefix}/words${path}`;
+  }
+
+  /*product = httpResource<Product>(() => ({
+  url: 'https://api.example.com/products/search',
+  method: 'POST',
+  body: { query: 'laptop' },
+  headers: { 'X-Custom-Header': 'MyValue' },
+  params: { limit: '10' }
+}));
+
+  */
+  /**
    * Get all words with optional filters
    */
   getAll(params?: {
@@ -27,25 +45,35 @@ export class WordApiService {
     take?: number;
     slug?: string;
     type?: DictioEntryType;
-  }): Observable<Word[]> {
+  }): HttpResourceRef<Word[] | undefined> {
     const endpoint = this.#buildEndpoint('');
-    return this.#http.get<Word[]>(endpoint, { params: params as any });
+    return httpResource<Word[]>(() => ({
+      url: endpoint,
+      method: 'GET',
+      params,
+    }));
   }
 
   /**
    * Get word by ID
    */
-  getById(id: number): Observable<Word> {
+  getById(id: number): HttpResourceRef<Word | undefined> {
     const endpoint = this.#buildEndpoint(`/${id}`);
-    return this.#http.get<Word>(endpoint);
+    return httpResource<Word>(() => ({
+      url: endpoint,
+      method: 'GET',
+    }));
   }
 
   /**
    * Get word by slug
    */
-  getBySlug(slug: string): Observable<Word> {
+  getBySlug(slug: string): HttpResourceRef<Word | undefined> {
     const endpoint = this.#buildEndpoint(`/slug/${slug}`);
-    return this.#http.get<Word>(endpoint);
+    return httpResource<Word>(() => ({
+      url: endpoint,
+      method: 'GET',
+    }));
   }
 
   /**
@@ -72,12 +100,5 @@ export class WordApiService {
     return this.#http.delete<Word>(endpoint);
   }
 
-  /**
-   * Build API endpoint with proper prefix
-   */
-  #buildEndpoint(path: string): string {
-    const prefix = this.#environment.API_BACKEND_PREFIX ?? '';
-    const normalizedPrefix = prefix.replace(/^\//, '').replace(/\/$/, '');
-    return `${normalizedPrefix}/words${path}`;
-  }
+
 }
