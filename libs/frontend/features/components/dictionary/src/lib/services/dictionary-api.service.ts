@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { httpResource } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { catchError, map, Observable, of } from 'rxjs';
-import type { Dictionaries, DictionariesResponse, Word, WordWithTranslations } from '../models';
+import type { DictionariesResponse, Word, WordWithTranslations } from '../models';
 
 /**
  * Service for loading dictionaries from API
@@ -12,8 +11,7 @@ import type { Dictionaries, DictionariesResponse, Word, WordWithTranslations } f
   providedIn: 'root',
 })
 export class DictionaryApiService {
-  readonly #http = inject(HttpClient);
-    // Todo  refactor with httpResource
+
   readonly #environment = inject(ENVIRONMENT_TOKEN);
 
   /**
@@ -23,56 +21,50 @@ export class DictionaryApiService {
   readonly dictionariesUrl = computed(() => this.#buildEndpoint('/all'));
 
   /**
-   * Load all dictionaries grouped by language code
-   * Returns format compatible with existing DICTIONARIES_TOKEN: { en: {key: value}, fr: {key: value} }
+   * Signal-based resource for all dictionaries grouped by language code
+   * Usage: this.dictionariesResource.data() for current value, .loading(), .error()
    */
-  loadAllDictionaries(): Observable<Dictionaries> {
-    const endpoint = this.#buildEndpoint('/all');
+readonly dictionariesResource = httpResource<DictionariesResponse>(
+  () => ({ url: this.dictionariesUrl() }),
+  { defaultValue: { dictionaries: {}, languages: [] }}
+);
 
-    return this.#http.get<DictionariesResponse>(endpoint).pipe(
-      map((response) => response.dictionaries),
-      catchError((error) => {
-        console.error('❌ Failed to load dictionaries from API:', error);
-        // Return empty dictionaries on error
-        return of({} as Dictionaries);
-      })
+  /**
+   * Signal resource for a specific language dictionary
+   * Usage: this.dictionaryResourceByLanguage(languageCode).data() / .loading() / .error()
+   */
+  dictionaryResourceByLanguage(languageCode: string) {
+    return httpResource<Record<string, string>>(
+      () => ({ url: this.#buildEndpoint(`/${languageCode}`) }),
+      {
+        defaultValue: {}
+      }
     );
   }
 
   /**
-   * Load dictionary for a specific language
+   * Signal resource for all translations of a specific word
+   * Usage: this.wordTranslationsResource(slug).data() / .loading() / .error()
    */
-  loadDictionaryByLanguage(languageCode: string): Observable<Record<string, string>> {
-    const endpoint = this.#buildEndpoint(`/${languageCode}`);
-
-    return this.#http.get<Record<string, string>>(endpoint).pipe(
-      catchError((error) => {
-        console.error(`❌ Failed to load dictionary for ${languageCode}:`, error);
-        return of({});
-      })
+  wordTranslationsResource(slug: string) {
+    return httpResource<WordWithTranslations>(
+      () => ({ url: this.#buildEndpoint(`/word/${slug}/translations`) }),
+      {
+        defaultValue: { slug, type: '', translations: {} }
+      }
     );
   }
 
   /**
-   * Get all translations for a specific word
+   * Signal resource for all words with their translations (for caching/offline)
+   * Usage: this.wordsResource.data() / .loading() / .error()
    */
-  getWordTranslations(slug: string): Observable<WordWithTranslations> {
-    const endpoint = this.#buildEndpoint(`/word/${slug}/translations`);
-    return this.#http.get<WordWithTranslations>(endpoint);
-  }
-
-  /**
-   * Load all words with their translations (for caching/offline)
-   */
-  loadAllWords(): Observable<Word[]> {
-    const wordsEndpoint = this.#buildWordsEndpoint('');
-    return this.#http.get<Word[]>(wordsEndpoint).pipe(
-      catchError((error) => {
-        console.error('❌ Failed to load words:', error);
-        return of([]);
-      })
-    );
-  }
+  readonly wordsResource = httpResource<Word[]>(
+    () => ({ url: this.#buildWordsEndpoint('') }),
+    {
+      defaultValue: []
+    }
+  );
 
   /**
    * Build API endpoint for dictionaries controller
