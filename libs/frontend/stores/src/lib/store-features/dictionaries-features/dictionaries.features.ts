@@ -113,6 +113,24 @@ export function withDictionariesFeatures(): SignalStoreFeature {
         ),
       };
     }),
+
+  // withComputed(({ words, translations }) => ({
+  //   wordsWithTranslations: () => {
+  //     const allWords = words() as Word[];
+  //     const allTranslations = translations() as Translation[];
+  //     if (!allWords || !allTranslations) return [];
+  //     return allWords.map((word: Word) => {
+  //       const translationsByLang: Record<string, Translation> = {};
+  //       allTranslations.forEach((t: Translation) => {
+  //         if (t.wordId === word.id && t.language?.code) {
+  //           translationsByLang[t.language.code] = t;
+  //         }
+  //       });
+  //       return { word, translations: translationsByLang };
+  //     });
+  //   },
+  // })),
+
     withHooks((store, translateService = inject(TranslateService)) => ({
       onInit: () => {
         // Load dictionaries from API using withResource

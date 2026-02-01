@@ -1,3 +1,7 @@
+  /**
+   * Adapter pour compatibilité store: getAllResource
+   */
+
 import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
@@ -36,7 +40,16 @@ export class WordApiService {
   params: { limit: '10' }
 }));
 
+
   */
+  getAllResource(params?: {
+    skip?: number;
+    take?: number;
+    slug?: string;
+    type?: DictioEntryType;
+  }) {
+    return this.getAll(params);
+  }
   /**
    * Get all words with optional filters
    */

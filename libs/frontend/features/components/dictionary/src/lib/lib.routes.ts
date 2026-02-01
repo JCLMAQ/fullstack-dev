@@ -14,7 +14,7 @@ export const dictionaryRoutes: Route[] = [
       { path: '', component: DictionaryTable },
       { path: 'list', component: Dictionary },
       { path: 'dictionary', component: Dictionary },
-      { path: '', component: DictionaryTable },
+      { path: 'dictionarytable', component: DictionaryTable },
 
     ]
   },
