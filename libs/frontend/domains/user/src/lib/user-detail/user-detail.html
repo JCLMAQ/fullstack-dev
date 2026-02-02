@@ -445,7 +445,7 @@
           @if (this.store.selectedItem()?.Followers?.length) {
             <ul>
               @for (f of this.store.selectedItem()?.Followers; track f.follower_id) {
-                <li>{{ f.follower?.firstName }} {{ f.follower?.lastName }} ({{ f.follower?.email }})</li>
+                <li>{{ f.follower.firstName }} {{ f.follower.lastName }} ({{ f.follower.email }})</li>
               }
             </ul>
           } @else {
@@ -464,7 +464,7 @@
           @if (this.store.selectedItem()?.Followings?.length) {
             <ul>
               @for (f of this.store.selectedItem()?.Followings ; track f.user_id) {
-                <li>{{ f.user?.firstName }} {{ f.user?.lastName }} ({{ f.user?.email }})</li>
+                <li>{{ f.user.firstName }} {{ f.user.lastName }} ({{ f.user.email }})</li>
               }
             </ul>
           } @else {
