@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { form, FormField, required, schema } from '@angular/forms/signals';
+import { MatSortModule, Sort } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import {
   DictioEntryType,
@@ -89,6 +90,7 @@ class DictionaryPaginatorIntl extends MatPaginatorIntl {
   imports: [
     CommonModule,
     MatTableModule,
+    MatSortModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
@@ -173,12 +175,6 @@ export class DictionaryTable {
       );
       return matchSlug || matchType || matchTranslations;
     });
-  });
-
-  readonly paginatedWords = computed(() => {
-    const filtered = this.filteredWords();
-    const start = this.pageIndex() * this.pageSize();
-    return filtered.slice(start, start + this.pageSize());
   });
 
   constructor() {
@@ -441,6 +437,61 @@ export class DictionaryTable {
       ...state,
       [languageId]: text,
     }));
+  }
+
+  // Sorting functionality can be added here in the future
+  // 1. Add state for sorting
+  protected readonly sortState = signal<Sort>({ active: 'id', direction: 'asc' });
+
+  // 2. Implement the method called by the template
+  protected onSortChange(sort: Sort) {
+    this.sortState.set(sort);
+  }
+
+  // 3. Create a computed signal to sort the data
+  protected readonly sortedWords = computed(() => {
+    // Use your existing filteredWords signal as the source
+    const words = this.filteredWords();
+    const { active, direction } = this.sortState();
+
+    if (!active || !direction) {
+      return words;
+    }
+
+    const isAsc = direction === 'asc';
+
+    return [...words].sort((a, b) => {
+      switch (active) {
+        case 'id':
+          return this.compare(a.word?.id, b.word?.id, isAsc);
+        case 'slug':
+          return this.compare(a.word?.slug, b.word?.slug, isAsc);
+        case 'type':
+          return this.compare(a.word?.type, b.word?.type, isAsc);
+        default:
+          // Handle dynamic language columns (active is the language code)
+          const lang = this.languages().find(l => l.code.toLowerCase() === active);
+          if (lang) {
+            // Use your existing getTranslationText method
+            const valA = this.getTranslationText(a, lang.id);
+            const valB = this.getTranslationText(b, lang.id);
+            return this.compare(valA, valB, isAsc);
+          }
+          return 0;
+      }
+    });
+  });
+
+  // 4. Update your existing paginatedWords to use sortedWords() instead of filteredWords()
+  protected readonly paginatedWords = computed(() => {
+    const words = this.sortedWords(); // Changed from filteredWords()
+    const startIndex = this.pageIndex() * this.pageSize();
+    return words.slice(startIndex, startIndex + this.pageSize());
+  });
+
+  // 5. Helper method for comparison
+  private compare(a: number | string | undefined, b: number | string | undefined, isAsc: boolean) {
+    return (a ?? '' < (b ?? '') ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
 
