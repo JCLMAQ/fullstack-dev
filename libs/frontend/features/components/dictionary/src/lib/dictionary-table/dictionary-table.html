@@ -96,23 +96,20 @@
           </td>
         </ng-container>
 
-        <!-- Translations Column (all languages combined) -->
-        <ng-container matColumnDef="translations">
-          <th mat-header-cell *matHeaderCellDef>Translations</th>
-          <td mat-cell *matCellDef="let element">
-            @if (element?.translationsByLanguage) {
-              <div class="translations-cell">
-                @for (lang of languages(); track lang.id) {
-                  <div class="translation-row">
-                    <strong>{{ lang.code | uppercase }}:</strong> {{ getTranslationText(element, lang.id) }}
-                  </div>
-                }
-              </div>
-            } @else {
-              —
-            }
-          </td>
-        </ng-container>
+        <!-- Dynamic Language Columns -->
+        @for (lang of languages(); track lang.id) {
+          <ng-container [matColumnDef]="lang.code.toLowerCase()">
+            <th mat-header-cell *matHeaderCellDef>{{ lang.code | uppercase }}</th>
+            <td mat-cell *matCellDef="let element">
+              @if (element?.word && isEditing(element.word)) {
+                <input matInput [value]="translationEditState()[lang.id] || ''"
+                       (input)="updateTranslation(lang.id, $event.target.value)" />
+              } @else {
+                {{ getTranslationText(element, lang.id) }}
+              }
+            </td>
+          </ng-container>
+        }
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

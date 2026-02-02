@@ -70,6 +70,7 @@ export class DictionaryTable {
   readonly searchFilter = signal<string>('');
   readonly editingRowId = signal<number | null>(null);
   readonly addingNewRow = signal<boolean>(false);
+  readonly translationEditState = signal<Record<number, string>>({});
   readonly pageIndex = signal<number>(0);
   readonly pageSize = signal<number>(10);
 
@@ -90,7 +91,8 @@ export class DictionaryTable {
 
   // Computed properties
   readonly displayedColumns = computed(() => {
-    return ['id', 'slug', 'type', 'translations', 'actions'];
+    const langColumns = this.languages().map((l) => l.code.toLowerCase());
+    return ['id', 'slug', 'type', ...langColumns, 'actions'];
   });
 
   readonly wordsWithTranslations = computed(() => {
@@ -195,11 +197,20 @@ export class DictionaryTable {
       slug: word.slug,
       type: word.type,
     });
+
+    const translations = this.translations().filter((t) => t.wordId === word.id);
+    const transState: Record<number, string> = {};
+    this.languages().forEach((lang) => {
+      const t = translations.find((tr) => tr.languageId === lang.id);
+      transState[lang.id] = t?.text || '';
+    });
+    this.translationEditState.set(transState);
   }
 
   onCancelEdit(): void {
     this.editingRowId.set(null);
     this.editState.set({ slug: '', type: DictioEntryType.WORD });
+    this.translationEditState.set({});
   }
 
   onSaveEdit(word: Word): void {
@@ -221,11 +232,45 @@ export class DictionaryTable {
         }
         this.editingRowId.set(null);
         this.editState.set({ slug: '', type: DictioEntryType.WORD });
+        this.translationEditState.set({});
       },
       (error) => {
         console.error('Error updating word:', error);
       }
     );
+
+    // Save Translations
+    const transState = this.translationEditState();
+    const currentTranslations = this.translations().filter(
+      (t) => t.wordId === word.id
+    );
+
+    this.languages().forEach((lang) => {
+      const newText = transState[lang.id];
+      const existingTrans = currentTranslations.find(
+        (t) => t.languageId === lang.id
+      );
+
+      if (existingTrans) {
+        if (newText !== existingTrans.text) {
+          this.translationApiService
+            .update(existingTrans.id, {
+              text: newText,
+              languageId: lang.id,
+              wordId: word.id,
+            })
+            .subscribe((updated) => {
+              this.translations.update((ts) =>
+                ts.map((t) => (t.id === updated.id ? updated : t))
+              );
+            });
+        }
+      } else if (newText) {
+        this.translationApiService
+          .create({ text: newText, languageId: lang.id, wordId: word.id })
+          .subscribe((created) => this.translations.update((ts) => [...ts, created]));
+      }
+    });
   }
 
   onDelete(id: number, slug: string): void {
@@ -310,5 +355,12 @@ export class DictionaryTable {
 
   getTypeControl() {
     return this.editForm.type;
+  }
+
+  updateTranslation(languageId: number, text: string): void {
+    this.translationEditState.update((state) => ({
+      ...state,
+      [languageId]: text,
+    }));
   }
 }
