@@ -236,5 +236,13 @@
     "INNACTIVITY_MESSAGE": "U bent afgemeld wegens een lange periode van inactiviteit. Log opnieuw in om verder te gaan.",
     "DECONNECTION_AUTOMATIC_MESSAGE": "U wordt automatisch afgemeld over:  ",
     "TIME_BEFORE_LOGOUT": "seconden vanwege inactiviteit."
+  },
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Items per pagina:",
+    "NEXT_PAGE": "Volgende pagina",
+    "PREVIOUS_PAGE": "Vorige pagina",
+    "FIRST_PAGE": "Eerste pagina",
+    "LAST_PAGE": "Laatste pagina",
+    "OF": "van"
   }
 }

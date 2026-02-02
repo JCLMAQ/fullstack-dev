@@ -5,6 +5,7 @@ import {
   computed,
   effect,
   inject,
+  Injectable,
   signal
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,11 +17,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { form, FormField, required, schema } from '@angular/forms/signals';
+import { TranslateService } from '@ngx-translate/core';
 import {
   DictioEntryType,
   type CreateWordDto,
@@ -46,6 +48,38 @@ const wordSchema = schema<CreateWordDto>((f) => {
 
 const searchSchema = schema<{ search: string }>(() => {});
 
+@Injectable()
+class DictionaryPaginatorIntl extends MatPaginatorIntl {
+  private readonly translate = inject(TranslateService);
+
+  constructor() {
+    super();
+    this.translate.onLangChange.subscribe(() => {
+      this.updateLabels();
+    });
+    this.updateLabels();
+  }
+
+  updateLabels() {
+    this.firstPageLabel = this.translate.instant('PAGINATOR.FIRST_PAGE');
+    this.itemsPerPageLabel = this.translate.instant('PAGINATOR.ITEMS_PER_PAGE');
+    this.lastPageLabel = this.translate.instant('PAGINATOR.LAST_PAGE');
+    this.nextPageLabel = this.translate.instant('PAGINATOR.NEXT_PAGE');
+    this.previousPageLabel = this.translate.instant('PAGINATOR.PREVIOUS_PAGE');
+    this.changes.next();
+  }
+
+  override getRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length === 0 || pageSize === 0) {
+      return `0 ${this.translate.instant('PAGINATOR.OF')} ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    return `${startIndex + 1} – ${endIndex} ${this.translate.instant('PAGINATOR.OF')} ${length}`;
+  };
+}
+
 @Component({
   selector: 'lib-dictionary-table',
   standalone: true,
@@ -64,6 +98,7 @@ const searchSchema = schema<{ search: string }>(() => {});
     FormField,
     MatDialogModule,
   ],
+  providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }],
 })
 export class DictionaryTable {
   private readonly dialog = inject(MatDialog);

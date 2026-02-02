@@ -236,5 +236,13 @@
     "INNACTIVITY_MESSAGE": "Sie wurden aufgrund einer längeren Inaktivitätsperiode abgemeldet. Bitte melden Sie sich erneut an, um fortzufahren.",
     "DECONNECTION_AUTOMATIC_MESSAGE": "Sie werden automatisch abgemeldet in:  ",
     "TIME_BEFORE_LOGOUT": "Sekunden aufgrund von Inaktivität."
+  },
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Artikel pro Seite:",
+    "NEXT_PAGE": "Nächste Seite",
+    "PREVIOUS_PAGE": "Vorherige Seite",
+    "FIRST_PAGE": "Erste Seite",
+    "LAST_PAGE": "Letzte Seite",
+    "OF": "von"
   }
 }

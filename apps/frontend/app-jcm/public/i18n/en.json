@@ -236,5 +236,14 @@
     "INNACTIVITY_MESSAGE": "You have been logged out due to a long period of inactivity. Please log in again to continue.",
     "DECONNECTION_AUTOMATIC_MESSAGE": "You will be automatically logged out in: ",
     "TIME_BEFORE_LOGOUT": "seconds due to inactivity."
+  },
+  "PAGINATOR": {
+    "ITEMS_PER_PAGE": "Items per page:",
+    "NEXT_PAGE": "Next page",
+    "PREVIOUS_PAGE": "Previous page",
+    "FIRST_PAGE": "First page",
+    "LAST_PAGE": "Last page",
+    "OF": "of"
   }
 }
+
