@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -57,7 +57,7 @@ interface TelFormState {
   templateUrl: './phone-number-input.html',
   styleUrl: './phone-number-input.scss',
   imports: [
-    AsyncPipe,
+    // AsyncPipe,
     FormsModule,
     MatSelectModule,
     NgxMatSelectSearchModule,

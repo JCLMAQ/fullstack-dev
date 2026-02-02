@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 // import { IamAuth } from '@fe/auth'
 import { IAM_AUTH_TOKEN } from '@fe/auth';
-import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, passwordDifferentFromEmail, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { TranslateModule } from '@ngx-translate/core';
@@ -37,7 +36,7 @@ export interface RegisterFormModel {
     MatCardModule,
     TranslateModule,
     JsonPipe,
-    MatFormFieldStatusDirective
+    // MatFormFieldStatusDirective
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss'

@@ -167,10 +167,14 @@ export class DictionaryTable {
     });
 
     // Sync search state to filter
-    effect(() => {
+    effect((onCleanup) => {
       const { search } = this.searchState();
-      this.searchFilter.set(search);
-      this.pageIndex.set(0);
+      const timer = setTimeout(() => {
+        this.searchFilter.set(search);
+        this.pageIndex.set(0);
+      }, 300);
+
+      onCleanup(() => clearTimeout(timer));
     });
   }
 
