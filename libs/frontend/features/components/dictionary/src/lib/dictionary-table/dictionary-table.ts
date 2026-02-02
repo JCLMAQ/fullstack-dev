@@ -1,9 +1,312 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import type {
+  CreateWordDto,
+  Language,
+  Translation,
+  UpdateWordDto,
+  Word,
+} from '../models';
+import {
+  TranslationApiService,
+  WordApiService,
+} from '../services';
+
+export interface WordWithTranslations {
+  word: Word;
+  translationsByLanguage: Map<number, Translation>;
+}
 
 @Component({
   selector: 'lib-dictionary-table',
-  imports: [],
+  standalone: true,
   templateUrl: './dictionary-table.html',
   styleUrl: './dictionary-table.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+  ],
 })
-export class DictionaryTable {}
+export class DictionaryTable {
+  private readonly fb = inject(FormBuilder);
+  private readonly wordApiService = inject(WordApiService);
+  private readonly translationApiService = inject(TranslationApiService);
+
+  // State signals
+  readonly words = signal<Word[]>([]);
+  readonly translations = signal<Translation[]>([]);
+  readonly languages = signal<Language[]>([]);
+  readonly searchFilter = signal<string>('');
+  readonly editingRowId = signal<number | null>(null);
+  readonly addingNewRow = signal<boolean>(false);
+  readonly pageIndex = signal<number>(0);
+  readonly pageSize = signal<number>(10);
+
+  // Forms
+  editForm: FormGroup = this.createEditForm();
+  addForm: FormGroup = this.createAddForm();
+  searchForm: FormGroup = this.createSearchForm();
+
+  // Type context for template
+  element!: WordWithTranslations;
+
+  // Resources - initialized in field initializer context
+  private readonly wordsResource = this.wordApiService.getAll();
+  private readonly translationsResource = this.translationApiService.getAllResource();
+
+  // Computed properties
+  readonly displayedColumns = computed(() => {
+    return ['id', 'slug', 'type', 'translations', 'actions'];
+  });
+
+  readonly wordsWithTranslations = computed(() => {
+    const wordsArray = this.words();
+    const translationsArray = this.translations();
+
+    return wordsArray.map((word) => {
+      const translationsByLanguage = new Map<number, Translation>();
+      translationsArray
+        .filter((t) => t.wordId === word.id)
+        .forEach((t) => {
+          translationsByLanguage.set(t.languageId, t);
+        });
+
+      return {
+        word,
+        translationsByLanguage,
+      };
+    });
+  });
+
+  readonly filteredWords = computed(() => {
+    const filter = this.searchFilter().toLowerCase().trim();
+    return this.wordsWithTranslations().filter((item) => {
+      if (!filter) return true;
+      const matchSlug = item.word.slug?.toLowerCase().includes(filter);
+      const matchType = item.word.type?.toLowerCase().includes(filter);
+      const matchTranslations = Array.from(item.translationsByLanguage.values()).some(
+        (t) => t.text?.toLowerCase().includes(filter)
+      );
+      return matchSlug || matchType || matchTranslations;
+    });
+  });
+
+  readonly paginatedWords = computed(() => {
+    const filtered = this.filteredWords();
+    const start = this.pageIndex() * this.pageSize();
+    return filtered.slice(start, start + this.pageSize());
+  });
+
+  constructor() {
+    // Setup effect to sync resource data to signals
+    effect(() => {
+      const wordsData = this.wordsResource.value();
+      if (wordsData) {
+        this.words.set(wordsData);
+      }
+    });
+
+    effect(() => {
+      const translationsData = this.translationsResource.value();
+      if (translationsData) {
+        this.translations.set(translationsData);
+      }
+    });
+
+    // Extract unique languages when translations change
+    effect(() => {
+      const translationsData = this.translations();
+      if (translationsData.length > 0) {
+        // Extract unique languages from translations
+        const uniqueLangs = new Map<number, Language>();
+        translationsData.forEach((t) => {
+          if (t.language && !uniqueLangs.has(t.language.id)) {
+            uniqueLangs.set(t.language.id, t.language);
+          }
+        });
+        this.languages.set(
+          Array.from(uniqueLangs.values()).sort((a, b) =>
+            a.code.localeCompare(b.code)
+          )
+        );
+      }
+    });
+  }
+
+  private createEditForm(): FormGroup {
+    return this.fb.group({
+      slug: ['', [Validators.required]],
+      type: ['WORD', [Validators.required]],
+    });
+  }
+
+  private createAddForm(): FormGroup {
+    return this.fb.group({
+      slug: ['', [Validators.required]],
+      type: ['WORD', [Validators.required]],
+    });
+  }
+
+  private createSearchForm(): FormGroup {
+    return this.fb.group({
+      search: [''],
+    });
+  }
+
+  onSearch(searchValue: string): void {
+    this.searchFilter.set(searchValue);
+    this.pageIndex.set(0);
+  }
+
+  onEdit(word: Word): void {
+    this.editingRowId.set(word.id);
+    this.editForm.patchValue({
+      slug: word.slug,
+      type: word.type,
+    });
+  }
+
+  onCancelEdit(): void {
+    this.editingRowId.set(null);
+    this.editForm.reset();
+  }
+
+  onSaveEdit(word: Word): void {
+    if (!this.editForm.valid) return;
+
+    const formValue = this.editForm.value;
+    const dto: UpdateWordDto = {
+      slug: formValue.slug,
+      type: formValue.type,
+    };
+
+    this.wordApiService.update(word.id, dto).subscribe(
+      (updatedWord) => {
+        const wordIndex = this.words().findIndex((w) => w.id === word.id);
+        if (wordIndex !== -1) {
+          const updated = [...this.words()];
+          updated[wordIndex] = updatedWord;
+          this.words.set(updated);
+        }
+        this.editingRowId.set(null);
+        this.editForm.reset();
+      },
+      (error) => {
+        console.error('Error updating word:', error);
+      }
+    );
+  }
+
+  onDelete(id: number, slug: string): void {
+    if (!confirm(`Are you sure you want to permanently delete "${slug}"?`)) {
+      return;
+    }
+
+    this.wordApiService.delete(id).subscribe(
+      () => {
+        this.words.set(this.words().filter((w) => w.id !== id));
+        this.translations.set(
+          this.translations().filter((t) => t.wordId !== id)
+        );
+      },
+      (error) => {
+        console.error('Error deleting word:', error);
+      }
+    );
+  }
+
+  onVirtualDelete(id: number, slug: string): void {
+    if (!confirm(`Mark "${slug}" as deleted?`)) {
+      return;
+    }
+    console.warn('Virtual delete not yet implemented');
+  }
+
+  onAdd(): void {
+    this.addingNewRow.set(true);
+    this.addForm.reset({ type: 'WORD' });
+  }
+
+  onCancelAdd(): void {
+    this.addingNewRow.set(false);
+    this.addForm.reset();
+  }
+
+  onSaveAdd(): void {
+    if (!this.addForm.valid) return;
+
+    const formValue = this.addForm.value;
+    const dto: CreateWordDto = {
+      slug: formValue.slug,
+      type: formValue.type,
+    };
+
+    this.wordApiService.create(dto).subscribe(
+      (newWord) => {
+        this.words.set([...this.words(), newWord]);
+        this.addingNewRow.set(false);
+        this.addForm.reset();
+      },
+      (error) => {
+        console.error('Error creating word:', error);
+      }
+    );
+  }
+
+  isEditing(word: Word): boolean {
+    return this.editingRowId() === word.id;
+  }
+
+  isAddingNew(): boolean {
+    return this.addingNewRow();
+  }
+
+  getTranslationText(
+    item: WordWithTranslations | undefined,
+    languageId: number
+  ): string {
+    return item?.translationsByLanguage?.get(languageId)?.text ?? '—';
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
+  getSlugControl() {
+    return this.editForm.get('slug') as any;
+  }
+
+  getTypeControl() {
+    return this.editForm.get('type') as any;
+  }
+}
