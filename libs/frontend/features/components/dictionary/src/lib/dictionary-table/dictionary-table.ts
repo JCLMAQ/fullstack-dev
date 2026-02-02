@@ -8,6 +8,11 @@ import {
   signal
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -56,10 +61,12 @@ const searchSchema = schema<{ search: string }>(() => {});
     MatInputModule,
     MatTooltipModule,
     MatPaginatorModule,
-    FormField
+    FormField,
+    MatDialogModule,
   ],
 })
 export class DictionaryTable {
+  private readonly dialog = inject(MatDialog);
   private readonly wordApiService = inject(WordApiService);
   private readonly translationApiService = inject(TranslationApiService);
 
@@ -280,21 +287,28 @@ export class DictionaryTable {
   }
 
   onDelete(id: number, slug: string): void {
-    if (!confirm(`Are you sure you want to permanently delete "${slug}"?`)) {
-      return;
-    }
-
-    this.wordApiService.delete(id).subscribe(
-      () => {
-        this.words.set(this.words().filter((w) => w.id !== id));
-        this.translations.set(
-          this.translations().filter((t) => t.wordId !== id)
-        );
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        title: 'Confirmation',
+        message: `Êtes-vous sûr de vouloir supprimer définitivement "${slug}" ?`,
       },
-      (error) => {
-        console.error('Error deleting word:', error);
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.wordApiService.delete(id).subscribe(
+          () => {
+            this.words.set(this.words().filter((w) => w.id !== id));
+            this.translations.set(
+              this.translations().filter((t) => t.wordId !== id)
+            );
+          },
+          (error) => {
+            console.error('Error deleting word:', error);
+          }
+        );
       }
-    );
+    });
   }
 
   onVirtualDelete(id: number, slug: string): void {
@@ -393,4 +407,25 @@ export class DictionaryTable {
       [languageId]: text,
     }));
   }
+}
+
+@Component({
+  selector: 'lib-confirmation-dialog',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule],
+  template: `
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="false">Annuler</button>
+      <button mat-button color="warn" [mat-dialog-close]="true">
+        Supprimer
+      </button>
+    </mat-dialog-actions>
+  `,
+})
+export class ConfirmationDialog {
+  readonly data = inject<{ title: string; message: string }>(MAT_DIALOG_DATA);
 }
