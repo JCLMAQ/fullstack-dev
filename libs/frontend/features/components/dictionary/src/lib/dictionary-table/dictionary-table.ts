@@ -71,6 +71,7 @@ export class DictionaryTable {
   readonly editingRowId = signal<number | null>(null);
   readonly addingNewRow = signal<boolean>(false);
   readonly translationEditState = signal<Record<number, string>>({});
+  readonly newTranslationState = signal<Record<number, string>>({});
   readonly pageIndex = signal<number>(0);
   readonly pageSize = signal<number>(10);
 
@@ -93,6 +94,11 @@ export class DictionaryTable {
   readonly displayedColumns = computed(() => {
     const langColumns = this.languages().map((l) => l.code.toLowerCase());
     return ['id', 'slug', 'type', ...langColumns, 'actions'];
+  });
+
+  readonly hasAtLeastOneTranslation = computed(() => {
+    const translations = this.newTranslationState();
+    return Object.values(translations).some((t) => t && t.trim().length > 0);
   });
 
   readonly wordsWithTranslations = computed(() => {
@@ -301,15 +307,17 @@ export class DictionaryTable {
   onAdd(): void {
     this.addingNewRow.set(true);
     this.addState.set({ slug: '', type: DictioEntryType.WORD });
+    this.newTranslationState.set({});
   }
 
   onCancelAdd(): void {
     this.addingNewRow.set(false);
     this.addState.set({ slug: '', type: DictioEntryType.WORD });
+    this.newTranslationState.set({});
   }
 
   onSaveAdd(): void {
-    if (!this.addForm().valid()) return;
+    if (!this.addForm().valid() || !this.hasAtLeastOneTranslation()) return;
 
     const formValue = this.addState();
     const dto: CreateWordDto = {
@@ -320,8 +328,23 @@ export class DictionaryTable {
     this.wordApiService.create(dto).subscribe(
       (newWord) => {
         this.words.set([...this.words(), newWord]);
+
+        // Save translations for the new word
+        const transState = this.newTranslationState();
+        this.languages().forEach((lang) => {
+          const text = transState[lang.id];
+          if (text) {
+            this.translationApiService
+              .create({ text, languageId: lang.id, wordId: newWord.id })
+              .subscribe((created) =>
+                this.translations.update((ts) => [...ts, created])
+              );
+          }
+        });
+
         this.addingNewRow.set(false);
         this.addState.set({ slug: '', type: DictioEntryType.WORD });
+        this.newTranslationState.set({});
       },
       (error) => {
         console.error('Error creating word:', error);
@@ -359,6 +382,13 @@ export class DictionaryTable {
 
   updateTranslation(languageId: number, text: string): void {
     this.translationEditState.update((state) => ({
+      ...state,
+      [languageId]: text,
+    }));
+  }
+
+  updateNewTranslation(languageId: number, text: string): void {
+    this.newTranslationState.update((state) => ({
       ...state,
       [languageId]: text,
     }));

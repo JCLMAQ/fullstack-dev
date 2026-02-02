@@ -39,7 +39,22 @@
             <option value="IDIOM">Idiom</option>
           </select>
         </mat-form-field>
-        <button mat-button type="submit" [disabled]="!addForm().valid()">
+        @for (lang of languages(); track lang.id) {
+          <mat-form-field>
+            <mat-label>{{ lang.code | uppercase }}</mat-label>
+            <input
+              matInput
+              [value]="newTranslationState()[lang.id] || ''"
+              (input)="updateNewTranslation(lang.id, $event.target.value)"
+            />
+          </mat-form-field>
+        }
+        @if (!hasAtLeastOneTranslation() && addForm().valid()) {
+          <div style="color: #f44336; font-size: 12px; margin-bottom: 10px;">
+            Au moins une traduction est requise.
+          </div>
+        }
+        <button mat-button type="submit" [disabled]="!addForm().valid() || !hasAtLeastOneTranslation()">
           Sauvegarder
         </button>
         <button
