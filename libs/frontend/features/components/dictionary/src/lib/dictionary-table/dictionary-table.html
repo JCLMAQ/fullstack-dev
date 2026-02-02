@@ -9,6 +9,11 @@
         placeholder="Slug ou type..."
         [formField]="searchForm.search"
       />
+      @if (searchState().search) {
+        <button mat-icon-button matSuffix (click)="onClearSearch()" aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="onAdd()">

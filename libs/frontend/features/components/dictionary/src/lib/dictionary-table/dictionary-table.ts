@@ -169,6 +169,13 @@ export class DictionaryTable {
     // Sync search state to filter
     effect((onCleanup) => {
       const { search } = this.searchState();
+
+      if (!search) {
+        this.searchFilter.set(search);
+        this.pageIndex.set(0);
+        return;
+      }
+
       const timer = setTimeout(() => {
         this.searchFilter.set(search);
         this.pageIndex.set(0);
@@ -176,6 +183,10 @@ export class DictionaryTable {
 
       onCleanup(() => clearTimeout(timer));
     });
+  }
+
+  onClearSearch(): void {
+    this.searchState.set({ search: '' });
   }
 
   onEdit(word: Word): void {
