@@ -7,7 +7,7 @@
         matInput
         type="text"
         placeholder="Slug ou type..."
-        (input)="onSearch($event.target.value)"
+        [formField]="searchForm.search"
       />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
@@ -20,21 +20,21 @@
   <!-- Add new row form -->
   @if (isAddingNew()) {
     <div class="add-form-container">
-      <form [formGroup]="addForm" (ngSubmit)="onSaveAdd()">
+      <form (submit)="$event.preventDefault(); onSaveAdd()">
         <mat-form-field>
           <mat-label>Slug</mat-label>
-          <input matInput formControlName="slug" required />
+          <input matInput [formField]="addForm.slug" />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Type</mat-label>
-          <select matNativeControl formControlName="type">
+          <select matNativeControl [formField]="addForm.type">
             <option value="WORD">Word</option>
             <option value="PHRASE">Phrase</option>
             <option value="SENTENCE">Sentence</option>
             <option value="IDIOM">Idiom</option>
           </select>
         </mat-form-field>
-        <button mat-button type="submit" [disabled]="!addForm.valid">
+        <button mat-button type="submit" [disabled]="!addForm().valid()">
           Sauvegarder
         </button>
         <button
@@ -65,7 +65,7 @@
             @if (element?.word && isEditing(element.word)) {
               <input
                 matInput
-                [formControl]="getSlugControl()"
+                [formField]="getSlugControl()"
                 type="text"
               />
             } @else {
@@ -79,7 +79,7 @@
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let element">
             @if (element?.word && isEditing(element.word)) {
-              <select matNativeControl [formControl]="getTypeControl()">
+              <select matNativeControl [formField]="getTypeControl()">
                 <option value="WORD">Word</option>
                 <option value="PHRASE">Phrase</option>
                 <option value="SENTENCE">Sentence</option>
@@ -118,7 +118,7 @@
                 mat-icon-button
                 color="accent"
                 (click)="onSaveEdit(element.word)"
-                [disabled]="!editForm.valid"
+                [disabled]="!editForm().valid()"
                 matTooltip="Sauvegarder"
               >
                 <mat-icon>check</mat-icon>

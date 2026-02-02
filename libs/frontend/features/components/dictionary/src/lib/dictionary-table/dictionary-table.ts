@@ -7,12 +7,6 @@ import {
   inject,
   signal
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,12 +15,14 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import type {
-  CreateWordDto,
-  Language,
-  Translation,
-  UpdateWordDto,
-  Word,
+import { form, FormField, required, schema } from '@angular/forms/signals';
+import {
+  DictioEntryType,
+  type CreateWordDto,
+  type Language,
+  type Translation,
+  type UpdateWordDto,
+  type Word,
 } from '../models';
 import {
   TranslationApiService,
@@ -38,6 +34,13 @@ export interface WordWithTranslations {
   translationsByLanguage: Map<number, Translation>;
 }
 
+const wordSchema = schema<CreateWordDto>((f) => {
+  required(f.slug);
+  required(f.type);
+});
+
+const searchSchema = schema<{ search: string }>(() => {});
+
 @Component({
   selector: 'lib-dictionary-table',
   standalone: true,
@@ -46,7 +49,6 @@ export interface WordWithTranslations {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -54,10 +56,10 @@ export interface WordWithTranslations {
     MatInputModule,
     MatTooltipModule,
     MatPaginatorModule,
+    FormField
   ],
 })
 export class DictionaryTable {
-  private readonly fb = inject(FormBuilder);
   private readonly wordApiService = inject(WordApiService);
   private readonly translationApiService = inject(TranslationApiService);
 
@@ -72,9 +74,12 @@ export class DictionaryTable {
   readonly pageSize = signal<number>(10);
 
   // Forms
-  editForm: FormGroup = this.createEditForm();
-  addForm: FormGroup = this.createAddForm();
-  searchForm: FormGroup = this.createSearchForm();
+  readonly editState = signal<CreateWordDto>({ slug: '', type: DictioEntryType.WORD });
+  readonly editForm = form(this.editState, wordSchema);
+  readonly addState = signal<CreateWordDto>({ slug: '', type: DictioEntryType.WORD });
+  readonly addForm = form(this.addState, wordSchema);
+  readonly searchState = signal<{ search: string }>({ search: '' });
+  readonly searchForm = form(this.searchState, searchSchema);
 
   // Type context for template
   element!: WordWithTranslations;
@@ -160,36 +165,18 @@ export class DictionaryTable {
         );
       }
     });
-  }
 
-  private createEditForm(): FormGroup {
-    return this.fb.group({
-      slug: ['', [Validators.required]],
-      type: ['WORD', [Validators.required]],
+    // Sync search state to filter
+    effect(() => {
+      const { search } = this.searchState();
+      this.searchFilter.set(search);
+      this.pageIndex.set(0);
     });
-  }
-
-  private createAddForm(): FormGroup {
-    return this.fb.group({
-      slug: ['', [Validators.required]],
-      type: ['WORD', [Validators.required]],
-    });
-  }
-
-  private createSearchForm(): FormGroup {
-    return this.fb.group({
-      search: [''],
-    });
-  }
-
-  onSearch(searchValue: string): void {
-    this.searchFilter.set(searchValue);
-    this.pageIndex.set(0);
   }
 
   onEdit(word: Word): void {
     this.editingRowId.set(word.id);
-    this.editForm.patchValue({
+    this.editState.set({
       slug: word.slug,
       type: word.type,
     });
@@ -197,13 +184,13 @@ export class DictionaryTable {
 
   onCancelEdit(): void {
     this.editingRowId.set(null);
-    this.editForm.reset();
+    this.editState.set({ slug: '', type: DictioEntryType.WORD });
   }
 
   onSaveEdit(word: Word): void {
-    if (!this.editForm.valid) return;
+    if (!this.editForm().valid()) return;
 
-    const formValue = this.editForm.value;
+    const formValue = this.editState();
     const dto: UpdateWordDto = {
       slug: formValue.slug,
       type: formValue.type,
@@ -218,7 +205,7 @@ export class DictionaryTable {
           this.words.set(updated);
         }
         this.editingRowId.set(null);
-        this.editForm.reset();
+        this.editState.set({ slug: '', type: DictioEntryType.WORD });
       },
       (error) => {
         console.error('Error updating word:', error);
@@ -253,18 +240,18 @@ export class DictionaryTable {
 
   onAdd(): void {
     this.addingNewRow.set(true);
-    this.addForm.reset({ type: 'WORD' });
+    this.addState.set({ slug: '', type: DictioEntryType.WORD });
   }
 
   onCancelAdd(): void {
     this.addingNewRow.set(false);
-    this.addForm.reset();
+    this.addState.set({ slug: '', type: DictioEntryType.WORD });
   }
 
   onSaveAdd(): void {
-    if (!this.addForm.valid) return;
+    if (!this.addForm().valid()) return;
 
-    const formValue = this.addForm.value;
+    const formValue = this.addState();
     const dto: CreateWordDto = {
       slug: formValue.slug,
       type: formValue.type,
@@ -274,7 +261,7 @@ export class DictionaryTable {
       (newWord) => {
         this.words.set([...this.words(), newWord]);
         this.addingNewRow.set(false);
-        this.addForm.reset();
+        this.addState.set({ slug: '', type: DictioEntryType.WORD });
       },
       (error) => {
         console.error('Error creating word:', error);
@@ -303,10 +290,10 @@ export class DictionaryTable {
   }
 
   getSlugControl() {
-    return this.editForm.get('slug') as any;
+    return this.editForm.slug;
   }
 
   getTypeControl() {
-    return this.editForm.get('type') as any;
+    return this.editForm.type;
   }
 }
