@@ -7,7 +7,7 @@
     "inlineSources": true,
     "types": []
   },
-  "include": ["src/**/*.ts", "../../dictionary-old/feature/dictionary-table/dictionary-table.ts"],
+  "include": ["src/**/*.ts", "../../dictionary-old/feature/dictionary-table/dictionary-table.ts", "../../utils/material/src/lib/paginator-translate/dictionary-paginator-intl.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",

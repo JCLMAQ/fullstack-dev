@@ -4,13 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from '@db/prisma/frontend';
-import { MATERIAL } from '@fe/material';
+import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
@@ -36,7 +36,8 @@ import { UserStore } from '../store/user-store';
       background-color: var(--mat-sys-secondary-container) !important;
       cursor: pointer;
     }
-  `]
+  `],
+  providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
 })
 export class UserList {
 
