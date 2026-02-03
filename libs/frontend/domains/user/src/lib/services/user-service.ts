@@ -179,15 +179,23 @@ export class UserService {
 	// httpResource helpers (signal-friendly)
 	// --------------------
 
-	usersResource(options?: UsersQueryOptions): unknown {
+	// usersResource(options?: UsersQueryOptions): unknown {
+	// 	const url = this.buildUrlWithQuery(this.baseUrl, options);
+	// 	// Note: httpResource API is available on Angular v21.
+	// 	// We return `unknown` to avoid leaking internal types while enabling signal-friendly consumption.
+	// 	return this.resourceFactory({
+	// 		loader: () => this.http.get<User[]>(url),
+	// 		default: [],
+	// 	});
+	// }
+  usersResource(options?: UsersQueryOptions): unknown {
+    // usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
-		// Note: httpResource API is available on Angular v21.
-		// We return `unknown` to avoid leaking internal types while enabling signal-friendly consumption.
-		return this.resourceFactory({
-			loader: () => this.http.get<User[]>(url),
-			default: [],
-		});
-	}
+    // Note: httpResource API is available on Angular v21.
+    // We return `unknown` to avoid leaking internal types while enabling signal-friendly consumption.
+    return httpResource<User[]>( () => url, { defaultValue: [],});
+    // return httpResource<User[]>(() => url) as HttpResourceRef<User[]>;
+  }
 
 	userByIdResource(id: string): unknown {
 		if (!id) throw new Error('id requis');
@@ -198,6 +206,14 @@ export class UserService {
 		});
 	}
 
+  	getUserByEmailResource(email: string): unknown {
+		if (!email) throw new Error('email requis');
+		const url = `${this.baseUrl}/email/${encodeURIComponent(email)}`;
+    return this.resourceFactory({
+			loader: () => this.http.get<User>(url),
+			default: null,
+		});
+	}
 	userOrganizationsResource(id: string): unknown {
 		if (!id) throw new Error("l'id utilisateur est requis");
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/organizations`;
