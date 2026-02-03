@@ -1,7 +1,8 @@
 import {
-  withDevtools,
-  withStorageSync,
+    withDevtools,
+    withStorageSync,
 } from '@angular-architects/ngrx-toolkit';
+import { User } from '@db/prisma/frontend';
 import { patchState, signalStore, withFeature, withMethods, withState } from '@ngrx/signals';
 import { withAppAuthFeatures } from '../store-features/authentication-features/authentication.features';
 import { withDictionariesFeatures } from '../store-features/dictionaries-features/dictionaries.features';
@@ -41,6 +42,11 @@ export const AppStore = signalStore(
       const user = store.user();
       if (!user) return;
       patchState(store, { user: { ...user, photoUrl: avatarUrl } });
+    },
+    updateUserProfile(updatedUser: User) {
+      const user = store.user();
+      if (!user || user.id !== updatedUser.id) return;
+      patchState(store, { user: { ...user, ...updatedUser } });
     },
   })),
 );

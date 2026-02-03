@@ -365,10 +365,11 @@
         <button mat-icon-button matTooltip="Virtual Delete" [disabled]="!isAdmin() || mode() === 'edit'" (click)="virtualRemove()" class="warning-btn">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Add record" [disabled]="!isAdmin()" (click)="add()" class="success-btn">
-          <mat-icon>add_circle</mat-icon>
-        </button>
       }
+         <!-- <button mat-icon-button matTooltip="Reset" [disabled]="!isAdmin()" (click)="reset()" class="success-btn">
+          <mat-icon>clear</mat-icon>
+        </button> -->
+
       <mat-divider [vertical]="true"></mat-divider>
       <!-- Form Actions -->
       <button mat-icon-button matTooltip="Cancel" [disabled]="mode() === 'view'" (click)="cancel()">
@@ -383,7 +384,7 @@
       <mat-divider [vertical]="true"></mat-divider>
       <!-- Selection Order Menu -->
       @if (this.store.selectedIds().length > 0) {
-        <button mat-icon-button [matMenuTriggerFor]="orderMenu" matTooltip="Ordre de navigation">
+        <button mat-icon-button [matMenuTriggerFor]="orderMenu" matTooltip="Ordre de navigation" [disabled]="!hasActiveSort()">
           <mat-icon>sort</mat-icon>
         </button>
         <mat-menu #orderMenu="matMenu">
@@ -395,7 +396,7 @@
             <mat-icon>storage</mat-icon>
             <span>Ordre des enregistrements</span>
           </button>
-          <button mat-menu-item (click)="applySelectionOrder('sort')" [disabled]="!hasActiveSort()">
+          <button mat-menu-item (click)="applySelectionOrder('sort')">
             <mat-icon>sort_by_alpha</mat-icon>
             <span>Ordre du tri</span>
           </button>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, httpResource } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Address, Organization, User, UserWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
@@ -96,11 +96,72 @@ export class UserService {
 		return await firstValueFrom(this.http.post<User>(url, userData));
 	}
 
-	async updateUser(id: string, userData: Partial<User>): Promise<User> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-		return await firstValueFrom(this.http.put<User>(url, userData));
+	// async updateUser(id: string, userData: Partial<User>): Promise<User> {
+
+  //   console.log('Updating user with id:', id, 'and data:', userData);
+
+	// 	if (!id) throw new Error('id requis');
+	// 	const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
+	// 	return await firstValueFrom(this.http.put<User>(url, userData));
+	// }
+   async updateUser(id: string, userData: Partial<User>): Promise<User> {
+        if (!id) throw new Error('id requis');
+
+        const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
+        const cleanedData = this.sanitizeUserUpdate(userData);
+
+        try {
+            console.log('Updating user', { id, url, userData: cleanedData });
+            const result = await firstValueFrom(
+                this.http.put<User>(url, cleanedData),
+            );
+            console.log('User updated', { id, result });
+            return result;
+        } catch (error: unknown) {
+            if (error instanceof HttpErrorResponse) {
+                console.error('Failed to update user', {
+                    id,
+                    url,
+                    userData: cleanedData,
+                    status: error.status,
+                    statusText: error.statusText,
+                    errorBody: error.error,
+                });
+            } else {
+                console.error('Failed to update user', { id, url, userData: cleanedData, error });
+            }
+            throw error;
+        }
+    }
+
+	private sanitizeUserUpdate(userData: Partial<User>): Partial<User> {
+		const cleaned = { ...userData } as Record<string, unknown>;
+		delete cleaned['id'];
+
+		for (const [key, value] of Object.entries(cleaned)) {
+			if (value === undefined || value === null) {
+				delete cleaned[key];
+				continue;
+			}
+
+			if (typeof value === 'string') {
+				const trimmed = value.trim();
+				if (trimmed.length === 0) {
+					delete cleaned[key];
+				} else {
+					cleaned[key] = trimmed;
+				}
+				continue;
+			}
+
+			if (value === '') {
+				delete cleaned[key];
+			}
+		}
+
+		return cleaned as Partial<User>;
 	}
+
 
 	async deleteUser(id: string): Promise<User> {
 		if (!id) throw new Error('id requis');

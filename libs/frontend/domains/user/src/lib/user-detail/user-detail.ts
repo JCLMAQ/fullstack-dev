@@ -246,7 +246,9 @@ export class UserDetail {
   protected save(): void {
     if (!this.userForm().valid()) {
       this.snackBar.open('Veuillez corriger les erreurs du formulaire', 'OK', { duration: 3000 });
-      return;
+      this.userForm().focusBoundControl();
+      // return;
+
     }
 
     const formValue = this.userForm().value();
@@ -425,4 +427,50 @@ export class UserDetail {
   protected goBack(): void {
     this.router.navigate(['/users']);
   }
+
+  // Reset the form to initial state
+  protected reset() {
+    const selectedItem = this.store.selectedItem() as UserWithBasicRelations | null;
+    if (selectedItem) {
+     this.userForm().reset({
+        id: selectedItem.id,
+        email: selectedItem.email,
+        firstName: selectedItem.firstName ?? '',
+        lastName: selectedItem.lastName ?? '',
+        title: selectedItem.title,
+        nickName: selectedItem.nickName ?? '',
+        Gender: selectedItem.Gender,
+        Language: this.languageOptions().find(l => l.id === selectedItem.languageId) ?? null,
+        photoUrl: selectedItem.photoUrl ?? '',
+        dateOfBirth: selectedItem.dateOfBirth,
+        emergencyContact: {
+          hasEmergencyContact: selectedItem.hasEmergencyContact ?? false,
+          emergencyContactName: selectedItem.emergencyContactName ?? '',
+          emergencyContactPhone: selectedItem.emergencyContactPhone ?? '',
+        },
+        position: selectedItem.position,
+        // address: createAddressModel(),
+        addresses: selectedItem.Address ?? [],
+        jobTitle: selectedItem.jobTitle ?? '',
+        isValidated: selectedItem.isValidated,
+        isSuspended: selectedItem.isSuspended,
+        managerId: selectedItem.managerId ?? '',
+        published: selectedItem.published,
+        isPublic: selectedItem.isPublic,
+      });
+    }
+
+    this.userForm().focusBoundControl();
+    // Need Angular 21.2+
+    // this.userForm().focusBoundControl({ preventScroll: true });
+  }
+
+  // Focus the next invalid field (or field to fill in the form
+  protected nextInvalidField() {
+    const nextInvalidField = this.userForm().errorSummary()[0];
+    if (nextInvalidField) {
+      nextInvalidField.fieldTree().focusBoundControl();
+    }
+  }
+
 }

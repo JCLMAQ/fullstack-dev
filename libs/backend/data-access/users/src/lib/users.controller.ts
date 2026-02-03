@@ -1,16 +1,17 @@
 import * as Prisma from '@db/prisma';
 import { Address, Organization, User, UserWithBasicRelations, UserWithRelations } from '@db/prisma';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Query
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Logger,
+    Param,
+    Post,
+    Put,
+    Query
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -23,6 +24,8 @@ import { UsersService } from './users.service';
 */
 @Controller('users')
 export class UsersController {
+  private readonly logger = new Logger(UsersController.name);
+
   constructor(private usersService: UsersService) {}
 
   /**
@@ -345,6 +348,9 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
     @Body() userData: Prisma.UserUpdateInput
   ): Promise<User> {
     try {
+      const sanitizedData = this.sanitizeUserUpdate(userData);
+      this.logger.log(`Update user payload: ${JSON.stringify({ id, data: sanitizedData })}`);
+
       // Vérifier que l'utilisateur existe
       const existingUser = await this.usersService.user({ id });
       if (!existingUser) {
@@ -355,9 +361,9 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
       }
 
       // Si l'email est modifié, vérifier qu'il n'existe pas déjà
-      if (userData.email && userData.email !== existingUser.email) {
+      if (sanitizedData.email && sanitizedData.email !== existingUser.email) {
         const userWithEmail = await this.usersService.user({
-          email: userData.email as string
+          email: sanitizedData.email as string
         });
         if (userWithEmail) {
           throw new HttpException(
@@ -367,11 +373,14 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
         }
       }
 
-      return await this.usersService.updateUser({
+      const updatedUser = await this.usersService.updateUser({
         where: { id },
-        data: userData
+        data: sanitizedData
       });
+      this.logger.log(`Update user result: ${JSON.stringify({ id, firstName: updatedUser.firstName, lastName: updatedUser.lastName })}`);
+      return updatedUser;
     } catch (error) {
+      this.logger.error('Update user failed', error instanceof Error ? error.stack : String(error));
       if (error instanceof HttpException) {
         throw error;
       }
@@ -380,6 +389,80 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  }
+
+  private sanitizeUserUpdate(userData: Prisma.UserUpdateInput): Prisma.UserUpdateInput {
+    const allowedKeys = new Set<string>([
+      'email',
+      'lastName',
+      'firstName',
+      'title',
+      'nickName',
+      'Gender',
+      'social',
+      'photoUrl',
+      'dateOfBirth',
+      'hasEmergencyContact',
+      'emergencyContactName',
+      'emergencyContactPhone',
+      'position',
+      'preference',
+      'jobTitle',
+      'published',
+      'isPublic',
+      'isDeleted',
+      'isDeletedDT',
+      'isValidated',
+      'isSuspended',
+      'isTfaEnable',
+      'tfaSecret',
+      'passWordFaker',
+      'groupId',
+      'managerId',
+      'Language',
+    ]);
+
+    const input = userData as Record<string, unknown>;
+    const cleaned: Record<string, unknown> = {};
+
+    for (const [key, value] of Object.entries(input)) {
+      if (allowedKeys.has(key)) {
+        cleaned[key] = value;
+      }
+    }
+
+    const language = input['Language'];
+    if (language && typeof language === 'object') {
+      const langId = (language as { id?: number }).id;
+      if (typeof langId === 'number') {
+        cleaned['Language'] = { connect: { id: langId } };
+      }
+    }
+
+    const languageId = input['languageId'];
+    if (typeof languageId === 'number') {
+      cleaned['Language'] = { connect: { id: languageId } };
+    }
+
+    const emergencyContact = input['emergencyContact'];
+    if (emergencyContact && typeof emergencyContact === 'object') {
+      const contact = emergencyContact as {
+        hasEmergencyContact?: boolean;
+        emergencyContactName?: string;
+        emergencyContactPhone?: string;
+      };
+      if (typeof contact.hasEmergencyContact === 'boolean') {
+        cleaned['hasEmergencyContact'] = contact.hasEmergencyContact;
+      }
+      if (typeof contact.emergencyContactName === 'string') {
+        cleaned['emergencyContactName'] = contact.emergencyContactName;
+      }
+      if (typeof contact.emergencyContactPhone === 'string') {
+        cleaned['emergencyContactPhone'] = contact.emergencyContactPhone;
+      }
+    }
+
+    return cleaned as Prisma.UserUpdateInput;
   }
 
   /**

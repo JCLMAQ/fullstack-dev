@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
 import { User } from '@db/prisma/frontend';
+import { AppStore } from '@fe/stores';
 import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
-import { addEntity, setAllEntities } from '@ngrx/signals/entities';
+import { addEntity, removeEntity, setAllEntities, updateEntity } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
 // type UsersEntitiesStore = { userEntityMap: () => Record<string, User> };
@@ -9,7 +10,7 @@ type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
 
-  withMethods((store, userService = inject(UserService)) => ({
+  withMethods((store, userService = inject(UserService), appStore = inject(AppStore)) => ({
 
     async loadUsers(options?: UsersQueryOptions) {
       try {
@@ -82,12 +83,11 @@ export const withUserMethods = signalStoreFeature(
         patchState(store, { loading: true, error: null });
         const updated = await userService.updateUser(id, data);
         patchState(store, { selectedItem: updated, loading: false });
-        // Update in entities - access via cast
-        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
-        const current = storeWithEntities.usersEntities();
-        patchState(store, {
-          usersEntities: { ...current, [id]: updated },
-        } as any);
+        appStore.updateUserProfile(updated);
+        patchState(
+          store,
+          updateEntity({ id, changes: updated }, { collection: 'user' }),
+        );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors de la mise à jour de l\'utilisateur' });
       }
@@ -97,16 +97,11 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         await userService.deleteUser(id);
-        // Remove from entities
-        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
-        const current = storeWithEntities.usersEntities();
-        const updated = { ...current };
-        delete updated[id];
-        patchState(store, {
-          usersEntities: updated,
-          selectedItem: null,
-          loading: false,
-        } as any);
+        patchState(
+          store,
+          removeEntity(id, { collection: 'user' }),
+          { selectedItem: null, loading: false }
+        );
         // Remove from selection
         const sel = store as unknown as SelectionStore;
         const selectedIds = sel.selectedIds().filter(sid => sid !== id);
@@ -120,16 +115,17 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         await userService.softDeleteUser(id);
-        // Update in entities
-        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
-        const current = storeWithEntities.usersEntities();
-        if (current[id]) {
-          const updated = { ...current[id], isDeleted: 1 };
-          patchState(store, {
-            usersEntities: { ...current, [id]: updated },
-            selectedItem: current[id]?.id === id ? (updated as User) : null,
-            loading: false,
-          } as any);
+        const currentUser = store.userEntityMap()[id];
+        if (currentUser) {
+          const updated = { ...currentUser, isDeleted: 1 };
+          patchState(
+            store,
+            updateEntity({ id, changes: updated }, { collection: 'user' }),
+            {
+              selectedItem: currentUser.id === id ? (updated as User) : null,
+              loading: false,
+            },
+          );
         }
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors de la désactivation de l\'utilisateur' });
@@ -140,13 +136,11 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const created = await userService.createUser(data);
-        patchState(store, { selectedItem: created, loading: false });
-        // Add to entities
-        const storeWithEntities = store as unknown as { usersEntities: () => Record<string, User> };
-        const current = storeWithEntities.usersEntities();
-        patchState(store, {
-          usersEntities: { ...current, [created.id]: created },
-        } as any);
+        patchState(
+          store,
+          addEntity(created, { collection: 'user' }),
+          { selectedItem: created, loading: false },
+        );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors de la création de l\'utilisateur' });
       }
