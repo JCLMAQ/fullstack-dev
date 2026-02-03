@@ -115,7 +115,8 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         await userService.softDeleteUser(id);
-        const currentUser = store.userEntityMap()[id];
+        const storeWithEntities = store as unknown as { userEntityMap: () => Record<string, User> };
+        const currentUser = storeWithEntities.userEntityMap()[id];
         if (currentUser) {
           const updated = { ...currentUser, isDeleted: 1 };
           patchState(
