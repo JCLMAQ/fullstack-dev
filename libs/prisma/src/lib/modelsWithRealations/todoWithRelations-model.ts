@@ -5,13 +5,9 @@ import {
 export type TodoWithRelations = Prisma.TodoGetPayload<{
   include: {
     groups: true;
-    // tasks: true;
     owner: true;
-
     org: true;
     mainTodo: true;
-    // user: true
-
     SubTodos: {
       include: {
         owner: true;
@@ -31,3 +27,4 @@ export type TodoWithRelations = Prisma.TodoGetPayload<{
     Tags: true;
   }
 }>;
+
