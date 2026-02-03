@@ -22,7 +22,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 
 /* tslint:disable:object-literal-type */
-export function withAppAuthFeatures(): SignalStoreFeature {
+// export function withBooksFilter(books: Signal<Book[]>) {
+//   return signalStoreFeature(
+export function withAppAuthFeatures(availableLanguages: string[]): SignalStoreFeature {
   return signalStoreFeature(
     withProps(() => ({
       // _authService: inject(IamAuth),
@@ -97,6 +99,13 @@ export function withAppAuthFeatures(): SignalStoreFeature {
       },
 
       logout: async () => {
+
+        // Récupérer la langue du navigateur AVANT le nettoyage
+        const browserLang = store._translate.getBrowserLang() ?? 'en';
+        // ✅ Maintenant availableLanguages est accessible via le store
+        const supportedLangs = availableLanguages;
+        const fallbackLang = supportedLangs.includes(browserLang) ? browserLang : supportedLangs[0] ?? 'en';
+
         // Nettoyage complet via le service d'authentification (backend + signaux)
         await store._authService.logout();
         // Nettoyage ciblé du localStorage (uniquement les clés utilisateur/session)
@@ -125,8 +134,15 @@ export function withAppAuthFeatures(): SignalStoreFeature {
           _dictionariesLoaded: false,
           _dictionariesLoading: false,
           _dictionariesError: null,
-          selectedLanguage: '',
+          selectedLanguage: browserLang,
         });
+
+         // Mettre à jour localStorage et TranslateService
+        localStorage.setItem('selectedLanguage', browserLang);
+        store._translate.use(browserLang);
+
+        console.log(`🌍 Language reset to browser default: ${browserLang}`);
+
         // Redirection vers la page de login
         store._router.navigate(['/auth/login']);
       },
@@ -172,7 +188,7 @@ export function withAppAuthFeatures(): SignalStoreFeature {
 
           // Utilise la langue passée en paramètre, sinon fallback navigateur, sinon 'en'
           const browserLang = store._translate.getBrowserLang() || 'en';
-          const supportedLangs = ['en', 'fr', 'de', 'nl'];
+          const supportedLangs = availableLanguages;
           const lang = languageCode && supportedLangs.includes(languageCode) ? languageCode : (supportedLangs.includes(browserLang) ? browserLang : 'en');
 
           const response = await store._authService.registerIamAuth(email, password, confirmPassword, lang);
