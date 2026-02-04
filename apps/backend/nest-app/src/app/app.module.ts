@@ -4,6 +4,7 @@ import { CategoriesModule } from '@be/categories';
 import { CommentsModule } from '@be/comments';
 import { ConfigParamsModule } from '@be/configParams';
 import { DbConfigModule } from '@be/db-config';
+import { DictionariesModule } from '@be/dictionaries';
 import { AllExceptionsFilter, ExceptionFilterModule } from '@be/exception-filter';
 import { FilesModule } from '@be/files';
 import { FilesJcmModule } from '@be/files-jcm';
@@ -38,7 +39,6 @@ import path from 'path';
 import { validateEnvironment } from '../config/env.validation';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DictionariesModule } from './dictionaries';
 
 
 @Module({
