@@ -159,9 +159,11 @@
       "@fe/address": [
         "libs/frontend/features/components/address/address-form/src/index.ts"
       ],
-      // "@fe/dictionary": ["libs/frontend/features/dictionary/index.ts"],
       "@fe/dictionary": [
         "libs/frontend/features/components/dictionary/src/index.ts"
+      ],
+      "@fullstack-dev/tag": [
+        "libs/frontend/features/components/tag/src/index.ts"
       ]
     }
   },

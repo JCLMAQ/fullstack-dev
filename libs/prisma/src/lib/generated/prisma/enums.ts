@@ -114,7 +114,8 @@ export const DictioEntryType = {
   WORD: 'WORD',
   PHRASE: 'PHRASE',
   SENTENCE: 'SENTENCE',
-  IDIOM: 'IDIOM'
+  IDIOM: 'IDIOM',
+  TAG: 'TAG'
 } as const
 
 export type DictioEntryType = (typeof DictioEntryType)[keyof typeof DictioEntryType]

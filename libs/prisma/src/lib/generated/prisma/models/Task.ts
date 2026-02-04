@@ -319,7 +319,7 @@ export type TaskWhereInput = {
   SubTasks?: Prisma.TaskListRelationFilter
   Users?: Prisma.UserTaskLinkListRelationFilter
   todo?: Prisma.XOR<Prisma.TodoNullableScalarRelationFilter, Prisma.TodoWhereInput> | null
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }
 
 export type TaskOrderByWithRelationInput = {
@@ -346,7 +346,7 @@ export type TaskOrderByWithRelationInput = {
   SubTasks?: Prisma.TaskOrderByRelationAggregateInput
   Users?: Prisma.UserTaskLinkOrderByRelationAggregateInput
   todo?: Prisma.TodoOrderByWithRelationInput
-  Tags?: Prisma.TagMgtOrderByRelationAggregateInput
+  Tags?: Prisma.TagValueOrderByRelationAggregateInput
 }
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -376,7 +376,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   SubTasks?: Prisma.TaskListRelationFilter
   Users?: Prisma.UserTaskLinkListRelationFilter
   todo?: Prisma.XOR<Prisma.TodoNullableScalarRelationFilter, Prisma.TodoWhereInput> | null
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }, "id">
 
 export type TaskOrderByWithAggregationInput = {
@@ -445,7 +445,7 @@ export type TaskCreateInput = {
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateInput = {
@@ -468,7 +468,7 @@ export type TaskUncheckedCreateInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUpdateInput = {
@@ -491,7 +491,7 @@ export type TaskUpdateInput = {
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateInput = {
@@ -514,7 +514,7 @@ export type TaskUncheckedUpdateInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskCreateManyInput = {
@@ -956,7 +956,7 @@ export type TaskCreateWithoutOrgInput = {
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutOrgInput = {
@@ -978,7 +978,7 @@ export type TaskUncheckedCreateWithoutOrgInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutOrgInput = {
@@ -1048,7 +1048,7 @@ export type TaskCreateWithoutOwnerInput = {
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutOwnerInput = {
@@ -1070,7 +1070,7 @@ export type TaskUncheckedCreateWithoutOwnerInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutOwnerInput = {
@@ -1118,7 +1118,7 @@ export type TaskCreateWithoutGroupsInput = {
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutGroupsInput = {
@@ -1140,7 +1140,7 @@ export type TaskUncheckedCreateWithoutGroupsInput = {
   todoId?: string | null
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutGroupsInput = {
@@ -1183,7 +1183,7 @@ export type TaskCreateWithoutTodoInput = {
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutTodoInput = {
@@ -1205,7 +1205,7 @@ export type TaskUncheckedCreateWithoutTodoInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutTodoInput = {
@@ -1253,7 +1253,7 @@ export type TaskCreateWithoutSubTasksInput = {
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutSubTasksInput = {
@@ -1275,7 +1275,7 @@ export type TaskUncheckedCreateWithoutSubTasksInput = {
   todoId?: string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutSubTasksInput = {
@@ -1302,7 +1302,7 @@ export type TaskCreateWithoutMainTaskInput = {
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutMainTaskInput = {
@@ -1324,7 +1324,7 @@ export type TaskUncheckedCreateWithoutMainTaskInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkUncheckedCreateNestedManyWithoutTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutMainTaskInput = {
@@ -1367,7 +1367,7 @@ export type TaskUpdateWithoutSubTasksInput = {
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutSubTasksInput = {
@@ -1389,7 +1389,7 @@ export type TaskUncheckedUpdateWithoutSubTasksInput = {
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUpsertWithWhereUniqueWithoutMainTaskInput = {
@@ -1427,7 +1427,7 @@ export type TaskCreateWithoutUsersInput = {
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   todo?: Prisma.TodoCreateNestedOneWithoutTasksInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutTasksInput
 }
 
 export type TaskUncheckedCreateWithoutUsersInput = {
@@ -1449,7 +1449,7 @@ export type TaskUncheckedCreateWithoutUsersInput = {
   todoId?: string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutMainTaskInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutTasksInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutTasksInput
 }
 
 export type TaskCreateOrConnectWithoutUsersInput = {
@@ -1487,7 +1487,7 @@ export type TaskUpdateWithoutUsersInput = {
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutUsersInput = {
@@ -1509,7 +1509,7 @@ export type TaskUncheckedUpdateWithoutUsersInput = {
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskCreateWithoutTagsInput = {
@@ -1614,7 +1614,7 @@ export type TaskUpdateWithoutOrgInput = {
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutOrgInput = {
@@ -1636,7 +1636,7 @@ export type TaskUncheckedUpdateWithoutOrgInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutOrgInput = {
@@ -1694,7 +1694,7 @@ export type TaskUpdateWithoutOwnerInput = {
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutOwnerInput = {
@@ -1716,7 +1716,7 @@ export type TaskUncheckedUpdateWithoutOwnerInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutOwnerInput = {
@@ -1756,7 +1756,7 @@ export type TaskUpdateWithoutGroupsInput = {
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutGroupsInput = {
@@ -1778,7 +1778,7 @@ export type TaskUncheckedUpdateWithoutGroupsInput = {
   todoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutGroupsInput = {
@@ -1837,7 +1837,7 @@ export type TaskUpdateWithoutTodoInput = {
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutTodoInput = {
@@ -1859,7 +1859,7 @@ export type TaskUncheckedUpdateWithoutTodoInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutTodoInput = {
@@ -1917,7 +1917,7 @@ export type TaskUpdateWithoutMainTaskInput = {
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
   todo?: Prisma.TodoUpdateOneWithoutTasksNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutMainTaskInput = {
@@ -1939,7 +1939,7 @@ export type TaskUncheckedUpdateWithoutMainTaskInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUncheckedUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUncheckedUpdateManyWithoutTaskNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutTasksNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutTasksNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutMainTaskInput = {
@@ -2077,7 +2077,7 @@ export type TaskCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Exte
  * TaskCountOutputType without action
  */
 export type TaskCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TagMgtWhereInput
+  where?: Prisma.TagValueWhereInput
 }
 
 
@@ -2209,7 +2209,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     SubTasks: Prisma.$TaskPayload<ExtArgs>[]
     Users: Prisma.$UserTaskLinkPayload<ExtArgs>[]
     todo: Prisma.$TodoPayload<ExtArgs> | null
-    Tags: Prisma.$TagMgtPayload<ExtArgs>[]
+    Tags: Prisma.$TagValuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2629,7 +2629,7 @@ export interface Prisma__TaskClient<T, Null = never, ExtArgs extends runtime.Typ
   SubTasks<T extends Prisma.Task$SubTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$SubTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Users<T extends Prisma.Task$UsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$UsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTaskLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   todo<T extends Prisma.Task$todoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$todoArgs<ExtArgs>>): Prisma.Prisma__TodoClient<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  Tags<T extends Prisma.Task$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagMgtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Tags<T extends Prisma.Task$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3185,23 +3185,23 @@ export type Task$todoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
  */
 export type Task$TagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TagMgt
+   * Select specific fields to fetch from the TagValue
    */
-  select?: Prisma.TagMgtSelect<ExtArgs> | null
+  select?: Prisma.TagValueSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TagMgt
+   * Omit specific fields from the TagValue
    */
-  omit?: Prisma.TagMgtOmit<ExtArgs> | null
+  omit?: Prisma.TagValueOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TagMgtInclude<ExtArgs> | null
-  where?: Prisma.TagMgtWhereInput
-  orderBy?: Prisma.TagMgtOrderByWithRelationInput | Prisma.TagMgtOrderByWithRelationInput[]
-  cursor?: Prisma.TagMgtWhereUniqueInput
+  include?: Prisma.TagValueInclude<ExtArgs> | null
+  where?: Prisma.TagValueWhereInput
+  orderBy?: Prisma.TagValueOrderByWithRelationInput | Prisma.TagValueOrderByWithRelationInput[]
+  cursor?: Prisma.TagValueWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TagMgtScalarFieldEnum | Prisma.TagMgtScalarFieldEnum[]
+  distinct?: Prisma.TagValueScalarFieldEnum | Prisma.TagValueScalarFieldEnum[]
 }
 
 /**

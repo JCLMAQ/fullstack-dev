@@ -84,9 +84,9 @@ export const ModelName = {
   Language: 'Language',
   Word: 'Word',
   Translation: 'Translation',
-  TagMgt: 'TagMgt',
-  TagMgtType: 'TagMgtType',
-  TagDictionary: 'TagDictionary'
+  TagValue: 'TagValue',
+  TagCategories: 'TagCategories',
+  TagTranslate: 'TagTranslate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -711,7 +711,7 @@ export const TranslationScalarFieldEnum = {
 export type TranslationScalarFieldEnum = (typeof TranslationScalarFieldEnum)[keyof typeof TranslationScalarFieldEnum]
 
 
-export const TagMgtScalarFieldEnum = {
+export const TagValueScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -721,13 +721,13 @@ export const TagMgtScalarFieldEnum = {
   isDeletedDT: 'isDeletedDT',
   name: 'name',
   position: 'position',
-  tagMgtTypeId: 'tagMgtTypeId'
+  tagCategoriesId: 'tagCategoriesId'
 } as const
 
-export type TagMgtScalarFieldEnum = (typeof TagMgtScalarFieldEnum)[keyof typeof TagMgtScalarFieldEnum]
+export type TagValueScalarFieldEnum = (typeof TagValueScalarFieldEnum)[keyof typeof TagValueScalarFieldEnum]
 
 
-export const TagMgtTypeScalarFieldEnum = {
+export const TagCategoriesScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -740,10 +740,10 @@ export const TagMgtTypeScalarFieldEnum = {
   recordId: 'recordId'
 } as const
 
-export type TagMgtTypeScalarFieldEnum = (typeof TagMgtTypeScalarFieldEnum)[keyof typeof TagMgtTypeScalarFieldEnum]
+export type TagCategoriesScalarFieldEnum = (typeof TagCategoriesScalarFieldEnum)[keyof typeof TagCategoriesScalarFieldEnum]
 
 
-export const TagDictionaryScalarFieldEnum = {
+export const TagTranslateScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -753,7 +753,7 @@ export const TagDictionaryScalarFieldEnum = {
   description: 'description'
 } as const
 
-export type TagDictionaryScalarFieldEnum = (typeof TagDictionaryScalarFieldEnum)[keyof typeof TagDictionaryScalarFieldEnum]
+export type TagTranslateScalarFieldEnum = (typeof TagTranslateScalarFieldEnum)[keyof typeof TagTranslateScalarFieldEnum]
 
 
 export const SortOrder = {

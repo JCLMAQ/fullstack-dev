@@ -294,7 +294,7 @@ model Group {
   Files       File[]
   org         Organization @relation(fields: [orgId], references: [id])
   orgId       String
-  Tags        TagMgt[]     @relation("GroupTags")
+  Tags        TagValue[]     @relation("GroupTags")
 }
 
 // Todo model for task management linked to users and organizations
@@ -321,7 +321,7 @@ model Todo {
   SubTodos    Todo[]         @relation("MainSubTodo")
   Users       UserTodoLink[]
   Tasks       Task[]
-  Tags        TagMgt[]       @relation("TodoTags")
+  Tags        TagValue[]       @relation("TodoTags")
 }
 
 // Junction table for users assigned to todos
@@ -364,7 +364,7 @@ model Task {
   Users       UserTaskLink[]
   todo        Todo?          @relation(fields: [todoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   todoId      String?
-  Tags        TagMgt[]       @relation("TaskTags")
+  Tags        TagValue[]       @relation("TaskTags")
 }
 
 // Junction table for users assigned to tasks
@@ -405,7 +405,7 @@ model Post {
   LikedBys    UserPostLikeLink[]
   Images      Image[]            @relation("PostImages")
   Files       File[]             @relation("PostFiles")
-  Tags        TagMgt[]           @relation("PostTags")
+  Tags        TagValue[]           @relation("PostTags")
 }
 
 // Category model for post categorization
@@ -473,7 +473,7 @@ model File {
   // File categorization and metadata
   category String? // Document category (pdf, document, spreadsheet, etc.)
   tags     String[] @default([]) // Array of tags for categorization
-  Tags     TagMgt[] @relation("FilesTags")
+  Tags     TagValue[] @relation("FilesTags")
 
   description String? // File description
   version     String? @default("1.0") // File version
@@ -792,16 +792,19 @@ model AccountValidation {
 }
 
 // Dictionary models for multilingual word and phrase management
+// Language model for managing available languages
+// Word model for dictionary entries (words, phrases, sentences, idioms)
+// Translation model for linking words to their translations in different languages
 model Language {
   id              Int             @id @default(autoincrement())
   code            String          @unique // e.g., "en", "es", "fr"
   name            String // e.g., "English", "Spanish"
   translations    Translation[]
   users           User[]
-  tagDictionaries TagDictionary[]
+  tagTranslates   TagTranslate[]
 }
 
-model Word {
+model Word { // Slug of the word/phrase/sentence/idiom
   id           Int             @id @default(autoincrement())
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @default(now()) @updatedAt()
@@ -814,15 +817,13 @@ model Word {
   translations Translation[]
 }
 
-model Translation {
+model Translation { // The actual translation of the word/phrase/sentence/idiom in a specific language
   id         Int     @id @default(autoincrement())
   text       String // The word in the specific language - Can be "Apple" or "The apple is on the table."
   definition String? // Optional definition/description
-
   // Relations
   wordId Int
   word   Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
-
   languageId Int
   language   Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
   // @@fulltext([text]) // Optimization: Allow searching for specific words within the sentence - not supported with Postgres
@@ -831,14 +832,19 @@ model Translation {
   @@unique([wordId, languageId])
 }
 
-enum DictioEntryType {
+enum DictioEntryType { // Type of dictionary entry (word, phrase, sentence, idiom, tag)
   WORD
   PHRASE
   SENTENCE
   IDIOM
+  TAG
 }
 
-model TagMgt {
+// Tag management models for categorizing and labeling various entities
+// TagValue: Represents individual tags which are linked to models (Todos, Tasks, Groups, Posts, Files ).
+// TagCartegories: Defines types or categories of tags.
+// TagTranslate: Provides multilingual translations for tags.
+model TagValue {
   id              Int             @id() @default(autoincrement())
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @default(now()) @updatedAt()
@@ -847,18 +853,18 @@ model TagMgt {
   isDeleted       Int             @default(0)
   isDeletedDT     DateTime?
   name            String          @unique()
-  position        Int             @default(0)
-  tagMgtModel     TagMgtType      @relation(fields: [tagMgtTypeId], references: [id])
-  tagMgtTypeId    Int
-  tagDictionaries TagDictionary[]
+  position        Int             @default(0) // Position in the list of tags  value for ordering
+  tagCategories   TagCategories      @relation(fields: [tagCategoriesId], references: [id])
+  tagCategoriesId    Int
+  tagTranslates   TagTranslate[]
   Todos           Todo[]          @relation("TodoTags")
   Tasks           Task[]          @relation("TaskTags")
   Groups          Group[]         @relation("GroupTags")
-  posts           Post[]          @relation("PostTags")
+  Posts           Post[]          @relation("PostTags")
   Files           File[]          @relation("FilesTags")
 }
 
-model TagMgtType {
+model TagCategories {
   id          Int       @id() @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now()) @updatedAt()
@@ -869,10 +875,10 @@ model TagMgtType {
   modelName   String
   description String?
   recordId    String
-  TagMgts     TagMgt[]
+  TagValues   TagValue[]
 }
 
-model TagDictionary {
+model TagTranslate { // Use TAG type in Word model
   id          Int      @id() @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt()
@@ -880,6 +886,6 @@ model TagDictionary {
   languageId  Int
   translation String
   tagId       Int
-  tagMgt      TagMgt   @relation(fields: [tagId], references: [id])
+  tagValue    TagValue   @relation(fields: [tagId], references: [id])
   description String?
 }

@@ -202,7 +202,7 @@ export type LanguageWhereInput = {
   name?: Prisma.StringFilter<"Language"> | string
   translations?: Prisma.TranslationListRelationFilter
   users?: Prisma.UserListRelationFilter
-  tagDictionaries?: Prisma.TagDictionaryListRelationFilter
+  tagTranslates?: Prisma.TagTranslateListRelationFilter
 }
 
 export type LanguageOrderByWithRelationInput = {
@@ -211,7 +211,7 @@ export type LanguageOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   translations?: Prisma.TranslationOrderByRelationAggregateInput
   users?: Prisma.UserOrderByRelationAggregateInput
-  tagDictionaries?: Prisma.TagDictionaryOrderByRelationAggregateInput
+  tagTranslates?: Prisma.TagTranslateOrderByRelationAggregateInput
 }
 
 export type LanguageWhereUniqueInput = Prisma.AtLeast<{
@@ -223,7 +223,7 @@ export type LanguageWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Language"> | string
   translations?: Prisma.TranslationListRelationFilter
   users?: Prisma.UserListRelationFilter
-  tagDictionaries?: Prisma.TagDictionaryListRelationFilter
+  tagTranslates?: Prisma.TagTranslateListRelationFilter
 }, "id" | "code">
 
 export type LanguageOrderByWithAggregationInput = {
@@ -251,7 +251,7 @@ export type LanguageCreateInput = {
   name: string
   translations?: Prisma.TranslationCreateNestedManyWithoutLanguageInput
   users?: Prisma.UserCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageUncheckedCreateInput = {
@@ -260,7 +260,7 @@ export type LanguageUncheckedCreateInput = {
   name: string
   translations?: Prisma.TranslationUncheckedCreateNestedManyWithoutLanguageInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageUpdateInput = {
@@ -268,7 +268,7 @@ export type LanguageUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   translations?: Prisma.TranslationUpdateManyWithoutLanguageNestedInput
   users?: Prisma.UserUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUpdateManyWithoutLanguageNestedInput
 }
 
 export type LanguageUncheckedUpdateInput = {
@@ -277,7 +277,7 @@ export type LanguageUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   translations?: Prisma.TranslationUncheckedUpdateManyWithoutLanguageNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutLanguageNestedInput
 }
 
 export type LanguageCreateManyInput = {
@@ -363,25 +363,25 @@ export type LanguageUpdateOneRequiredWithoutTranslationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LanguageUpdateToOneWithWhereWithoutTranslationsInput, Prisma.LanguageUpdateWithoutTranslationsInput>, Prisma.LanguageUncheckedUpdateWithoutTranslationsInput>
 }
 
-export type LanguageCreateNestedOneWithoutTagDictionariesInput = {
-  create?: Prisma.XOR<Prisma.LanguageCreateWithoutTagDictionariesInput, Prisma.LanguageUncheckedCreateWithoutTagDictionariesInput>
-  connectOrCreate?: Prisma.LanguageCreateOrConnectWithoutTagDictionariesInput
+export type LanguageCreateNestedOneWithoutTagTranslatesInput = {
+  create?: Prisma.XOR<Prisma.LanguageCreateWithoutTagTranslatesInput, Prisma.LanguageUncheckedCreateWithoutTagTranslatesInput>
+  connectOrCreate?: Prisma.LanguageCreateOrConnectWithoutTagTranslatesInput
   connect?: Prisma.LanguageWhereUniqueInput
 }
 
-export type LanguageUpdateOneRequiredWithoutTagDictionariesNestedInput = {
-  create?: Prisma.XOR<Prisma.LanguageCreateWithoutTagDictionariesInput, Prisma.LanguageUncheckedCreateWithoutTagDictionariesInput>
-  connectOrCreate?: Prisma.LanguageCreateOrConnectWithoutTagDictionariesInput
-  upsert?: Prisma.LanguageUpsertWithoutTagDictionariesInput
+export type LanguageUpdateOneRequiredWithoutTagTranslatesNestedInput = {
+  create?: Prisma.XOR<Prisma.LanguageCreateWithoutTagTranslatesInput, Prisma.LanguageUncheckedCreateWithoutTagTranslatesInput>
+  connectOrCreate?: Prisma.LanguageCreateOrConnectWithoutTagTranslatesInput
+  upsert?: Prisma.LanguageUpsertWithoutTagTranslatesInput
   connect?: Prisma.LanguageWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.LanguageUpdateToOneWithWhereWithoutTagDictionariesInput, Prisma.LanguageUpdateWithoutTagDictionariesInput>, Prisma.LanguageUncheckedUpdateWithoutTagDictionariesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LanguageUpdateToOneWithWhereWithoutTagTranslatesInput, Prisma.LanguageUpdateWithoutTagTranslatesInput>, Prisma.LanguageUncheckedUpdateWithoutTagTranslatesInput>
 }
 
 export type LanguageCreateWithoutUsersInput = {
   code: string
   name: string
   translations?: Prisma.TranslationCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageUncheckedCreateWithoutUsersInput = {
@@ -389,7 +389,7 @@ export type LanguageUncheckedCreateWithoutUsersInput = {
   code: string
   name: string
   translations?: Prisma.TranslationUncheckedCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageCreateOrConnectWithoutUsersInput = {
@@ -412,7 +412,7 @@ export type LanguageUpdateWithoutUsersInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   translations?: Prisma.TranslationUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUpdateManyWithoutLanguageNestedInput
 }
 
 export type LanguageUncheckedUpdateWithoutUsersInput = {
@@ -420,14 +420,14 @@ export type LanguageUncheckedUpdateWithoutUsersInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   translations?: Prisma.TranslationUncheckedUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutLanguageNestedInput
 }
 
 export type LanguageCreateWithoutTranslationsInput = {
   code: string
   name: string
   users?: Prisma.UserCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageUncheckedCreateWithoutTranslationsInput = {
@@ -435,7 +435,7 @@ export type LanguageUncheckedCreateWithoutTranslationsInput = {
   code: string
   name: string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutLanguageInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedCreateNestedManyWithoutLanguageInput
+  tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutLanguageInput
 }
 
 export type LanguageCreateOrConnectWithoutTranslationsInput = {
@@ -458,7 +458,7 @@ export type LanguageUpdateWithoutTranslationsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   users?: Prisma.UserUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUpdateManyWithoutLanguageNestedInput
 }
 
 export type LanguageUncheckedUpdateWithoutTranslationsInput = {
@@ -466,17 +466,17 @@ export type LanguageUncheckedUpdateWithoutTranslationsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   users?: Prisma.UserUncheckedUpdateManyWithoutLanguageNestedInput
-  tagDictionaries?: Prisma.TagDictionaryUncheckedUpdateManyWithoutLanguageNestedInput
+  tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutLanguageNestedInput
 }
 
-export type LanguageCreateWithoutTagDictionariesInput = {
+export type LanguageCreateWithoutTagTranslatesInput = {
   code: string
   name: string
   translations?: Prisma.TranslationCreateNestedManyWithoutLanguageInput
   users?: Prisma.UserCreateNestedManyWithoutLanguageInput
 }
 
-export type LanguageUncheckedCreateWithoutTagDictionariesInput = {
+export type LanguageUncheckedCreateWithoutTagTranslatesInput = {
   id?: number
   code: string
   name: string
@@ -484,30 +484,30 @@ export type LanguageUncheckedCreateWithoutTagDictionariesInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutLanguageInput
 }
 
-export type LanguageCreateOrConnectWithoutTagDictionariesInput = {
+export type LanguageCreateOrConnectWithoutTagTranslatesInput = {
   where: Prisma.LanguageWhereUniqueInput
-  create: Prisma.XOR<Prisma.LanguageCreateWithoutTagDictionariesInput, Prisma.LanguageUncheckedCreateWithoutTagDictionariesInput>
+  create: Prisma.XOR<Prisma.LanguageCreateWithoutTagTranslatesInput, Prisma.LanguageUncheckedCreateWithoutTagTranslatesInput>
 }
 
-export type LanguageUpsertWithoutTagDictionariesInput = {
-  update: Prisma.XOR<Prisma.LanguageUpdateWithoutTagDictionariesInput, Prisma.LanguageUncheckedUpdateWithoutTagDictionariesInput>
-  create: Prisma.XOR<Prisma.LanguageCreateWithoutTagDictionariesInput, Prisma.LanguageUncheckedCreateWithoutTagDictionariesInput>
+export type LanguageUpsertWithoutTagTranslatesInput = {
+  update: Prisma.XOR<Prisma.LanguageUpdateWithoutTagTranslatesInput, Prisma.LanguageUncheckedUpdateWithoutTagTranslatesInput>
+  create: Prisma.XOR<Prisma.LanguageCreateWithoutTagTranslatesInput, Prisma.LanguageUncheckedCreateWithoutTagTranslatesInput>
   where?: Prisma.LanguageWhereInput
 }
 
-export type LanguageUpdateToOneWithWhereWithoutTagDictionariesInput = {
+export type LanguageUpdateToOneWithWhereWithoutTagTranslatesInput = {
   where?: Prisma.LanguageWhereInput
-  data: Prisma.XOR<Prisma.LanguageUpdateWithoutTagDictionariesInput, Prisma.LanguageUncheckedUpdateWithoutTagDictionariesInput>
+  data: Prisma.XOR<Prisma.LanguageUpdateWithoutTagTranslatesInput, Prisma.LanguageUncheckedUpdateWithoutTagTranslatesInput>
 }
 
-export type LanguageUpdateWithoutTagDictionariesInput = {
+export type LanguageUpdateWithoutTagTranslatesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   translations?: Prisma.TranslationUpdateManyWithoutLanguageNestedInput
   users?: Prisma.UserUpdateManyWithoutLanguageNestedInput
 }
 
-export type LanguageUncheckedUpdateWithoutTagDictionariesInput = {
+export type LanguageUncheckedUpdateWithoutTagTranslatesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -523,13 +523,13 @@ export type LanguageUncheckedUpdateWithoutTagDictionariesInput = {
 export type LanguageCountOutputType = {
   translations: number
   users: number
-  tagDictionaries: number
+  tagTranslates: number
 }
 
 export type LanguageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   translations?: boolean | LanguageCountOutputTypeCountTranslationsArgs
   users?: boolean | LanguageCountOutputTypeCountUsersArgs
-  tagDictionaries?: boolean | LanguageCountOutputTypeCountTagDictionariesArgs
+  tagTranslates?: boolean | LanguageCountOutputTypeCountTagTranslatesArgs
 }
 
 /**
@@ -559,8 +559,8 @@ export type LanguageCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.
 /**
  * LanguageCountOutputType without action
  */
-export type LanguageCountOutputTypeCountTagDictionariesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TagDictionaryWhereInput
+export type LanguageCountOutputTypeCountTagTranslatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TagTranslateWhereInput
 }
 
 
@@ -570,7 +570,7 @@ export type LanguageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name?: boolean
   translations?: boolean | Prisma.Language$translationsArgs<ExtArgs>
   users?: boolean | Prisma.Language$usersArgs<ExtArgs>
-  tagDictionaries?: boolean | Prisma.Language$tagDictionariesArgs<ExtArgs>
+  tagTranslates?: boolean | Prisma.Language$tagTranslatesArgs<ExtArgs>
   _count?: boolean | Prisma.LanguageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["language"]>
 
@@ -596,7 +596,7 @@ export type LanguageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type LanguageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   translations?: boolean | Prisma.Language$translationsArgs<ExtArgs>
   users?: boolean | Prisma.Language$usersArgs<ExtArgs>
-  tagDictionaries?: boolean | Prisma.Language$tagDictionariesArgs<ExtArgs>
+  tagTranslates?: boolean | Prisma.Language$tagTranslatesArgs<ExtArgs>
   _count?: boolean | Prisma.LanguageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LanguageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -607,7 +607,7 @@ export type $LanguagePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     translations: Prisma.$TranslationPayload<ExtArgs>[]
     users: Prisma.$UserPayload<ExtArgs>[]
-    tagDictionaries: Prisma.$TagDictionaryPayload<ExtArgs>[]
+    tagTranslates: Prisma.$TagTranslatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1009,7 +1009,7 @@ export interface Prisma__LanguageClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   translations<T extends Prisma.Language$translationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Language$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.Language$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Language$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  tagDictionaries<T extends Prisma.Language$tagDictionariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Language$tagDictionariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagDictionaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tagTranslates<T extends Prisma.Language$tagTranslatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Language$tagTranslatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagTranslatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1478,27 +1478,27 @@ export type Language$usersArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Language.tagDictionaries
+ * Language.tagTranslates
  */
-export type Language$tagDictionariesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Language$tagTranslatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TagDictionary
+   * Select specific fields to fetch from the TagTranslate
    */
-  select?: Prisma.TagDictionarySelect<ExtArgs> | null
+  select?: Prisma.TagTranslateSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TagDictionary
+   * Omit specific fields from the TagTranslate
    */
-  omit?: Prisma.TagDictionaryOmit<ExtArgs> | null
+  omit?: Prisma.TagTranslateOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TagDictionaryInclude<ExtArgs> | null
-  where?: Prisma.TagDictionaryWhereInput
-  orderBy?: Prisma.TagDictionaryOrderByWithRelationInput | Prisma.TagDictionaryOrderByWithRelationInput[]
-  cursor?: Prisma.TagDictionaryWhereUniqueInput
+  include?: Prisma.TagTranslateInclude<ExtArgs> | null
+  where?: Prisma.TagTranslateWhereInput
+  orderBy?: Prisma.TagTranslateOrderByWithRelationInput | Prisma.TagTranslateOrderByWithRelationInput[]
+  cursor?: Prisma.TagTranslateWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TagDictionaryScalarFieldEnum | Prisma.TagDictionaryScalarFieldEnum[]
+  distinct?: Prisma.TagTranslateScalarFieldEnum | Prisma.TagTranslateScalarFieldEnum[]
 }
 
 /**

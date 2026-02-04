@@ -296,7 +296,7 @@ export type PostWhereInput = {
   LikedBys?: Prisma.UserPostLikeLinkListRelationFilter
   Images?: Prisma.ImageListRelationFilter
   Files?: Prisma.FileListRelationFilter
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
@@ -321,7 +321,7 @@ export type PostOrderByWithRelationInput = {
   LikedBys?: Prisma.UserPostLikeLinkOrderByRelationAggregateInput
   Images?: Prisma.ImageOrderByRelationAggregateInput
   Files?: Prisma.FileOrderByRelationAggregateInput
-  Tags?: Prisma.TagMgtOrderByRelationAggregateInput
+  Tags?: Prisma.TagValueOrderByRelationAggregateInput
 }
 
 export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -349,7 +349,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   LikedBys?: Prisma.UserPostLikeLinkListRelationFilter
   Images?: Prisma.ImageListRelationFilter
   Files?: Prisma.FileListRelationFilter
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }, "id">
 
 export type PostOrderByWithAggregationInput = {
@@ -412,7 +412,7 @@ export type PostCreateInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateInput = {
@@ -435,7 +435,7 @@ export type PostUncheckedCreateInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostUpdateInput = {
@@ -458,7 +458,7 @@ export type PostUpdateInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
@@ -481,7 +481,7 @@ export type PostUncheckedUpdateInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostCreateManyInput = {
@@ -887,7 +887,7 @@ export type PostCreateWithoutOrgInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutOrgInput = {
@@ -909,7 +909,7 @@ export type PostUncheckedCreateWithoutOrgInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutOrgInput = {
@@ -976,7 +976,7 @@ export type PostCreateWithoutOwnerInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutOwnerInput = {
@@ -998,7 +998,7 @@ export type PostUncheckedCreateWithoutOwnerInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutOwnerInput = {
@@ -1046,7 +1046,7 @@ export type PostCreateWithoutGroupsInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutGroupsInput = {
@@ -1068,7 +1068,7 @@ export type PostUncheckedCreateWithoutGroupsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutGroupsInput = {
@@ -1111,7 +1111,7 @@ export type PostCreateWithoutCategoriesInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutCategoriesInput = {
@@ -1133,7 +1133,7 @@ export type PostUncheckedCreateWithoutCategoriesInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutCategoriesInput = {
@@ -1176,7 +1176,7 @@ export type PostCreateWithoutCommentsInput = {
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutCommentsInput = {
@@ -1198,7 +1198,7 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutCommentsInput = {
@@ -1236,7 +1236,7 @@ export type PostUpdateWithoutCommentsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutCommentsInput = {
@@ -1258,7 +1258,7 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostCreateWithoutFilesInput = {
@@ -1280,7 +1280,7 @@ export type PostCreateWithoutFilesInput = {
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutFilesInput = {
@@ -1302,7 +1302,7 @@ export type PostUncheckedCreateWithoutFilesInput = {
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutFilesInput = {
@@ -1340,7 +1340,7 @@ export type PostUpdateWithoutFilesInput = {
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutFilesInput = {
@@ -1362,7 +1362,7 @@ export type PostUncheckedUpdateWithoutFilesInput = {
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostCreateWithoutLikedBysInput = {
@@ -1384,7 +1384,7 @@ export type PostCreateWithoutLikedBysInput = {
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutLikedBysInput = {
@@ -1406,7 +1406,7 @@ export type PostUncheckedCreateWithoutLikedBysInput = {
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
   Images?: Prisma.ImageUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutLikedBysInput = {
@@ -1444,7 +1444,7 @@ export type PostUpdateWithoutLikedBysInput = {
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutLikedBysInput = {
@@ -1466,7 +1466,7 @@ export type PostUncheckedUpdateWithoutLikedBysInput = {
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostCreateWithoutImagesInput = {
@@ -1488,7 +1488,7 @@ export type PostCreateWithoutImagesInput = {
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
   Files?: Prisma.FileCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutPostsInput
 }
 
 export type PostUncheckedCreateWithoutImagesInput = {
@@ -1510,7 +1510,7 @@ export type PostUncheckedCreateWithoutImagesInput = {
   Comments?: Prisma.CommentUncheckedCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkUncheckedCreateNestedManyWithoutPostInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutPostInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutPostsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutPostsInput
 }
 
 export type PostCreateOrConnectWithoutImagesInput = {
@@ -1548,7 +1548,7 @@ export type PostUpdateWithoutImagesInput = {
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutImagesInput = {
@@ -1570,7 +1570,7 @@ export type PostUncheckedUpdateWithoutImagesInput = {
   Comments?: Prisma.CommentUncheckedUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostCreateWithoutTagsInput = {
@@ -1672,7 +1672,7 @@ export type PostUpdateWithoutOrgInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutOrgInput = {
@@ -1694,7 +1694,7 @@ export type PostUncheckedUpdateWithoutOrgInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutOrgInput = {
@@ -1746,7 +1746,7 @@ export type PostUpdateWithoutOwnerInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutOwnerInput = {
@@ -1768,7 +1768,7 @@ export type PostUncheckedUpdateWithoutOwnerInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutOwnerInput = {
@@ -1805,7 +1805,7 @@ export type PostUpdateWithoutGroupsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutGroupsInput = {
@@ -1827,7 +1827,7 @@ export type PostUncheckedUpdateWithoutGroupsInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutGroupsInput = {
@@ -1865,7 +1865,7 @@ export type PostUpdateWithoutCategoriesInput = {
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateWithoutCategoriesInput = {
@@ -1887,7 +1887,7 @@ export type PostUncheckedUpdateWithoutCategoriesInput = {
   LikedBys?: Prisma.UserPostLikeLinkUncheckedUpdateManyWithoutPostNestedInput
   Images?: Prisma.ImageUncheckedUpdateManyWithoutPostNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutPostNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutPostsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutPostsNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutCategoriesInput = {
@@ -2047,7 +2047,7 @@ export type PostCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Exte
  * PostCountOutputType without action
  */
 export type PostCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TagMgtWhereInput
+  where?: Prisma.TagValueWhereInput
 }
 
 
@@ -2162,7 +2162,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     LikedBys: Prisma.$UserPostLikeLinkPayload<ExtArgs>[]
     Images: Prisma.$ImagePayload<ExtArgs>[]
     Files: Prisma.$FilePayload<ExtArgs>[]
-    Tags: Prisma.$TagMgtPayload<ExtArgs>[]
+    Tags: Prisma.$TagValuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2580,7 +2580,7 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
   LikedBys<T extends Prisma.Post$LikedBysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$LikedBysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPostLikeLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Images<T extends Prisma.Post$ImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$ImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Files<T extends Prisma.Post$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Tags<T extends Prisma.Post$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagMgtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Tags<T extends Prisma.Post$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3167,23 +3167,23 @@ export type Post$FilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
  */
 export type Post$TagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TagMgt
+   * Select specific fields to fetch from the TagValue
    */
-  select?: Prisma.TagMgtSelect<ExtArgs> | null
+  select?: Prisma.TagValueSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TagMgt
+   * Omit specific fields from the TagValue
    */
-  omit?: Prisma.TagMgtOmit<ExtArgs> | null
+  omit?: Prisma.TagValueOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TagMgtInclude<ExtArgs> | null
-  where?: Prisma.TagMgtWhereInput
-  orderBy?: Prisma.TagMgtOrderByWithRelationInput | Prisma.TagMgtOrderByWithRelationInput[]
-  cursor?: Prisma.TagMgtWhereUniqueInput
+  include?: Prisma.TagValueInclude<ExtArgs> | null
+  where?: Prisma.TagValueWhereInput
+  orderBy?: Prisma.TagValueOrderByWithRelationInput | Prisma.TagValueOrderByWithRelationInput[]
+  cursor?: Prisma.TagValueWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TagMgtScalarFieldEnum | Prisma.TagMgtScalarFieldEnum[]
+  distinct?: Prisma.TagValueScalarFieldEnum | Prisma.TagValueScalarFieldEnum[]
 }
 
 /**

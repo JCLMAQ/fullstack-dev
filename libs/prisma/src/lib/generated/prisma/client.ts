@@ -203,17 +203,17 @@ export type Word = Prisma.WordModel
  */
 export type Translation = Prisma.TranslationModel
 /**
- * Model TagMgt
+ * Model TagValue
  * 
  */
-export type TagMgt = Prisma.TagMgtModel
+export type TagValue = Prisma.TagValueModel
 /**
- * Model TagMgtType
+ * Model TagCategories
  * 
  */
-export type TagMgtType = Prisma.TagMgtTypeModel
+export type TagCategories = Prisma.TagCategoriesModel
 /**
- * Model TagDictionary
+ * Model TagTranslate
  * 
  */
-export type TagDictionary = Prisma.TagDictionaryModel
+export type TagTranslate = Prisma.TagTranslateModel

@@ -295,7 +295,7 @@ export type GroupWhereInput = {
   Posts?: Prisma.PostListRelationFilter
   Files?: Prisma.FileListRelationFilter
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }
 
 export type GroupOrderByWithRelationInput = {
@@ -319,7 +319,7 @@ export type GroupOrderByWithRelationInput = {
   Posts?: Prisma.PostOrderByRelationAggregateInput
   Files?: Prisma.FileOrderByRelationAggregateInput
   org?: Prisma.OrganizationOrderByWithRelationInput
-  Tags?: Prisma.TagMgtOrderByRelationAggregateInput
+  Tags?: Prisma.TagValueOrderByRelationAggregateInput
 }
 
 export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -346,7 +346,7 @@ export type GroupWhereUniqueInput = Prisma.AtLeast<{
   Posts?: Prisma.PostListRelationFilter
   Files?: Prisma.FileListRelationFilter
   org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
-  Tags?: Prisma.TagMgtListRelationFilter
+  Tags?: Prisma.TagValueListRelationFilter
 }, "id">
 
 export type GroupOrderByWithAggregationInput = {
@@ -407,7 +407,7 @@ export type GroupCreateInput = {
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateInput = {
@@ -429,7 +429,7 @@ export type GroupUncheckedCreateInput = {
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUpdateInput = {
@@ -450,7 +450,7 @@ export type GroupUpdateInput = {
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateInput = {
@@ -472,7 +472,7 @@ export type GroupUncheckedUpdateInput = {
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupCreateManyInput = {
@@ -902,7 +902,7 @@ export type GroupCreateWithoutOrgInput = {
   Todos?: Prisma.TodoCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutOrgInput = {
@@ -923,7 +923,7 @@ export type GroupUncheckedCreateWithoutOrgInput = {
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutOrgInput = {
@@ -988,7 +988,7 @@ export type GroupCreateWithoutOwnerInput = {
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutOwnerInput = {
@@ -1009,7 +1009,7 @@ export type GroupUncheckedCreateWithoutOwnerInput = {
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutOwnerInput = {
@@ -1039,7 +1039,7 @@ export type GroupCreateWithoutMembersInput = {
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutMembersInput = {
@@ -1060,7 +1060,7 @@ export type GroupUncheckedCreateWithoutMembersInput = {
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutMembersInput = {
@@ -1112,7 +1112,7 @@ export type GroupUpdateWithoutMembersInput = {
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutMembersInput = {
@@ -1133,7 +1133,7 @@ export type GroupUncheckedUpdateWithoutMembersInput = {
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupCreateWithoutTodosInput = {
@@ -1153,7 +1153,7 @@ export type GroupCreateWithoutTodosInput = {
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutTodosInput = {
@@ -1174,7 +1174,7 @@ export type GroupUncheckedCreateWithoutTodosInput = {
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutTodosInput = {
@@ -1215,7 +1215,7 @@ export type GroupCreateWithoutTasksInput = {
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutTasksInput = {
@@ -1236,7 +1236,7 @@ export type GroupUncheckedCreateWithoutTasksInput = {
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutTasksInput = {
@@ -1277,7 +1277,7 @@ export type GroupCreateWithoutPostsInput = {
   Todos?: Prisma.TodoCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutPostsInput = {
@@ -1298,7 +1298,7 @@ export type GroupUncheckedCreateWithoutPostsInput = {
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGroupsInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Files?: Prisma.FileUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutPostsInput = {
@@ -1339,7 +1339,7 @@ export type GroupCreateWithoutFilesInput = {
   Todos?: Prisma.TodoCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostCreateNestedManyWithoutGroupsInput
   org: Prisma.OrganizationCreateNestedOneWithoutGroupsInput
-  Tags?: Prisma.TagMgtCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupUncheckedCreateWithoutFilesInput = {
@@ -1360,7 +1360,7 @@ export type GroupUncheckedCreateWithoutFilesInput = {
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutGroupsInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutGroupsInput
   Posts?: Prisma.PostUncheckedCreateNestedManyWithoutGroupsInput
-  Tags?: Prisma.TagMgtUncheckedCreateNestedManyWithoutGroupsInput
+  Tags?: Prisma.TagValueUncheckedCreateNestedManyWithoutGroupsInput
 }
 
 export type GroupCreateOrConnectWithoutFilesInput = {
@@ -1478,7 +1478,7 @@ export type GroupUpdateWithoutOrgInput = {
   Todos?: Prisma.TodoUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutOrgInput = {
@@ -1499,7 +1499,7 @@ export type GroupUncheckedUpdateWithoutOrgInput = {
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutOrgInput = {
@@ -1549,7 +1549,7 @@ export type GroupUpdateWithoutOwnerInput = {
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutOwnerInput = {
@@ -1570,7 +1570,7 @@ export type GroupUncheckedUpdateWithoutOwnerInput = {
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutOwnerInput = {
@@ -1605,7 +1605,7 @@ export type GroupUpdateWithoutTodosInput = {
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutTodosInput = {
@@ -1626,7 +1626,7 @@ export type GroupUncheckedUpdateWithoutTodosInput = {
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutTodosInput = {
@@ -1662,7 +1662,7 @@ export type GroupUpdateWithoutTasksInput = {
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutTasksInput = {
@@ -1683,7 +1683,7 @@ export type GroupUncheckedUpdateWithoutTasksInput = {
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutTasksInput = {
@@ -1719,7 +1719,7 @@ export type GroupUpdateWithoutPostsInput = {
   Todos?: Prisma.TodoUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutPostsInput = {
@@ -1740,7 +1740,7 @@ export type GroupUncheckedUpdateWithoutPostsInput = {
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutGroupsNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Files?: Prisma.FileUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutPostsInput = {
@@ -1776,7 +1776,7 @@ export type GroupUpdateWithoutFilesInput = {
   Todos?: Prisma.TodoUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUpdateManyWithoutGroupsNestedInput
   org?: Prisma.OrganizationUpdateOneRequiredWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateWithoutFilesInput = {
@@ -1797,7 +1797,7 @@ export type GroupUncheckedUpdateWithoutFilesInput = {
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutGroupsNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutGroupsNestedInput
   Posts?: Prisma.PostUncheckedUpdateManyWithoutGroupsNestedInput
-  Tags?: Prisma.TagMgtUncheckedUpdateManyWithoutGroupsNestedInput
+  Tags?: Prisma.TagValueUncheckedUpdateManyWithoutGroupsNestedInput
 }
 
 export type GroupUncheckedUpdateManyWithoutFilesInput = {
@@ -1945,7 +1945,7 @@ export type GroupCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Ext
  * GroupCountOutputType without action
  */
 export type GroupCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TagMgtWhereInput
+  where?: Prisma.TagValueWhereInput
 }
 
 
@@ -2057,7 +2057,7 @@ export type $GroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     Posts: Prisma.$PostPayload<ExtArgs>[]
     Files: Prisma.$FilePayload<ExtArgs>[]
     org: Prisma.$OrganizationPayload<ExtArgs>
-    Tags: Prisma.$TagMgtPayload<ExtArgs>[]
+    Tags: Prisma.$TagValuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2474,7 +2474,7 @@ export interface Prisma__GroupClient<T, Null = never, ExtArgs extends runtime.Ty
   Posts<T extends Prisma.Group$PostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$PostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Files<T extends Prisma.Group$FilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$FilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Tags<T extends Prisma.Group$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagMgtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Tags<T extends Prisma.Group$TagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Group$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3037,23 +3037,23 @@ export type Group$FilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
  */
 export type Group$TagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the TagMgt
+   * Select specific fields to fetch from the TagValue
    */
-  select?: Prisma.TagMgtSelect<ExtArgs> | null
+  select?: Prisma.TagValueSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the TagMgt
+   * Omit specific fields from the TagValue
    */
-  omit?: Prisma.TagMgtOmit<ExtArgs> | null
+  omit?: Prisma.TagValueOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TagMgtInclude<ExtArgs> | null
-  where?: Prisma.TagMgtWhereInput
-  orderBy?: Prisma.TagMgtOrderByWithRelationInput | Prisma.TagMgtOrderByWithRelationInput[]
-  cursor?: Prisma.TagMgtWhereUniqueInput
+  include?: Prisma.TagValueInclude<ExtArgs> | null
+  where?: Prisma.TagValueWhereInput
+  orderBy?: Prisma.TagValueOrderByWithRelationInput | Prisma.TagValueOrderByWithRelationInput[]
+  cursor?: Prisma.TagValueWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TagMgtScalarFieldEnum | Prisma.TagMgtScalarFieldEnum[]
+  distinct?: Prisma.TagValueScalarFieldEnum | Prisma.TagValueScalarFieldEnum[]
 }
 
 /**
