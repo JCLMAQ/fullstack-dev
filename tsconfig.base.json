@@ -16,12 +16,14 @@
     "baseUrl": ".",
     "ignoreDeprecations": "5.0",
     "paths": {
+      // Database aliases
       "@db/prisma": ["libs/prisma/src/index.ts"],
       "@db/prisma/browser": ["libs/prisma/src/browserFrontend.ts"],
       "@db/prisma/client": ["libs/prisma/src/lib/generated/prisma/client.ts"],
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/prisma/backend": ["libs/prisma/src/clientBackend.ts"],
       "@db/prisma/frontend": ["libs/prisma/src/browserFrontend.ts"],
+      // Backend aliases
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],
@@ -74,6 +76,11 @@
       ],
       "@be/words": ["libs/backend/data-access/words/src/index.ts"],
       "@be/languages": ["libs/backend/data-access/languages/src/index.ts"],
+      "@be/tags": ["libs/backend/data-access/tags/src/index.ts"],
+      "@be/dictionaries": [
+        "libs/backend/data-access/dictionaries/src/index.ts"
+      ],
+      // Frontend aliases
       "@fe/layout": ["libs/frontend/core/layout/src/index.ts"],
       "@fe/auth": ["libs/frontend/core/auth/src/index.ts"],
       "@fe/core/auth": ["libs/frontend/core/auth/src/index.ts"],
@@ -162,7 +169,7 @@
       "@fe/dictionary": [
         "libs/frontend/features/components/dictionary/src/index.ts"
       ],
-      "@fullstack-dev/tag": [
+      "@fe/tag": [
         "libs/frontend/features/components/tag/src/index.ts"
       ]
     }
