@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { LanguagesController } from './languages.controller';
 import { LanguagesService } from './languages.service';
 
+// CRUD direct sur l’entité Language (création, liste, update, delete, findByCode).
+
 @Module({
   imports: [PrismaClientModule],
   controllers: [LanguagesController],

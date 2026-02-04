@@ -1,6 +1,6 @@
 # dictionaries
 
-This library was generated with [Nx](https://nx.dev).
+agrégation/lecture transversale (Language, Word, Translation) pour fournir des dictionnaires prêts pour le frontend.
 
 ## Running unit tests
 
