@@ -28,6 +28,21 @@ export class TodosService {
     });
   }
 
+  async listTodos(params: {
+    skip?: number;
+    take?: number;
+    where?: Prisma.TodoWhereInput;
+    orderBy?: Prisma.TodoOrderByWithRelationInput;
+  }): Promise<TodoWithRelations[]> {
+    const { skip, take, where, orderBy } = params;
+    return this.prisma.todo.findMany({
+      skip,
+      take,
+      where,
+      orderBy,
+      include: TODO_INCLUDE,
+    });
+  }
   /**
    * Récupère un todo par ID
    */
@@ -280,4 +295,9 @@ export class TodosService {
   async count(where?: Prisma.TodoWhereInput): Promise<number> {
     return this.prisma.todo.count({ where });
   }
+
+  async countTodos(where: Prisma.TodoWhereInput): Promise<number> {
+    return this.prisma.todo.count({ where });
+  }
+
 }
