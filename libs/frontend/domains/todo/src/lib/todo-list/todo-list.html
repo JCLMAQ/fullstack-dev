@@ -5,9 +5,14 @@
     } @else if (store.todosError()) {
       <p>An error has happened.</p>
     } @else if (store.todosHasValue()) {
-      <ul>
-        @for (t of store.todosEntities() ?? []; track t.id) {
-          <li>{{ t.title }} — {{ t.todoState }}</li>
-        }
-      </ul>
+      @if (store.todosEntities().length === 0) {
+        <p>Aucun todo pour cet utilisateur.</p>
+      } @else {
+        <ul>
+          @for (t of store.todosEntities(); track t.id) {
+            <li>{{ t.title }} — {{ t.todoState }}</li>
+          }
+        </ul>
+      }
     }
+

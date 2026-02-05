@@ -4,7 +4,7 @@ export type AppSlice = {
   readonly user: User | undefined;
   readonly authToken: string | undefined;
   readonly isAdmin: boolean;
-  readonly orgId: string[] | undefined;
+  readonly orgId: string[]| undefined;
   readonly isLoggedIn: boolean;
 };
 

@@ -1,6 +1,6 @@
 import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { inject } from '@angular/core';
-import { patchState, signalMethod, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
+import { computed, inject } from '@angular/core';
+import { patchState, signalMethod, signalStore, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
 import { initialTodoState } from './todo-slice';
 // import { computed, effect, inject, resource } from "@angular/core";
 import { AppStore } from "@fe/stores";
@@ -59,6 +59,8 @@ export const TodoStore = signalStore(
   withUndoRedo({
     collections: [ "todos" ]
   }),
-
+withComputed((store) => ({
+  todosCount: computed(() => !!store.todosEntities() ? store.todosEntities().length : 0),
+}))
 // End of store definition
 );

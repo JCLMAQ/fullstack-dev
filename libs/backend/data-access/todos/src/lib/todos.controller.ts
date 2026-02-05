@@ -109,6 +109,54 @@ export class TodosController {
     }
   }
 
+  @Get('by-user')
+  async getTodosByUserAndOrg(
+    @Query('ownerId') ownerId?: string,
+    @Query('orgId') orgId?: string
+  ) {
+    try {
+      if (!ownerId) {
+        throw new HttpException('ownerId requis', HttpStatus.BAD_REQUEST);
+      }
+
+      const where: Prisma.TodoWhereInput = {
+        ownerId,
+        isDeleted: 0,
+      };
+
+      if (orgId) {
+        where.orgId = orgId;
+      }
+
+      const todos = await this.todosService.findAll({
+        where,
+        include: {
+          owner: true,
+          org: true,
+          mainTodo: true,
+          Users: {
+            include: {
+              user: true,
+            },
+          },
+        },
+        orderBy: {
+          orderTodo: 'asc',
+        },
+      });
+
+      return todos;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        `Erreur lors de la récupération des todos: ${getErrorMessage(error)}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   /**
    * Récupère un todo par son ID
    */

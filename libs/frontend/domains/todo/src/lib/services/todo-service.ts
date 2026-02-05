@@ -30,7 +30,7 @@ export class TodoService {
 	}
 
 	get baseUrl(): string {
-		return `${this.apiPrefix}/todos`;
+		return `${this.apiPrefix}/todos/by-user`;
   }
 
   // get todos
