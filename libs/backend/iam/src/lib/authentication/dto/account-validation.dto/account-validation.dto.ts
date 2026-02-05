@@ -33,6 +33,7 @@ export interface UserProfileResponse {
  * User profile interface (compatible with AUTHS)
  */
 export interface UserProfile {
+  id?: string;
   email: string;
   lastName?: string;
   firstName?: string;

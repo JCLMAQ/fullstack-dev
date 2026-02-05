@@ -1,16 +1,16 @@
 import { Prisma, TodoState } from '@db/prisma';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Patch,
-  Post,
-  Put,
-  Query,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Patch,
+    Post,
+    Put,
+    Query,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 
@@ -119,15 +119,27 @@ export class TodosController {
         throw new HttpException('ownerId requis', HttpStatus.BAD_REQUEST);
       }
 
-      const where: Prisma.TodoWhereInput = {
-        ownerId,
-        isDeleted: 0,
-      };
+      const orgIds = orgId ? (Array.isArray(orgId) ? orgId : [orgId]) : null;
 
-      if (orgId) {
-        const orgIds = Array.isArray(orgId) ? orgId : [orgId];
-        where.orgId = { in: orgIds };
-      }
+      const where: Prisma.TodoWhereInput = {
+        isDeleted: 0,
+        AND: [
+          {
+            OR: [
+              { ownerId },
+              {
+                Users: {
+                  some: {
+                    userId: ownerId,
+                    isAssigned: true,
+                  },
+                },
+              },
+            ],
+          },
+          ...(orgIds ? [{ orgId: { in: orgIds } }] : []),
+        ],
+      };
 
       const todos = await this.todosService.findAll({
         where,

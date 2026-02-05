@@ -234,6 +234,7 @@ export class AuthenticationController {
     const user = await this.prisma.user.findUnique({
       where: { id: activeUser.sub },
       select: {
+        id: true,
         email: true,
         firstName: true,
         lastName: true,
@@ -254,6 +255,7 @@ export class AuthenticationController {
     }
 
     const userProfile: UserProfile = {
+      id: user.id,
       email: user.email,
       lastName: user.lastName || undefined,
       firstName: user.firstName || undefined,
