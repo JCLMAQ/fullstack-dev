@@ -1,1 +1,13 @@
 <p>todo-list works!</p>
+
+   @if (store.todosIsLoading()) {
+      <div>Loading...</div>
+    } @else if (store.todosError()) {
+      <p>An error has happened.</p>
+    } @else if (store.todosHasValue()) {
+      <ul>
+        @for (t of store.todosEntities() ?? []; track t.id) {
+          <li>{{ t.title }} — {{ t.todoState }}</li>
+        }
+      </ul>
+    }

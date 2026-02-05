@@ -1,331 +1,331 @@
 # Copilot Instructions pour FullStack App
 
-- Be concise and direct; avoid unnecessary explanations unless asked
-- Use technical terminology appropriate for professional developers
-- Provide code-first responses; show examples rather than lengthy descriptions
-- Ask clarifying questions when requirements are ambiguous or incomplete
-- Explain trade-offs when multiple valid approaches exist
-- Be honest about limitations or potential issues in suggested solutions
+## Communication Style
+- Concis et direct; éviter les explications superflues sauf si demandées
+- Terminologie technique pour développeurs professionnels
+- Réponses "code-first"; montrer des exemples plutôt que de longues descriptions
+- Poser des questions de clarification si les exigences sont ambiguës
+- Expliquer les compromis quand plusieurs approches valides existent
+- Être honnête sur les limitations ou problèmes potentiels
 
 ## Code Generation Rules
-- Include comprehensive error handling with proper exception types and edge case validation
-- Sanitize and validate all inputs to prevent injection attacks and security vulnerabilities
-- Reuse existing code patterns and utilities; avoid duplication
-- Match existing code style, formatting, and naming conventions in the project
-- Use descriptive, self-documenting names for variables, functions, and types
-- Prioritize simple, readable code over complex or clever solutions
-- Apply single responsibility principle: one clear purpose per function/class
-- Avoid circular dependencies, tight coupling, god objects, and code smells
-- Keep functions small and focused; extract complex logic into well-named helpers
-- Use appropriate data structures, collections, and algorithms for each use case
-- Minimize dependencies; only import what's necessary
-- Make code testable with pure functions and minimal side effects
-- Integrate with existing architecture, module boundaries, and project structure
-- Optimize for performance; avoid inefficient algorithms and memory leaks
-- Add documentation only for complex logic; let simple code self-document
-- Implement proper typing with strong types and interfaces; avoid loose typing
-- Follow established patterns and conventions specific to the project and language
-- Do not write code comments if not requested.
+- Gestion d'erreurs complète avec types d'exceptions appropriés
+- Validation complète des entrées pour prévenir les injections
+- Réutiliser les patterns et utilitaires existants; éviter la duplication
+- **Suivre les conventions de style, formatage et nommage du projet existant**
+- Noms descriptifs et auto-documentés
+- Code simple et lisible plutôt que complexe ou intelligent
+- Principe de responsabilité unique
+- Éviter dépendances circulaires, couplage fort, god objects
+- Fonctions petites et focalisées
+- Typage strict avec interfaces; éviter loose typing
+- Documentation uniquement pour logique complexe
+- **Ne pas écrire de commentaires de code si non demandés**
 
 ## Architecture du Projet
 
-Cette application est un **monorepo Nx** avec une architecture fullstack basée sur **Prisma + NestJS + Angular**.
+**Monorepo Nx fullstack** : Prisma + NestJS + Angular 21+ avec DDD (Domain-Driven Design)
 
 ### Structure Clé
-- **Apps** : `apps/backend/nest-app` (NestJS) + `apps/frontend/app-jcm` (Angular)
-- **Libs** : Bibliothèques partagées par domaine (`libs/backend/*`, `libs/frontend/*`)
-- **Prisma** : Schéma de base de données centralisé dans `libs/prisma/src/lib/prisma/schema.prisma`
-- **Scripts** : Utilitaires de configuration dans `scripts/`
-
-## Stack Technique Spécifique
-
-### Prisma (Couche Données)
-- **Schéma principal** : `libs/prisma/src/lib/prisma/schema.prisma`
-- **Génération** : `pnpm run prisma:generate`
-
-### NestJS (Backend)
-- **IAM** : Module d'authentification complet dans `libs/backend/iam`
-- **Guards multiples** : Authentication, Roles, Permissions, Policies (tous actifs par défaut)
-- **Configuration** : Variables d'environnement via `DbConfigService` et base de données
-
-### Angular (Frontend)
-- **Configuration dynamique** : Script `scripts/setenv.ts` génère `environment.ts` depuis `.env`
-- **Proxy** : Script `scripts/setproxyconfig.ts` génère `proxy.config.json`
-- **Démarrage** : Utilise toujours les scripts de config avant le serve
-
-## Workflows de Développement
-
-### Démarrage Complet
-```bash
-# 1. Base de données
-pnpm run db:docker:up
-
-# 2. Backend (génère config proxy)
-pnpm run start:backend:dev
-
-# 3. Frontend (génère environment + proxy)
-pnpm run start:frontend:dev
+```
+apps/
+  backend/nest-app/           # NestJS (:3000)
+  frontend/app-jcm/           # Angular (:4000)
+libs/
+  backend/                    # Modules NestJS par domaine
+    data-access/              # users/, tasks/, posts/ ...
+    iam/                      # Auth complet (JWT, 2FA, Passwordless)
+    prisma-client/            # Service Prisma encapsulé
+    utilities/                # Utils (mails, files, db-config)
+  frontend/                   # Modules Angular
+    core/                     # Fondations (auth, layout, shared)
+    domains/                  # Domaines métier (user/, task/, post/)
+    features/                 # Composants réutilisables
+    models/                   # Types TypeScript partagés
+    stores/                   # State management global (AppStore)
+  prisma/                     # Schema Prisma centralisé
+scripts/                      # Utilitaires de configuration
 ```
 
-### Modifications Schema
-1. Modifier `libs/prisma/src/lib/prisma/schema.prisma`
-2. `pnpm run start:prisma` (génère + migre)
-3. Redémarrer les services
+### Organisation DDD Frontend
 
-### Seeding
-- Configuration : `pnpm run seed-param`
-- Données de test : `pnpm run seed-faker`
-- Organisation : `pnpm run seed-org`
+**Pattern obligatoire** : Chaque domaine suit `feature/ui/data/util`  
+**⚠️ RÈGLE CRITIQUE** : Tous components/directives/pipes dans leur **propre sous-dossier**
 
-## Conventions Spécifiques
+```
+libs/frontend/domains/user/src/lib/
+  feature/                    # Composants intelligents (conteneurs)
+    user-list/                # ✅ Sous-dossier obligatoire
+  ui/                         # Composants de présentation
+    user-card/                # ✅ Sous-dossier obligatoire
+  data/                       # Services et accès données
+    services/
+    models/
+    infrastructure/
+  store/                      # State management (user.store.ts)
+  util/                       # Helpers
+```
 
-### Structure des Modules
-- **Repository Pattern** : Services utilisent des repositories (ex: `TasksRepository`)
-- **CRUD Services** : Services générés automatiquement dans `libs/db/prisma/generated/`
-- **Validation** : `class-validator` + `ValidationPipe` global
-- **Sérialisation** : `ClassSerializerInterceptor` global
+**Exemples de référence** :
+- [libs/frontend/domains/user/src/lib/feature/user-list/](libs/frontend/domains/user/src/lib/feature/user-list/)
+- [libs/frontend/domains/task/src/lib/feature/task-list/](libs/frontend/domains/task/src/lib/feature/task-list/)
+- [libs/backend/data-access/users/](libs/backend/data-access/users/)
 
-### Gestion des Utilisateurs
-- **Auth Multi-mode** : Password + Passwordless + 2FA
-- **Soft Delete** : `isDeleted` + `isDeletedDT` 
-- **Validation Email** : `AccountValidation` + tokens
-<!-- - **Rôles/Permissions** : Système complet avec politiques ZenStack -->
+## Build & Test Commands
 
-### Configuration
-- **Priorité ENV** : Environnement > Base de données (`DbConfigService.searchConfigParamEnvFirst`)
-- **Scripts requis** : Toujours exécuter les scripts de config avant développement
-- **Proxy requis** : Frontend doit utiliser proxy pour API calls
+### Démarrage Development (séquence obligatoire)
+```bash
+# 1. PostgreSQL
+pnpm run db:docker:up
 
-## Points d'Intégration Critiques
+# 2. Configuration (⚠️ OBLIGATOIRE avant démarrage)
+pnpm run configproxy          # Génère proxy.config.json
+pnpm run configangular -- --environment=dev  # Génère environment.ts
 
-<!-- ### ZenStack Middleware
-Route `/zen` expose automatiquement toutes les entités via REST avec politiques d'accès.
-Headers requis : `x-user-id`, `x-user-role` -->
+# 3. Database setup
+pnpm run start:prisma         # Generate + migrate
+pnpm run seed-param           # Configuration params
+pnpm run seed-faker           # (optionnel) Données de test
 
-### Services Prisma
-- `PrismaService` : Service de base
-- `EnhancedPrismaService` : Avec politiques ZenStack (recommandé)
-- Import : `@db/prisma` pour le service, `@prisma/client` pour les types
+# 4. Démarrage
+pnpm run start:backend:dev    # Terminal 1 → :3000
+pnpm run start:frontend:dev   # Terminal 2 → :4000
+```
 
-### Configuration Environment
-Variables critiques à définir dans `.env` :
-- `DATABASE_URL`, `API_*`, `NEST_SERVER_*`
-- Utiliser `dotenvx` pour les commandes de base
+### Database Management
+```bash
+pnpm run prisma:generate      # Génère le client Prisma
+pnpm run prisma-migrate       # Applique migrations
+pnpm run prisma:studio        # Interface admin → :5555
+pnpm run start:prisma         # Generate + migrate (combiné)
+```
 
----
-description: 'Angular-specific coding standards and best practices'
-applyTo: '**/*.ts, **/*.html, **/*.scss, **/*.css'
----
+### Testing
+```bash
+nx test <project-name>        # Unit tests (Vitest)
+nx e2e app-jcm-e2e           # E2E tests (Playwright)
+nx affected:test             # Tests des projets affectés
+```
 
-# Angular Development Instructions
+### Build Production
+```bash
+nx build nest-app --configuration=production
+nx build app-jcm --configuration=production
+```
 
-Instructions for generating high-quality Angular applications with TypeScript, using Angular Signals and NGRX Signals Store for state management, adhering to Angular best practices as outlined at https://angular.dev.
+## Project Conventions
 
-## Project Context
-- Latest Angular version (use standalone components by default)
-- TypeScript for type safety
-- Angular CLI for project setup and scaffolding through NX
-- Follow Angular Style Guide (https://angular.dev/style-guide)
-- Use Angular Material  for consistent styling 
+### 🔐 Authentication (libs/backend/iam)
 
-## Examples
+**Système complet** : Password, Passwordless, 2FA (OTP), JWT rotation  
+**Guards globaux actifs** : Authentication, Roles, Permissions, Policies
 
-These are modern examples of how to write an Angular 21 component with signals
+```typescript
+import { Auth, AuthType } from '@be/iam/authentication';
+import { Roles } from '@be/iam/authorization/decorators/roles.decorator';
+import { ActiveUser, ActiveUserData } from '@be/common';
+import { Role } from '@db/prisma';
 
-```ts
-import { Component, signal } from '@angular/core';
+@Controller('users')
+@Auth(AuthType.Bearer)  // Défaut: authentification requise
+export class UsersController {
+  @Get()
+  @Roles(Role.ADMIN)  // Guard de rôles
+  findAll(@ActiveUser() user: ActiveUserData) {
+    return this.usersService.users({});
+  }
 
+  @Get('public')
+  @Auth(AuthType.None)  // Route publique
+  publicEndpoint() { }
+}
+```
 
-@Component({
-  selector: '{{tag-name}}-root',
-  templateUrl: '{{tag-name}}.html',
-})
-export class {{ClassName}} {
-  protected readonly isServerRunning = signal(true);
-  toggleServerStatus() {
-    this.isServerRunning.update(isServerRunning => !isServerRunning);
+**Frontend AppStore** : [libs/frontend/stores/src/lib/app-store/app.store.ts](libs/frontend/stores/src/lib/app-store/app.store.ts)
+- Méthodes : `login()`, `logout()`, `register()`
+- Persistance : localStorage via `withStorageSync`
+- Interceptor : [libs/frontend/core/auth/src/lib/interceptors/iam-auth.interceptor.ts](libs/frontend/core/auth/src/lib/interceptors/iam-auth.interceptor.ts)
+
+### 🗄️ Prisma Conventions
+
+**Schema** : `libs/prisma/src/lib/prisma/schema.prisma`
+
+**Standards** :
+- IDs : **UUID 7** (`@id() @default(uuid(7))`)
+- Soft delete : `isDeleted Int @default(0)`, `isDeletedDT DateTime?`
+- Timestamps : `createdAt`, `updatedAt` automatiques
+- Enums : `Role`, `TaskState`, `TodoState`, `Gender`
+
+**Imports** :
+```typescript
+// ❌ Frontend: NE JAMAIS importer @prisma/client
+import { User, Task, Role } from '@db/prisma/frontend';
+
+// ✅ Backend: Client Prisma + types
+import { User, Prisma } from '@db/prisma';
+import { PrismaClientService } from '@db/prisma-client';
+
+@Injectable()
+export class UsersService {
+  constructor(private prisma: PrismaClientService) {}
+  
+  async users(options: { where?: Prisma.UserWhereInput }): Promise<User[]> {
+    return this.prisma.user.findMany({
+      ...options,
+      include: { Address: true, Orgs: true }
+    });
   }
 }
 ```
 
-```css
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+**Modifier le schema** :
+1. Éditer `libs/prisma/src/lib/prisma/schema.prisma`
+2. `pnpm run start:prisma`
+3. Redémarrer backend/frontend
 
-    button {
-        margin-top: 10px;
+### 🎨 Angular Patterns (v21+)
+
+**Exemples de référence** :
+- Component moderne : [libs/frontend/domains/task/src/lib/feature/task-list/task-list.component.ts](libs/frontend/domains/task/src/lib/feature/task-list/task-list.component.ts)
+- NGRX Store : [libs/frontend/stores/src/lib/app-store/app.store.ts](libs/frontend/stores/src/lib/app-store/app.store.ts)
+- Service API : [libs/frontend/core/api/src/lib/services/](libs/frontend/core/api/src/lib/services/)
+
+**Standards** (détails dans `.github/instructions/angular.instructions.md`) :
+- ✅ Standalone components (pas de NgModules)
+- ✅ `input()`, `output()`, `viewChild()` (pas de decorators)
+- ✅ Control flow moderne : `@if`, `@for`, `@switch`
+- ✅ `inject()` au lieu de constructor injection
+- ✅ Signals pour la réactivité, `computed()` pour état dérivé
+- ✅ `changeDetection: ChangeDetectionStrategy.OnPush`
+- ❌ PAS `@Input/@Output`, `*ngIf/*ngFor`, `ngClass/ngStyle`
+
+**NGRX Signals Store Pattern** :
+```typescript
+import { signalStore, withState, withMethods, withComputed, withHooks } from '@ngrx/signals';
+import { withEntities, entityConfig } from '@ngrx/signals/entities';
+
+const userConfig = entityConfig({
+  entity: type<User>(),
+  selectId: (user) => user.id,
+});
+
+export const UserStore = signalStore(
+  withState(initialState),
+  withEntities(userConfig),
+  withMethods((store, userService = inject(UserService)) => ({
+    async loadUsers() {
+      const users = await userService.listUsers();
+      patchState(store, setAllEntities(users, userConfig));
     }
+  })),
+  withComputed((store) => ({
+    userCount: computed(() => Object.keys(store.userEntityMap()).length)
+  })),
+  withHooks({ onInit: (store) => store.loadUsers() })
+);
+```
+
+### 🔗 API Communication
+
+**Proxy auto-généré** : `proxy.config.json` (via `pnpm run configproxy`)
+
+```typescript
+// Frontend service
+@Injectable({ providedIn: 'root' })
+export class UserService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.backend}/api/users`;
+
+  listUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
+  }
 }
 ```
 
-```html
-<section class="container">
-    @if (isServerRunning()) {
-        <span>Yes, the server is running</span>
-    } @else {
-        <span>No, the server is not running</span>
-    }
-    <button (click)="toggleServerStatus()">Toggle Server Status</button>
-</section>
+**Environment dynamique** : `apps/frontend/app-jcm/environments/environment.ts` (généré depuis `.env`)
+
+## Integration Points
+
+### Configuration Environment
+
+**Source de vérité** : `.env` à la racine
+
+**Variables critiques** :
+```env
+DATABASE_URL="postgresql://..."
+API_BACKEND_PORT=3000
+API_FRONTEND_PORT=4000
+NEST_SERVER_CORS_ORIGIN="http://localhost:4000"
+AUTO_REGISTRATION_ENABLE=true
+SESSION_TIMEOUT=300000
 ```
 
-When you update a component, be sure to put the logic in the ts file, the styles in the css file and the html template in the html file.
+**Scripts de configuration** :
+- `scripts/setenv.ts` → génère `environment.ts`
+- `scripts/setproxyconfig.ts` → génère `proxy.config.json`
+- **⚠️ OBLIGATOIRE** avant chaque démarrage dev
 
-## Resources
-Here are some links to the essentials for building Angular applications. Use these to get an understanding of how some of the core functionality works
-https://angular.dev/essentials/components
-https://angular.dev/essentials/signals
-https://angular.dev/essentials/templates
-https://angular.dev/essentials/dependency-injection
+### File Uploads
 
-## Development Standards /## Best practices & Style guide
+```
+files/avatars/      # Avatars utilisateurs
+uploads/images/     # Images uploadées
+static/             # Assets statiques
+```
 
-Here are the best practices and the style guide information.
+**Service** : [libs/backend/files-jcm/](libs/backend/files-jcm/)
 
-### Coding Style guide
-Here is a link to the most recent Angular style guide https://angular.dev/style-guide
+```typescript
+@Injectable()
+export class FilesJcmService {
+  async uploadAvatar(file: Express.Multer.File, userId: string) {
+    const filename = `${userId}-${Date.now()}.${ext}`;
+    await sharp(file.buffer).resize(200, 200).toFile(`files/avatars/${filename}`);
+    return { url: `/uploads/avatars/${filename}` };
+  }
+}
+```
 
-### Architecture
-- Use standalone components unless modules are explicitly required
-- Organize code by standalone feature modules or domains for scalability
-- Implement lazy loading for feature modules to optimize performance
-- Use Angular's built-in dependency injection system effectively
-- Structure components with a clear separation of concerns (smart vs. presentational components)
+## Security Patterns
 
-### TypeScript Best Practices
-- Enable strict mode in `tsconfig.json` for type safety
-- Define clear interfaces and types for components, services, and models
-- Use type guards and union types for robust type checking
-- Implement proper error handling with RxJS operators (e.g., `catchError`)
-- Use strict type checking
-- Prefer type inference when the type is obvious
-- Avoid the `any` type; use `unknown` when type is uncertain
+- **Validation** : `class-validator` + `ValidationPipe` global
+- **Auth** : JWT (access + refresh) avec rotation automatique
+- **Guards** : Authentication, Roles, Permissions (actifs par défaut)
+- **CORS** : Configuré via `NEST_SERVER_CORS_ORIGIN`
+- **Soft Delete** : Tous les modèles utilisent `isDeleted`/`isDeletedDT`
+- **Sanitization** : `ClassSerializerInterceptor` global
 
-### Angular Best Practices
-- Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v21+.
-- Use signals for state management
-- Implement lazy loading for feature routes
-- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
-- Use `NgOptimizedImage` for all static images.
-- `NgOptimizedImage` does not work for inline base64 images.
+## Critical Don'ts
 
-### Components
-- Follow Angular's component lifecycle hooks best practices
-- Use `input()` signal instead of decorators, learn more here https://angular.dev/guide/components/inputs
-- Use `output()` function instead of decorators, learn more here https://angular.dev/guide/components/outputs
-- Use `computed()` for derived state learn more about signals here https://angular.dev/guide/signals.
-- Use `viewChild()`, `viewChildren()`, `contentChild()` and `contentChildren()` functions instead of decorators; learn more here https://angular.dev/guide/components/child-component-interaction
-- Never use inline templates for components even if they are short
-- Never use inline styles for components even if they are short
-- Always use signal form for forms, learn more here https://angular.dev/guide/signal-forms
-- Leverage Angular's change detection strategy (default or `OnPush` for performance)
-- Keep templates clean and logic in component classes or services
-- Use Angular directives and pipes for reusable functionality
-- Keep components small and focused on a single responsibility
-- Use `computed()` for derived state
-- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer Signal forms instead of Reactive or Template-driven ones when Angular Signal Forms are available
-- Do NOT use `ngClass`, use `class` bindings instead, learn more here https://angular.dev/guide/templates/binding#css-class-and-style-property-bindings
-- Do NOT use `ngStyle`, use `style` bindings instead, learn more here https://angular.dev/guide/templates/binding#css-class-and-style-property-bindings
-- When using external templates/styles, use paths relative to the component TS file.
+1. ❌ Créer components sans sous-dossier propre
+2. ❌ Utiliser `@Input/@Output` decorators → `input()/output()`
+3. ❌ Utiliser `*ngIf/*ngFor` → `@if/@for`
+4. ❌ Constructor injection → `inject()`
+5. ❌ Importer `@prisma/client` côté frontend → `@db/prisma/frontend`
+6. ❌ Lancer frontend sans scripts de config
+7. ❌ Oublier `changeDetection: OnPush`
 
-## Services
-- Design services around a single responsibility
-- Use the `providedIn: 'root'` option for singleton services
-- Use the `inject()` function instead of constructor injection
+## Quick Start URLs
 
-### Templates
-- Keep templates simple and avoid complex logic
-- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
-- Use the async pipe to handle observables, prefer signals where possible
-- Do not assume globals like (`new Date()`) are available.
-- Do not write arrow functions in templates (they are not supported).
-- Do not write Regular expressions in templates (they are not supported).
-- Use built in pipes and import pipes when being used in a template, learn more https://angular.dev/guide/templates/pipes#.
-- Use Angular Material components for consistent UI/UX
-- Use ngx-translate for internationalization (i18n) when dynamic translations are needed
+- Frontend : http://localhost:4000
+- Backend : http://localhost:3000
+- Swagger : http://localhost:3000/api/doc
+- Prisma Studio : http://localhost:5555 (`pnpm run prisma:studio`)
 
+## Key Files Reference
 
-### Styling
-- Use Material v3 design components and theming system for a modern look and feel
-- Use Angular's component-level CSS encapsulation (default: ViewEncapsulation.Emulated)
-- Prefer SCSS for styling with consistent theming
-- Implement responsive design using CSS Grid, Flexbox, or Angular CDK Layout utilities
-- Follow Angular Material's theming v3 guidelines
-- Maintain accessibility (a11y) with ARIA attributes and semantic HTML
-- Always integrate Dark Mode support using Angular Material theming capabilities
+| Fichier | Rôle |
+|---------|------|
+| `libs/prisma/src/lib/prisma/schema.prisma` | Schema DB centralisé |
+| `libs/frontend/stores/src/lib/app-store/app.store.ts` | Store global (auth, langue) |
+| `libs/backend/iam/src/lib/iam.module.ts` | Module authentification |
+| `apps/backend/nest-app/src/main.ts` | Point d'entrée backend |
+| `apps/frontend/app-jcm/src/app/app.config.ts` | Config Angular |
+| `.env` | Variables d'environnement |
+| `scripts/setenv.ts` | Génère environment.ts |
+| `scripts/setproxyconfig.ts` | Génère proxy.config.json |
 
-### State Management
-- Use Angular Signals for reactive state management in components and services
-- Use `NGRX signal store` for complex state management (within components or across the application)  
-- Use `computed()` for derived state
-- Use `linkedSignal()` for interconnected signals
-- Use `effect()` for side effects
-- Use `toSignal()` to integrate observables
-- Use writable signals for mutable state and computed signals for derived state
-- Use linkedSignals for sharing state between components
-- Handle loading and error states with signals and proper UI feedback
-- Use Angular's `AsyncPipe` to handle observables in templates when combining signals with RxJS
-- Keep state transformations pure and predictable
-- Do NOT use `mutate` on signals, use `update` or `set` instead
-
-### Data Fetching
-- Use Angular's `HttpClient` for API calls with proper typing or `httpResource`s for resource management
-- Implement RxJS operators for data transformation and error handling if necessary, if not prefer signals
-- Avoid Observable subscriptions in components; use the async pipe or signals instead
-- Use Angular's `inject()` function for dependency injection in standalone components
-- Implement caching strategies (e.g., `shareReplay` for observables)
-- Store API response data in signals for reactive updates
-- Handle API errors with global interceptors for consistent error handling
-
-### Security
-- Sanitize user inputs using Angular's built-in sanitization
-- Implement route guards for authentication and authorization
-- Use Angular's `HttpInterceptor` for CSRF protection and API authentication headers
-- Validate form inputs with Angular's reactive forms and custom validators
-- Follow Angular's security best practices (e.g., avoid direct DOM manipulation)
-
-### Performance
-- Enable production builds with `ng build --prod` for optimization
-- Use lazy loading for routes to reduce initial bundle size
-- Optimize change detection with `OnPush` strategy and signals for fine-grained reactivity
-- Use trackBy in `ngFor` loops to improve rendering performance
-- Implement server-side rendering (SSR) or static site generation (SSG) with Angular Universal (if specified)
-
-### Testing
-- Write unit tests for components, services, and pipes using Jasmine and Karma
-- Use Angular's `TestBed` for component testing with mocked dependencies
-- Test signal-based state updates using Angular's testing utilities
-- Write end-to-end tests with Cypress or Playwright (if specified)
-- Mock HTTP requests using `provideHttpClientTesting`
-- Ensure high test coverage for critical functionality
-
-## Implementation Process
-1. Plan project structure and feature modules
-2. Define TypeScript interfaces and models
-3. Scaffold components, services, and pipes using Angular CLI or NX within monorepo
-4. Implement data services and API integrations with signal-based state or NGRX Signals Store
-5. Build reusable components with clear inputs and outputs
-6. Add signals forms and validation
-7. Apply styling with SCSS and responsive design
-8. Implement lazy-loaded routes and guards
-9. Add error handling and loading states using signals
-10. Write unit and end-to-end tests
-11. Optimize performance and bundle size
-
-## Additional Guidelines
-- Follow the Angular Style Guide for file naming conventions (see https://angular.dev/style-guide), e.g., use `feature.ts` for components and `feature-service.ts` for services. For legacy codebases, maintain consistency with existing pattern.
-- Use Angular CLI commands for generating boilerplate code
-- Document components and services with clear JSDoc comments
-- Ensure accessibility compliance (WCAG 2.1) where applicable
-- Use Angular's built-in i18n for internationalization (if specified) and ngx-translate for dynamic translations
-- Keep code DRY by creating reusable utilities and shared modules
-- Use signals consistently for state management to ensure reactive updates
+---
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
