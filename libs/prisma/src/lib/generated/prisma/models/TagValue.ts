@@ -31,6 +31,7 @@ export type TagValueAvgAggregateOutputType = {
   isDeleted: number | null
   position: number | null
   tagCategoriesId: number | null
+  mainTagId: number | null
 }
 
 export type TagValueSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type TagValueSumAggregateOutputType = {
   isDeleted: number | null
   position: number | null
   tagCategoriesId: number | null
+  mainTagId: number | null
 }
 
 export type TagValueMinAggregateOutputType = {
@@ -51,6 +53,7 @@ export type TagValueMinAggregateOutputType = {
   name: string | null
   position: number | null
   tagCategoriesId: number | null
+  mainTagId: number | null
 }
 
 export type TagValueMaxAggregateOutputType = {
@@ -64,6 +67,7 @@ export type TagValueMaxAggregateOutputType = {
   name: string | null
   position: number | null
   tagCategoriesId: number | null
+  mainTagId: number | null
 }
 
 export type TagValueCountAggregateOutputType = {
@@ -77,6 +81,7 @@ export type TagValueCountAggregateOutputType = {
   name: number
   position: number
   tagCategoriesId: number
+  mainTagId: number
   _all: number
 }
 
@@ -86,6 +91,7 @@ export type TagValueAvgAggregateInputType = {
   isDeleted?: true
   position?: true
   tagCategoriesId?: true
+  mainTagId?: true
 }
 
 export type TagValueSumAggregateInputType = {
@@ -93,6 +99,7 @@ export type TagValueSumAggregateInputType = {
   isDeleted?: true
   position?: true
   tagCategoriesId?: true
+  mainTagId?: true
 }
 
 export type TagValueMinAggregateInputType = {
@@ -106,6 +113,7 @@ export type TagValueMinAggregateInputType = {
   name?: true
   position?: true
   tagCategoriesId?: true
+  mainTagId?: true
 }
 
 export type TagValueMaxAggregateInputType = {
@@ -119,6 +127,7 @@ export type TagValueMaxAggregateInputType = {
   name?: true
   position?: true
   tagCategoriesId?: true
+  mainTagId?: true
 }
 
 export type TagValueCountAggregateInputType = {
@@ -132,6 +141,7 @@ export type TagValueCountAggregateInputType = {
   name?: true
   position?: true
   tagCategoriesId?: true
+  mainTagId?: true
   _all?: true
 }
 
@@ -232,6 +242,7 @@ export type TagValueGroupByOutputType = {
   name: string
   position: number
   tagCategoriesId: number
+  mainTagId: number | null
   _count: TagValueCountAggregateOutputType | null
   _avg: TagValueAvgAggregateOutputType | null
   _sum: TagValueSumAggregateOutputType | null
@@ -268,7 +279,10 @@ export type TagValueWhereInput = {
   name?: Prisma.StringFilter<"TagValue"> | string
   position?: Prisma.IntFilter<"TagValue"> | number
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
+  mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
   tagCategories?: Prisma.XOR<Prisma.TagCategoriesScalarRelationFilter, Prisma.TagCategoriesWhereInput>
+  mainTag?: Prisma.XOR<Prisma.TagValueNullableScalarRelationFilter, Prisma.TagValueWhereInput> | null
+  SubTags?: Prisma.TagValueListRelationFilter
   tagTranslates?: Prisma.TagTranslateListRelationFilter
   Todos?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.TaskListRelationFilter
@@ -288,7 +302,10 @@ export type TagValueOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrderInput | Prisma.SortOrder
   tagCategories?: Prisma.TagCategoriesOrderByWithRelationInput
+  mainTag?: Prisma.TagValueOrderByWithRelationInput
+  SubTags?: Prisma.TagValueOrderByRelationAggregateInput
   tagTranslates?: Prisma.TagTranslateOrderByRelationAggregateInput
   Todos?: Prisma.TodoOrderByRelationAggregateInput
   Tasks?: Prisma.TaskOrderByRelationAggregateInput
@@ -311,7 +328,10 @@ export type TagValueWhereUniqueInput = Prisma.AtLeast<{
   isDeletedDT?: Prisma.DateTimeNullableFilter<"TagValue"> | Date | string | null
   position?: Prisma.IntFilter<"TagValue"> | number
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
+  mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
   tagCategories?: Prisma.XOR<Prisma.TagCategoriesScalarRelationFilter, Prisma.TagCategoriesWhereInput>
+  mainTag?: Prisma.XOR<Prisma.TagValueNullableScalarRelationFilter, Prisma.TagValueWhereInput> | null
+  SubTags?: Prisma.TagValueListRelationFilter
   tagTranslates?: Prisma.TagTranslateListRelationFilter
   Todos?: Prisma.TodoListRelationFilter
   Tasks?: Prisma.TaskListRelationFilter
@@ -331,6 +351,7 @@ export type TagValueOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TagValueCountOrderByAggregateInput
   _avg?: Prisma.TagValueAvgOrderByAggregateInput
   _max?: Prisma.TagValueMaxOrderByAggregateInput
@@ -352,6 +373,7 @@ export type TagValueScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"TagValue"> | string
   position?: Prisma.IntWithAggregatesFilter<"TagValue"> | number
   tagCategoriesId?: Prisma.IntWithAggregatesFilter<"TagValue"> | number
+  mainTagId?: Prisma.IntNullableWithAggregatesFilter<"TagValue"> | number | null
 }
 
 export type TagValueCreateInput = {
@@ -364,6 +386,8 @@ export type TagValueCreateInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
@@ -383,6 +407,8 @@ export type TagValueUncheckedCreateInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
@@ -401,6 +427,8 @@ export type TagValueUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
@@ -420,6 +448,8 @@ export type TagValueUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
@@ -439,6 +469,7 @@ export type TagValueCreateManyInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
 }
 
 export type TagValueUpdateManyMutationInput = {
@@ -463,6 +494,7 @@ export type TagValueUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TagValueListRelationFilter = {
@@ -473,6 +505,11 @@ export type TagValueListRelationFilter = {
 
 export type TagValueOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type TagValueNullableScalarRelationFilter = {
+  is?: Prisma.TagValueWhereInput | null
+  isNot?: Prisma.TagValueWhereInput | null
 }
 
 export type TagValueCountOrderByAggregateInput = {
@@ -486,6 +523,7 @@ export type TagValueCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrder
 }
 
 export type TagValueAvgOrderByAggregateInput = {
@@ -493,6 +531,7 @@ export type TagValueAvgOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrder
 }
 
 export type TagValueMaxOrderByAggregateInput = {
@@ -506,6 +545,7 @@ export type TagValueMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrder
 }
 
 export type TagValueMinOrderByAggregateInput = {
@@ -519,6 +559,7 @@ export type TagValueMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrder
 }
 
 export type TagValueSumOrderByAggregateInput = {
@@ -526,6 +567,7 @@ export type TagValueSumOrderByAggregateInput = {
   isDeleted?: Prisma.SortOrder
   position?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
+  mainTagId?: Prisma.SortOrder
 }
 
 export type TagValueScalarRelationFilter = {
@@ -723,6 +765,64 @@ export type TagValueUncheckedUpdateManyWithoutFilesNestedInput = {
   deleteMany?: Prisma.TagValueScalarWhereInput | Prisma.TagValueScalarWhereInput[]
 }
 
+export type TagValueCreateNestedOneWithoutSubTagsInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutSubTagsInput, Prisma.TagValueUncheckedCreateWithoutSubTagsInput>
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutSubTagsInput
+  connect?: Prisma.TagValueWhereUniqueInput
+}
+
+export type TagValueCreateNestedManyWithoutMainTagInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput> | Prisma.TagValueCreateWithoutMainTagInput[] | Prisma.TagValueUncheckedCreateWithoutMainTagInput[]
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutMainTagInput | Prisma.TagValueCreateOrConnectWithoutMainTagInput[]
+  createMany?: Prisma.TagValueCreateManyMainTagInputEnvelope
+  connect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+}
+
+export type TagValueUncheckedCreateNestedManyWithoutMainTagInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput> | Prisma.TagValueCreateWithoutMainTagInput[] | Prisma.TagValueUncheckedCreateWithoutMainTagInput[]
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutMainTagInput | Prisma.TagValueCreateOrConnectWithoutMainTagInput[]
+  createMany?: Prisma.TagValueCreateManyMainTagInputEnvelope
+  connect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+}
+
+export type TagValueUpdateOneWithoutSubTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutSubTagsInput, Prisma.TagValueUncheckedCreateWithoutSubTagsInput>
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutSubTagsInput
+  upsert?: Prisma.TagValueUpsertWithoutSubTagsInput
+  disconnect?: Prisma.TagValueWhereInput | boolean
+  delete?: Prisma.TagValueWhereInput | boolean
+  connect?: Prisma.TagValueWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TagValueUpdateToOneWithWhereWithoutSubTagsInput, Prisma.TagValueUpdateWithoutSubTagsInput>, Prisma.TagValueUncheckedUpdateWithoutSubTagsInput>
+}
+
+export type TagValueUpdateManyWithoutMainTagNestedInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput> | Prisma.TagValueCreateWithoutMainTagInput[] | Prisma.TagValueUncheckedCreateWithoutMainTagInput[]
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutMainTagInput | Prisma.TagValueCreateOrConnectWithoutMainTagInput[]
+  upsert?: Prisma.TagValueUpsertWithWhereUniqueWithoutMainTagInput | Prisma.TagValueUpsertWithWhereUniqueWithoutMainTagInput[]
+  createMany?: Prisma.TagValueCreateManyMainTagInputEnvelope
+  set?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  disconnect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  delete?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  connect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  update?: Prisma.TagValueUpdateWithWhereUniqueWithoutMainTagInput | Prisma.TagValueUpdateWithWhereUniqueWithoutMainTagInput[]
+  updateMany?: Prisma.TagValueUpdateManyWithWhereWithoutMainTagInput | Prisma.TagValueUpdateManyWithWhereWithoutMainTagInput[]
+  deleteMany?: Prisma.TagValueScalarWhereInput | Prisma.TagValueScalarWhereInput[]
+}
+
+export type TagValueUncheckedUpdateManyWithoutMainTagNestedInput = {
+  create?: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput> | Prisma.TagValueCreateWithoutMainTagInput[] | Prisma.TagValueUncheckedCreateWithoutMainTagInput[]
+  connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutMainTagInput | Prisma.TagValueCreateOrConnectWithoutMainTagInput[]
+  upsert?: Prisma.TagValueUpsertWithWhereUniqueWithoutMainTagInput | Prisma.TagValueUpsertWithWhereUniqueWithoutMainTagInput[]
+  createMany?: Prisma.TagValueCreateManyMainTagInputEnvelope
+  set?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  disconnect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  delete?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  connect?: Prisma.TagValueWhereUniqueInput | Prisma.TagValueWhereUniqueInput[]
+  update?: Prisma.TagValueUpdateWithWhereUniqueWithoutMainTagInput | Prisma.TagValueUpdateWithWhereUniqueWithoutMainTagInput[]
+  updateMany?: Prisma.TagValueUpdateManyWithWhereWithoutMainTagInput | Prisma.TagValueUpdateManyWithWhereWithoutMainTagInput[]
+  deleteMany?: Prisma.TagValueScalarWhereInput | Prisma.TagValueScalarWhereInput[]
+}
+
 export type TagValueCreateNestedManyWithoutTagCategoriesInput = {
   create?: Prisma.XOR<Prisma.TagValueCreateWithoutTagCategoriesInput, Prisma.TagValueUncheckedCreateWithoutTagCategoriesInput> | Prisma.TagValueCreateWithoutTagCategoriesInput[] | Prisma.TagValueUncheckedCreateWithoutTagCategoriesInput[]
   connectOrCreate?: Prisma.TagValueCreateOrConnectWithoutTagCategoriesInput | Prisma.TagValueCreateOrConnectWithoutTagCategoriesInput[]
@@ -789,6 +889,8 @@ export type TagValueCreateWithoutGroupsInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
@@ -807,6 +909,8 @@ export type TagValueUncheckedCreateWithoutGroupsInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
@@ -849,6 +953,7 @@ export type TagValueScalarWhereInput = {
   name?: Prisma.StringFilter<"TagValue"> | string
   position?: Prisma.IntFilter<"TagValue"> | number
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
+  mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
 }
 
 export type TagValueCreateWithoutTodosInput = {
@@ -861,6 +966,8 @@ export type TagValueCreateWithoutTodosInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
@@ -879,6 +986,8 @@ export type TagValueUncheckedCreateWithoutTodosInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
@@ -917,6 +1026,8 @@ export type TagValueCreateWithoutTasksInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
@@ -935,6 +1046,8 @@ export type TagValueUncheckedCreateWithoutTasksInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
@@ -973,6 +1086,8 @@ export type TagValueCreateWithoutPostsInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
@@ -991,6 +1106,8 @@ export type TagValueUncheckedCreateWithoutPostsInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
@@ -1029,6 +1146,8 @@ export type TagValueCreateWithoutFilesInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
@@ -1047,6 +1166,8 @@ export type TagValueUncheckedCreateWithoutFilesInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
@@ -1075,6 +1196,165 @@ export type TagValueUpdateManyWithWhereWithoutFilesInput = {
   data: Prisma.XOR<Prisma.TagValueUpdateManyMutationInput, Prisma.TagValueUncheckedUpdateManyWithoutFilesInput>
 }
 
+export type TagValueCreateWithoutSubTagsInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  Posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagValueUncheckedCreateWithoutSubTagsInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagCategoriesId: number
+  mainTagId?: number | null
+  tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagValueCreateOrConnectWithoutSubTagsInput = {
+  where: Prisma.TagValueWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagValueCreateWithoutSubTagsInput, Prisma.TagValueUncheckedCreateWithoutSubTagsInput>
+}
+
+export type TagValueCreateWithoutMainTagInput = {
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
+  tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
+  Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
+  Posts?: Prisma.PostCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileCreateNestedManyWithoutTagsInput
+}
+
+export type TagValueUncheckedCreateWithoutMainTagInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagCategoriesId: number
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
+  tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
+  Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
+  Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
+  Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
+  Posts?: Prisma.PostUncheckedCreateNestedManyWithoutTagsInput
+  Files?: Prisma.FileUncheckedCreateNestedManyWithoutTagsInput
+}
+
+export type TagValueCreateOrConnectWithoutMainTagInput = {
+  where: Prisma.TagValueWhereUniqueInput
+  create: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput>
+}
+
+export type TagValueCreateManyMainTagInputEnvelope = {
+  data: Prisma.TagValueCreateManyMainTagInput | Prisma.TagValueCreateManyMainTagInput[]
+  skipDuplicates?: boolean
+}
+
+export type TagValueUpsertWithoutSubTagsInput = {
+  update: Prisma.XOR<Prisma.TagValueUpdateWithoutSubTagsInput, Prisma.TagValueUncheckedUpdateWithoutSubTagsInput>
+  create: Prisma.XOR<Prisma.TagValueCreateWithoutSubTagsInput, Prisma.TagValueUncheckedCreateWithoutSubTagsInput>
+  where?: Prisma.TagValueWhereInput
+}
+
+export type TagValueUpdateToOneWithWhereWithoutSubTagsInput = {
+  where?: Prisma.TagValueWhereInput
+  data: Prisma.XOR<Prisma.TagValueUpdateWithoutSubTagsInput, Prisma.TagValueUncheckedUpdateWithoutSubTagsInput>
+}
+
+export type TagValueUpdateWithoutSubTagsInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagValueUncheckedUpdateWithoutSubTagsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagValueUpsertWithWhereUniqueWithoutMainTagInput = {
+  where: Prisma.TagValueWhereUniqueInput
+  update: Prisma.XOR<Prisma.TagValueUpdateWithoutMainTagInput, Prisma.TagValueUncheckedUpdateWithoutMainTagInput>
+  create: Prisma.XOR<Prisma.TagValueCreateWithoutMainTagInput, Prisma.TagValueUncheckedCreateWithoutMainTagInput>
+}
+
+export type TagValueUpdateWithWhereUniqueWithoutMainTagInput = {
+  where: Prisma.TagValueWhereUniqueInput
+  data: Prisma.XOR<Prisma.TagValueUpdateWithoutMainTagInput, Prisma.TagValueUncheckedUpdateWithoutMainTagInput>
+}
+
+export type TagValueUpdateManyWithWhereWithoutMainTagInput = {
+  where: Prisma.TagValueScalarWhereInput
+  data: Prisma.XOR<Prisma.TagValueUpdateManyMutationInput, Prisma.TagValueUncheckedUpdateManyWithoutMainTagInput>
+}
+
 export type TagValueCreateWithoutTagCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1084,6 +1364,8 @@ export type TagValueCreateWithoutTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
@@ -1102,6 +1384,8 @@ export type TagValueUncheckedCreateWithoutTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
@@ -1146,6 +1430,8 @@ export type TagValueCreateWithoutTagTranslatesInput = {
   name: string
   position?: number
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
+  mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
+  SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   Todos?: Prisma.TodoCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupCreateNestedManyWithoutTagsInput
@@ -1164,6 +1450,8 @@ export type TagValueUncheckedCreateWithoutTagTranslatesInput = {
   name: string
   position?: number
   tagCategoriesId: number
+  mainTagId?: number | null
+  SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   Todos?: Prisma.TodoUncheckedCreateNestedManyWithoutTagsInput
   Tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutTagsInput
   Groups?: Prisma.GroupUncheckedCreateNestedManyWithoutTagsInput
@@ -1197,6 +1485,8 @@ export type TagValueUpdateWithoutTagTranslatesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
@@ -1215,6 +1505,8 @@ export type TagValueUncheckedUpdateWithoutTagTranslatesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
@@ -1232,6 +1524,8 @@ export type TagValueUpdateWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
@@ -1250,6 +1544,8 @@ export type TagValueUncheckedUpdateWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
@@ -1268,6 +1564,7 @@ export type TagValueUncheckedUpdateManyWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TagValueUpdateWithoutTodosInput = {
@@ -1280,6 +1577,8 @@ export type TagValueUpdateWithoutTodosInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
@@ -1298,6 +1597,8 @@ export type TagValueUncheckedUpdateWithoutTodosInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
@@ -1316,6 +1617,7 @@ export type TagValueUncheckedUpdateManyWithoutTodosInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TagValueUpdateWithoutTasksInput = {
@@ -1328,6 +1630,8 @@ export type TagValueUpdateWithoutTasksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
@@ -1346,6 +1650,8 @@ export type TagValueUncheckedUpdateWithoutTasksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
@@ -1364,6 +1670,7 @@ export type TagValueUncheckedUpdateManyWithoutTasksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TagValueUpdateWithoutPostsInput = {
@@ -1376,6 +1683,8 @@ export type TagValueUpdateWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
@@ -1394,6 +1703,8 @@ export type TagValueUncheckedUpdateWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
@@ -1412,6 +1723,7 @@ export type TagValueUncheckedUpdateManyWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TagValueUpdateWithoutFilesInput = {
@@ -1424,6 +1736,8 @@ export type TagValueUpdateWithoutFilesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
@@ -1442,6 +1756,8 @@ export type TagValueUncheckedUpdateWithoutFilesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
@@ -1450,6 +1766,72 @@ export type TagValueUncheckedUpdateWithoutFilesInput = {
 }
 
 export type TagValueUncheckedUpdateManyWithoutFilesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type TagValueCreateManyMainTagInput = {
+  id?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  published?: boolean
+  isPublic?: boolean
+  isDeleted?: number
+  isDeletedDT?: Date | string | null
+  name: string
+  position?: number
+  tagCategoriesId: number
+}
+
+export type TagValueUpdateWithoutMainTagInput = {
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
+  tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
+  Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUpdateManyWithoutTagsNestedInput
+  Posts?: Prisma.PostUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUpdateManyWithoutTagsNestedInput
+}
+
+export type TagValueUncheckedUpdateWithoutMainTagInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
+  isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
+  tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
+  Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
+  Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
+  Groups?: Prisma.GroupUncheckedUpdateManyWithoutTagsNestedInput
+  Posts?: Prisma.PostUncheckedUpdateManyWithoutTagsNestedInput
+  Files?: Prisma.FileUncheckedUpdateManyWithoutTagsNestedInput
+}
+
+export type TagValueUncheckedUpdateManyWithoutMainTagInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1472,6 +1854,7 @@ export type TagValueCreateManyTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  mainTagId?: number | null
 }
 
 export type TagValueUpdateWithoutTagCategoriesInput = {
@@ -1483,6 +1866,8 @@ export type TagValueUpdateWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
+  SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUpdateManyWithoutTagsNestedInput
@@ -1501,6 +1886,8 @@ export type TagValueUncheckedUpdateWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
   Todos?: Prisma.TodoUncheckedUpdateManyWithoutTagsNestedInput
   Tasks?: Prisma.TaskUncheckedUpdateManyWithoutTagsNestedInput
@@ -1519,6 +1906,7 @@ export type TagValueUncheckedUpdateManyWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1527,6 +1915,7 @@ export type TagValueUncheckedUpdateManyWithoutTagCategoriesInput = {
  */
 
 export type TagValueCountOutputType = {
+  SubTags: number
   tagTranslates: number
   Todos: number
   Tasks: number
@@ -1536,6 +1925,7 @@ export type TagValueCountOutputType = {
 }
 
 export type TagValueCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  SubTags?: boolean | TagValueCountOutputTypeCountSubTagsArgs
   tagTranslates?: boolean | TagValueCountOutputTypeCountTagTranslatesArgs
   Todos?: boolean | TagValueCountOutputTypeCountTodosArgs
   Tasks?: boolean | TagValueCountOutputTypeCountTasksArgs
@@ -1552,6 +1942,13 @@ export type TagValueCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
    * Select specific fields to fetch from the TagValueCountOutputType
    */
   select?: Prisma.TagValueCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TagValueCountOutputType without action
+ */
+export type TagValueCountOutputTypeCountSubTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TagValueWhereInput
 }
 
 /**
@@ -1608,7 +2005,10 @@ export type TagValueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name?: boolean
   position?: boolean
   tagCategoriesId?: boolean
+  mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
+  SubTags?: boolean | Prisma.TagValue$SubTagsArgs<ExtArgs>
   tagTranslates?: boolean | Prisma.TagValue$tagTranslatesArgs<ExtArgs>
   Todos?: boolean | Prisma.TagValue$TodosArgs<ExtArgs>
   Tasks?: boolean | Prisma.TagValue$TasksArgs<ExtArgs>
@@ -1629,7 +2029,9 @@ export type TagValueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   position?: boolean
   tagCategoriesId?: boolean
+  mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
 }, ExtArgs["result"]["tagValue"]>
 
 export type TagValueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1643,7 +2045,9 @@ export type TagValueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   position?: boolean
   tagCategoriesId?: boolean
+  mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
 }, ExtArgs["result"]["tagValue"]>
 
 export type TagValueSelectScalar = {
@@ -1657,11 +2061,14 @@ export type TagValueSelectScalar = {
   name?: boolean
   position?: boolean
   tagCategoriesId?: boolean
+  mainTagId?: boolean
 }
 
-export type TagValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "name" | "position" | "tagCategoriesId", ExtArgs["result"]["tagValue"]>
+export type TagValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "name" | "position" | "tagCategoriesId" | "mainTagId", ExtArgs["result"]["tagValue"]>
 export type TagValueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
+  SubTags?: boolean | Prisma.TagValue$SubTagsArgs<ExtArgs>
   tagTranslates?: boolean | Prisma.TagValue$tagTranslatesArgs<ExtArgs>
   Todos?: boolean | Prisma.TagValue$TodosArgs<ExtArgs>
   Tasks?: boolean | Prisma.TagValue$TasksArgs<ExtArgs>
@@ -1672,15 +2079,19 @@ export type TagValueInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 export type TagValueIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
 }
 export type TagValueIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
+  mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
 }
 
 export type $TagValuePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TagValue"
   objects: {
     tagCategories: Prisma.$TagCategoriesPayload<ExtArgs>
+    mainTag: Prisma.$TagValuePayload<ExtArgs> | null
+    SubTags: Prisma.$TagValuePayload<ExtArgs>[]
     tagTranslates: Prisma.$TagTranslatePayload<ExtArgs>[]
     Todos: Prisma.$TodoPayload<ExtArgs>[]
     Tasks: Prisma.$TaskPayload<ExtArgs>[]
@@ -1699,6 +2110,7 @@ export type $TagValuePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     name: string
     position: number
     tagCategoriesId: number
+    mainTagId: number | null
   }, ExtArgs["result"]["tagValue"]>
   composites: {}
 }
@@ -2094,6 +2506,8 @@ readonly fields: TagValueFieldRefs;
 export interface Prisma__TagValueClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tagCategories<T extends Prisma.TagCategoriesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagCategoriesDefaultArgs<ExtArgs>>): Prisma.Prisma__TagCategoriesClient<runtime.Types.Result.GetResult<Prisma.$TagCategoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mainTag<T extends Prisma.TagValue$mainTagArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagValue$mainTagArgs<ExtArgs>>): Prisma.Prisma__TagValueClient<runtime.Types.Result.GetResult<Prisma.$TagValuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  SubTags<T extends Prisma.TagValue$SubTagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagValue$SubTagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tagTranslates<T extends Prisma.TagValue$tagTranslatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagValue$tagTranslatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagTranslatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Todos<T extends Prisma.TagValue$TodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagValue$TodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Tasks<T extends Prisma.TagValue$TasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagValue$TasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2139,6 +2553,7 @@ export interface TagValueFieldRefs {
   readonly name: Prisma.FieldRef<"TagValue", 'String'>
   readonly position: Prisma.FieldRef<"TagValue", 'Int'>
   readonly tagCategoriesId: Prisma.FieldRef<"TagValue", 'Int'>
+  readonly mainTagId: Prisma.FieldRef<"TagValue", 'Int'>
 }
     
 
@@ -2532,6 +2947,49 @@ export type TagValueDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many TagValues to delete.
    */
   limit?: number
+}
+
+/**
+ * TagValue.mainTag
+ */
+export type TagValue$mainTagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TagValue
+   */
+  select?: Prisma.TagValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TagValue
+   */
+  omit?: Prisma.TagValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TagValueInclude<ExtArgs> | null
+  where?: Prisma.TagValueWhereInput
+}
+
+/**
+ * TagValue.SubTags
+ */
+export type TagValue$SubTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TagValue
+   */
+  select?: Prisma.TagValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TagValue
+   */
+  omit?: Prisma.TagValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TagValueInclude<ExtArgs> | null
+  where?: Prisma.TagValueWhereInput
+  orderBy?: Prisma.TagValueOrderByWithRelationInput | Prisma.TagValueOrderByWithRelationInput[]
+  cursor?: Prisma.TagValueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TagValueScalarFieldEnum | Prisma.TagValueScalarFieldEnum[]
 }
 
 /**

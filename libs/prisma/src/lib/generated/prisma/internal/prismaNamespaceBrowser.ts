@@ -721,7 +721,8 @@ export const TagValueScalarFieldEnum = {
   isDeletedDT: 'isDeletedDT',
   name: 'name',
   position: 'position',
-  tagCategoriesId: 'tagCategoriesId'
+  tagCategoriesId: 'tagCategoriesId',
+  mainTagId: 'mainTagId'
 } as const
 
 export type TagValueScalarFieldEnum = (typeof TagValueScalarFieldEnum)[keyof typeof TagValueScalarFieldEnum]

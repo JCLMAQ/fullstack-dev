@@ -21,8 +21,8 @@ export const PhoneStore = signalStore(
       loader: async () => {
         const ownerId = store.filter().ownerId;
         return ownerId
-          ? store._phoneService.getPhonesByUserId(ownerId)
-          : store._phoneService.getAllPhones();
+          ? await store._phoneService.getPhonesByUserId(ownerId)
+          : await store._phoneService.getAllPhones();
       },
       defaultValue: [],
     }),

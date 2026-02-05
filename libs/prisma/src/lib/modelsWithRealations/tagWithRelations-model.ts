@@ -1,15 +1,26 @@
 import { Prisma } from '../generated/prisma/client';
 
-export type TagWithRelations = Prisma.TagValueGetPayload <{
+export type TagWithRelations = Prisma.TagValueGetPayload<{
   include: {
     tagCategories: true;
-    tagTranslates: true;
+    tagTranslates: {
+      include: {
+        language: true;
+      };
+    };
+    mainTag: true;
+    SubTags: {
+      include: {
+        tagCategories: true;
+        tagTranslates: true;
+      };
+    };
     Todos: true;
     Tasks: true;
     Groups: true;
     Posts: true;
     Files: true;
-  }
+  };
 }>;
 
 
@@ -22,6 +33,7 @@ export type TagWithRelations = Prisma.TagValueGetPayload <{
 // TagValue: Represents individual tags which are linked to models (Todos, Tasks, Groups, Posts, Files ).
 // TagCartegories: Defines types or categories of tags.
 // TagTranslate: Provides multilingual translations for tags.
+model TagValue {
 model TagValue {
   id              Int             @id() @default(autoincrement())
   createdAt       DateTime        @default(now())
@@ -36,9 +48,12 @@ model TagValue {
   tagCategoriesId    Int
   tagTranslates   TagTranslate[]
   Todos           Todo[]          @relation("TodoTags")
+  mainTag         TagValue        @relation("MainSubTag", fields: [mainTagId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mainTagId        Int?           @map("mainTag")
+  SubTags         TagValue[]      @relation("MainSubTag")
   Tasks           Task[]          @relation("TaskTags")
   Groups          Group[]         @relation("GroupTags")
-  posts           Post[]          @relation("PostTags")
+  Posts           Post[]          @relation("PostTags")
   Files           File[]          @relation("FilesTags")
 }
 
