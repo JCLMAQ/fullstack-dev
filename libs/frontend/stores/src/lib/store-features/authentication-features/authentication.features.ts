@@ -65,9 +65,9 @@ export function withAppAuthFeatures(availableLanguages: string[]): SignalStoreFe
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
           const organizations = loginResponse.organizations ?? [];
-          const orgIds = organizations.length > 0 ? organizations.map((org: Organization) => org.id) : null;
+          const orgId = organizations.length > 0 ? organizations.map((org: Organization) => org.id) : null;
 
-          const orgId = orgIds?.[0]; // Get orgId
+          // const orgId = orgIds?.[0]; // Get orgId
 
           patchState(store, {
             user: user,

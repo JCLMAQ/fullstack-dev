@@ -1,6 +1,6 @@
 
 import { faker } from '@faker-js/faker';
-import { pbkdf2Sync, randomBytes } from "crypto";
+import { hash } from 'bcrypt';
 import { PrismaClient, Role, User } from '../../generated/prisma/client';
 
 // create the 4 user: 3 attached to the Org1 and one to the Org2
@@ -8,21 +8,12 @@ import { PrismaClient, Role, User } from '../../generated/prisma/client';
 export const create4Users = async (prisma: PrismaClient) => {
  const users: User[] = [];
 
- function hashPassword(plainTextPassword: string, salt: string ): string  {
-    if (salt && plainTextPassword) {
-      return pbkdf2Sync(plainTextPassword, Buffer.from(salt, 'base64'), 10000, 64, 'sha512')
-        .toString('base64');
-    }
-    return plainTextPassword;
-  }
-
   const orgs = await prisma.organization.findMany();
 
   const passWordFaker = 'Azerty123456789##';
 
-  // Create a salt and Hash the password with it
-  const salt = randomBytes(16).toString('base64');
-  const pwdHash = hashPassword(passWordFaker, salt);
+  // Hash the password once with bcrypt (same as authentication service)
+  const pwdHash = await hash(passWordFaker, 10);
 
 
   const user1 = await prisma.user.create({
@@ -38,7 +29,6 @@ export const create4Users = async (prisma: PrismaClient) => {
       userSecret: {
         create: {
           pwdHash: pwdHash,
-          salt: salt,
           isAdmin: false
         }
       }
@@ -60,7 +50,6 @@ export const create4Users = async (prisma: PrismaClient) => {
       userSecret: {
         create: {
           pwdHash: pwdHash,
-          salt: salt,
           isAdmin: false
         }
       }
@@ -82,7 +71,6 @@ export const create4Users = async (prisma: PrismaClient) => {
       userSecret: {
         create: {
           pwdHash: pwdHash,
-          salt: salt,
           isAdmin: false
         }
       }
@@ -104,7 +92,6 @@ export const create4Users = async (prisma: PrismaClient) => {
       userSecret: {
         create: {
           pwdHash: pwdHash,
-          salt: salt,
           isAdmin: true
         }
       }
@@ -115,3 +102,4 @@ export const create4Users = async (prisma: PrismaClient) => {
 
   return users
 };
+

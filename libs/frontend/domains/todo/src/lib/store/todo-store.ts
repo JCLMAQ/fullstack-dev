@@ -8,7 +8,7 @@ import { TodoService } from '../services/todo-service';
 
 type TodoFilter = {
   ownerId: string | null;
-  orgId: string | null;
+  orgId: string[] | null;
 };
 
 
@@ -37,7 +37,7 @@ export const TodoStore = signalStore(
     updateFilter: signalMethod( (filter: TodoFilter) => {
       const  { ownerId, orgId } = filter;
       if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
-        patchState(_store, { filter: { ownerId,  orgId } });
+        patchState(_store, { filter: { ownerId, orgId } });
       }})
     })),
 

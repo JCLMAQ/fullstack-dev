@@ -206,7 +206,7 @@ async function main() {
   console.log(`  • Stories: ~${users.length * 4}`);
   console.log(`  • Images: ~${users.length * 4}`);
   console.log(`  • Categories: ${categories.length}`);
-  console.log(`\n🔐 Default password for all users: Pwd!123465`);
+  console.log(`\n🔐 Default password for all users: Pwd!123456`);
 }
 
 main()

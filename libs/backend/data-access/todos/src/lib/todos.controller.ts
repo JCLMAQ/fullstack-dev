@@ -1,16 +1,16 @@
 import { Prisma, TodoState } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpException,
-    HttpStatus,
-    Param,
-    Patch,
-    Post,
-    Put,
-    Query,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 
@@ -112,7 +112,7 @@ export class TodosController {
   @Get('by-user')
   async getTodosByUserAndOrg(
     @Query('ownerId') ownerId?: string,
-    @Query('orgId') orgId?: string
+    @Query('orgId') orgId?: string | string[]
   ) {
     try {
       if (!ownerId) {
@@ -125,7 +125,8 @@ export class TodosController {
       };
 
       if (orgId) {
-        where.orgId = orgId;
+        const orgIds = Array.isArray(orgId) ? orgId : [orgId];
+        where.orgId = { in: orgIds };
       }
 
       const todos = await this.todosService.findAll({

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { pbkdf2Sync, randomBytes } from 'crypto';
+import { hash } from 'bcrypt';
 import { PrismaClient, Role, User } from '../../generated/prisma/client';
 
 interface BulkUserOptions {
@@ -11,13 +11,6 @@ interface BulkUserOptions {
   languages?: Array<{ id: number; code: string; name: string }>;
 }
 
-function hashPassword(plainTextPassword: string, salt: string): string {
-  if (salt && plainTextPassword) {
-    return pbkdf2Sync(plainTextPassword, Buffer.from(salt, 'base64'), 10000, 64, 'sha512').toString('base64');
-  }
-  return plainTextPassword;
-}
-
 export const createBulkUsers = async (
   prisma: PrismaClient,
   options: BulkUserOptions
@@ -25,7 +18,7 @@ export const createBulkUsers = async (
   const {
     count,
     orgsIds,
-    passwordFaker = 'Pwd!123465',
+    passwordFaker = 'Pwd!123456',
     addressPerUser = 2,
     phonesPerUser = 2,
     languages = [],
@@ -33,9 +26,8 @@ export const createBulkUsers = async (
 
   const users: User[] = [];
 
-  // Create a salt and hash the password
-  const salt = randomBytes(16).toString('base64');
-  const pwdHash = hashPassword(passwordFaker, salt);
+  // Hash the password once with bcrypt (same as authentication service)
+  const pwdHash = await hash(passwordFaker, 10);
 
   for (let i = 0; i < count; i++) {
     const firstName = faker.person.firstName();
@@ -89,7 +81,6 @@ export const createBulkUsers = async (
         userSecret: {
           create: {
             pwdHash,
-            salt,
             isAdmin: false,
           },
         },

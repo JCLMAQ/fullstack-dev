@@ -56,7 +56,9 @@ export class TodoService {
     let params = new HttpParams().set('ownerId', ownerId);
     const url = this.baseUrl;
     if (orgId) {
-      params = params.set('orgId', orgId[0]);
+      orgId.forEach((id) => {
+        params = params.append('orgId', id);
+      });
     }
     return httpResource<TodoWithRelations[]>(() => ({
       url,
