@@ -12,13 +12,13 @@ export class TodoList {
 
   // filter$ = linkedSignal(() => this.store.filter());
 
-  todos$ = this.store.todosValue;
-  todosStatus$ = this.store.todosStatus;
-  todosError$ = this.store.todosError;
-  todosIsLoading$ = this.store.todosIsLoading;
-  todosIds$ = this.store.todosIds;
-  todosEntityMap$ = this.store.todosEntityMap;
-  todosEntities$ = this.store.todosEntities;
+  // todos$ = this.store.todosValue;
+  // todosStatus$ = this.store.todosStatus;
+  // todosError$ = this.store.todosError;
+  // todosIsLoading$ = this.store.todosIsLoading;
+  // todosIds$ = this.store.todosIds;
+  // todosEntityMap$ = this.store.todosEntityMap;
+  // todosEntities$ = this.store.todosEntities;
 
 
 

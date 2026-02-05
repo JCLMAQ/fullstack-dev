@@ -54,7 +54,7 @@ export const TodoStore = signalStore(
   // ),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((_store) => ({
-    todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.user()?.orgId )  })
+    todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
   ),
   withUndoRedo({
     collections: [ "todos" ]

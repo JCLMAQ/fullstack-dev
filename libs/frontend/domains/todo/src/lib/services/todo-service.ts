@@ -52,11 +52,11 @@ export class TodoService {
 
   // Using httpResource
 
-  getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string | null): HttpResourceRef<TodoWithRelations[]> {
+  getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string[] | null): HttpResourceRef<TodoWithRelations[]> {
     let params = new HttpParams().set('ownerId', ownerId);
     const url = this.baseUrl;
     if (orgId) {
-      params = params.set('orgId', orgId);
+      params = params.set('orgId', orgId[0]);
     }
     return httpResource<TodoWithRelations[]>(() => ({
       url,
