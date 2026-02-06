@@ -33,14 +33,6 @@ export const TodoStore = signalStore(
   //   collections: [ todoConfig.collection ]
   // }),
   withCallState({ collection: 'todos' }),
-  withMethods((_store) => ({
-    updateFilter: signalMethod( (filter: TodoFilter) => {
-      const  { ownerId, orgId } = filter;
-      if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
-        patchState(_store, { filter: { ownerId, orgId } });
-      }})
-    })),
-
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((_store) => ({
     todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
@@ -48,6 +40,16 @@ export const TodoStore = signalStore(
   withUndoRedo({
     collections: [ "todos" ]
   }),
+  withMethods((_store) => ({
+    reload: () => {
+     _store._todosReload();
+    },
+    updateFilter: signalMethod( (filter: TodoFilter) => {
+      const  { ownerId, orgId } = filter;
+      if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
+        patchState(_store, { filter: { ownerId, orgId } });
+      }})
+    })),
   withComputed((store) => ({
   todosCount: computed(() => !!store.todosEntities() ? store.todosEntities().length : 0),
 }))
