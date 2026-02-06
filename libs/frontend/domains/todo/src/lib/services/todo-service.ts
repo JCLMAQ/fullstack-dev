@@ -65,7 +65,7 @@ export class TodoService {
   }
 
   createSaveTodoMutation(options: Partial<HttpMutationOptions<TodoWithRelations, TodoWithRelations>>) {
-    const url = `${this.apiPrefix}/todos`;
+    const url = `${this.apiPrefix}/todos/save`;
     return httpMutation({
       ...options,
       request: (todo: TodoWithRelations) => ({

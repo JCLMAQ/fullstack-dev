@@ -1,6 +1,7 @@
 import { Prisma, Todo, TodoState } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
+import { SaveTodoDto } from './todo.dto';
 
 @Injectable()
 export class TodosService {
@@ -79,6 +80,70 @@ export class TodosService {
         owner: true,
         org: true,
         mainTodo: true,
+      },
+    });
+  }
+
+  /**
+   * Crée ou met à jour un todo (upsert)
+   */
+  async saveUpsert(data: SaveTodoDto): Promise<Todo> {
+    const {
+      id,
+      owner,
+      org,
+      Users,
+      SubTodos,
+      Tasks,
+      Tags,
+      groups,
+      ...payload
+    } = data;
+
+    if (!id) {
+      return this.prisma.todo.create({
+        data: payload as Prisma.TodoUncheckedCreateInput,
+        include: {
+          owner: true,
+          org: true,
+          mainTodo: true,
+          SubTodos: true,
+        },
+      });
+    }
+
+    const updateData = payload as Prisma.TodoUncheckedUpdateInput;
+    const hasCreateData =
+      !!payload.ownerId &&
+      !!payload.orgId &&
+      payload.orderTodo !== undefined &&
+      !!payload.title;
+
+    if (hasCreateData) {
+      return this.prisma.todo.upsert({
+        where: { id },
+        create: {
+          ...(payload as Prisma.TodoUncheckedCreateInput),
+          id,
+        },
+        update: updateData,
+        include: {
+          owner: true,
+          org: true,
+          mainTodo: true,
+          SubTodos: true,
+        },
+      });
+    }
+
+    return this.prisma.todo.update({
+      where: { id },
+      data: updateData,
+      include: {
+        owner: true,
+        org: true,
+        mainTodo: true,
+        SubTodos: true,
       },
     });
   }

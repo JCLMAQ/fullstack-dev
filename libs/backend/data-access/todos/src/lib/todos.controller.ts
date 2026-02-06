@@ -12,6 +12,7 @@ import {
     Put,
     Query,
 } from '@nestjs/common';
+import { SaveTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodosService } from './todos.service';
 
 // Helper pour récupérer le message d'erreur
@@ -239,12 +240,29 @@ export class TodosController {
   }
 
   /**
+   * Crée ou met à jour un todo
+   */
+  @Post('save')
+  async saveTodo(
+    @Body() saveTodoDto: SaveTodoDto
+  ) {
+    try {
+      return await this.todosService.saveUpsert(saveTodoDto);
+    } catch (error) {
+      throw new HttpException(
+        `Erreur lors de la sauvegarde du todo: ${getErrorMessage(error)}`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+  }
+
+  /**
    * Met à jour un todo
    */
   @Put(':id')
   async updateTodo(
     @Param('id') id: string,
-    @Body() updateTodoDto: Prisma.TodoUpdateInput
+    @Body() updateTodoDto: UpdateTodoDto
   ) {
     try {
       const existingTodo = await this.todosService.findOne({ id });
@@ -252,9 +270,20 @@ export class TodosController {
         throw new HttpException('Todo non trouvé', HttpStatus.NOT_FOUND);
       }
 
+      const {
+        owner,
+        org,
+        Users,
+        SubTodos,
+        Tasks,
+        Tags,
+        groups,
+        ...data
+      } = updateTodoDto;
+
       const todo = await this.todosService.update({
         where: { id },
-        data: updateTodoDto,
+        data: data as Prisma.TodoUpdateInput,
       });
       return todo;
     } catch (error) {
