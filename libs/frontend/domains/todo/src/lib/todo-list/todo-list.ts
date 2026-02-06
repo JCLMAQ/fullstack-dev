@@ -6,6 +6,7 @@ import { TodoStore } from '../store/todo-store';
   imports: [],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
+  // providers: [TodoStore],
 })
 export class TodoList {
   store = inject(TodoStore);
