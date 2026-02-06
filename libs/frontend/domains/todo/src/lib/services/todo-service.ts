@@ -77,6 +77,18 @@ export class TodoService {
     });
   }
 
+    private buildParams(options?: TodosQueryOptions): HttpParams {
+		let params = new HttpParams();
+		if (!options) return params;
+		const { skip, take, search, orderBy, sortOrder } = options;
+		if (typeof skip === 'number') params = params.set('skip', String(skip));
+		if (typeof take === 'number') params = params.set('take', String(take));
+		if (search) params = params.set('search', search);
+		if (orderBy) params = params.set('orderBy', orderBy);
+		if (sortOrder) params = params.set('sortOrder', sortOrder);
+		return params;
+	}
+
   // todosResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
   //   return httpResource<TodoWithRelations[]>(() => ({
   //     url: this.baseUrl,
@@ -98,17 +110,6 @@ export class TodoService {
   //   });
   // }
 
-  private buildParams(options?: TodosQueryOptions): HttpParams {
-		let params = new HttpParams();
-		if (!options) return params;
-		const { skip, take, search, orderBy, sortOrder } = options;
-		if (typeof skip === 'number') params = params.set('skip', String(skip));
-		if (typeof take === 'number') params = params.set('take', String(take));
-		if (search) params = params.set('search', search);
-		if (orderBy) params = params.set('orderBy', orderBy);
-		if (sortOrder) params = params.set('sortOrder', sortOrder);
-		return params;
-	}
 
   // get todos - classic way
   // Get todos for one user, with optional orgId filter
