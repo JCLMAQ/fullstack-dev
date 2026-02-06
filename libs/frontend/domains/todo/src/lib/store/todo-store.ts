@@ -41,17 +41,6 @@ export const TodoStore = signalStore(
       }})
     })),
 
-  /* withEntityResources: withResource with entities
-    https://ngrx-toolkit.angulararchitects.io/docs/with-entity-resources
-    This exposes per-resource members with the resource name as a prefix:
-    Resource members: todosValue(), todosStatus(), todosError(), todosIsLoading();
-    Entity members: todosIds(), todosEntityMap(), todosEntities();
-  */
-
-  //  Appel via un filter
-  //   withEntityResources((_store) => ({
-  //   todosWithFilter: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store.filter().ownerId!, _store.filter().orgId )  })
-  // ),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((_store) => ({
     todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
@@ -59,8 +48,19 @@ export const TodoStore = signalStore(
   withUndoRedo({
     collections: [ "todos" ]
   }),
-withComputed((store) => ({
+  withComputed((store) => ({
   todosCount: computed(() => !!store.todosEntities() ? store.todosEntities().length : 0),
 }))
 // End of store definition
 );
+
+/* withEntityResources: withResource with entities
+    https://ngrx-toolkit.angulararchitects.io/docs/with-entity-resources
+    This exposes per-resource members with the resource name as a prefix:
+    Resource members: todosValue(), todosStatus(), todosError(), todosIsLoading();
+    Entity members: todosIds(), todosEntityMap(), todosEntities();
+  */
+ //  Appel through a filter
+  //   withEntityResources((_store) => ({
+  //   todosWithFilter: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store.filter().ownerId!, _store.filter().orgId )  })
+  // ),

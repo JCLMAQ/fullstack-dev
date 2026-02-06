@@ -28,8 +28,8 @@ You are an NgRx Signal Store expert. Your task is to create a complete signal st
 3. **Create Infrastructure File** (if async operations needed):
   - Location: `src/app/{domain}/data/infrastructure/{name}-infrastructure.ts`
   - Create service for API calls and data access
-  - Use HttpClient for REST operations
-  - Return Observables (never Promises)
+  - Use, for REST operations, HttpResource first, and ask for HttpClient if realy needed
+  - Return Promise never Observable from service methods, as the store will handle async with signals and eventuallyRxJS operators
 
 4. **Create Store File**:
   - Location: `src/app/{domain}/data/state/{name}-store.ts`
@@ -37,8 +37,8 @@ You are an NgRx Signal Store expert. Your task is to create a complete signal st
     - Define state interface with strong typing
     - Create `initialState` with meaningful defaults
     - Use `entityConfig` if managing collections
-    - Use `signalStore` with `{ providedIn: 'root' }`
-    - Add `withState`, `withEntities`, `withComputed`, `withMethods`
+    - Use `signalStore` with `{ providedIn: 'root' }` or with `providers: []` in routes if store used within components
+    - Add `withState`, `withEntities`,`withEntityResources`, `withComputed`, `withMethods`, `withMutation`
     - Use function-based DI (`inject()`)
     - Avoid if possible `rxMethod` for Observable-based operations
     - Use `signalMethod` for lightweight signal-driven side effects
@@ -83,20 +83,17 @@ export const FeatureStore = signalStore(
   withComputed(({ entitiesEntities, selectedId }) => ({
     selectedEntity: computed(() => /* ... */),
   })),
+  withEntityResources((_store) => ({
+    todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
+  ),
+  withUndoRedo({
+    collections: [ "todos" ]
+  }),
   withMethods((store, service = inject(FeatureService)) => ({
-    loadEntities: rxMethod<void>(
-      pipe(
-        switchMap(() => {
-          patchState(store, { loading: true });
-          return service.getEntities().pipe(
-            tapResponse({
-              next: (entities) => patchState(store, setAllEntities(entities, entityConfig), { loading: false }),
-              error: () => patchState(store, { loading: false, error: 'Failed' }),
-            })
-          );
-        })
-      )
-    ),
+   ...methods that call service and update state with patchState
+  })),
+  withMutation((store) => ({
+    
   })),
 );
 ```
