@@ -22,10 +22,9 @@ export class SaveTodoDto {
   @IsNotEmpty()
   ownerId!: string;
 
-  @ValidateIf((dto) => !dto.id)
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  orgId!: string;
+  orgId?: string;
 
   @ValidateIf((dto) => !dto.id)
   @Type(() => Number)

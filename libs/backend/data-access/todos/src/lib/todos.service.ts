@@ -115,7 +115,6 @@ export class TodosService {
     const updateData = payload as Prisma.TodoUncheckedUpdateInput;
     const hasCreateData =
       !!payload.ownerId &&
-      !!payload.orgId &&
       payload.orderTodo !== undefined &&
       !!payload.title;
 
