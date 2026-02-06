@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { TodoStore } from '../store/todo-store';
 
 @Component({
@@ -9,7 +10,16 @@ import { TodoStore } from '../store/todo-store';
   // providers: [TodoStore],
 })
 export class TodoList {
-  store = inject(TodoStore);
+  readonly _store = inject(TodoStore);
+  private readonly _router = inject(Router);
+
+  constructor() {
+    // this.store.loadTodos();
+  }
+
+  routeToDetail = "/todos/detail";
+
+  mode: 'Edit' | 'View' | undefined ;
 
   // filter$ = linkedSignal(() => this.store.filter());
 

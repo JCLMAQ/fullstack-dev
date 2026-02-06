@@ -1,12 +1,13 @@
 import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { computed, inject } from '@angular/core';
-import { patchState, signalMethod, signalStore, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
+import { computed, effect, inject } from '@angular/core';
+import { patchState, signalMethod, signalStore, type, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { initialTodoState } from './todo-slice';
 // import { computed, effect, inject, resource } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
 import { AppStore } from "@fe/stores";
-import { addEntity } from "@ngrx/signals/entities";
+import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 
 type TodoFilter = {
@@ -15,11 +16,11 @@ type TodoFilter = {
 };
 
 
-// const todoConfig = entityConfig({
-//   entity: type<Todo>(),
-//   collection: 'todos',
-//   selectId: (todo: Todo) => todo.id,
-// });
+const todoConfig = entityConfig({
+  entity: type<TodoWithRelations>(),
+  collection: 'todos',
+  selectId: (todo: TodoWithRelations) => todo.id,
+});
 
 export const TodoStore = signalStore(
   withState(initialTodoState),
@@ -32,7 +33,7 @@ export const TodoStore = signalStore(
       _appStore,
       _snackBar
   }}),
-  // withEntities(todoConfig),
+  withEntities(todoConfig),
   withDevtools('TodoStore'),
   // withUndoRedo({
   //   collections: [ todoConfig.collection ]
@@ -68,14 +69,76 @@ export const TodoStore = signalStore(
       const  { ownerId, orgId } = filter;
       if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
         patchState(_store, { filter: { ownerId, orgId } });
-      }})
+      }}),
+      setCurrentSort(sort: Sort | null) {
+        patchState(_store, { currentSort: sort });
+      },
+      setSortedSelection(sortedIds: string[]) {
+        patchState(_store, { effectiveSelectedIds: sortedIds });
+      },
+      clearSortedSelection() {
+        patchState(_store, { effectiveSelectedIds: [] });
+      },
     })),
     // Computed property to get the count of todos and ...
-  withComputed((store) => ({
-  todosCount: computed(() => !!store.todosEntities() ? store.todosEntities().length : 0),
-}))
+  withComputed((_store) => ({
+    todosCount: computed(() => !!_store.todosEntities() ? _store.todosEntities().length : 0),
+    totalItemsFiltered: computed(() => {}),
+    filteredItems: computed(() => {
+      const filter = _store.filterValue().toLowerCase();
+      if (!filter) {
+        return _store.todosValue();
+      }
+      return _store.todosValue().filter(todo =>
+        todo.title?.toLowerCase().includes(filter) ||
+        todo.content?.toLowerCase().includes(filter) ||
+        todo.owner?.firstName?.toLowerCase().includes(filter) ||
+        todo.owner?.lastName?.toLowerCase().includes(filter) ||
+        todo.owner?.email?.toLowerCase().includes(filter)
+      );
+    }),
+    sortedItems: computed(() => {
+      const todos = [...(_store.filteredItems() ?? [])];
+      const currentSort = _store.currentSort();
+      if (!currentSort || !currentSort.active || currentSort.direction === '') {
+        return todos;
+      }
+      return todos.sort((a, b) => {
+        const aValue = (a as Record<string, unknown>)[currentSort.active];
+        const bValue = (b as Record<string, unknown>)[currentSort.active];
+        if (aValue == null && bValue == null) {
+          return 0;
+        }
+        if (aValue == null) {
+          return 1;
+        }
+        if (bValue == null) {
+          return -1;
+        }
+        const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
+        return currentSort.direction === 'asc' ? comparison : -comparison;
+      });
+
+    })
+
+  })),
+  withHooks({
+    onInit: (_store) => {
+      console.log('TodoStore initialized');
+      // Synchroniser effectiveSelectedIds avec selectedIds quand la sélection change
+      effect(() => {
+        const selected = (_store as unknown as { selectedIds: () => string[] }).selectedIds();
+        const effective = (_store as unknown as { effectiveSelectedIds: () => string[] }).effectiveSelectedIds();
+        // Si la longueur a changé, c'est qu'on a ajouté/retiré une sélection
+        // Resync effectiveSelectedIds avec selectedIds (le tri est réinitialisé)
+        if (effective.length !== selected.length) {
+          patchState(_store, { effectiveSelectedIds: selected });
+        }
+      });
+    }
+  }),
 // End of store definition
-);
+)
 
 /* withEntityResources: withResource with entities
     https://ngrx-toolkit.angulararchitects.io/docs/with-entity-resources
