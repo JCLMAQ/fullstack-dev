@@ -1,3 +1,4 @@
+import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TodoWithRelations } from '@db/prisma';
@@ -33,23 +34,6 @@ export class TodoService {
 		return `${this.apiPrefix}/todos/by-user`;
   }
 
-  // get todos
-  // Get todos for one user, with optional orgId filter
-  async getTodosByUserIdOrOrgId(ownerId: string, orgId?: string | null): Promise<TodoWithRelations[]> {
-    let params = new HttpParams().set('ownerId', ownerId);
-    const url = this.baseUrl;
-    if (orgId) {
-      params = params.set('orgId', orgId);
-    }
-    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  }
-  // Get todos for an org, without ownerId filter
-  async getTodosByOrgId(orgId: string): Promise<TodoWithRelations[]> {
-    const params = new HttpParams().set('orgId', orgId);
-    const url = this.baseUrl;
-    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  }
-
   // Using httpResource
 
   getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string[] | null): HttpResourceRef<TodoWithRelations[]> {
@@ -80,26 +64,39 @@ export class TodoService {
     });
   }
 
-  todosResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
-    return httpResource<TodoWithRelations[]>(() => ({
-      url: this.baseUrl,
-      method: 'GET',
-      params: this.buildParams(options),
-    }), {
-      defaultValue: [],
+  createSaveTodoMutation(options: Partial<HttpMutationOptions<TodoWithRelations, TodoWithRelations>>) {
+    const url = `${this.apiPrefix}/todos`;
+    return httpMutation({
+      ...options,
+      request: (todo: TodoWithRelations) => ({
+        url: url,
+        method: 'POST',
+        body: todo,
+      }),
+      operator: concatOp
     });
   }
 
-  todoByIdResource(id: string): HttpResourceRef<TodoWithRelations | null> {
-    if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-    return httpResource<TodoWithRelations | null>(() => ({
-      url,
-      method: 'GET',
-    }), {
-      defaultValue: null,
-    });
-  }
+  // todosResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
+  //   return httpResource<TodoWithRelations[]>(() => ({
+  //     url: this.baseUrl,
+  //     method: 'GET',
+  //     params: this.buildParams(options),
+  //   }), {
+  //     defaultValue: [],
+  //   });
+  // }
+
+  // todoByIdResource(id: string): HttpResourceRef<TodoWithRelations | null> {
+  //   if (!id) throw new Error('id requis');
+	// 	const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
+  //   return httpResource<TodoWithRelations | null>(() => ({
+  //     url,
+  //     method: 'GET',
+  //   }), {
+  //     defaultValue: null,
+  //   });
+  // }
 
   private buildParams(options?: TodosQueryOptions): HttpParams {
 		let params = new HttpParams();
@@ -113,4 +110,20 @@ export class TodoService {
 		return params;
 	}
 
+  // get todos - classic way
+  // Get todos for one user, with optional orgId filter
+  async getTodosByUserIdOrOrgId(ownerId: string, orgId?: string | null): Promise<TodoWithRelations[]> {
+    let params = new HttpParams().set('ownerId', ownerId);
+    const url = this.baseUrl;
+    if (orgId) {
+      params = params.set('orgId', orgId);
+    }
+    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
+  }
+  // Get todos for an org, without ownerId filter
+  async getTodosByOrgId(orgId: string): Promise<TodoWithRelations[]> {
+    const params = new HttpParams().set('orgId', orgId);
+    const url = this.baseUrl;
+    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
+  }
 }
