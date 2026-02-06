@@ -263,7 +263,7 @@ export type TaskGroupByOutputType = {
   isDeletedDT: Date | null
   isPublic: boolean
   ownerId: string
-  orgId: string
+  orgId: string | null
   orderTask: number
   title: string
   content: string | null
@@ -305,7 +305,7 @@ export type TaskWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Task"> | boolean
   ownerId?: Prisma.StringFilter<"Task"> | string
-  orgId?: Prisma.StringFilter<"Task"> | string
+  orgId?: Prisma.StringNullableFilter<"Task"> | string | null
   orderTask?: Prisma.IntFilter<"Task"> | number
   title?: Prisma.StringFilter<"Task"> | string
   content?: Prisma.StringNullableFilter<"Task"> | string | null
@@ -313,7 +313,7 @@ export type TaskWhereInput = {
   mainTaskId?: Prisma.StringNullableFilter<"Task"> | string | null
   todoId?: Prisma.StringNullableFilter<"Task"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   mainTask?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
   SubTasks?: Prisma.TaskListRelationFilter
@@ -332,7 +332,7 @@ export type TaskOrderByWithRelationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderTask?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -362,7 +362,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Task"> | boolean
   ownerId?: Prisma.StringFilter<"Task"> | string
-  orgId?: Prisma.StringFilter<"Task"> | string
+  orgId?: Prisma.StringNullableFilter<"Task"> | string | null
   orderTask?: Prisma.IntFilter<"Task"> | number
   title?: Prisma.StringFilter<"Task"> | string
   content?: Prisma.StringNullableFilter<"Task"> | string | null
@@ -370,7 +370,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   mainTaskId?: Prisma.StringNullableFilter<"Task"> | string | null
   todoId?: Prisma.StringNullableFilter<"Task"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   mainTask?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
   SubTasks?: Prisma.TaskListRelationFilter
@@ -389,7 +389,7 @@ export type TaskOrderByWithAggregationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderTask?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -416,7 +416,7 @@ export type TaskScalarWhereWithAggregatesInput = {
   isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Task"> | boolean
   ownerId?: Prisma.StringWithAggregatesFilter<"Task"> | string
-  orgId?: Prisma.StringWithAggregatesFilter<"Task"> | string
+  orgId?: Prisma.StringNullableWithAggregatesFilter<"Task"> | string | null
   orderTask?: Prisma.IntWithAggregatesFilter<"Task"> | number
   title?: Prisma.StringWithAggregatesFilter<"Task"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"Task"> | string | null
@@ -439,7 +439,7 @@ export type TaskCreateInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
@@ -458,7 +458,7 @@ export type TaskUncheckedCreateInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -485,7 +485,7 @@ export type TaskUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
@@ -504,7 +504,7 @@ export type TaskUncheckedUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -527,7 +527,7 @@ export type TaskCreateManyInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -561,7 +561,7 @@ export type TaskUncheckedUpdateManyInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1020,7 +1020,7 @@ export type TaskScalarWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Task"> | boolean
   ownerId?: Prisma.StringFilter<"Task"> | string
-  orgId?: Prisma.StringFilter<"Task"> | string
+  orgId?: Prisma.StringNullableFilter<"Task"> | string | null
   orderTask?: Prisma.IntFilter<"Task"> | number
   title?: Prisma.StringFilter<"Task"> | string
   content?: Prisma.StringNullableFilter<"Task"> | string | null
@@ -1042,7 +1042,7 @@ export type TaskCreateWithoutOwnerInput = {
   title: string
   content?: string | null
   taskState?: $Enums.TaskState
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
@@ -1060,7 +1060,7 @@ export type TaskUncheckedCreateWithoutOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1113,7 +1113,7 @@ export type TaskCreateWithoutGroupsInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
@@ -1131,7 +1131,7 @@ export type TaskUncheckedCreateWithoutGroupsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1178,7 +1178,7 @@ export type TaskCreateWithoutTodoInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
@@ -1196,7 +1196,7 @@ export type TaskUncheckedCreateWithoutTodoInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1248,7 +1248,7 @@ export type TaskCreateWithoutSubTasksInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
@@ -1266,7 +1266,7 @@ export type TaskUncheckedCreateWithoutSubTasksInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1297,7 +1297,7 @@ export type TaskCreateWithoutMainTaskInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
   Users?: Prisma.UserTaskLinkCreateNestedManyWithoutTaskInput
@@ -1315,7 +1315,7 @@ export type TaskUncheckedCreateWithoutMainTaskInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1362,7 +1362,7 @@ export type TaskUpdateWithoutSubTasksInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
@@ -1380,7 +1380,7 @@ export type TaskUncheckedUpdateWithoutSubTasksInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1422,7 +1422,7 @@ export type TaskCreateWithoutUsersInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
@@ -1440,7 +1440,7 @@ export type TaskUncheckedCreateWithoutUsersInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1482,7 +1482,7 @@ export type TaskUpdateWithoutUsersInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
@@ -1500,7 +1500,7 @@ export type TaskUncheckedUpdateWithoutUsersInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1526,7 +1526,7 @@ export type TaskCreateWithoutTagsInput = {
   content?: string | null
   taskState?: $Enums.TaskState
   owner: Prisma.UserCreateNestedOneWithoutTasksAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTasksInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTasksInput
   groups?: Prisma.GroupCreateNestedManyWithoutTasksInput
   mainTask?: Prisma.TaskCreateNestedOneWithoutSubTasksInput
   SubTasks?: Prisma.TaskCreateNestedManyWithoutMainTaskInput
@@ -1544,7 +1544,7 @@ export type TaskUncheckedCreateWithoutTagsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1666,7 +1666,7 @@ export type TaskCreateManyOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1688,7 +1688,7 @@ export type TaskUpdateWithoutOwnerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
@@ -1706,7 +1706,7 @@ export type TaskUncheckedUpdateWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1728,7 +1728,7 @@ export type TaskUncheckedUpdateManyWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1751,7 +1751,7 @@ export type TaskUpdateWithoutGroupsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
@@ -1769,7 +1769,7 @@ export type TaskUncheckedUpdateWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1791,7 +1791,7 @@ export type TaskUncheckedUpdateManyWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1810,7 +1810,7 @@ export type TaskCreateManyTodoInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1832,7 +1832,7 @@ export type TaskUpdateWithoutTodoInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
@@ -1850,7 +1850,7 @@ export type TaskUncheckedUpdateWithoutTodoInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1872,7 +1872,7 @@ export type TaskUncheckedUpdateManyWithoutTodoInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1890,7 +1890,7 @@ export type TaskCreateManyMainTaskInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTask: number
   title: string
   content?: string | null
@@ -1912,7 +1912,7 @@ export type TaskUpdateWithoutMainTaskInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
   Users?: Prisma.UserTaskLinkUpdateManyWithoutTaskNestedInput
@@ -1930,7 +1930,7 @@ export type TaskUncheckedUpdateWithoutMainTaskInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1952,7 +1952,7 @@ export type TaskUncheckedUpdateManyWithoutMainTaskInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1974,7 +1974,7 @@ export type TaskUpdateWithoutTagsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskState?: Prisma.EnumTaskStateFieldUpdateOperationsInput | $Enums.TaskState
   owner?: Prisma.UserUpdateOneRequiredWithoutTasksAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTasksNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTasksNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTasksNestedInput
   mainTask?: Prisma.TaskUpdateOneWithoutSubTasksNestedInput
   SubTasks?: Prisma.TaskUpdateManyWithoutMainTaskNestedInput
@@ -1992,7 +1992,7 @@ export type TaskUncheckedUpdateWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2014,7 +2014,7 @@ export type TaskUncheckedUpdateManyWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTask?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2099,7 +2099,7 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   mainTaskId?: boolean
   todoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Task$groupsArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   SubTasks?: boolean | Prisma.Task$SubTasksArgs<ExtArgs>
@@ -2127,7 +2127,7 @@ export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   mainTaskId?: boolean
   todoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   todo?: boolean | Prisma.Task$todoArgs<ExtArgs>
 }, ExtArgs["result"]["task"]>
@@ -2150,7 +2150,7 @@ export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   mainTaskId?: boolean
   todoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   todo?: boolean | Prisma.Task$todoArgs<ExtArgs>
 }, ExtArgs["result"]["task"]>
@@ -2177,7 +2177,7 @@ export type TaskSelectScalar = {
 export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isDeleted" | "isDeletedDT" | "isPublic" | "ownerId" | "orgId" | "orderTask" | "title" | "content" | "taskState" | "mainTaskId" | "todoId", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Task$groupsArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   SubTasks?: boolean | Prisma.Task$SubTasksArgs<ExtArgs>
@@ -2188,13 +2188,13 @@ export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }
 export type TaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   todo?: boolean | Prisma.Task$todoArgs<ExtArgs>
 }
 export type TaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Task$orgArgs<ExtArgs>
   mainTask?: boolean | Prisma.Task$mainTaskArgs<ExtArgs>
   todo?: boolean | Prisma.Task$todoArgs<ExtArgs>
 }
@@ -2203,7 +2203,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Task"
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
-    org: Prisma.$OrganizationPayload<ExtArgs>
+    org: Prisma.$OrganizationPayload<ExtArgs> | null
     groups: Prisma.$GroupPayload<ExtArgs>[]
     mainTask: Prisma.$TaskPayload<ExtArgs> | null
     SubTasks: Prisma.$TaskPayload<ExtArgs>[]
@@ -2221,7 +2221,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isDeletedDT: Date | null
     isPublic: boolean
     ownerId: string
-    orgId: string
+    orgId: string | null
     orderTask: number
     title: string
     content: string | null
@@ -2623,7 +2623,7 @@ readonly fields: TaskFieldRefs;
 export interface Prisma__TaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.Task$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.Task$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mainTask<T extends Prisma.Task$mainTaskArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$mainTaskArgs<ExtArgs>>): Prisma.Prisma__TaskClient<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   SubTasks<T extends Prisma.Task$SubTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$SubTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3068,6 +3068,25 @@ export type TaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Tasks to delete.
    */
   limit?: number
+}
+
+/**
+ * Task.org
+ */
+export type Task$orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
 }
 
 /**

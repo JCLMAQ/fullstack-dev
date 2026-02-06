@@ -257,7 +257,7 @@ export type TodoGroupByOutputType = {
   isDeletedDT: Date | null
   isPublic: boolean
   ownerId: string
-  orgId: string
+  orgId: string | null
   orderTodo: number
   title: string
   content: string | null
@@ -298,14 +298,14 @@ export type TodoWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Todo"> | boolean
   ownerId?: Prisma.StringFilter<"Todo"> | string
-  orgId?: Prisma.StringFilter<"Todo"> | string
+  orgId?: Prisma.StringNullableFilter<"Todo"> | string | null
   orderTodo?: Prisma.IntFilter<"Todo"> | number
   title?: Prisma.StringFilter<"Todo"> | string
   content?: Prisma.StringNullableFilter<"Todo"> | string | null
   todoState?: Prisma.EnumTodoStateFilter<"Todo"> | $Enums.TodoState
   mainTodoId?: Prisma.StringNullableFilter<"Todo"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   mainTodo?: Prisma.XOR<Prisma.TodoNullableScalarRelationFilter, Prisma.TodoWhereInput> | null
   SubTodos?: Prisma.TodoListRelationFilter
@@ -324,7 +324,7 @@ export type TodoOrderByWithRelationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderTodo?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -353,14 +353,14 @@ export type TodoWhereUniqueInput = Prisma.AtLeast<{
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Todo"> | boolean
   ownerId?: Prisma.StringFilter<"Todo"> | string
-  orgId?: Prisma.StringFilter<"Todo"> | string
+  orgId?: Prisma.StringNullableFilter<"Todo"> | string | null
   orderTodo?: Prisma.IntFilter<"Todo"> | number
   title?: Prisma.StringFilter<"Todo"> | string
   content?: Prisma.StringNullableFilter<"Todo"> | string | null
   todoState?: Prisma.EnumTodoStateFilter<"Todo"> | $Enums.TodoState
   mainTodoId?: Prisma.StringNullableFilter<"Todo"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   mainTodo?: Prisma.XOR<Prisma.TodoNullableScalarRelationFilter, Prisma.TodoWhereInput> | null
   SubTodos?: Prisma.TodoListRelationFilter
@@ -379,7 +379,7 @@ export type TodoOrderByWithAggregationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderTodo?: Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -405,7 +405,7 @@ export type TodoScalarWhereWithAggregatesInput = {
   isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"Todo"> | Date | string | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Todo"> | boolean
   ownerId?: Prisma.StringWithAggregatesFilter<"Todo"> | string
-  orgId?: Prisma.StringWithAggregatesFilter<"Todo"> | string
+  orgId?: Prisma.StringNullableWithAggregatesFilter<"Todo"> | string | null
   orderTodo?: Prisma.IntWithAggregatesFilter<"Todo"> | number
   title?: Prisma.StringWithAggregatesFilter<"Todo"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"Todo"> | string | null
@@ -427,7 +427,7 @@ export type TodoCreateInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
@@ -446,7 +446,7 @@ export type TodoUncheckedCreateInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -473,7 +473,7 @@ export type TodoUpdateInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
@@ -492,7 +492,7 @@ export type TodoUncheckedUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -515,7 +515,7 @@ export type TodoCreateManyInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -548,7 +548,7 @@ export type TodoUncheckedUpdateManyInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -977,7 +977,7 @@ export type TodoScalarWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Todo"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Todo"> | boolean
   ownerId?: Prisma.StringFilter<"Todo"> | string
-  orgId?: Prisma.StringFilter<"Todo"> | string
+  orgId?: Prisma.StringNullableFilter<"Todo"> | string | null
   orderTodo?: Prisma.IntFilter<"Todo"> | number
   title?: Prisma.StringFilter<"Todo"> | string
   content?: Prisma.StringNullableFilter<"Todo"> | string | null
@@ -998,7 +998,7 @@ export type TodoCreateWithoutOwnerInput = {
   title: string
   content?: string | null
   todoState?: $Enums.TodoState
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
@@ -1016,7 +1016,7 @@ export type TodoUncheckedCreateWithoutOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1069,7 +1069,7 @@ export type TodoCreateWithoutGroupsInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
   Users?: Prisma.UserTodoLinkCreateNestedManyWithoutTodoInput
@@ -1087,7 +1087,7 @@ export type TodoUncheckedCreateWithoutGroupsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1134,7 +1134,7 @@ export type TodoCreateWithoutSubTodosInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   Users?: Prisma.UserTodoLinkCreateNestedManyWithoutTodoInput
@@ -1152,7 +1152,7 @@ export type TodoUncheckedCreateWithoutSubTodosInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1183,7 +1183,7 @@ export type TodoCreateWithoutMainTodoInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
   Users?: Prisma.UserTodoLinkCreateNestedManyWithoutTodoInput
@@ -1201,7 +1201,7 @@ export type TodoUncheckedCreateWithoutMainTodoInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1248,7 +1248,7 @@ export type TodoUpdateWithoutSubTodosInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   Users?: Prisma.UserTodoLinkUpdateManyWithoutTodoNestedInput
@@ -1266,7 +1266,7 @@ export type TodoUncheckedUpdateWithoutSubTodosInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1308,7 +1308,7 @@ export type TodoCreateWithoutUsersInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
@@ -1326,7 +1326,7 @@ export type TodoUncheckedCreateWithoutUsersInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1368,7 +1368,7 @@ export type TodoUpdateWithoutUsersInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
@@ -1386,7 +1386,7 @@ export type TodoUncheckedUpdateWithoutUsersInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1412,7 +1412,7 @@ export type TodoCreateWithoutTasksInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
@@ -1430,7 +1430,7 @@ export type TodoUncheckedCreateWithoutTasksInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1472,7 +1472,7 @@ export type TodoUpdateWithoutTasksInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
@@ -1490,7 +1490,7 @@ export type TodoUncheckedUpdateWithoutTasksInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1516,7 +1516,7 @@ export type TodoCreateWithoutTagsInput = {
   content?: string | null
   todoState?: $Enums.TodoState
   owner: Prisma.UserCreateNestedOneWithoutTodosAuthorInput
-  org: Prisma.OrganizationCreateNestedOneWithoutTodosInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutTodosInput
   groups?: Prisma.GroupCreateNestedManyWithoutTodosInput
   mainTodo?: Prisma.TodoCreateNestedOneWithoutSubTodosInput
   SubTodos?: Prisma.TodoCreateNestedManyWithoutMainTodoInput
@@ -1534,7 +1534,7 @@ export type TodoUncheckedCreateWithoutTagsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1654,7 +1654,7 @@ export type TodoCreateManyOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1675,7 +1675,7 @@ export type TodoUpdateWithoutOwnerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
@@ -1693,7 +1693,7 @@ export type TodoUncheckedUpdateWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1715,7 +1715,7 @@ export type TodoUncheckedUpdateManyWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1737,7 +1737,7 @@ export type TodoUpdateWithoutGroupsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
   Users?: Prisma.UserTodoLinkUpdateManyWithoutTodoNestedInput
@@ -1755,7 +1755,7 @@ export type TodoUncheckedUpdateWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1777,7 +1777,7 @@ export type TodoUncheckedUpdateManyWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1795,7 +1795,7 @@ export type TodoCreateManyMainTodoInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderTodo: number
   title: string
   content?: string | null
@@ -1816,7 +1816,7 @@ export type TodoUpdateWithoutMainTodoInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
   Users?: Prisma.UserTodoLinkUpdateManyWithoutTodoNestedInput
@@ -1834,7 +1834,7 @@ export type TodoUncheckedUpdateWithoutMainTodoInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1856,7 +1856,7 @@ export type TodoUncheckedUpdateManyWithoutMainTodoInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1877,7 +1877,7 @@ export type TodoUpdateWithoutTagsInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   todoState?: Prisma.EnumTodoStateFieldUpdateOperationsInput | $Enums.TodoState
   owner?: Prisma.UserUpdateOneRequiredWithoutTodosAuthorNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutTodosNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutTodosNestedInput
   groups?: Prisma.GroupUpdateManyWithoutTodosNestedInput
   mainTodo?: Prisma.TodoUpdateOneWithoutSubTodosNestedInput
   SubTodos?: Prisma.TodoUpdateManyWithoutMainTodoNestedInput
@@ -1895,7 +1895,7 @@ export type TodoUncheckedUpdateWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1917,7 +1917,7 @@ export type TodoUncheckedUpdateManyWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderTodo?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2009,7 +2009,7 @@ export type TodoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   todoState?: boolean
   mainTodoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Todo$groupsArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
   SubTodos?: boolean | Prisma.Todo$SubTodosArgs<ExtArgs>
@@ -2036,7 +2036,7 @@ export type TodoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   todoState?: boolean
   mainTodoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
 }, ExtArgs["result"]["todo"]>
 
@@ -2057,7 +2057,7 @@ export type TodoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   todoState?: boolean
   mainTodoId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
 }, ExtArgs["result"]["todo"]>
 
@@ -2082,7 +2082,7 @@ export type TodoSelectScalar = {
 export type TodoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isDeleted" | "isDeletedDT" | "isPublic" | "ownerId" | "orgId" | "orderTodo" | "title" | "content" | "todoState" | "mainTodoId", ExtArgs["result"]["todo"]>
 export type TodoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Todo$groupsArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
   SubTodos?: boolean | Prisma.Todo$SubTodosArgs<ExtArgs>
@@ -2093,12 +2093,12 @@ export type TodoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }
 export type TodoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
 }
 export type TodoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Todo$orgArgs<ExtArgs>
   mainTodo?: boolean | Prisma.Todo$mainTodoArgs<ExtArgs>
 }
 
@@ -2106,7 +2106,7 @@ export type $TodoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Todo"
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
-    org: Prisma.$OrganizationPayload<ExtArgs>
+    org: Prisma.$OrganizationPayload<ExtArgs> | null
     groups: Prisma.$GroupPayload<ExtArgs>[]
     mainTodo: Prisma.$TodoPayload<ExtArgs> | null
     SubTodos: Prisma.$TodoPayload<ExtArgs>[]
@@ -2124,7 +2124,7 @@ export type $TodoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isDeletedDT: Date | null
     isPublic: boolean
     ownerId: string
-    orgId: string
+    orgId: string | null
     orderTodo: number
     title: string
     content: string | null
@@ -2525,7 +2525,7 @@ readonly fields: TodoFieldRefs;
 export interface Prisma__TodoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.Todo$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Todo$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.Todo$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Todo$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mainTodo<T extends Prisma.Todo$mainTodoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Todo$mainTodoArgs<ExtArgs>>): Prisma.Prisma__TodoClient<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   SubTodos<T extends Prisma.Todo$SubTodosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Todo$SubTodosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2969,6 +2969,25 @@ export type TodoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Todos to delete.
    */
   limit?: number
+}
+
+/**
+ * Todo.org
+ */
+export type Todo$orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
 }
 
 /**

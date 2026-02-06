@@ -823,10 +823,12 @@ export type OrganizationCreateNestedOneWithoutTodosInput = {
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneRequiredWithoutTodosNestedInput = {
+export type OrganizationUpdateOneWithoutTodosNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutTodosInput, Prisma.OrganizationUncheckedCreateWithoutTodosInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutTodosInput
   upsert?: Prisma.OrganizationUpsertWithoutTodosInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutTodosInput, Prisma.OrganizationUpdateWithoutTodosInput>, Prisma.OrganizationUncheckedUpdateWithoutTodosInput>
 }
@@ -837,10 +839,12 @@ export type OrganizationCreateNestedOneWithoutTasksInput = {
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneRequiredWithoutTasksNestedInput = {
+export type OrganizationUpdateOneWithoutTasksNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutTasksInput, Prisma.OrganizationUncheckedCreateWithoutTasksInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutTasksInput
   upsert?: Prisma.OrganizationUpsertWithoutTasksInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutTasksInput, Prisma.OrganizationUpdateWithoutTasksInput>, Prisma.OrganizationUncheckedUpdateWithoutTasksInput>
 }
@@ -851,10 +855,12 @@ export type OrganizationCreateNestedOneWithoutPostsInput = {
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneRequiredWithoutPostsNestedInput = {
+export type OrganizationUpdateOneWithoutPostsNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutPostsInput, Prisma.OrganizationUncheckedCreateWithoutPostsInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutPostsInput
   upsert?: Prisma.OrganizationUpsertWithoutPostsInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutPostsInput, Prisma.OrganizationUpdateWithoutPostsInput>, Prisma.OrganizationUncheckedUpdateWithoutPostsInput>
 }

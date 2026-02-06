@@ -245,7 +245,7 @@ export type PostGroupByOutputType = {
   isDeletedDT: Date | null
   isPublic: boolean
   ownerId: string
-  orgId: string
+  orgId: string | null
   orderPost: number | null
   title: string
   content: string | null
@@ -284,12 +284,12 @@ export type PostWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Post"> | boolean
   ownerId?: Prisma.StringFilter<"Post"> | string
-  orgId?: Prisma.StringFilter<"Post"> | string
+  orgId?: Prisma.StringNullableFilter<"Post"> | string | null
   orderPost?: Prisma.IntNullableFilter<"Post"> | number | null
   title?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringNullableFilter<"Post"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   Categories?: Prisma.CategoryListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
@@ -309,7 +309,7 @@ export type PostOrderByWithRelationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderPost?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -337,12 +337,12 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Post"> | boolean
   ownerId?: Prisma.StringFilter<"Post"> | string
-  orgId?: Prisma.StringFilter<"Post"> | string
+  orgId?: Prisma.StringNullableFilter<"Post"> | string | null
   orderPost?: Prisma.IntNullableFilter<"Post"> | number | null
   title?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringNullableFilter<"Post"> | string | null
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   groups?: Prisma.GroupListRelationFilter
   Categories?: Prisma.CategoryListRelationFilter
   Comments?: Prisma.CommentListRelationFilter
@@ -362,7 +362,7 @@ export type PostOrderByWithAggregationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  orgId?: Prisma.SortOrder
+  orgId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderPost?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -386,7 +386,7 @@ export type PostScalarWhereWithAggregatesInput = {
   isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
   ownerId?: Prisma.StringWithAggregatesFilter<"Post"> | string
-  orgId?: Prisma.StringWithAggregatesFilter<"Post"> | string
+  orgId?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   orderPost?: Prisma.IntNullableWithAggregatesFilter<"Post"> | number | null
   title?: Prisma.StringWithAggregatesFilter<"Post"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
@@ -405,7 +405,7 @@ export type PostCreateInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -425,7 +425,7 @@ export type PostUncheckedCreateInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -451,7 +451,7 @@ export type PostUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -471,7 +471,7 @@ export type PostUncheckedUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -494,7 +494,7 @@ export type PostCreateManyInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -524,7 +524,7 @@ export type PostUncheckedUpdateManyInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -951,7 +951,7 @@ export type PostScalarWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   isPublic?: Prisma.BoolFilter<"Post"> | boolean
   ownerId?: Prisma.StringFilter<"Post"> | string
-  orgId?: Prisma.StringFilter<"Post"> | string
+  orgId?: Prisma.StringNullableFilter<"Post"> | string | null
   orderPost?: Prisma.IntNullableFilter<"Post"> | number | null
   title?: Prisma.StringFilter<"Post"> | string
   content?: Prisma.StringNullableFilter<"Post"> | string | null
@@ -969,7 +969,7 @@ export type PostCreateWithoutOwnerInput = {
   orderPost?: number | null
   title: string
   content?: string | null
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -988,7 +988,7 @@ export type PostUncheckedCreateWithoutOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1040,7 +1040,7 @@ export type PostCreateWithoutGroupsInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
@@ -1059,7 +1059,7 @@ export type PostUncheckedCreateWithoutGroupsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1105,7 +1105,7 @@ export type PostCreateWithoutCategoriesInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
@@ -1124,7 +1124,7 @@ export type PostUncheckedCreateWithoutCategoriesInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1170,7 +1170,7 @@ export type PostCreateWithoutCommentsInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   LikedBys?: Prisma.UserPostLikeLinkCreateNestedManyWithoutPostInput
@@ -1189,7 +1189,7 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1230,7 +1230,7 @@ export type PostUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
@@ -1249,7 +1249,7 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1274,7 +1274,7 @@ export type PostCreateWithoutFilesInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -1293,7 +1293,7 @@ export type PostUncheckedCreateWithoutFilesInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1334,7 +1334,7 @@ export type PostUpdateWithoutFilesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -1353,7 +1353,7 @@ export type PostUncheckedUpdateWithoutFilesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1378,7 +1378,7 @@ export type PostCreateWithoutLikedBysInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -1397,7 +1397,7 @@ export type PostUncheckedCreateWithoutLikedBysInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1438,7 +1438,7 @@ export type PostUpdateWithoutLikedBysInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -1457,7 +1457,7 @@ export type PostUncheckedUpdateWithoutLikedBysInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1482,7 +1482,7 @@ export type PostCreateWithoutImagesInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -1501,7 +1501,7 @@ export type PostUncheckedCreateWithoutImagesInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1542,7 +1542,7 @@ export type PostUpdateWithoutImagesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -1561,7 +1561,7 @@ export type PostUncheckedUpdateWithoutImagesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1586,7 +1586,7 @@ export type PostCreateWithoutTagsInput = {
   title: string
   content?: string | null
   owner: Prisma.UserCreateNestedOneWithoutPostsInput
-  org: Prisma.OrganizationCreateNestedOneWithoutPostsInput
+  org?: Prisma.OrganizationCreateNestedOneWithoutPostsInput
   groups?: Prisma.GroupCreateNestedManyWithoutPostsInput
   Categories?: Prisma.CategoryCreateNestedManyWithoutPostsInput
   Comments?: Prisma.CommentCreateNestedManyWithoutPostInput
@@ -1605,7 +1605,7 @@ export type PostUncheckedCreateWithoutTagsInput = {
   isDeletedDT?: Date | string | null
   isPublic?: boolean
   ownerId: string
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1721,7 +1721,7 @@ export type PostCreateManyOwnerInput = {
   isDeleted?: number
   isDeletedDT?: Date | string | null
   isPublic?: boolean
-  orgId: string
+  orgId?: string | null
   orderPost?: number | null
   title: string
   content?: string | null
@@ -1739,7 +1739,7 @@ export type PostUpdateWithoutOwnerInput = {
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -1758,7 +1758,7 @@ export type PostUncheckedUpdateWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1780,7 +1780,7 @@ export type PostUncheckedUpdateManyWithoutOwnerInput = {
   isDeleted?: Prisma.IntFieldUpdateOperationsInput | number
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1799,7 +1799,7 @@ export type PostUpdateWithoutGroupsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
@@ -1818,7 +1818,7 @@ export type PostUncheckedUpdateWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1840,7 +1840,7 @@ export type PostUncheckedUpdateManyWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1859,7 +1859,7 @@ export type PostUpdateWithoutCategoriesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
   LikedBys?: Prisma.UserPostLikeLinkUpdateManyWithoutPostNestedInput
@@ -1878,7 +1878,7 @@ export type PostUncheckedUpdateWithoutCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1900,7 +1900,7 @@ export type PostUncheckedUpdateManyWithoutCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1919,7 +1919,7 @@ export type PostUpdateWithoutTagsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
-  org?: Prisma.OrganizationUpdateOneRequiredWithoutPostsNestedInput
+  org?: Prisma.OrganizationUpdateOneWithoutPostsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutPostsNestedInput
   Categories?: Prisma.CategoryUpdateManyWithoutPostsNestedInput
   Comments?: Prisma.CommentUpdateManyWithoutPostNestedInput
@@ -1938,7 +1938,7 @@ export type PostUncheckedUpdateWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1960,7 +1960,7 @@ export type PostUncheckedUpdateManyWithoutTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  orgId?: Prisma.StringFieldUpdateOperationsInput | string
+  orgId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderPost?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2066,7 +2066,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   content?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Post$groupsArgs<ExtArgs>
   Categories?: boolean | Prisma.Post$CategoriesArgs<ExtArgs>
   Comments?: boolean | Prisma.Post$CommentsArgs<ExtArgs>
@@ -2092,7 +2092,7 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   content?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2110,7 +2110,7 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   content?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectScalar = {
@@ -2132,7 +2132,7 @@ export type PostSelectScalar = {
 export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "numSeq" | "createdAt" | "updatedAt" | "published" | "isDeleted" | "isDeletedDT" | "isPublic" | "ownerId" | "orgId" | "orderPost" | "title" | "content", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
   groups?: boolean | Prisma.Post$groupsArgs<ExtArgs>
   Categories?: boolean | Prisma.Post$CategoriesArgs<ExtArgs>
   Comments?: boolean | Prisma.Post$CommentsArgs<ExtArgs>
@@ -2144,18 +2144,18 @@ export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }
 export type PostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
 }
 export type PostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  org?: boolean | Prisma.Post$orgArgs<ExtArgs>
 }
 
 export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Post"
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
-    org: Prisma.$OrganizationPayload<ExtArgs>
+    org: Prisma.$OrganizationPayload<ExtArgs> | null
     groups: Prisma.$GroupPayload<ExtArgs>[]
     Categories: Prisma.$CategoryPayload<ExtArgs>[]
     Comments: Prisma.$CommentPayload<ExtArgs>[]
@@ -2174,7 +2174,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isDeletedDT: Date | null
     isPublic: boolean
     ownerId: string
-    orgId: string
+    orgId: string | null
     orderPost: number | null
     title: string
     content: string | null
@@ -2573,7 +2573,7 @@ readonly fields: PostFieldRefs;
 export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.Post$orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.Post$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Categories<T extends Prisma.Post$CategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$CategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Comments<T extends Prisma.Post$CommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$CommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3016,6 +3016,25 @@ export type PostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Posts to delete.
    */
   limit?: number
+}
+
+/**
+ * Post.org
+ */
+export type Post$orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
 }
 
 /**

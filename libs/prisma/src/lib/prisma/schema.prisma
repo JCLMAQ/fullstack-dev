@@ -309,8 +309,8 @@ model Todo {
   isPublic    Boolean        @default(false)
   owner       User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
-  org         Organization   @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  orgId       String
+  org         Organization?  @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId       String?
   groups      Group[]
   orderTodo   Int
   title       String
@@ -351,8 +351,8 @@ model Task {
   isPublic    Boolean        @default(false)
   owner       User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
-  org         Organization   @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  orgId       String
+  org         Organization?   @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId       String?
   groups      Group[]
   orderTask   Int
   title       String
@@ -394,8 +394,8 @@ model Post {
   isPublic    Boolean            @default(false)
   owner       User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     String
-  org         Organization       @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  orgId       String
+  org         Organization?      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId       String?
   groups      Group[]
   orderPost   Int?
   title       String

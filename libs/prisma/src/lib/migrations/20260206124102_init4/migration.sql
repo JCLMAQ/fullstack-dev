@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "orgId" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Task" ALTER COLUMN "orgId" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Todo" ALTER COLUMN "orgId" DROP NOT NULL;
