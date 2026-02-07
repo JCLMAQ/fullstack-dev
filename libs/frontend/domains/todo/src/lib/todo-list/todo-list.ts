@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { DictionaryPaginatorIntl } from '@fe/material';
 import { TodoStore } from '../store/todo-store';
 
 @Component({
@@ -7,6 +9,7 @@ import { TodoStore } from '../store/todo-store';
   imports: [],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
+  providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
   // providers: [TodoStore],
 })
 export class TodoList {
@@ -19,7 +22,9 @@ export class TodoList {
 
   routeToDetail = "/todos/detail";
 
-  mode: 'Edit' | 'View' | undefined ;
+  mode: 'Edit' | 'View' | 'add' | undefined = 'View';
+  master = false; // true : button is disable
+  owner = false; // true button is disable;
 
   // filter$ = linkedSignal(() => this.store.filter());
 

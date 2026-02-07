@@ -147,13 +147,15 @@ export class UserList {
     return numSelected > 0 && numSelected < paginated.length;
   });
 
+
   protected toggleAll(): void {
-    if (this.store.isAllSelected()) {
-      this.store.clearSelection();
-      this.store.clearSortedSelection();
-    } else {
-      this.store.selectAll();
-    }
+    this.store.toggleAll();
+    // if (this.store.isAllSelected()) {
+    //   this.store.clearSelection();
+    //   this.store.clearSortedSelection();
+    // } else {
+    //   this.store.selectAll();
+    // }
   }
 
   protected toggleSelection(id: string): void {

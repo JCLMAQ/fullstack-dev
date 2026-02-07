@@ -43,6 +43,23 @@ export function withSelectionMethods<Entity>(config?: { collection?: string }) {
         patchState(store, { selectedIds: next });
       },
 
+      toggleAll() {
+        const selectedIds = (store as any).selectedIds();
+        const entityMap = (store as any)[entityMapKey]();
+        const allIds = Object.keys(entityMap);
+        const isAllSelected = allIds.length > 0 && selectedIds.length === allIds.length;
+
+        if (isAllSelected) {
+          patchState(store, { selectedIds: [] });
+          if (typeof (store as any).clearSortedSelection === 'function') {
+            (store as any).clearSortedSelection();
+          }
+        } else {
+          patchState(store, { selectedIds: allIds });
+        }
+      },
+
+
       /**
        * Clear all selections
        */
