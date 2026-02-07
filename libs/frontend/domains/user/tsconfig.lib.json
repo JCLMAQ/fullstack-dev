@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../../stores/src/lib/store-features/selection-feature/with-selection-feature.ts", "../../core/services/src/lib/languages/language-data.service.ts", "../../stores/src/lib/store-features/filter-feature/with-filter.feature.ts"]
+  "include": ["src/**/*.ts", "../../stores/src/lib/store-features/selection-feature/with-selection.feature.ts", "../../core/services/src/lib/languages/language-data.service.ts", "../../stores/src/lib/store-features/filter-feature/with-filter.feature.ts"]
 }

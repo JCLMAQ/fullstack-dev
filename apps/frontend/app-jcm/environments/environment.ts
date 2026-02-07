@@ -13,6 +13,6 @@
         DEFAULT_LANGUAGE: "en",
         SUPPORTED_LANGUAGE: ['en', 'fr', 'de', 'nl'],
         SESSION_TIMEOUT_ENABLE: 1,
-        SESSION_TIMEOUT: 3600,
-        SESSION_TIMEOUT_REMINDER: 300
+        SESSION_TIMEOUT: 15,
+        SESSION_TIMEOUT_REMINDER: 5
     };
