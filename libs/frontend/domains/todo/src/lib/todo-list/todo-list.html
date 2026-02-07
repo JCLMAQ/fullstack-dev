@@ -1,15 +1,15 @@
 <p>todo-list works!</p>
 
-   @if (store.todosIsLoading()) {
+   @if (_store.todosIsLoading()) {
       <div>Loading...</div>
-    } @else if (store.todosError()) {
+    } @else if (_store.todosError()) {
       <p>An error has happened.</p>
-    } @else if (store.todosHasValue()) {
-      @if (store.todosEntities().length === 0) {
+    } @else if (_store.todosHasValue()) {
+      @if (_store.todosEntities().length === 0) {
         <p>Aucun todo pour cet utilisateur.</p>
       } @else {
         <ul>
-          @for (t of store.todosEntities(); track t.id) {
+          @for (t of _store.todosEntities(); track t.id) {
             <li>{{ t.title }} — {{ t.todoState }}</li>
           }
         </ul>
