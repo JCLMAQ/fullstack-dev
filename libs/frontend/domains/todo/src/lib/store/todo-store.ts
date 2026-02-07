@@ -6,7 +6,7 @@ import { initialTodoState } from './todo-slice';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
-import { AppStore, withNavigationMethods, withSelectionMethods } from "@fe/stores";
+import { AppStore, withNavigationMethods, withSelectionFeature } from "@fe/stores";
 import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 
@@ -37,7 +37,7 @@ export const TodoStore = signalStore(
   withDevtools('TodoStore'), // For developer tools
   withCallState({ collection: 'todos' }),
   // Selection within the material Table
-  withSelectionMethods<TodoWithRelations>({ collection: 'todos' }),
+  withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item
   withNavigationMethods(),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)

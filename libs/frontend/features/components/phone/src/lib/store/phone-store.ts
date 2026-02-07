@@ -2,7 +2,7 @@ import { withDevtools, withEntityResources, withMutations, withUndoRedo } from '
 import { computed, inject, resource } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Phone } from '@db/prisma/frontend';
-import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from '@fe/stores';
+import { buildSelectionComputed, withNavigationMethods, withSelectionFeature } from '@fe/stores';
 import { patchState, signalStore, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { addEntity, removeEntity } from '@ngrx/signals/entities';
 import { PhoneService } from '../services/phone-service';
@@ -28,7 +28,7 @@ export const PhoneStore = signalStore(
     }),
   })),
 
-  withSelectionMethods<Phone>({ collection: 'phones' }),
+  withSelectionFeature<Phone>({ collection: 'phones' }),
   withNavigationMethods(),
 
   // withMethods((store) => ({
@@ -83,13 +83,13 @@ export const PhoneStore = signalStore(
   withComputed((store) => {
     const { selection, isAllSelected } = buildSelectionComputed<Phone>(store, 'phonesEntityMap');
     return {
-      ownerIdOrDefault: computed(() => store.filter().ownerId ?? ''),
-      phoneEntities: computed(() => store.phonesEntities()),
+      ownerIdOrDefault: computed(() => store['filter']().ownerId ?? ''),
+      phoneEntities: computed(() => store['phonesEntities']()),
 
-      isLoading: computed(() => store.phonesIsLoading()),
-      hasError: computed(() => !!store.phonesError()),
+      isLoading: computed(() => store['phonesIsLoading']()),
+      hasError: computed(() => !!store['phonesError']()),
 
-      phoneCount: computed(() => store.phonesIds().length),
+      phoneCount: computed(() => store['phonesIds']().length),
 
       selection,
       isAllSelected,

@@ -5,10 +5,9 @@ export * from './lib/store-features/custom-store-features/with-local-storage/wit
 // export * from './lib/store-features/custom-store-features/with-service/with-service.feature'; // bug à corriger
 export * from './lib/store-features/custom-store-features/with-logger/logger.feature';
 export * from './lib/store-features/custom-store-features/with-page-navigation-feature/navigation.feature';
-export * from './lib/store-features/custom-store-features/with-selected-entity/with-selection-helper';
-export * from './lib/store-features/custom-store-features/with-selected-entity/with-selection-methods';
 export * from './lib/store-features/dictionaries-features/dictionaries.features';
 export * from './lib/store-features/filter-feature/with-filter.feature';
-
+export * from './lib/store-features/selection-feature/with-selection-feature';
+export * from './lib/store-features/selection-feature/with-selection-helper';
 export * from './lib/store-features/sort-feature/with-sort.feature';
 

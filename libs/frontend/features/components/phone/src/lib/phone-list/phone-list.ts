@@ -17,7 +17,7 @@ export class PhoneList {
   private readonly router = inject(Router);
 
   showDetail(id: string | number): void {
-    this.store.setSelectedId(String(id));
+    this.store['setSelectedId'](String(id));
   }
 
   navigateToDetail(id: string | number): void {
@@ -25,6 +25,6 @@ export class PhoneList {
   }
 
   closeDetail(): void {
-    this.store.setSelectedId(null);
+    this.store['setSelectedId'](null);
   }
 }
