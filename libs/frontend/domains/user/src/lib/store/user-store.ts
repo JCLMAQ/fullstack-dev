@@ -1,7 +1,7 @@
 import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject, resource } from "@angular/core";
 import { User } from "@db/prisma/frontend";
-import { buildSelectionComputed, withNavigationMethods, withSelectionMethods } from "@fe/stores";
+import { buildSelectionComputed, withNavigationMethods, withSelectionMethods, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { UserService } from "../services/user-service";
@@ -53,6 +53,10 @@ export const UserStore = signalStore(
       isAllSelected,
     };
   }),
+  withSort({
+    collection: 'user',
+    itemsSelector: (store) => store.users(),
+  }),
   withHooks({
     onInit: (store) => {
       console.log('UserStore initialized');
@@ -72,4 +76,3 @@ export const UserStore = signalStore(
     },
   })
 );
-

@@ -155,10 +155,6 @@ export const withUserMethods = signalStoreFeature(
       patchState(store, { effectiveSelectedIds: [] });
     },
 
-    setCurrentSort(sort: object | null) {
-      patchState(store, { currentSort: sort });
-    },
-
 
   }))
 );
