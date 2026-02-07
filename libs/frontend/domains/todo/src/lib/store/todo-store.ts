@@ -6,7 +6,7 @@ import { initialTodoState } from './todo-slice';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
-import { AppStore } from "@fe/stores";
+import { AppStore, withNavigationMethods, withSelectionMethods } from "@fe/stores";
 import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 
@@ -33,12 +33,13 @@ export const TodoStore = signalStore(
       _appStore,
       _snackBar
   }}),
-  withEntities(todoConfig),
-  withDevtools('TodoStore'),
-  // withUndoRedo({
-  //   collections: [ todoConfig.collection ]
-  // }),
+  withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations
+  withDevtools('TodoStore'), // For developer tools
   withCallState({ collection: 'todos' }),
+  // Selection within the material Table
+  withSelectionMethods<TodoWithRelations>({ collection: 'todos' }),
+  // Navigation methods useful for the details view of a todo item
+  withNavigationMethods(),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((_store) => ({
     todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
