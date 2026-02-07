@@ -8,14 +8,14 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
     // Pour un store de tasks avec collection
     export const TaskStore = signalStore(
       withEntities(taskConfig),
-      withSelectionFeature<Task>({ collection: 'task' }), // ✅ Réutilisable
+      withSelectionMethods<Task>({ collection: 'task' }), // ✅ Réutilisable
     ...
     );
   * @example Without collection name
   // Pour un store sans collection nommée
     export const PostStore = signalStore(
       withEntities(postConfig),
-      withSelectionFeature<Post>(), // ✅ Utilise entityMap par défaut
+      withSelectionMethods<Post>(), // ✅ Utilise entityMap par défaut
       ...
     );
 
@@ -26,7 +26,7 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
     *   selectedItem: Entity | null are optional but recommended
 */
 
-export function withSelectionFeature<Entity>(config?: { collection?: string }) {
+export function withSelectionMethods<Entity>(config?: { collection?: string }) {
   const collectionName = config?.collection;
   const entityMapKey = collectionName ? `${collectionName}EntityMap` : 'entityMap';
 

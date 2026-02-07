@@ -1,12 +1,33 @@
+import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DictionaryPaginatorIntl } from '@fe/material';
+import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
+import { TranslateModule } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
 
 @Component({
   selector: 'lib-todo-list',
-  imports: [],
+  imports: [
+    JsonPipe,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    TranslateModule,
+    ...MATERIAL
+  ],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
