@@ -71,16 +71,16 @@ export const TodoStore = signalStore(
       if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
         patchState(_store, { filter: { ownerId, orgId } });
       }}),
-      setCurrentSort(sort: Sort | null) {
-        patchState(_store, { currentSort: sort });
-      },
-      setSortedSelection(sortedIds: string[]) {
-        patchState(_store, { effectiveSelectedIds: sortedIds });
-      },
-      clearSortedSelection() {
-        patchState(_store, { effectiveSelectedIds: [] });
-      },
-    })),
+    setCurrentSort(sort: Sort | null) {
+      patchState(_store, { currentSort: sort });
+    },
+    setSortedSelection(sortedIds: string[]) {
+      patchState(_store, { effectiveSelectedIds: sortedIds });
+    },
+    clearSortedSelection() {
+      patchState(_store, { effectiveSelectedIds: [] });
+    },
+  })),
     // Computed property to get the count of todos and ...
   withComputed((_store) => ({
     todosCount: computed(() => !!_store.todosEntities() ? _store.todosEntities().length : 0),

@@ -82,7 +82,7 @@ export class UserList {
 
   routeToDetail = "/users/detail";
 
-  mode: 'Edit' | 'View' | undefined ;
+  mode: 'Edit' | 'View' | 'Add' | undefined = 'View';
   master = false; // true : button is disable
   owner = false; // true button is disable
 
@@ -150,12 +150,6 @@ export class UserList {
 
   protected toggleAll(): void {
     this.store.toggleAll();
-    // if (this.store.isAllSelected()) {
-    //   this.store.clearSelection();
-    //   this.store.clearSortedSelection();
-    // } else {
-    //   this.store.selectAll();
-    // }
   }
 
   protected toggleSelection(id: string): void {
