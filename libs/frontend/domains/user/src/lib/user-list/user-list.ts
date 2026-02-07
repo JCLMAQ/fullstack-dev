@@ -46,12 +46,6 @@ export class UserList {
   private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
-    // Initialiser le tri depuis le store s'il a été sauvegardé
-    const savedSort = this.store.currentSort();
-    if (savedSort) {
-      this.sortState.set(savedSort as Sort);
-    }
-
     // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
     effect(() => {
       const userCount = this.store.userCount();
@@ -60,14 +54,6 @@ export class UserList {
 
       if (userCount === 0 && !isLoading && !hasError) {
         this.store.loadUsers();
-      }
-    });
-
-    // Sauvegarder le tri dans le store quand il change
-    effect(() => {
-      const currentSort = this.sortState();
-      if (currentSort.active && currentSort.direction) {
-        this.store.setCurrentSort(currentSort);
       }
     });
 
@@ -82,6 +68,16 @@ export class UserList {
         matSort.sortChange.emit(savedSort as Sort);
       }
     });
+
+    // Synchroniser la sélection triée avec la liste filtrée et triée
+    effect(() => {
+      const users = this.filteredUsers();
+      const selection = this.store.selection();
+      const sortedSelectedIds = users
+        .filter(user => selection.isSelected(user))
+        .map(user => user.id);
+      this.store.setSortedSelection(sortedSelectedIds);
+    });
   }
 
   routeToDetail = "/users/detail";
@@ -93,16 +89,17 @@ export class UserList {
   // ViewChild pour tri et pagination
   protected readonly sort = viewChild(MatSort);
   protected readonly paginator = viewChild(MatPaginator);
-  protected readonly sortState = signal<Sort>({ active: '', direction: '' });
+  protected readonly sortState = computed(() => this.store.currentSort() || { active: '', direction: '' });
 
   // Filtrage
   protected readonly filterValue = signal('');
   protected readonly filteredUsers = computed(() => {
     const filter = this.filterValue().toLowerCase();
+    const users = (this.store as any).sortedUser() as User[];
     if (!filter) {
-      return this.store.users();
+      return users;
     }
-    return this.store.users().filter(user =>
+    return users.filter(user =>
       user.firstName?.toLowerCase().includes(filter) ||
       user.lastName?.toLowerCase().includes(filter) ||
       user.email?.toLowerCase().includes(filter)
@@ -113,31 +110,8 @@ export class UserList {
   protected readonly pageIndex = signal(0);
   protected readonly pageSize = signal(5);
 
-  protected readonly sortedUsers = computed(() => {
-    const users = [...this.filteredUsers()];
-    const { active, direction } = this.sortState();
-    if (!active || !direction) {
-      return users;
-    }
-    return users.sort((a, b) => {
-      const aValue = (a as Record<string, unknown>)[active];
-      const bValue = (b as Record<string, unknown>)[active];
-      if (aValue == null && bValue == null) {
-        return 0;
-      }
-      if (aValue == null) {
-        return 1;
-      }
-      if (bValue == null) {
-        return -1;
-      }
-      const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
-      return direction === 'asc' ? comparison : -comparison;
-    });
-  });
-
   protected readonly paginatedUsers = computed(() => {
-    const users = this.sortedUsers();
+    const users = this.filteredUsers();
     const start = this.pageIndex() * this.pageSize();
     const end = start + this.pageSize();
     return users.slice(start, end);
@@ -195,10 +169,6 @@ export class UserList {
 
   protected toggleSelection(id: string): void {
     this.store.toggleSelection(id);
-    // Si aucun utilisateur n'est sélectionné, vider l'ordre trié
-    if (this.store.selectedIds().length === 0) {
-      this.store.clearSortedSelection();
-    }
   }
 
   protected isSelected(id: string): boolean {
@@ -253,37 +223,8 @@ export class UserList {
   }
 
   protected onSortChange(sort: Sort): void {
-    this.sortState.set(sort);
+    this.store.setCurrentSort(sort);
     this.pageIndex.set(0);
-
-    // Si pas de tri actif, remettre l'ordre de selectedIds
-    if (!sort.active || !sort.direction) {
-      this.store.setSortedSelection(this.store.selectedIds());
-      this.store.setCurrentSort(null);
-      return;
-    }
-
-    const filtered = this.filteredUsers();
-    const sorted: User[] = [...filtered];
-
-    if (sort.active && sort.direction) {
-      sorted.sort((a: User, b: User) => {
-        const aValue = (a as Record<string, unknown>)[sort.active];
-        const bValue = (b as Record<string, unknown>)[sort.active];
-        if (aValue == null && bValue == null) return 0;
-        if (aValue == null) return 1;
-        if (bValue == null) return -1;
-        const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
-        return sort.direction === 'asc' ? comparison : -comparison;
-      });
-    }
-
-    // Extraire les IDs des sélectionnés dans l'ordre trié
-    const sortedSelectedIds = sorted
-      .filter((user: User) => this.store.selection().isSelected(user))
-      .map((user: User) => user.id);
-
-    this.store.setSortedSelection(sortedSelectedIds);
   }
 
   checkboxLabel(row: User): string {
