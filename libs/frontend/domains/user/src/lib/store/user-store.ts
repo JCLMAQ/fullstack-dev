@@ -1,7 +1,7 @@
 import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject, resource } from "@angular/core";
 import { User } from "@db/prisma/frontend";
-import { buildSelectionComputed, withFilter, withNavigationMethods, withSelectionFeature, withSort } from "@fe/stores";
+import { buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { UserService } from "../services/user-service";
@@ -68,6 +68,10 @@ export const UserStore = signalStore(
       createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
     }
+  }),
+  withPagination<User>({
+    itemsSelector: (store) => store.sortedUser,
+    initialPageSize: 5
   }),
   withHooks({
     onInit: (store) => {

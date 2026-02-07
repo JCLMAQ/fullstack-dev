@@ -53,6 +53,22 @@ export class TodoList {
   protected readonly paginator = viewChild(MatPaginator);
   protected readonly sortState = computed(() => this._store.currentSort() || { active: '', direction: '' });
 
+   // Configuration de la table
+    protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
+    columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
+    // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
+    columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
+    expandedElement!: TodoWithRelations | null;
+
+  // Pagination
+  protected readonly pageIndex = this._store.pageIndex;
+  protected readonly pageSize = this._store.pageSize;
+  protected readonly paginatedTodos = this._store.paginatedItems;
+  protected readonly totalTodos = this._store.totalCount;
+
+
+
+
 
   // todos$ = this.store.todosValue;
   // todosStatus$ = this.store.todosStatus;
@@ -61,6 +77,50 @@ export class TodoList {
   // todosIds$ = this.store.todosIds;
   // todosEntityMap$ = this.store.todosEntityMap;
   // todosEntities$ = this.store.todosEntities;
+
+// Méthodes d'actions sur les todos
+
+  /**
+   * Navigue vers le formulaire de détail d'un todo.
+   * @param id - ID du todo à afficher
+   * @param mode - Mode d'affichage (non utilisé - le mode est géré dans le composant de détail)
+   */
+  navigateButton( id: string, mode: string ) { // Vers le formulaire de détail
+    // Définir l'utilisateur sélectionné avant de naviguer
+    this._store.setSelectedId(id);
+    this._store.initNavButton(id);
+    // Naviguer vers le détail avec le mode en query param
+    this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
+  }
+
+  navigateDetail( id: string, mode: string ) { // Vers le formulaire de détail
+    // Définir l'utilisateur sélectionné avant de naviguer
+    this._store.setSelectedId(id);
+    this._store.initNavButton(id);
+    // Naviguer vers le détail avec le mode en query param
+    this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
+  }
+
+  // protected viewTodo(id: string): void {
+  //   this.selectTodo(id);
+  // }
+
+  protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
+    this._store.setPagination(event.pageIndex, event.pageSize);
+  }
+
+  protected softDeleteTodo(id: string): void {
+    // TODO: Implémenter le soft delete via le store
+    console.log('Soft delete todo:', id);
+    // this._store.softDeleteTodo(id);
+  }
+
+  protected hardDeleteTodo(id: string): void {
+    // TODO: Implémenter le hard delete via le store
+    console.log('Hard delete todo:', id);
+    // this._store.hardDeleteTodo(id);
+  }
+
 
   // Selection Boutons
 protected toggleAll(): void {
@@ -78,6 +138,23 @@ protected toggleAll(): void {
   protected toggleRowSelection(todo: TodoWithRelations): void {
       this._store.toggleSelection(todo.id);
     }
+// protected masterToggle(): void {
+//     const paginatedTodos = this.paginatedTodos();
+//     const allSelected = paginatedTodos.length > 0 && paginatedTodos.every(todo => this._store.selection().isSelected(todo));
+//     if (allSelected) {
+//       paginatedTodos.forEach(todo => {
+//         if (this._store.selection().isSelected(todo)) {
+//           this._store.toggleSelection(todo.id);
+//         }
+//       });
+//     } else {
+//       paginatedTodos.forEach(todo => {
+//         if (!this._store.selection().isSelected(todo)) {
+//           this._store.toggleSelection(todo.id);
+//         }
+//       });
+//     }
+//   }
 
     // checkboxLabel(row: TodoWithRelations): string {
     //     if (!row) {

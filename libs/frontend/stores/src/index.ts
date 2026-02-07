@@ -7,6 +7,7 @@ export * from './lib/store-features/custom-store-features/with-logger/logger.fea
 export * from './lib/store-features/custom-store-features/with-page-navigation-feature/navigation.feature';
 export * from './lib/store-features/dictionaries-features/dictionaries.features';
 export * from './lib/store-features/filter-feature/with-filter.feature';
+export * from './lib/store-features/pagination-feature/with-pagination.feature';
 export * from './lib/store-features/selection-feature/with-selection-helper';
 export * from './lib/store-features/selection-feature/with-selection.feature';
 export * from './lib/store-features/sort-feature/with-sort.feature';

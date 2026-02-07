@@ -31,6 +31,7 @@ const initialNavigationState: NavigationState = {
   },
 };
 
+// Is use to navigate within a selection of item  (in the detail vue)
 export function withNavigationMethods<Entity extends EntityWithId>() {
   return signalStoreFeature(
     withState<NavigationState>(initialNavigationState),

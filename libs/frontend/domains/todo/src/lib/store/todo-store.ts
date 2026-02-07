@@ -6,7 +6,7 @@ import { initialTodoState } from './todo-slice';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
-import { AppStore, withNavigationMethods, withSelectionFeature } from "@fe/stores";
+import { AppStore, withNavigationMethods, withPagination, withSelectionFeature } from "@fe/stores";
 import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 
@@ -123,6 +123,10 @@ export const TodoStore = signalStore(
     })
 
   })),
+  withPagination<TodoWithRelations>({
+    itemsSelector: (store) => store.sortedItems,
+    initialPageSize: 10
+  }),
   withHooks({
     onInit: (_store) => {
       console.log('TodoStore initialized');

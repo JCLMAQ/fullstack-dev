@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, effect, HostListener, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -96,17 +96,11 @@ export class UserList {
   protected readonly filteredUsers = this.store.sortedUser;
 
   // Pagination
-  protected readonly pageIndex = signal(0);
-  protected readonly pageSize = signal(5);
+  protected readonly pageIndex = this.store.pageIndex;
+  protected readonly pageSize = this.store.pageSize;
 
-  protected readonly paginatedUsers = computed(() => {
-    const users = this.filteredUsers();
-    const start = this.pageIndex() * this.pageSize();
-    const end = start + this.pageSize();
-    return users.slice(start, end);
-  });
-
-  protected readonly totalUsers = computed(() => this.filteredUsers().length);
+  protected readonly paginatedUsers = this.store.paginatedItems;
+  protected readonly totalUsers = this.store.totalCount;
 
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
@@ -199,12 +193,11 @@ export class UserList {
     const value = (event.target as HTMLInputElement).value;
     this.store.updateFilter(value.trim());
     // Reset à la première page
-    this.pageIndex.set(0);
+    this.store.setPage(0);
   }
 
   protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
-    this.pageIndex.set(event.pageIndex);
-    this.pageSize.set(event.pageSize);
+    this.store.setPagination(event.pageIndex, event.pageSize);
   }
 
   private isShiftPressed = false;
@@ -225,7 +218,7 @@ export class UserList {
     } else {
       this.store.setCurrentSort(sort);
     }
-    this.pageIndex.set(0);
+    this.store.setPage(0);
   }
 
   checkboxLabel(row: User): string {
