@@ -1,7 +1,7 @@
 import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject, resource } from "@angular/core";
 import { User } from "@db/prisma/frontend";
-import { buildSelectionComputed, withNavigationMethods, withSelectionMethods, withSort } from "@fe/stores";
+import { buildSelectionComputed, withFilter, withNavigationMethods, withSelectionMethods, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { UserService } from "../services/user-service";
@@ -53,9 +53,21 @@ export const UserStore = signalStore(
       isAllSelected,
     };
   }),
-  withSort({
+  withFilter<User, 'user'>({
     collection: 'user',
-    itemsSelector: (store) => store.users(),
+    itemsSelector: (store: any) => store.users(),
+    predicate: (user: User, filter: string) =>
+      user.firstName?.toLowerCase().includes(filter) ||
+      user.lastName?.toLowerCase().includes(filter) ||
+      user.email?.toLowerCase().includes(filter),
+  }),
+  withSort<User, 'user'>({
+    collection: 'user',
+    itemsSelector: (store: any) => store.filteredUser(),
+    comparators: {
+      createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
+    }
   }),
   withHooks({
     onInit: (store) => {

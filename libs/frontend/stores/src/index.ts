@@ -8,5 +8,7 @@ export * from './lib/store-features/custom-store-features/with-page-navigation-f
 export * from './lib/store-features/custom-store-features/with-selected-entity/with-selection-helper';
 export * from './lib/store-features/custom-store-features/with-selected-entity/with-selection-methods';
 export * from './lib/store-features/dictionaries-features/dictionaries.features';
+export * from './lib/store-features/filter-feature/with-filter.feature';
+
 export * from './lib/store-features/sort-feature/with-sort.feature';
 

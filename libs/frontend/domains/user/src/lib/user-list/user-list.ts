@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, HostListener, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -92,19 +92,8 @@ export class UserList {
   protected readonly sortState = computed(() => this.store.currentSort() || { active: '', direction: '' });
 
   // Filtrage
-  protected readonly filterValue = signal('');
-  protected readonly filteredUsers = computed(() => {
-    const filter = this.filterValue().toLowerCase();
-    const users = (this.store as any).sortedUser() as User[];
-    if (!filter) {
-      return users;
-    }
-    return users.filter(user =>
-      user.firstName?.toLowerCase().includes(filter) ||
-      user.lastName?.toLowerCase().includes(filter) ||
-      user.email?.toLowerCase().includes(filter)
-    );
-  });
+  protected readonly filterValue = this.store.filterValue;
+  protected readonly filteredUsers = this.store.sortedUser;
 
   // Pagination
   protected readonly pageIndex = signal(0);
@@ -212,7 +201,7 @@ export class UserList {
 
   protected applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-    this.filterValue.set(value.trim());
+    this.store.updateFilter(value.trim());
     // Reset à la première page
     this.pageIndex.set(0);
   }
@@ -222,8 +211,24 @@ export class UserList {
     this.pageSize.set(event.pageSize);
   }
 
+  private isShiftPressed = false;
+
+  @HostListener('window:keydown.shift')
+  onKeyDown() {
+    this.isShiftPressed = true;
+  }
+
+  @HostListener('window:keyup.shift')
+  onKeyUp() {
+    this.isShiftPressed = false;
+  }
+
   protected onSortChange(sort: Sort): void {
-    this.store.setCurrentSort(sort);
+    if (this.isShiftPressed) {
+      this.store.addSort(sort);
+    } else {
+      this.store.setCurrentSort(sort);
+    }
     this.pageIndex.set(0);
   }
 
