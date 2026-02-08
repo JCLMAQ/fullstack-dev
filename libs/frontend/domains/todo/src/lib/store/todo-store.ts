@@ -1,12 +1,11 @@
 import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from '@angular/core';
-import { patchState, signalMethod, signalStore, type, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { initialTodoState } from './todo-slice';
 // import { computed, effect, inject, resource } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
-import { AppStore, withNavigationMethods, withPagination, withSelectionFeature } from "@fe/stores";
+import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 
@@ -61,70 +60,39 @@ export const TodoStore = signalStore(
   withUndoRedo({
     collections: [ "todos" ]
   }),
-  // Methods to update the filter (ownerId, orgId) used for fetching the todos, with an explicit reload method to trigger the resource refetch
-  withMethods((_store) => ({
-    reload: () => {
-      _store._todosReload();
-    },
-    updateFilter: signalMethod( (filter: TodoFilter) => {
-      const  { ownerId, orgId } = filter;
-      if (filter.ownerId !== ownerId || filter.orgId !== orgId ) {
-        patchState(_store, { filter: { ownerId, orgId } });
-      }}),
-    setCurrentSort(sort: Sort | null) {
-      patchState(_store, { currentSort: sort });
-    },
-    setSortedSelection(sortedIds: string[]) {
-      patchState(_store, { effectiveSelectedIds: sortedIds });
-    },
-    clearSortedSelection() {
-      patchState(_store, { effectiveSelectedIds: [] });
-    },
-  })),
     // Computed property to get the count of todos and ...
-  withComputed((_store) => ({
-    todosCount: computed(() => !!_store.todosEntities() ? _store.todosEntities().length : 0),
-    totalItemsFiltered: computed(() => {}),
-    filteredItems: computed(() => {
-      const filter = _store.filterValue().toLowerCase();
-      if (!filter) {
-        return _store.todosValue();
-      }
-      return _store.todosValue().filter(todo =>
-        todo.title?.toLowerCase().includes(filter) ||
-        todo.content?.toLowerCase().includes(filter) ||
-        todo.owner?.firstName?.toLowerCase().includes(filter) ||
-        todo.owner?.lastName?.toLowerCase().includes(filter) ||
-        todo.owner?.email?.toLowerCase().includes(filter)
-      );
-    }),
-    sortedItems: computed(() => {
-      const todos = [...(_store.filteredItems() ?? [])];
-      const currentSort = _store.currentSort();
-      if (!currentSort || !currentSort.active || currentSort.direction === '') {
-        return todos;
-      }
-      return todos.sort((a, b) => {
-        const aValue = (a as Record<string, unknown>)[currentSort.active];
-        const bValue = (b as Record<string, unknown>)[currentSort.active];
-        if (aValue == null && bValue == null) {
-          return 0;
-        }
-        if (aValue == null) {
-          return 1;
-        }
-        if (bValue == null) {
-          return -1;
-        }
-        const comparison = String(aValue).localeCompare(String(bValue), undefined, { sensitivity: 'base' });
-        return currentSort.direction === 'asc' ? comparison : -comparison;
-      });
+  withComputed((_store) => {
+    const { selection, isAllSelected } = buildSelectionComputed<TodoWithRelations>(_store, 'todosEntityMap');
+    return {
+      selection,
+      isAllSelected,
+      todosCount: computed(() => Object.keys(_store.todosEntityMap()).length),
+      // Conversion des entités en tableau pour la compatibilité
+      users: computed(() => Object.values(_store.todosEntityMap())),
 
-    })
+      isLoading: computed(() => _store.todosIsLoading()),
+      hasError: computed(() => !!_store.todosError()),
+    };
+  }),
+  withFilter<TodoWithRelations, 'user'>({
+    collection: 'user',
+    itemsSelector: (_store: any) => _store.users(),
+    predicate: (todo: TodoWithRelations, filter: string) =>
+      todo.title?.toLowerCase().includes(filter) ||
+      todo.content?.toLowerCase().includes(filter) ||
+      todo.todoState?.toLowerCase().includes(filter),
+  }),
+  withSort<TodoWithRelations, 'todos'>({
+    collection: 'todos',
+    itemsSelector: (_store: any) => _store.filteredItems(),
+    comparators: {
+      createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
+    }
+  }),
 
-  })),
   withPagination<TodoWithRelations>({
-    itemsSelector: (store) => store.sortedItems,
+    itemsSelector: (_store: any) => _store.sortedItems(),
     initialPageSize: 10
   }),
   withHooks({

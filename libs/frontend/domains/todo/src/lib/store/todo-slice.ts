@@ -14,10 +14,10 @@ export interface TodoState {
   filterValue: string,
   filteredItems: TodoWithRelations[],
   currentSort: Sort | null,
-  sortState: {
-    active: string;
-    direction: 'asc' | 'desc' | '';
-  } | null;
+  // sortState: {
+  //   active: string;
+  //   direction: 'asc' | 'desc' | '';
+  // } | null;
 }
 export const initialTodoState: TodoState = {
   filter: {
@@ -32,5 +32,5 @@ export const initialTodoState: TodoState = {
   filteredItems: [],
   filterValue: '',
   currentSort: null,
-  sortState: { active: '', direction: '' },
+  // sortState: { active: '', direction: '' },
 };

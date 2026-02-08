@@ -82,7 +82,7 @@ export class TodoList {
 
     // Filtrage
   protected readonly filterValue = this._store.filterValue;
-  protected readonly filteredTodos = this._store.sortedItems;
+  protected readonly filteredTodos = this._store.sortedTodos;
 
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
