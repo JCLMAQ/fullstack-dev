@@ -1,12 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, inject, viewChild } from '@angular/core';
+import { Component, computed, effect, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TodoWithRelations } from '@db/prisma';
@@ -39,7 +39,27 @@ export class TodoList {
   private readonly _router = inject(Router);
 
   constructor() {
-    // this.store.loadTodos();
+      // Synchroniser l'affichage des flèches de tri avec le store
+    effect(() => {
+      const savedSort = this._store.currentSort();
+      const matSort = this.sort();
+      if (savedSort && matSort) {
+        matSort.active = savedSort.active;
+        matSort.direction = (savedSort.direction as 'asc' | 'desc');
+        // Émettre l'event sortChange pour que MatSort se mette à jour
+        matSort.sortChange.emit(savedSort as Sort);
+      }
+    });
+
+    // Synchroniser la sélection triée avec la liste filtrée et triée
+    effect(() => {
+      const todos = this.filteredTodos();
+      const selection = this._store.selection();
+      const sortedSelectedIds = todos
+        .filter(todo => selection.isSelected(todo))
+        .map(todo => todo.id);
+      this._store.setSortedSelection(sortedSelectedIds);
+    });
   }
 
   routeToDetail = "/todos/detail";
@@ -54,17 +74,21 @@ export class TodoList {
   protected readonly sortState = computed(() => this._store.currentSort() || { active: '', direction: '' });
 
    // Configuration de la table
-    protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
-    columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
+    protected readonly displayedColumns: string[] = ['select', 'OrderTodo', 'numSeq', 'title','todoState','content', 'actions'];
+    columnsToDisplay: string[] = ['select', 'OrderTodo', 'numSeq', 'title','todoState','content'];
     // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
     columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
     expandedElement!: TodoWithRelations | null;
+
+    // Filtrage
+  protected readonly filterValue = this._store.filterValue;
+  protected readonly filteredTodos = this._store.sortedItems;
 
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
   protected readonly pageSize = this._store.pageSize;
   protected readonly paginatedTodos = this._store.paginatedItems;
-  protected readonly totalTodos = this._store.totalCount;
+  protected readonly totalTodos = this._store.todosCount;
 
 
 
@@ -122,7 +146,7 @@ export class TodoList {
   }
 
 
-  // Selection Boutons
+  // Selection CheckBox Mgt
 protected toggleAll(): void {
     this._store.toggleAll();
   }

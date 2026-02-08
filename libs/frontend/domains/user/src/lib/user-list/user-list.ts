@@ -141,7 +141,7 @@ export class UserList {
     return numSelected > 0 && numSelected < paginated.length;
   });
 
-
+// Selection Mgt
   protected toggleAll(): void {
     this.store.toggleAll();
   }
