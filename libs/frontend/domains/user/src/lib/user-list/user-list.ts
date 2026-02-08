@@ -221,6 +221,13 @@ export class UserList {
     this.store.setPage(0);
   }
 
+  protected toggleRowSelection(user: User): void {
+    this.store.toggleSelection(user.id);
+  }
+
+  protected addOne(): void {
+    this.router.navigate([this.routeToDetail, '']);
+  }
   checkboxLabel(row: User): string {
     if (!row) {
       return `${this.store.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -246,11 +253,4 @@ export class UserList {
     }
   }
 
-  protected toggleRowSelection(user: User): void {
-    this.store.toggleSelection(user.id);
-  }
-
-  protected addOne(): void {
-    this.router.navigate([this.routeToDetail, '']);
-  }
 }

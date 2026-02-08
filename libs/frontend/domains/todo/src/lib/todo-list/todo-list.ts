@@ -90,10 +90,7 @@ export class TodoList {
   protected readonly paginatedTodos = this._store.paginatedItems;
   protected readonly totalTodos = this._store.todosCount;
 
-
-
-
-
+// Available actions on the list of todos
   // todos$ = this.store.todosValue;
   // todosStatus$ = this.store.todosStatus;
   // todosError$ = this.store.todosError;
@@ -161,30 +158,30 @@ protected toggleAll(): void {
   }
   protected toggleRowSelection(todo: TodoWithRelations): void {
       this._store.toggleSelection(todo.id);
-    }
-// protected masterToggle(): void {
-//     const paginatedTodos = this.paginatedTodos();
-//     const allSelected = paginatedTodos.length > 0 && paginatedTodos.every(todo => this._store.selection().isSelected(todo));
-//     if (allSelected) {
-//       paginatedTodos.forEach(todo => {
-//         if (this._store.selection().isSelected(todo)) {
-//           this._store.toggleSelection(todo.id);
-//         }
-//       });
-//     } else {
-//       paginatedTodos.forEach(todo => {
-//         if (!this._store.selection().isSelected(todo)) {
-//           this._store.toggleSelection(todo.id);
-//         }
-//       });
-//     }
-//   }
+}
 
-    // checkboxLabel(row: TodoWithRelations): string {
-    //     if (!row) {
-    //       return `${this._store.isAllSelected() ? 'select' : 'deselect'} all`;
-    //     }
-    //     return `${this._store.selection().isSelected(row) ? 'deselect' : 'select'}`;
-    //   }
+checkboxLabel(row: TodoWithRelations): string {
+      if (!row) {
+        return `${this._store.isAllSelected() ? 'select' : 'deselect'} all`;
+      }
+      return `${this._store.selection().isSelected(row) ? 'deselect' : 'select'}`;
+    }
+protected masterToggle(): void {
+    const paginatedTodos = this.paginatedTodos();
+    const allSelected = paginatedTodos.length > 0 && paginatedTodos.every(todo => this._store.selection().isSelected(todo));
+    if (allSelected) {
+      paginatedTodos.forEach(todo => {
+        if (this._store.selection().isSelected(todo)) {
+          this._store.toggleSelection(todo.id);
+        }
+      });
+    } else {
+      paginatedTodos.forEach(todo => {
+        if (!this._store.selection().isSelected(todo)) {
+          this._store.toggleSelection(todo.id);
+        }
+      });
+    }
+  }
 
 }
