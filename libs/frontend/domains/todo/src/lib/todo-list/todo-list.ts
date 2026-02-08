@@ -35,7 +35,7 @@ import { TodoStore } from '../store/todo-store';
   // providers: [TodoStore],
 })
 export class TodoList {
-  readonly _store = inject(TodoStore);
+  protected readonly _store = inject(TodoStore);
   private readonly _router = inject(Router);
 
   constructor() {
