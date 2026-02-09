@@ -10,20 +10,20 @@
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
-          {{ this.store.userCount() }} {{'common.users' | translate}}
+          {{ store.userCount() }} {{'common.users' | translate}}
         </mat-chip>
       </mat-chip-set>
     </div>
   </header>
 
-  @if (this.store.hasError()) {
+  @if (store.hasError()) {
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>{{'common.loadingError' | translate}}</span>
     </div>
   }
 
-  @if (this.store.isLoading()) {
+  @if (store.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
@@ -105,11 +105,11 @@
               <mat-icon>delete</mat-icon>
             </button>
             @if (owner) {
-              <button mat-icon-button  [disabled]=owner (click)="softDeleteUser(element.id)">
+              <button mat-icon-button [disabled]="owner" (click)="softDeleteUser(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             }
-            <button mat-icon-button aria-label="expand row" [disabled]=master (click)="hardDeleteUser(element.id)">
+            <button mat-icon-button aria-label="expand row" [disabled]="master" (click)="hardDeleteUser(element.id)">
                 <mat-icon>delete_forever</mat-icon>
               </button>
             </td>

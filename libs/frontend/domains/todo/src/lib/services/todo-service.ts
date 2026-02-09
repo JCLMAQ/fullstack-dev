@@ -1,6 +1,6 @@
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { TodoWithRelations } from '@db/prisma';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { firstValueFrom } from 'rxjs';
@@ -16,9 +16,9 @@ export type TodosQueryOptions = {
 	sortOrder?: SortOrder;
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+// @Injectable({
+//   providedIn: 'root',
+// })
 export class TodoService {
 
   private readonly http = inject(HttpClient);

@@ -8,20 +8,20 @@
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
-          {{ this._store.todosCount() }} {{'common.todos' | translate}}
+          {{ _store.todosCount() }} {{'common.todos' | translate}}
         </mat-chip>
       </mat-chip-set>
     </div>
   </header>
 
-  @if (this._store.hasError()) {
+  @if (_store.hasError()) {
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>{{'common.loadingError' | translate}}</span>
     </div>
   }
 
-  @if (this._store.isLoading()) {
+  @if (_store.isLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
