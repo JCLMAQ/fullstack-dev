@@ -68,15 +68,15 @@ export const TodoStore = signalStore(
       isAllSelected,
       todosCount: computed(() => Object.keys(_store.todosEntityMap()).length),
       // Conversion des entités en tableau pour la compatibilité
-      users: computed(() => Object.values(_store.todosEntityMap())),
+      todos: computed(() => Object.values(_store.todosEntityMap())),
 
       isLoading: computed(() => _store.todosIsLoading()),
       hasError: computed(() => !!_store.todosError()),
-    };
-  }),
-  withFilter<TodoWithRelations, 'user'>({
-    collection: 'user',
-    itemsSelector: (_store: any) => _store.users(),
+
+  }}),
+  withFilter<TodoWithRelations, 'todos'>({
+    collection: 'todos',
+    itemsSelector: (_store: any) => _store.todos(),
     predicate: (todo: TodoWithRelations, filter: string) =>
       todo.title?.toLowerCase().includes(filter) ||
       todo.content?.toLowerCase().includes(filter) ||

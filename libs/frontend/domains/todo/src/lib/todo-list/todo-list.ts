@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -101,6 +101,9 @@ export class TodoList {
 
 // Méthodes d'actions sur les todos
 
+protected refreshTodos(): void {
+    // this._store.loadTodos();
+  }
   /**
    * Navigue vers le formulaire de détail d'un todo.
    * @param id - ID du todo à afficher
@@ -130,6 +133,27 @@ export class TodoList {
     this._store.setPagination(event.pageIndex, event.pageSize);
   }
 
+  private isShiftPressed = false;
+
+  @HostListener('window:keydown.shift')
+  onKeyDown() {
+    this.isShiftPressed = true;
+  }
+
+  @HostListener('window:keyup.shift')
+  onKeyUp() {
+    this.isShiftPressed = false;
+  }
+
+  protected onSortChange(sort: Sort): void {
+    if (this.isShiftPressed) {
+      this._store.addSort(sort);
+    } else {
+      this._store.setCurrentSort(sort);
+    }
+    this._store.setPage(0);
+  }
+
   protected softDeleteTodo(id: string): void {
     // TODO: Implémenter le soft delete via le store
     console.log('Soft delete todo:', id);
@@ -142,7 +166,26 @@ export class TodoList {
     // this._store.hardDeleteTodo(id);
   }
 
+   protected applyFilter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this._store.updateFilter(value.trim());
+    // Reset à la première page
+    this._store.setPage(0);
+  }
 
+  /**
+   * True si tous les utilisateurs paginés sont sélectionnés
+   */
+  readonly isAllPaginatedSelected = computed(() => {
+    const paginated = this.paginatedTodos();
+    return paginated.length > 0 && paginated.every(todo => this._store.selection().isSelected(todo));
+  });
+
+  readonly isSomePaginatedSelected = computed(() => {
+    const paginated = this.paginatedTodos();
+    const numSelected = paginated.filter(todo => this._store.selection().isSelected(todo)).length;
+    return numSelected > 0 && numSelected < paginated.length;
+  });
   // Selection CheckBox Mgt
 protected toggleAll(): void {
     this._store.toggleAll();
