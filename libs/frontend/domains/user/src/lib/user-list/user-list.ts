@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -43,7 +43,6 @@ export class UserList {
 
   readonly store = inject(UserStore);
   private readonly router = inject(Router);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   constructor() {
     // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
@@ -57,17 +56,7 @@ export class UserList {
       }
     });
 
-    // Synchroniser l'affichage des flèches de tri avec le store
-    effect(() => {
-      const savedSort = this.store.currentSort();
-      const matSort = this.sort();
-      if (savedSort && matSort) {
-        matSort.active = savedSort.active;
-        matSort.direction = (savedSort.direction as 'asc' | 'desc');
-        // Émettre l'event sortChange pour que MatSort se mette à jour
-        matSort.sortChange.emit(savedSort as Sort);
-      }
-    });
+    this.store.syncSortToMatSort(this.sort);
 
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
@@ -115,24 +104,26 @@ export class UserList {
     this.store.loadUsers();
   }
 
-  protected selectUser(id: string): void {
-    this.store.loadUser(id);
-    // TODO Ajouter les endpoints followers/following (côté backend)
-    // Note: Les endpoints followers/following ne sont pas encore implémentés côté backend
-    // this.store.loadFollowers(id);
-    // this.store.loadFollowing(id);
-    this.store.loadOrganizations(id);
-  }
+  // protected selectUser(id: string): void {
+  //   this.store.loadUser(id);
+  //   // TODO Ajouter les endpoints followers/following (côté backend)
+  //   // Note: Les endpoints followers/following ne sont pas encore implémentés côté backend
+  //   // this.store.loadFollowers(id);
+  //   // this.store.loadFollowing(id);
+  //   this.store.loadOrganizations(id);
+  // }
+
+  // protected viewUser(id: string): void {
+  //   this.selectUser(id);
+  // }
 
   // Sélection
-
-
   /**
    * True si tous les utilisateurs paginés sont sélectionnés
    */
   readonly isAllPaginatedSelected = computed(() => {
     const paginated = this.paginatedUsers();
-    return paginated.length > 0 && paginated.every(user => this.store.selection().isSelected(user));
+    return paginated.length > 0 && paginated.every(item => this.store.selection().isSelected(item));
   });
 
   readonly isSomePaginatedSelected = computed(() => {
@@ -173,9 +164,7 @@ export class UserList {
     this.router.navigate([this.routeToDetail, id], { queryParams: { mode } });
   }
 
-  protected viewUser(id: string): void {
-    this.selectUser(id);
-  }
+
 
   protected softDeleteUser(id: string): void {
     // TODO: Implémenter le soft delete via le store

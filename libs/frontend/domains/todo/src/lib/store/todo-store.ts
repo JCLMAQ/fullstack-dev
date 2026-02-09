@@ -1,6 +1,6 @@
 import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from '@angular/core';
-import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { initialTodoState } from './todo-slice';
 // import { computed, effect, inject, resource } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -23,15 +23,6 @@ const todoConfig = entityConfig({
 
 export const TodoStore = signalStore(
   withState(initialTodoState),
-  withProps(_ => {
-    const _todoServices = inject(TodoService);
-    const _appStore = inject(AppStore);
-    const _snackBar = inject(MatSnackBar);
-    return {
-      _todoServices,
-      _appStore,
-      _snackBar
-  }}),
   withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations
   withDevtools('TodoStore'), // For developer tools
   withCallState({ collection: 'todos' }),
@@ -39,26 +30,38 @@ export const TodoStore = signalStore(
   withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item
   withNavigationMethods(),
+  withMethods((_store) => ({
+      // Sélection des todos triés
+      setSortedSelection(sortedIds: string[]) {
+        patchState(_store, { effectiveSelectedIds: sortedIds });
+      },
+
+      clearSortedSelection() {
+        patchState(_store, { effectiveSelectedIds: [] });
+      },
+    })),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
-  withEntityResources((_store) => ({
-    todos: _store._todoServices.getTodosByUserIdOrOrgIdResource(_store._appStore.user()?.id!, _store._appStore.orgId() )  })
+  withEntityResources((_store, _todoServices = inject(TodoService), _appStore = inject(AppStore)) => ({
+    todos: _todoServices.getTodosByUserIdOrOrgIdResource(_appStore.user()?.id!, _appStore.orgId() ?? null)  })
   ),
+
   // to add or change entities in the store after a mutation, we can use the onSuccess callback of the mutation to patch the state with the new or updated entity
-  withMutations((_store) => ({
-    saveTodo: _store._todoServices.createSaveTodoMutation({
+  withMutations((_store, _todoServices = inject(TodoService), _snackBar = inject(MatSnackBar)) => ({
+    saveTodo: _todoServices.createSaveTodoMutation({
       onSuccess(todo: TodoWithRelations) {
         patchState(_store, addEntity(todo, { collection: 'todos' }));
-        _store._snackBar.open('Todo saved', 'OK');
+        _snackBar.open('Todo saved', 'OK');
       },
       onError(error: unknown) {
-        _store._snackBar.open('Error saving todo!', 'OK');
+        _snackBar.open('Error saving todo!', 'OK');
         console.error(error);
       },
     }),
   })),
+
   // Add undo redo capability to the store, with configuration for the collections to track
   withUndoRedo({
-    collections: [ "todos" ]
+    collections: [ todoConfig.collection ]
   }),
     // Computed property to get the count of todos and ...
   withComputed((_store) => {
@@ -70,10 +73,11 @@ export const TodoStore = signalStore(
       // Conversion des entités en tableau pour la compatibilité
       todos: computed(() => Object.values(_store.todosEntityMap())),
 
-      isLoading: computed(() => _store.todosIsLoading()),
+      isLoading: computed(() => _store.todosLoading()),
       hasError: computed(() => !!_store.todosError()),
 
-  }}),
+    };
+  }),
   withFilter<TodoWithRelations, 'todos'>({
     collection: 'todos',
     itemsSelector: (_store: any) => _store.todos(),

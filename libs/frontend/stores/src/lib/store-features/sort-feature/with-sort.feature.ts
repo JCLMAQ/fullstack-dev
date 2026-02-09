@@ -1,5 +1,5 @@
-import { computed, Signal } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { computed, effect, Signal } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
 import { patchState, signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
 
 export function withSort<T, Collection extends string>(options: {
@@ -16,6 +16,24 @@ export function withSort<T, Collection extends string>(options: {
       currentSort: computed(() => store.sorts()[0] || null),
     })),
     withMethods((store) => ({
+      /**
+       * Synchronizes the MatSort component with the store's sort state.
+       * This should be called in the component's constructor.
+       * @param matSortSignal A signal returning the MatSort instance.
+       */
+      syncSortToMatSort(matSortSignal: Signal<MatSort | undefined>) {
+        effect(() => {
+          const savedSort = store.currentSort();
+          const matSort = matSortSignal();
+          if (savedSort && matSort) {
+            matSort.active = savedSort.active;
+            matSort.direction = savedSort.direction as 'asc' | 'desc';
+            // Emit sortChange event for MatSort to update itself
+            matSort.sortChange.emit(savedSort as Sort);
+          }
+        });
+      },
+
       setCurrentSort(sort: Sort | null) {
         if (!sort || !sort.active || !sort.direction) {
           patchState(store, { sorts: [] });
@@ -23,6 +41,15 @@ export function withSort<T, Collection extends string>(options: {
           patchState(store, { sorts: [sort] });
         }
       },
+
+      // setSortedSelection(sortedIds: string[]) {
+      //   patchState(store, { effectiveSelectedIds: sortedIds });
+      // },
+
+      // clearSortedSelection() {
+      //   patchState(store, { effectiveSelectedIds: [] });
+      // },
+
       addSort(sort: Sort) {
         const currentSorts = store.sorts();
         const existingIndex = currentSorts.findIndex((s) => s.active === sort.active);

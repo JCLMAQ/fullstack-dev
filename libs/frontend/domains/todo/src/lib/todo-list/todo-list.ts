@@ -45,17 +45,7 @@ export class TodoList {
   private readonly _router = inject(Router);
 
   constructor() {
-      // Synchroniser l'affichage des flèches de tri avec le store
-    effect(() => {
-      const savedSort = this._store.currentSort();
-      const matSort = this.sort();
-      if (savedSort && matSort) {
-        matSort.active = savedSort.active;
-        matSort.direction = (savedSort.direction as 'asc' | 'desc');
-        // Émettre l'event sortChange pour que MatSort se mette à jour
-        matSort.sortChange.emit(savedSort as Sort);
-      }
-    });
+    this._store.syncSortToMatSort(this.sort);
 
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
