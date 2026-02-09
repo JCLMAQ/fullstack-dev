@@ -1,6 +1,6 @@
 import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from '@angular/core';
-import { patchState, signalStore, type, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
 import { initialTodoState } from './todo-slice';
 // import { computed, effect, inject, resource } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -8,6 +8,8 @@ import { TodoWithRelations } from "@db/prisma";
 import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { addEntity, entityConfig, withEntities } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
+// import { withTodoMethods } from "./todo-store-methods";
+import { withMethods } from "@ngrx/signals";
 
 type TodoFilter = {
   ownerId: string | null;
@@ -30,6 +32,7 @@ export const TodoStore = signalStore(
   withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item
   withNavigationMethods(),
+  // withTodoMethods(),
   withMethods((_store) => ({
       // Sélection des todos triés
       setSortedSelection(sortedIds: string[]) {
