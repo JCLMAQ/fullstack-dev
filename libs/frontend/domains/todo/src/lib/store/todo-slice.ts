@@ -1,4 +1,3 @@
-import { Sort } from "@angular/material/sort";
 import { TodoWithRelations } from "@db/prisma";
 
 export interface TodoState {
@@ -11,9 +10,11 @@ export interface TodoState {
   effectiveSelectedIds: string[],
   selectedItemId: string | null,
   selectedItem: TodoWithRelations | null;
-  filterValue: string,
-  filteredItems: TodoWithRelations[],
-  currentSort: Sort | null,
+  loading: boolean;
+	error: string | null;
+  // filterValue: string,
+  // filteredItems: TodoWithRelations[],
+  // currentSort: Sort | null,
   // sortState: {
   //   active: string;
   //   direction: 'asc' | 'desc' | '';
@@ -29,8 +30,10 @@ export const initialTodoState: TodoState = {
   effectiveSelectedIds: [],
   selectedItemId: null,
   selectedItem: null,
-  filteredItems: [],
-  filterValue: '',
-  currentSort: null,
+  loading: false,
+	error: null,
+  // filteredItems: [],
+  // filterValue: '',
+  // currentSort: null,
   // sortState: { active: '', direction: '' },
 };

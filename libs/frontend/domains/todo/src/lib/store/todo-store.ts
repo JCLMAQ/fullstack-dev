@@ -84,7 +84,7 @@ export const TodoStore = signalStore(
   }),
   withSort<TodoWithRelations, 'todos'>({
     collection: 'todos',
-    itemsSelector: (_store: any) => _store.filteredItems(),
+    itemsSelector: (_store: any) => _store.filteredTodos(),
     comparators: {
       createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
@@ -92,7 +92,7 @@ export const TodoStore = signalStore(
   }),
 
   withPagination<TodoWithRelations>({
-    itemsSelector: (_store: any) => _store.sortedItems,
+    itemsSelector: (_store: any) => _store.sortedTodos,
     initialPageSize: 10
   }),
   withHooks({
