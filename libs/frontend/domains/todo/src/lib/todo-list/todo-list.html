@@ -107,22 +107,8 @@
                 [class.expanded]="element === expandedElement">
               <div class="element-diagram">
                 <div class="element-position">
-                  <strong>Email:</strong> {{element.email}}<br>
-                  <strong>Nom complet:</strong> {{element.firstName}} {{element.lastName}}<br>
-                  <strong>Followers:</strong> {{element.nbrOfFollowers}}<br>
-                  <strong>Following:</strong> {{element.hasFollowing}}<br>
-                  @if (element.phone && element.phone.length > 0) {
-                    <strong>Phone:</strong>
-                    @for (tel of element.phone; track $index) {
-                      {{tel.countryCode}} - {{tel.prefix}} / {{tel.number}}
-                      @if (!$last) { , }
-                    }
-                    <br>
-                  }
-                  @if (element.numSeq) {
-                    <strong>Numéro:</strong> {{element.numSeq}}<br>
-                  }
-                  <strong>ID:</strong> {{element.id}}
+                  <strong>{{'common.content' | translate}}</strong> {{element.content}}<br>
+                  <strong>{{'common.description' | translate}}</strong> {{element.description}}
                 </div>
               </div>
             </div>
@@ -136,7 +122,7 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4">{{'common.noData' | translate}} "{{input.value}}"</td>
         </tr>
 
       </table>

@@ -31,6 +31,12 @@ import { TodoStore } from '../store/todo-store';
   ],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
+  styles: [`
+    :host ::ng-deep .mat-mdc-row:hover {
+      background-color: var(--mat-sys-secondary-container) !important;
+      cursor: pointer;
+    }
+  `],
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
   // providers: [TodoStore],
 })
@@ -74,8 +80,8 @@ export class TodoList {
   protected readonly sortState = computed(() => this._store.currentSort() || { active: '', direction: '' });
 
    // Configuration de la table
-    protected readonly displayedColumns: string[] = ['select', 'OrderTodo', 'numSeq', 'title','todoState','content', 'actions'];
-    columnsToDisplay: string[] = ['select', 'OrderTodo', 'numSeq', 'title','todoState','content'];
+    protected readonly displayedColumns: string[] = ['select', 'order', 'numSeq', 'title','state', 'actions'];
+    columnsToDisplay: string[] = ['select', 'order', 'numSeq', 'title','state'];
     // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
     columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
     expandedElement!: TodoWithRelations | null;
