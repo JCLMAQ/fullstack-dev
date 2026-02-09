@@ -34,14 +34,14 @@ export const TodoStore = signalStore(
   withNavigationMethods(),
   // withTodoMethods(),
   withMethods((_store) => ({
-      // Sélection des todos triés
-      setSortedSelection(sortedIds: string[]) {
-        patchState(_store, { effectiveSelectedIds: sortedIds });
-      },
+    // Sélection des todos triés
+    setSortedSelection(sortedIds: string[]) {
+      patchState(_store, { effectiveSelectedIds: sortedIds });
+    },
 
-      clearSortedSelection() {
-        patchState(_store, { effectiveSelectedIds: [] });
-      },
+    clearSortedSelection() {
+      patchState(_store, { effectiveSelectedIds: [] });
+    },
     })),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((_store, _todoServices = inject(TodoService), _appStore = inject(AppStore)) => ({
