@@ -49,7 +49,7 @@ export class TodoList {
 
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
-      const todos = this.filteredTodos();
+      const todos = this.filteredItems();
       const selection = this._store.selection();
       const sortedSelectedIds = todos
         .filter(todo => selection.isSelected(todo))
@@ -78,7 +78,7 @@ export class TodoList {
 
     // Filtrage
   protected readonly filterValue = this._store.filterValue;
-  protected readonly filteredTodos = this._store.sortedTodos;
+  protected readonly filteredItems = this._store.sortedTodos;
 
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
