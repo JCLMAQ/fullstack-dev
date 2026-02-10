@@ -83,7 +83,7 @@ export class TodoList {
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
   protected readonly pageSize = this._store.pageSize;
-  // protected readonly paginatedTodos = this._store.paginatedItems;
+  // protected readonly paginatedItems = this._store.paginatedItems;
   protected readonly totalItems = this._store.itemsCount;
 
 // Available actions on the list of todos
@@ -97,7 +97,7 @@ export class TodoList {
 
 // Méthodes d'actions sur les todos
 
-protected refreshTodos(): void {
+protected refreshOrReload(): void {
     // this._store.loadTodos();
   }
   /**
@@ -206,18 +206,18 @@ checkboxLabel(row: TodoWithRelations): string {
       return `${this._store.selection().isSelected(row) ? 'deselect' : 'select'}`;
     }
 protected masterToggle(): void {
-    const paginatedTodos = this._store.paginatedItems();
-    const allSelected = paginatedTodos.length > 0 && paginatedTodos.every(todo => this._store.selection().isSelected(todo));
+    const paginatedItems = this._store.paginatedItems();
+    const allSelected = paginatedItems.length > 0 && paginatedItems.every(item => this._store.selection().isSelected(item));
     if (allSelected) {
-      paginatedTodos.forEach(todo => {
-        if (this._store.selection().isSelected(todo)) {
-          this._store.toggleSelection(todo.id);
+      paginatedItems.forEach(item => {
+        if (this._store.selection().isSelected(item)) {
+          this._store.toggleSelection(item.id);
         }
       });
     } else {
-      paginatedTodos.forEach(todo => {
-        if (!this._store.selection().isSelected(todo)) {
-          this._store.toggleSelection(todo.id);
+      paginatedItems.forEach(item => {
+        if (!this._store.selection().isSelected(item)) {
+          this._store.toggleSelection(item.id);
         }
       });
     }
