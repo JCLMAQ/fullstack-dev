@@ -72,7 +72,7 @@ export const TodoStore = signalStore(
     return {
       selection,
       isAllSelected,
-      todosCount: computed(() => Object.keys(_store.todosEntityMap()).length),
+      itemsCount: computed(() => Object.keys(_store.todosEntityMap()).length),
       // Conversion des entités en tableau pour la compatibilité
       todos: computed(() => Object.values(_store.todosEntityMap())),
 

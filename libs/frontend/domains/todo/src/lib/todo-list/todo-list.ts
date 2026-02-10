@@ -84,7 +84,7 @@ export class TodoList {
   protected readonly pageIndex = this._store.pageIndex;
   protected readonly pageSize = this._store.pageSize;
   // protected readonly paginatedTodos = this._store.paginatedItems;
-  protected readonly totalItems = this._store.todosCount;
+  protected readonly totalItems = this._store.itemsCount;
 
 // Available actions on the list of todos
   // todos$ = this.store.todosValue;
