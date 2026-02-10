@@ -38,7 +38,6 @@ import { TodoStore } from '../store/todo-store';
     }
   `],
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
-  // providers: [TodoStore],
 })
 export class TodoList {
   protected readonly _store = inject(TodoStore);
@@ -98,7 +97,7 @@ export class TodoList {
 // Méthodes d'actions sur les todos
 
 protected refreshOrReload(): void {
-    // this._store.loadTodos();
+    // this._store.loadItems();
   }
   /**
    * Navigue vers le formulaire de détail d'un todo.
@@ -121,8 +120,8 @@ protected refreshOrReload(): void {
     this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
   }
 
-  // protected viewTodo(id: string): void {
-  //   this.selectTodo(id);
+  // protected viewItem(id: string): void {
+  //   this.selectItem(id);
   // }
 
   protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
@@ -153,13 +152,13 @@ protected refreshOrReload(): void {
   protected softDelete(id: string): void {
     // TODO: Implémenter le soft delete via le store
     console.log('Soft delete todo:', id);
-    // this._store.softDeleteTodo(id);
+    // this._store.softDelete(id);
   }
 
   protected hardDelete(id: string): void {
     // TODO: Implémenter le hard delete via le store
     console.log('Hard delete todo:', id);
-    // this._store.hardDeleteTodo(id);
+    // this._store.hardDelete(id);
   }
 
    protected applyFilter(event: Event): void {
