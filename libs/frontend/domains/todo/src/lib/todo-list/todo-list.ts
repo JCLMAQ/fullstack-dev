@@ -150,13 +150,13 @@ protected refreshOrReload(): void {
     this._store.setPage(0);
   }
 
-  protected softDeleteTodo(id: string): void {
+  protected softDelete(id: string): void {
     // TODO: Implémenter le soft delete via le store
     console.log('Soft delete todo:', id);
     // this._store.softDeleteTodo(id);
   }
 
-  protected hardDeleteTodo(id: string): void {
+  protected hardDelete(id: string): void {
     // TODO: Implémenter le hard delete via le store
     console.log('Hard delete todo:', id);
     // this._store.hardDeleteTodo(id);

@@ -85,15 +85,15 @@
                 (click)="navigateButton(element.id, 'view')">
               <mat-icon>remove_red_eye</mat-icon>
             </button>
-            <button mat-icon-button   (click)="softDeleteTodo(element.id)">
+            <button mat-icon-button   (click)="softDelete(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
             @if (owner) {
-              <button mat-icon-button [disabled]="owner" (click)="softDeleteTodo(element.id)">
+              <button mat-icon-button [disabled]="owner" (click)="softDelete(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             }
-            <button mat-icon-button aria-label="expand row" [disabled]="master" (click)="hardDeleteTodo(element.id)">
+            <button mat-icon-button aria-label="expand row" [disabled]="master" (click)="hardDelete(element.id)">
                 <mat-icon>delete_forever</mat-icon>
               </button>
             </td>
