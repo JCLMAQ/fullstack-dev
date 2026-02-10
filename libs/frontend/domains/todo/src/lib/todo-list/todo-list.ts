@@ -174,12 +174,12 @@ protected refreshTodos(): void {
    */
   readonly isAllPaginatedSelected = computed(() => {
     const paginated = this._store.paginatedItems();
-    return paginated.length > 0 && paginated.every(todo => this._store.selection().isSelected(todo));
+    return paginated.length > 0 && paginated.every(item => this._store.selection().isSelected(item)) && paginated.every(item => this._store.selection().isSelected(item));
   });
 
   readonly isSomePaginatedSelected = computed(() => {
     const paginated = this._store.paginatedItems();
-    const numSelected = paginated.filter(todo => this._store.selection().isSelected(todo)).length;
+    const numSelected = paginated.filter(item => this._store.selection().isSelected(item)).length;
     return numSelected > 0 && numSelected < paginated.length;
   });
   // Selection CheckBox Mgt
