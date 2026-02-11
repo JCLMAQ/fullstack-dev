@@ -3,7 +3,7 @@ import { TodoWithRelations } from "@db/prisma";
 export interface TodoState {
   filter: {
     ownerId: string | null
-    orgId: string []| null,
+    orgId: string[]| null,
   },
   mode: 'Edit' | 'View' | 'add' | undefined,
   selectedIds: string[],

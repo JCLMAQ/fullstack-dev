@@ -44,23 +44,27 @@ export const TodoStore = signalStore(
     },
     })),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
-  withEntityResources((_store, _todoServices = inject(TodoService), _appStore = inject(AppStore)) => ({
-    todos: _todoServices.getTodosByUserIdOrOrgIdResource(_appStore.user()?.id!, _appStore.orgId() ?? null)  })
+  withEntityResources(
+    (_store, appStore = inject(AppStore), todoServices = inject(TodoService)) => ({
+      todos: todoServices.getTodosByUserIdOrOrgIdResource(appStore.user()?.id!, appStore.orgId() ?? null),
+    }),
   ),
 
   // to add or change entities in the store after a mutation, we can use the onSuccess callback of the mutation to patch the state with the new or updated entity
-  withMutations((_store, _todoServices = inject(TodoService), _snackBar = inject(MatSnackBar)) => ({
-    saveTodo: _todoServices.createSaveTodoMutation({
-      onSuccess(todo: TodoWithRelations) {
-        patchState(_store, addEntity(todo, { collection: 'todos' }));
-        _snackBar.open('Todo saved', 'OK');
-      },
-      onError(error: unknown) {
-        _snackBar.open('Error saving todo!', 'OK');
-        console.error(error);
-      },
+  withMutations(
+    (_store, todoServices = inject(TodoService), snackBar = inject(MatSnackBar)) => ({
+      saveTodo: todoServices.createSaveTodoMutation({
+        onSuccess(todo: TodoWithRelations) {
+          patchState(_store, addEntity(todo, { collection: 'todos' }));
+          snackBar.open('Todo saved', 'OK');
+        },
+        onError(error: unknown) {
+          snackBar.open('Error saving todo!', 'OK');
+          console.error(error);
+        },
+      }),
     }),
-  })),
+  ),
 
   // Add undo redo capability to the store, with configuration for the collections to track
   withUndoRedo({
@@ -91,7 +95,7 @@ export const TodoStore = signalStore(
   }),
   withSort<TodoWithRelations, 'todos'>({
     collection: 'todos',
-    itemsSelector: (_store: any) => _store.filteredItems(),
+    itemsSelector: (_store: any) => _store.filteredTodos(),
     comparators: {
       createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
