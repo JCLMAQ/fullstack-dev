@@ -26,13 +26,13 @@ export const UserStore = signalStore(
   withDevtools('UserStore'),
   // withEntities(userConfig),
   withCallState({ collection: 'users' }),
-  withSelectionFeature<User>({ collection: 'users' }),
-  withNavigationMethods(),
   // test withResources
   withEntityResources(( store ) => ({
     // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
     users: store._svc.usersResource(),
   })),
+  withSelectionFeature<User>({ collection: 'users' }),
+  withNavigationMethods(),
   withUserMethods,
 
   withUndoRedo({

@@ -98,7 +98,6 @@ export class UserDetail {
   protected readonly mode = signal<'view' | 'edit' | 'add'>('view');
   // Current user ID from route
   protected readonly userId = signal<string | null>(null);
-
   // Signal pour les données du formulaire
   protected readonly userData = signal<UserFormData>({
     id: '',
@@ -186,7 +185,9 @@ export class UserDetail {
   constructor() {
     // Récupère l'id utilisateur depuis les params de route
     const params = this.route.snapshot.params;
+    console.log('Route params:', params);
     this.userId.set(params['id'] ?? null);
+    console.log('Initial userId from route:', this.userId());
     if ((this.userId() === undefined) || (this.userId() === null)) {
       this.userId.set(this.store.usersEntities().at(0)?.id ?? null);
     }
@@ -202,13 +203,20 @@ export class UserDetail {
     }
     // Set selected user in store
     if (this.userId()) {
+      console.log('Setting selectedId in store:', this.userId());
       this.store.setSelectedId(this.userId());
+      console.log('Store selectedItemId after set:', this.store.selectedItemId());
+      console.log('Store usersEntityMap:', this.store.usersEntityMap());
+      console.log('Store selectedItem computed:', this.store.selectedItem());
     }
 
     // Populate form when selectedItem changes
     effect(() => {
+      console.log('Effect triggered - checking selectedItem...');
       const selectedItem = this.store.selectedItem() as UserWithBasicRelations | null;
+      console.log('selectedItem in effect:', selectedItem);
       if (selectedItem) {
+        console.log('Populating form with selectedItem:', selectedItem);
         // Réinitialiser la navigation avec l'utilisateur sélectionné
         this.store.initNavButton(selectedItem.id);
 

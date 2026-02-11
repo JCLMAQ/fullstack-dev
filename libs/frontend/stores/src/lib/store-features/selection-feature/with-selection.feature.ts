@@ -21,6 +21,12 @@ export function withSelectionFeature<Entity>(config?: { collection?: string }) {
       selectedItem: computed(() => {
         const entityMap = (store as any)[entityMapKey]?.();
         const selectedId = store.selectedItemId();
+        console.log(`[withSelectionFeature] Computing selectedItem:`, {
+          entityMapKey,
+          entityMap: entityMap ? Object.keys(entityMap) : 'undefined',
+          selectedId,
+          result: entityMap && selectedId ? entityMap[selectedId] : null
+        });
         if (!entityMap || !selectedId) {
           return null;
         }

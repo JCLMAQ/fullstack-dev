@@ -36,17 +36,20 @@ export const TodoStore = signalStore(
   // withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations
   withDevtools('TodoStore'), // For developer tools
   withCallState({ collection: 'todos' }),
+
+  // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
+  withEntityResources((store) => ({
+      todos: store._todoServices.getTodosByUserIdOrOrgIdResource(store._appStore.user()?.id!, store._appStore.orgId() ?? null),
+    }),
+  ),
+
   // Selection within the material Table
   withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item
   withNavigationMethods(),
   // Methods specific to the Todo entity
   withTodoMethods(),
-  // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
-  withEntityResources((store) => ({
-      todos: store._todoServices.getTodosByUserIdOrOrgIdResource(store._appStore.user()?.id!, store._appStore.orgId() ?? null),
-    }),
-  ),
+  // Methods specific to the Todo entity
   // to add or change entities in the store after a mutation, we can use the onSuccess callback of the mutation to patch the state with the new or updated entity
   withMutations(
     (store) => ({
