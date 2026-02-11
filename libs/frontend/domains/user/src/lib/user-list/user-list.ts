@@ -174,6 +174,7 @@ export class UserList {
     this.store.setPagination(event.pageIndex, event.pageSize);
   }
 
+  // Keyboard management for multi-selection with shift key
   private isShiftPressed = false;
 
   @HostListener('window:keydown.shift')
@@ -194,10 +195,6 @@ export class UserList {
     }
     this.store.setPage(0);
   }
-
-  // protected toggleRowSelection(user: User): void {
-  //   this.store.toggleSelection(user.id);
-  // }
 
   protected addOne(): void {
     this.router.navigate([this.routeToDetail, '']);

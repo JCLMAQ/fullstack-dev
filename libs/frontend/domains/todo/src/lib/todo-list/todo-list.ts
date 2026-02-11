@@ -96,38 +96,42 @@ export class TodoList {
 
 // Méthodes d'actions sur les todos
 
+ navigateToDetail( id: string, mode: string ) { // Vers le formulaire de détail
+    // Définir l'utilisateur sélectionné avant de naviguer
+    this._store.setSelectedId(id);
+    this._store.initNavButton(id);
+    // Naviguer vers le détail avec le mode en query param
+    this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
+  }
+  protected addOne(): void {
+    this._router.navigate([this.routeToDetail, '']);
+  }
+  protected softDelete(id: string): void {
+    // TODO: Implémenter le soft delete via le store
+    console.log('Soft delete todo:', id);
+    // this._store.softDelete(id);
+  }
+  protected hardDelete(id: string): void {
+    // TODO: Implémenter le hard delete via le store
+    console.log('Hard delete todo:', id);
+    // this._store.hardDelete(id);
+  }
+
 protected refreshOrReload(): void {
     // this._store.loadItems();
   }
   /**
    * Navigue vers le formulaire de détail d'un todo.
    * @param id - ID du todo à afficher
-   * @param mode - Mode d'affichage (non utilisé - le mode est géré dans le composant de détail)
+   * @param mode - Mode d'affichage
    */
-  navigateButton( id: string, mode: string ) { // Vers le formulaire de détail
-    // Définir l'utilisateur sélectionné avant de naviguer
-    this._store.setSelectedId(id);
-    this._store.initNavButton(id);
-    // Naviguer vers le détail avec le mode en query param
-    this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
-  }
 
-  navigateDetail( id: string, mode: string ) { // Vers le formulaire de détail
-    // Définir l'utilisateur sélectionné avant de naviguer
-    this._store.setSelectedId(id);
-    this._store.initNavButton(id);
-    // Naviguer vers le détail avec le mode en query param
-    this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
-  }
-
-  // protected viewItem(id: string): void {
-  //   this.selectItem(id);
-  // }
 
   protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
     this._store.setPagination(event.pageIndex, event.pageSize);
   }
 
+  // Keyboard management for multi-selection with shift key
   private isShiftPressed = false;
 
   @HostListener('window:keydown.shift')
@@ -140,31 +144,20 @@ protected refreshOrReload(): void {
     this.isShiftPressed = false;
   }
 
-  protected onSortChange(sort: Sort): void {
+
+// Filter and sort management
+   protected applyFilter(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this._store.updateFilter(value.trim());
+    // Reset à la première page
+    this._store.setPage(0);
+  }
+   protected onSortChange(sort: Sort): void {
     if (this.isShiftPressed) {
       this._store.addSort(sort);
     } else {
       this._store.setCurrentSort(sort);
     }
-    this._store.setPage(0);
-  }
-
-  protected softDelete(id: string): void {
-    // TODO: Implémenter le soft delete via le store
-    console.log('Soft delete todo:', id);
-    // this._store.softDelete(id);
-  }
-
-  protected hardDelete(id: string): void {
-    // TODO: Implémenter le hard delete via le store
-    console.log('Hard delete todo:', id);
-    // this._store.hardDelete(id);
-  }
-
-   protected applyFilter(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
-    this._store.updateFilter(value.trim());
-    // Reset à la première page
     this._store.setPage(0);
   }
 
