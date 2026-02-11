@@ -98,7 +98,7 @@ export const TodoStore = signalStore(
   }),
 
   withPagination<TodoWithRelations>({
-    itemsSelector: (store: any) => store.sortedTodos(),
+    itemsSelector: (store: any) => store.sortedTodos,
     initialPageSize: 10
   }),
   withHooks({
