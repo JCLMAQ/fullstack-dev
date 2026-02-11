@@ -188,7 +188,7 @@ export class UserDetail {
     const params = this.route.snapshot.params;
     this.userId.set(params['id'] ?? null);
     if ((this.userId() === undefined) || (this.userId() === null)) {
-      this.userId.set(this.store.userEntities().at(0)?.id ?? null);
+      this.userId.set(this.store.usersEntities().at(0)?.id ?? null);
     }
     // Récupère le mode depuis la query string (?mode=view) ou matrix param (;mode=view)
     const queryMode = this.route.snapshot.queryParamMap.get('mode');

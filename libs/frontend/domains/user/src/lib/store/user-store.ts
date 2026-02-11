@@ -3,14 +3,14 @@ import { computed, effect, inject } from "@angular/core";
 import { User } from "@db/prisma/frontend";
 import { buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
-import { entityConfig, withEntities } from "@ngrx/signals/entities";
+import { entityConfig } from "@ngrx/signals/entities";
 import { UserService } from "../services/user-service";
 import { initialUserState } from "./user-slice";
 import { withUserMethods } from "./user-store-methods";
 
 const userConfig = entityConfig({
   entity: type<User>(),
-  collection: 'user',
+  collection: 'users',
   selectId: (user: User) => user.id,
 });
 
@@ -23,17 +23,18 @@ export const UserStore = signalStore(
       _svc
     };
   }),
-  withEntities(userConfig),
-  withCallState({ collection: 'user' }),
-  withSelectionFeature<User>({ collection: 'user' }),
+  withDevtools('UserStore'),
+  // withEntities(userConfig),
+  withCallState({ collection: 'users' }),
+  withSelectionFeature<User>({ collection: 'users' }),
   withNavigationMethods(),
   // test withResources
   withEntityResources(( store ) => ({
     // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
-    userList: store._svc.usersResource(),
+    users: store._svc.usersResource(),
   })),
   withUserMethods,
-  withDevtools('UserStore'),
+
   withUndoRedo({
     collections: [ userConfig.collection ]
   }),
@@ -41,12 +42,12 @@ export const UserStore = signalStore(
     const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');
     return {
       // Conversion des entités en tableau pour la compatibilité
-      users: computed(() => Object.values(store.userEntityMap())),
+      users: computed(() => Object.values(store.usersEntityMap())),
 
       isLoading: computed(() => store.loading()),
       hasError: computed(() => !!store.error()),
 
-      userCount: computed(() => Object.keys(store.userEntityMap()).length),
+      userCount: computed(() => Object.keys(store.usersEntityMap()).length),
 
       hasAddresses: computed(() => store.addresses().length > 0),
       hasFollowers: computed(() => store.followers().length > 0),
@@ -58,25 +59,26 @@ export const UserStore = signalStore(
       isAllSelected,
     };
   }),
-  withFilter<User, 'user'>({
-    collection: 'user',
+  withFilter<User, 'users'>({
+    collection: 'users',
     itemsSelector: (store: any) => store.users(),
     predicate: (user: User, filter: string) =>
       user.firstName?.toLowerCase().includes(filter) ||
       user.lastName?.toLowerCase().includes(filter) ||
       user.email?.toLowerCase().includes(filter),
   }),
-  withSort<User, 'user'>({
-    collection: 'user',
-    itemsSelector: (store: any) => store.filteredUser(),
+  withSort<User>({
+    // withSort<User, 'users'>({
+    // collection: 'users',
+    itemsSelector: (store: any) => store.filteredUsers(),
     comparators: {
       createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       updatedAt: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
     }
   }),
   withPagination<User>({
-    itemsSelector: (store) => store.sortedUser,
-    initialPageSize: 5
+    itemsSelector: (store: any) => store.sortedItems,
+    initialPageSize: 10
   }),
   withHooks({
     onInit: (store) => {

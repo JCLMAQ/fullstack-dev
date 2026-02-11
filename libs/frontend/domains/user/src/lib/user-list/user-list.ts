@@ -89,7 +89,7 @@ export class UserList {
 
   // Filtrage
   protected readonly filterValue = this.store.filterValue;
-  protected readonly filteredUsers = this.store.sortedUser;
+  protected readonly filteredUsers = this.store.sortedItems;
 
   // Pagination
   protected readonly pageIndex = this.store.pageIndex;

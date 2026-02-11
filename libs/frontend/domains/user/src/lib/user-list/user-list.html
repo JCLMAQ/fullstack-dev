@@ -193,9 +193,9 @@
       <div>Loading...</div>
     } @else if (store.error()) {
       <p>An error has happened.</p>
-    } @else if (store.userListHasValue()) {
+    } @else if (store.usersHasValue()) {
       <ul>
-        @for (t of store.userListEntities(); track t.id) {
+        @for (t of store.usersEntities(); track t.id) {
           <li>{{ t.firstName }}- {{ t.lastName }} </li>
         }
       </ul>
