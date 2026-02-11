@@ -139,7 +139,7 @@
 
                       <!-- Liste des adresses -->
                       @if (userForm.addresses() && userForm.addresses.length > 0) {
-                        @for (address of userForm.addresses; track address; let i = $index) {
+                        @for (address of userForm.addresses; track $index; let i = $index) {
                           <div class="address-card">
                             <h4>{{ 'userProfile.addressLabel' | translate }} {{ i + 1 }}</h4>
                             <lib-address-form [form]="address" />

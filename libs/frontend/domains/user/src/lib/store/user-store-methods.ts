@@ -142,14 +142,5 @@ export const withUserMethods = signalStoreFeature(
       }
     },
 
-    setSortedSelection(sortedIds: string[]) {
-      patchState(store, { effectiveSelectedIds: sortedIds });
-    },
-
-    clearSortedSelection() {
-      patchState(store, { effectiveSelectedIds: [] });
-    },
-
-
   }))
 );

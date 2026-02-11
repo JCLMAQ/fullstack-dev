@@ -203,11 +203,7 @@ export class UserDetail {
     }
     // Set selected user in store
     if (this.userId()) {
-      console.log('Setting selectedId in store:', this.userId());
       this.store.setSelectedId(this.userId());
-      console.log('Store selectedItemId after set:', this.store.selectedItemId());
-      console.log('Store usersEntityMap:', this.store.usersEntityMap());
-      console.log('Store selectedItem computed:', this.store.selectedItem());
     }
 
     // Populate form when selectedItem changes

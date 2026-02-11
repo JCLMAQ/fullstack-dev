@@ -1,4 +1,4 @@
-import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
+import { withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from "@angular/core";
 import { User } from "@db/prisma/frontend";
 import { buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
@@ -24,9 +24,8 @@ export const UserStore = signalStore(
     };
   }),
   withDevtools('UserStore'),
-  // withEntities(userConfig),
-  withCallState({ collection: 'users' }),
-  // test withResources
+
+  // Appel  withEntityResources
   withEntityResources(( store ) => ({
     // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
     users: store._svc.usersResource(),
@@ -39,7 +38,7 @@ export const UserStore = signalStore(
     collections: [ userConfig.collection ]
   }),
   withComputed((store) => {
-    const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'userEntityMap');
+    const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'usersEntityMap');
     return {
       // Conversion des entités en tableau pour la compatibilité
       users: computed(() => Object.values(store.usersEntityMap())),

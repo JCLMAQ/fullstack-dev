@@ -1,4 +1,4 @@
-import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
+import { withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TodoWithRelations } from '@db/prisma/frontend';
@@ -35,7 +35,6 @@ export const TodoStore = signalStore(
   }),
   // withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations
   withDevtools('TodoStore'), // For developer tools
-  withCallState({ collection: 'todos' }),
 
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
   withEntityResources((store) => ({
@@ -79,7 +78,7 @@ export const TodoStore = signalStore(
       // Conversion des entités en tableau pour la compatibilité
       todos: computed(() => Object.values(store.todosEntityMap())),
 
-      isLoading: computed(() => store.todosLoading()),
+      isLoading: computed(() => store.todosIsLoading()),
       hasError: computed(() => !!store.todosError()),
     };
   }),
