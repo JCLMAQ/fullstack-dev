@@ -94,11 +94,11 @@
             <button mat-icon-button
 
                 (click)="store.toggleSelection(element.id)"
-                (click)="navigateButton(element.id, 'edit')">
+                (click)="navigateToDetail(element.id, 'edit')">
               <mat-icon>edit</mat-icon>
             </button>
               <button mat-icon-button
-                (click)="navigateButton(element.id, 'view')">
+                (click)="navigateToDetail(element.id, 'view')">
               <mat-icon>remove_red_eye</mat-icon>
             </button>
             <button mat-icon-button   (click)="softDeleteUser(element.id)">

@@ -141,9 +141,10 @@ export class UserList {
    * @param id - ID de l'utilisateur à afficher
    * @param mode - Mode d'affichage (non utilisé - le mode est géré dans le composant de détail)
    */
-  navigateButton( id: string, mode: string ) { // Vers le formulaire de détail
+  navigateToDetail( id: string, mode: string ) { // Vers le formulaire de détail
     // Définir l'utilisateur sélectionné avant de naviguer
     this.store.setSelectedId(id);
+    console.log('Selected user ID set in store:', id, 'mode:', mode);
     this.store.initNavButton(id);
     // Naviguer vers le détail avec le mode en query param
     this.router.navigate([this.routeToDetail, id], { queryParams: { mode } });

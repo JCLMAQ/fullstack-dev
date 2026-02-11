@@ -83,7 +83,7 @@ export const UserStore = signalStore(
   withHooks({
     onInit: (store) => {
       console.log('UserStore initialized');
-      store['loadUsers']();
+      // store['loadUsers']();
       // Synchroniser effectiveSelectedIds avec selectedIds quand la sélection change
       effect(() => {
         const selected = (store as unknown as { selectedIds: () => string[] }).selectedIds();
