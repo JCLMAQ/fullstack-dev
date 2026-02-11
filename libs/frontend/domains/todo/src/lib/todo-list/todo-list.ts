@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { TodoWithRelations } from '@db/prisma';
+import { TodoWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
@@ -77,7 +77,7 @@ export class TodoList {
 
     // Filtrage
   protected readonly filterValue = this._store.filterValue;
-  protected readonly filteredItems = this._store.sortedTodos;
+  protected readonly filteredItems = this._store.sortedItems;
 
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;

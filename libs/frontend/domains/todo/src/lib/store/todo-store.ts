@@ -80,6 +80,7 @@ export const TodoStore = signalStore(
       hasError: computed(() => !!store.todosError()),
     };
   }),
+  // Add filtering capabilities
   withFilter<TodoWithRelations, 'todos'>({
     collection: 'todos',
     itemsSelector: (store: any) => store.todos(),
@@ -88,8 +89,8 @@ export const TodoStore = signalStore(
       todo.content?.toLowerCase().includes(filter) ||
       todo.todoState?.toLowerCase().includes(filter),
   }),
-  withSort<TodoWithRelations, 'todos'>({
-    collection: 'todos',
+  // Add sorting capabilities
+  withSort<TodoWithRelations>({
     itemsSelector: (store: any) => store.filteredTodos(),
     comparators: {
       createdAt: (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
@@ -98,7 +99,7 @@ export const TodoStore = signalStore(
   }),
 
   withPagination<TodoWithRelations>({
-    itemsSelector: (store: any) => store.sortedTodos,
+    itemsSelector: (store: any) => store.sortedItems,
     initialPageSize: 10
   }),
   withHooks({

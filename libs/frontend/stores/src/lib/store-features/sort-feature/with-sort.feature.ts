@@ -2,13 +2,22 @@ import { computed, effect, Signal } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { patchState, signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
 
-export function withSort<T, Collection extends string>(options: {
-  collection: Collection;
+type SortedKey<Collection extends string | undefined> = Collection extends string
+  ? `sorted${Capitalize<Collection>}`
+  : 'sortedItems';
+
+export function withSort<T, Collection extends string | undefined = undefined>(options: {
+  collection?: Collection;
   itemsSelector: (store: any) => T[];
   comparators?: Record<string, (a: T, b: T) => number>;
 }) {
   const { collection, itemsSelector, comparators } = options;
-  const capitalizedCollection = collection.charAt(0).toUpperCase() + collection.slice(1);
+  const capitalizedCollection = collection
+    ? collection.charAt(0).toUpperCase() + collection.slice(1)
+    : 'Items';
+  const sortedKey = collection
+    ? `sorted${capitalizedCollection}`
+    : 'sortedItems';
 
   return signalStoreFeature(
     withState<{ sorts: Sort[] }>({ sorts: [] }),
@@ -69,7 +78,7 @@ export function withSort<T, Collection extends string>(options: {
     })),
     withComputed((store) => {
       return {
-        [`sorted${capitalizedCollection}`]: computed(() => {
+        [sortedKey]: computed(() => {
           const items = itemsSelector(store);
           const sorts = store.sorts();
 
@@ -105,8 +114,8 @@ export function withSort<T, Collection extends string>(options: {
             }
             return 0;
           });
-        }) as Signal<T[]>
-      } as { [K in `sorted${Capitalize<Collection>}`]: Signal<T[]> };
+        }) as Signal<T[]>,
+      } as { [K in SortedKey<Collection>]: Signal<T[]> };
     })
   );
 }
