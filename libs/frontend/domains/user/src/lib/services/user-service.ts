@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams, httpResource } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Address, Organization, User, UserWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
@@ -188,7 +188,7 @@ export class UserService {
 	// 		default: [],
 	// 	});
 	// }
-  usersResource(options?: UsersQueryOptions): unknown {
+  usersResource(options?: UsersQueryOptions):  HttpResourceRef<User[]> {
     // usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
     // Note: httpResource API is available on Angular v21.

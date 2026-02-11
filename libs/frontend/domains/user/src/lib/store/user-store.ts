@@ -1,5 +1,5 @@
 import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "@angular-architects/ngrx-toolkit";
-import { computed, effect, inject, resource } from "@angular/core";
+import { computed, effect, inject } from "@angular/core";
 import { User } from "@db/prisma/frontend";
 import { buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
@@ -29,7 +29,8 @@ export const UserStore = signalStore(
   withNavigationMethods(),
   // test withResources
   withEntityResources(( store ) => ({
-    usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
+    // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
+    userList: store._svc.usersResource(),
   })),
   withUserMethods,
   withDevtools('UserStore'),
