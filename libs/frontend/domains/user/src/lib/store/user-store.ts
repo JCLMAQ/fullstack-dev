@@ -31,8 +31,6 @@ export const UserStore = signalStore(
   withEntityResources(( store ) => ({
     usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
   })),
-//   withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] })),
-
   withUserMethods,
   withDevtools('UserStore'),
   withUndoRedo({
@@ -83,8 +81,6 @@ export const UserStore = signalStore(
     onInit: (store) => {
       console.log('UserStore initialized');
       store['loadUsers']();
-
-
       // Synchroniser effectiveSelectedIds avec selectedIds quand la sélection change
       effect(() => {
         const selected = (store as unknown as { selectedIds: () => string[] }).selectedIds();

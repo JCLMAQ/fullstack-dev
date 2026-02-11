@@ -43,8 +43,7 @@ export const TodoStore = signalStore(
   // Methods specific to the Todo entity
   withTodoMethods(),
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
-  withEntityResources(
-    (store) => ({
+  withEntityResources((store) => ({
       todos: store._todoServices.getTodosByUserIdOrOrgIdResource(store._appStore.user()?.id!, store._appStore.orgId() ?? null),
     }),
   ),
