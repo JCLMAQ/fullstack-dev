@@ -1,1 +1,216 @@
-<p>todo-detail works!</p>
+<div class="container">
+	@if (store.isLoading()) {
+		<div class="loading-spinner">
+			<mat-spinner></mat-spinner>
+		</div>
+	}
+
+	@if (!store.isLoading()) {
+		<div class="header">
+			<h1 class="mat-headline-4">{{ 'common.todos' | translate }}</h1>
+			<div class="todo-id-muted">{{ todoForm().value().id }}</div>
+		</div>
+
+		<div class="content">
+			<mat-card class="form-card">
+				<mat-card-content>
+					<form class="form-container">
+						<mat-tab-group [preserveContent]="true">
+							<mat-tab label="{{ 'common.content' | translate }}">
+								<section class="form-section">
+									<div class="tab-content">
+										<div class="fields-row">
+											<mat-form-field appearance="outline">
+												<mat-label>{{ 'common.title' | translate }}</mat-label>
+												<input
+													matInput
+													[formField]="todoForm.title"
+													placeholder="{{ 'common.title' | translate }}"
+												/>
+												<mat-error>
+													<lib-field-error [fieldError]="todoForm.title()" />
+												</mat-error>
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>{{ 'common.order' | translate }}</mat-label>
+												<input
+													matInput
+													type="number"
+													[formField]="todoForm.orderTodo"
+													placeholder="{{ 'common.order' | translate }}"
+												/>
+											</mat-form-field>
+										</div>
+
+										<mat-form-field appearance="outline" class="full-width">
+											<mat-label>{{ 'common.content' | translate }}</mat-label>
+											<textarea
+												matInput
+												rows="5"
+												[formField]="todoForm.content"
+												placeholder="{{ 'common.content' | translate }}"
+											></textarea>
+											<mat-error>
+												<lib-field-error [fieldError]="todoForm.content()" />
+											</mat-error>
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>{{ 'common.state' | translate }}</mat-label>
+											@if (mode() === 'view') {
+												<input matInput [value]="todoForm().value().todoState ?? ''" readonly />
+											} @else {
+												<mat-select [formField]="todoForm.todoState">
+													@for (state of todoStateOptions; track state) {
+														<mat-option [value]="state">{{ state }}</mat-option>
+													}
+												</mat-select>
+											}
+										</mat-form-field>
+									</div>
+								</section>
+							</mat-tab>
+
+							<mat-tab label="{{ 'common.state' | translate }}">
+								<section class="form-section">
+									<div class="tab-content">
+										<div class="fields-row">
+											<div class="checkbox-field">
+												@if (mode() === 'view') {
+													<mat-checkbox [checked]="todoForm().value().isPublic" disabled>
+														Public
+													</mat-checkbox>
+												} @else {
+													<mat-checkbox [formField]="todoForm.isPublic">
+														Public
+													</mat-checkbox>
+												}
+											</div>
+
+											<div class="checkbox-field">
+												@if (mode() === 'view') {
+													<mat-checkbox [checked]="todoForm().value().published" disabled>
+														Published
+													</mat-checkbox>
+												} @else {
+													<mat-checkbox [formField]="todoForm.published">
+														Published
+													</mat-checkbox>
+												}
+											</div>
+										</div>
+									</div>
+								</section>
+							</mat-tab>
+
+							<mat-tab label="{{ 'common.id' | translate }}">
+								<section class="form-section">
+									<div class="tab-content">
+										<div class="fields-row">
+											<mat-form-field appearance="outline">
+												<mat-label>{{ 'common.id' | translate }}</mat-label>
+												<input matInput [value]="todoForm().value().id" readonly />
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>{{ 'common.numSeq' | translate }}</mat-label>
+												<input matInput [value]="todoForm().value().numSeq" readonly />
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>Owner</mat-label>
+												<input matInput [value]="todoForm().value().ownerId" readonly />
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>Org</mat-label>
+												<input matInput [value]="todoForm().value().orgId ?? ''" readonly />
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>Created</mat-label>
+												<input
+													matInput
+													[value]="todoForm().value().createdAt | date: 'short'"
+													readonly
+												/>
+											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>Updated</mat-label>
+												<input
+													matInput
+													[value]="todoForm().value().updatedAt | date: 'short'"
+													readonly
+												/>
+											</mat-form-field>
+										</div>
+									</div>
+								</section>
+							</mat-tab>
+						</mat-tab-group>
+					</form>
+				</mat-card-content>
+			</mat-card>
+		</div>
+
+		<mat-toolbar class="bottom-toolbar">
+			<button mat-icon-button matTooltip="Add" (click)="add()">
+				<mat-icon>add</mat-icon>
+			</button>
+			<mat-divider [vertical]="true"></mat-divider>
+			<button mat-icon-button matTooltip="Cancel" [disabled]="mode() === 'view'" (click)="cancel()">
+				<mat-icon>cancel</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Save" [disabled]="mode() === 'view'" (click)="save()" class="success-btn">
+				<mat-icon>check_circle</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Edit" [disabled]="mode() === 'edit'" (click)="mode.set('edit')">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<mat-divider [vertical]="true"></mat-divider>
+			@if (store.selectedIds().length > 0) {
+				<button mat-icon-button [matMenuTriggerFor]="orderMenu" matTooltip="Order" [disabled]="!hasActiveSort()">
+					<mat-icon>sort</mat-icon>
+				</button>
+				<mat-menu #orderMenu="matMenu">
+					<button mat-menu-item (click)="applySelectionOrder('selection')">
+						<mat-icon>touch_app</mat-icon>
+						<span>Selection</span>
+					</button>
+					<button mat-menu-item (click)="applySelectionOrder('store')">
+						<mat-icon>storage</mat-icon>
+						<span>Store</span>
+					</button>
+					<button mat-menu-item (click)="applySelectionOrder('sort')">
+						<mat-icon>sort_by_alpha</mat-icon>
+						<span>Sort</span>
+					</button>
+				</mat-menu>
+			}
+			<mat-divider [vertical]="true"></mat-divider>
+			@if (store.selectedIds().length > 1) {
+				<button mat-icon-button matTooltip="First" [disabled]="store.navigation().isFirst" (click)="first()">
+					<mat-icon>first_page</mat-icon>
+				</button>
+				<button mat-icon-button matTooltip="Previous" [disabled]="!store.navigation().hasPrevious" (click)="previous()">
+					<mat-icon>skip_previous</mat-icon>
+				</button>
+				<span class="navigation-indicator">
+					{{ store.currentPosition() + 1 }} / {{ store.selectedIds().length }}
+				</span>
+				<button mat-icon-button matTooltip="Next" [disabled]="!store.navigation().hasNext" (click)="next()">
+					<mat-icon>skip_next</mat-icon>
+				</button>
+				<button mat-icon-button matTooltip="Last" [disabled]="store.navigation().isLast" (click)="last()">
+					<mat-icon>last_page</mat-icon>
+				</button>
+			}
+			<mat-divider [vertical]="true"></mat-divider>
+			<button mat-icon-button matTooltip="Back" (click)="goBack()">
+				<mat-icon>exit_to_app</mat-icon>
+			</button>
+		</mat-toolbar>
+	}
+</div>
