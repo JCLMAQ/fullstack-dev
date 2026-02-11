@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TodoState, TodoWithRelations } from '@db/prisma/frontend';
 import { baseTextSchema, baseTextSchemRequired, FieldError } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
+import { UserStore } from '@fe/user';
 import { TranslateModule } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
 
@@ -59,12 +60,14 @@ type TodoFormData = {
     MatTooltipModule,
     TranslateModule,
   ],
+  providers: [UserStore],
   templateUrl: './todo-detail.html',
   styleUrl: './todo-detail.scss',
 })
 export class TodoDetail {
   protected readonly store = inject(TodoStore);
   private readonly appStore = inject(AppStore);
+  private readonly userStore = inject(UserStore);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -98,6 +101,7 @@ export class TodoDetail {
         path.content,
         path.todoState,
         path.orderTodo,
+        path.orgId,
         path.isPublic,
         path.published,
       ] as const
@@ -105,6 +109,8 @@ export class TodoDetail {
   });
 
   protected readonly todoStateOptions = Object.values(TodoState);
+  protected readonly orgIdOptions = computed(() => this.userStore.organizations());
+  private readonly orgsRequested = signal(false);
 
   protected readonly hasActiveSort = computed(() => {
     const currentSort = this.store.currentSort();
@@ -130,6 +136,14 @@ export class TodoDetail {
     } else if (this.mode() !== 'add' && this.store.todos().length > 0) {
       this.store.setSelectedId(this.store.todos()[0]?.id ?? null);
     }
+
+    effect(() => {
+      const userId = this.appStore.user()?.id ?? null;
+      if (userId && !this.orgsRequested()) {
+        this.orgsRequested.set(true);
+        this.userStore.loadOrganizations(userId);
+      }
+    });
 
     effect(() => {
       const selectedItem = this.store.selectedItem() as TodoWithRelations | null;
@@ -159,6 +173,13 @@ export class TodoDetail {
         });
       }
     });
+  }
+
+  protected orgDisplayName(orgId: string | null): string {
+    if (!orgId) {
+      return '';
+    }
+    return this.userStore.organizations().find((org) => org.id === orgId)?.name ?? orgId;
   }
 
   protected save(): void {

@@ -41,6 +41,20 @@
 													placeholder="{{ 'common.order' | translate }}"
 												/>
 											</mat-form-field>
+
+											<mat-form-field appearance="outline">
+												<mat-label>Org</mat-label>
+												@if (mode() === 'view') {
+													<input matInput [value]="orgDisplayName(todoForm().value().orgId)" readonly />
+												} @else {
+													<mat-select [formField]="todoForm.orgId">
+														<mat-option [value]="null">None</mat-option>
+														@for (org of orgIdOptions(); track org.id) {
+															<mat-option [value]="org.id">{{ org.name }}</mat-option>
+														}
+													</mat-select>
+												}
+											</mat-form-field>
 										</div>
 
 										<mat-form-field appearance="outline" class="full-width">
