@@ -37,7 +37,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
 
-      <table mat-table [dataSource]="paginatedUsers()" multiTemplateDataRows matSort (matSortChange)="onSortChange($event)">
+      <table mat-table [dataSource]="store.paginatedItems()" multiTemplateDataRows matSort (matSortChange)="onSortChange($event)">
 
 
         <!-- Data Columns -->
@@ -52,7 +52,7 @@
                     </mat-checkbox>
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    <mat-checkbox (click)="$event.stopPropagation(); toggleRowSelection(element)"
+                    <mat-checkbox (click)="$event.stopPropagation(); store.toggleSelection(element.id)"
                                   [checked]="store.selection().isSelected(element)">
                     </mat-checkbox>
                   </td>
@@ -157,7 +157,7 @@
 
       </table>
       <mat-paginator
-        [length]="totalUsers()"
+        [length]="totalItems()"
         [pageSize]="pageSize()"
         [pageIndex]="pageIndex()"
         [pageSizeOptions]="[5, 10, 20]"

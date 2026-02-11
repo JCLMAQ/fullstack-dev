@@ -45,6 +45,7 @@ export class UserList {
   private readonly router = inject(Router);
 
   constructor() {
+    this.store.syncSortToMatSort(this.sort);
     // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
     effect(() => {
       const userCount = this.store.userCount();
@@ -56,7 +57,6 @@ export class UserList {
       }
     });
 
-    this.store.syncSortToMatSort(this.sort);
 
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
@@ -80,17 +80,6 @@ export class UserList {
   protected readonly paginator = viewChild(MatPaginator);
   protected readonly sortState = computed(() => this.store.currentSort() || { active: '', direction: '' });
 
-  // Filtrage
-  protected readonly filterValue = this.store.filterValue;
-  protected readonly filteredUsers = this.store.sortedUser;
-
-  // Pagination
-  protected readonly pageIndex = this.store.pageIndex;
-  protected readonly pageSize = this.store.pageSize;
-
-  protected readonly paginatedUsers = this.store.paginatedItems;
-  protected readonly totalUsers = this.store.totalCount;
-
   // Configuration de la table
   protected readonly displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'actions'];
   columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
@@ -98,36 +87,32 @@ export class UserList {
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
   expandedElement!: User | null;
 
+  // Filtrage
+  protected readonly filterValue = this.store.filterValue;
+  protected readonly filteredUsers = this.store.sortedUser;
+
+  // Pagination
+  protected readonly pageIndex = this.store.pageIndex;
+  protected readonly pageSize = this.store.pageSize;
+  protected readonly totalItems = this.store.totalCount;
+
 
   // Actions
   protected refreshUsers(): void {
     this.store.loadUsers();
   }
 
-  // protected selectUser(id: string): void {
-  //   this.store.loadUser(id);
-  //   // TODO Ajouter les endpoints followers/following (côté backend)
-  //   // Note: Les endpoints followers/following ne sont pas encore implémentés côté backend
-  //   // this.store.loadFollowers(id);
-  //   // this.store.loadFollowing(id);
-  //   this.store.loadOrganizations(id);
-  // }
-
-  // protected viewUser(id: string): void {
-  //   this.selectUser(id);
-  // }
-
   // Sélection
   /**
    * True si tous les utilisateurs paginés sont sélectionnés
    */
   readonly isAllPaginatedSelected = computed(() => {
-    const paginated = this.paginatedUsers();
+    const paginated = this.store.paginatedItems();
     return paginated.length > 0 && paginated.every(item => this.store.selection().isSelected(item));
   });
 
   readonly isSomePaginatedSelected = computed(() => {
-    const paginated = this.paginatedUsers();
+    const paginated = this.store.paginatedItems();
     const numSelected = paginated.filter(user => this.store.selection().isSelected(user)).length;
     return numSelected > 0 && numSelected < paginated.length;
   });
@@ -210,9 +195,9 @@ export class UserList {
     this.store.setPage(0);
   }
 
-  protected toggleRowSelection(user: User): void {
-    this.store.toggleSelection(user.id);
-  }
+  // protected toggleRowSelection(user: User): void {
+  //   this.store.toggleSelection(user.id);
+  // }
 
   protected addOne(): void {
     this.router.navigate([this.routeToDetail, '']);
@@ -225,7 +210,7 @@ export class UserList {
   }
 
   protected masterToggle(): void {
-    const paginatedUsers = this.paginatedUsers();
+    const paginatedUsers = this.store.paginatedItems();
     const allSelected = paginatedUsers.length > 0 && paginatedUsers.every(user => this.store.selection().isSelected(user));
     if (allSelected) {
       paginatedUsers.forEach(user => {

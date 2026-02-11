@@ -40,6 +40,7 @@ import { TodoStore } from '../store/todo-store';
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
 })
 export class TodoList {
+
   protected readonly _store = inject(TodoStore);
   private readonly _router = inject(Router);
 
@@ -82,7 +83,6 @@ export class TodoList {
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
   protected readonly pageSize = this._store.pageSize;
-  // protected readonly paginatedItems = this._store.paginatedItems;
   protected readonly totalItems = this._store.itemsCount;
 
 // Available actions on the list of todos
@@ -181,22 +181,13 @@ protected refreshOrReload(): void {
     const numSelected = paginated.filter(item => this._store.selection().isSelected(item)).length;
     return numSelected > 0 && numSelected < paginated.length;
   });
-  // Selection CheckBox Mgt
-// protected toggleAll(): void {
-//     this._store.toggleAll();
-//   }
-//   protected toggleSelection(id: string): void {
-//     this._store.toggleSelection(id);
-//   }
+
   protected isSelected(id: string): boolean {
     return this._store.selectedIds().includes(id);
   }
   protected selectedSize(): number {
     return this._store.selectedIds().length;
   }
-//   protected toggleRowSelection(todo: TodoWithRelations): void {
-//       this._store.toggleSelection(todo.id);
-// }
 
 checkboxLabel(row: TodoWithRelations): string {
       if (!row) {
