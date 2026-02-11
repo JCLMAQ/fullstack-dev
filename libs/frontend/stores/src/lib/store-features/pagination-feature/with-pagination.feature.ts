@@ -27,6 +27,10 @@ export function withPagination<Entity>(config: PaginationConfig<Entity>) {
     withComputed((store) => {
       const items = config.itemsSelector(store);
 
+      if (typeof items !== 'function') {
+        throw new Error('withPagination: itemsSelector must return a Signal<T[]>');
+      }
+
       const paginatedItems = computed(() => {
         const pIndex = store.pageIndex();
         const pSize = store.pageSize();
