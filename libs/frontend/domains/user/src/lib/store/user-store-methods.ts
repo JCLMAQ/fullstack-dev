@@ -15,7 +15,7 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const users = await userService.listUsers(options);
-        patchState(store, setAllEntities(users, { collection: 'user' }), { loading: false });
+        patchState(store, setAllEntities(users, { collection: 'users' }), { loading: false });
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement des utilisateurs' });
       }
@@ -83,7 +83,7 @@ export const withUserMethods = signalStoreFeature(
         appStore.updateUserProfile(updated);
         patchState(
           store,
-          updateEntity({ id, changes: updated }, { collection: 'user' }),
+          updateEntity({ id, changes: updated }, { collection: 'users' }),
         );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors de la mise à jour de l\'utilisateur' });
@@ -96,7 +96,7 @@ export const withUserMethods = signalStoreFeature(
         await userService.deleteUser(id);
         patchState(
           store,
-          removeEntity(id, { collection: 'user' }),
+          removeEntity(id, { collection: 'users' }),
           { selectedItemId: null, loading: false }
         );
         const sel = store as unknown as SelectionStore;
@@ -117,7 +117,7 @@ export const withUserMethods = signalStoreFeature(
           const updated = { ...currentUser, isDeleted: 1 };
           patchState(
             store,
-            updateEntity({ id, changes: updated }, { collection: 'user' }),
+            updateEntity({ id, changes: updated }, { collection: 'users' }),
             {
               loading: false,
             },
@@ -134,7 +134,7 @@ export const withUserMethods = signalStoreFeature(
         const created = await userService.createUser(data);
         patchState(
           store,
-          addEntity(created, { collection: 'user' }),
+          addEntity(created, { collection: 'users' }),
           { selectedItemId: created.id, loading: false },
         );
       } catch {
