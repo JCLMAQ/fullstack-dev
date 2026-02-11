@@ -111,8 +111,8 @@ export const TodoStore = signalStore(
       console.log('TodoStore initialized');
       // Synchroniser effectiveSelectedIds avec selectedIds quand la sélection change
       effect(() => {
-        const selected = (_store as unknown as { selectedIds: () => string[] }).selectedIds();
-        const effective = (_store as unknown as { effectiveSelectedIds: () => string[] }).effectiveSelectedIds();
+        const selected = _store.selectedIds();
+        const effective = _store.effectiveSelectedIds();
         // Si la longueur a changé, c'est qu'on a ajouté/retiré une sélection
         // Resync effectiveSelectedIds avec selectedIds (le tri est réinitialisé)
         if (effective.length !== selected.length) {
