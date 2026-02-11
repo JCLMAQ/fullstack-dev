@@ -2,7 +2,7 @@ import { withCallState, withDevtools, withEntityResources, withUndoRedo } from "
 import { computed, effect, inject, resource } from "@angular/core";
 import { User } from "@db/prisma/frontend";
 import { buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
-import { patchState, signalStore, type, withComputed, withHooks, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { entityConfig, withEntities } from "@ngrx/signals/entities";
 import { UserService } from "../services/user-service";
 import { initialUserState } from "./user-slice";
@@ -17,13 +17,19 @@ const userConfig = entityConfig({
 
 export const UserStore = signalStore(
   withState(initialUserState),
+  withProps( _ => {
+    const _svc = inject(UserService);
+    return {
+      _svc
+    };
+  }),
   withEntities(userConfig),
   withCallState({ collection: 'user' }),
   withSelectionFeature<User>({ collection: 'user' }),
   withNavigationMethods(),
   // test withResources
-  withEntityResources((_store, svc = inject(UserService)) => ({
-    usersList: resource({ loader: () => svc.listUsers(), defaultValue: []}),
+  withEntityResources(( store ) => ({
+    usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
   })),
 //   withEntityResources((_store, svc = inject(TodoMemoryService)) => resource({ loader: () => firstValueFrom(svc.list()), defaultValue: [] })),
 
