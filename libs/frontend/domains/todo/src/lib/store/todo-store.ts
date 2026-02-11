@@ -1,7 +1,7 @@
 import { withCallState, withDevtools, withEntityResources, withMutations, withUndoRedo } from "@angular-architects/ngrx-toolkit";
 import { computed, effect, inject } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { TodoWithRelations } from "@db/prisma";
+import { TodoWithRelations } from '@db/prisma/frontend';
 import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { addEntity, entityConfig } from "@ngrx/signals/entities";

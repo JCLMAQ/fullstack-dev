@@ -120,6 +120,5 @@ describe("getUser", () => {
 
 ## 8. Code Comments and JSDoc
 
-- Do not use code comments or JSDoc in TypeScript code.
 - Code should be self-explanatory through clear naming, structure, and adherence to these guidelines.
 - If documentation is required, use external markdown files or project-level documentation, not inline comments or JSDoc blocks.

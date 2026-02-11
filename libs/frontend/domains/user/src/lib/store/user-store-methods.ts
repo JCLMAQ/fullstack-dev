@@ -5,7 +5,6 @@ import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
 import { addEntity, removeEntity, setAllEntities, updateEntity } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
-// type UsersEntitiesStore = { userEntityMap: () => Record<string, User> };
 type SelectionStore = { selectedIds: () => string[] };
 
 export const withUserMethods = signalStoreFeature(
@@ -27,12 +26,10 @@ export const withUserMethods = signalStoreFeature(
         patchState(store, { loading: true, error: null });
         const user = await userService.getUserById(id);
 
-        // Use addEntity to properly add user to the collection with correct selectId
-        patchState(
-          store,
-          addEntity(user, { collection: 'user' }),
-          { selectedItem: user, loading: false }
-        );
+        patchState(store, addEntity(user, { collection: 'user' }), {
+          selectedItemId: user.id,
+          loading: false,
+        });
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors du chargement de l\'utilisateur' });
       }
@@ -82,7 +79,7 @@ export const withUserMethods = signalStoreFeature(
       try {
         patchState(store, { loading: true, error: null });
         const updated = await userService.updateUser(id, data);
-        patchState(store, { selectedItem: updated, loading: false });
+        patchState(store, { selectedItemId: id, loading: false });
         appStore.updateUserProfile(updated);
         patchState(
           store,
@@ -100,9 +97,8 @@ export const withUserMethods = signalStoreFeature(
         patchState(
           store,
           removeEntity(id, { collection: 'user' }),
-          { selectedItem: null, loading: false }
+          { selectedItemId: null, loading: false }
         );
-        // Remove from selection
         const sel = store as unknown as SelectionStore;
         const selectedIds = sel.selectedIds().filter(sid => sid !== id);
         patchState(store, { selectedIds });
@@ -123,7 +119,6 @@ export const withUserMethods = signalStoreFeature(
             store,
             updateEntity({ id, changes: updated }, { collection: 'user' }),
             {
-              selectedItem: currentUser.id === id ? (updated as User) : null,
               loading: false,
             },
           );
@@ -140,7 +135,7 @@ export const withUserMethods = signalStoreFeature(
         patchState(
           store,
           addEntity(created, { collection: 'user' }),
-          { selectedItem: created, loading: false },
+          { selectedItemId: created.id, loading: false },
         );
       } catch {
         patchState(store, { loading: false, error: 'Erreur lors de la création de l\'utilisateur' });

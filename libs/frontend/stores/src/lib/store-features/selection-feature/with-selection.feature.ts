@@ -1,42 +1,35 @@
-import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
+import { computed } from '@angular/core';
+import { patchState, signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
 
-/**
- * Generic selection feature for entity stores
- * Provides methods to manage selection state (selectedIds)
-  * Can be configured with a collection name to target specific entity maps
-  * @example With collection name
-    // Pour un store de tasks avec collection
-    export const TaskStore = signalStore(
-      withEntities(taskConfig),
-      withSelectionFeature<Task>({ collection: 'task' }), // ✅ Réutilisable
-    ...
-    );
-  * @example Without collection name
-  // Pour un store sans collection nommée
-    export const PostStore = signalStore(
-      withEntities(postConfig),
-      withSelectionFeature<Post>(), // ✅ Utilise entityMap par défaut
-      ...
-    );
-
-    * @template Entity - Type of the entity managed by the store
-    * Needs from the store:
-    *   selectedIds: string[] in the state
-    *   selectedId: string | null and
-    *   selectedItem: Entity | null are optional but recommended
-*/
+type SelectionState = {
+  selectedIds: string[];
+  effectiveSelectedIds: string[];
+  selectedItemId: string | null;
+};
 
 export function withSelectionFeature<Entity>(config?: { collection?: string }) {
   const collectionName = config?.collection;
   const entityMapKey = collectionName ? `${collectionName}EntityMap` : 'entityMap';
 
   return signalStoreFeature(
+    withState<SelectionState>({
+      selectedIds: [],
+      effectiveSelectedIds: [],
+      selectedItemId: null,
+    }),
+    withComputed((store) => ({
+      selectedItem: computed(() => {
+        const entityMap = (store as any)[entityMapKey]?.();
+        const selectedId = store.selectedItemId();
+        if (!entityMap || !selectedId) {
+          return null;
+        }
+        return entityMap[selectedId] ?? null;
+      }),
+    })),
     withMethods((store) => ({
-      /**
-       * Toggle selection for a single entity by ID
-       */
       toggleSelection(id: string) {
-        const current: string[] = (store as any).selectedIds();
+        const current = store.selectedIds();
         const next = current.includes(id)
           ? current.filter((x: string) => x !== id)
           : [...current, id];
@@ -44,7 +37,7 @@ export function withSelectionFeature<Entity>(config?: { collection?: string }) {
       },
 
       toggleAll() {
-        const selectedIds = (store as any).selectedIds();
+        const selectedIds = store.selectedIds();
         const entityMap = (store as any)[entityMapKey]();
         const allIds = Object.keys(entityMap);
         const isAllSelected = allIds.length > 0 && selectedIds.length === allIds.length;
@@ -58,47 +51,28 @@ export function withSelectionFeature<Entity>(config?: { collection?: string }) {
           patchState(store, { selectedIds: allIds });
         }
       },
-
-
-      /**
-       * Clear all selections
-       */
       clearSelection() {
         patchState(store, { selectedIds: [] });
       },
-
-      /**
-       * Select all entities
-       */
       selectAll() {
         const entityMap = (store as any)[entityMapKey]();
         const allIds = Object.keys(entityMap);
         patchState(store, { selectedIds: allIds });
       },
-
-      /**
-       * Set selection to specific IDs (removes duplicates)
-       */
       setSelection(ids: string[]) {
         const unique = Array.from(new Set(ids));
         patchState(store, { selectedIds: unique });
       },
-      /**
-       * Set the currently active/focused entity ID (singular)
-       * Also updates selectedItem with the corresponding entity
-       */
       setSelectedId(id: string | null) {
-        const entityMap = (store as any)[entityMapKey]();
-        const selectedEntity = id ? entityMap[id] : null;
-        patchState(store, { selectedItemId: id, selectedItem: selectedEntity });
+        patchState(store, { selectedItemId: id });
       },
 
       setSortedSelection(ids: string[]) {
-        patchState(store, { effectiveSelectedIds: ids } as any);
+        patchState(store, { effectiveSelectedIds: ids });
       },
 
       clearSortedSelection() {
-        patchState(store, { effectiveSelectedIds: [] } as any);
+        patchState(store, { effectiveSelectedIds: [] });
       },
     }))
   );
