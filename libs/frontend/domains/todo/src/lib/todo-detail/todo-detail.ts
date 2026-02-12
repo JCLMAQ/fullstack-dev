@@ -201,9 +201,15 @@ export class TodoDetail {
     }
 
     const payload = {
-      ...formValue,
+      id: formValue.id || undefined,
+      title: formValue.title,
+      content: formValue.content,
+      todoState: formValue.todoState,
+      orderTodo: Number(formValue.orderTodo ?? 0),
       ownerId,
       orgId: formValue.orgId ?? this.appStore.orgId()?.[0] ?? null,
+      isPublic: formValue.isPublic,
+      published: formValue.published,
     } as unknown as TodoWithRelations;
 
     this.store.saveTodo(payload);
