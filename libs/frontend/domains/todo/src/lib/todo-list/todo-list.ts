@@ -3,6 +3,7 @@ import { Component, computed, effect, HostListener, inject, viewChild } from '@a
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,6 +27,7 @@ import { TodoStore } from '../store/todo-store';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    MatDialogModule,
     TranslateModule,
     ...MATERIAL
   ],
@@ -40,8 +42,8 @@ import { TodoStore } from '../store/todo-store';
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }]
 })
 export class TodoList {
-
   protected readonly _store = inject(TodoStore);
+  private readonly _dialog = inject(MatDialog);
   private readonly _router = inject(Router);
 
   constructor() {
@@ -58,7 +60,7 @@ export class TodoList {
     });
   }
 
-  routeToDetail = "/todos/detail";
+  routeToDetail = '/todos/detail';
 
   mode: 'Edit' | 'View' | 'add' | undefined = 'View';
   master = false; // true : button is disable
@@ -69,14 +71,13 @@ export class TodoList {
   protected readonly paginator = viewChild(MatPaginator);
   protected readonly sortState = computed(() => this._store.currentSort() || { active: '', direction: '' });
 
-   // Configuration de la table
-    protected readonly displayedColumns: string[] = ['select', 'order', 'numSeq', 'title','state', 'actions'];
-    columnsToDisplay: string[] = ['select', 'order', 'numSeq', 'title','state'];
-    // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
-    columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
-    expandedElement!: TodoWithRelations | null;
+  // Configuration de la table
+  protected readonly displayedColumns: string[] = ['select', 'order', 'numSeq', 'title', 'state', 'actions'];
+  columnsToDisplay: string[] = ['select', 'order', 'numSeq', 'title', 'state'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'tools'];
+  expandedElement!: TodoWithRelations | null;
 
-    // Filtrage
+  // Filtrage
   protected readonly filterValue = this._store.filterValue;
   protected readonly filteredItems = this._store.sortedItems;
 
@@ -95,37 +96,54 @@ export class TodoList {
   // todosEntities$ = this.store.todosEntities;
 
 // Méthodes d'actions sur les todos
-
- navigateToDetail( id: string, mode: string ) { // Vers le formulaire de détail
+  navigateToDetail(id: string, mode: string): void {
     // Définir l'utilisateur sélectionné avant de naviguer
     this._store.setSelectedId(id);
     this._store.initNavButton(id);
     // Naviguer vers le détail avec le mode en query param
     this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
   }
+
   protected addOne(): void {
     const mode = 'add';
-    // this._router.navigate([this.routeToDetail, ''],{ queryParams: { mode } });
     this._router.navigate([this.routeToDetail, ''], { queryParams: { mode } });
   }
+
   protected softDelete(id: string): void {
-    console.log('Soft delete todo:', id);
-    this._store.softDeleteTodo({ id });
-  }
-  protected hardDelete(id: string): void {
-    console.log('Hard delete todo:', id);
-    this._store.hardDeleteTodo({ id });
+    const dialogRef = this._dialog.open(ConfirmDeleteDialog, {
+      width: '400px',
+      data: { permanent: false }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Soft delete todo:', id);
+        this._store.softDeleteTodo({ id });
+      }
+    });
   }
 
-protected refreshOrReload(): void {
+  protected hardDelete(id: string): void {
+    const dialogRef = this._dialog.open(ConfirmDeleteDialog, {
+      width: '400px',
+      data: { permanent: true }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Hard delete todo:', id);
+        this._store.hardDeleteTodo({ id });
+      }
+    });
+  }
+
+  protected refreshOrReload(): void {
     // this._store.loadItems();
   }
+
   /**
    * Navigue vers le formulaire de détail d'un todo.
    * @param id - ID du todo à afficher
    * @param mode - Mode d'affichage
    */
-
 
   protected onPageChange(event: { pageIndex: number; pageSize: number }): void {
     this._store.setPagination(event.pageIndex, event.pageSize);
@@ -135,24 +153,25 @@ protected refreshOrReload(): void {
   private isShiftPressed = false;
 
   @HostListener('window:keydown.shift')
-  onKeyDown() {
+  onKeyDown(): void {
     this.isShiftPressed = true;
   }
 
   @HostListener('window:keyup.shift')
-  onKeyUp() {
+  onKeyUp(): void {
     this.isShiftPressed = false;
   }
 
 
 // Filter and sort management
-   protected applyFilter(event: Event): void {
+  protected applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this._store.updateFilter(value.trim());
     // Reset à la première page
     this._store.setPage(0);
   }
-   protected onSortChange(sort: Sort): void {
+
+  protected onSortChange(sort: Sort): void {
     if (this.isShiftPressed) {
       this._store.addSort(sort);
     } else {
@@ -166,7 +185,7 @@ protected refreshOrReload(): void {
    */
   readonly isAllPaginatedSelected = computed(() => {
     const paginated = this._store.paginatedItems();
-    return paginated.length > 0 && paginated.every(item => this._store.selection().isSelected(item)) && paginated.every(item => this._store.selection().isSelected(item));
+    return paginated.length > 0 && paginated.every(item => this._store.selection().isSelected(item));
   });
 
   readonly isSomePaginatedSelected = computed(() => {
@@ -178,17 +197,19 @@ protected refreshOrReload(): void {
   protected isSelected(id: string): boolean {
     return this._store.selectedIds().includes(id);
   }
+
   protected selectedSize(): number {
     return this._store.selectedIds().length;
   }
 
-checkboxLabel(row: TodoWithRelations): string {
-      if (!row) {
-        return `${this._store.isAllSelected() ? 'select' : 'deselect'} all`;
-      }
-      return `${this._store.selection().isSelected(row) ? 'deselect' : 'select'}`;
+  checkboxLabel(row: TodoWithRelations): string {
+    if (!row) {
+      return `${this._store.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-protected masterToggle(): void {
+    return `${this._store.selection().isSelected(row) ? 'deselect' : 'select'}`;
+  }
+
+  protected masterToggle(): void {
     const paginatedItems = this._store.paginatedItems();
     const allSelected = paginatedItems.length > 0 && paginatedItems.every(item => this._store.selection().isSelected(item));
     if (allSelected) {
@@ -205,5 +226,33 @@ protected masterToggle(): void {
       });
     }
   }
+}
 
+// Confirmation delete dialog component
+@Component({
+  selector: 'lib-confirm-delete-dialog',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule, TranslateModule],
+  template: `
+    <h2 mat-dialog-title>{{ (data.permanent ? 'common.deletePermanent' : 'common.deleteTitle') | translate }}</h2>
+    <mat-dialog-content>
+      {{ (data.permanent ? 'common.deletePermanentMsg' : 'common.deleteMsg') | translate }}
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
+      <button mat-button color="warn" (click)="onConfirm()">{{ 'common.delete' | translate }}</button>
+    </mat-dialog-actions>
+  `
+})
+export class ConfirmDeleteDialog {
+  dialogRef = inject(MatDialogRef<ConfirmDeleteDialog>);
+  data = inject<{ permanent: boolean }>(MAT_DIALOG_DATA);
+
+  onConfirm(): void {
+    this.dialogRef.close(true);
+  }
+
+  onCancel(): void {
+    this.dialogRef.close(false);
+  }
 }

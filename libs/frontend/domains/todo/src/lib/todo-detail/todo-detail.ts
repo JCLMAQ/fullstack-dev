@@ -248,6 +248,25 @@ export class TodoDetail {
     this.snackBar.open('Create a new todo', 'OK', { duration: 3000 });
   }
 
+protected softDelete(id: string): void {
+    if (!id) {
+      this.snackBar.open('Todo ID is required for deletion', 'OK', { duration: 3000 });
+      return;
+    }
+    this.store.softDeleteTodo({ id });
+    this.snackBar.open('Todo soft deleted', 'OK', { duration: 3000 });
+  }
+
+  protected hardDelete(id: string): void {
+    if (!id) {
+      this.snackBar.open('Todo ID is required for permanent deletion', 'OK', { duration: 3000 });
+      return;
+    }
+    this.store.hardDeleteTodo({ id });
+    this.snackBar.open('Todo permanently deleted', 'OK', { duration: 3000 });
+  }
+
+
   protected first = () => this.store.first();
   protected previous = () => this.store.previous();
   protected next = () => this.store.next();

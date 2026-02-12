@@ -170,7 +170,13 @@
 		</div>
 
 		<mat-toolbar class="bottom-toolbar">
-			<button mat-icon-button matTooltip="Add" (click)="add()">
+       <button mat-icon-button matTooltip="Hard Delete" [disabled]="mode() !== 'view'" (click)="hardDelete(todoForm().value().id)">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Delete" [disabled]="mode() !== 'view'" (click)="softDelete(todoForm().value().id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+			<button mat-icon-button matTooltip="Add" [disabled]="mode() !== 'view'" (click)="add()">
 				<mat-icon>add</mat-icon>
 			</button>
 			<mat-divider [vertical]="true"></mat-divider>
@@ -205,24 +211,24 @@
 			}
 			<mat-divider [vertical]="true"></mat-divider>
 			@if (store.selectedIds().length > 1) {
-				<button mat-icon-button matTooltip="First" [disabled]="store.navigation().isFirst" (click)="first()">
+				<button mat-icon-button matTooltip="First" [disabled]="mode() !== 'view' || store.navigation().isFirst" (click)="first()">
 					<mat-icon>first_page</mat-icon>
 				</button>
-				<button mat-icon-button matTooltip="Previous" [disabled]="!store.navigation().hasPrevious" (click)="previous()">
+				<button mat-icon-button matTooltip="Previous" [disabled]="mode() !== 'view' || !store.navigation().hasPrevious" (click)="previous()">
 					<mat-icon>skip_previous</mat-icon>
 				</button>
 				<span class="navigation-indicator">
 					{{ store.currentPosition() + 1 }} / {{ store.selectedIds().length }}
 				</span>
-				<button mat-icon-button matTooltip="Next" [disabled]="!store.navigation().hasNext" (click)="next()">
+				<button mat-icon-button matTooltip="Next" [disabled]="mode() !== 'view' || !store.navigation().hasNext" (click)="next()">
 					<mat-icon>skip_next</mat-icon>
 				</button>
-				<button mat-icon-button matTooltip="Last" [disabled]="store.navigation().isLast" (click)="last()">
+				<button mat-icon-button matTooltip="Last" [disabled]="mode() !== 'view' || store.navigation().isLast" (click)="last()">
 					<mat-icon>last_page</mat-icon>
 				</button>
 			}
 			<mat-divider [vertical]="true"></mat-divider>
-			<button mat-icon-button matTooltip="Back" (click)="goBack()">
+			<button mat-icon-button matTooltip="Back" [disabled]="mode() !== 'view'" (click)="goBack()">
 				<mat-icon>exit_to_app</mat-icon>
 			</button>
 		</mat-toolbar>
