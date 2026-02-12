@@ -4,7 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
-import { addEntity, entityConfig } from "@ngrx/signals/entities";
+import { addEntity, entityConfig, updateEntity } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 import { initialTodoState } from './todo-slice';
 
@@ -51,7 +51,11 @@ export const TodoStore = signalStore(
     (store) => ({
       saveTodo: store._todoServices.createSaveTodoMutation({
         onSuccess(todo: TodoWithRelations) {
-          patchState( store, addEntity(todo, { collection: 'todos' }));
+          const exists = !!store.todosEntityMap()?.[todo.id];
+          const update = exists
+            ? updateEntity({ id: todo.id, changes: todo }, { collection: 'todos' })
+            : addEntity(todo, { collection: 'todos' });
+          patchState(store, update);
           store._snackBar.open('Todo saved', 'OK');
         },
         onError(error: unknown) {
