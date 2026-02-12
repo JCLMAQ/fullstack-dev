@@ -180,7 +180,7 @@
 			<button mat-icon-button matTooltip="Save" [disabled]="mode() === 'view'" (click)="save()" class="success-btn">
 				<mat-icon>check_circle</mat-icon>
 			</button>
-			<button mat-icon-button matTooltip="Edit" [disabled]="mode() === 'edit'" (click)="mode.set('edit')">
+			<button mat-icon-button matTooltip="Edit" [disabled]="mode() !== 'view'" (click)="mode.set('edit')">
 				<mat-icon>edit</mat-icon>
 			</button>
 			<mat-divider [vertical]="true"></mat-divider>
