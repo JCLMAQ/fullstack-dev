@@ -4,8 +4,6 @@ export interface TodoState {
     orgId: string[] | null;
   };
   mode: 'Edit' | 'View' | 'add' | undefined;
-  loading: boolean;
-  error: string | null;
 }
 export const initialTodoState: TodoState = {
   filter: {
@@ -13,6 +11,4 @@ export const initialTodoState: TodoState = {
     orgId: null,
   },
   mode: 'View',
-  loading: false,
-  error: null,
 };
