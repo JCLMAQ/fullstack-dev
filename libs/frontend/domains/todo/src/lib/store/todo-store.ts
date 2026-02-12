@@ -7,7 +7,6 @@ import { patchState, signalStore, type, withComputed, withHooks, withProps, with
 import { addEntity, entityConfig } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 import { initialTodoState } from './todo-slice';
-import { withTodoMethods } from "./todo-store-methods";
 
 type TodoFilter = {
   ownerId: string | null;
@@ -46,8 +45,6 @@ export const TodoStore = signalStore(
   withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item
   withNavigationMethods(),
-  // Methods specific to the Todo entity
-  withTodoMethods(),
   // Methods specific to the Todo entity
   // to add or change entities in the store after a mutation, we can use the onSuccess callback of the mutation to patch the state with the new or updated entity
   withMutations(
