@@ -117,6 +117,7 @@ export class TodoDetail {
   protected readonly todoStateOptions = Object.values(TodoState);
   protected readonly orgIdOptions = computed(() => this.userStore.organizations());
   private readonly orgsRequested = signal(false);
+  private readonly addInitRequested = signal(false);
 
   protected readonly hasActiveSort = computed(() => {
     const currentSort = this.store.currentSort();
@@ -137,6 +138,10 @@ export class TodoDetail {
       this.mode.set('add');
     } else {
       this.mode.set('view');
+    }
+
+    if (this.mode() === 'add') {
+      this.addInitRequested.set(true);
     }
 
     if (this.todoId()) {
@@ -171,7 +176,7 @@ export class TodoDetail {
           createdAt: selectedItem.createdAt ?? null,
           updatedAt: selectedItem.updatedAt ?? null,
         });
-      } else if (this.mode() === 'add') {
+      } else if (this.mode() === 'add' && this.addInitRequested()) {
         const ownerId = this.appStore.user()?.id ?? '';
         const orgId = this.appStore.orgId()?.[0] ?? null;
         this.todoForm().reset({
@@ -179,6 +184,7 @@ export class TodoDetail {
           ownerId,
           orgId,
         });
+        this.addInitRequested.set(false);
       }
     });
   }
@@ -250,6 +256,28 @@ export class TodoDetail {
       orgId: this.appStore.orgId()?.[0] ?? null,
     });
     this.snackBar.open('Create a new todo', 'OK', { duration: 3000 });
+  }
+
+  protected duplicate(): void {
+    const source = this.todoForm().value();
+    const ownerId = source.ownerId || this.appStore.user()?.id || '';
+    const orgId = source.orgId ?? this.appStore.orgId()?.[0] ?? null;
+
+    this.addInitRequested.set(false);
+    this.mode.set('add');
+    this.todoForm().reset({
+      ...defaultTodoData,
+      title: source.title ?? '',
+      content: source.content ?? '',
+      todoState: source.todoState ?? TodoState.CREATION,
+      orderTodo: Number(source.orderTodo ?? 0),
+      ownerId,
+      orgId,
+      isPublic: !!source.isPublic,
+      published: !!source.published,
+    });
+
+    this.snackBar.open('Todo duplicated', 'OK', { duration: 3000 });
   }
 
   protected softDelete(id: string): void {

@@ -179,9 +179,9 @@
 			<button mat-icon-button matTooltip="Add" [disabled]="mode() !== 'view'" (click)="add()">
 				<mat-icon>add</mat-icon>
 			</button>
-      <!-- <button mat-icon-button matTooltip="Duplicate" (click)="duplicate()">
-          <mat-icon>content_copy</mat-icon>
-      </button> -->
+			<button mat-icon-button matTooltip="Duplicate" [disabled]="mode() !== 'view'" (click)="duplicate()">
+				<mat-icon>content_copy</mat-icon>
+			</button>
       @if(mode() === 'add' || mode() === 'edit') {
         <button mat-icon-button matTooltip="Reset" [disabled]="mode() === 'view'" (click)="reset()">
 				<mat-icon>autorenew</mat-icon>
