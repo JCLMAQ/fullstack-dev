@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    effect,
+    inject,
+    signal
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -22,16 +22,16 @@ import { DictionaryPaginatorIntl } from '@fe/material';
 import { ConfirmDialogService } from '@fe/messages';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  DictioEntryType,
-  type CreateWordDto,
-  type Language,
-  type Translation,
-  type UpdateWordDto,
-  type Word,
+    DictioEntryType,
+    type CreateWordDto,
+    type Language,
+    type Translation,
+    type UpdateWordDto,
+    type Word,
 } from '../models';
 import {
-  TranslationApiService,
-  WordApiService,
+    TranslationApiService,
+    WordApiService,
 } from '../services';
 
 export interface WordWithTranslations {
