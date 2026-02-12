@@ -214,6 +214,15 @@ export class UserService {
 			default: null,
 		});
 	}
+  userAddressesResource(userId: string): unknown {
+    if (!userId) throw new Error('userId requis');
+    const url = `${this.baseUrl}/${encodeURIComponent(userId)}/addresses`;
+    return this.resourceFactory({
+      loader: () => this.http.get<Address[]>(url),
+      default: [],
+    });
+  }
+
 	userOrganizationsResource(id: string): unknown {
 		if (!id) throw new Error("l'id utilisateur est requis");
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/organizations`;
