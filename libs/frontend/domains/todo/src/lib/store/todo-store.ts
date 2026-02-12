@@ -55,7 +55,21 @@ export const TodoStore = signalStore(
           const update = exists
             ? updateEntity({ id: todo.id, changes: todo }, { collection: 'todos' })
             : addEntity(todo, { collection: 'todos' });
-          patchState(store, update);
+          patchState(
+            store,
+            update,
+            exists
+              ? { selectedItemId: todo.id }
+              : {
+                  selectedItemId: todo.id,
+                  selectedIds: store.selectedIds().includes(todo.id)
+                    ? store.selectedIds()
+                    : [...store.selectedIds(), todo.id],
+                  effectiveSelectedIds: store.effectiveSelectedIds().includes(todo.id)
+                    ? store.effectiveSelectedIds()
+                    : [...store.effectiveSelectedIds(), todo.id],
+                }
+          );
           store._snackBar.open('Todo saved', 'OK');
         },
         onError(error: unknown) {
