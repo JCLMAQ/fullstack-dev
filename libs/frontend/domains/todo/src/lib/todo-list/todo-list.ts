@@ -104,7 +104,9 @@ export class TodoList {
     this._router.navigate([this.routeToDetail, id], { queryParams: { mode } });
   }
   protected addOne(): void {
-    this._router.navigate([this.routeToDetail, '']);
+    const mode = 'add';
+    // this._router.navigate([this.routeToDetail, ''],{ queryParams: { mode } });
+    this._router.navigate([this.routeToDetail, ''], { queryParams: { mode } });
   }
   protected softDelete(id: string): void {
     // TODO: Implémenter le soft delete via le store

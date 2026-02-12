@@ -38,6 +38,21 @@ type TodoFormData = {
   updatedAt: Date | null;
 };
 
+const defaultTodoData: TodoFormData = {
+  id: '',
+  numSeq: 0,
+  title: '',
+  content: '',
+  todoState: TodoState.CREATION,
+  orderTodo: 0,
+  ownerId: '',
+  orgId: null,
+  isPublic: false,
+  published: true,
+  createdAt: null,
+  updatedAt: null,
+};
+
 @Component({
   selector: 'lib-todo-detail',
   imports: [
@@ -75,20 +90,7 @@ export class TodoDetail {
   protected readonly mode = signal<'view' | 'edit' | 'add'>('view');
   protected readonly todoId = signal<string | null>(null);
 
-  protected readonly todoData = signal<TodoFormData>({
-    id: '',
-    numSeq: 0,
-    title: '',
-    content: '',
-    todoState: TodoState.CREATION,
-    orderTodo: 0,
-    ownerId: '',
-    orgId: null,
-    isPublic: false,
-    published: true,
-    createdAt: null,
-    updatedAt: null,
-  });
+  protected readonly todoData = signal<TodoFormData>(defaultTodoData);
 
   protected readonly todoForm = form(this.todoData, (path) => {
     apply(path.title, baseTextSchemRequired);
@@ -119,7 +121,7 @@ export class TodoDetail {
 
   constructor() {
     const params = this.route.snapshot.params;
-    this.todoId.set(params['id'] || null);
+    this.todoId.set(params['id'] ?? null);
 
     const queryMode = this.route.snapshot.queryParamMap.get('mode');
     const matrixMode = this.route.snapshot.paramMap.get('mode');
@@ -129,6 +131,8 @@ export class TodoDetail {
       this.mode.set(matrixMode as 'view' | 'edit' | 'add');
     } else if (!this.todoId()) {
       this.mode.set('add');
+    } else {
+      this.mode.set('view');
     }
 
     if (this.todoId()) {
@@ -167,7 +171,7 @@ export class TodoDetail {
         const ownerId = this.appStore.user()?.id ?? '';
         const orgId = this.appStore.orgId()?.[0] ?? null;
         this.todoForm().reset({
-          ...this.todoData(),
+          ...defaultTodoData,
           ownerId,
           orgId,
         });
@@ -231,18 +235,9 @@ export class TodoDetail {
   protected add(): void {
     this.mode.set('add');
     this.todoForm().reset({
-      id: '',
-      numSeq: 0,
-      title: '',
-      content: '',
-      todoState: TodoState.CREATION,
-      orderTodo: 0,
+      ...defaultTodoData,
       ownerId: this.appStore.user()?.id ?? '',
       orgId: this.appStore.orgId()?.[0] ?? null,
-      isPublic: false,
-      published: true,
-      createdAt: null,
-      updatedAt: null,
     });
     this.snackBar.open('Create a new todo', 'OK', { duration: 3000 });
   }
