@@ -32,7 +32,15 @@
       "state": "Status",
       "id": "ID",
       "actions": "Acties",
-      "description": "Beschrijving"
+      "description": "Beschrijving",
+      "deleteTitle": "Bevestig verwijdering",
+      "deleteMsg": "Weet u zeker dat u dit item wilt verwijderen?",
+      "deletePermanent": "Permanente verwijdering",
+      "deletePermanentMsg": "Weet u zeker dat u dit item permanent wilt verwijderen? Deze actie is onomkeerbaar.",
+      "confirmationTitle": "Bevestiging",
+      "confirmDeleteWord": "Weet u zeker dat u \"{{slug}}\" permanent wilt verwijderen?",
+      "confirmMarkDeleteWord": "Wilt u \"{{slug}}\" als verwijderd markeren?",
+      "mark": "Markeren"
     },
     "HEADER.CHOOSE": "Kies uw taal",
     "SITETITLE": "Nieuwe Angular-site",

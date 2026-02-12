@@ -32,7 +32,15 @@
     "state": "Status",
     "id": "ID",
     "actions": "Aktionen",
-    "description": "Beschreibung"
+    "description": "Beschreibung",
+    "deleteTitle": "Löschung bestätigen",
+    "deleteMsg": "Sind Sie sicher, dass Sie dieses Element löschen möchten?",
+    "deletePermanent": "Endgültige Löschung",
+    "deletePermanentMsg": "Sind Sie sicher, dass Sie dieses Element endgültig löschen möchten? Diese Aktion ist unwiderruflich.",
+    "confirmationTitle": "Bestätigung",
+    "confirmDeleteWord": "Sind Sie sicher, dass Sie \"{{slug}}\" endgültig löschen möchten?",
+    "confirmMarkDeleteWord": "Möchten Sie \"{{slug}}\" als gelöscht markieren?",
+    "mark": "Markieren"
   },
     "HEADER.CHOOSE": "Wählen Sie Ihre Sprache",
     "SITETITLE": "Neue Angular-Seite",

@@ -3,7 +3,7 @@ import { Component, computed, effect, HostListener, inject, viewChild } from '@a
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
+import { ConfirmDialogService } from '@fe/messages';
 import { TranslateModule } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
 
@@ -43,8 +44,8 @@ import { TodoStore } from '../store/todo-store';
 })
 export class TodoList {
   protected readonly _store = inject(TodoStore);
-  private readonly _dialog = inject(MatDialog);
   private readonly _router = inject(Router);
+  private readonly confirmDialog = inject(ConfirmDialogService);
 
   constructor() {
     this._store.syncSortToMatSort(this.sort);
@@ -110,11 +111,7 @@ export class TodoList {
   }
 
   protected softDelete(id: string): void {
-    const dialogRef = this._dialog.open(ConfirmDeleteDialog, {
-      width: '400px',
-      data: { permanent: false }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
+    this.confirmDialog.confirmDelete(false).subscribe((result) => {
       if (result) {
         console.log('Soft delete todo:', id);
         this._store.softDeleteTodo({ id });
@@ -123,11 +120,7 @@ export class TodoList {
   }
 
   protected hardDelete(id: string): void {
-    const dialogRef = this._dialog.open(ConfirmDeleteDialog, {
-      width: '400px',
-      data: { permanent: true }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
+    this.confirmDialog.confirmDelete(true).subscribe((result) => {
       if (result) {
         console.log('Hard delete todo:', id);
         this._store.hardDeleteTodo({ id });
@@ -228,31 +221,3 @@ export class TodoList {
   }
 }
 
-// Confirmation delete dialog component
-@Component({
-  selector: 'lib-confirm-delete-dialog',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, TranslateModule],
-  template: `
-    <h2 mat-dialog-title>{{ (data.permanent ? 'common.deletePermanent' : 'common.deleteTitle') | translate }}</h2>
-    <mat-dialog-content>
-      {{ (data.permanent ? 'common.deletePermanentMsg' : 'common.deleteMsg') | translate }}
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
-      <button mat-button color="warn" (click)="onConfirm()">{{ 'common.delete' | translate }}</button>
-    </mat-dialog-actions>
-  `
-})
-export class ConfirmDeleteDialog {
-  dialogRef = inject(MatDialogRef<ConfirmDeleteDialog>);
-  data = inject<{ permanent: boolean }>(MAT_DIALOG_DATA);
-
-  onConfirm(): void {
-    this.dialogRef.close(true);
-  }
-
-  onCancel(): void {
-    this.dialogRef.close(false);
-  }
-}

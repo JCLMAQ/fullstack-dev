@@ -32,7 +32,15 @@
     "state": "State",
     "id": "ID",
     "actions": "Actions",
-    "description": "Description"
+    "description": "Description",
+    "deleteTitle": "Confirm Deletion",
+    "deleteMsg": "Are you sure you want to delete this item?",
+    "deletePermanent": "Permanent Deletion",
+    "deletePermanentMsg": "Are you sure you want to permanently delete this item? This action cannot be undone.",
+    "confirmationTitle": "Confirmation",
+    "confirmDeleteWord": "Are you sure you want to permanently delete \"{{slug}}\"?",
+    "confirmMarkDeleteWord": "Mark \"{{slug}}\" as deleted?",
+    "mark": "Mark"
   },
   "HEADER.CHOOSE": "Choose your language",
   "SITETITLE": "New Angular Site",

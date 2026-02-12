@@ -170,7 +170,7 @@
 		</div>
 
 		<mat-toolbar class="bottom-toolbar">
-       <button mat-icon-button matTooltip="Hard Delete" [disabled]="mode() !== 'view'" (click)="hardDelete(todoForm().value().id)">
+      <button mat-icon-button matTooltip="Hard Delete" [disabled]="mode() !== 'view'" (click)="hardDelete(todoForm().value().id)">
         <mat-icon>delete_forever</mat-icon>
       </button>
       <button mat-icon-button matTooltip="Delete" [disabled]="mode() !== 'view'" (click)="softDelete(todoForm().value().id)">
@@ -179,13 +179,25 @@
 			<button mat-icon-button matTooltip="Add" [disabled]="mode() !== 'view'" (click)="add()">
 				<mat-icon>add</mat-icon>
 			</button>
-			<mat-divider [vertical]="true"></mat-divider>
-			<button mat-icon-button matTooltip="Cancel" [disabled]="mode() === 'view'" (click)="cancel()">
-				<mat-icon>cancel</mat-icon>
-			</button>
-			<button mat-icon-button matTooltip="Save" [disabled]="mode() === 'view'" (click)="save()" class="success-btn">
-				<mat-icon>check_circle</mat-icon>
-			</button>
+      <!-- <button mat-icon-button matTooltip="Duplicate" (click)="duplicate()">
+          <mat-icon>content_copy</mat-icon>
+      </button> -->
+      @if(mode() === 'add' || mode() === 'edit') {
+        <button mat-icon-button matTooltip="Reset" [disabled]="mode() === 'view'" (click)="reset()">
+				<mat-icon>autorenew</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Next invalid field" [disabled]="mode() === 'view'" (click)="next()">
+          <mat-icon>next_plan</mat-icon>
+        </button>
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-icon-button matTooltip="Cancel" [disabled]="mode() === 'view'" (click)="cancel()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Save" [disabled]="mode() === 'view'" (click)="save()" class="success-btn">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+      }
+
 			<button mat-icon-button matTooltip="Edit" [disabled]="mode() !== 'view'" (click)="mode.set('edit')">
 				<mat-icon>edit</mat-icon>
 			</button>

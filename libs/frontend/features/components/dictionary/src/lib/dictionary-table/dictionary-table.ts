@@ -8,11 +8,7 @@ import {
   signal
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { form, FormField, required, schema } from '@angular/forms/signals';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { DictionaryPaginatorIntl } from '@fe/material';
+import { ConfirmDialogService } from '@fe/messages';
+import { TranslateService } from '@ngx-translate/core';
 import {
   DictioEntryType,
   type CreateWordDto,
@@ -70,9 +68,10 @@ const searchSchema = schema<{ search: string }>(() => {});
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }],
 })
 export class DictionaryTable {
-  private readonly dialog = inject(MatDialog);
+  private readonly confirmDialog = inject(ConfirmDialogService);
   private readonly wordApiService = inject(WordApiService);
   private readonly translationApiService = inject(TranslationApiService);
+  private readonly translate = inject(TranslateService);
 
   // State signals
   readonly words = signal<Word[]>([]);
@@ -285,14 +284,15 @@ export class DictionaryTable {
   }
 
   onDelete(id: number, slug: string): void {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        title: 'Confirmation',
-        message: `Êtes-vous sûr de vouloir supprimer définitivement "${slug}" ?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
+    this.confirmDialog
+      .confirm({
+        title: this.translate.instant('common.confirmationTitle'),
+        message: this.translate.instant('common.confirmDeleteWord', { slug }),
+        confirmText: this.translate.instant('common.delete'),
+        cancelText: this.translate.instant('common.cancel'),
+        confirmColor: 'warn',
+      })
+      .subscribe((result) => {
       if (result) {
         this.wordApiService.delete(id).subscribe(
           () => {
@@ -310,10 +310,19 @@ export class DictionaryTable {
   }
 
   onVirtualDelete(id: number, slug: string): void {
-    if (!confirm(`Mark "${slug}" as deleted?`)) {
-      return;
-    }
-    console.warn('Virtual delete not yet implemented');
+    this.confirmDialog
+      .confirm({
+        title: this.translate.instant('common.confirmationTitle'),
+        message: this.translate.instant('common.confirmMarkDeleteWord', { slug }),
+        confirmText: this.translate.instant('common.mark'),
+        cancelText: this.translate.instant('common.cancel'),
+        confirmColor: 'warn',
+      })
+      .subscribe((result) => {
+        if (result) {
+          console.warn('Virtual delete not yet implemented');
+        }
+      });
   }
 
   onAdd(): void {
@@ -460,25 +469,4 @@ export class DictionaryTable {
   private compare(a: number | string | undefined, b: number | string | undefined, isAsc: boolean) {
     return (a ?? '' < (b ?? '') ? -1 : 1) * (isAsc ? 1 : -1);
   }
-}
-
-@Component({
-  selector: 'lib-confirmation-dialog',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule],
-  template: `
-    <h2 mat-dialog-title>{{ data.title }}</h2>
-    <mat-dialog-content>
-      <p>{{ data.message }}</p>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button [mat-dialog-close]="false">Annuler</button>
-      <button mat-button color="warn" [mat-dialog-close]="true">
-        Supprimer
-      </button>
-    </mat-dialog-actions>
-  `,
-})
-export class ConfirmationDialog {
-  readonly data = inject<{ title: string; message: string }>(MAT_DIALOG_DATA);
 }

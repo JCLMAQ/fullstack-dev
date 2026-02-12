@@ -4,6 +4,7 @@ import { apply, disabled, form, FormField } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoState, TodoWithRelations } from '@db/prisma/frontend';
+import { ConfirmDialogService } from '@fe/messages';
 import { baseTextSchema, baseTextSchemRequired, FieldError } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { UserStore } from '@fe/user';
@@ -62,6 +64,7 @@ const defaultTodoData: TodoFormData = {
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
@@ -83,6 +86,7 @@ export class TodoDetail {
   protected readonly store = inject(TodoStore);
   private readonly appStore = inject(AppStore);
   private readonly userStore = inject(UserStore);
+  private readonly confirmDialog = inject(ConfirmDialogService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -248,13 +252,17 @@ export class TodoDetail {
     this.snackBar.open('Create a new todo', 'OK', { duration: 3000 });
   }
 
-protected softDelete(id: string): void {
+  protected softDelete(id: string): void {
     if (!id) {
       this.snackBar.open('Todo ID is required for deletion', 'OK', { duration: 3000 });
       return;
     }
-    this.store.softDeleteTodo({ id });
-    this.snackBar.open('Todo soft deleted', 'OK', { duration: 3000 });
+    this.confirmDialog.confirmDelete(false).subscribe((result) => {
+      if (result) {
+        this.store.softDeleteTodo({ id });
+        this.snackBar.open('Todo soft deleted', 'OK', { duration: 3000 });
+      }
+    });
   }
 
   protected hardDelete(id: string): void {
@@ -262,10 +270,39 @@ protected softDelete(id: string): void {
       this.snackBar.open('Todo ID is required for permanent deletion', 'OK', { duration: 3000 });
       return;
     }
-    this.store.hardDeleteTodo({ id });
-    this.snackBar.open('Todo permanently deleted', 'OK', { duration: 3000 });
+    this.confirmDialog.confirmDelete(true).subscribe((result) => {
+      if (result) {
+        this.store.hardDeleteTodo({ id });
+        this.snackBar.open('Todo permanently deleted', 'OK', { duration: 3000 });
+      }
+    });
   }
 
+  protected reset() {
+    this.todoData.set({
+      id: '',
+      numSeq: 0,
+      title: '',
+      content: '',
+      todoState: TodoState.CREATION,
+      orderTodo: 0,
+      ownerId: '',
+      orgId: null,
+      isPublic: false,
+      published: true,
+      createdAt: null,
+      updatedAt: null,
+    });
+    this.todoForm().reset();
+    this.todoForm().focusBoundControl();
+  }
+
+  protected nextInvalidField() {
+    const nextInvalidField = this.todoForm().errorSummary()[0];
+    if (nextInvalidField) {
+      nextInvalidField.fieldTree().focusBoundControl();
+    }
+  }
 
   protected first = () => this.store.first();
   protected previous = () => this.store.previous();
