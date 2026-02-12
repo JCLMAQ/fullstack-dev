@@ -96,15 +96,7 @@ export class UserService {
 		return await firstValueFrom(this.http.post<User>(url, userData));
 	}
 
-	// async updateUser(id: string, userData: Partial<User>): Promise<User> {
-
-  //   console.log('Updating user with id:', id, 'and data:', userData);
-
-	// 	if (!id) throw new Error('id requis');
-	// 	const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-	// 	return await firstValueFrom(this.http.put<User>(url, userData));
-	// }
-   async updateUser(id: string, userData: Partial<User>): Promise<User> {
+  async updateUser(id: string, userData: Partial<User>): Promise<User> {
         if (!id) throw new Error('id requis');
 
         const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
@@ -206,7 +198,7 @@ export class UserService {
 		});
 	}
 
-  	getUserByEmailResource(email: string): unknown {
+  getUserByEmailResource(email: string): unknown {
 		if (!email) throw new Error('email requis');
 		const url = `${this.baseUrl}/email/${encodeURIComponent(email)}`;
     return this.resourceFactory({

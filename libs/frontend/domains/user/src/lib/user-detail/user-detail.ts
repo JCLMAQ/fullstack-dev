@@ -21,10 +21,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Gender, Position, Title, UserWithBasicRelations } from '@db/prisma/frontend';
 import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
+import { Language, LanguageDataService } from '@fe/services';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
 import { TranslateModule } from '@ngx-translate/core';
-import { Language, LanguageDataService } from '../../../../../core/services/src/lib/languages/language-data.service';
 import { UserStore } from '../store/user-store';
 
 type UserFormData = {
