@@ -184,7 +184,7 @@ export class TodosService {
   /**
    * Suppression définitive d'un todo
    */
-  async delete(where: Prisma.TodoWhereUniqueInput): Promise<Todo> {
+  async deletePermanently(where: Prisma.TodoWhereUniqueInput): Promise<Todo> {
     return this.prisma.todo.delete({
       where,
     });

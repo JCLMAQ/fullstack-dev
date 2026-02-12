@@ -4,7 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
 import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
-import { addEntity, entityConfig, updateEntity } from "@ngrx/signals/entities";
+import { addEntity, entityConfig, removeEntity, updateEntity } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 import { initialTodoState } from './todo-slice';
 
@@ -60,6 +60,26 @@ export const TodoStore = signalStore(
         },
         onError(error: unknown) {
           store._snackBar.open('Error saving todo!', 'OK');
+          console.error(error);
+        },
+      }),
+      softDeleteTodo: store._todoServices.createSoftDeleteMutation({
+        onSuccess(response: { message: string; todo: TodoWithRelations }) {
+          patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
+          store._snackBar.open('Todo soft deleted', 'OK');
+        },
+        onError(error: unknown) {
+          store._snackBar.open('Error deleting todo!', 'OK');
+          console.error(error);
+        },
+      }),
+      hardDeleteTodo: store._todoServices.createHardDeleteMutation({
+        onSuccess(response: { message: string; todo: TodoWithRelations }) {
+          patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
+          store._snackBar.open('Todo permanently deleted', 'OK');
+        },
+        onError(error: unknown) {
+          store._snackBar.open('Error permanently deleting todo!', 'OK');
           console.error(error);
         },
       }),

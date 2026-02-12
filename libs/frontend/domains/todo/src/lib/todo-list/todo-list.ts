@@ -109,14 +109,12 @@ export class TodoList {
     this._router.navigate([this.routeToDetail, ''], { queryParams: { mode } });
   }
   protected softDelete(id: string): void {
-    // TODO: Implémenter le soft delete via le store
     console.log('Soft delete todo:', id);
-    // this._store.softDelete(id);
+    this._store.softDeleteTodo({ id });
   }
   protected hardDelete(id: string): void {
-    // TODO: Implémenter le hard delete via le store
     console.log('Hard delete todo:', id);
-    // this._store.hardDelete(id);
+    this._store.hardDeleteTodo({ id });
   }
 
 protected refreshOrReload(): void {

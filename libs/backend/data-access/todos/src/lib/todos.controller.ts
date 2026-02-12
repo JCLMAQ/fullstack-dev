@@ -1,16 +1,16 @@
 import { Prisma, TodoState } from '@db/prisma';
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpException,
-    HttpStatus,
-    Param,
-    Patch,
-    Post,
-    Put,
-    Query,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { SaveTodoDto, UpdateTodoDto } from './todo.dto';
 import { TodosService } from './todos.service';
@@ -311,6 +311,32 @@ export class TodosController {
       const todo = await this.todosService.remove({ id });
       return {
         message: 'Todo supprimé avec succès',
+        todo,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        `Erreur lors de la suppression du todo: ${getErrorMessage(error)}`,
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+    /**
+   * Suppression définitive d'un todo
+   */
+  @Delete(':id/permanent')
+  async deletePermanentlyTodo(@Param('id') id: string) {
+    try {
+      const existingTodo = await this.todosService.findOne({ id });
+      if (!existingTodo) {
+        throw new HttpException('Todo non trouvé', HttpStatus.NOT_FOUND);
+      }
+
+      const todo = await this.todosService.deletePermanently({ id });
+      return {
+        message: 'Todo supprimé définitivement avec succès',
         todo,
       };
     } catch (error) {

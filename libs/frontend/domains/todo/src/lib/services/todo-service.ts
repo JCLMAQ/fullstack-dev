@@ -76,6 +76,30 @@ export class TodoService {
     });
   }
 
+  createSoftDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
+    const apiPrefix = this.apiPrefix;
+    return httpMutation({
+      ...options,
+      request: (data: { id: string }) => ({
+        url: `${apiPrefix}/todos/${data.id}`,
+        method: 'DELETE',
+      }),
+      operator: concatOp
+    });
+  }
+
+  createHardDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
+    const apiPrefix = this.apiPrefix;
+    return httpMutation({
+      ...options,
+      request: (data: { id: string }) => ({
+        url: `${apiPrefix}/todos/${data.id}/permanent`,
+        method: 'DELETE',
+      }),
+      operator: concatOp
+    });
+  }
+
     private buildParams(options?: TodosQueryOptions): HttpParams {
 		let params = new HttpParams();
 		if (!options) return params;
