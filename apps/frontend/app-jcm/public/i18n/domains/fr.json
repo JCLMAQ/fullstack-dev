@@ -86,5 +86,20 @@
       "editAddress": "Modifier l'Adresse",
       "deleteAddress": "Supprimer l'Adresse",
       "addressSection": "Adresses"
+    },
+    "todos": {
+      "id": "ID",
+      "title": "Titre",
+      "order": "Ordre",
+      "state": "État",
+      "content": "Contenu",
+      "actions": "Actions",
+      "description": "Description",
+      "mainTodo": "Todo Principal",
+      "subTodos": "Sous-todos",
+      "linkedTasks": "Tâches Liées",
+      "deleteTitle": "Confirmer la suppression",
+      "deleteMsg": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+      "deletePermanent": "Suppression définitive"
     }
   }

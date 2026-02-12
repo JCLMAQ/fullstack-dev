@@ -101,17 +101,13 @@ export class TodoDetail {
     apply(path.content, baseTextSchema);
 
     const disableInView = () => this.mode() === 'view';
-    (
-      [
-        path.title,
-        path.content,
-        path.todoState,
-        path.orderTodo,
-        path.orgId,
-        path.isPublic,
-        path.published,
-      ] as const
-    ).forEach((p) => disabled(p as any, disableInView));
+    disabled(path.title, disableInView);
+    disabled(path.content, disableInView);
+    disabled(path.todoState, disableInView);
+    disabled(path.orderTodo, disableInView);
+    disabled(path.orgId, disableInView);
+    disabled(path.isPublic, disableInView);
+    disabled(path.published, disableInView);
   });
 
   protected readonly todoStateOptions = Object.values(TodoState);
@@ -122,6 +118,30 @@ export class TodoDetail {
   protected readonly hasActiveSort = computed(() => {
     const currentSort = this.store.currentSort();
     return currentSort?.active && currentSort?.direction;
+  });
+
+  // Computed signals for related data
+  protected readonly currentTodo = computed(() => {
+    const id = this.todoId();
+    if (!id) return null;
+    return this.store.todos().find(t => t.id === id) ?? null;
+  });
+
+  protected readonly mainTodoData = computed(() => {
+    const todo = this.currentTodo();
+    if (!todo?.mainTodoId) return null;
+    return this.store.todos().find(t => t.id === todo.mainTodoId) ?? null;
+  });
+
+  protected readonly subTodosData = computed(() => {
+    const todo = this.currentTodo();
+    if (!todo) return [];
+    return this.store.todos().filter(t => t.mainTodoId === todo.id);
+  });
+
+  protected readonly linkedTasksData = computed(() => {
+    const todo = this.currentTodo();
+    return todo?.Tasks ?? [];
   });
 
   constructor() {

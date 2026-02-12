@@ -7,7 +7,7 @@
 
 	@if (!store.isLoading()) {
 		<div class="header">
-			<h1 class="mat-headline-4">{{ 'common.todos' | translate }}</h1>
+			<h1 class="mat-headline-4">{{ 'todos.todos' | translate }}</h1>
 			<div class="todo-id-muted">{{ todoForm().value().id }}</div>
 		</div>
 
@@ -16,16 +16,16 @@
 				<mat-card-content>
 					<form class="form-container">
 						<mat-tab-group [preserveContent]="true">
-							<mat-tab label="{{ 'common.content' | translate }}">
+							<mat-tab label="{{ 'todos.content' | translate }}">
 								<section class="form-section">
 									<div class="tab-content">
 										<div class="fields-row">
 											<mat-form-field appearance="outline">
-												<mat-label>{{ 'common.title' | translate }}</mat-label>
+												<mat-label>{{ 'todos.title' | translate }}</mat-label>
 												<input
 													matInput
 													[formField]="todoForm.title"
-													placeholder="{{ 'common.title' | translate }}"
+													placeholder="{{ 'todos.title' | translate }}"
 												/>
 												<mat-error>
 													<lib-field-error [fieldError]="todoForm.title()" />
@@ -33,12 +33,12 @@
 											</mat-form-field>
 
 											<mat-form-field appearance="outline">
-												<mat-label>{{ 'common.order' | translate }}</mat-label>
+												<mat-label>{{ 'todos.order' | translate }}</mat-label>
 												<input
 													matInput
 													type="number"
 													[formField]="todoForm.orderTodo"
-													placeholder="{{ 'common.order' | translate }}"
+													placeholder="{{ 'todos.order' | translate }}"
 												/>
 											</mat-form-field>
 
@@ -58,12 +58,12 @@
 										</div>
 
 										<mat-form-field appearance="outline" class="full-width">
-											<mat-label>{{ 'common.content' | translate }}</mat-label>
+											<mat-label>{{ 'todos.content' | translate }}</mat-label>
 											<textarea
 												matInput
 												rows="5"
 												[formField]="todoForm.content"
-												placeholder="{{ 'common.content' | translate }}"
+												placeholder="{{ 'todos.content' | translate }}"
 											></textarea>
 											<mat-error>
 												<lib-field-error [fieldError]="todoForm.content()" />
@@ -71,9 +71,9 @@
 										</mat-form-field>
 
 										<mat-form-field appearance="outline">
-											<mat-label>{{ 'common.state' | translate }}</mat-label>
+											<mat-label>{{ 'todos.state' | translate }}</mat-label>
 											@if (mode() === 'view') {
-												<input matInput [value]="todoForm().value().todoState ?? ''" readonly />
+												<input matInput [value]="todoForm().value().todoState" readonly />
 											} @else {
 												<mat-select [formField]="todoForm.todoState">
 													@for (state of todoStateOptions; track state) {
@@ -86,7 +86,7 @@
 								</section>
 							</mat-tab>
 
-							<mat-tab label="{{ 'common.state' | translate }}">
+							<mat-tab label="{{ 'todos.state' | translate }}">
 								<section class="form-section">
 									<div class="tab-content">
 										<div class="fields-row">
@@ -118,17 +118,107 @@
 								</section>
 							</mat-tab>
 
-							<mat-tab label="{{ 'common.id' | translate }}">
+							<mat-tab label="{{ 'todos.mainTodo' | translate }}">
 								<section class="form-section">
 									<div class="tab-content">
+									@if (mainTodoData(); as mainTodo) {
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>{{ mainTodo.title }}</mat-card-title>
+												<mat-card-subtitle>{{ mainTodo.todoState }}</mat-card-subtitle>
+											</mat-card-header>
+											<mat-card-content>
+												<p>{{ mainTodo.content }}</p>
+												<p class="text-muted">Créé le: {{ mainTodo.createdAt | date: 'short' }}</p>
+											</mat-card-content>
+										</mat-card>
+									} @else {
+										<p class="no-data">Aucune todo principale associée</p>
+									}
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'todos.subTodos' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									@if (subTodosData().length > 0) {
+										<div class="sub-todos-list">
+											@for (subTodo of subTodosData(); track subTodo.id) {
+												<mat-card class="sub-todo-card">
+													<mat-card-header>
+														<mat-card-title>
+															<span class="order-badge">{{ subTodo.orderTodo }}</span>
+															{{ subTodo.title }}
+														</mat-card-title>
+														<mat-card-subtitle>
+															<mat-icon class="state-icon">{{ subTodo.todoState === 'DONE' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+															{{ subTodo.todoState }}
+														</mat-card-subtitle>
+													</mat-card-header>
+													<mat-card-content>
+														<p>{{ subTodo.content }}</p>
+														<div class="metadata">
+															<span class="text-muted">Créé: {{ subTodo.createdAt | date: 'short' }}</span>
+															<span class="text-muted">Modifié: {{ subTodo.updatedAt | date: 'short' }}</span>
+														</div>
+													</mat-card-content>
+												</mat-card>
+											}
+										</div>
+									} @else {
+										<p class="no-data">Aucune sous-todo</p>
+									}
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'todos.linkedTasks' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									@if (linkedTasksData().length > 0) {
+										<div class="linked-tasks-list">
+											@for (task of linkedTasksData(); track task.id) {
+												<mat-card class="task-card">
+													<mat-card-header>
+														<mat-card-title>
+															<mat-icon class="task-icon">task_alt</mat-icon>
+															{{ task.title }}
+														</mat-card-title>
+														<mat-card-subtitle>
+															<span class="task-state" [class.done]="task.taskState === 'DONE'">
+																{{ task.taskState }}
+															</span>
+														</mat-card-subtitle>
+													</mat-card-header>
+													<mat-card-content>
+														<p>{{ task.content }}</p>
+														<div class="metadata">
+															<span class="text-muted">Ordre: {{ task.orderTask }}</span>
+															<span class="text-muted">Créé: {{ task.createdAt | date: 'short' }}</span>
+														</div>
+													</mat-card-content>
+												</mat-card>
+											}
+										</div>
+									} @else {
+										<p class="no-data">Aucune tâche liée</p>
+									}
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'todos.id' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
 										<div class="fields-row">
 											<mat-form-field appearance="outline">
-												<mat-label>{{ 'common.id' | translate }}</mat-label>
+												<mat-label>{{ 'todos.id' | translate }}</mat-label>
 												<input matInput [value]="todoForm().value().id" readonly />
 											</mat-form-field>
 
 											<mat-form-field appearance="outline">
-												<mat-label>{{ 'common.numSeq' | translate }}</mat-label>
+												<mat-label>{{ 'todos.numSeq' | translate }}</mat-label>
 												<input matInput [value]="todoForm().value().numSeq" readonly />
 											</mat-form-field>
 

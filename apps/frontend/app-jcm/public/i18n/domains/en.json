@@ -86,5 +86,20 @@
     "editAddress": "Edit Address",
     "deleteAddress": "Delete Address",
     "addressSection": "Addresses"
-  }
+  },
+    "todos": {
+      "id": "ID",
+      "title": "Title",
+      "order": "Order",
+      "state": "State",
+      "content": "Content",
+      "actions": "Actions",
+      "description": "Description",
+      "mainTodo": "Main Todo",
+      "subTodos": "Sub Todos",
+      "linkedTasks": "Linked Tasks",
+      "deleteTitle": "Confirm Deletion",
+      "deleteMsg": "Are you sure you want to delete this item?",
+      "deletePermanent": "Permanent Deletion"
+    }
 }
