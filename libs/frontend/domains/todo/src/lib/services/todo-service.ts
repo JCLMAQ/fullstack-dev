@@ -34,8 +34,7 @@ export class TodoService {
 		return `${this.apiPrefix}/todos/by-user`;
   }
 
-  // Using httpResource
-
+  // Using httpResource for automatic caching, loading state, and error handling in the store
   getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string[] | null): HttpResourceRef<TodoWithRelations[]> {
     let params = new HttpParams().set('ownerId', ownerId);
     const url = this.baseUrl;
@@ -88,28 +87,6 @@ export class TodoService {
 		if (sortOrder) params = params.set('sortOrder', sortOrder);
 		return params;
 	}
-
-  // todosResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
-  //   return httpResource<TodoWithRelations[]>(() => ({
-  //     url: this.baseUrl,
-  //     method: 'GET',
-  //     params: this.buildParams(options),
-  //   }), {
-  //     defaultValue: [],
-  //   });
-  // }
-
-  // todoByIdResource(id: string): HttpResourceRef<TodoWithRelations | null> {
-  //   if (!id) throw new Error('id requis');
-	// 	const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-  //   return httpResource<TodoWithRelations | null>(() => ({
-  //     url,
-  //     method: 'GET',
-  //   }), {
-  //     defaultValue: null,
-  //   });
-  // }
-
 
   // get todos - classic way
   // Get todos for one user, with optional orgId filter
