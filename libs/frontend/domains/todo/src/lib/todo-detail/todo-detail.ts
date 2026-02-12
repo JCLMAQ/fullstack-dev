@@ -407,4 +407,54 @@ export class TodoDetail {
   protected goBack(): void {
     this.router.navigate(['/todos/list']);
   }
+
+  // Sub-todos management
+  protected addSubTodo(): void {
+    const currentTodo = this.currentTodo();
+    if (!currentTodo) {
+      this.snackBar.open('No current todo to add sub-todo', 'OK', { duration: 3000 });
+      return;
+    }
+
+    const ownerId = this.appStore.user()?.id ?? '';
+    const orgId = currentTodo.orgId ?? this.appStore.orgId()?.[0] ?? null;
+    const maxOrder = Math.max(0, ...this.subTodosData().map(t => t.orderTodo));
+
+    const newSubTodo: TodoWithRelations = {
+      title: 'New Sub-Todo',
+      content: '',
+      todoState: TodoState.CREATION,
+      orderTodo: maxOrder + 1,
+      ownerId,
+      orgId,
+      isPublic: currentTodo.isPublic,
+      published: currentTodo.published,
+      mainTodoId: currentTodo.id,
+    } as TodoWithRelations;
+
+    this.store.saveTodo(newSubTodo);
+    this.snackBar.open('Sub-todo created', 'OK', { duration: 3000 });
+  }
+
+  protected editSubTodo(subTodo: TodoWithRelations): void {
+    this.router.navigate(['/todos/detail', subTodo.id]);
+  }
+
+  protected deleteSubTodo(id: string): void {
+    if (!id) {
+      this.snackBar.open('Sub-todo ID is required for deletion', 'OK', { duration: 3000 });
+      return;
+    }
+    this.confirmDialog.confirmDelete(false).subscribe((result) => {
+      if (result) {
+        this.store.softDeleteTodo({ id });
+        this.snackBar.open('Sub-todo deleted', 'OK', { duration: 3000 });
+      }
+    });
+  }
+
+  // Linked tasks management
+  protected navigateToTask(taskId: string): void {
+    this.router.navigate(['/tasks/detail', taskId]);
+  }
 }

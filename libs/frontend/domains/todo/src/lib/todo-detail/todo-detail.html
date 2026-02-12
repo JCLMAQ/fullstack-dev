@@ -142,6 +142,12 @@
 						<mat-tab label="{{ 'todos.subTodos' | translate }}">
 							<section class="form-section">
 								<div class="tab-content">
+									<div class="tab-header">
+										<button mat-raised-button color="primary" (click)="addSubTodo()" [disabled]="!currentTodo()">
+											<mat-icon>add</mat-icon>
+											Ajouter une sous-todo
+										</button>
+									</div>
 									@if (subTodosData().length > 0) {
 										<div class="sub-todos-list">
 											@for (subTodo of subTodosData(); track subTodo.id) {
@@ -163,6 +169,14 @@
 															<span class="text-muted">Modifié: {{ subTodo.updatedAt | date: 'short' }}</span>
 														</div>
 													</mat-card-content>
+													<mat-card-actions class="card-actions">
+														<button mat-icon-button matTooltip="Éditer" (click)="editSubTodo(subTodo)">
+															<mat-icon>edit</mat-icon>
+														</button>
+														<button mat-icon-button matTooltip="Supprimer" (click)="deleteSubTodo(subTodo.id)" color="warn">
+															<mat-icon>delete</mat-icon>
+														</button>
+													</mat-card-actions>
 												</mat-card>
 											}
 										</div>
@@ -198,6 +212,11 @@
 															<span class="text-muted">Créé: {{ task.createdAt | date: 'short' }}</span>
 														</div>
 													</mat-card-content>
+													<mat-card-actions class="card-actions">
+														<button mat-icon-button matTooltip="Voir la tâche" (click)="navigateToTask(task.id)">
+															<mat-icon>visibility</mat-icon>
+														</button>
+													</mat-card-actions>
 												</mat-card>
 											}
 										</div>
