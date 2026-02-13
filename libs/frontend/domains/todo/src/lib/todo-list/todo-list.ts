@@ -15,6 +15,7 @@ import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { ConfirmDialogService } from '@fe/messages';
 import { TranslateModule } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
+import { TodoSubList } from '../todo-sub-list/todo-sub-list';
 
 @Component({
   selector: 'lib-todo-list',
@@ -30,6 +31,7 @@ import { TodoStore } from '../store/todo-store';
     MatChipsModule,
     MatDialogModule,
     TranslateModule,
+    TodoSubList,
     ...MATERIAL
   ],
   templateUrl: './todo-list.html',
@@ -76,7 +78,7 @@ export class TodoList {
   protected readonly displayedColumns: string[] = ['select', 'order', 'numSeq', 'title', 'state', 'actions'];
   columnsToDisplay: string[] = ['select', 'order', 'numSeq', 'title', 'state'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'tools'];
-  expandedElement!: TodoWithRelations | null;
+  expandedElement: TodoWithRelations | null = null;
 
   // Filtrage
   protected readonly filterValue = this._store.filterValue;

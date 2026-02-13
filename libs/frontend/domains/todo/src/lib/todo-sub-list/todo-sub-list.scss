@@ -1,0 +1,59 @@
+
+:host {
+	display: block;
+	padding: 12px 0;
+}
+
+.subtodo-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.subtodo-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.subtodo-title {
+	font-weight: 600;
+}
+
+.subtodo-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 12px;
+	align-items: end;
+}
+
+.form-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.subtodo-table {
+	width: 100%;
+}
+
+.actions-cell {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.order-field,
+.title-field,
+.state-field,
+.content-field {
+	width: 100%;
+}
+
+.no-data {
+	padding: 12px 0;
+	text-align: center;
+	color: var(--mat-sys-on-surface-variant);
+}

@@ -1,0 +1,132 @@
+<section class="subtodo-list">
+	<header class="subtodo-toolbar">
+		<div class="subtodo-title">Sous-todos</div>
+		<button mat-stroked-button color="primary" (click)="startAdd()" [disabled]="addingNew()">
+			<mat-icon>add</mat-icon>
+			Ajouter
+		</button>
+	</header>
+
+	@if (addingNew()) {
+		<form class="subtodo-form" (submit)="$event.preventDefault(); saveAdd()">
+			<mat-form-field appearance="outline">
+				<mat-label>Ordre</mat-label>
+				<input matInput type="number" [formField]="addForm.orderTodo" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Titre</mat-label>
+				<input matInput [formField]="addForm.title" />
+				<lib-field-error [fieldError]="addForm.title()" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Etat</mat-label>
+				<mat-select [formField]="addForm.todoState">
+					@for (state of todoStateOptions; track state) {
+						<mat-option [value]="state">{{ state }}</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="content-field">
+				<mat-label>Contenu</mat-label>
+				<input matInput [formField]="addForm.content" />
+			</mat-form-field>
+
+			<div class="form-actions">
+				<button mat-raised-button color="primary" type="submit" [disabled]="!addForm().valid()">
+					Sauvegarder
+				</button>
+				<button mat-button type="button" (click)="cancelAdd()">Annuler</button>
+			</div>
+		</form>
+	}
+
+	@if (subTodos().length > 0) {
+		<table mat-table [dataSource]="subTodos()" class="subtodo-table">
+			<ng-container matColumnDef="orderTodo">
+				<th mat-header-cell *matHeaderCellDef>Ordre</th>
+				<td mat-cell *matCellDef="let element">
+					@if (isEditing(element)) {
+						<mat-form-field appearance="outline" class="order-field">
+							<input matInput type="number" [formField]="editForm.orderTodo" />
+						</mat-form-field>
+					} @else {
+						{{ element.orderTodo }}
+					}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="title">
+				<th mat-header-cell *matHeaderCellDef>Titre</th>
+				<td mat-cell *matCellDef="let element">
+					@if (isEditing(element)) {
+						<mat-form-field appearance="outline" class="title-field">
+							<input matInput [formField]="editForm.title" />
+							<lib-field-error [fieldError]="editForm.title()" />
+						</mat-form-field>
+					} @else {
+						{{ element.title }}
+					}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="content">
+				<th mat-header-cell *matHeaderCellDef>Contenu</th>
+				<td mat-cell *matCellDef="let element">
+					@if (isEditing(element)) {
+						<mat-form-field appearance="outline" class="content-field">
+							<input matInput [formField]="editForm.content" />
+						</mat-form-field>
+					} @else {
+						{{ element.content }}
+					}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="todoState">
+				<th mat-header-cell *matHeaderCellDef>Etat</th>
+				<td mat-cell *matCellDef="let element">
+					@if (isEditing(element)) {
+						<mat-form-field appearance="outline" class="state-field">
+							<mat-select [formField]="editForm.todoState">
+								@for (state of todoStateOptions; track state) {
+									<mat-option [value]="state">{{ state }}</mat-option>
+								}
+							</mat-select>
+						</mat-form-field>
+					} @else {
+						{{ element.todoState }}
+					}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef>Actions</th>
+				<td mat-cell *matCellDef="let element" class="actions-cell">
+					@if (isEditing(element)) {
+						<button mat-icon-button color="primary" (click)="saveEdit(element)" [disabled]="!editForm().valid()" matTooltip="Sauvegarder">
+							<mat-icon>check</mat-icon>
+						</button>
+						<button mat-icon-button (click)="cancelEdit()" matTooltip="Annuler">
+							<mat-icon>close</mat-icon>
+						</button>
+					} @else {
+						<button mat-icon-button (click)="startEdit(element)" [disabled]="addingNew()" matTooltip="Editer">
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button mat-icon-button color="warn" (click)="deleteSubTodo(element.id)" [disabled]="addingNew()" matTooltip="Supprimer">
+							<mat-icon>delete</mat-icon>
+						</button>
+					}
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+		</table>
+	} @else {
+		<div class="no-data">Aucune sous-todo</div>
+	}
+</section>
