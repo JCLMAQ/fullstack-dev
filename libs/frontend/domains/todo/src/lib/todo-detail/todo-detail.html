@@ -173,10 +173,10 @@
 														</div>
 													</mat-card-content>
 													<mat-card-actions class="card-actions">
-														<button mat-icon-button matTooltip="Éditer" (click)="editSubTodo(subTodo)">
+														<button mat-icon-button matTooltip="Éditer" type="button" (click)="editSubTodo(subTodo)">
 															<mat-icon>edit</mat-icon>
 														</button>
-														<button mat-icon-button matTooltip="Supprimer" (click)="deleteSubTodo(subTodo.id)" color="warn">
+														<button mat-icon-button matTooltip="Supprimer" type="button" (click)="deleteSubTodo(subTodo.id)" color="warn">
 															<mat-icon>delete</mat-icon>
 														</button>
 													</mat-card-actions>
@@ -309,8 +309,14 @@
           <mat-icon>check_circle</mat-icon>
         </button>
       }
+      @if (mainTodoData()) {
+        <mat-divider [vertical]="true"></mat-divider>
+        <button mat-icon-button matTooltip="Retour au todo principal" type="button" (click)="returnToMainTodo()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      }
 
-			<button mat-icon-button matTooltip="Edit" type="button" [disabled]="mode() !== 'view'" (click)="mode.set('edit')">
+			<button mat-icon-button matTooltip="Edit" type="button" [disabled]="mode() !== 'view'" (click)="setMode('edit')">
 				<mat-icon>edit</mat-icon>
 			</button>
 			<mat-divider [vertical]="true"></mat-divider>

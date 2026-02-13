@@ -63,6 +63,16 @@ export class TodoService {
     });
   }
 
+  async getTodoById(id: string): Promise<TodoWithRelations | null> {
+    const url = `${this.apiPrefix}/todos/${id}`;
+    try {
+      return await firstValueFrom(this.http.get<TodoWithRelations>(url));
+    } catch (error) {
+      console.error('Error loading todo by ID:', error);
+      return null;
+    }
+  }
+
   createSaveTodoMutation(options: Partial<HttpMutationOptions<TodoWithRelations, TodoWithRelations>>) {
     const url = `${this.apiPrefix}/todos/save`;
     return httpMutation({

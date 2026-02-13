@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { apply, disabled, form, FormField } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -23,6 +24,7 @@ import { baseTextSchema, baseTextSchemRequired, FieldError } from '@fe/signalfor
 import { AppStore } from '@fe/stores';
 import { UserStore } from '@fe/user';
 import { TranslateModule } from '@ngx-translate/core';
+import { TodoService } from '../services/todo-service';
 import { TodoStore } from '../store/todo-store';
 
 type TodoFormData = {
@@ -86,13 +88,22 @@ export class TodoDetail {
   protected readonly store = inject(TodoStore);
   private readonly appStore = inject(AppStore);
   private readonly userStore = inject(UserStore);
+  private readonly todoService = inject(TodoService);
   private readonly confirmDialog = inject(ConfirmDialogService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
+  private readonly paramMap = toSignal(this.route.paramMap, {
+    initialValue: this.route.snapshot.paramMap,
+  });
+  private readonly queryParamMap = toSignal(this.route.queryParamMap, {
+    initialValue: this.route.snapshot.queryParamMap,
+  });
+
   protected readonly mode = signal<'view' | 'edit' | 'add'>('view');
   protected readonly todoId = signal<string | null>(null);
+  private readonly loadedTodo = signal<TodoWithRelations | null>(null);
 
   protected readonly todoData = signal<TodoFormData>(defaultTodoData);
 
@@ -126,7 +137,13 @@ export class TodoDetail {
   protected readonly currentTodo = computed(() => {
     const id = this.todoId();
     if (!id) return null;
-    return this.store.todos().find(t => t.id === id) ?? null;
+
+    // D'abord chercher dans le store
+    const storeItem = this.store.todos().find(t => t.id === id);
+    if (storeItem) return storeItem;
+
+    // Fallback : todo chargé individuellement
+    return this.loadedTodo();
   });
 
   protected readonly mainTodoData = computed(() => {
@@ -147,36 +164,62 @@ export class TodoDetail {
   });
 
   constructor() {
-    const params = this.route.snapshot.params;
-    this.todoId.set(params['id'] ?? null);
+    effect(() => {
+      const params = this.paramMap();
+      const query = this.queryParamMap();
+      const id = params.get('id');
 
-    const tabParam = this.route.snapshot.queryParamMap.get('tab');
-    const tabIndex = tabParam ? Number(tabParam) : Number.NaN;
-    if (Number.isInteger(tabIndex) && tabIndex >= 0) {
-      this.store.setSelectedTabIndex(tabIndex);
-    }
+      this.todoId.set(id);
 
-    const queryMode = this.route.snapshot.queryParamMap.get('mode');
-    const matrixMode = this.route.snapshot.paramMap.get('mode');
-    if (queryMode) {
-      this.mode.set(queryMode as 'view' | 'edit' | 'add');
-    } else if (matrixMode) {
-      this.mode.set(matrixMode as 'view' | 'edit' | 'add');
-    } else if (!this.todoId()) {
-      this.mode.set('add');
-    } else {
-      this.mode.set('view');
-    }
+      const queryMode = query.get('mode');
+      const matrixMode = params.get('mode');
+      const nextMode = (queryMode ?? matrixMode) as 'view' | 'edit' | 'add' | null;
 
-    if (this.mode() === 'add') {
-      this.addInitRequested.set(true);
-    }
+      if (nextMode) {
+        this.mode.set(nextMode);
+      } else if (!id) {
+        this.mode.set('add');
+      } else {
+        this.mode.set('view');
+      }
 
-    if (this.todoId()) {
-      this.store.setSelectedId(this.todoId());
-    } else if (this.mode() !== 'add' && this.store.todos().length > 0) {
-      this.store.setSelectedId(this.store.todos()[0]?.id ?? null);
-    }
+      if (this.mode() === 'add') {
+        this.addInitRequested.set(true);
+      }
+
+      if (id) {
+        this.store.setSelectedId(id);
+      } else if (this.mode() !== 'add' && this.store.todos().length > 0) {
+        this.store.setSelectedId(this.store.todos()[0]?.id ?? null);
+      }
+
+      const tabParam = query.get('tab');
+      const tabIndex = tabParam ? Number(tabParam) : Number.NaN;
+      if (Number.isInteger(tabIndex) && tabIndex >= 0) {
+        this.store.setSelectedTabIndex(tabIndex);
+      }
+    });
+
+    // Charger le todo par ID si pas dans le store (ex: navigation directe vers un sub-todo)
+    effect(() => {
+      const id = this.todoId();
+      if (!id) {
+        this.loadedTodo.set(null);
+        return;
+      }
+
+      // Vérifier si le todo est déjà dans le store
+      const existsInStore = this.store.todos().find(t => t.id === id);
+      if (existsInStore) {
+        this.loadedTodo.set(null);
+        return;
+      }
+
+      // Charger le todo par ID
+      this.todoService.getTodoById(id).then(todo => {
+        this.loadedTodo.set(todo);
+      });
+    });
 
     effect(() => {
       const userId = this.appStore.user()?.id ?? null;
@@ -187,22 +230,22 @@ export class TodoDetail {
     });
 
     effect(() => {
-      const selectedItem = this.store.selectedItem() as TodoWithRelations | null;
-      if (selectedItem && this.mode() !== 'add') {
-        this.store.initNavButton(selectedItem.id);
+      const selectedTodo = this.currentTodo();
+      if (selectedTodo && this.mode() !== 'add') {
+        this.store.initNavButton(selectedTodo.id);
         this.todoForm().reset({
-          id: selectedItem.id,
-          numSeq: selectedItem.numSeq,
-          title: selectedItem.title ?? '',
-          content: selectedItem.content ?? '',
-          todoState: selectedItem.todoState ?? TodoState.CREATION,
-          orderTodo: selectedItem.orderTodo ?? 0,
-          ownerId: selectedItem.ownerId ?? '',
-          orgId: selectedItem.orgId ?? null,
-          isPublic: selectedItem.isPublic ?? false,
-          published: selectedItem.published ?? false,
-          createdAt: selectedItem.createdAt ?? null,
-          updatedAt: selectedItem.updatedAt ?? null,
+          id: selectedTodo.id,
+          numSeq: selectedTodo.numSeq,
+          title: selectedTodo.title ?? '',
+          content: selectedTodo.content ?? '',
+          todoState: selectedTodo.todoState ?? TodoState.CREATION,
+          orderTodo: selectedTodo.orderTodo ?? 0,
+          ownerId: selectedTodo.ownerId ?? '',
+          orgId: selectedTodo.orgId ?? null,
+          isPublic: selectedTodo.isPublic ?? false,
+          published: selectedTodo.published ?? false,
+          createdAt: selectedTodo.createdAt ?? null,
+          updatedAt: selectedTodo.updatedAt ?? null,
         });
       } else if (this.mode() === 'add' && this.addInitRequested()) {
         const ownerId = this.appStore.user()?.id ?? '';
@@ -253,34 +296,62 @@ export class TodoDetail {
       published: formValue.published,
     } as unknown as TodoWithRelations;
 
+    const wasInAddMode = this.mode() === 'add';
+
     this.store.saveTodo(payload);
     this.snackBar.open('Todo saved', 'OK', { duration: 3000 });
-    this.mode.set('view');
+    this.setMode('view');
+
+    // Retourner à la liste si on était en mode création
+    if (wasInAddMode) {
+      this.router.navigate(['/todos']);
+      return;
+    }
+
+    // Retourner au todo principal si on est sur un sub-todo
+    const mainTodo = this.mainTodoData();
+    if (mainTodo) {
+      this.returnToMainTodo();
+    }
   }
 
   protected cancel(): void {
-    const selectedItem = this.store.selectedItem() as TodoWithRelations | null;
-    if (selectedItem) {
+    const wasInAddMode = this.mode() === 'add';
+
+    // Retourner à la liste si on était en mode création
+    if (wasInAddMode) {
+      this.router.navigate(['/todos']);
+      return;
+    }
+
+    const selectedTodo = this.currentTodo();
+    if (selectedTodo) {
       this.todoForm().reset({
-        id: selectedItem.id,
-        numSeq: selectedItem.numSeq,
-        title: selectedItem.title ?? '',
-        content: selectedItem.content ?? '',
-        todoState: selectedItem.todoState ?? TodoState.CREATION,
-        orderTodo: selectedItem.orderTodo ?? 0,
-        ownerId: selectedItem.ownerId ?? '',
-        orgId: selectedItem.orgId ?? null,
-        isPublic: selectedItem.isPublic ?? false,
-        published: selectedItem.published ?? false,
-        createdAt: selectedItem.createdAt ?? null,
-        updatedAt: selectedItem.updatedAt ?? null,
+        id: selectedTodo.id,
+        numSeq: selectedTodo.numSeq,
+        title: selectedTodo.title ?? '',
+        content: selectedTodo.content ?? '',
+        todoState: selectedTodo.todoState ?? TodoState.CREATION,
+        orderTodo: selectedTodo.orderTodo ?? 0,
+        ownerId: selectedTodo.ownerId ?? '',
+        orgId: selectedTodo.orgId ?? null,
+        isPublic: selectedTodo.isPublic ?? false,
+        published: selectedTodo.published ?? false,
+        createdAt: selectedTodo.createdAt ?? null,
+        updatedAt: selectedTodo.updatedAt ?? null,
       });
     }
-    this.mode.set('view');
+    this.setMode('view');
+
+    // Retourner au todo principal si on est sur un sub-todo
+    const mainTodo = this.mainTodoData();
+    if (mainTodo) {
+      this.returnToMainTodo();
+    }
   }
 
   protected add(): void {
-    this.mode.set('add');
+    this.setMode('add');
     this.todoForm().reset({
       ...defaultTodoData,
       ownerId: this.appStore.user()?.id ?? '',
@@ -295,7 +366,7 @@ export class TodoDetail {
     const orgId = source.orgId ?? this.appStore.orgId()?.[0] ?? null;
 
     this.addInitRequested.set(false);
-    this.mode.set('add');
+    this.setMode('add');
     this.todoForm().reset({
       ...defaultTodoData,
       title: source.title ?? '',
@@ -309,6 +380,16 @@ export class TodoDetail {
     });
 
     this.snackBar.open('Todo duplicated', 'OK', { duration: 3000 });
+  }
+
+  protected setMode(nextMode: 'view' | 'edit' | 'add'): void {
+    this.mode.set(nextMode);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { mode: nextMode === 'view' ? null : nextMode },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   protected softDelete(id: string): void {
@@ -363,10 +444,37 @@ export class TodoDetail {
     }
   }
 
-  protected first = () => this.store.first();
-  protected previous = () => this.store.previous();
-  protected next = () => this.store.next();
-  protected last = () => this.store.last();
+  protected first = () => {
+    this.store.first();
+    const newId = this.store.selectedItemId();
+    if (newId) {
+      this.router.navigate(['/todos/detail', newId]);
+    }
+  };
+
+  protected previous = () => {
+    this.store.previous();
+    const newId = this.store.selectedItemId();
+    if (newId) {
+      this.router.navigate(['/todos/detail', newId]);
+    }
+  };
+
+  protected next = () => {
+    this.store.next();
+    const newId = this.store.selectedItemId();
+    if (newId) {
+      this.router.navigate(['/todos/detail', newId]);
+    }
+  };
+
+  protected last = () => {
+    this.store.last();
+    const newId = this.store.selectedItemId();
+    if (newId) {
+      this.router.navigate(['/todos/detail', newId]);
+    }
+  };
 
   protected applySelectionOrder(mode: 'selection' | 'store' | 'sort'): void {
     const selectedIds = this.store.selectedIds();
@@ -465,8 +573,19 @@ export class TodoDetail {
     });
   }
 
+  protected returnToMainTodo(): void {
+    const mainTodo = this.mainTodoData();
+    if (mainTodo) {
+      this.router.navigate(['/todos/detail', mainTodo.id], {
+        queryParams: { tab: this.subTodosTabIndex }
+      });
+    }
+  }
+
   protected editSubTodo(subTodo: TodoWithRelations): void {
-    this.router.navigate(['/todos/detail', subTodo.id]);
+    this.router.navigate(['/todos/detail', subTodo.id], {
+      queryParams: { mode: 'edit', tab: 0 }
+    });
   }
 
   protected deleteSubTodo(id: string): void {
