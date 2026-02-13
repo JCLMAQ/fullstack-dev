@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -54,7 +54,7 @@ export class TodoList {
 
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
-      const todos = this.filteredItems();
+      const todos = this.visibleItems();
       const selection = this._store.selection();
       const sortedSelectedIds = todos
         .filter(todo => selection.isSelected(todo))
@@ -82,12 +82,21 @@ export class TodoList {
 
   // Filtrage
   protected readonly filterValue = this._store.filterValue;
-  protected readonly filteredItems = this._store.sortedItems;
+  protected readonly showSubTodos = signal(false);
+  protected readonly visibleItems = computed(() => {
+    const items = this._store.sortedItems();
+    return this.showSubTodos() ? items : items.filter((item) => item.mainTodoId == null);
+  });
+  protected readonly paginatedItems = computed(() => {
+    const items = this.visibleItems();
+    const start = this.pageIndex() * this.pageSize();
+    return items.slice(start, start + this.pageSize());
+  });
+  protected readonly totalVisibleItems = computed(() => this.visibleItems().length);
 
   // Pagination
   protected readonly pageIndex = this._store.pageIndex;
   protected readonly pageSize = this._store.pageSize;
-  protected readonly totalItems = this._store.itemsCount;
 
 // Available actions on the list of todos
   // todos$ = this.store.todosValue;
@@ -175,16 +184,21 @@ export class TodoList {
     this._store.setPage(0);
   }
 
+  protected toggleShowSubTodos(): void {
+    this.showSubTodos.update((value) => !value);
+    this._store.setPage(0);
+  }
+
   /**
    * True si tous les utilisateurs paginés sont sélectionnés
    */
   readonly isAllPaginatedSelected = computed(() => {
-    const paginated = this._store.paginatedItems();
+    const paginated = this.paginatedItems();
     return paginated.length > 0 && paginated.every(item => this._store.selection().isSelected(item));
   });
 
   readonly isSomePaginatedSelected = computed(() => {
-    const paginated = this._store.paginatedItems();
+    const paginated = this.paginatedItems();
     const numSelected = paginated.filter(item => this._store.selection().isSelected(item)).length;
     return numSelected > 0 && numSelected < paginated.length;
   });
@@ -205,7 +219,7 @@ export class TodoList {
   }
 
   protected masterToggle(): void {
-    const paginatedItems = this._store.paginatedItems();
+    const paginatedItems = this.paginatedItems();
     const allSelected = paginatedItems.length > 0 && paginatedItems.every(item => this._store.selection().isSelected(item));
     if (allSelected) {
       paginatedItems.forEach(item => {
