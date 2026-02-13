@@ -8,7 +8,7 @@
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
-          {{ _store.itemsCount() }} {{'common.todos' | translate}}
+          {{ totalVisibleItems() }} {{'common.todos' | translate}}
         </mat-chip>
       </mat-chip-set>
     </div>
@@ -35,7 +35,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
 
-      <table mat-table [dataSource]="_store.paginatedItems()" multiTemplateDataRows matSort (matSortChange)="onSortChange($event)">
+      <table mat-table [dataSource]="paginatedItems()" multiTemplateDataRows matSort (matSortChange)="onSortChange($event)">
 
 
         <!-- Data Columns -->
@@ -141,7 +141,7 @@
 
       </table>
       <mat-paginator
-        [length]="totalItems()"
+        [length]="totalVisibleItems()"
         [pageSize]="pageSize()"
         [pageIndex]="pageIndex()"
         [pageSizeOptions]="[5, 10, 20]"
@@ -153,6 +153,14 @@
       <!-- <button mat-icon-button (click)="addOne()"> -->
         <button mat-icon-button (click)="navigateToDetail('', 'add')">
         <mat-icon>add</mat-icon>
+      </button>
+      <button mat-stroked-button color="primary" (click)="toggleShowSubTodos()">
+        <mat-icon>format_list_bulleted</mat-icon>
+        @if (showSubTodos()) {
+          Afficher seulement les todos principaux
+        } @else {
+          Tout lister (inclure les sous-todos)
+        }
       </button>
     </mat-card-footer>
   </mat-card>
