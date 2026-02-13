@@ -5,7 +5,6 @@
 		</div>
 	}
 
-	@if (!store.isLoading()) {
 		<div class="header">
 			<h1 class="mat-headline-4">{{ 'todos.todos' | translate }}</h1>
 			<div class="todo-id-muted">{{ todoForm().value().id }}</div>
@@ -15,7 +14,11 @@
 			<mat-card class="form-card">
 				<mat-card-content>
 					<form class="form-container">
-						<mat-tab-group [preserveContent]="true">
+						<mat-tab-group
+							[preserveContent]="true"
+							[selectedIndex]="store.selectedTabIndex()"
+							(selectedIndexChange)="onSelectedTabIndexChange($event)"
+						>
 							<mat-tab label="{{ 'todos.content' | translate }}">
 								<section class="form-section">
 									<div class="tab-content">
@@ -143,7 +146,7 @@
 							<section class="form-section">
 								<div class="tab-content">
 									<div class="tab-header">
-										<button mat-raised-button color="primary" (click)="addSubTodo()" [disabled]="!currentTodo()">
+										<button mat-raised-button color="primary" type="button" (click)="addSubTodo()" [disabled]="!currentTodo()">
 											<mat-icon>add</mat-icon>
 											Ajouter une sous-todo
 										</button>
@@ -353,5 +356,4 @@
 				<mat-icon>exit_to_app</mat-icon>
 			</button>
 		</mat-toolbar>
-	}
 </div>

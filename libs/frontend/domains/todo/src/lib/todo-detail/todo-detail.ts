@@ -114,6 +114,8 @@ export class TodoDetail {
   protected readonly orgIdOptions = computed(() => this.userStore.organizations());
   private readonly orgsRequested = signal(false);
   private readonly addInitRequested = signal(false);
+  private readonly subTodosTabIndex = 3;
+  private readonly allowTabSync = signal(false);
 
   protected readonly hasActiveSort = computed(() => {
     const currentSort = this.store.currentSort();
@@ -147,6 +149,12 @@ export class TodoDetail {
   constructor() {
     const params = this.route.snapshot.params;
     this.todoId.set(params['id'] ?? null);
+
+    const tabParam = this.route.snapshot.queryParamMap.get('tab');
+    const tabIndex = tabParam ? Number(tabParam) : Number.NaN;
+    if (Number.isInteger(tabIndex) && tabIndex >= 0) {
+      this.store.setSelectedTabIndex(tabIndex);
+    }
 
     const queryMode = this.route.snapshot.queryParamMap.get('mode');
     const matrixMode = this.route.snapshot.paramMap.get('mode');
@@ -207,6 +215,9 @@ export class TodoDetail {
         this.addInitRequested.set(false);
       }
     });
+
+    queueMicrotask(() => this.allowTabSync.set(true));
+
   }
 
   protected orgDisplayName(orgId: string | null): string {
@@ -434,6 +445,24 @@ export class TodoDetail {
 
     this.store.saveTodo(newSubTodo);
     this.snackBar.open('Sub-todo created', 'OK', { duration: 3000 });
+    this.setTabIndex(this.subTodosTabIndex);
+  }
+
+  protected onSelectedTabIndexChange(index: number): void {
+    if (!this.allowTabSync()) {
+      return;
+    }
+    this.setTabIndex(index);
+  }
+
+  private setTabIndex(index: number): void {
+    this.store.setSelectedTabIndex(index);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab: index },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   protected editSubTodo(subTodo: TodoWithRelations): void {

@@ -3,7 +3,7 @@ import { computed, effect, inject } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { AppStore, buildSelectionComputed, withFilter, withNavigationMethods, withPagination, withSelectionFeature, withSort } from "@fe/stores";
-import { patchState, signalStore, type, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, type, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { addEntity, entityConfig, removeEntity, updateEntity } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 import { initialTodoState } from './todo-slice';
@@ -117,6 +117,11 @@ export const TodoStore = signalStore(
       hasError: computed(() => !!store.todosError()),
     };
   }),
+  withMethods((store) => ({
+    setSelectedTabIndex(selectedTabIndex: number): void {
+      patchState(store, { selectedTabIndex });
+    },
+  })),
   // Add filtering capabilities
   withFilter<TodoWithRelations, 'todos'>({
     collection: 'todos',
