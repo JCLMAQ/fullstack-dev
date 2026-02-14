@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import type { HttpResourceRef } from '@angular/common/http';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { apply, disabled, form, FormField } from '@angular/forms/signals';
@@ -104,6 +105,7 @@ export class TodoDetail {
   protected readonly mode = signal<'view' | 'edit' | 'add'>('view');
   protected readonly todoId = signal<string | null>(null);
   private readonly loadedTodo = signal<TodoWithRelations | null>(null);
+  private readonly todoResourceRef = signal<HttpResourceRef<TodoWithRelations | null> | null>(null);
 
   protected readonly todoData = signal<TodoFormData>(defaultTodoData);
 
@@ -216,9 +218,16 @@ export class TodoDetail {
       }
 
       // Charger le todo par ID
-      this.todoService.getTodoById(id).then(todo => {
-        this.loadedTodo.set(todo);
-      });
+      this.todoResourceRef.set(this.todoService.getTodoByIdResource(id));
+    });
+
+    effect(() => {
+      const resourceRef = this.todoResourceRef();
+      if (!resourceRef) {
+        this.loadedTodo.set(null);
+        return;
+      }
+      this.loadedTodo.set(resourceRef.value());
     });
 
     effect(() => {

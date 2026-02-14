@@ -1,9 +1,8 @@
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { TodoWithRelations } from '@db/prisma';
+import { TodoWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { firstValueFrom } from 'rxjs';
 
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';
@@ -63,15 +62,25 @@ export class TodoService {
     });
   }
 
-  async getTodoById(id: string): Promise<TodoWithRelations | null> {
+  getTodoByIdResource(id: string): HttpResourceRef<TodoWithRelations | null> {
     const url = `${this.apiPrefix}/todos/${id}`;
-    try {
-      return await firstValueFrom(this.http.get<TodoWithRelations>(url));
-    } catch (error) {
-      console.error('Error loading todo by ID:', error);
-      return null;
-    }
+    return httpResource<TodoWithRelations | null>(() => ({
+      url,
+      method: 'GET',
+    }), {
+      defaultValue: null,
+    });
   }
+
+  // async getTodoById(id: string): Promise<TodoWithRelations | null> {
+  //   const url = `${this.apiPrefix}/todos/${id}`;
+  //   try {
+  //     return await firstValueFrom(this.http.get<TodoWithRelations>(url));
+  //   } catch (error) {
+  //     console.error('Error loading todo by ID:', error);
+  //     return null;
+  //   }
+  // }
 
   createSaveTodoMutation(options: Partial<HttpMutationOptions<TodoWithRelations, TodoWithRelations>>) {
     const url = `${this.apiPrefix}/todos/save`;
@@ -124,18 +133,18 @@ export class TodoService {
 
   // get todos - classic way
   // Get todos for one user, with optional orgId filter
-  async getTodosByUserIdOrOrgId(ownerId: string, orgId?: string | null): Promise<TodoWithRelations[]> {
-    let params = new HttpParams().set('ownerId', ownerId);
-    const url = this.baseUrl;
-    if (orgId) {
-      params = params.set('orgId', orgId);
-    }
-    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  }
-  // Get todos for an org, without ownerId filter
-  async getTodosByOrgId(orgId: string): Promise<TodoWithRelations[]> {
-    const params = new HttpParams().set('orgId', orgId);
-    const url = this.baseUrl;
-    return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  }
+  // async getTodosByUserIdOrOrgId(ownerId: string, orgId?: string | null): Promise<TodoWithRelations[]> {
+  //   let params = new HttpParams().set('ownerId', ownerId);
+  //   const url = this.baseUrl;
+  //   if (orgId) {
+  //     params = params.set('orgId', orgId);
+  //   }
+  //   return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
+  // }
+  // // Get todos for an org, without ownerId filter
+  // async getTodosByOrgId(orgId: string): Promise<TodoWithRelations[]> {
+  //   const params = new HttpParams().set('orgId', orgId);
+  //   const url = this.baseUrl;
+  //   return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
+  // }
 }
