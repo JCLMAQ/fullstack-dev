@@ -52,6 +52,11 @@
                 "copilot/gpt-5.2-codex",
                 "copilot/oswe-vscode-prime"
             ]
+        },
+        "fullstack-dev/.vscode/mcp.json: deepcontext": {
+            "allowedModels": [
+                "copilot/auto"
+            ]
         }
     }
 }
