@@ -1,3 +1,7 @@
+  @use "@angular/material" as mat;
+  @include mat.elevation-classes();
+  @include mat.app-background();
+
 .todo-list {
   display: flex;
   flex-direction: column;
@@ -77,6 +81,13 @@
   td, th {
     padding: 1rem;
   }
+
+
+  @include mat.paginator-overrides((
+    enabled-icon-color: var(--mat-sys-primary),
+    disabled-icon-color: var(--mat-sys-on-surface-variant),
+  ));
+
 
   mat-paginator {
     border-top: 1px solid var(--mat-sys-outline-variant);

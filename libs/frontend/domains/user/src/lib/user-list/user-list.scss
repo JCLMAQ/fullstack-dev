@@ -1,3 +1,7 @@
+  @use "@angular/material" as mat;
+  @include mat.elevation-classes();
+  @include mat.app-background();
+
 .user-list {
   display: flex;
   flex-direction: column;
@@ -27,6 +31,7 @@
     align-items: center;
     gap: 1rem;
   }
+
 }
 
 .error-banner {
@@ -66,6 +71,14 @@
       background-color: var(--mat-sys-primary-container) !important;
       cursor: pointer !important;
     }
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
+  button[disabled] {
+    mat-icon {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
   }
 
   th {
@@ -77,8 +90,19 @@
     padding: 1rem;
   }
 
+
+@include mat.paginator-overrides((
+    enabled-icon-color: var(--mat-sys-primary),
+    disabled-icon-color: var(--mat-sys-on-surface-variant),
+  ));
+
+
   mat-paginator {
     border-top: 1px solid var(--mat-sys-outline-variant);
+    color: var(--mat-sys-primary);
+  }
+  mat-icon {
+    color: var(--mat-sys-primary);
   }
 }
 

@@ -46,3 +46,4 @@ html {
   @include mat.all-component-themes($custom-theme);
   @include mat.form-field-density($compact-theme);
 }
+
