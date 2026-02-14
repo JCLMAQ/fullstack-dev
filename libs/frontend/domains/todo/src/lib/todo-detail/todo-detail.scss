@@ -23,6 +23,11 @@
 	justify-content: center;
 	gap: 8px;
 	margin-bottom: 2rem;
+
+    mat-icon {
+    color: var(--mat-sys-primary);
+  }
+
 }
 
 .content {
