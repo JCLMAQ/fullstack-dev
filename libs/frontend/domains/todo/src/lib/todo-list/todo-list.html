@@ -74,7 +74,7 @@
         <ng-container matColumnDef="tools">
           <th mat-header-cell *matHeaderCellDef aria-label="row actions">{{ 'common.tools' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button aria-label="expand row"
+            <button mat-icon-button aria-label="expand row" matTooltip="Expand and reverse"
             (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
             @if (expandedElement === element) {
               <mat-icon>keyboard_arrow_up</mat-icon>
@@ -84,26 +84,29 @@
           </button>
 
             <button mat-icon-button
-
+              matTooltip="Edit"
                 (click)="_store.toggleSelection(element.id)"
                 (click)="navigateToDetail(element.id, 'edit')">
               <mat-icon>edit</mat-icon>
             </button>
-              <button mat-icon-button
+              <button mat-icon-button matTooltip="View"
                 (click)="navigateToDetail(element.id, 'view')">
               <mat-icon>remove_red_eye</mat-icon>
             </button>
-            <button mat-icon-button   (click)="softDelete(element.id)">
+            <!-- To delete when owner and admin statute are operational -->
+            <button mat-icon-button  matTooltip="Delete" (click)="softDelete(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
             @if (owner) {
-              <button mat-icon-button [disabled]="owner" (click)="softDelete(element.id)">
+              <button mat-icon-button matTooltip="Delete" aria-label="expand row" ="owner" (click)="softDelete(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             }
-            <button mat-icon-button aria-label="expand row" [disabled]="master" (click)="hardDelete(element.id)">
+            @if (admin) {
+            <button mat-icon-button matTooltip="Delete forever" aria-label="expand row" [disabled]="master" (click)="hardDelete(element.id)">
                 <mat-icon>delete_forever</mat-icon>
               </button>
+            }
             </td>
         </ng-container>
 
@@ -116,7 +119,7 @@
               <div class="element-diagram">
                 <div class="element-position">
                   <strong>{{'common.content' | translate}}</strong> {{element.content}}<br>
-                  <strong>{{'common.description' | translate}}</strong> {{element.description}}
+                  <!-- <strong>{{'common.description' | translate}}</strong> {{element.description}} -->
                 </div>
               </div>
               <lib-todo-sub-list [todo]="element"></lib-todo-sub-list>

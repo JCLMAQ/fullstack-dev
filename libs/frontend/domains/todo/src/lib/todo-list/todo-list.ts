@@ -68,6 +68,7 @@ export class TodoList {
   mode: 'Edit' | 'View' | 'add' | undefined = 'View';
   master = false; // true : button is disable
   owner = false; // true button is disable;
+  admin = false; // true button is enable
 
   // ViewChild pour tri et pagination
   protected readonly sort = viewChild(MatSort);
