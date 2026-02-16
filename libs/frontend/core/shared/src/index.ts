@@ -9,5 +9,6 @@ export * from './lib/models/personal-info';
 export * from './lib/services/responsive.service';
 export * from './lib/utilities/local-storage-cleaner.service';
 export * from './lib/utilities/local-storage-test.service';
+export * from './lib/utilities/signal-utilities/index';
 
 

@@ -3,6 +3,18 @@ import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/
 import { inject, Injectable } from '@angular/core';
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
+import { z } from 'zod';
+
+const TodoSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  content: z.string().nullable().optional(),
+  ownerId: z.string(),
+  createdAt: z.preprocess((arg) => (typeof arg === 'string' ? new Date(arg) : arg), z.date()),
+  updatedAt: z.preprocess((arg) => (typeof arg === 'string' ? new Date(arg) : arg), z.date()),
+}).passthrough();
+
+const TodoListSchema = z.array(TodoSchema);
 
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';
@@ -33,6 +45,16 @@ export class TodoService {
 		return `${this.apiPrefix}/todos/by-user`;
   }
 
+  // Helper pour parser les réponses avec Zod
+  private parseResponse<T>(schema: z.ZodType<T>, data: unknown): T {
+    const result = schema.safeParse(data);
+    if (!result.success) {
+      console.error('❌ Zod Validation Error:', result.error);
+      throw new Error('Data validation failed from API');
+    }
+    return result.data;
+  }
+
   // Using httpResource for automatic caching, loading state, and error handling in the store
   getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string[] | null): HttpResourceRef<TodoWithRelations[]> {
     let params = new HttpParams().set('ownerId', ownerId);
@@ -48,6 +70,8 @@ export class TodoService {
       params,
     }), {
       defaultValue: [],
+      // Utilisation du mapping pour valider et transformer les données avec Zod
+      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
     });
   }
   getTodosByOrgIdResource(orgId: string): HttpResourceRef<TodoWithRelations[]> {
@@ -59,6 +83,7 @@ export class TodoService {
       params,
     }), {
       defaultValue: [],
+      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
     });
   }
 
@@ -69,18 +94,9 @@ export class TodoService {
       method: 'GET',
     }), {
       defaultValue: null,
+      parse: (data) => data ? this.parseResponse(TodoSchema, data) as TodoWithRelations : null
     });
   }
-
-  // async getTodoById(id: string): Promise<TodoWithRelations | null> {
-  //   const url = `${this.apiPrefix}/todos/${id}`;
-  //   try {
-  //     return await firstValueFrom(this.http.get<TodoWithRelations>(url));
-  //   } catch (error) {
-  //     console.error('Error loading todo by ID:', error);
-  //     return null;
-  //   }
-  // }
 
   createSaveTodoMutation(options: Partial<HttpMutationOptions<TodoWithRelations, TodoWithRelations>>) {
     const url = `${this.apiPrefix}/todos/save`;
@@ -131,20 +147,4 @@ export class TodoService {
 		return params;
 	}
 
-  // get todos - classic way
-  // Get todos for one user, with optional orgId filter
-  // async getTodosByUserIdOrOrgId(ownerId: string, orgId?: string | null): Promise<TodoWithRelations[]> {
-  //   let params = new HttpParams().set('ownerId', ownerId);
-  //   const url = this.baseUrl;
-  //   if (orgId) {
-  //     params = params.set('orgId', orgId);
-  //   }
-  //   return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  // }
-  // // Get todos for an org, without ownerId filter
-  // async getTodosByOrgId(orgId: string): Promise<TodoWithRelations[]> {
-  //   const params = new HttpParams().set('orgId', orgId);
-  //   const url = this.baseUrl;
-  //   return await firstValueFrom(this.http.get<{ data: TodoWithRelations[] }>(url, { params })).then((res) => res.data);
-  // }
 }
