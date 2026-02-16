@@ -12,7 +12,7 @@ const TodoSchema = z.object({
   ownerId: z.string(),
   createdAt: z.preprocess((arg) => (typeof arg === 'string' ? new Date(arg) : arg), z.date()),
   updatedAt: z.preprocess((arg) => (typeof arg === 'string' ? new Date(arg) : arg), z.date()),
-}).passthrough();
+});
 
 const TodoListSchema = z.array(TodoSchema);
 
@@ -135,8 +135,9 @@ export class TodoService {
     });
   }
 
+  // Fetch with query options for pagination, search, and sorting
   getTodosWithQueriesResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
-    const url = this.baseUrl;
+    const url = `${this.apiPrefix}/todos`;
     const params = this.buildParams(options);
     return httpResource<TodoWithRelations[]>(() => ({
       url,
