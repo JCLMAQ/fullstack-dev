@@ -135,6 +135,19 @@ export class TodoService {
     });
   }
 
+  getTodosWithQueriesResource(options?: TodosQueryOptions): HttpResourceRef<TodoWithRelations[]> {
+    const url = this.baseUrl;
+    const params = this.buildParams(options);
+    return httpResource<TodoWithRelations[]>(() => ({
+      url,
+      method: 'GET',
+      params,
+    }), {
+      defaultValue: [],
+      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
+    });
+  }
+
     private buildParams(options?: TodosQueryOptions): HttpParams {
 		let params = new HttpParams();
 		if (!options) return params;
