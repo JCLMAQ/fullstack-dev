@@ -7,6 +7,7 @@ import { patchState, signalStore, type, withComputed, withHooks, withMethods, wi
 import { addEntity, entityConfig, removeEntity, updateEntity } from "@ngrx/signals/entities";
 import { TodoService } from '../services/todo-service';
 import { initialTodoState } from './todo-slice';
+import { withTodoMethods } from "./todo-store-methods";
 
 type TodoFilter = {
   ownerId: string | null;
@@ -40,7 +41,7 @@ export const TodoStore = signalStore(
       todos: store._todoServices.getTodosByUserIdOrOrgIdResource(store._appStore.user()?.id!, store._appStore.orgId() ?? null),
     }),
   ),
-
+  withTodoMethods(),
   // Selection within the material Table
   withSelectionFeature<TodoWithRelations>({ collection: 'todos' }),
   // Navigation methods useful for the details view of a todo item

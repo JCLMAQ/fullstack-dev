@@ -141,7 +141,7 @@ export class TodoList {
   }
 
   protected refreshOrReload(): void {
-    // this._store.loadItems();
+    this._store.reload();
   }
 
   /**
