@@ -1,15 +1,25 @@
 import { inject } from '@angular/core';
 import { User } from '@db/prisma/frontend';
 import { AppStore } from '@fe/stores';
-import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
+import { patchState, signalStoreFeature, type,withMethods } from '@ngrx/signals';
 import { addEntity, removeEntity, setAllEntities, updateEntity } from '@ngrx/signals/entities';
 import { UserService, UsersQueryOptions } from '../services/user-service';
 
 type SelectionStore = { selectedIds: () => string[] };
 
-export const withUserMethods = signalStoreFeature(
-
+// export const withUserMethods = signalStoreFeature(
+export function withUserMethods<_>() {
+  return signalStoreFeature(
+    {
+      methods: type<{ _usersReload: () => void }>(),
+    },
   withMethods((store, userService = inject(UserService), appStore = inject(AppStore)) => ({
+
+      // Relaod data from the API, useful after a mutation to get the updated list of todos
+      // Base on the implementation of the httpResource, this will reset the cache and trigger a new API call to get the latest data
+      reload(): void {
+          store._usersReload();
+        },
 
     async loadUsers(options?: UsersQueryOptions) {
       try {
@@ -144,3 +154,4 @@ export const withUserMethods = signalStoreFeature(
 
   }))
 );
+}

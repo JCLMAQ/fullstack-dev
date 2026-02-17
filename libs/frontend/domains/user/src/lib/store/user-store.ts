@@ -32,7 +32,7 @@ export const UserStore = signalStore(
   })),
   withSelectionFeature<User>({ collection: 'users' }),
   withNavigationMethods(),
-  withUserMethods,
+  withUserMethods(),
 
   withUndoRedo({
     collections: [ userConfig.collection ]
@@ -42,6 +42,9 @@ export const UserStore = signalStore(
     return {
       // Conversion des entités en tableau pour la compatibilité
       users: computed(() => Object.values(store.usersEntityMap())),
+
+      isLoading: computed(() => store.usersIsLoading()),
+      hasError: computed(() => !!store.usersError()),
 
       userCount: computed(() => Object.keys(store.usersEntityMap()).length),
 
