@@ -61,7 +61,9 @@ export function withAppAuthFeatures(availableLanguages: string[]): SignalStoreFe
             throw new Error('User data is null after login.');
           }
 
-          const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
+          // const roleIsAdmin = user?.Roles?.includes('ADMIN') || false;
+          // TODO: Warning role Admin forced for now, to be able to test admin features without having to manage roles in the database. To be removed later when roles management will be implemented.
+          const roleIsAdmin = true
 
           // Récupérer tous les IDs d'organisations liées à l'utilisateur
           const organizations = loginResponse.organizations ?? [];

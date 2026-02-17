@@ -32,9 +32,6 @@ export const AppStore = signalStore(
   // withFeature(({ entities }) => withBooksFilter(entities))
   withFeature(({ availableLanguages }) => withAppAuthFeatures(availableLanguages()), // Add: login(), logout(), register()
   ),
-  // // Languages part
-  // withDictionariesFeatures(), // Add selectedLanguage, loadDictionaries(), changeLanguage(), switchLanguage()
-  // withLoadLanguagesFeature(), // Add availableLanguages, loadLanguages()
 
   withMethods((store) => ({
    // Met à jour l'avatar de l'utilisateur dans le signal user
