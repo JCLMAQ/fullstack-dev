@@ -1,3 +1,4 @@
+import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, HttpErrorResponse, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Address, Organization, User, UserWithRelations } from '@db/prisma/frontend';
@@ -24,9 +25,9 @@ export class UserService {
 	private readonly http = inject(HttpClient);
     // Todo  refactor with httpResource
 	private readonly environment = inject(ENVIRONMENT_TOKEN);
-	private readonly resourceFactory = (httpResource as unknown) as (
-		config: { loader: () => unknown; default?: unknown }
-	) => unknown;
+	// private readonly resourceFactory = (httpResource as unknown) as (
+	// 	config: { loader: () => unknown; default?: unknown }
+	// ) => unknown;
 
 	private get apiPrefix(): string {
 		const prefix = this.environment.API_BACKEND_PREFIX ?? '';
@@ -47,14 +48,6 @@ export class UserService {
     // const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
 		return await firstValueFrom(this.http.get<UserWithRelations[]>(url, { params }));
 	}
-//  listUsersResource(options?: UsersQueryOptions): Promise<UserWithRelations[]> {
-//     const url = this.buildUrlWithQuery(this.baseUrl, options);
-//     resource(() => {
-//       this.http.get<UserWithRelations[]>(url);
-//     }
-//     );
-   // return firstValueFrom(this.http.get<UserWithRelations[]>(url));
-  // }
 
 	async getUserById(id: string): Promise<User> {
 		if (!id) throw new Error('id requis');
@@ -173,15 +166,6 @@ export class UserService {
 	// httpResource helpers (signal-friendly)
 	// --------------------
 
-	// usersResource(options?: UsersQueryOptions): unknown {
-	// 	const url = this.buildUrlWithQuery(this.baseUrl, options);
-	// 	// Note: httpResource API is available on Angular v21.
-	// 	// We return `unknown` to avoid leaking internal types while enabling signal-friendly consumption.
-	// 	return this.resourceFactory({
-	// 		loader: () => this.http.get<User[]>(url),
-	// 		default: [],
-	// 	});
-	// }
 	usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
 		return httpResource<User[]>(() => ({
@@ -205,55 +189,112 @@ export class UserService {
     }), {
       defaultValue: null,
     });
-		// return this.resourceFactory({
-		// 	loader: () => this.http.get<User>(url),
-		// 	default: null,
-		// });
 	}
 
-  getUserByEmailResource(email: string): unknown {
+  getUserByEmailResource(email: string): HttpResourceRef<UserWithRelations | null> {
 		if (!email) throw new Error('email requis');
 		const url = `${this.baseUrl}/email/${encodeURIComponent(email)}`;
-    return this.resourceFactory({
-			loader: () => this.http.get<User>(url),
-			default: null,
-		});
+    return httpResource<UserWithRelations | null>(() => ({
+      url,
+      method: 'GET',
+    }), {
+      defaultValue: null,
+    });
 	}
+
+
   userAddressesResource(userId: string): unknown {
     if (!userId) throw new Error('userId requis');
     const url = `${this.baseUrl}/${encodeURIComponent(userId)}/addresses`;
-    return this.resourceFactory({
-      loader: () => this.http.get<Address[]>(url),
-      default: [],
+    return httpResource<Address[]>(() => ({
+      url,
+      method: 'GET',
+    }), {
+      defaultValue: [],
     });
   }
 
 	userOrganizationsResource(id: string): unknown {
 		if (!id) throw new Error("l'id utilisateur est requis");
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/organizations`;
-		return this.resourceFactory({
-			loader: () => this.http.get<Organization[]>(url),
-			default: [],
-		});
+    return httpResource<Organization[]>(() => ({
+          url,
+          method: 'GET',
+        }), {
+          defaultValue: [],
+        });
 	}
 
 	userFollowersResource(id: string): unknown {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/followers`;
-		return this.resourceFactory({
-			loader: () => this.http.get<User[]>(url),
-			default: [],
+		return httpResource<User[]>(() => ({
+			url,
+			method: 'GET',
+		}), {
+			defaultValue: [],
 		});
 	}
 
 	userFollowingResource(id: string): unknown {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/following`;
-		return this.resourceFactory({
-			loader: () => this.http.get<User[]>(url),
-			default: [],
+		return httpResource<User[]>(() => ({
+			url,
+			method: 'GET',
+		}), {
+			defaultValue: [],
 		});
 	}
+
+  createSaveUserMutation(options: Partial<HttpMutationOptions<UserWithRelations, UserWithRelations>>) {
+    const url = `${this.baseUrl}/upsert`;
+    return httpMutation({
+      ...options,
+      request: (user: UserWithRelations) => ({
+        url: url,
+        method: 'POST',
+        body: user,
+      }),
+      operator: concatOp
+    });
+  }
+  createSoftDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
+    const apiPrefix = this.apiPrefix;
+    return httpMutation({
+      ...options,
+      request: (data: { id: string }) => ({
+        url: `${apiPrefix}/users/${data.id}`,
+        method: 'DELETE',
+      }),
+      operator: concatOp
+    });
+  }
+
+    createHardDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
+      const apiPrefix = this.apiPrefix;
+      return httpMutation({
+        ...options,
+        request: (data: { id: string }) => ({
+          url: `${apiPrefix}/users/${data.id}/permanent`,
+          method: 'DELETE',
+        }),
+        operator: concatOp
+      });
+    }
+
+     // Fetch with query options for pagination, search, and sorting
+      getUsersWithQueriesResource(options?: UsersQueryOptions): HttpResourceRef<UserWithRelations[]> {
+        const url = `${this.apiPrefix}/users`; // Assuming the backend can handle query params for filtering, pagination, etc.
+        const params = this.buildParams(options);
+        return httpResource<UserWithRelations[]>(() => ({
+          url,
+          method: 'GET',
+          params,
+        }), {
+          defaultValue: [],
+        });
+      }
 
 	// --------------------
 	// Utils
@@ -276,5 +317,7 @@ export class UserService {
 		const query = params.toString();
 		return query ? `${baseUrl}?${query}` : baseUrl;
 	}
+
+
 }
 
