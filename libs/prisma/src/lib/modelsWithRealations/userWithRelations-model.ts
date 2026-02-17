@@ -2,6 +2,9 @@ import {
   Prisma
 } from '../generated/prisma/client';
 
+
+export type userspec = Prisma.UserWithRelations;
+
 export type UserWithRelations = Prisma.UserGetPayload<{
   include: {
     manager: true;

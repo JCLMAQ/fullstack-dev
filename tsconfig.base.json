@@ -22,6 +22,7 @@
       "@db/prisma-client": ["libs/backend/prisma-client/src/index.ts"],
       "@db/prisma/backend": ["libs/prisma/src/clientBackend.ts"],
       "@db/prisma/frontend": ["libs/prisma/src/browserFrontend.ts"],
+      "@db/prisma/zod": ["libs/prisma/src/lib/generated/zod/schemas"],
       "@be/changestracking": [
         "libs/backend/utilities/changestracking/src/index.ts"
       ],

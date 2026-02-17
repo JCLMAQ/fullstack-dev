@@ -7,6 +7,8 @@ import { firstValueFrom } from 'rxjs';
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';
 
+// const UserListSchema = UserSChema.array();
+
 export type UsersQueryOptions = {
 	skip?: number;
 	take?: number;
@@ -180,14 +182,16 @@ export class UserService {
 	// 		default: [],
 	// 	});
 	// }
-  usersResource(options?: UsersQueryOptions):  HttpResourceRef<User[]> {
-    // usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
+	usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
-    // Note: httpResource API is available on Angular v21.
-    // We return `unknown` to avoid leaking internal types while enabling signal-friendly consumption.
-    return httpResource<User[]>( () => url, { defaultValue: [],});
-    // return httpResource<User[]>(() => url) as HttpResourceRef<User[]>;
-  }
+		return httpResource<User[]>(() => ({
+			url,
+			method: 'GET',
+			params: this.buildParams(options),
+		}), {
+			defaultValue: [],
+		});
+	}
 
 	userByIdResource(id: string): HttpResourceRef<UserWithRelations | null> {
 		if (!id) throw new Error('id requis');

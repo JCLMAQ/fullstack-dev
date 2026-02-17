@@ -12,6 +12,8 @@ generator client {
 generator zod {
   provider = "prisma-zod-generator"
   output                 = "../generated/zod"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
 }
 
 enum TaskState {
