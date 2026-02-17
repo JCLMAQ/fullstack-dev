@@ -55,11 +55,7 @@ export class TodoList {
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
       const todos = this.visibleItems();
-      const selection = this._store.selection();
-      const sortedSelectedIds = todos
-        .filter(todo => selection.isSelected(todo))
-        .map(todo => todo.id);
-      this._store.setSortedSelection(sortedSelectedIds);
+      this._store.syncSortedSelection(todos);
     });
   }
 

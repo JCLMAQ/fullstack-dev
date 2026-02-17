@@ -61,11 +61,7 @@ export class UserList {
     // Synchroniser la sélection triée avec la liste filtrée et triée
     effect(() => {
       const users = this.filteredUsers();
-      const selection = this.store.selection();
-      const sortedSelectedIds = users
-        .filter(user => selection.isSelected(user))
-        .map(user => user.id);
-      this.store.setSortedSelection(sortedSelectedIds);
+      this.store.syncSortedSelection(users);
     });
   }
 

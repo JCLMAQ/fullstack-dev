@@ -1,5 +1,5 @@
 import { computed } from '@angular/core';
-import { patchState, signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalMethod, signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
 
 type SelectionState = {
   selectedIds: string[];
@@ -80,6 +80,18 @@ export function withSelectionFeature<Entity>(config?: { collection?: string }) {
       clearSortedSelection() {
         patchState(store, { effectiveSelectedIds: [] });
       },
+
+      /**
+       * Synchronise effectiveSelectedIds avec les items visibles et la sélection courante.
+       * Utilise signalMethod pour permettre une mise à jour réactive depuis le composant.
+       */
+      syncSortedSelection: signalMethod<Entity[]>((visibleItems: Entity[]) => {
+        const selection = store.selectedIds();
+        const sortedSelectedIds = visibleItems
+          .filter((item: any) => selection.includes(item.id))
+          .map((item: any) => item.id);
+        patchState(store, { effectiveSelectedIds: sortedSelectedIds });
+      }),
     }))
   );
 }
