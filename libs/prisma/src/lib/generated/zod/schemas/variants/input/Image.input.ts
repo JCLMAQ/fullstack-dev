@@ -1,0 +1,43 @@
+import * as z from 'zod';
+// prettier-ignore
+export const ImageInputSchema = z.object({
+    id: z.string(),
+    numSeq: z.number().int(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    published: z.boolean(),
+    isPublic: z.boolean(),
+    isDeleted: z.number().int(),
+    isDeletedDT: z.date().optional().nullable(),
+    filename: z.string(),
+    originalName: z.string(),
+    mimeType: z.string(),
+    fileSize: z.number().int(),
+    width: z.number().int().optional().nullable(),
+    height: z.number().int().optional().nullable(),
+    storageType: z.string(),
+    storagePath: z.string().optional().nullable(),
+    storageUrl: z.string().optional().nullable(),
+    bucketName: z.string().optional().nullable(),
+    isProcessed: z.boolean(),
+    thumbnailUrl: z.string().optional().nullable(),
+    variants: z.unknown().optional().nullable(),
+    tags: z.array(z.string()),
+    altText: z.string().optional().nullable(),
+    description: z.string().optional().nullable(),
+    uploadedBy: z.unknown().optional().nullable(),
+    uploadedById: z.string().optional().nullable(),
+    associatedId: z.string().optional().nullable(),
+    associationType: z.string().optional().nullable(),
+    sequence: z.number().int(),
+    org: z.unknown().optional().nullable(),
+    orgId: z.string().optional().nullable(),
+    post: z.unknown().optional().nullable(),
+    postId: z.string().optional().nullable(),
+    profileUser: z.unknown().optional().nullable(),
+    profileUserId: z.string().optional().nullable(),
+    story: z.unknown().optional().nullable(),
+    storyId: z.string().optional().nullable()
+}).strict();
+
+export type ImageInputType = z.infer<typeof ImageInputSchema>;

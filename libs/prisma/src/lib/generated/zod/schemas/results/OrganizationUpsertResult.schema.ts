@@ -1,0 +1,28 @@
+import * as z from 'zod';
+export const OrganizationUpsertResultSchema = z.object({
+  id: z.string(),
+  numSeq: z.number().int(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  published: z.boolean().optional(),
+  isPublic: z.boolean().optional(),
+  isDeleted: z.number().int().optional(),
+  isDeletedDT: z.date().optional(),
+  name: z.string(),
+  description: z.string().optional(),
+  address: z.unknown().optional(),
+  emailITAdmin: z.string(),
+  webSite: z.string().optional(),
+  OrgEmails: z.array(z.unknown()),
+  OrgDomains: z.array(z.unknown()),
+  mainOrg: z.unknown().optional(),
+  mainOrgId: z.string().optional(),
+  OrgEntity: z.array(z.unknown()),
+  Members: z.array(z.unknown()),
+  Posts: z.array(z.unknown()),
+  Groups: z.array(z.unknown()),
+  Files: z.array(z.unknown()),
+  Tasks: z.array(z.unknown()),
+  Todos: z.array(z.unknown()),
+  Images: z.array(z.unknown())
+});

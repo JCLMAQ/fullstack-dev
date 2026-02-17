@@ -1,0 +1,12 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserTodoLinkOrderByWithRelationInputObjectSchema as UserTodoLinkOrderByWithRelationInputObjectSchema } from './objects/UserTodoLinkOrderByWithRelationInput.schema';
+import { UserTodoLinkWhereInputObjectSchema as UserTodoLinkWhereInputObjectSchema } from './objects/UserTodoLinkWhereInput.schema';
+import { UserTodoLinkWhereUniqueInputObjectSchema as UserTodoLinkWhereUniqueInputObjectSchema } from './objects/UserTodoLinkWhereUniqueInput.schema';
+import { UserTodoLinkCountAggregateInputObjectSchema as UserTodoLinkCountAggregateInputObjectSchema } from './objects/UserTodoLinkCountAggregateInput.schema';
+import { UserTodoLinkMinAggregateInputObjectSchema as UserTodoLinkMinAggregateInputObjectSchema } from './objects/UserTodoLinkMinAggregateInput.schema';
+import { UserTodoLinkMaxAggregateInputObjectSchema as UserTodoLinkMaxAggregateInputObjectSchema } from './objects/UserTodoLinkMaxAggregateInput.schema';
+
+export const UserTodoLinkAggregateSchema: z.ZodType<Prisma.UserTodoLinkAggregateArgs> = z.object({ orderBy: z.union([UserTodoLinkOrderByWithRelationInputObjectSchema, UserTodoLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserTodoLinkWhereInputObjectSchema.optional(), cursor: UserTodoLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserTodoLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTodoLinkMinAggregateInputObjectSchema.optional(), _max: UserTodoLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserTodoLinkAggregateArgs>;
+
+export const UserTodoLinkAggregateZodSchema = z.object({ orderBy: z.union([UserTodoLinkOrderByWithRelationInputObjectSchema, UserTodoLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserTodoLinkWhereInputObjectSchema.optional(), cursor: UserTodoLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserTodoLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTodoLinkMinAggregateInputObjectSchema.optional(), _max: UserTodoLinkMaxAggregateInputObjectSchema.optional() }).strict();

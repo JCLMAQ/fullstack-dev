@@ -1,0 +1,13 @@
+import * as z from 'zod';
+import type { Prisma } from '../../../prisma/client';
+
+
+const makeSchema = () => z.object({
+  id: z.literal(true).optional(),
+  isDeleted: z.literal(true).optional(),
+  position: z.literal(true).optional(),
+  tagCategoriesId: z.literal(true).optional(),
+  mainTagId: z.literal(true).optional()
+}).strict();
+export const TagValueSumAggregateInputObjectSchema: z.ZodType<Prisma.TagValueSumAggregateInputType> = makeSchema() as unknown as z.ZodType<Prisma.TagValueSumAggregateInputType>;
+export const TagValueSumAggregateInputObjectZodSchema = makeSchema();

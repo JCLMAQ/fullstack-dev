@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { OrgEmailWhereInputObjectSchema as OrgEmailWhereInputObjectSchema } from './objects/OrgEmailWhereInput.schema';
+import { OrgEmailOrderByWithAggregationInputObjectSchema as OrgEmailOrderByWithAggregationInputObjectSchema } from './objects/OrgEmailOrderByWithAggregationInput.schema';
+import { OrgEmailScalarWhereWithAggregatesInputObjectSchema as OrgEmailScalarWhereWithAggregatesInputObjectSchema } from './objects/OrgEmailScalarWhereWithAggregatesInput.schema';
+import { OrgEmailScalarFieldEnumSchema } from './enums/OrgEmailScalarFieldEnum.schema';
+import { OrgEmailCountAggregateInputObjectSchema as OrgEmailCountAggregateInputObjectSchema } from './objects/OrgEmailCountAggregateInput.schema';
+import { OrgEmailMinAggregateInputObjectSchema as OrgEmailMinAggregateInputObjectSchema } from './objects/OrgEmailMinAggregateInput.schema';
+import { OrgEmailMaxAggregateInputObjectSchema as OrgEmailMaxAggregateInputObjectSchema } from './objects/OrgEmailMaxAggregateInput.schema';
+import { OrgEmailAvgAggregateInputObjectSchema as OrgEmailAvgAggregateInputObjectSchema } from './objects/OrgEmailAvgAggregateInput.schema';
+import { OrgEmailSumAggregateInputObjectSchema as OrgEmailSumAggregateInputObjectSchema } from './objects/OrgEmailSumAggregateInput.schema';
+
+export const OrgEmailGroupBySchema: z.ZodType<Prisma.OrgEmailGroupByArgs> = z.object({ where: OrgEmailWhereInputObjectSchema.optional(), orderBy: z.union([OrgEmailOrderByWithAggregationInputObjectSchema, OrgEmailOrderByWithAggregationInputObjectSchema.array()]).optional(), having: OrgEmailScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(OrgEmailScalarFieldEnumSchema), _count: z.union([ z.literal(true), OrgEmailCountAggregateInputObjectSchema ]).optional(), _min: OrgEmailMinAggregateInputObjectSchema.optional(), _max: OrgEmailMaxAggregateInputObjectSchema.optional(), _avg: OrgEmailAvgAggregateInputObjectSchema.optional(), _sum: OrgEmailSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.OrgEmailGroupByArgs>;
+
+export const OrgEmailGroupByZodSchema = z.object({ where: OrgEmailWhereInputObjectSchema.optional(), orderBy: z.union([OrgEmailOrderByWithAggregationInputObjectSchema, OrgEmailOrderByWithAggregationInputObjectSchema.array()]).optional(), having: OrgEmailScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(OrgEmailScalarFieldEnumSchema), _count: z.union([ z.literal(true), OrgEmailCountAggregateInputObjectSchema ]).optional(), _min: OrgEmailMinAggregateInputObjectSchema.optional(), _max: OrgEmailMaxAggregateInputObjectSchema.optional(), _avg: OrgEmailAvgAggregateInputObjectSchema.optional(), _sum: OrgEmailSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { AppEmailDomainOrderByWithRelationInputObjectSchema as AppEmailDomainOrderByWithRelationInputObjectSchema } from './objects/AppEmailDomainOrderByWithRelationInput.schema';
+import { AppEmailDomainWhereInputObjectSchema as AppEmailDomainWhereInputObjectSchema } from './objects/AppEmailDomainWhereInput.schema';
+import { AppEmailDomainWhereUniqueInputObjectSchema as AppEmailDomainWhereUniqueInputObjectSchema } from './objects/AppEmailDomainWhereUniqueInput.schema';
+import { AppEmailDomainCountAggregateInputObjectSchema as AppEmailDomainCountAggregateInputObjectSchema } from './objects/AppEmailDomainCountAggregateInput.schema';
+import { AppEmailDomainMinAggregateInputObjectSchema as AppEmailDomainMinAggregateInputObjectSchema } from './objects/AppEmailDomainMinAggregateInput.schema';
+import { AppEmailDomainMaxAggregateInputObjectSchema as AppEmailDomainMaxAggregateInputObjectSchema } from './objects/AppEmailDomainMaxAggregateInput.schema';
+import { AppEmailDomainAvgAggregateInputObjectSchema as AppEmailDomainAvgAggregateInputObjectSchema } from './objects/AppEmailDomainAvgAggregateInput.schema';
+import { AppEmailDomainSumAggregateInputObjectSchema as AppEmailDomainSumAggregateInputObjectSchema } from './objects/AppEmailDomainSumAggregateInput.schema';
+
+export const AppEmailDomainAggregateSchema: z.ZodType<Prisma.AppEmailDomainAggregateArgs> = z.object({ orderBy: z.union([AppEmailDomainOrderByWithRelationInputObjectSchema, AppEmailDomainOrderByWithRelationInputObjectSchema.array()]).optional(), where: AppEmailDomainWhereInputObjectSchema.optional(), cursor: AppEmailDomainWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), AppEmailDomainCountAggregateInputObjectSchema ]).optional(), _min: AppEmailDomainMinAggregateInputObjectSchema.optional(), _max: AppEmailDomainMaxAggregateInputObjectSchema.optional(), _avg: AppEmailDomainAvgAggregateInputObjectSchema.optional(), _sum: AppEmailDomainSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.AppEmailDomainAggregateArgs>;
+
+export const AppEmailDomainAggregateZodSchema = z.object({ orderBy: z.union([AppEmailDomainOrderByWithRelationInputObjectSchema, AppEmailDomainOrderByWithRelationInputObjectSchema.array()]).optional(), where: AppEmailDomainWhereInputObjectSchema.optional(), cursor: AppEmailDomainWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), AppEmailDomainCountAggregateInputObjectSchema ]).optional(), _min: AppEmailDomainMinAggregateInputObjectSchema.optional(), _max: AppEmailDomainMaxAggregateInputObjectSchema.optional(), _avg: AppEmailDomainAvgAggregateInputObjectSchema.optional(), _sum: AppEmailDomainSumAggregateInputObjectSchema.optional() }).strict();

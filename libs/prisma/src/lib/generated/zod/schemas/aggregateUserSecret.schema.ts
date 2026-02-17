@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserSecretOrderByWithRelationInputObjectSchema as UserSecretOrderByWithRelationInputObjectSchema } from './objects/UserSecretOrderByWithRelationInput.schema';
+import { UserSecretWhereInputObjectSchema as UserSecretWhereInputObjectSchema } from './objects/UserSecretWhereInput.schema';
+import { UserSecretWhereUniqueInputObjectSchema as UserSecretWhereUniqueInputObjectSchema } from './objects/UserSecretWhereUniqueInput.schema';
+import { UserSecretCountAggregateInputObjectSchema as UserSecretCountAggregateInputObjectSchema } from './objects/UserSecretCountAggregateInput.schema';
+import { UserSecretMinAggregateInputObjectSchema as UserSecretMinAggregateInputObjectSchema } from './objects/UserSecretMinAggregateInput.schema';
+import { UserSecretMaxAggregateInputObjectSchema as UserSecretMaxAggregateInputObjectSchema } from './objects/UserSecretMaxAggregateInput.schema';
+import { UserSecretAvgAggregateInputObjectSchema as UserSecretAvgAggregateInputObjectSchema } from './objects/UserSecretAvgAggregateInput.schema';
+import { UserSecretSumAggregateInputObjectSchema as UserSecretSumAggregateInputObjectSchema } from './objects/UserSecretSumAggregateInput.schema';
+
+export const UserSecretAggregateSchema: z.ZodType<Prisma.UserSecretAggregateArgs> = z.object({ orderBy: z.union([UserSecretOrderByWithRelationInputObjectSchema, UserSecretOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserSecretWhereInputObjectSchema.optional(), cursor: UserSecretWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserSecretCountAggregateInputObjectSchema ]).optional(), _min: UserSecretMinAggregateInputObjectSchema.optional(), _max: UserSecretMaxAggregateInputObjectSchema.optional(), _avg: UserSecretAvgAggregateInputObjectSchema.optional(), _sum: UserSecretSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserSecretAggregateArgs>;
+
+export const UserSecretAggregateZodSchema = z.object({ orderBy: z.union([UserSecretOrderByWithRelationInputObjectSchema, UserSecretOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserSecretWhereInputObjectSchema.optional(), cursor: UserSecretWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserSecretCountAggregateInputObjectSchema ]).optional(), _min: UserSecretMinAggregateInputObjectSchema.optional(), _max: UserSecretMaxAggregateInputObjectSchema.optional(), _avg: UserSecretAvgAggregateInputObjectSchema.optional(), _sum: UserSecretSumAggregateInputObjectSchema.optional() }).strict();

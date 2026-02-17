@@ -1,0 +1,10 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { AccountValidationOrderByWithRelationInputObjectSchema as AccountValidationOrderByWithRelationInputObjectSchema } from './objects/AccountValidationOrderByWithRelationInput.schema';
+import { AccountValidationWhereInputObjectSchema as AccountValidationWhereInputObjectSchema } from './objects/AccountValidationWhereInput.schema';
+import { AccountValidationWhereUniqueInputObjectSchema as AccountValidationWhereUniqueInputObjectSchema } from './objects/AccountValidationWhereUniqueInput.schema';
+import { AccountValidationCountAggregateInputObjectSchema as AccountValidationCountAggregateInputObjectSchema } from './objects/AccountValidationCountAggregateInput.schema';
+
+export const AccountValidationCountSchema: z.ZodType<Prisma.AccountValidationCountArgs> = z.object({ orderBy: z.union([AccountValidationOrderByWithRelationInputObjectSchema, AccountValidationOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountValidationWhereInputObjectSchema.optional(), cursor: AccountValidationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), AccountValidationCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.AccountValidationCountArgs>;
+
+export const AccountValidationCountZodSchema = z.object({ orderBy: z.union([AccountValidationOrderByWithRelationInputObjectSchema, AccountValidationOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountValidationWhereInputObjectSchema.optional(), cursor: AccountValidationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), AccountValidationCountAggregateInputObjectSchema ]).optional() }).strict();

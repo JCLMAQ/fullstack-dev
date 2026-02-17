@@ -1,0 +1,13 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserPostLikeLinkWhereInputObjectSchema as UserPostLikeLinkWhereInputObjectSchema } from './objects/UserPostLikeLinkWhereInput.schema';
+import { UserPostLikeLinkOrderByWithAggregationInputObjectSchema as UserPostLikeLinkOrderByWithAggregationInputObjectSchema } from './objects/UserPostLikeLinkOrderByWithAggregationInput.schema';
+import { UserPostLikeLinkScalarWhereWithAggregatesInputObjectSchema as UserPostLikeLinkScalarWhereWithAggregatesInputObjectSchema } from './objects/UserPostLikeLinkScalarWhereWithAggregatesInput.schema';
+import { UserPostLikeLinkScalarFieldEnumSchema } from './enums/UserPostLikeLinkScalarFieldEnum.schema';
+import { UserPostLikeLinkCountAggregateInputObjectSchema as UserPostLikeLinkCountAggregateInputObjectSchema } from './objects/UserPostLikeLinkCountAggregateInput.schema';
+import { UserPostLikeLinkMinAggregateInputObjectSchema as UserPostLikeLinkMinAggregateInputObjectSchema } from './objects/UserPostLikeLinkMinAggregateInput.schema';
+import { UserPostLikeLinkMaxAggregateInputObjectSchema as UserPostLikeLinkMaxAggregateInputObjectSchema } from './objects/UserPostLikeLinkMaxAggregateInput.schema';
+
+export const UserPostLikeLinkGroupBySchema: z.ZodType<Prisma.UserPostLikeLinkGroupByArgs> = z.object({ where: UserPostLikeLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserPostLikeLinkOrderByWithAggregationInputObjectSchema, UserPostLikeLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserPostLikeLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserPostLikeLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserPostLikeLinkCountAggregateInputObjectSchema ]).optional(), _min: UserPostLikeLinkMinAggregateInputObjectSchema.optional(), _max: UserPostLikeLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserPostLikeLinkGroupByArgs>;
+
+export const UserPostLikeLinkGroupByZodSchema = z.object({ where: UserPostLikeLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserPostLikeLinkOrderByWithAggregationInputObjectSchema, UserPostLikeLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserPostLikeLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserPostLikeLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserPostLikeLinkCountAggregateInputObjectSchema ]).optional(), _min: UserPostLikeLinkMinAggregateInputObjectSchema.optional(), _max: UserPostLikeLinkMaxAggregateInputObjectSchema.optional() }).strict();

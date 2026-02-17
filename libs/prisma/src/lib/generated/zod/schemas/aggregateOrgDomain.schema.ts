@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { OrgDomainOrderByWithRelationInputObjectSchema as OrgDomainOrderByWithRelationInputObjectSchema } from './objects/OrgDomainOrderByWithRelationInput.schema';
+import { OrgDomainWhereInputObjectSchema as OrgDomainWhereInputObjectSchema } from './objects/OrgDomainWhereInput.schema';
+import { OrgDomainWhereUniqueInputObjectSchema as OrgDomainWhereUniqueInputObjectSchema } from './objects/OrgDomainWhereUniqueInput.schema';
+import { OrgDomainCountAggregateInputObjectSchema as OrgDomainCountAggregateInputObjectSchema } from './objects/OrgDomainCountAggregateInput.schema';
+import { OrgDomainMinAggregateInputObjectSchema as OrgDomainMinAggregateInputObjectSchema } from './objects/OrgDomainMinAggregateInput.schema';
+import { OrgDomainMaxAggregateInputObjectSchema as OrgDomainMaxAggregateInputObjectSchema } from './objects/OrgDomainMaxAggregateInput.schema';
+import { OrgDomainAvgAggregateInputObjectSchema as OrgDomainAvgAggregateInputObjectSchema } from './objects/OrgDomainAvgAggregateInput.schema';
+import { OrgDomainSumAggregateInputObjectSchema as OrgDomainSumAggregateInputObjectSchema } from './objects/OrgDomainSumAggregateInput.schema';
+
+export const OrgDomainAggregateSchema: z.ZodType<Prisma.OrgDomainAggregateArgs> = z.object({ orderBy: z.union([OrgDomainOrderByWithRelationInputObjectSchema, OrgDomainOrderByWithRelationInputObjectSchema.array()]).optional(), where: OrgDomainWhereInputObjectSchema.optional(), cursor: OrgDomainWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), OrgDomainCountAggregateInputObjectSchema ]).optional(), _min: OrgDomainMinAggregateInputObjectSchema.optional(), _max: OrgDomainMaxAggregateInputObjectSchema.optional(), _avg: OrgDomainAvgAggregateInputObjectSchema.optional(), _sum: OrgDomainSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.OrgDomainAggregateArgs>;
+
+export const OrgDomainAggregateZodSchema = z.object({ orderBy: z.union([OrgDomainOrderByWithRelationInputObjectSchema, OrgDomainOrderByWithRelationInputObjectSchema.array()]).optional(), where: OrgDomainWhereInputObjectSchema.optional(), cursor: OrgDomainWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), OrgDomainCountAggregateInputObjectSchema ]).optional(), _min: OrgDomainMinAggregateInputObjectSchema.optional(), _max: OrgDomainMaxAggregateInputObjectSchema.optional(), _avg: OrgDomainAvgAggregateInputObjectSchema.optional(), _sum: OrgDomainSumAggregateInputObjectSchema.optional() }).strict();

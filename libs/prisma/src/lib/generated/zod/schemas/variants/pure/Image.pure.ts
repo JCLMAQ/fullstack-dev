@@ -1,0 +1,43 @@
+import * as z from 'zod';
+// prettier-ignore
+export const ImageModelSchema = z.object({
+    id: z.string(),
+    numSeq: z.number().int(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    published: z.boolean(),
+    isPublic: z.boolean(),
+    isDeleted: z.number().int(),
+    isDeletedDT: z.date().nullable(),
+    filename: z.string(),
+    originalName: z.string(),
+    mimeType: z.string(),
+    fileSize: z.number().int(),
+    width: z.number().int().nullable(),
+    height: z.number().int().nullable(),
+    storageType: z.string(),
+    storagePath: z.string().nullable(),
+    storageUrl: z.string().nullable(),
+    bucketName: z.string().nullable(),
+    isProcessed: z.boolean(),
+    thumbnailUrl: z.string().nullable(),
+    variants: z.unknown().nullable(),
+    tags: z.array(z.string()),
+    altText: z.string().nullable(),
+    description: z.string().nullable(),
+    uploadedBy: z.unknown().nullable(),
+    uploadedById: z.string().nullable(),
+    associatedId: z.string().nullable(),
+    associationType: z.string().nullable(),
+    sequence: z.number().int(),
+    org: z.unknown().nullable(),
+    orgId: z.string().nullable(),
+    post: z.unknown().nullable(),
+    postId: z.string().nullable(),
+    profileUser: z.unknown().nullable(),
+    profileUserId: z.string().nullable(),
+    story: z.unknown().nullable(),
+    storyId: z.string().nullable()
+}).strict();
+
+export type ImagePureType = z.infer<typeof ImageModelSchema>;

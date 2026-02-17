@@ -1,0 +1,13 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserTaskLinkWhereInputObjectSchema as UserTaskLinkWhereInputObjectSchema } from './objects/UserTaskLinkWhereInput.schema';
+import { UserTaskLinkOrderByWithAggregationInputObjectSchema as UserTaskLinkOrderByWithAggregationInputObjectSchema } from './objects/UserTaskLinkOrderByWithAggregationInput.schema';
+import { UserTaskLinkScalarWhereWithAggregatesInputObjectSchema as UserTaskLinkScalarWhereWithAggregatesInputObjectSchema } from './objects/UserTaskLinkScalarWhereWithAggregatesInput.schema';
+import { UserTaskLinkScalarFieldEnumSchema } from './enums/UserTaskLinkScalarFieldEnum.schema';
+import { UserTaskLinkCountAggregateInputObjectSchema as UserTaskLinkCountAggregateInputObjectSchema } from './objects/UserTaskLinkCountAggregateInput.schema';
+import { UserTaskLinkMinAggregateInputObjectSchema as UserTaskLinkMinAggregateInputObjectSchema } from './objects/UserTaskLinkMinAggregateInput.schema';
+import { UserTaskLinkMaxAggregateInputObjectSchema as UserTaskLinkMaxAggregateInputObjectSchema } from './objects/UserTaskLinkMaxAggregateInput.schema';
+
+export const UserTaskLinkGroupBySchema: z.ZodType<Prisma.UserTaskLinkGroupByArgs> = z.object({ where: UserTaskLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserTaskLinkOrderByWithAggregationInputObjectSchema, UserTaskLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserTaskLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserTaskLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserTaskLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTaskLinkMinAggregateInputObjectSchema.optional(), _max: UserTaskLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserTaskLinkGroupByArgs>;
+
+export const UserTaskLinkGroupByZodSchema = z.object({ where: UserTaskLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserTaskLinkOrderByWithAggregationInputObjectSchema, UserTaskLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserTaskLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserTaskLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserTaskLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTaskLinkMinAggregateInputObjectSchema.optional(), _max: UserTaskLinkMaxAggregateInputObjectSchema.optional() }).strict();

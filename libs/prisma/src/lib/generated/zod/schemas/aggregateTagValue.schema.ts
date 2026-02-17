@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TagValueOrderByWithRelationInputObjectSchema as TagValueOrderByWithRelationInputObjectSchema } from './objects/TagValueOrderByWithRelationInput.schema';
+import { TagValueWhereInputObjectSchema as TagValueWhereInputObjectSchema } from './objects/TagValueWhereInput.schema';
+import { TagValueWhereUniqueInputObjectSchema as TagValueWhereUniqueInputObjectSchema } from './objects/TagValueWhereUniqueInput.schema';
+import { TagValueCountAggregateInputObjectSchema as TagValueCountAggregateInputObjectSchema } from './objects/TagValueCountAggregateInput.schema';
+import { TagValueMinAggregateInputObjectSchema as TagValueMinAggregateInputObjectSchema } from './objects/TagValueMinAggregateInput.schema';
+import { TagValueMaxAggregateInputObjectSchema as TagValueMaxAggregateInputObjectSchema } from './objects/TagValueMaxAggregateInput.schema';
+import { TagValueAvgAggregateInputObjectSchema as TagValueAvgAggregateInputObjectSchema } from './objects/TagValueAvgAggregateInput.schema';
+import { TagValueSumAggregateInputObjectSchema as TagValueSumAggregateInputObjectSchema } from './objects/TagValueSumAggregateInput.schema';
+
+export const TagValueAggregateSchema: z.ZodType<Prisma.TagValueAggregateArgs> = z.object({ orderBy: z.union([TagValueOrderByWithRelationInputObjectSchema, TagValueOrderByWithRelationInputObjectSchema.array()]).optional(), where: TagValueWhereInputObjectSchema.optional(), cursor: TagValueWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TagValueCountAggregateInputObjectSchema ]).optional(), _min: TagValueMinAggregateInputObjectSchema.optional(), _max: TagValueMaxAggregateInputObjectSchema.optional(), _avg: TagValueAvgAggregateInputObjectSchema.optional(), _sum: TagValueSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TagValueAggregateArgs>;
+
+export const TagValueAggregateZodSchema = z.object({ orderBy: z.union([TagValueOrderByWithRelationInputObjectSchema, TagValueOrderByWithRelationInputObjectSchema.array()]).optional(), where: TagValueWhereInputObjectSchema.optional(), cursor: TagValueWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TagValueCountAggregateInputObjectSchema ]).optional(), _min: TagValueMinAggregateInputObjectSchema.optional(), _max: TagValueMaxAggregateInputObjectSchema.optional(), _avg: TagValueAvgAggregateInputObjectSchema.optional(), _sum: TagValueSumAggregateInputObjectSchema.optional() }).strict();

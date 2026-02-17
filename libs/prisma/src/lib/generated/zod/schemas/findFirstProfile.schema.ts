@@ -1,0 +1,42 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ProfileIncludeObjectSchema as ProfileIncludeObjectSchema } from './objects/ProfileInclude.schema';
+import { ProfileOrderByWithRelationInputObjectSchema as ProfileOrderByWithRelationInputObjectSchema } from './objects/ProfileOrderByWithRelationInput.schema';
+import { ProfileWhereInputObjectSchema as ProfileWhereInputObjectSchema } from './objects/ProfileWhereInput.schema';
+import { ProfileWhereUniqueInputObjectSchema as ProfileWhereUniqueInputObjectSchema } from './objects/ProfileWhereUniqueInput.schema';
+import { ProfileScalarFieldEnumSchema } from './enums/ProfileScalarFieldEnum.schema';
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ProfileFindFirstSelectSchema: z.ZodType<Prisma.ProfileSelect> = z.object({
+    id: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    published: z.boolean().optional(),
+    isPublic: z.boolean().optional(),
+    isDeleted: z.boolean().optional(),
+    isDeletedDT: z.boolean().optional(),
+    orderProfile: z.boolean().optional(),
+    Users: z.boolean().optional(),
+    bio: z.boolean().optional(),
+    _count: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.ProfileSelect>;
+
+export const ProfileFindFirstSelectZodSchema = z.object({
+    id: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    published: z.boolean().optional(),
+    isPublic: z.boolean().optional(),
+    isDeleted: z.boolean().optional(),
+    isDeletedDT: z.boolean().optional(),
+    orderProfile: z.boolean().optional(),
+    Users: z.boolean().optional(),
+    bio: z.boolean().optional(),
+    _count: z.boolean().optional()
+  }).strict();
+
+export const ProfileFindFirstSchema: z.ZodType<Prisma.ProfileFindFirstArgs> = z.object({ select: ProfileFindFirstSelectSchema.optional(), include: z.lazy(() => ProfileIncludeObjectSchema.optional()), orderBy: z.union([ProfileOrderByWithRelationInputObjectSchema, ProfileOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProfileWhereInputObjectSchema.optional(), cursor: ProfileWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProfileScalarFieldEnumSchema, ProfileScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProfileFindFirstArgs>;
+
+export const ProfileFindFirstZodSchema = z.object({ select: ProfileFindFirstSelectSchema.optional(), include: z.lazy(() => ProfileIncludeObjectSchema.optional()), orderBy: z.union([ProfileOrderByWithRelationInputObjectSchema, ProfileOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProfileWhereInputObjectSchema.optional(), cursor: ProfileWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProfileScalarFieldEnumSchema, ProfileScalarFieldEnumSchema.array()]).optional() }).strict();

@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserSecretWhereInputObjectSchema as UserSecretWhereInputObjectSchema } from './objects/UserSecretWhereInput.schema';
+import { UserSecretOrderByWithAggregationInputObjectSchema as UserSecretOrderByWithAggregationInputObjectSchema } from './objects/UserSecretOrderByWithAggregationInput.schema';
+import { UserSecretScalarWhereWithAggregatesInputObjectSchema as UserSecretScalarWhereWithAggregatesInputObjectSchema } from './objects/UserSecretScalarWhereWithAggregatesInput.schema';
+import { UserSecretScalarFieldEnumSchema } from './enums/UserSecretScalarFieldEnum.schema';
+import { UserSecretCountAggregateInputObjectSchema as UserSecretCountAggregateInputObjectSchema } from './objects/UserSecretCountAggregateInput.schema';
+import { UserSecretMinAggregateInputObjectSchema as UserSecretMinAggregateInputObjectSchema } from './objects/UserSecretMinAggregateInput.schema';
+import { UserSecretMaxAggregateInputObjectSchema as UserSecretMaxAggregateInputObjectSchema } from './objects/UserSecretMaxAggregateInput.schema';
+import { UserSecretAvgAggregateInputObjectSchema as UserSecretAvgAggregateInputObjectSchema } from './objects/UserSecretAvgAggregateInput.schema';
+import { UserSecretSumAggregateInputObjectSchema as UserSecretSumAggregateInputObjectSchema } from './objects/UserSecretSumAggregateInput.schema';
+
+export const UserSecretGroupBySchema: z.ZodType<Prisma.UserSecretGroupByArgs> = z.object({ where: UserSecretWhereInputObjectSchema.optional(), orderBy: z.union([UserSecretOrderByWithAggregationInputObjectSchema, UserSecretOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserSecretScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserSecretScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserSecretCountAggregateInputObjectSchema ]).optional(), _min: UserSecretMinAggregateInputObjectSchema.optional(), _max: UserSecretMaxAggregateInputObjectSchema.optional(), _avg: UserSecretAvgAggregateInputObjectSchema.optional(), _sum: UserSecretSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserSecretGroupByArgs>;
+
+export const UserSecretGroupByZodSchema = z.object({ where: UserSecretWhereInputObjectSchema.optional(), orderBy: z.union([UserSecretOrderByWithAggregationInputObjectSchema, UserSecretOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserSecretScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserSecretScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserSecretCountAggregateInputObjectSchema ]).optional(), _min: UserSecretMinAggregateInputObjectSchema.optional(), _max: UserSecretMaxAggregateInputObjectSchema.optional(), _avg: UserSecretAvgAggregateInputObjectSchema.optional(), _sum: UserSecretSumAggregateInputObjectSchema.optional() }).strict();

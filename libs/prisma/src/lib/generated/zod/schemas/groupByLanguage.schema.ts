@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { LanguageWhereInputObjectSchema as LanguageWhereInputObjectSchema } from './objects/LanguageWhereInput.schema';
+import { LanguageOrderByWithAggregationInputObjectSchema as LanguageOrderByWithAggregationInputObjectSchema } from './objects/LanguageOrderByWithAggregationInput.schema';
+import { LanguageScalarWhereWithAggregatesInputObjectSchema as LanguageScalarWhereWithAggregatesInputObjectSchema } from './objects/LanguageScalarWhereWithAggregatesInput.schema';
+import { LanguageScalarFieldEnumSchema } from './enums/LanguageScalarFieldEnum.schema';
+import { LanguageCountAggregateInputObjectSchema as LanguageCountAggregateInputObjectSchema } from './objects/LanguageCountAggregateInput.schema';
+import { LanguageMinAggregateInputObjectSchema as LanguageMinAggregateInputObjectSchema } from './objects/LanguageMinAggregateInput.schema';
+import { LanguageMaxAggregateInputObjectSchema as LanguageMaxAggregateInputObjectSchema } from './objects/LanguageMaxAggregateInput.schema';
+import { LanguageAvgAggregateInputObjectSchema as LanguageAvgAggregateInputObjectSchema } from './objects/LanguageAvgAggregateInput.schema';
+import { LanguageSumAggregateInputObjectSchema as LanguageSumAggregateInputObjectSchema } from './objects/LanguageSumAggregateInput.schema';
+
+export const LanguageGroupBySchema: z.ZodType<Prisma.LanguageGroupByArgs> = z.object({ where: LanguageWhereInputObjectSchema.optional(), orderBy: z.union([LanguageOrderByWithAggregationInputObjectSchema, LanguageOrderByWithAggregationInputObjectSchema.array()]).optional(), having: LanguageScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LanguageScalarFieldEnumSchema), _count: z.union([ z.literal(true), LanguageCountAggregateInputObjectSchema ]).optional(), _min: LanguageMinAggregateInputObjectSchema.optional(), _max: LanguageMaxAggregateInputObjectSchema.optional(), _avg: LanguageAvgAggregateInputObjectSchema.optional(), _sum: LanguageSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.LanguageGroupByArgs>;
+
+export const LanguageGroupByZodSchema = z.object({ where: LanguageWhereInputObjectSchema.optional(), orderBy: z.union([LanguageOrderByWithAggregationInputObjectSchema, LanguageOrderByWithAggregationInputObjectSchema.array()]).optional(), having: LanguageScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LanguageScalarFieldEnumSchema), _count: z.union([ z.literal(true), LanguageCountAggregateInputObjectSchema ]).optional(), _min: LanguageMinAggregateInputObjectSchema.optional(), _max: LanguageMaxAggregateInputObjectSchema.optional(), _avg: LanguageAvgAggregateInputObjectSchema.optional(), _sum: LanguageSumAggregateInputObjectSchema.optional() }).strict();

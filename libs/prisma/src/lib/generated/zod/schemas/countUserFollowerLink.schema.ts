@@ -1,0 +1,10 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserFollowerLinkOrderByWithRelationInputObjectSchema as UserFollowerLinkOrderByWithRelationInputObjectSchema } from './objects/UserFollowerLinkOrderByWithRelationInput.schema';
+import { UserFollowerLinkWhereInputObjectSchema as UserFollowerLinkWhereInputObjectSchema } from './objects/UserFollowerLinkWhereInput.schema';
+import { UserFollowerLinkWhereUniqueInputObjectSchema as UserFollowerLinkWhereUniqueInputObjectSchema } from './objects/UserFollowerLinkWhereUniqueInput.schema';
+import { UserFollowerLinkCountAggregateInputObjectSchema as UserFollowerLinkCountAggregateInputObjectSchema } from './objects/UserFollowerLinkCountAggregateInput.schema';
+
+export const UserFollowerLinkCountSchema: z.ZodType<Prisma.UserFollowerLinkCountArgs> = z.object({ orderBy: z.union([UserFollowerLinkOrderByWithRelationInputObjectSchema, UserFollowerLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserFollowerLinkWhereInputObjectSchema.optional(), cursor: UserFollowerLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.UserFollowerLinkCountArgs>;
+
+export const UserFollowerLinkCountZodSchema = z.object({ orderBy: z.union([UserFollowerLinkOrderByWithRelationInputObjectSchema, UserFollowerLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserFollowerLinkWhereInputObjectSchema.optional(), cursor: UserFollowerLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional() }).strict();

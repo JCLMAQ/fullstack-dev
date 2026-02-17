@@ -1,0 +1,33 @@
+import * as z from 'zod';
+import type { Prisma } from '../../../prisma/client';
+import { SortOrderSchema } from '../enums/SortOrder.schema';
+import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
+import { OrganizationCountOrderByAggregateInputObjectSchema as OrganizationCountOrderByAggregateInputObjectSchema } from './OrganizationCountOrderByAggregateInput.schema';
+import { OrganizationAvgOrderByAggregateInputObjectSchema as OrganizationAvgOrderByAggregateInputObjectSchema } from './OrganizationAvgOrderByAggregateInput.schema';
+import { OrganizationMaxOrderByAggregateInputObjectSchema as OrganizationMaxOrderByAggregateInputObjectSchema } from './OrganizationMaxOrderByAggregateInput.schema';
+import { OrganizationMinOrderByAggregateInputObjectSchema as OrganizationMinOrderByAggregateInputObjectSchema } from './OrganizationMinOrderByAggregateInput.schema';
+import { OrganizationSumOrderByAggregateInputObjectSchema as OrganizationSumOrderByAggregateInputObjectSchema } from './OrganizationSumOrderByAggregateInput.schema'
+
+const makeSchema = () => z.object({
+  id: SortOrderSchema.optional(),
+  numSeq: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional(),
+  updatedAt: SortOrderSchema.optional(),
+  published: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  isPublic: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  isDeleted: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  isDeletedDT: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  name: SortOrderSchema.optional(),
+  description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  address: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  emailITAdmin: SortOrderSchema.optional(),
+  webSite: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  mainOrgId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  _count: z.lazy(() => OrganizationCountOrderByAggregateInputObjectSchema).optional(),
+  _avg: z.lazy(() => OrganizationAvgOrderByAggregateInputObjectSchema).optional(),
+  _max: z.lazy(() => OrganizationMaxOrderByAggregateInputObjectSchema).optional(),
+  _min: z.lazy(() => OrganizationMinOrderByAggregateInputObjectSchema).optional(),
+  _sum: z.lazy(() => OrganizationSumOrderByAggregateInputObjectSchema).optional()
+}).strict();
+export const OrganizationOrderByWithAggregationInputObjectSchema: z.ZodType<Prisma.OrganizationOrderByWithAggregationInput> = makeSchema() as unknown as z.ZodType<Prisma.OrganizationOrderByWithAggregationInput>;
+export const OrganizationOrderByWithAggregationInputObjectZodSchema = makeSchema();

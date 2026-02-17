@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TranslationOrderByWithRelationInputObjectSchema as TranslationOrderByWithRelationInputObjectSchema } from './objects/TranslationOrderByWithRelationInput.schema';
+import { TranslationWhereInputObjectSchema as TranslationWhereInputObjectSchema } from './objects/TranslationWhereInput.schema';
+import { TranslationWhereUniqueInputObjectSchema as TranslationWhereUniqueInputObjectSchema } from './objects/TranslationWhereUniqueInput.schema';
+import { TranslationCountAggregateInputObjectSchema as TranslationCountAggregateInputObjectSchema } from './objects/TranslationCountAggregateInput.schema';
+import { TranslationMinAggregateInputObjectSchema as TranslationMinAggregateInputObjectSchema } from './objects/TranslationMinAggregateInput.schema';
+import { TranslationMaxAggregateInputObjectSchema as TranslationMaxAggregateInputObjectSchema } from './objects/TranslationMaxAggregateInput.schema';
+import { TranslationAvgAggregateInputObjectSchema as TranslationAvgAggregateInputObjectSchema } from './objects/TranslationAvgAggregateInput.schema';
+import { TranslationSumAggregateInputObjectSchema as TranslationSumAggregateInputObjectSchema } from './objects/TranslationSumAggregateInput.schema';
+
+export const TranslationAggregateSchema: z.ZodType<Prisma.TranslationAggregateArgs> = z.object({ orderBy: z.union([TranslationOrderByWithRelationInputObjectSchema, TranslationOrderByWithRelationInputObjectSchema.array()]).optional(), where: TranslationWhereInputObjectSchema.optional(), cursor: TranslationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TranslationCountAggregateInputObjectSchema ]).optional(), _min: TranslationMinAggregateInputObjectSchema.optional(), _max: TranslationMaxAggregateInputObjectSchema.optional(), _avg: TranslationAvgAggregateInputObjectSchema.optional(), _sum: TranslationSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TranslationAggregateArgs>;
+
+export const TranslationAggregateZodSchema = z.object({ orderBy: z.union([TranslationOrderByWithRelationInputObjectSchema, TranslationOrderByWithRelationInputObjectSchema.array()]).optional(), where: TranslationWhereInputObjectSchema.optional(), cursor: TranslationWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TranslationCountAggregateInputObjectSchema ]).optional(), _min: TranslationMinAggregateInputObjectSchema.optional(), _max: TranslationMaxAggregateInputObjectSchema.optional(), _avg: TranslationAvgAggregateInputObjectSchema.optional(), _sum: TranslationSumAggregateInputObjectSchema.optional() }).strict();

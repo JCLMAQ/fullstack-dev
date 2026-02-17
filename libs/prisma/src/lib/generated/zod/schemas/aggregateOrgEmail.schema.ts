@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { OrgEmailOrderByWithRelationInputObjectSchema as OrgEmailOrderByWithRelationInputObjectSchema } from './objects/OrgEmailOrderByWithRelationInput.schema';
+import { OrgEmailWhereInputObjectSchema as OrgEmailWhereInputObjectSchema } from './objects/OrgEmailWhereInput.schema';
+import { OrgEmailWhereUniqueInputObjectSchema as OrgEmailWhereUniqueInputObjectSchema } from './objects/OrgEmailWhereUniqueInput.schema';
+import { OrgEmailCountAggregateInputObjectSchema as OrgEmailCountAggregateInputObjectSchema } from './objects/OrgEmailCountAggregateInput.schema';
+import { OrgEmailMinAggregateInputObjectSchema as OrgEmailMinAggregateInputObjectSchema } from './objects/OrgEmailMinAggregateInput.schema';
+import { OrgEmailMaxAggregateInputObjectSchema as OrgEmailMaxAggregateInputObjectSchema } from './objects/OrgEmailMaxAggregateInput.schema';
+import { OrgEmailAvgAggregateInputObjectSchema as OrgEmailAvgAggregateInputObjectSchema } from './objects/OrgEmailAvgAggregateInput.schema';
+import { OrgEmailSumAggregateInputObjectSchema as OrgEmailSumAggregateInputObjectSchema } from './objects/OrgEmailSumAggregateInput.schema';
+
+export const OrgEmailAggregateSchema: z.ZodType<Prisma.OrgEmailAggregateArgs> = z.object({ orderBy: z.union([OrgEmailOrderByWithRelationInputObjectSchema, OrgEmailOrderByWithRelationInputObjectSchema.array()]).optional(), where: OrgEmailWhereInputObjectSchema.optional(), cursor: OrgEmailWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), OrgEmailCountAggregateInputObjectSchema ]).optional(), _min: OrgEmailMinAggregateInputObjectSchema.optional(), _max: OrgEmailMaxAggregateInputObjectSchema.optional(), _avg: OrgEmailAvgAggregateInputObjectSchema.optional(), _sum: OrgEmailSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.OrgEmailAggregateArgs>;
+
+export const OrgEmailAggregateZodSchema = z.object({ orderBy: z.union([OrgEmailOrderByWithRelationInputObjectSchema, OrgEmailOrderByWithRelationInputObjectSchema.array()]).optional(), where: OrgEmailWhereInputObjectSchema.optional(), cursor: OrgEmailWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), OrgEmailCountAggregateInputObjectSchema ]).optional(), _min: OrgEmailMinAggregateInputObjectSchema.optional(), _max: OrgEmailMaxAggregateInputObjectSchema.optional(), _avg: OrgEmailAvgAggregateInputObjectSchema.optional(), _sum: OrgEmailSumAggregateInputObjectSchema.optional() }).strict();

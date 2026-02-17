@@ -1,0 +1,12 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserPostLikeLinkOrderByWithRelationInputObjectSchema as UserPostLikeLinkOrderByWithRelationInputObjectSchema } from './objects/UserPostLikeLinkOrderByWithRelationInput.schema';
+import { UserPostLikeLinkWhereInputObjectSchema as UserPostLikeLinkWhereInputObjectSchema } from './objects/UserPostLikeLinkWhereInput.schema';
+import { UserPostLikeLinkWhereUniqueInputObjectSchema as UserPostLikeLinkWhereUniqueInputObjectSchema } from './objects/UserPostLikeLinkWhereUniqueInput.schema';
+import { UserPostLikeLinkCountAggregateInputObjectSchema as UserPostLikeLinkCountAggregateInputObjectSchema } from './objects/UserPostLikeLinkCountAggregateInput.schema';
+import { UserPostLikeLinkMinAggregateInputObjectSchema as UserPostLikeLinkMinAggregateInputObjectSchema } from './objects/UserPostLikeLinkMinAggregateInput.schema';
+import { UserPostLikeLinkMaxAggregateInputObjectSchema as UserPostLikeLinkMaxAggregateInputObjectSchema } from './objects/UserPostLikeLinkMaxAggregateInput.schema';
+
+export const UserPostLikeLinkAggregateSchema: z.ZodType<Prisma.UserPostLikeLinkAggregateArgs> = z.object({ orderBy: z.union([UserPostLikeLinkOrderByWithRelationInputObjectSchema, UserPostLikeLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserPostLikeLinkWhereInputObjectSchema.optional(), cursor: UserPostLikeLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserPostLikeLinkCountAggregateInputObjectSchema ]).optional(), _min: UserPostLikeLinkMinAggregateInputObjectSchema.optional(), _max: UserPostLikeLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserPostLikeLinkAggregateArgs>;
+
+export const UserPostLikeLinkAggregateZodSchema = z.object({ orderBy: z.union([UserPostLikeLinkOrderByWithRelationInputObjectSchema, UserPostLikeLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserPostLikeLinkWhereInputObjectSchema.optional(), cursor: UserPostLikeLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserPostLikeLinkCountAggregateInputObjectSchema ]).optional(), _min: UserPostLikeLinkMinAggregateInputObjectSchema.optional(), _max: UserPostLikeLinkMaxAggregateInputObjectSchema.optional() }).strict();

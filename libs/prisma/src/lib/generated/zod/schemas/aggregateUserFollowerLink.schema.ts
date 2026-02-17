@@ -1,0 +1,12 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserFollowerLinkOrderByWithRelationInputObjectSchema as UserFollowerLinkOrderByWithRelationInputObjectSchema } from './objects/UserFollowerLinkOrderByWithRelationInput.schema';
+import { UserFollowerLinkWhereInputObjectSchema as UserFollowerLinkWhereInputObjectSchema } from './objects/UserFollowerLinkWhereInput.schema';
+import { UserFollowerLinkWhereUniqueInputObjectSchema as UserFollowerLinkWhereUniqueInputObjectSchema } from './objects/UserFollowerLinkWhereUniqueInput.schema';
+import { UserFollowerLinkCountAggregateInputObjectSchema as UserFollowerLinkCountAggregateInputObjectSchema } from './objects/UserFollowerLinkCountAggregateInput.schema';
+import { UserFollowerLinkMinAggregateInputObjectSchema as UserFollowerLinkMinAggregateInputObjectSchema } from './objects/UserFollowerLinkMinAggregateInput.schema';
+import { UserFollowerLinkMaxAggregateInputObjectSchema as UserFollowerLinkMaxAggregateInputObjectSchema } from './objects/UserFollowerLinkMaxAggregateInput.schema';
+
+export const UserFollowerLinkAggregateSchema: z.ZodType<Prisma.UserFollowerLinkAggregateArgs> = z.object({ orderBy: z.union([UserFollowerLinkOrderByWithRelationInputObjectSchema, UserFollowerLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserFollowerLinkWhereInputObjectSchema.optional(), cursor: UserFollowerLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional(), _min: UserFollowerLinkMinAggregateInputObjectSchema.optional(), _max: UserFollowerLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserFollowerLinkAggregateArgs>;
+
+export const UserFollowerLinkAggregateZodSchema = z.object({ orderBy: z.union([UserFollowerLinkOrderByWithRelationInputObjectSchema, UserFollowerLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserFollowerLinkWhereInputObjectSchema.optional(), cursor: UserFollowerLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional(), _min: UserFollowerLinkMinAggregateInputObjectSchema.optional(), _max: UserFollowerLinkMaxAggregateInputObjectSchema.optional() }).strict();

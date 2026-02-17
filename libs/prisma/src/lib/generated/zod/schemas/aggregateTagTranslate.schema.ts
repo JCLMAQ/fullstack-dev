@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TagTranslateOrderByWithRelationInputObjectSchema as TagTranslateOrderByWithRelationInputObjectSchema } from './objects/TagTranslateOrderByWithRelationInput.schema';
+import { TagTranslateWhereInputObjectSchema as TagTranslateWhereInputObjectSchema } from './objects/TagTranslateWhereInput.schema';
+import { TagTranslateWhereUniqueInputObjectSchema as TagTranslateWhereUniqueInputObjectSchema } from './objects/TagTranslateWhereUniqueInput.schema';
+import { TagTranslateCountAggregateInputObjectSchema as TagTranslateCountAggregateInputObjectSchema } from './objects/TagTranslateCountAggregateInput.schema';
+import { TagTranslateMinAggregateInputObjectSchema as TagTranslateMinAggregateInputObjectSchema } from './objects/TagTranslateMinAggregateInput.schema';
+import { TagTranslateMaxAggregateInputObjectSchema as TagTranslateMaxAggregateInputObjectSchema } from './objects/TagTranslateMaxAggregateInput.schema';
+import { TagTranslateAvgAggregateInputObjectSchema as TagTranslateAvgAggregateInputObjectSchema } from './objects/TagTranslateAvgAggregateInput.schema';
+import { TagTranslateSumAggregateInputObjectSchema as TagTranslateSumAggregateInputObjectSchema } from './objects/TagTranslateSumAggregateInput.schema';
+
+export const TagTranslateAggregateSchema: z.ZodType<Prisma.TagTranslateAggregateArgs> = z.object({ orderBy: z.union([TagTranslateOrderByWithRelationInputObjectSchema, TagTranslateOrderByWithRelationInputObjectSchema.array()]).optional(), where: TagTranslateWhereInputObjectSchema.optional(), cursor: TagTranslateWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TagTranslateCountAggregateInputObjectSchema ]).optional(), _min: TagTranslateMinAggregateInputObjectSchema.optional(), _max: TagTranslateMaxAggregateInputObjectSchema.optional(), _avg: TagTranslateAvgAggregateInputObjectSchema.optional(), _sum: TagTranslateSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TagTranslateAggregateArgs>;
+
+export const TagTranslateAggregateZodSchema = z.object({ orderBy: z.union([TagTranslateOrderByWithRelationInputObjectSchema, TagTranslateOrderByWithRelationInputObjectSchema.array()]).optional(), where: TagTranslateWhereInputObjectSchema.optional(), cursor: TagTranslateWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TagTranslateCountAggregateInputObjectSchema ]).optional(), _min: TagTranslateMinAggregateInputObjectSchema.optional(), _max: TagTranslateMaxAggregateInputObjectSchema.optional(), _avg: TagTranslateAvgAggregateInputObjectSchema.optional(), _sum: TagTranslateSumAggregateInputObjectSchema.optional() }).strict();

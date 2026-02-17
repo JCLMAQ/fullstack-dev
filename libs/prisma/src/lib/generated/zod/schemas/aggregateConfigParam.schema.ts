@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ConfigParamOrderByWithRelationInputObjectSchema as ConfigParamOrderByWithRelationInputObjectSchema } from './objects/ConfigParamOrderByWithRelationInput.schema';
+import { ConfigParamWhereInputObjectSchema as ConfigParamWhereInputObjectSchema } from './objects/ConfigParamWhereInput.schema';
+import { ConfigParamWhereUniqueInputObjectSchema as ConfigParamWhereUniqueInputObjectSchema } from './objects/ConfigParamWhereUniqueInput.schema';
+import { ConfigParamCountAggregateInputObjectSchema as ConfigParamCountAggregateInputObjectSchema } from './objects/ConfigParamCountAggregateInput.schema';
+import { ConfigParamMinAggregateInputObjectSchema as ConfigParamMinAggregateInputObjectSchema } from './objects/ConfigParamMinAggregateInput.schema';
+import { ConfigParamMaxAggregateInputObjectSchema as ConfigParamMaxAggregateInputObjectSchema } from './objects/ConfigParamMaxAggregateInput.schema';
+import { ConfigParamAvgAggregateInputObjectSchema as ConfigParamAvgAggregateInputObjectSchema } from './objects/ConfigParamAvgAggregateInput.schema';
+import { ConfigParamSumAggregateInputObjectSchema as ConfigParamSumAggregateInputObjectSchema } from './objects/ConfigParamSumAggregateInput.schema';
+
+export const ConfigParamAggregateSchema: z.ZodType<Prisma.ConfigParamAggregateArgs> = z.object({ orderBy: z.union([ConfigParamOrderByWithRelationInputObjectSchema, ConfigParamOrderByWithRelationInputObjectSchema.array()]).optional(), where: ConfigParamWhereInputObjectSchema.optional(), cursor: ConfigParamWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ConfigParamCountAggregateInputObjectSchema ]).optional(), _min: ConfigParamMinAggregateInputObjectSchema.optional(), _max: ConfigParamMaxAggregateInputObjectSchema.optional(), _avg: ConfigParamAvgAggregateInputObjectSchema.optional(), _sum: ConfigParamSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ConfigParamAggregateArgs>;
+
+export const ConfigParamAggregateZodSchema = z.object({ orderBy: z.union([ConfigParamOrderByWithRelationInputObjectSchema, ConfigParamOrderByWithRelationInputObjectSchema.array()]).optional(), where: ConfigParamWhereInputObjectSchema.optional(), cursor: ConfigParamWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ConfigParamCountAggregateInputObjectSchema ]).optional(), _min: ConfigParamMinAggregateInputObjectSchema.optional(), _max: ConfigParamMaxAggregateInputObjectSchema.optional(), _avg: ConfigParamAvgAggregateInputObjectSchema.optional(), _sum: ConfigParamSumAggregateInputObjectSchema.optional() }).strict();

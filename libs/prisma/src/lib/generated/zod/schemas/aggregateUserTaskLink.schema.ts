@@ -1,0 +1,12 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserTaskLinkOrderByWithRelationInputObjectSchema as UserTaskLinkOrderByWithRelationInputObjectSchema } from './objects/UserTaskLinkOrderByWithRelationInput.schema';
+import { UserTaskLinkWhereInputObjectSchema as UserTaskLinkWhereInputObjectSchema } from './objects/UserTaskLinkWhereInput.schema';
+import { UserTaskLinkWhereUniqueInputObjectSchema as UserTaskLinkWhereUniqueInputObjectSchema } from './objects/UserTaskLinkWhereUniqueInput.schema';
+import { UserTaskLinkCountAggregateInputObjectSchema as UserTaskLinkCountAggregateInputObjectSchema } from './objects/UserTaskLinkCountAggregateInput.schema';
+import { UserTaskLinkMinAggregateInputObjectSchema as UserTaskLinkMinAggregateInputObjectSchema } from './objects/UserTaskLinkMinAggregateInput.schema';
+import { UserTaskLinkMaxAggregateInputObjectSchema as UserTaskLinkMaxAggregateInputObjectSchema } from './objects/UserTaskLinkMaxAggregateInput.schema';
+
+export const UserTaskLinkAggregateSchema: z.ZodType<Prisma.UserTaskLinkAggregateArgs> = z.object({ orderBy: z.union([UserTaskLinkOrderByWithRelationInputObjectSchema, UserTaskLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserTaskLinkWhereInputObjectSchema.optional(), cursor: UserTaskLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserTaskLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTaskLinkMinAggregateInputObjectSchema.optional(), _max: UserTaskLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserTaskLinkAggregateArgs>;
+
+export const UserTaskLinkAggregateZodSchema = z.object({ orderBy: z.union([UserTaskLinkOrderByWithRelationInputObjectSchema, UserTaskLinkOrderByWithRelationInputObjectSchema.array()]).optional(), where: UserTaskLinkWhereInputObjectSchema.optional(), cursor: UserTaskLinkWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), UserTaskLinkCountAggregateInputObjectSchema ]).optional(), _min: UserTaskLinkMinAggregateInputObjectSchema.optional(), _max: UserTaskLinkMaxAggregateInputObjectSchema.optional() }).strict();

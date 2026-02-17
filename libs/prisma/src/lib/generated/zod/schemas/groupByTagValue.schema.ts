@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TagValueWhereInputObjectSchema as TagValueWhereInputObjectSchema } from './objects/TagValueWhereInput.schema';
+import { TagValueOrderByWithAggregationInputObjectSchema as TagValueOrderByWithAggregationInputObjectSchema } from './objects/TagValueOrderByWithAggregationInput.schema';
+import { TagValueScalarWhereWithAggregatesInputObjectSchema as TagValueScalarWhereWithAggregatesInputObjectSchema } from './objects/TagValueScalarWhereWithAggregatesInput.schema';
+import { TagValueScalarFieldEnumSchema } from './enums/TagValueScalarFieldEnum.schema';
+import { TagValueCountAggregateInputObjectSchema as TagValueCountAggregateInputObjectSchema } from './objects/TagValueCountAggregateInput.schema';
+import { TagValueMinAggregateInputObjectSchema as TagValueMinAggregateInputObjectSchema } from './objects/TagValueMinAggregateInput.schema';
+import { TagValueMaxAggregateInputObjectSchema as TagValueMaxAggregateInputObjectSchema } from './objects/TagValueMaxAggregateInput.schema';
+import { TagValueAvgAggregateInputObjectSchema as TagValueAvgAggregateInputObjectSchema } from './objects/TagValueAvgAggregateInput.schema';
+import { TagValueSumAggregateInputObjectSchema as TagValueSumAggregateInputObjectSchema } from './objects/TagValueSumAggregateInput.schema';
+
+export const TagValueGroupBySchema: z.ZodType<Prisma.TagValueGroupByArgs> = z.object({ where: TagValueWhereInputObjectSchema.optional(), orderBy: z.union([TagValueOrderByWithAggregationInputObjectSchema, TagValueOrderByWithAggregationInputObjectSchema.array()]).optional(), having: TagValueScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TagValueScalarFieldEnumSchema), _count: z.union([ z.literal(true), TagValueCountAggregateInputObjectSchema ]).optional(), _min: TagValueMinAggregateInputObjectSchema.optional(), _max: TagValueMaxAggregateInputObjectSchema.optional(), _avg: TagValueAvgAggregateInputObjectSchema.optional(), _sum: TagValueSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TagValueGroupByArgs>;
+
+export const TagValueGroupByZodSchema = z.object({ where: TagValueWhereInputObjectSchema.optional(), orderBy: z.union([TagValueOrderByWithAggregationInputObjectSchema, TagValueOrderByWithAggregationInputObjectSchema.array()]).optional(), having: TagValueScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TagValueScalarFieldEnumSchema), _count: z.union([ z.literal(true), TagValueCountAggregateInputObjectSchema ]).optional(), _min: TagValueMinAggregateInputObjectSchema.optional(), _max: TagValueMaxAggregateInputObjectSchema.optional(), _avg: TagValueAvgAggregateInputObjectSchema.optional(), _sum: TagValueSumAggregateInputObjectSchema.optional() }).strict();

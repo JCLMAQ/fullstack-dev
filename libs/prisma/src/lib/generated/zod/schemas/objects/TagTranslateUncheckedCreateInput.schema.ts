@@ -1,0 +1,14 @@
+import * as z from 'zod';
+import type { Prisma } from '../../../prisma/client';
+
+
+const makeSchema = () => z.object({
+  id: z.number().int().optional(),
+  createdAt: z.coerce.date().optional(),
+  languageId: z.number().int(),
+  translation: z.string(),
+  tagId: z.number().int(),
+  description: z.string().optional().nullable()
+}).strict();
+export const TagTranslateUncheckedCreateInputObjectSchema: z.ZodType<Prisma.TagTranslateUncheckedCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.TagTranslateUncheckedCreateInput>;
+export const TagTranslateUncheckedCreateInputObjectZodSchema = makeSchema();

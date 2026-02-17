@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TagTranslateWhereInputObjectSchema as TagTranslateWhereInputObjectSchema } from './objects/TagTranslateWhereInput.schema';
+import { TagTranslateOrderByWithAggregationInputObjectSchema as TagTranslateOrderByWithAggregationInputObjectSchema } from './objects/TagTranslateOrderByWithAggregationInput.schema';
+import { TagTranslateScalarWhereWithAggregatesInputObjectSchema as TagTranslateScalarWhereWithAggregatesInputObjectSchema } from './objects/TagTranslateScalarWhereWithAggregatesInput.schema';
+import { TagTranslateScalarFieldEnumSchema } from './enums/TagTranslateScalarFieldEnum.schema';
+import { TagTranslateCountAggregateInputObjectSchema as TagTranslateCountAggregateInputObjectSchema } from './objects/TagTranslateCountAggregateInput.schema';
+import { TagTranslateMinAggregateInputObjectSchema as TagTranslateMinAggregateInputObjectSchema } from './objects/TagTranslateMinAggregateInput.schema';
+import { TagTranslateMaxAggregateInputObjectSchema as TagTranslateMaxAggregateInputObjectSchema } from './objects/TagTranslateMaxAggregateInput.schema';
+import { TagTranslateAvgAggregateInputObjectSchema as TagTranslateAvgAggregateInputObjectSchema } from './objects/TagTranslateAvgAggregateInput.schema';
+import { TagTranslateSumAggregateInputObjectSchema as TagTranslateSumAggregateInputObjectSchema } from './objects/TagTranslateSumAggregateInput.schema';
+
+export const TagTranslateGroupBySchema: z.ZodType<Prisma.TagTranslateGroupByArgs> = z.object({ where: TagTranslateWhereInputObjectSchema.optional(), orderBy: z.union([TagTranslateOrderByWithAggregationInputObjectSchema, TagTranslateOrderByWithAggregationInputObjectSchema.array()]).optional(), having: TagTranslateScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TagTranslateScalarFieldEnumSchema), _count: z.union([ z.literal(true), TagTranslateCountAggregateInputObjectSchema ]).optional(), _min: TagTranslateMinAggregateInputObjectSchema.optional(), _max: TagTranslateMaxAggregateInputObjectSchema.optional(), _avg: TagTranslateAvgAggregateInputObjectSchema.optional(), _sum: TagTranslateSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TagTranslateGroupByArgs>;
+
+export const TagTranslateGroupByZodSchema = z.object({ where: TagTranslateWhereInputObjectSchema.optional(), orderBy: z.union([TagTranslateOrderByWithAggregationInputObjectSchema, TagTranslateOrderByWithAggregationInputObjectSchema.array()]).optional(), having: TagTranslateScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TagTranslateScalarFieldEnumSchema), _count: z.union([ z.literal(true), TagTranslateCountAggregateInputObjectSchema ]).optional(), _min: TagTranslateMinAggregateInputObjectSchema.optional(), _max: TagTranslateMaxAggregateInputObjectSchema.optional(), _avg: TagTranslateAvgAggregateInputObjectSchema.optional(), _sum: TagTranslateSumAggregateInputObjectSchema.optional() }).strict();

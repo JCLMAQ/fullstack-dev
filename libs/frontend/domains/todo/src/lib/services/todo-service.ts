@@ -4,6 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { z } from 'zod';
+import { parseResponse } from '@fe/shared';
 
 const TodoSchema = z.object({
   id: z.string(),
@@ -45,16 +46,6 @@ export class TodoService {
 		return `${this.apiPrefix}/todos/by-user`;
   }
 
-  // Helper pour parser les réponses avec Zod
-  private parseResponse<T>(schema: z.ZodType<T>, data: unknown): T {
-    const result = schema.safeParse(data);
-    if (!result.success) {
-      console.error('❌ Zod Validation Error:', result.error);
-      throw new Error('Data validation failed from API');
-    }
-    return result.data;
-  }
-
   // Using httpResource for automatic caching, loading state, and error handling in the store
   getTodosByUserIdOrOrgIdResource(ownerId: string, orgId?: string[] | null): HttpResourceRef<TodoWithRelations[]> {
     let params = new HttpParams().set('ownerId', ownerId);
@@ -71,7 +62,7 @@ export class TodoService {
     }), {
       defaultValue: [],
       // Utilisation du mapping pour valider et transformer les données avec Zod
-      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
+      parse: (data) => parseResponse(TodoListSchema, data) as TodoWithRelations[]
     });
   }
   getTodosByOrgIdResource(orgId: string): HttpResourceRef<TodoWithRelations[]> {
@@ -83,7 +74,7 @@ export class TodoService {
       params,
     }), {
       defaultValue: [],
-      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
+      parse: (data) => parseResponse(TodoListSchema, data) as TodoWithRelations[]
     });
   }
 
@@ -94,7 +85,7 @@ export class TodoService {
       method: 'GET',
     }), {
       defaultValue: null,
-      parse: (data) => data ? this.parseResponse(TodoSchema, data) as TodoWithRelations : null
+      parse: (data) => data ? parseResponse(TodoSchema, data) as TodoWithRelations : null
     });
   }
 
@@ -145,7 +136,7 @@ export class TodoService {
       params,
     }), {
       defaultValue: [],
-      parse: (data) => this.parseResponse(TodoListSchema, data) as TodoWithRelations[]
+      parse: (data) => parseResponse(TodoListSchema, data) as TodoWithRelations[]
     });
   }
 

@@ -1,0 +1,42 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { WordIncludeObjectSchema as WordIncludeObjectSchema } from './objects/WordInclude.schema';
+import { WordOrderByWithRelationInputObjectSchema as WordOrderByWithRelationInputObjectSchema } from './objects/WordOrderByWithRelationInput.schema';
+import { WordWhereInputObjectSchema as WordWhereInputObjectSchema } from './objects/WordWhereInput.schema';
+import { WordWhereUniqueInputObjectSchema as WordWhereUniqueInputObjectSchema } from './objects/WordWhereUniqueInput.schema';
+import { WordScalarFieldEnumSchema } from './enums/WordScalarFieldEnum.schema';
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const WordFindFirstOrThrowSelectSchema: z.ZodType<Prisma.WordSelect> = z.object({
+    id: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    published: z.boolean().optional(),
+    isPublic: z.boolean().optional(),
+    isDeleted: z.boolean().optional(),
+    isDeletedDT: z.boolean().optional(),
+    slug: z.boolean().optional(),
+    type: z.boolean().optional(),
+    translations: z.boolean().optional(),
+    _count: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.WordSelect>;
+
+export const WordFindFirstOrThrowSelectZodSchema = z.object({
+    id: z.boolean().optional(),
+    createdAt: z.boolean().optional(),
+    updatedAt: z.boolean().optional(),
+    published: z.boolean().optional(),
+    isPublic: z.boolean().optional(),
+    isDeleted: z.boolean().optional(),
+    isDeletedDT: z.boolean().optional(),
+    slug: z.boolean().optional(),
+    type: z.boolean().optional(),
+    translations: z.boolean().optional(),
+    _count: z.boolean().optional()
+  }).strict();
+
+export const WordFindFirstOrThrowSchema: z.ZodType<Prisma.WordFindFirstOrThrowArgs> = z.object({ select: WordFindFirstOrThrowSelectSchema.optional(), include: z.lazy(() => WordIncludeObjectSchema.optional()), orderBy: z.union([WordOrderByWithRelationInputObjectSchema, WordOrderByWithRelationInputObjectSchema.array()]).optional(), where: WordWhereInputObjectSchema.optional(), cursor: WordWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([WordScalarFieldEnumSchema, WordScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.WordFindFirstOrThrowArgs>;
+
+export const WordFindFirstOrThrowZodSchema = z.object({ select: WordFindFirstOrThrowSelectSchema.optional(), include: z.lazy(() => WordIncludeObjectSchema.optional()), orderBy: z.union([WordOrderByWithRelationInputObjectSchema, WordOrderByWithRelationInputObjectSchema.array()]).optional(), where: WordWhereInputObjectSchema.optional(), cursor: WordWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([WordScalarFieldEnumSchema, WordScalarFieldEnumSchema.array()]).optional() }).strict();

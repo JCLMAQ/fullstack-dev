@@ -189,13 +189,22 @@ export class UserService {
     // return httpResource<User[]>(() => url) as HttpResourceRef<User[]>;
   }
 
-	userByIdResource(id: string): unknown {
+	userByIdResource(id: string): HttpResourceRef<UserWithRelations | null> {
 		if (!id) throw new Error('id requis');
+    const params = new HttpParams().set('userId', id);
+    // const url = this.baseUrl;
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-		return this.resourceFactory({
-			loader: () => this.http.get<User>(url),
-			default: null,
-		});
+    return httpResource<UserWithRelations | null>(() => ({
+      url,
+      method: 'GET',
+      params,
+    }), {
+      defaultValue: null,
+    });
+		// return this.resourceFactory({
+		// 	loader: () => this.http.get<User>(url),
+		// 	default: null,
+		// });
 	}
 
   getUserByEmailResource(email: string): unknown {

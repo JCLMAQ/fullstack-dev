@@ -1,0 +1,27 @@
+import * as z from 'zod';
+export const TaskFindUniqueResultSchema = z.nullable(z.object({
+  id: z.string(),
+  numSeq: z.number().int(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  published: z.boolean(),
+  isDeleted: z.number().int(),
+  isDeletedDT: z.date().optional(),
+  isPublic: z.boolean(),
+  owner: z.unknown(),
+  ownerId: z.string(),
+  org: z.unknown().optional(),
+  orgId: z.string().optional(),
+  groups: z.array(z.unknown()),
+  orderTask: z.number().int(),
+  title: z.string(),
+  content: z.string().optional(),
+  taskState: z.unknown(),
+  mainTask: z.unknown().optional(),
+  mainTaskId: z.string().optional(),
+  SubTasks: z.array(z.unknown()),
+  Users: z.array(z.unknown()),
+  todo: z.unknown().optional(),
+  todoId: z.string().optional(),
+  Tags: z.array(z.unknown())
+}));

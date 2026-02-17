@@ -1,0 +1,13 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { UserFollowerLinkWhereInputObjectSchema as UserFollowerLinkWhereInputObjectSchema } from './objects/UserFollowerLinkWhereInput.schema';
+import { UserFollowerLinkOrderByWithAggregationInputObjectSchema as UserFollowerLinkOrderByWithAggregationInputObjectSchema } from './objects/UserFollowerLinkOrderByWithAggregationInput.schema';
+import { UserFollowerLinkScalarWhereWithAggregatesInputObjectSchema as UserFollowerLinkScalarWhereWithAggregatesInputObjectSchema } from './objects/UserFollowerLinkScalarWhereWithAggregatesInput.schema';
+import { UserFollowerLinkScalarFieldEnumSchema } from './enums/UserFollowerLinkScalarFieldEnum.schema';
+import { UserFollowerLinkCountAggregateInputObjectSchema as UserFollowerLinkCountAggregateInputObjectSchema } from './objects/UserFollowerLinkCountAggregateInput.schema';
+import { UserFollowerLinkMinAggregateInputObjectSchema as UserFollowerLinkMinAggregateInputObjectSchema } from './objects/UserFollowerLinkMinAggregateInput.schema';
+import { UserFollowerLinkMaxAggregateInputObjectSchema as UserFollowerLinkMaxAggregateInputObjectSchema } from './objects/UserFollowerLinkMaxAggregateInput.schema';
+
+export const UserFollowerLinkGroupBySchema: z.ZodType<Prisma.UserFollowerLinkGroupByArgs> = z.object({ where: UserFollowerLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserFollowerLinkOrderByWithAggregationInputObjectSchema, UserFollowerLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserFollowerLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserFollowerLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional(), _min: UserFollowerLinkMinAggregateInputObjectSchema.optional(), _max: UserFollowerLinkMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.UserFollowerLinkGroupByArgs>;
+
+export const UserFollowerLinkGroupByZodSchema = z.object({ where: UserFollowerLinkWhereInputObjectSchema.optional(), orderBy: z.union([UserFollowerLinkOrderByWithAggregationInputObjectSchema, UserFollowerLinkOrderByWithAggregationInputObjectSchema.array()]).optional(), having: UserFollowerLinkScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(UserFollowerLinkScalarFieldEnumSchema), _count: z.union([ z.literal(true), UserFollowerLinkCountAggregateInputObjectSchema ]).optional(), _min: UserFollowerLinkMinAggregateInputObjectSchema.optional(), _max: UserFollowerLinkMaxAggregateInputObjectSchema.optional() }).strict();

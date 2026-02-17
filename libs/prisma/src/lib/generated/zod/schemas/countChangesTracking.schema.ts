@@ -1,0 +1,10 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ChangesTrackingOrderByWithRelationInputObjectSchema as ChangesTrackingOrderByWithRelationInputObjectSchema } from './objects/ChangesTrackingOrderByWithRelationInput.schema';
+import { ChangesTrackingWhereInputObjectSchema as ChangesTrackingWhereInputObjectSchema } from './objects/ChangesTrackingWhereInput.schema';
+import { ChangesTrackingWhereUniqueInputObjectSchema as ChangesTrackingWhereUniqueInputObjectSchema } from './objects/ChangesTrackingWhereUniqueInput.schema';
+import { ChangesTrackingCountAggregateInputObjectSchema as ChangesTrackingCountAggregateInputObjectSchema } from './objects/ChangesTrackingCountAggregateInput.schema';
+
+export const ChangesTrackingCountSchema: z.ZodType<Prisma.ChangesTrackingCountArgs> = z.object({ orderBy: z.union([ChangesTrackingOrderByWithRelationInputObjectSchema, ChangesTrackingOrderByWithRelationInputObjectSchema.array()]).optional(), where: ChangesTrackingWhereInputObjectSchema.optional(), cursor: ChangesTrackingWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ChangesTrackingCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.ChangesTrackingCountArgs>;
+
+export const ChangesTrackingCountZodSchema = z.object({ orderBy: z.union([ChangesTrackingOrderByWithRelationInputObjectSchema, ChangesTrackingOrderByWithRelationInputObjectSchema.array()]).optional(), where: ChangesTrackingWhereInputObjectSchema.optional(), cursor: ChangesTrackingWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ChangesTrackingCountAggregateInputObjectSchema ]).optional() }).strict();

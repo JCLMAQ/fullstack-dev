@@ -1,0 +1,15 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ConfigParamWhereInputObjectSchema as ConfigParamWhereInputObjectSchema } from './objects/ConfigParamWhereInput.schema';
+import { ConfigParamOrderByWithAggregationInputObjectSchema as ConfigParamOrderByWithAggregationInputObjectSchema } from './objects/ConfigParamOrderByWithAggregationInput.schema';
+import { ConfigParamScalarWhereWithAggregatesInputObjectSchema as ConfigParamScalarWhereWithAggregatesInputObjectSchema } from './objects/ConfigParamScalarWhereWithAggregatesInput.schema';
+import { ConfigParamScalarFieldEnumSchema } from './enums/ConfigParamScalarFieldEnum.schema';
+import { ConfigParamCountAggregateInputObjectSchema as ConfigParamCountAggregateInputObjectSchema } from './objects/ConfigParamCountAggregateInput.schema';
+import { ConfigParamMinAggregateInputObjectSchema as ConfigParamMinAggregateInputObjectSchema } from './objects/ConfigParamMinAggregateInput.schema';
+import { ConfigParamMaxAggregateInputObjectSchema as ConfigParamMaxAggregateInputObjectSchema } from './objects/ConfigParamMaxAggregateInput.schema';
+import { ConfigParamAvgAggregateInputObjectSchema as ConfigParamAvgAggregateInputObjectSchema } from './objects/ConfigParamAvgAggregateInput.schema';
+import { ConfigParamSumAggregateInputObjectSchema as ConfigParamSumAggregateInputObjectSchema } from './objects/ConfigParamSumAggregateInput.schema';
+
+export const ConfigParamGroupBySchema: z.ZodType<Prisma.ConfigParamGroupByArgs> = z.object({ where: ConfigParamWhereInputObjectSchema.optional(), orderBy: z.union([ConfigParamOrderByWithAggregationInputObjectSchema, ConfigParamOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ConfigParamScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ConfigParamScalarFieldEnumSchema), _count: z.union([ z.literal(true), ConfigParamCountAggregateInputObjectSchema ]).optional(), _min: ConfigParamMinAggregateInputObjectSchema.optional(), _max: ConfigParamMaxAggregateInputObjectSchema.optional(), _avg: ConfigParamAvgAggregateInputObjectSchema.optional(), _sum: ConfigParamSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ConfigParamGroupByArgs>;
+
+export const ConfigParamGroupByZodSchema = z.object({ where: ConfigParamWhereInputObjectSchema.optional(), orderBy: z.union([ConfigParamOrderByWithAggregationInputObjectSchema, ConfigParamOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ConfigParamScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ConfigParamScalarFieldEnumSchema), _count: z.union([ z.literal(true), ConfigParamCountAggregateInputObjectSchema ]).optional(), _min: ConfigParamMinAggregateInputObjectSchema.optional(), _max: ConfigParamMaxAggregateInputObjectSchema.optional(), _avg: ConfigParamAvgAggregateInputObjectSchema.optional(), _sum: ConfigParamSumAggregateInputObjectSchema.optional() }).strict();

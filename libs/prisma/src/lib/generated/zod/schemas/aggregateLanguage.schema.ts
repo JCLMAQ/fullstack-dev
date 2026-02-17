@@ -1,0 +1,14 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { LanguageOrderByWithRelationInputObjectSchema as LanguageOrderByWithRelationInputObjectSchema } from './objects/LanguageOrderByWithRelationInput.schema';
+import { LanguageWhereInputObjectSchema as LanguageWhereInputObjectSchema } from './objects/LanguageWhereInput.schema';
+import { LanguageWhereUniqueInputObjectSchema as LanguageWhereUniqueInputObjectSchema } from './objects/LanguageWhereUniqueInput.schema';
+import { LanguageCountAggregateInputObjectSchema as LanguageCountAggregateInputObjectSchema } from './objects/LanguageCountAggregateInput.schema';
+import { LanguageMinAggregateInputObjectSchema as LanguageMinAggregateInputObjectSchema } from './objects/LanguageMinAggregateInput.schema';
+import { LanguageMaxAggregateInputObjectSchema as LanguageMaxAggregateInputObjectSchema } from './objects/LanguageMaxAggregateInput.schema';
+import { LanguageAvgAggregateInputObjectSchema as LanguageAvgAggregateInputObjectSchema } from './objects/LanguageAvgAggregateInput.schema';
+import { LanguageSumAggregateInputObjectSchema as LanguageSumAggregateInputObjectSchema } from './objects/LanguageSumAggregateInput.schema';
+
+export const LanguageAggregateSchema: z.ZodType<Prisma.LanguageAggregateArgs> = z.object({ orderBy: z.union([LanguageOrderByWithRelationInputObjectSchema, LanguageOrderByWithRelationInputObjectSchema.array()]).optional(), where: LanguageWhereInputObjectSchema.optional(), cursor: LanguageWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), LanguageCountAggregateInputObjectSchema ]).optional(), _min: LanguageMinAggregateInputObjectSchema.optional(), _max: LanguageMaxAggregateInputObjectSchema.optional(), _avg: LanguageAvgAggregateInputObjectSchema.optional(), _sum: LanguageSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.LanguageAggregateArgs>;
+
+export const LanguageAggregateZodSchema = z.object({ orderBy: z.union([LanguageOrderByWithRelationInputObjectSchema, LanguageOrderByWithRelationInputObjectSchema.array()]).optional(), where: LanguageWhereInputObjectSchema.optional(), cursor: LanguageWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), LanguageCountAggregateInputObjectSchema ]).optional(), _min: LanguageMinAggregateInputObjectSchema.optional(), _max: LanguageMaxAggregateInputObjectSchema.optional(), _avg: LanguageAvgAggregateInputObjectSchema.optional(), _sum: LanguageSumAggregateInputObjectSchema.optional() }).strict();

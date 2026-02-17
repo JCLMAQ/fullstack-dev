@@ -12,5 +12,6 @@ onlyBuiltDependencies:
   - msgpackr-extract
   - nx
   - prisma
+  - prisma-zod-generator
   - sharp
   - unrs-resolver

@@ -1,0 +1,9 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { TranslationSelectObjectSchema as TranslationSelectObjectSchema } from './objects/TranslationSelect.schema';
+import { TranslationIncludeObjectSchema as TranslationIncludeObjectSchema } from './objects/TranslationInclude.schema';
+import { TranslationWhereUniqueInputObjectSchema as TranslationWhereUniqueInputObjectSchema } from './objects/TranslationWhereUniqueInput.schema';
+
+export const TranslationFindUniqueOrThrowSchema: z.ZodType<Prisma.TranslationFindUniqueOrThrowArgs> = z.object({ select: TranslationSelectObjectSchema.optional(), include: TranslationIncludeObjectSchema.optional(), where: TranslationWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.TranslationFindUniqueOrThrowArgs>;
+
+export const TranslationFindUniqueOrThrowZodSchema = z.object({ select: TranslationSelectObjectSchema.optional(), include: TranslationIncludeObjectSchema.optional(), where: TranslationWhereUniqueInputObjectSchema }).strict();

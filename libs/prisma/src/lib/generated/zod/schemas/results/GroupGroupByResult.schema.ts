@@ -1,0 +1,75 @@
+import * as z from 'zod';
+export const GroupGroupByResultSchema = z.array(z.object({
+  id: z.number().int(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  published: z.boolean(),
+  isPublic: z.boolean(),
+  isDeleted: z.number().int(),
+  isDeletedDT: z.date(),
+  orderGroup: z.number().int(),
+  name: z.string(),
+  description: z.string(),
+  ownerId: z.string(),
+  isActiv: z.date(),
+  orgId: z.string(),
+  _count: z.object({
+    id: z.number(),
+    createdAt: z.number(),
+    updatedAt: z.number(),
+    published: z.number(),
+    isPublic: z.number(),
+    isDeleted: z.number(),
+    isDeletedDT: z.number(),
+    orderGroup: z.number(),
+    name: z.number(),
+    description: z.number(),
+    owner: z.number(),
+    ownerId: z.number(),
+    isActiv: z.number(),
+    Members: z.number(),
+    Tasks: z.number(),
+    Todos: z.number(),
+    Posts: z.number(),
+    Files: z.number(),
+    org: z.number(),
+    orgId: z.number(),
+    Tags: z.number()
+  }).optional(),
+  _sum: z.object({
+    id: z.number().nullable(),
+    isDeleted: z.number().nullable(),
+    orderGroup: z.number().nullable()
+  }).nullable().optional(),
+  _avg: z.object({
+    id: z.number().nullable(),
+    isDeleted: z.number().nullable(),
+    orderGroup: z.number().nullable()
+  }).nullable().optional(),
+  _min: z.object({
+    id: z.number().int().nullable(),
+    createdAt: z.date().nullable(),
+    updatedAt: z.date().nullable(),
+    isDeleted: z.number().int().nullable(),
+    isDeletedDT: z.date().nullable(),
+    orderGroup: z.number().int().nullable(),
+    name: z.string().nullable(),
+    description: z.string().nullable(),
+    ownerId: z.string().nullable(),
+    isActiv: z.date().nullable(),
+    orgId: z.string().nullable()
+  }).nullable().optional(),
+  _max: z.object({
+    id: z.number().int().nullable(),
+    createdAt: z.date().nullable(),
+    updatedAt: z.date().nullable(),
+    isDeleted: z.number().int().nullable(),
+    isDeletedDT: z.date().nullable(),
+    orderGroup: z.number().int().nullable(),
+    name: z.string().nullable(),
+    description: z.string().nullable(),
+    ownerId: z.string().nullable(),
+    isActiv: z.date().nullable(),
+    orgId: z.string().nullable()
+  }).nullable().optional()
+}));
