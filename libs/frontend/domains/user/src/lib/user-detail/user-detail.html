@@ -1,13 +1,13 @@
 <div class="container">
 
   <!-- Loading Spinner -->
-  @if (this.store.isLoading()) {
+  @if (this.store.usersIsLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
   }
 <!-- When loaded -->
-  @if (!this.store.isLoading()) {
+  @if (!this.store.usersIsLoading()) {
 
     <div class="header">
       <h1 class="mat-headline-4">{{ 'userProfile.title' | translate }}</h1>
@@ -366,7 +366,7 @@
           <mat-icon>delete</mat-icon>
         </button>
       }
-         <!-- <button mat-icon-button matTooltip="Reset" [disabled]="!isAdmin()" (click)="reset()" class="success-btn">
+        <!-- <button mat-icon-button matTooltip="Reset" [disabled]="!isAdmin()" (click)="reset()" class="success-btn">
           <mat-icon>clear</mat-icon>
         </button> -->
 
@@ -493,7 +493,7 @@
     <br>
     <span style="color: blue; font-weight: bold;">effectiveSelectedIds Array: {{ store.effectiveSelectedIds() | json }}</span>
     <br>
-    <span> {{store.users().length}} data length </span>
+    <span> {{store.usersEntities().length}} data length </span>
     <br>
     <span> Selected Entries {{store.selection().selected.entries() | json }} </span>
     <br>

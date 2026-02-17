@@ -49,8 +49,8 @@ export class UserList {
     // Charger les utilisateurs si la liste est vide et qu'il n'y a pas de chargement en cours
     effect(() => {
       const userCount = this.store.userCount();
-      const isLoading = this.store.isLoading();
-      const hasError = this.store.hasError();
+      const isLoading = this.store.usersIsLoading();
+      const hasError = this.store.usersError();
 
       if (userCount === 0 && !isLoading && !hasError) {
         this.store.loadUsers();

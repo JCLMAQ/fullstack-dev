@@ -6,7 +6,7 @@
     <div class="toolbar-actions">
       <button mat-raised-button color="primary" (click)="refreshUsers()">
         <mat-icon>refresh</mat-icon>
-       {{'common.reloadData' | translate}}
+          {{'common.reloadData' | translate}}
       </button>
       <mat-chip-set>
         <mat-chip highlighted>
@@ -16,24 +16,24 @@
     </div>
   </header>
 
-  @if (store.hasError()) {
+  @if (store.usersError()) {
     <div class="error-banner">
       <mat-icon>error</mat-icon>
       <span>{{'common.loadingError' | translate}}</span>
     </div>
   }
 
-  @if (store.isLoading()) {
+  @if (store.usersIsLoading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
     </div>
   } @else {
     <div class="table-container">
-     <mat-card class="mat-elevation-z8" >
+      <mat-card class="mat-elevation-z8" >
     <mat-card-content>
 
       <mat-form-field>
-       <mat-label>{{ 'common.filters' | translate }}</mat-label>
+        <mat-label>{{ 'common.filters' | translate }}</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
 
@@ -182,16 +182,16 @@
     <br>
     <span style="color: blue; font-weight: bold;">effectiveSelectedIds Array: {{ store.effectiveSelectedIds() | json }}</span>
     <br>
-    <span> {{store.users().length}} data length </span>
+    <span> {{store.usersEntities().length}} data length </span>
     <br>
 
   </div>
 
   <div>
 
-    @if (store.isLoading()) {
+    @if (store.usersIsLoading ()) {
       <div>Loading...</div>
-    } @else if (store.error()) {
+    } @else if (store.usersError()) {
       <p>An error has happened.</p>
     } @else if (store.usersHasValue()) {
       <ul>

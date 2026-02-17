@@ -41,10 +41,8 @@ export const UserStore = signalStore(
     const { selection, isAllSelected } = buildSelectionComputed<User>(store, 'usersEntityMap');
     return {
       // Conversion des entités en tableau pour la compatibilité
-      users: computed(() => Object.values(store.usersEntityMap())),
+      // users: computed(() => Object.values(store.usersEntityMap())),
 
-      isLoading: computed(() => store.loading()),
-      hasError: computed(() => !!store.error()),
 
       userCount: computed(() => Object.keys(store.usersEntityMap()).length),
 

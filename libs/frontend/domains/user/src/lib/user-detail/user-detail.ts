@@ -380,7 +380,7 @@ export class UserDetail {
 
     const currentSort = this.store.currentSort();
     const hasSort = currentSort?.active && currentSort?.direction;
-    const sourceUsers = mode === 'sort' && hasSort ? this.getSortedUsers() : this.store.users();
+    const sourceUsers = mode === 'sort' && hasSort ? this.getSortedUsers() : this.store.usersEntities();
 
     const ordered = sourceUsers
       .filter((user) => selectedIds.includes(user.id))
@@ -398,7 +398,7 @@ export class UserDetail {
    * Get sorted users based on current sort state
    */
   private getSortedUsers() {
-    const users = [...this.store.users()];
+    const users = [...this.store.usersEntities()];
     const currentSort = this.store.currentSort();
 
     if (!currentSort?.active || !currentSort?.direction) {
