@@ -1,9 +1,8 @@
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
-import { HttpClient, HttpErrorResponse, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
+import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Address, Organization, User, UserWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { firstValueFrom } from 'rxjs';
 
 type SortOrder = 'asc' | 'desc';
 type OrderBy = 'email' | 'firstName' | 'lastName' | 'createdAt';
@@ -36,130 +35,6 @@ export class UserService {
 
 	private get baseUrl(): string {
 		return `${this.apiPrefix}/users`;
-	}
-
-	// --------------------
-	// Promise-based methods
-	// --------------------
-
-	async listUsers(options?: UsersQueryOptions): Promise<UserWithRelations[]> {
-		const params = this.buildParams(options);
-		const url = this.baseUrl;
-    // const url =`${this.baseUrl}/alluserswlinks`; // Custom endpoint to get all users with all links
-		return await firstValueFrom(this.http.get<UserWithRelations[]>(url, { params }));
-	}
-
-	async getUserById(id: string): Promise<User> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-		return await firstValueFrom(this.http.get<User>(url));
-	}
-
-	async getUserByEmail(email: string): Promise<User> {
-		if (!email) throw new Error('email requis');
-		const url = `${this.baseUrl}/email/${encodeURIComponent(email)}`;
-		return await firstValueFrom(this.http.get<User>(url));
-	}
-
-  async getUserAddresses(userId: string): Promise<Address[]> {
-    if (!userId) throw new Error('userId requis');
-    const url = `${this.baseUrl}/${encodeURIComponent(userId)}/addresses`;
-    return await firstValueFrom(this.http.get<Address[]>(url));
-  }
-
-	async getUserOrganizations(id: string): Promise<Organization[]> {
-		if (!id) throw new Error("l'id utilisateur est requis");
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}/organizations`;
-		return await firstValueFrom(this.http.get<Organization[]>(url));
-	}
-
-	async getUserFollowers(id: string): Promise<User[]> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}/followers`;
-		return await firstValueFrom(this.http.get<User[]>(url));
-	}
-
-	async getUserFollowing(id: string): Promise<User[]> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}/following`;
-		return await firstValueFrom(this.http.get<User[]>(url));
-	}
-
-	async createUser(userData: Partial<User>): Promise<User> {
-		if (!userData || !userData.email) throw new Error("données utilisateur invalides");
-		const url = this.baseUrl;
-		return await firstValueFrom(this.http.post<User>(url, userData));
-	}
-
-  async updateUser(id: string, userData: Partial<User>): Promise<User> {
-        if (!id) throw new Error('id requis');
-
-        const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-        const cleanedData = this.sanitizeUserUpdate(userData);
-
-        try {
-            console.log('Updating user', { id, url, userData: cleanedData });
-            const result = await firstValueFrom(
-                this.http.put<User>(url, cleanedData),
-            );
-            console.log('User updated', { id, result });
-            return result;
-        } catch (error: unknown) {
-            if (error instanceof HttpErrorResponse) {
-                console.error('Failed to update user', {
-                    id,
-                    url,
-                    userData: cleanedData,
-                    status: error.status,
-                    statusText: error.statusText,
-                    errorBody: error.error,
-                });
-            } else {
-                console.error('Failed to update user', { id, url, userData: cleanedData, error });
-            }
-            throw error;
-        }
-    }
-
-	private sanitizeUserUpdate(userData: Partial<User>): Partial<User> {
-		const cleaned = { ...userData } as Record<string, unknown>;
-		delete cleaned['id'];
-
-		for (const [key, value] of Object.entries(cleaned)) {
-			if (value === undefined || value === null) {
-				delete cleaned[key];
-				continue;
-			}
-
-			if (typeof value === 'string') {
-				const trimmed = value.trim();
-				if (trimmed.length === 0) {
-					delete cleaned[key];
-				} else {
-					cleaned[key] = trimmed;
-				}
-				continue;
-			}
-
-			if (value === '') {
-				delete cleaned[key];
-			}
-		}
-
-		return cleaned as Partial<User>;
-	}
-
-
-	async deleteUser(id: string): Promise<User> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}`;
-		return await firstValueFrom(this.http.delete<User>(url));
-	}
-
-	async softDeleteUser(id: string): Promise<User> {
-		if (!id) throw new Error('id requis');
-		const url = `${this.baseUrl}/${encodeURIComponent(id)}/soft-delete`;
-		return await firstValueFrom(this.http.patch<User>(url, {}));
 	}
 
 	// --------------------

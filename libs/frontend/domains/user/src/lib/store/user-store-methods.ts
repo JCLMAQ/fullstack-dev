@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { User } from '@db/prisma/frontend';
 import { AppStore } from '@fe/stores';
-import { patchState, signalStoreFeature, type,withMethods } from '@ngrx/signals';
+import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { addEntity, removeEntity, setAllEntities, updateEntity } from '@ngrx/signals/entities';
-import { UserService, UsersQueryOptions } from '../services/user-service';
+import { UserService, UsersQueryOptions } from '../services/user-service-async';
 
 type SelectionStore = { selectedIds: () => string[] };
 
