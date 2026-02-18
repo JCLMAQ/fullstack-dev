@@ -33,13 +33,12 @@ export const UserStore = signalStore(
   withUserMethods(),
   withSelectionFeature<User>({ collection: 'users' }),
   withNavigationMethods(),
-  withEntityResources(( store ) => ({
-    // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
-    followers: store._svc.getUserFollowersResource(store.selectedItemId() ?? '0'),
-    following: store._svc.getUserFollowingResource(store.selectedItemId() ?? '0'),
-    addresses: store._svc.getUserAddressesResource(store.selectedItemId() ?? '0'),
-    organizations: store._svc.getUserOrganizationsResource(store.selectedItemId() ?? '0'),
-   })),
+  // withEntityResources(( store ) => ({
+  //   followers: store._svc.getUserFollowersResource(store.selectedItemId() ?? '0'),
+  //   following: store._svc.getUserFollowingResource(store.selectedItemId() ?? '0'),
+  //   addresses: store._svc.getUserAddressesResource(store.selectedItemId() ?? '0'),
+  //   organizations: store._svc.getUserOrganizationsResource(store.selectedItemId() ?? '0'),
+  //  })),
   withUndoRedo({
     collections: [ userConfig.collection ]
   }),
