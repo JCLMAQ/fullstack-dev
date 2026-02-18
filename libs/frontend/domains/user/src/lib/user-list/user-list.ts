@@ -53,7 +53,8 @@ export class UserList {
       const hasError = this.store.usersError();
 
       if (userCount === 0 && !isLoading && !hasError) {
-        this.store.loadUsers();
+        // this.store.loadUsers();
+        this.store.reload(); // Trigger load via httpResource cache reset
       }
     });
 
@@ -95,7 +96,7 @@ export class UserList {
 
   // Actions
   protected refreshUsers(): void {
-    this.store.loadUsers();
+    this.store.reload();
   }
 
   // Sélection

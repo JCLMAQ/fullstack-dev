@@ -25,15 +25,21 @@ export const UserStore = signalStore(
   }),
   withDevtools('UserStore'),
 
+
   // Appel  withEntityResources
   withEntityResources(( store ) => ({
-    // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
-    users: store._svc.usersResource(),
-  })),
+    users: store._svc.getUsersResource()
+   })),
+  withUserMethods(),
   withSelectionFeature<User>({ collection: 'users' }),
   withNavigationMethods(),
-  withUserMethods(),
-
+  withEntityResources(( store ) => ({
+    // usersList: resource({ loader: () => store._svc.listUsers(), defaultValue: []}),
+    followers: store._svc.getUserFollowersResource(store.selectedItemId() ?? '0'),
+    following: store._svc.getUserFollowingResource(store.selectedItemId() ?? '0'),
+    addresses: store._svc.getUserAddressesResource(store.selectedItemId() ?? '0'),
+    organizations: store._svc.getUserOrganizationsResource(store.selectedItemId() ?? '0'),
+   })),
   withUndoRedo({
     collections: [ userConfig.collection ]
   }),

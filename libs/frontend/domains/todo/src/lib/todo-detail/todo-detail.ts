@@ -234,7 +234,8 @@ export class TodoDetail {
       const userId = this.appStore.user()?.id ?? null;
       if (userId && !this.orgsRequested()) {
         this.orgsRequested.set(true);
-        this.userStore.loadOrganizations(userId);
+        // this.userStore.loadOrganizations(userId);
+        this.userStore.organizations(); // Trigger load
       }
     });
 

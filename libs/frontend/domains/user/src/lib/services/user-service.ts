@@ -24,9 +24,6 @@ export class UserService {
 	private readonly http = inject(HttpClient);
     // Todo  refactor with httpResource
 	private readonly environment = inject(ENVIRONMENT_TOKEN);
-	// private readonly resourceFactory = (httpResource as unknown) as (
-	// 	config: { loader: () => unknown; default?: unknown }
-	// ) => unknown;
 
 	private get apiPrefix(): string {
 		const prefix = this.environment.API_BACKEND_PREFIX ?? '';
@@ -41,7 +38,8 @@ export class UserService {
 	// httpResource helpers (signal-friendly)
 	// --------------------
 
-	usersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
+  // Gets
+	getUsersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
 		return httpResource<User[]>(() => ({
 			url,
@@ -52,7 +50,7 @@ export class UserService {
 		});
 	}
 
-	userByIdResource(id: string): HttpResourceRef<UserWithRelations | null> {
+	getUserByIdResource(id: string): HttpResourceRef<UserWithRelations | null> {
 		if (!id) throw new Error('id requis');
     const params = new HttpParams().set('userId', id);
     // const url = this.baseUrl;
@@ -78,7 +76,7 @@ export class UserService {
 	}
 
 
-  userAddressesResource(userId: string): unknown {
+  getUserAddressesResource(userId: string): HttpResourceRef<Address[]> {
     if (!userId) throw new Error('userId requis');
     const url = `${this.baseUrl}/${encodeURIComponent(userId)}/addresses`;
     return httpResource<Address[]>(() => ({
@@ -89,7 +87,7 @@ export class UserService {
     });
   }
 
-	userOrganizationsResource(id: string): unknown {
+	getUserOrganizationsResource(id: string): HttpResourceRef<Organization[]> {
 		if (!id) throw new Error("l'id utilisateur est requis");
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/organizations`;
     return httpResource<Organization[]>(() => ({
@@ -100,7 +98,7 @@ export class UserService {
         });
 	}
 
-	userFollowersResource(id: string): unknown {
+	getUserFollowersResource(id: string): HttpResourceRef<User[]> {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/followers`;
 		return httpResource<User[]>(() => ({
@@ -111,7 +109,7 @@ export class UserService {
 		});
 	}
 
-	userFollowingResource(id: string): unknown {
+	getUserFollowingResource(id: string): HttpResourceRef<User[]> {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/following`;
 		return httpResource<User[]>(() => ({
@@ -122,6 +120,9 @@ export class UserService {
 		});
 	}
 
+  // --------------------
+  // Mutations
+	// --------------------
   createSaveUserMutation(options: Partial<HttpMutationOptions<UserWithRelations, UserWithRelations>>) {
     const url = `${this.baseUrl}/upsert`;
     return httpMutation({
@@ -134,7 +135,7 @@ export class UserService {
       operator: concatOp
     });
   }
-  createSoftDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
+  softDeleteUserMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
     const apiPrefix = this.apiPrefix;
     return httpMutation({
       ...options,
@@ -146,7 +147,7 @@ export class UserService {
     });
   }
 
-    createHardDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
+    hardDeleteUserMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; user: UserWithRelations }>>) {
       const apiPrefix = this.apiPrefix;
       return httpMutation({
         ...options,

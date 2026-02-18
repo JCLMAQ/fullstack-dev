@@ -424,7 +424,8 @@ export class UserDetail {
   protected reload(): void {
     const userId = this.userForm().value().id;
     if (userId) {
-      this.store.loadUser(userId);
+      // Todo: refresh user data in store and re-apply selection
+      // this.store.loadUser(userId);
     }
   }
 

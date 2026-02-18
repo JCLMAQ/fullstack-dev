@@ -53,58 +53,6 @@ export const TodoStore = signalStore(
   // Methods specific to the Todo entity
   // to add or change entities in the store after a mutation, we can use the onSuccess callback of the mutation to patch the state with the new or updated entity
   withTodoMutations(),
-  // withMutations(
-  //   (store) => ({
-  //     saveTodo: store._todoServices.createSaveTodoMutation({
-  //       onSuccess(todo: TodoWithRelations) {
-  //         const exists = !!store.todosEntityMap()?.[todo.id];
-  //         const update = exists
-  //           ? updateEntity({ id: todo.id, changes: todo }, { collection: 'todos' })
-  //           : addEntity(todo, { collection: 'todos' });
-  //         patchState(
-  //           store,
-  //           update,
-  //           exists
-  //             ? { selectedItemId: todo.id }
-  //             : {
-  //                 selectedItemId: todo.id,
-  //                 selectedIds: store.selectedIds().includes(todo.id)
-  //                   ? store.selectedIds()
-  //                   : [...store.selectedIds(), todo.id],
-  //                 effectiveSelectedIds: store.effectiveSelectedIds().includes(todo.id)
-  //                   ? store.effectiveSelectedIds()
-  //                   : [...store.effectiveSelectedIds(), todo.id],
-  //               }
-  //         );
-  //         store._snackBar.open('Todo saved', 'OK');
-  //       },
-  //       onError(error: unknown) {
-  //         store._snackBar.open('Error saving todo!', 'OK');
-  //         console.error(error);
-  //       },
-  //     }),
-  //     softDeleteTodo: store._todoServices.createSoftDeleteMutation({
-  //       onSuccess(response: { message: string; todo: TodoWithRelations }) {
-  //         patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
-  //         store._snackBar.open('Todo soft deleted', 'OK');
-  //       },
-  //       onError(error: unknown) {
-  //         store._snackBar.open('Error deleting todo!', 'OK');
-  //         console.error(error);
-  //       },
-  //     }),
-  //     hardDeleteTodo: store._todoServices.createHardDeleteMutation({
-  //       onSuccess(response: { message: string; todo: TodoWithRelations }) {
-  //         patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
-  //         store._snackBar.open('Todo permanently deleted', 'OK');
-  //       },
-  //       onError(error: unknown) {
-  //         store._snackBar.open('Error permanently deleting todo!', 'OK');
-  //         console.error(error);
-  //       },
-  //     }),
-  //   }),
-  // ),
   // Add undo redo capability to the store, with configuration for the collections to track
   withUndoRedo({
     collections: [ todoConfig.collection ]
