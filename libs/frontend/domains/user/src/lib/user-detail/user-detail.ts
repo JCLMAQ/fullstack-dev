@@ -466,7 +466,7 @@ export class UserDetail {
   protected reset() {
     const selectedItem = this.store.selectedItem() as UserWithBasicRelations | null;
     if (selectedItem) {
-     this.userForm().reset({
+      this.userForm().reset({
         id: selectedItem.id,
         email: selectedItem.email,
         firstName: selectedItem.firstName ?? '',
