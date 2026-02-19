@@ -61,6 +61,19 @@
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  mat-card-content,
+  mat-card-footer {
+    padding: 0 1rem 1rem;
+  }
+
+  mat-card-content {
+    padding-top: 1rem;
+  }
+
+  mat-card-footer {
+    padding-top: 0;
+  }
+
   table {
     width: 100%;
   }
@@ -103,6 +116,17 @@
   }
   mat-icon {
     color: var(--mat-sys-primary);
+  }
+}
+
+.paginator-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  mat-paginator {
+    margin-left: auto;
+    border-top: 0;
   }
 }
 

@@ -4,10 +4,7 @@
   <header class="toolbar">
     <h2>{{'common.users' | translate}}</h2>
     <div class="toolbar-actions">
-      <button mat-raised-button color="primary" (click)="refreshUsers()">
-        <mat-icon>refresh</mat-icon>
-          {{'common.reloadData' | translate}}
-      </button>
+
       <mat-chip-set>
         <mat-chip highlighted>
           {{ store['userCount']() }} {{'common.users' | translate}}
@@ -156,26 +153,34 @@
         </tr>
 
       </table>
-      <mat-paginator
-        [length]="totalItems()"
-        [pageSize]="pageSize()"
-        [pageIndex]="pageIndex()"
-        [pageSizeOptions]="[5, 10, 20]"
-        (page)="onPageChange($event)"
-        showFirstLastButtons>
-      </mat-paginator>
     </mat-card-content>
     <mat-card-footer>
-      <button mat-icon-button (click)="addOne()">
-        <mat-icon>add</mat-icon>
-      </button>
+      <div class="paginator-actions">
+        <button mat-raised-button color="primary" (click)="addOne()">
+          <mat-icon>add</mat-icon>
+          {{'common.Add' | translate}}
+        </button>
+        <button mat-raised-button color="primary" (click)="refreshUsers()">
+          <mat-icon>refresh</mat-icon>
+          {{'common.reloadData' | translate}}
+        </button>
+        <mat-paginator
+          [length]="totalItems()"
+          [pageSize]="pageSize()"
+          [pageIndex]="pageIndex()"
+          [pageSizeOptions]="[5, 10, 20]"
+          (page)="onPageChange($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+
+      </div>
     </mat-card-footer>
   </mat-card>
     </div>
   }
 </section>
 
-  <div>
+  <!-- <div>
     <h3>Debug Info</h3>
     <br>
     <span style="color: orange; font-weight: bold;">selectedIds Array: {{ store.selectedIds() | json }}</span>
@@ -200,4 +205,4 @@
         }
       </ul>
     }
-  </div>
+  </div> -->

@@ -40,7 +40,15 @@
     "confirmationTitle": "Confirmation",
     "confirmDeleteWord": "Êtes-vous sûr de vouloir supprimer définitivement \"{{slug}}\" ?",
     "confirmMarkDeleteWord": "Marquer \"{{slug}}\" comme supprimé ?",
-    "mark": "Marquer"
+    "mark": "Marquer",
+    "unmark": "Démarquer",
+    "Add": "Ajouter",
+    "Edit": "Modifier",
+    "Delete": "Supprimer",
+    "Save": "Sauvegarder",
+    "Cancel": "Annuler",
+    "Close": "Fermer",
+    "Submit": "Soumettre"
   },
     "HEADER.CHOOSE": "Choix de la langue",
     "SITETITLE": "Nouveau site Angular",

@@ -40,7 +40,15 @@
     "confirmationTitle": "Bestätigung",
     "confirmDeleteWord": "Sind Sie sicher, dass Sie \"{{slug}}\" endgültig löschen möchten?",
     "confirmMarkDeleteWord": "Möchten Sie \"{{slug}}\" als gelöscht markieren?",
-    "mark": "Markieren"
+    "mark": "Markieren",
+    "unmark": "Demarkieren",
+    "Add": "Hinzufügen",
+    "Edit": "Bearbeiten",
+    "Delete": "Löschen",
+    "Save": "Speichern",
+    "Cancel": "Abbrechen",
+    "Close": "Schließen",
+    "Submit": "Absenden"
   },
     "HEADER.CHOOSE": "Wählen Sie Ihre Sprache",
     "SITETITLE": "Neue Angular-Seite",

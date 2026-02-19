@@ -40,7 +40,15 @@
       "confirmationTitle": "Bevestiging",
       "confirmDeleteWord": "Weet u zeker dat u \"{{slug}}\" permanent wilt verwijderen?",
       "confirmMarkDeleteWord": "Wilt u \"{{slug}}\" als verwijderd markeren?",
-      "mark": "Markeren"
+      "mark": "Markeren",
+      "unmark": "Demarkeren",
+      "Add": "Toevoegen",
+      "Edit": "Bewerken",
+      "Delete": "Verwijderen",
+      "Save": "Opslaan",
+      "Cancel": "Annuleren",
+      "Close": "Sluiten",
+      "Submit": "Verzenden"
     },
     "HEADER.CHOOSE": "Kies uw taal",
     "SITETITLE": "Nieuwe Angular-site",
