@@ -38,6 +38,18 @@
   }
 }
 
+.content-around {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .bottom-toolbar {
   display: flex;
   align-items: center;
