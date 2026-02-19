@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address, Gender, Position, Title, UserWithBasicRelations } from '@db/prisma/frontend';
 import { AddressForm, buildAddressSection, createAddressModel } from '@fe/address';
+import { ConfirmDialogService } from '@fe/messages';
 import { Language, LanguageDataService } from '@fe/services';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
@@ -93,6 +94,7 @@ export class UserDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly confirmDialog = inject(ConfirmDialogService);
 
   // Form mode: 'view' | 'edit' | 'add'
   protected readonly mode = signal<'view' | 'edit' | 'add'>('view');
@@ -263,7 +265,7 @@ export class UserDetail {
       return;
     }
 
-    this.store.updateUser(userId, formValue);
+    this.store.saveUser(formValue as any);
     this.snackBar.open('Utilisateur sauvegardé avec succès', 'OK', { duration: 3000 });
     this.mode.set('view');
   }
@@ -304,7 +306,7 @@ export class UserDetail {
   protected remove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?')) {
-      this.store.deleteUser(userId);
+      this.store.hardDeleteUser({id:userId});
       this.snackBar.open('Utilisateur supprimé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
@@ -313,10 +315,37 @@ export class UserDetail {
   protected virtualRemove(): void {
     const userId = this.userForm().value().id;
     if (userId && confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')) {
-      this.store.softDeleteUser(userId);
+      this.store.softDeleteUser({id:userId});
       this.snackBar.open('Utilisateur désactivé', 'OK', { duration: 3000 });
       this.router.navigate(['/users']);
     }
+  }
+
+
+  protected softDelete(id: string): void {
+    if (!id) {
+      this.snackBar.open('ID utilisateur requis pour la désactivation', 'OK', { duration: 3000 });
+      return;
+    }
+    this.confirmDialog.confirmDelete(false).subscribe((result) => {
+      if (result) {
+        this.store.softDeleteUser({ id });
+        this.snackBar.open('Utilisateur désactivé', 'OK', { duration: 3000 });
+      }
+    });
+  }
+
+  protected hardDelete(id: string): void {
+    if (!id) {
+      this.snackBar.open('ID utilisateur requis pour la suppression définitive', 'OK', { duration: 3000 });
+      return;
+    }
+    this.confirmDialog.confirmDelete(true).subscribe((result) => {
+      if (result) {
+        this.store.hardDeleteUser({ id });
+        this.snackBar.open('Utilisateur supprimé définitivement', 'OK', { duration: 3000 });
+      }
+    });
   }
 
   protected add(): void {

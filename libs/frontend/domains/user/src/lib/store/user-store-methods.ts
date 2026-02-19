@@ -1,8 +1,7 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals';
 
-type SelectionStore = { selectedIds: () => string[] };
+// type SelectionStore = { selectedIds: () => string[] };
 
-// export const withUserMethods = signalStoreFeature(
 export function withUserMethods<_>() {
   return signalStoreFeature(
     {

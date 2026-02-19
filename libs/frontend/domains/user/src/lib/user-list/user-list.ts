@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { User } from '@db/prisma/frontend';
+import { UserWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
@@ -82,7 +82,7 @@ export class UserList {
   columnsToDisplay: string[] = ['select', 'numSeq','firstName', 'lastName', 'email'];
   // columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand',  'tools'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'tools'];
-  expandedElement!: User | null;
+  expandedElement!: UserWithRelations | null;
 
   // Filtrage
   protected readonly filterValue = this.store.filterValue;
@@ -197,7 +197,7 @@ export class UserList {
   protected addOne(): void {
     this.router.navigate([this.routeToDetail, '']);
   }
-  checkboxLabel(row: User): string {
+  checkboxLabel(row: UserWithRelations): string {
     if (!row) {
       return `${this.store.isAllSelected() ? 'select' : 'deselect'} all`;
     }

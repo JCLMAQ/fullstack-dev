@@ -1,7 +1,7 @@
 import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Address, Organization, User, UserWithRelations } from '@db/prisma/frontend';
+import { Address, Organization, UserWithRelations } from '@db/prisma/frontend';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 
 type SortOrder = 'asc' | 'desc';
@@ -39,9 +39,9 @@ export class UserService {
 	// --------------------
 
   // Gets
-	getUsersResource(options?: UsersQueryOptions): HttpResourceRef<User[]> {
+	getUsersResource(options?: UsersQueryOptions): HttpResourceRef<UserWithRelations[]> {
 		const url = this.buildUrlWithQuery(this.baseUrl, options);
-		return httpResource<User[]>(() => ({
+		return httpResource<UserWithRelations[]>(() => ({
 			url,
 			method: 'GET',
 			params: this.buildParams(options),
@@ -98,10 +98,10 @@ export class UserService {
         });
 	}
 
-	getUserFollowersResource(id: string): HttpResourceRef<User[]> {
+	getUserFollowersResource(id: string): HttpResourceRef<UserWithRelations[]> {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/followers`;
-		return httpResource<User[]>(() => ({
+		return httpResource<UserWithRelations[]>(() => ({
 			url,
 			method: 'GET',
 		}), {
@@ -109,10 +109,10 @@ export class UserService {
 		});
 	}
 
-	getUserFollowingResource(id: string): HttpResourceRef<User[]> {
+	getUserFollowingResource(id: string): HttpResourceRef<UserWithRelations[]> {
 		if (!id) throw new Error('id requis');
 		const url = `${this.baseUrl}/${encodeURIComponent(id)}/following`;
-		return httpResource<User[]>(() => ({
+		return httpResource<UserWithRelations[]>(() => ({
 			url,
 			method: 'GET',
 		}), {

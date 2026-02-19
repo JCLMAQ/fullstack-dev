@@ -2,9 +2,9 @@ import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects
 import { HttpClient, HttpParams, httpResource, HttpResourceRef } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TodoWithRelations } from '@db/prisma/frontend';
+import { parseResponse } from '@fe/shared';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
 import { z } from 'zod';
-import { parseResponse } from '@fe/shared';
 
 const TodoSchema = z.object({
   id: z.string(),
@@ -102,7 +102,7 @@ export class TodoService {
     });
   }
 
-  createSoftDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
+ softDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
     const apiPrefix = this.apiPrefix;
     return httpMutation({
       ...options,
@@ -114,7 +114,7 @@ export class TodoService {
     });
   }
 
-  createHardDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
+  hardDeleteMutation(options: Partial<HttpMutationOptions<{ id: string }, { message: string; todo: TodoWithRelations }>>) {
     const apiPrefix = this.apiPrefix;
     return httpMutation({
       ...options,

@@ -52,7 +52,7 @@ export function withTodoMutations<_>() {
         },
       }),
 
-      softDeleteTodo: store._todoServices.createSoftDeleteMutation({
+      softDeleteTodo: store._todoServices.softDeleteMutation({
         onSuccess: (response: { message: string; todo: TodoWithRelations }) => {
           patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
           store._snackBar.open('Todo soft deleted', 'OK');
@@ -63,7 +63,7 @@ export function withTodoMutations<_>() {
         },
       }),
 
-      hardDeleteTodo: store._todoServices.createHardDeleteMutation({
+      hardDeleteTodo: store._todoServices.hardDeleteMutation({
         onSuccess: (response: { message: string; todo: TodoWithRelations }) => {
           patchState(store, removeEntity(response.todo.id, { collection: 'todos' }));
           store._snackBar.open('Todo permanently deleted', 'OK');

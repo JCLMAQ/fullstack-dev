@@ -1,4 +1,4 @@
-import { Address, Organization, User } from '@db/prisma/frontend';
+import { Address, Organization, UserWithRelations } from '@db/prisma/frontend';
 
 
 
@@ -9,8 +9,8 @@ export interface UserState {
   };
   addresses: Address[];
   organizations: Organization[];
-  followers: User[];
-  following: User[];
+  followers: UserWithRelations[];
+  following: UserWithRelations[];
   loading: boolean;
   error: string | null;
 }
