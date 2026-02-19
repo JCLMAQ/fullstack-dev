@@ -412,13 +412,13 @@
           class="danger-btn">
           <mat-icon>delete_forever</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Virtual Delete" [disabled]="!isAdmin() || mode() === 'edit'" (click)="virtualRemove()" class="warning-btn">
+      }
+      <button mat-icon-button matTooltip="Virtual Delete" [disabled]="!isAdmin() || mode() === 'edit'" (click)="virtualRemove()" class="warning-btn">
           <mat-icon>delete</mat-icon>
         </button>
-      }
-        <!-- <button mat-icon-button matTooltip="Reset" [disabled]="!isAdmin()" (click)="reset()" class="success-btn">
+        <button mat-icon-button matTooltip="Reset" [disabled]="!isAdmin()" (click)="reset()" class="success-btn">
           <mat-icon>clear</mat-icon>
-        </button> -->
+        </button>
 
       <mat-divider [vertical]="true"></mat-divider>
       <!-- Form Actions -->
@@ -489,8 +489,6 @@
       </mat-card-header>
       <mat-card-content>
         <lib-debug-panel [form]="userForm()" />
-        <!-- <pre class="debug-pre">{{ userLoginForm().value() | json }}</pre>
-        <pre class="debug-pre">{{ userLoginForm().errorSummary() | json }}</pre> -->
       </mat-card-content>
 </mat-card>
 </div> <!-- .content -->
