@@ -76,6 +76,15 @@ OR
     inverse-secondary: #ffb4a8,
     inverse-tertiary: #fabb65,
   ));
+
+  --mdc-elevated-card-container-color: color-mix(
+    in srgb,
+    var(--mat-sys-primary) 4%,
+    var(--mat-sys-surface) 96%
+  );
+  --mdc-outlined-card-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-elevated-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-outlined-container-color: var(--mdc-elevated-card-container-color);
 }
 
 /* Dark Theme */
@@ -137,6 +146,15 @@ OR
     inverse-secondary: #b72114,
     inverse-tertiary: #835400,
   ));
+
+  --mdc-elevated-card-container-color: color-mix(
+    in srgb,
+    var(--mat-sys-primary) 4%,
+    var(--mat-sys-surface) 96%
+  );
+  --mdc-outlined-card-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-elevated-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-outlined-container-color: var(--mdc-elevated-card-container-color);
 }
 
 /* Typography */

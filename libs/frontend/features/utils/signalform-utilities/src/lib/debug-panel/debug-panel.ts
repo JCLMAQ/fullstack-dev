@@ -1,6 +1,14 @@
 import { JsonPipe } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { FieldState } from '@angular/forms/signals';
+/*
+<div>
+  <h3>Debug Form</h3>
+ <lib-debug-panel [form]="userForm()" />
+</div>
+
+*/
+
 
 @Component({
   selector: 'lib-debug-panel',

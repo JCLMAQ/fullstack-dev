@@ -71,6 +71,15 @@
     #422b23
   ); /* Variable used for the sidenav scrim (container background shadow when opened) */
 
+  --mdc-elevated-card-container-color: color-mix(
+    in srgb,
+    var(--mat-sys-primary) 4%,
+    var(--mat-sys-surface) 96%
+  );
+  --mdc-outlined-card-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-elevated-container-color: var(--mdc-elevated-card-container-color);
+  --mat-card-outlined-container-color: var(--mdc-elevated-card-container-color);
+
   /* TYPOGRAPHY SYSTEM VARIABLES */
 
   /* Typography variables. Only used in the different typescale system variables. */
