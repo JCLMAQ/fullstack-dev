@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-best-practices-material": {
+      "source": "alfredoperez/angular-best-practices",
+      "sourceType": "github",
+      "computedHash": "8f08da4606b63041559dcb2d4116a3afae99d1774d74b12954052d4cbbe01afd"
+    },
+    "angular-best-practices-signalstore": {
+      "source": "alfredoperez/angular-best-practices",
+      "sourceType": "github",
+      "computedHash": "46b969d0fb0867d857a03350fb310aec198ec270e33cf62c47e6a0c6218be01f"
+    }
+  }
+}
