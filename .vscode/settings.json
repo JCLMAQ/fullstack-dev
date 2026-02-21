@@ -58,5 +58,11 @@
                 "copilot/auto"
             ]
         }
-    }
+    },
+    "chat.agentSkillsLocations": {
+        ".opencode/skills": true,
+        ".windsurf/skills": true,
+        ".gemini/skills": true
+    },
+    "chat.experimental.useSkillAdherencePrompt": true
 }
