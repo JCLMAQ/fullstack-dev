@@ -35,12 +35,12 @@ skill for comprehensive Angular coverage.
 
 ## Rules
 
-| Rule | Impact | Description |
-|------|--------|-------------|
-| Use rxMethod for RxJS Integration | MEDIUM | Debounce, switchMap, and other RxJS operators in stores |
-| Use SignalStore for Shared State | HIGH | Signal-based reactivity without full NgRx overhead |
-| Use withComputed for Derived State | MEDIUM | Centralized memoized derivation logic |
-| Use withEntities for Collections | MEDIUM | O(1) lookups and standardized CRUD operations |
+| Rule                               | Impact | Description                                             |
+|------------------------------------|--------|---------------------------------------------------------|
+| Use rxMethod for RxJS Integration  | MEDIUM | Debounce, switchMap, and other RxJS operators in stores |
+| Use SignalStore for Shared State   | HIGH   | Signal-based reactivity without full NgRx overhead      |
+| Use withComputed for Derived State | MEDIUM | Centralized memoized derivation logic                   |
+| Use withEntities for Collections   | MEDIUM | O(1) lookups and standardized CRUD operations           |
 
 ## Install
 

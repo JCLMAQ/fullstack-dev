@@ -16,7 +16,7 @@ This document outlines the state management patterns used in our Angular applica
 - **Store Composition:** Stores compose using features and providers
 - **Reactivity:** UIs build on automatic change detection
 - **Signal Interoperability:** Signals integrate with existing RxJS-based systems
-- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration. When a service returns an Observable convert it to Promise or use async/await.
+- **SignalMethod & RxMethod:** Use `signalMethod` for lightweight, signal-driven side effects; use `rxMethod` for Observable-based side effects and RxJS integration if no other option is available and always ask first. When a service returns an Observable convert it to Promise or use async/await.
 
 ## 2. Signal Store Structure
 
