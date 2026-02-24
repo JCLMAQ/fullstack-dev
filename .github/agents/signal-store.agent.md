@@ -79,7 +79,7 @@ const entityConfig = entityConfig({
 export const FeatureStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withEntities(entityConfig),
+ //  withEntities(entityConfig), // withEntityResources create the entities management based on the resource, so no need to add withEntities if using withEntityResources
   withComputed(({ entitiesEntities, selectedId }) => ({
     selectedEntity: computed(() => /* ... */),
   })),
@@ -90,10 +90,10 @@ export const FeatureStore = signalStore(
     collections: [ "todos" ]
   }),
   withMethods((store, service = inject(FeatureService)) => ({
-   ...methods that call service and update state with patchState
+    // ...methods that call service and update state with patchState
   })),
   withMutation((store) => ({
-    
+    // ...mutation methods that update backend and directly update state with patchState
   })),
 );
 ```

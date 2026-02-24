@@ -37,7 +37,7 @@ export const TodoStore = signalStore(
       _appStore
     };
   }),
-  // withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations
+  // withEntities(todoConfig), // Not necessary for read-only data, but useful if we want to add/update/delete todos in the store after mutations. withEntityResources create the entities management based on the resource, so we don't need to add it separately here.
   withDevtools('TodoStore'), // For developer tools
 
   // Appel avec les valeurs de l'utilisateur courant (depuis l'AppStore)
@@ -71,12 +71,7 @@ export const TodoStore = signalStore(
       hasError: computed(() => !!store.todosError()),
     };
   }),
-  // withMethods((store) => ({
-  //   setSelectedTabIndex(selectedTabIndex: number): void {
-  //     patchState(store, { selectedTabIndex });
-  //   },
-  // })),
-  // Add filtering capabilities
+  // Add filter capabilities to the store, with a simple text filter on the title, content and state of the todo. The filter value is stored in the state and can be updated with a method. The filtered items are available as a computed property.
   withFilter<TodoWithRelations, 'todos'>({
     collection: 'todos',
     itemsSelector: (store: any) => store.todos(),
