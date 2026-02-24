@@ -273,7 +273,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 
 - **Component Inputs:** Use signal inputs with `input()` for reactive component inputs
 - **Two-Way Binding:** Use model inputs with `model()` for two-way binding scenarios
-- **Side Effects:**  Use `signalMethod()` for more complex side effects with input parameters and better performance (refer to `angular-ngrx.instructions.md` for details) or `effect()` for simple side effects without parameters
+- **Side Effects:**  Use `signalMethod()` for more complex side effects with input parameters and better performance (refer to `angular-ngrx-functions.instructions.md` for details) or `effect()` for simple side effects without parameters
 - **Signal Updates:** Use `set()` for replacing values, `update()` for transforming values - NEVER use `mutate()`
 - **Error Handling:** Handle errors in signal computations and effects appropriately
 - **Observable Interop:** Use `toSignal()` and `toObservable()` for RxJS interoperability when needed
@@ -306,7 +306,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
   }
   ```
 
-- **Computed Caching:** Use `computed()` signals to cache expensive calculations
+- **Computed Caching:** Use `computed()` or `linkedSignal()` to cache expensive calculations
 - **Effect Cleanup:** Properly clean up effects and subscriptions to prevent memory leaks
 - **Preloading:** Configure route preloading strategies for better perceived performance
 - **Server-Side Rendering:** Implement SSR/SSG for improved initial load performance when needed
