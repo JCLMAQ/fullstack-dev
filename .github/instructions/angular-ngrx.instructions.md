@@ -1,7 +1,8 @@
 ---
-description:  Angular 21 and NGRX - Functions to use
+description:  Angular 21 and NGRX Signal Store - Functions to use
 applyTo: "**/*.ts"
 ---
+Refer to the dedicated `ngrx-signals.instructions.md` file for comprehensive guidance on using NGRX Signals Store effectively for state management with Angular signals, providing a reactive and efficient approach to managing application state.
 
 # Functions to use
 
@@ -27,16 +28,6 @@ Use linkedSignal when:
 [https://dev.to/learn_with_ahmed/understanding-linkedsignal-vs-computed-in-angular-signals-aca](https://dev.to/learn_with_ahmed/understanding-linkedsignal-vs-computed-in-angular-signals-aca)
 
 ## Resource and httpResource
+Refer to the dedicated `angular-resource.instructions.md` file for comprehensive guidance on using Angular's Resource API and httpResource effectively for managing async data with signals, providing a reactive and efficient approach to data fetching and state management.
 
-### Resource
-
-- Use **resource()** method to create a Promise-based Resource, and not **rxResource()** method (which use Observables).
-
-### httpResource
-
-An **httpResource** is a specialized type of **resource** designed to handle **HTTP requests** and expose all related request information via **signals**.
-
-httpResource is a new approach to async data fetching.
-
-**httpResource** is primarily designed for fetching data, just like the fundamental **Resource API** (not for POST, ...)
 

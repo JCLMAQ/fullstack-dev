@@ -98,9 +98,9 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Style Extraction:** Styles exist in separate `.scss` files for maintainability
 - **Function-Based Inputs/Outputs:** Use `input()` and `output()` functions instead of decorators
 - **Two-Way Binding:** Use `model()` for two-way binding scenarios
-- **Element Selectors:** Use element selectors (`selector: 'app-hero-detail'`)
+- **Element Selectors:** Use element selectors (`selector: 'app-hero-detail'` or `selector: 'lib-hero-detail'`) for components, avoid attribute selectors
 - **Logic Delegation:** Delegate complex logic to services, keep components lean
-- **Signal State:** Use `signal()` for local component state, `computed()` for derived state
+- **Signal State:** Use `signal()` for local component state, `computed()` or `linkedSignal()` for derived state
 - **Modern Control Flow:** Use `@if`, `@for`, `@switch` instead of `*ngIf`, `*ngFor`, `*ngSwitch`
 - **Class Bindings:** Use `[class.className]` instead of `ngClass`
 - **Style Bindings:** Use `[style.property]` instead of `ngStyle`
@@ -114,9 +114,12 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Component Encapsulation:** Components use scoped styles with proper encapsulation
 - **Component Libraries:** Angular Material v3 is the standard UI library
 - **SCSS Usage:** Use SCSS for styling with variables, mixins, and nesting
-- **Theming:** Color systems and theming enable consistent visual design
+- **Theming:** Color systems and theming enable consistent visual design using Angular Material's v3 theming capabilities
 - **Accessibility:** Components follow a11y standards
-- **Dark Mode:** Components support dark mode where appropriate
+- **Dark Mode:** Components support dark mode using Angular Material's theming system
+- **Responsive Design:** Use responsive design techniques for mobile and desktop support
+- **Utility Classes:** Use Angular Material's utility classes for spacing and typography
+- **Custom Styles:** Create custom styles only when necessary, and follow the project's design system
 
 ## 5a. Angular Material and Angular CDK Usage
 
@@ -185,6 +188,14 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
 - **Signal Integration:** Services can expose signals for reactive state management
 - **Error Handling:** Services include comprehensive error handling and recovery strategies
 
+## 7. Data Fetching Patterns
+- **Reactive Data Fetching:** Use Angular's Resource API and `httpResource` for managing async data with signals, providing a reactive and efficient approach to data fetching and state management. Refer to the dedicated `angular-resource.instructions.md` file for comprehensive guidance on using resources effectively.
+- **HttpClient:** Use Angular's HttpClient for all HTTP requests other than those managed by the Resource API, including POST, PUT, DELETE,with proper error handling and RxJS operators
+- **Signal Integration:** Use `toSignal()` to convert observables to signals for reactive data fetching in components
+- **Resource API:** Use Angular's Resource API for managing async data with signals and refer to the dedicated `angular-resource.instructions.md` file for comprehensive guidance on using resources effectively.
+
+
+
 ## 7. Directive and Pipe Patterns
 
 - **Attribute Directives:** Directives handle presentation logic without templates and are standalone by default
@@ -243,7 +254,7 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
   }
   ```
 
-- **Derived State:** Use computed signals with `computed()` for derived state that depends on other signals:
+- **Derived State:** Use computed signals with `computed()` or `linkedSignal()` for derived state that depends on other signals:
 
   ```typescript
   readonly isEven = computed(() => this.count() % 2 === 0);
@@ -251,10 +262,18 @@ applyTo: "**/*.ts, **/*.html, **/*.scss"
     this.loading() ? 'Loading...' : `Count: ${this.count()}`
   );
   ```
+  And with linkedSignal for complex state relationships alloowing multiple dependencies and better performance:
+  ```typescript
+  readonly count = signal(0);
+  readonly isEven = linkedSignal(this.count, (count) => count % 2 === 0);
+  readonly displayText = linkedSignal([this.count, this.loading], (count, loading) =>
+    loading ? 'Loading...' : `Count: ${count}`
+  );
+  ```
 
 - **Component Inputs:** Use signal inputs with `input()` for reactive component inputs
 - **Two-Way Binding:** Use model inputs with `model()` for two-way binding scenarios
-- **Side Effects:** Use the `effect()` function for side effects that depend on signal changes
+- **Side Effects:**  Use `signalMethod()` for more complex side effects with input parameters and better performance (refer to `angular-ngrx.instructions.md` for details) or `effect()` for simple side effects without parameters
 - **Signal Updates:** Use `set()` for replacing values, `update()` for transforming values - NEVER use `mutate()`
 - **Error Handling:** Handle errors in signal computations and effects appropriately
 - **Observable Interop:** Use `toSignal()` and `toObservable()` for RxJS interoperability when needed

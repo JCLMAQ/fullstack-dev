@@ -8,7 +8,7 @@ applyTo: "**/*.ts"
 
 - Convert observables to signals once.
 - Make signals the canonical state for UI reads.
-- Keep RxJS for stream transformations and side effects.
+- Keep if absolutely needed RxJS for stream transformations and side effects.
 - Avoid bridging signals back to observables unless absolutely necessary.
 
 
