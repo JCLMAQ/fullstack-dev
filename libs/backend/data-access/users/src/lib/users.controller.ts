@@ -339,6 +339,84 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
     }
   }
 
+  @Post('upsert')
+  async upsertUser(
+    @Body() userData: Prisma.UserCreateInput & Prisma.UserUpdateInput & { id?: string }
+  ): Promise<User> {
+    try {
+      const { id } = userData as { id?: string };
+      const email = (userData as { email?: string }).email;
+
+      if (!id && !email) {
+        throw new HttpException(
+          'L\'email est requis',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
+      if (id) {
+        const sanitizedData = this.sanitizeUserUpdate(userData as Prisma.UserUpdateInput);
+        const existingUser = await this.usersService.user({ id });
+        if (!existingUser) {
+          throw new HttpException(
+            'Utilisateur non trouvé',
+            HttpStatus.NOT_FOUND
+          );
+        }
+
+        if (sanitizedData.email && sanitizedData.email !== existingUser.email) {
+          const userWithEmail = await this.usersService.user({
+            email: sanitizedData.email as string
+          });
+          if (userWithEmail) {
+            throw new HttpException(
+              'Un utilisateur avec cet email existe déjà',
+              HttpStatus.CONFLICT
+            );
+          }
+        }
+
+        return await this.usersService.updateUser({
+          where: { id },
+          data: sanitizedData
+        });
+      }
+
+      const existingUser = await this.usersService.user({ email });
+      if (existingUser) {
+        const sanitizedData = this.sanitizeUserUpdate(userData as Prisma.UserUpdateInput);
+        if (sanitizedData.email && sanitizedData.email !== existingUser.email) {
+          const userWithEmail = await this.usersService.user({
+            email: sanitizedData.email as string
+          });
+          if (userWithEmail && userWithEmail.id !== existingUser.id) {
+            throw new HttpException(
+              'Un utilisateur avec cet email existe déjà',
+              HttpStatus.CONFLICT
+            );
+          }
+        }
+
+        return await this.usersService.updateUser({
+          where: { id: existingUser.id },
+          data: sanitizedData
+        });
+      }
+
+      const sanitizedCreate = this.sanitizeUserCreate(userData);
+      return await this.usersService.createUser(sanitizedCreate);
+    } catch (error) {
+      this.logger.error('Upsert user failed', error instanceof Error ? error.stack : String(error));
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Erreur lors de la création de l\'utilisateur',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   /**
    * Met à jour un utilisateur
    */
@@ -418,8 +496,6 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
       'tfaSecret',
       'passWordFaker',
       'groupId',
-      'managerId',
-      'Language',
     ]);
 
     const input = userData as Record<string, unknown>;
@@ -444,6 +520,11 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
       cleaned['Language'] = { connect: { id: languageId } };
     }
 
+    const managerId = input['managerId'];
+    if (typeof managerId === 'string' && managerId.trim().length > 0) {
+      cleaned['manager'] = { connect: { id: managerId } };
+    }
+
     const emergencyContact = input['emergencyContact'];
     if (emergencyContact && typeof emergencyContact === 'object') {
       const contact = emergencyContact as {
@@ -463,6 +544,56 @@ async getUserAddresses(@Param('id') id: string): Promise<Address[]> {
     }
 
     return cleaned as Prisma.UserUpdateInput;
+  }
+
+  private sanitizeUserCreate(
+    userData: Prisma.UserCreateInput & Prisma.UserUpdateInput & { addresses?: Address[] }
+  ): Prisma.UserCreateInput {
+    const input = userData as Record<string, unknown>;
+    const cleaned = this.sanitizeUserUpdate(userData as Prisma.UserUpdateInput) as Record<string, unknown>;
+
+    const addresses = input['addresses'];
+    if (Array.isArray(addresses)) {
+      const validAddresses = addresses
+        .filter((address): address is Address => !!address && typeof address === 'object')
+        .map((address) => {
+          const street = typeof address.street === 'string' ? address.street.trim() : '';
+          const buildingNum = typeof address.buildingNum === 'string' ? address.buildingNum.trim() : '';
+          const aptNum = typeof address.aptNum === 'string' ? address.aptNum.trim() : '';
+          const city = typeof address.city === 'string' ? address.city.trim() : '';
+          const state = typeof address.state === 'string' ? address.state.trim() : '';
+          const zipCode = typeof address.zipCode === 'string' ? address.zipCode.trim() : '';
+          const country = typeof address.country === 'string' ? address.country.trim() : '';
+          const countryIso = typeof address.countryIso === 'string' ? address.countryIso.trim() : '';
+
+          if (!street || !buildingNum || !aptNum || !city || !state || !zipCode || !country || !countryIso) {
+            return null;
+          }
+
+          const addressType = address.addressType ?? undefined;
+          const isPrimary = typeof address.isPrimary === 'boolean' ? address.isPrimary : undefined;
+
+          return {
+            street,
+            buildingNum,
+            aptNum,
+            city,
+            state,
+            zipCode,
+            country,
+            countryIso,
+            addressType,
+            isPrimary,
+          };
+        })
+        .filter((address): address is NonNullable<typeof address> => !!address);
+
+      if (validAddresses.length > 0) {
+        cleaned['Address'] = { create: validAddresses };
+      }
+    }
+
+    return cleaned as Prisma.UserCreateInput;
   }
 
   /**

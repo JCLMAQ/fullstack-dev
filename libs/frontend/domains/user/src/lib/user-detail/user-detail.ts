@@ -253,14 +253,13 @@ export class UserDetail {
     if (!this.userForm().valid()) {
       this.snackBar.open('Veuillez corriger les erreurs du formulaire', 'OK', { duration: 3000 });
       this.userForm().focusBoundControl();
-      // return;
-
+      return;
     }
 
     const formValue = this.userForm().value();
     const userId = formValue.id;
 
-    if (!userId) {
+    if (!userId && this.mode() !== 'add') {
       this.snackBar.open('ID utilisateur manquant', 'OK', { duration: 3000 });
       return;
     }
