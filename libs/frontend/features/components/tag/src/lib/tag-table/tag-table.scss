@@ -1,0 +1,64 @@
+.tag-table-container {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.table-title {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.table-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.search-field {
+	min-width: 240px;
+	flex: 1 1 280px;
+}
+
+.tag-form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 12px;
+	align-items: end;
+}
+
+.form-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.table-wrapper {
+	overflow-x: auto;
+}
+
+.tag-table {
+	width: 100%;
+}
+
+.inline-field {
+	width: 100%;
+}
+
+.actions-cell {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.loading-state,
+.no-data {
+	padding: 16px;
+	text-align: center;
+}
+
+.count-button {
+	min-width: 48px;
+}

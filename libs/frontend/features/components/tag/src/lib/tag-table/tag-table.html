@@ -1,1 +1,167 @@
-<p>tag-table works!</p>
+<section class="tag-table-container">
+	@if (title()) {
+		<div class="table-title">{{ title() }}</div>
+	}
+
+	<div class="table-header">
+		<mat-form-field class="search-field" appearance="outline">
+			<mat-label>Recherche</mat-label>
+			<input matInput type="text" [formField]="searchForm.search" placeholder="Nom ou categorie" />
+			@if (searchState().search) {
+				<button mat-icon-button matSuffix (click)="clearSearch()" aria-label="Clear search">
+					<mat-icon>close</mat-icon>
+				</button>
+			}
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+
+		<button mat-raised-button color="primary" (click)="startAdd()" [disabled]="addingNew()">
+			<mat-icon>add</mat-icon>
+			Ajouter un tag
+		</button>
+	</div>
+
+	@if (addingNew()) {
+		<form class="tag-form" (submit)="$event.preventDefault(); saveAdd()">
+			<mat-form-field appearance="outline">
+				<mat-label>Nom</mat-label>
+				<input matInput [formField]="addForm.name" />
+				<lib-field-error [fieldError]="addForm.name()" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Categorie</mat-label>
+				<mat-select [formField]="addForm.tagCategoriesId">
+					@for (category of categories(); track category.id) {
+						<mat-option [value]="category.id">{{ category.modelName }}</mat-option>
+					}
+				</mat-select>
+				<lib-field-error [fieldError]="addForm.tagCategoriesId()" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Position</mat-label>
+				<input matInput type="number" [formField]="addForm.position" />
+			</mat-form-field>
+
+			<div class="form-actions">
+				<button mat-raised-button color="primary" type="submit" [disabled]="!addForm().valid()">
+					Sauvegarder
+				</button>
+				<button mat-button type="button" (click)="cancelAdd()">Annuler</button>
+			</div>
+		</form>
+	}
+
+	<div class="table-wrapper">
+		@if (isLoading()) {
+			<div class="loading-state">Chargement...</div>
+		} @else if (tags().length === 0) {
+			<div class="no-data">Aucun tag disponible</div>
+		} @else {
+			<table mat-table [dataSource]="tags()" matSort (matSortChange)="onSortChange($event)" class="tag-table">
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header="name">Nom</th>
+					<td mat-cell *matCellDef="let element">
+						@if (isEditing(element)) {
+							<mat-form-field appearance="outline" class="inline-field">
+								<input matInput [formField]="editForm.name" />
+								<lib-field-error [fieldError]="editForm.name()" />
+							</mat-form-field>
+						} @else {
+							{{ element.name }}
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="category">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header="category">Categorie</th>
+					<td mat-cell *matCellDef="let element">
+						@if (isEditing(element)) {
+							<mat-form-field appearance="outline" class="inline-field">
+								<mat-select [formField]="editForm.tagCategoriesId">
+									@for (category of categories(); track category.id) {
+										<mat-option [value]="category.id">{{ category.modelName }}</mat-option>
+									}
+								</mat-select>
+								<lib-field-error [fieldError]="editForm.tagCategoriesId()" />
+							</mat-form-field>
+						} @else {
+							{{ element.tagCategories?.modelName }}
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="position">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header="position">Position</th>
+					<td mat-cell *matCellDef="let element">
+						@if (isEditing(element)) {
+							<mat-form-field appearance="outline" class="inline-field">
+								<input matInput type="number" [formField]="editForm.position" />
+							</mat-form-field>
+						} @else {
+							{{ element.position }}
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="subTagCount">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header="subTagCount">Sous-tags</th>
+					<td mat-cell *matCellDef="let element">
+						<button
+							mat-button
+							type="button"
+							class="count-button"
+							[disabled]="element.subTagCount === 0"
+							(click)="openSubTags(element)"
+						>
+							{{ element.subTagCount }}
+						</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="usageCount">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header="usageCount">Utilisations</th>
+					<td mat-cell *matCellDef="let element">
+						{{ element.usageCount }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef>Actions</th>
+					<td mat-cell *matCellDef="let element" class="actions-cell">
+						@if (isEditing(element)) {
+							<button mat-icon-button color="primary" (click)="saveEdit(element)" [disabled]="!editForm().valid()" matTooltip="Sauvegarder">
+								<mat-icon>check</mat-icon>
+							</button>
+							<button mat-icon-button (click)="cancelEdit()" matTooltip="Annuler">
+								<mat-icon>close</mat-icon>
+							</button>
+						} @else {
+							<button mat-icon-button (click)="startEdit(element)" [disabled]="addingNew()" matTooltip="Editer">
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button mat-icon-button color="warn" (click)="confirmDelete(element, false)" [disabled]="addingNew()" matTooltip="Supprimer">
+								<mat-icon>delete</mat-icon>
+							</button>
+							<button mat-icon-button color="warn" (click)="confirmDelete(element, true)" [disabled]="addingNew()" matTooltip="Supprimer definitivement">
+								<mat-icon>delete_forever</mat-icon>
+							</button>
+						}
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+				<tr mat-row *matRowDef="let element; columns: displayedColumns()"></tr>
+			</table>
+		}
+	</div>
+
+	<mat-paginator
+		[length]="totalCount()"
+		[pageSize]="pageSize()"
+		[pageSizeOptions]="[5, 10, 25, 50]"
+		(page)="onPageChange($event)"
+		showFirstLastButtons
+	></mat-paginator>
+</section>

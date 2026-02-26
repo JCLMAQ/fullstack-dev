@@ -1,4 +1,4 @@
-import { Prisma, TagWithRelations } from '@db/prisma';
+import { Prisma } from '@db/prisma';
 
 export type TagTranslationDto = Prisma.TagTranslateUncheckedCreateWithoutTagValueInput;
 
@@ -10,8 +10,29 @@ export type UpdateTagDto = Omit<Prisma.TagValueUncheckedUpdateInput, 'tagTransla
   translations?: TagTranslationDto[];
 };
 
+type TagListItemBase = Prisma.TagValueGetPayload<{
+  include: {
+    tagCategories: true;
+    _count: {
+      select: {
+        SubTags: true;
+        Todos: true;
+        Tasks: true;
+        Groups: true;
+        Posts: true;
+        Files: true;
+      };
+    };
+  };
+}>;
+
+export type TagListItem = Omit<TagListItemBase, '_count'> & {
+  usageCount: number;
+  subTagCount: number;
+};
+
 export interface TagListResponse {
-  data: TagWithRelations[];
+  data: TagListItem[];
   total: number;
   skip: number;
   take: number;

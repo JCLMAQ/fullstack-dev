@@ -33,6 +33,11 @@
     route: 'tasks',
   },
   {
+    icon: 'tag',
+    label: 'SideNavMenu.Tags',
+    route: 'tags',
+  },
+  {
     icon: 'phone',
     label: 'SideNavMenu.Phones',
     route: 'phones',

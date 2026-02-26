@@ -1,4 +1,4 @@
-import { Prisma, TagWithRelations } from '@db/prisma';
+import { Prisma, TagCategories, TagWithRelations } from '@db/prisma';
 import {
     Body,
     Controller,
@@ -92,6 +92,32 @@ export class TagsController {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  }
+
+  @Get('categories')
+  async getTagCategories(
+    @Query('published') published?: string,
+    @Query('isPublic') isPublic?: string,
+    @Query('includeDeleted') includeDeleted?: string
+  ): Promise<TagCategories[]> {
+    const where: Prisma.TagCategoriesWhereInput = {};
+
+    const includeDeletedFlag = this.parseBoolean(includeDeleted);
+    if (!includeDeletedFlag) {
+      where.isDeleted = 0;
+    }
+
+    const publishedFlag = this.parseBoolean(published);
+    if (publishedFlag !== undefined) {
+      where.published = publishedFlag;
+    }
+
+    const isPublicFlag = this.parseBoolean(isPublic);
+    if (isPublicFlag !== undefined) {
+      where.isPublic = isPublicFlag;
+    }
+
+    return this.tagsService.listTagCategories({ where });
   }
 
   @Get(':id')

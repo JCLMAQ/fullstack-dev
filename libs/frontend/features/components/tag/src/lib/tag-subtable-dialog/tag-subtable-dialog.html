@@ -1,0 +1,8 @@
+<header class="dialog-header">
+  <div class="dialog-title">Sous-tags: {{ data.tagName }}</div>
+  <button mat-icon-button type="button" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</header>
+
+<lib-tag-table [mainTagId]="data.tagId"></lib-tag-table>

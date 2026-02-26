@@ -1,7 +1,7 @@
-import { Prisma, TagWithRelations } from '@db/prisma';
+import { Prisma, TagCategories, TagWithRelations } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTagDto, TagTranslationDto, UpdateTagDto } from './dto/tag.dto';
+import { CreateTagDto, TagListItem, TagTranslationDto, UpdateTagDto } from './dto/tag.dto';
 
 const TAG_INCLUDE: Prisma.TagValueInclude = {
 	tagCategories: true,
@@ -30,14 +30,39 @@ const TAG_INCLUDE: Prisma.TagValueInclude = {
 	Files: true,
 };
 
+const TAG_LIST_INCLUDE: Prisma.TagValueInclude = {
+	tagCategories: true,
+	_count: {
+		select: {
+			SubTags: true,
+			Todos: true,
+			Tasks: true,
+			Groups: true,
+			Posts: true,
+			Files: true,
+		},
+	},
+};
+
 @Injectable()
 export class TagsService {
 	constructor(private readonly prisma: PrismaClientService) {}
 
-	async listTags(args: Prisma.TagValueFindManyArgs): Promise<TagWithRelations[]> {
-		return this.prisma.tagValue.findMany({
+	async listTags(args: Prisma.TagValueFindManyArgs): Promise<TagListItem[]> {
+		const tags = await this.prisma.tagValue.findMany({
 			...args,
-			include: TAG_INCLUDE,
+			include: TAG_LIST_INCLUDE,
+		});
+
+		return tags.map((tag) => this.buildTagListItem(tag));
+	}
+
+	async listTagCategories(args?: Prisma.TagCategoriesFindManyArgs): Promise<TagCategories[]> {
+		const where = { isDeleted: 0, ...(args?.where ?? {}) };
+		return this.prisma.tagCategories.findMany({
+			...args,
+			where,
+			orderBy: args?.orderBy ?? { modelName: 'asc' },
 		});
 	}
 
@@ -156,5 +181,21 @@ export class TagsService {
 		}
 
 		await this.prisma.$transaction(operations);
+	}
+
+	private buildTagListItem(tag: Prisma.TagValueGetPayload<{ include: typeof TAG_LIST_INCLUDE }>): TagListItem {
+		const { _count, ...rest } = tag;
+		const usageCount =
+			(_count?.Todos ?? 0) +
+			(_count?.Tasks ?? 0) +
+			(_count?.Groups ?? 0) +
+			(_count?.Posts ?? 0) +
+			(_count?.Files ?? 0);
+
+		return {
+			...rest,
+			subTagCount: _count?.SubTags ?? 0,
+			usageCount,
+		};
 	}
 }

@@ -36,6 +36,10 @@ children: [
         loadChildren: () => import('@fe/phone').then((m) => m.phoneRoutes),
       },
       {
+        path: 'tags',
+        loadChildren: () => import('@fe/tag').then((m) => m.tagRoutes),
+      },
+      {
         path: 'dictionary',
         loadChildren: () => import('@fe/dictionary').then((m) => m.dictionaryRoutes),
       },

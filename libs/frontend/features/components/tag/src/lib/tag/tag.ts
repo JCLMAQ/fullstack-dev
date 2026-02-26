@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TagStore } from '../store/tag-store';
 import { TagTable } from '../tag-table/tag-table';
 
 @Component({
@@ -6,5 +7,6 @@ import { TagTable } from '../tag-table/tag-table';
   imports: [TagTable],
   templateUrl: './tag.html',
   styleUrl: './tag.scss',
+  providers: [TagStore],
 })
 export class Tag {}
