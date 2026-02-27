@@ -12,6 +12,7 @@ const makeSchema = () => z.object({
   isDeletedDT: z.coerce.date().optional().nullable(),
   name: z.string(),
   position: z.number().int().optional(),
+  color: z.string().optional().nullable(),
   mainTagId: z.number().int().optional().nullable()
 }).strict();
 export const TagValueCreateManyTagCategoriesInputObjectSchema: z.ZodType<Prisma.TagValueCreateManyTagCategoriesInput> = makeSchema() as unknown as z.ZodType<Prisma.TagValueCreateManyTagCategoriesInput>;

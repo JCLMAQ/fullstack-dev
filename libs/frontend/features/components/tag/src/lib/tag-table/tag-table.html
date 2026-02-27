@@ -44,6 +44,39 @@
 				<input matInput type="number" [formField]="addForm.position" />
 			</mat-form-field>
 
+			<div class="color-picker">
+				<div class="color-picker-label">Couleur</div>
+				<div class="color-palette">
+					@for (color of colorPalette; track color.value) {
+						<button
+							mat-icon-button
+							type="button"
+							(click)="setAddColor(color.value)"
+							[attr.aria-label]="'Couleur ' + color.label"
+						>
+							<span class="color-swatch" [style.--tag-color]="color.value"></span>
+						</button>
+					}
+					<button mat-icon-button type="button" class="clear-color" (click)="clearAddColor()" aria-label="Sans couleur">
+						<mat-icon>block</mat-icon>
+					</button>
+				</div>
+				<div class="color-inputs">
+					<mat-form-field appearance="outline" class="color-field">
+						<mat-label>Couleur</mat-label>
+						<input matInput type="text" [formField]="addForm.color" placeholder="#RRGGBB" />
+						<lib-field-error [fieldError]="addForm.color()" />
+					</mat-form-field>
+					<input
+						class="native-color-input"
+						type="color"
+						[value]="addForm.color().value() ?? defaultColor"
+						(input)="setAddColor($any($event.target).value)"
+						aria-label="Choisir une couleur"
+					/>
+				</div>
+			</div>
+
 			<div class="form-actions">
 				<button mat-raised-button color="primary" type="submit" [disabled]="!addForm().valid()">
 					Sauvegarder
@@ -70,6 +103,60 @@
 							</mat-form-field>
 						} @else {
 							{{ element.name }}
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="color">
+					<th mat-header-cell *matHeaderCellDef>Couleur</th>
+					<td mat-cell *matCellDef="let element">
+						@if (isEditing(element)) {
+							<div class="color-picker inline-color-picker">
+								<div class="color-palette">
+									@for (color of colorPalette; track color.value) {
+										<button
+											mat-icon-button
+											type="button"
+											(click)="setEditColor(color.value)"
+											[attr.aria-label]="'Couleur ' + color.label"
+										>
+											<span class="color-swatch" [style.--tag-color]="color.value"></span>
+										</button>
+									}
+									<button
+										mat-icon-button
+										type="button"
+										class="clear-color"
+										(click)="clearEditColor()"
+										aria-label="Sans couleur"
+									>
+										<mat-icon>block</mat-icon>
+									</button>
+								</div>
+								<div class="color-inputs">
+									<mat-form-field appearance="outline" class="color-field">
+										<mat-label>Couleur</mat-label>
+										<input matInput type="text" [formField]="editForm.color" placeholder="#RRGGBB" />
+										<lib-field-error [fieldError]="editForm.color()" />
+									</mat-form-field>
+									<input
+										class="native-color-input"
+										type="color"
+										[value]="editForm.color().value() ?? defaultColor"
+										(input)="setEditColor($any($event.target).value)"
+										aria-label="Choisir une couleur"
+									/>
+								</div>
+							</div>
+						} @else {
+							<div class="color-display">
+								@if (element.color) {
+									<span class="color-swatch" [style.--tag-color]="element.color"></span>
+									<span class="color-value">{{ element.color }}</span>
+								} @else {
+									<span class="color-empty">Aucune</span>
+								}
+							</div>
 						}
 					</td>
 				</ng-container>

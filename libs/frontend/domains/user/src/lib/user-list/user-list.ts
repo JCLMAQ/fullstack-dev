@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, HostListener, inject, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,7 +16,7 @@ import { UserStore } from '../store/user-store';
 @Component({
   selector: 'lib-user-list',
   imports: [
-    JsonPipe,
+    // JsonPipe,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

@@ -721,6 +721,7 @@ export const TagValueScalarFieldEnum = {
   isDeletedDT: 'isDeletedDT',
   name: 'name',
   position: 'position',
+  color: 'color',
   tagCategoriesId: 'tagCategoriesId',
   mainTagId: 'mainTagId'
 } as const

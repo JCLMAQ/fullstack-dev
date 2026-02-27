@@ -12,6 +12,7 @@ const makeSchema = () => z.object({
   isDeletedDT: SortOrderSchema.optional(),
   name: SortOrderSchema.optional(),
   position: SortOrderSchema.optional(),
+  color: SortOrderSchema.optional(),
   tagCategoriesId: SortOrderSchema.optional(),
   mainTagId: SortOrderSchema.optional()
 }).strict();

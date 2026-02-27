@@ -18,6 +18,7 @@ export function buildTagListItem(tag: TagMutationResult, current?: TagListItem):
 		isDeleted: tag.isDeleted,
 		isDeletedDT: tag.isDeletedDT,
 		name: tag.name,
+		color: tag.color ?? current?.color ?? null,
 		position: tag.position,
 		tagCategoriesId: tag.tagCategoriesId,
 		mainTagId: tag.mainTagId ?? null,

@@ -21,6 +21,7 @@ const makeSchema = () => z.object({
   isDeletedDT: z.boolean().optional(),
   name: z.boolean().optional(),
   position: z.boolean().optional(),
+  color: z.boolean().optional(),
   tagCategories: z.union([z.boolean(), z.lazy(() => TagCategoriesArgsObjectSchema)]).optional(),
   tagCategoriesId: z.boolean().optional(),
   mainTag: z.union([z.boolean(), z.lazy(() => TagValueArgsObjectSchema)]).optional(),

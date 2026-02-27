@@ -10,6 +10,8 @@ import { createPost } from './factories/post';
 import { dataPostLike } from './factories/postLike';
 import { assignProfilesToUsers, createProfiles } from './factories/profile-bulk';
 import { createStory } from './factories/story';
+import { createTagCategories } from './factories/tag-category';
+import { createTagsForCategories } from './factories/tag-value';
 import { createTask } from './factories/task';
 import { createTodo } from './factories/todo';
 import { createBulkUsers } from './factories/user-bulk';
@@ -61,6 +63,26 @@ async function main() {
   console.log('\n📂 Creating post categories...');
   await createCategories(15, prisma);
   const categories = await prisma.category.findMany();
+
+  // Step 4.5: Create tag categories and tags
+  console.log('\n🏷️ Creating tag categories and tags...');
+  const tagCategories = await createTagCategories(prisma);
+  const tagColors = [
+    '#ef4444',
+    '#f97316',
+    '#f59e0b',
+    '#22c55e',
+    '#14b8a6',
+    '#3b82f6',
+    '#6366f1',
+    '#8b5cf6',
+    '#ec4899',
+    '#64748b',
+  ];
+  await createTagsForCategories(prisma, tagCategories, {
+    perCategory: 10,
+    colors: tagColors,
+  });
 
   // Step 5: Create posts, stories, todos, and tasks for each user
   console.log('\n📝 Creating posts, stories, todos, and tasks for each user...');
@@ -206,6 +228,8 @@ async function main() {
   console.log(`  • Stories: ~${users.length * 4}`);
   console.log(`  • Images: ~${users.length * 4}`);
   console.log(`  • Categories: ${categories.length}`);
+  console.log(`  • TagCategories: ${tagCategories.length}`);
+  console.log(`  • Tags: ${tagCategories.length * 10}`);
   console.log(`\n🔐 Default password for all users: Pwd!123456`);
 }
 

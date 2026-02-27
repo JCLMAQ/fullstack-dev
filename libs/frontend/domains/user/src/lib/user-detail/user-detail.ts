@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { apply, applyEach, disabled, form, FormField } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -81,7 +80,7 @@ type UserFormData = {
     MatMenuModule,
     PreventReadonlyInteractionDirective,
     TranslateModule,
-    JsonPipe,
+    // JsonPipe,
     DebugPanel,
     AddressForm,
     MatChip

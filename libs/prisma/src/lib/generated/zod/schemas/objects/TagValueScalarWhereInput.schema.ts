@@ -5,6 +5,7 @@ import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './Date
 import { BoolFilterObjectSchema as BoolFilterObjectSchema } from './BoolFilter.schema';
 import { DateTimeNullableFilterObjectSchema as DateTimeNullableFilterObjectSchema } from './DateTimeNullableFilter.schema';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
+import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { IntNullableFilterObjectSchema as IntNullableFilterObjectSchema } from './IntNullableFilter.schema'
 
 const tagvaluescalarwhereinputSchema = z.object({
@@ -20,6 +21,7 @@ const tagvaluescalarwhereinputSchema = z.object({
   isDeletedDT: z.union([z.lazy(() => DateTimeNullableFilterObjectSchema), z.coerce.date()]).optional().nullable(),
   name: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   position: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  color: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   tagCategoriesId: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   mainTagId: z.union([z.lazy(() => IntNullableFilterObjectSchema), z.number().int()]).optional().nullable()
 }).strict();

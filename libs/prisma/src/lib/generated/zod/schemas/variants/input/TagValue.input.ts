@@ -10,6 +10,7 @@ export const TagValueInputSchema = z.object({
     isDeletedDT: z.date().optional().nullable(),
     name: z.string(),
     position: z.number().int(),
+    color: z.string().optional().nullable(),
     tagCategories: z.unknown(),
     tagCategoriesId: z.number().int(),
     mainTag: z.unknown().optional().nullable(),

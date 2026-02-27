@@ -10,6 +10,7 @@ export const TagValueFindManyResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   name: z.string(),
   position: z.number().int(),
+  color: z.string().optional(),
   tagCategories: z.unknown(),
   tagCategoriesId: z.number().int(),
   mainTag: z.unknown().optional(),

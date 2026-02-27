@@ -7,6 +7,7 @@ type TagCounts = {
 
 export type TagListItem = TagValue & TagCounts & {
   tagCategories: TagCategories;
+  color?: string | null;
 };
 
 export type TagListResponse = {
@@ -34,6 +35,7 @@ export type CreateTagDto = {
   mainTagId?: number | null;
   published?: boolean;
   isPublic?: boolean;
+  color?: string | null;
 };
 
 export type UpdateTagDto = Partial<CreateTagDto>;

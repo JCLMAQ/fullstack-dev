@@ -21,6 +21,7 @@ const tagvalueorderbywithrelationinputSchema = z.object({
   isDeletedDT: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   name: SortOrderSchema.optional(),
   position: SortOrderSchema.optional(),
+  color: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   tagCategoriesId: SortOrderSchema.optional(),
   mainTagId: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   tagCategories: z.lazy(() => TagCategoriesOrderByWithRelationInputObjectSchema).optional(),

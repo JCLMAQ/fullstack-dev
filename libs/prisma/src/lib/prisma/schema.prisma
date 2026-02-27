@@ -861,6 +861,7 @@ model TagValue {
   isDeletedDT     DateTime?
   name            String          @unique()
   position        Int             @default(0) // Position in the list of tags  value for ordering
+  color           String?         // Optional color code for UI representation
   tagCategories   TagCategories      @relation(fields: [tagCategoriesId], references: [id])
   tagCategoriesId    Int
   mainTag         TagValue?       @relation("MainSubTag", fields: [mainTagId], references: [id], onDelete: SetNull, onUpdate: Cascade)

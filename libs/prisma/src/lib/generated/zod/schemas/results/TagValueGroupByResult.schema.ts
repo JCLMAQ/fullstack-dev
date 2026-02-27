@@ -9,6 +9,7 @@ export const TagValueGroupByResultSchema = z.array(z.object({
   isDeletedDT: z.date(),
   name: z.string(),
   position: z.number().int(),
+  color: z.string(),
   tagCategoriesId: z.number().int(),
   mainTagId: z.number().int(),
   _count: z.object({
@@ -21,6 +22,7 @@ export const TagValueGroupByResultSchema = z.array(z.object({
     isDeletedDT: z.number(),
     name: z.number(),
     position: z.number(),
+    color: z.number(),
     tagCategories: z.number(),
     tagCategoriesId: z.number(),
     mainTag: z.number(),
@@ -55,6 +57,7 @@ export const TagValueGroupByResultSchema = z.array(z.object({
     isDeletedDT: z.date().nullable(),
     name: z.string().nullable(),
     position: z.number().int().nullable(),
+    color: z.string().nullable(),
     tagCategoriesId: z.number().int().nullable(),
     mainTagId: z.number().int().nullable()
   }).nullable().optional(),
@@ -66,6 +69,7 @@ export const TagValueGroupByResultSchema = z.array(z.object({
     isDeletedDT: z.date().nullable(),
     name: z.string().nullable(),
     position: z.number().int().nullable(),
+    color: z.string().nullable(),
     tagCategoriesId: z.number().int().nullable(),
     mainTagId: z.number().int().nullable()
   }).nullable().optional()

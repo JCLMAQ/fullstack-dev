@@ -12,6 +12,7 @@ const makeSchema = () => z.object({
   isDeletedDT: z.literal(true).optional(),
   name: z.literal(true).optional(),
   position: z.literal(true).optional(),
+  color: z.literal(true).optional(),
   tagCategoriesId: z.literal(true).optional(),
   mainTagId: z.literal(true).optional(),
   _all: z.literal(true).optional()

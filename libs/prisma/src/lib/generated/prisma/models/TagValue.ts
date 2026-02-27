@@ -52,6 +52,7 @@ export type TagValueMinAggregateOutputType = {
   isDeletedDT: Date | null
   name: string | null
   position: number | null
+  color: string | null
   tagCategoriesId: number | null
   mainTagId: number | null
 }
@@ -66,6 +67,7 @@ export type TagValueMaxAggregateOutputType = {
   isDeletedDT: Date | null
   name: string | null
   position: number | null
+  color: string | null
   tagCategoriesId: number | null
   mainTagId: number | null
 }
@@ -80,6 +82,7 @@ export type TagValueCountAggregateOutputType = {
   isDeletedDT: number
   name: number
   position: number
+  color: number
   tagCategoriesId: number
   mainTagId: number
   _all: number
@@ -112,6 +115,7 @@ export type TagValueMinAggregateInputType = {
   isDeletedDT?: true
   name?: true
   position?: true
+  color?: true
   tagCategoriesId?: true
   mainTagId?: true
 }
@@ -126,6 +130,7 @@ export type TagValueMaxAggregateInputType = {
   isDeletedDT?: true
   name?: true
   position?: true
+  color?: true
   tagCategoriesId?: true
   mainTagId?: true
 }
@@ -140,6 +145,7 @@ export type TagValueCountAggregateInputType = {
   isDeletedDT?: true
   name?: true
   position?: true
+  color?: true
   tagCategoriesId?: true
   mainTagId?: true
   _all?: true
@@ -241,6 +247,7 @@ export type TagValueGroupByOutputType = {
   isDeletedDT: Date | null
   name: string
   position: number
+  color: string | null
   tagCategoriesId: number
   mainTagId: number | null
   _count: TagValueCountAggregateOutputType | null
@@ -278,6 +285,7 @@ export type TagValueWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"TagValue"> | Date | string | null
   name?: Prisma.StringFilter<"TagValue"> | string
   position?: Prisma.IntFilter<"TagValue"> | number
+  color?: Prisma.StringNullableFilter<"TagValue"> | string | null
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
   mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
   tagCategories?: Prisma.XOR<Prisma.TagCategoriesScalarRelationFilter, Prisma.TagCategoriesWhereInput>
@@ -301,6 +309,7 @@ export type TagValueOrderByWithRelationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  color?: Prisma.SortOrderInput | Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
   mainTagId?: Prisma.SortOrderInput | Prisma.SortOrder
   tagCategories?: Prisma.TagCategoriesOrderByWithRelationInput
@@ -327,6 +336,7 @@ export type TagValueWhereUniqueInput = Prisma.AtLeast<{
   isDeleted?: Prisma.IntFilter<"TagValue"> | number
   isDeletedDT?: Prisma.DateTimeNullableFilter<"TagValue"> | Date | string | null
   position?: Prisma.IntFilter<"TagValue"> | number
+  color?: Prisma.StringNullableFilter<"TagValue"> | string | null
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
   mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
   tagCategories?: Prisma.XOR<Prisma.TagCategoriesScalarRelationFilter, Prisma.TagCategoriesWhereInput>
@@ -350,6 +360,7 @@ export type TagValueOrderByWithAggregationInput = {
   isDeletedDT?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  color?: Prisma.SortOrderInput | Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
   mainTagId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TagValueCountOrderByAggregateInput
@@ -372,6 +383,7 @@ export type TagValueScalarWhereWithAggregatesInput = {
   isDeletedDT?: Prisma.DateTimeNullableWithAggregatesFilter<"TagValue"> | Date | string | null
   name?: Prisma.StringWithAggregatesFilter<"TagValue"> | string
   position?: Prisma.IntWithAggregatesFilter<"TagValue"> | number
+  color?: Prisma.StringNullableWithAggregatesFilter<"TagValue"> | string | null
   tagCategoriesId?: Prisma.IntWithAggregatesFilter<"TagValue"> | number
   mainTagId?: Prisma.IntNullableWithAggregatesFilter<"TagValue"> | number | null
 }
@@ -385,6 +397,7 @@ export type TagValueCreateInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -406,6 +419,7 @@ export type TagValueUncheckedCreateInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -426,6 +440,7 @@ export type TagValueUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -447,6 +462,7 @@ export type TagValueUncheckedUpdateInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -468,6 +484,7 @@ export type TagValueCreateManyInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
 }
@@ -481,6 +498,7 @@ export type TagValueUpdateManyMutationInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TagValueUncheckedUpdateManyInput = {
@@ -493,6 +511,7 @@ export type TagValueUncheckedUpdateManyInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -522,6 +541,7 @@ export type TagValueCountOrderByAggregateInput = {
   isDeletedDT?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
   mainTagId?: Prisma.SortOrder
 }
@@ -544,6 +564,7 @@ export type TagValueMaxOrderByAggregateInput = {
   isDeletedDT?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
   mainTagId?: Prisma.SortOrder
 }
@@ -558,6 +579,7 @@ export type TagValueMinOrderByAggregateInput = {
   isDeletedDT?: Prisma.SortOrder
   name?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   tagCategoriesId?: Prisma.SortOrder
   mainTagId?: Prisma.SortOrder
 }
@@ -888,6 +910,7 @@ export type TagValueCreateWithoutGroupsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -908,6 +931,7 @@ export type TagValueUncheckedCreateWithoutGroupsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -952,6 +976,7 @@ export type TagValueScalarWhereInput = {
   isDeletedDT?: Prisma.DateTimeNullableFilter<"TagValue"> | Date | string | null
   name?: Prisma.StringFilter<"TagValue"> | string
   position?: Prisma.IntFilter<"TagValue"> | number
+  color?: Prisma.StringNullableFilter<"TagValue"> | string | null
   tagCategoriesId?: Prisma.IntFilter<"TagValue"> | number
   mainTagId?: Prisma.IntNullableFilter<"TagValue"> | number | null
 }
@@ -965,6 +990,7 @@ export type TagValueCreateWithoutTodosInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -985,6 +1011,7 @@ export type TagValueUncheckedCreateWithoutTodosInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -1025,6 +1052,7 @@ export type TagValueCreateWithoutTasksInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -1045,6 +1073,7 @@ export type TagValueUncheckedCreateWithoutTasksInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -1085,6 +1114,7 @@ export type TagValueCreateWithoutPostsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -1105,6 +1135,7 @@ export type TagValueUncheckedCreateWithoutPostsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -1145,6 +1176,7 @@ export type TagValueCreateWithoutFilesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -1165,6 +1197,7 @@ export type TagValueUncheckedCreateWithoutFilesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -1205,6 +1238,7 @@ export type TagValueCreateWithoutSubTagsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
@@ -1225,6 +1259,7 @@ export type TagValueUncheckedCreateWithoutSubTagsInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
@@ -1249,6 +1284,7 @@ export type TagValueCreateWithoutMainTagInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
@@ -1269,6 +1305,7 @@ export type TagValueUncheckedCreateWithoutMainTagInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
@@ -1309,6 +1346,7 @@ export type TagValueUpdateWithoutSubTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
@@ -1329,6 +1367,7 @@ export type TagValueUncheckedUpdateWithoutSubTagsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
@@ -1364,6 +1403,7 @@ export type TagValueCreateWithoutTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateCreateNestedManyWithoutTagValueInput
@@ -1384,6 +1424,7 @@ export type TagValueUncheckedCreateWithoutTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
   tagTranslates?: Prisma.TagTranslateUncheckedCreateNestedManyWithoutTagValueInput
@@ -1429,6 +1470,7 @@ export type TagValueCreateWithoutTagTranslatesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategories: Prisma.TagCategoriesCreateNestedOneWithoutTagValuesInput
   mainTag?: Prisma.TagValueCreateNestedOneWithoutSubTagsInput
   SubTags?: Prisma.TagValueCreateNestedManyWithoutMainTagInput
@@ -1449,6 +1491,7 @@ export type TagValueUncheckedCreateWithoutTagTranslatesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
   mainTagId?: number | null
   SubTags?: Prisma.TagValueUncheckedCreateNestedManyWithoutMainTagInput
@@ -1484,6 +1527,7 @@ export type TagValueUpdateWithoutTagTranslatesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1504,6 +1548,7 @@ export type TagValueUncheckedUpdateWithoutTagTranslatesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1523,6 +1568,7 @@ export type TagValueUpdateWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1543,6 +1589,7 @@ export type TagValueUncheckedUpdateWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1563,6 +1610,7 @@ export type TagValueUncheckedUpdateManyWithoutGroupsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1576,6 +1624,7 @@ export type TagValueUpdateWithoutTodosInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1596,6 +1645,7 @@ export type TagValueUncheckedUpdateWithoutTodosInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1616,6 +1666,7 @@ export type TagValueUncheckedUpdateManyWithoutTodosInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1629,6 +1680,7 @@ export type TagValueUpdateWithoutTasksInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1649,6 +1701,7 @@ export type TagValueUncheckedUpdateWithoutTasksInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1669,6 +1722,7 @@ export type TagValueUncheckedUpdateManyWithoutTasksInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1682,6 +1736,7 @@ export type TagValueUpdateWithoutPostsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1702,6 +1757,7 @@ export type TagValueUncheckedUpdateWithoutPostsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1722,6 +1778,7 @@ export type TagValueUncheckedUpdateManyWithoutPostsInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1735,6 +1792,7 @@ export type TagValueUpdateWithoutFilesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
@@ -1755,6 +1813,7 @@ export type TagValueUncheckedUpdateWithoutFilesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
@@ -1775,6 +1834,7 @@ export type TagValueUncheckedUpdateManyWithoutFilesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1789,6 +1849,7 @@ export type TagValueCreateManyMainTagInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   tagCategoriesId: number
 }
 
@@ -1801,6 +1862,7 @@ export type TagValueUpdateWithoutMainTagInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategories?: Prisma.TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
@@ -1821,6 +1883,7 @@ export type TagValueUncheckedUpdateWithoutMainTagInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
@@ -1841,6 +1904,7 @@ export type TagValueUncheckedUpdateManyWithoutMainTagInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagCategoriesId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -1854,6 +1918,7 @@ export type TagValueCreateManyTagCategoriesInput = {
   isDeletedDT?: Date | string | null
   name: string
   position?: number
+  color?: string | null
   mainTagId?: number | null
 }
 
@@ -1866,6 +1931,7 @@ export type TagValueUpdateWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mainTag?: Prisma.TagValueUpdateOneWithoutSubTagsNestedInput
   SubTags?: Prisma.TagValueUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUpdateManyWithoutTagValueNestedInput
@@ -1886,6 +1952,7 @@ export type TagValueUncheckedUpdateWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   SubTags?: Prisma.TagValueUncheckedUpdateManyWithoutMainTagNestedInput
   tagTranslates?: Prisma.TagTranslateUncheckedUpdateManyWithoutTagValueNestedInput
@@ -1906,6 +1973,7 @@ export type TagValueUncheckedUpdateManyWithoutTagCategoriesInput = {
   isDeletedDT?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mainTagId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -2004,6 +2072,7 @@ export type TagValueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   isDeletedDT?: boolean
   name?: boolean
   position?: boolean
+  color?: boolean
   tagCategoriesId?: boolean
   mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
@@ -2028,6 +2097,7 @@ export type TagValueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isDeletedDT?: boolean
   name?: boolean
   position?: boolean
+  color?: boolean
   tagCategoriesId?: boolean
   mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
@@ -2044,6 +2114,7 @@ export type TagValueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isDeletedDT?: boolean
   name?: boolean
   position?: boolean
+  color?: boolean
   tagCategoriesId?: boolean
   mainTagId?: boolean
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
@@ -2060,11 +2131,12 @@ export type TagValueSelectScalar = {
   isDeletedDT?: boolean
   name?: boolean
   position?: boolean
+  color?: boolean
   tagCategoriesId?: boolean
   mainTagId?: boolean
 }
 
-export type TagValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "name" | "position" | "tagCategoriesId" | "mainTagId", ExtArgs["result"]["tagValue"]>
+export type TagValueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "published" | "isPublic" | "isDeleted" | "isDeletedDT" | "name" | "position" | "color" | "tagCategoriesId" | "mainTagId", ExtArgs["result"]["tagValue"]>
 export type TagValueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tagCategories?: boolean | Prisma.TagCategoriesDefaultArgs<ExtArgs>
   mainTag?: boolean | Prisma.TagValue$mainTagArgs<ExtArgs>
@@ -2109,6 +2181,7 @@ export type $TagValuePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     isDeletedDT: Date | null
     name: string
     position: number
+    color: string | null
     tagCategoriesId: number
     mainTagId: number | null
   }, ExtArgs["result"]["tagValue"]>
@@ -2552,6 +2625,7 @@ export interface TagValueFieldRefs {
   readonly isDeletedDT: Prisma.FieldRef<"TagValue", 'DateTime'>
   readonly name: Prisma.FieldRef<"TagValue", 'String'>
   readonly position: Prisma.FieldRef<"TagValue", 'Int'>
+  readonly color: Prisma.FieldRef<"TagValue", 'String'>
   readonly tagCategoriesId: Prisma.FieldRef<"TagValue", 'Int'>
   readonly mainTagId: Prisma.FieldRef<"TagValue", 'Int'>
 }

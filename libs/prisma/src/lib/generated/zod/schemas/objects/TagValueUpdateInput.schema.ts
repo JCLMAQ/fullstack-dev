@@ -5,6 +5,7 @@ import { BoolFieldUpdateOperationsInputObjectSchema as BoolFieldUpdateOperations
 import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema as NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema';
 import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
+import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
 import { TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInputObjectSchema as TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInputObjectSchema } from './TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInput.schema';
 import { TagValueUpdateOneWithoutSubTagsNestedInputObjectSchema as TagValueUpdateOneWithoutSubTagsNestedInputObjectSchema } from './TagValueUpdateOneWithoutSubTagsNestedInput.schema';
 import { TagValueUpdateManyWithoutMainTagNestedInputObjectSchema as TagValueUpdateManyWithoutMainTagNestedInputObjectSchema } from './TagValueUpdateManyWithoutMainTagNestedInput.schema';
@@ -24,6 +25,7 @@ const makeSchema = () => z.object({
   isDeletedDT: z.union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   position: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  color: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   tagCategories: z.lazy(() => TagCategoriesUpdateOneRequiredWithoutTagValuesNestedInputObjectSchema).optional(),
   mainTag: z.lazy(() => TagValueUpdateOneWithoutSubTagsNestedInputObjectSchema).optional(),
   SubTags: z.lazy(() => TagValueUpdateManyWithoutMainTagNestedInputObjectSchema).optional(),

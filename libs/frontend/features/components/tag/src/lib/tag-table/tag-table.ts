@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
-import { form, FormField, min, required, schema } from '@angular/forms/signals';
+import { form, FormField, min, required, schema, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,12 +22,32 @@ type TagFormData = {
   name: string;
   tagCategoriesId: number | null;
   position: number;
+  color: string;
 };
+
+const COLOR_PALETTE: ReadonlyArray<{ label: string; value: string }> = [
+  { label: 'Rouge', value: '#ef4444' },
+  { label: 'Orange', value: '#f97316' },
+  { label: 'Ambre', value: '#f59e0b' },
+  { label: 'Vert', value: '#22c55e' },
+  { label: 'Sarcelle', value: '#14b8a6' },
+  { label: 'Bleu', value: '#3b82f6' },
+  { label: 'Indigo', value: '#6366f1' },
+  { label: 'Violet', value: '#8b5cf6' },
+  { label: 'Rose', value: '#ec4899' },
+  { label: 'Ardoise', value: '#64748b' },
+];
 
 const tagSchema = schema<TagFormData>((path) => {
   required(path.name);
   required(path.tagCategoriesId);
   min(path.position, 0);
+  validate(path.color, (field) => {
+    const value = field.value().trim();
+    if (!value) return null;
+    const isValid = /^#[0-9a-fA-F]{6}$/.test(value);
+    return isValid ? null : { kind: 'pattern', message: 'Format attendu: #RRGGBB' };
+  });
 });
 
 const searchSchema = schema<{ search: string }>(() => {});
@@ -71,6 +91,7 @@ export class TagTable {
 
   protected readonly displayedColumns = computed(() => [
     'name',
+    'color',
     'category',
     'position',
     'subTagCount',
@@ -81,10 +102,13 @@ export class TagTable {
   protected readonly editingId = signal<number | null>(null);
   protected readonly addingNew = signal(false);
 
-  protected readonly editState = signal<TagFormData>({ name: '', tagCategoriesId: null, position: 0 });
-  protected readonly addState = signal<TagFormData>({ name: '', tagCategoriesId: null, position: 0 });
+  protected readonly editState = signal<TagFormData>({ name: '', tagCategoriesId: null, position: 0, color: '' });
+  protected readonly addState = signal<TagFormData>({ name: '', tagCategoriesId: null, position: 0, color: '' });
   protected readonly editForm = form(this.editState, tagSchema);
   protected readonly addForm = form(this.addState, tagSchema);
+
+  protected readonly colorPalette = COLOR_PALETTE;
+  protected readonly defaultColor = COLOR_PALETTE[0]?.value ?? '#000000';
 
   protected readonly searchState = signal<{ search: string }>({ search: '' });
   protected readonly searchForm = form(this.searchState, searchSchema);
@@ -123,12 +147,12 @@ export class TagTable {
 
   protected startAdd(): void {
     this.addingNew.set(true);
-    this.addState.set({ name: '', tagCategoriesId: null, position: 0 });
+    this.addState.set({ name: '', tagCategoriesId: null, position: 0, color: '' });
   }
 
   protected cancelAdd(): void {
     this.addingNew.set(false);
-    this.addState.set({ name: '', tagCategoriesId: null, position: 0 });
+    this.addState.set({ name: '', tagCategoriesId: null, position: 0, color: '' });
   }
 
   protected saveAdd(): void {
@@ -142,6 +166,7 @@ export class TagTable {
       name: formValue.name.trim(),
       tagCategoriesId: Number(formValue.tagCategoriesId),
       position: Number(formValue.position ?? 0),
+      color: this.normalizeColor(formValue.color),
       mainTagId: this.mainTagId(),
       published: true,
       isPublic: true,
@@ -157,12 +182,13 @@ export class TagTable {
       name: tag.name ?? '',
       tagCategoriesId: tag.tagCategoriesId ?? null,
       position: Number(tag.position ?? 0),
+      color: tag.color ?? '',
     });
   }
 
   protected cancelEdit(): void {
     this.editingId.set(null);
-    this.editState.set({ name: '', tagCategoriesId: null, position: 0 });
+    this.editState.set({ name: '', tagCategoriesId: null, position: 0, color: '' });
   }
 
   protected saveEdit(tag: TagListItem): void {
@@ -176,6 +202,7 @@ export class TagTable {
       name: formValue.name.trim(),
       tagCategoriesId: Number(formValue.tagCategoriesId),
       position: Number(formValue.position ?? 0),
+      color: this.normalizeColor(formValue.color),
       mainTagId: this.mainTagId(),
     };
 
@@ -215,5 +242,34 @@ export class TagTable {
 
   protected clearSearch(): void {
     this.searchState.set({ search: '' });
+  }
+
+  protected setAddColor(value: string): void {
+    this.setColorField(this.addForm.color(), value);
+  }
+
+  protected clearAddColor(): void {
+    this.setColorField(this.addForm.color(), '');
+  }
+
+  protected setEditColor(value: string): void {
+    this.setColorField(this.editForm.color(), value);
+  }
+
+  protected clearEditColor(): void {
+    this.setColorField(this.editForm.color(), '');
+  }
+
+  private setColorField(field: ReturnType<typeof this.addForm.color>, value: string): void {
+    field.value.set(value);
+    field.markAsDirty();
+    field.markAsTouched();
+  }
+
+  private normalizeColor(value: string | null | undefined): string | null {
+    if (!value) return null;
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    return trimmed.toLowerCase();
   }
 }

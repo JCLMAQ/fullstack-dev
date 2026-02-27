@@ -18,6 +18,7 @@ const makeSchema = () => z.object({
   isDeletedDT: z.coerce.date().optional().nullable(),
   name: z.string(),
   position: z.number().int().optional(),
+  color: z.string().optional().nullable(),
   tagCategoriesId: z.number().int(),
   SubTags: z.lazy(() => TagValueUncheckedCreateNestedManyWithoutMainTagInputObjectSchema).optional(),
   tagTranslates: z.lazy(() => TagTranslateUncheckedCreateNestedManyWithoutTagValueInputObjectSchema).optional(),
