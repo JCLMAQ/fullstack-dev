@@ -69,7 +69,8 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4000
+        "port": 4000,
+        "proxyConfig": "proxy.config.json"
       }
     },
     "extract-i18n": {

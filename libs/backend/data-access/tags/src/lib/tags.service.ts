@@ -3,7 +3,7 @@ import { PrismaClientService } from '@db/prisma-client';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTagDto, TagListItem, TagTranslationDto, UpdateTagDto } from './dto/tag.dto';
 
-const TAG_INCLUDE: Prisma.TagValueInclude = {
+const TAG_INCLUDE = {
 	tagCategories: true,
 	tagTranslates: {
 		include: {
@@ -17,7 +17,14 @@ const TAG_INCLUDE: Prisma.TagValueInclude = {
 	SubTags: {
 		include: {
 			tagCategories: true,
-			tagTranslates: true,
+			tagTranslates: {
+				include: {
+					language: true,
+				},
+				orderBy: {
+					languageId: 'asc',
+				},
+			},
 		},
 		orderBy: {
 			position: 'asc',
@@ -28,9 +35,9 @@ const TAG_INCLUDE: Prisma.TagValueInclude = {
 	Groups: true,
 	Posts: true,
 	Files: true,
-};
+} as const satisfies Prisma.TagValueInclude;
 
-const TAG_LIST_INCLUDE: Prisma.TagValueInclude = {
+const TAG_LIST_INCLUDE = {
 	tagCategories: true,
 	_count: {
 		select: {
@@ -42,17 +49,17 @@ const TAG_LIST_INCLUDE: Prisma.TagValueInclude = {
 			Files: true,
 		},
 	},
-};
+} as const satisfies Prisma.TagValueInclude;
 
 @Injectable()
 export class TagsService {
 	constructor(private readonly prisma: PrismaClientService) {}
 
 	async listTags(args: Prisma.TagValueFindManyArgs): Promise<TagListItem[]> {
-		const tags = await this.prisma.tagValue.findMany({
+		const tags = (await this.prisma.tagValue.findMany({
 			...args,
 			include: TAG_LIST_INCLUDE,
-		});
+		})) as Prisma.TagValueGetPayload<{ include: typeof TAG_LIST_INCLUDE }>[];
 
 		return tags.map((tag) => this.buildTagListItem(tag));
 	}

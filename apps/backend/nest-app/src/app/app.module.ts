@@ -22,6 +22,7 @@ import { PostLikesModule } from '@be/postLikes';
 import { PostsModule } from '@be/posts';
 import { ProfilesModule } from '@be/profiles';
 import { StoriesModule } from '@be/stories';
+import { TagsModule } from '@be/tags';
 import { TasksModule } from '@be/tasks';
 import { TimeUtilModule, TimeUtilService } from '@be/time-util';
 import { TodosModule } from '@be/todos';
@@ -132,6 +133,7 @@ import { AppService } from './app.service';
     PostsModule,
     ProfilesModule,
     StoriesModule,
+    TagsModule,
     TasksModule,
     TodosModule,
     UserFollowersModule,
