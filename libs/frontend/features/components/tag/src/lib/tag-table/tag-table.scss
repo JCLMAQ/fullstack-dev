@@ -115,7 +115,11 @@
 }
 
 .actions-cell {
-	display: flex;
+	white-space: nowrap;
+}
+
+.actions-content {
+	display: inline-flex;
 	align-items: center;
 	gap: 4px;
 }

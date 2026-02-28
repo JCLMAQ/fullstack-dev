@@ -70,7 +70,7 @@
 					<input
 						class="native-color-input"
 						type="color"
-						[value]="addForm.color().value() ?? defaultColor"
+						[value]="addForm.color().value() || defaultColor"
 						(input)="setAddColor($any($event.target).value)"
 						aria-label="Choisir une couleur"
 					/>
@@ -142,7 +142,7 @@
 									<input
 										class="native-color-input"
 										type="color"
-										[value]="editForm.color().value() ?? defaultColor"
+										[value]="editForm.color().value() || defaultColor"
 										(input)="setEditColor($any($event.target).value)"
 										aria-label="Choisir une couleur"
 									/>
@@ -217,24 +217,26 @@
 				<ng-container matColumnDef="actions">
 					<th mat-header-cell *matHeaderCellDef>Actions</th>
 					<td mat-cell *matCellDef="let element" class="actions-cell">
-						@if (isEditing(element)) {
-							<button mat-icon-button color="primary" (click)="saveEdit(element)" [disabled]="!editForm().valid()" matTooltip="Sauvegarder">
-								<mat-icon>check</mat-icon>
-							</button>
-							<button mat-icon-button (click)="cancelEdit()" matTooltip="Annuler">
-								<mat-icon>close</mat-icon>
-							</button>
-						} @else {
-							<button mat-icon-button (click)="startEdit(element)" [disabled]="addingNew()" matTooltip="Editer">
-								<mat-icon>edit</mat-icon>
-							</button>
-							<button mat-icon-button color="warn" (click)="confirmDelete(element, false)" [disabled]="addingNew()" matTooltip="Supprimer">
-								<mat-icon>delete</mat-icon>
-							</button>
-							<button mat-icon-button color="warn" (click)="confirmDelete(element, true)" [disabled]="addingNew()" matTooltip="Supprimer definitivement">
-								<mat-icon>delete_forever</mat-icon>
-							</button>
-						}
+						<div class="actions-content">
+							@if (isEditing(element)) {
+								<button mat-icon-button color="primary" (click)="saveEdit(element)" [disabled]="!editForm().valid()" matTooltip="Sauvegarder">
+									<mat-icon>check</mat-icon>
+								</button>
+								<button mat-icon-button (click)="cancelEdit()" matTooltip="Annuler">
+									<mat-icon>close</mat-icon>
+								</button>
+							} @else {
+								<button mat-icon-button (click)="startEdit(element)" [disabled]="addingNew()" matTooltip="Editer">
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button mat-icon-button color="warn" (click)="confirmDelete(element, false)" [disabled]="addingNew()" matTooltip="Supprimer">
+									<mat-icon>delete</mat-icon>
+								</button>
+								<button mat-icon-button color="warn" (click)="confirmDelete(element, true)" [disabled]="addingNew()" matTooltip="Supprimer definitivement">
+									<mat-icon>delete_forever</mat-icon>
+								</button>
+							}
+						</div>
 					</td>
 				</ng-container>
 
