@@ -1113,6 +1113,11 @@ export type AppEmailDomainFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` AppEmailDomains.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AppEmailDomains.
+   */
   distinct?: Prisma.AppEmailDomainScalarFieldEnum | Prisma.AppEmailDomainScalarFieldEnum[]
 }
 

@@ -1238,6 +1238,11 @@ export type LanguageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` Languages.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Languages.
+   */
   distinct?: Prisma.LanguageScalarFieldEnum | Prisma.LanguageScalarFieldEnum[]
 }
 

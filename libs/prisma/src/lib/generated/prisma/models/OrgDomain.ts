@@ -1342,6 +1342,11 @@ export type OrgDomainFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` OrgDomains.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of OrgDomains.
+   */
   distinct?: Prisma.OrgDomainScalarFieldEnum | Prisma.OrgDomainScalarFieldEnum[]
 }
 

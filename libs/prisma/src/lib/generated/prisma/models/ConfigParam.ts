@@ -1141,6 +1141,11 @@ export type ConfigParamFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ConfigParams.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ConfigParams.
+   */
   distinct?: Prisma.ConfigParamScalarFieldEnum | Prisma.ConfigParamScalarFieldEnum[]
 }
 

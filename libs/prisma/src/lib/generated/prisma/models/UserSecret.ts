@@ -1175,6 +1175,11 @@ export type UserSecretFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` UserSecrets.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserSecrets.
+   */
   distinct?: Prisma.UserSecretScalarFieldEnum | Prisma.UserSecretScalarFieldEnum[]
 }
 

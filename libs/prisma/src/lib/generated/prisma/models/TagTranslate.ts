@@ -1373,6 +1373,11 @@ export type TagTranslateFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` TagTranslates.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of TagTranslates.
+   */
   distinct?: Prisma.TagTranslateScalarFieldEnum | Prisma.TagTranslateScalarFieldEnum[]
 }
 

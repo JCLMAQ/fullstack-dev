@@ -1265,6 +1265,11 @@ export type WordFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Skip the first `n` Words.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Words.
+   */
   distinct?: Prisma.WordScalarFieldEnum | Prisma.WordScalarFieldEnum[]
 }
 

@@ -1297,6 +1297,11 @@ export type TranslationFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` Translations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Translations.
+   */
   distinct?: Prisma.TranslationScalarFieldEnum | Prisma.TranslationScalarFieldEnum[]
 }
 

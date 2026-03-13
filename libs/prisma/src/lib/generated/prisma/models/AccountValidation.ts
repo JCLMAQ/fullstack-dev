@@ -1172,6 +1172,11 @@ export type AccountValidationFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Skip the first `n` AccountValidations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of AccountValidations.
+   */
   distinct?: Prisma.AccountValidationScalarFieldEnum | Prisma.AccountValidationScalarFieldEnum[]
 }
 
