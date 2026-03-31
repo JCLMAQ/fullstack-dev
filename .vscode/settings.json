@@ -41,7 +41,7 @@
         ".specify/scripts/powershell/": true
     },
     "window.autoDetectColorScheme": false,
-    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.colorTheme": "Dark Modern",
     "workbench.browser.openLocalhostLinks": true,
     "chat.mcp.serverSampling": {
         "fullstack-dev/.vscode/mcp.json: chrome-devtools": {
