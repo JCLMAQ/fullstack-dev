@@ -227,7 +227,7 @@ export type PhoneGroupByOutputType = {
   _max: PhoneMaxAggregateOutputType | null
 }
 
-type GetPhoneGroupByPayload<T extends PhoneGroupByArgs> = Prisma.PrismaPromise<
+export type GetPhoneGroupByPayload<T extends PhoneGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PhoneGroupByOutputType, T['by']> &
       {

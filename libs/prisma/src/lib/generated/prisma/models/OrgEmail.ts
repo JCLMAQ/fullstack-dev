@@ -231,7 +231,7 @@ export type OrgEmailGroupByOutputType = {
   _max: OrgEmailMaxAggregateOutputType | null
 }
 
-type GetOrgEmailGroupByPayload<T extends OrgEmailGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrgEmailGroupByPayload<T extends OrgEmailGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrgEmailGroupByOutputType, T['by']> &
       {

@@ -172,7 +172,7 @@ export type UserTodoLinkGroupByOutputType = {
   _max: UserTodoLinkMaxAggregateOutputType | null
 }
 
-type GetUserTodoLinkGroupByPayload<T extends UserTodoLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserTodoLinkGroupByPayload<T extends UserTodoLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserTodoLinkGroupByOutputType, T['by']> &
       {

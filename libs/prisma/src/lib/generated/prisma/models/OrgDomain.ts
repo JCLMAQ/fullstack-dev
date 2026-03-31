@@ -231,7 +231,7 @@ export type OrgDomainGroupByOutputType = {
   _max: OrgDomainMaxAggregateOutputType | null
 }
 
-type GetOrgDomainGroupByPayload<T extends OrgDomainGroupByArgs> = Prisma.PrismaPromise<
+export type GetOrgDomainGroupByPayload<T extends OrgDomainGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<OrgDomainGroupByOutputType, T['by']> &
       {

@@ -214,7 +214,7 @@ export type TagTranslateGroupByOutputType = {
   _max: TagTranslateMaxAggregateOutputType | null
 }
 
-type GetTagTranslateGroupByPayload<T extends TagTranslateGroupByArgs> = Prisma.PrismaPromise<
+export type GetTagTranslateGroupByPayload<T extends TagTranslateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TagTranslateGroupByOutputType, T['by']> &
       {

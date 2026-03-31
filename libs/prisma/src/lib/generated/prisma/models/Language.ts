@@ -178,7 +178,7 @@ export type LanguageGroupByOutputType = {
   _max: LanguageMaxAggregateOutputType | null
 }
 
-type GetLanguageGroupByPayload<T extends LanguageGroupByArgs> = Prisma.PrismaPromise<
+export type GetLanguageGroupByPayload<T extends LanguageGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LanguageGroupByOutputType, T['by']> &
       {

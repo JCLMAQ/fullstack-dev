@@ -238,7 +238,7 @@ export type AccountValidationGroupByOutputType = {
   _max: AccountValidationMaxAggregateOutputType | null
 }
 
-type GetAccountValidationGroupByPayload<T extends AccountValidationGroupByArgs> = Prisma.PrismaPromise<
+export type GetAccountValidationGroupByPayload<T extends AccountValidationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AccountValidationGroupByOutputType, T['by']> &
       {

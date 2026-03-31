@@ -151,7 +151,7 @@ export type UserPostLikeLinkGroupByOutputType = {
   _max: UserPostLikeLinkMaxAggregateOutputType | null
 }
 
-type GetUserPostLikeLinkGroupByPayload<T extends UserPostLikeLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserPostLikeLinkGroupByPayload<T extends UserPostLikeLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserPostLikeLinkGroupByOutputType, T['by']> &
       {

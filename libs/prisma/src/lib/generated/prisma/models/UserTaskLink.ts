@@ -172,7 +172,7 @@ export type UserTaskLinkGroupByOutputType = {
   _max: UserTaskLinkMaxAggregateOutputType | null
 }
 
-type GetUserTaskLinkGroupByPayload<T extends UserTaskLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserTaskLinkGroupByPayload<T extends UserTaskLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserTaskLinkGroupByOutputType, T['by']> &
       {

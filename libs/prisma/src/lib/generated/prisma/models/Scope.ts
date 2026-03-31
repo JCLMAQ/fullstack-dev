@@ -217,7 +217,7 @@ export type ScopeGroupByOutputType = {
   _max: ScopeMaxAggregateOutputType | null
 }
 
-type GetScopeGroupByPayload<T extends ScopeGroupByArgs> = Prisma.PrismaPromise<
+export type GetScopeGroupByPayload<T extends ScopeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ScopeGroupByOutputType, T['by']> &
       {

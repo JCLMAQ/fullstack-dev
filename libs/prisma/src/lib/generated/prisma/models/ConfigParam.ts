@@ -231,7 +231,7 @@ export type ConfigParamGroupByOutputType = {
   _max: ConfigParamMaxAggregateOutputType | null
 }
 
-type GetConfigParamGroupByPayload<T extends ConfigParamGroupByArgs> = Prisma.PrismaPromise<
+export type GetConfigParamGroupByPayload<T extends ConfigParamGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ConfigParamGroupByOutputType, T['by']> &
       {

@@ -224,7 +224,7 @@ export type WordGroupByOutputType = {
   _max: WordMaxAggregateOutputType | null
 }
 
-type GetWordGroupByPayload<T extends WordGroupByArgs> = Prisma.PrismaPromise<
+export type GetWordGroupByPayload<T extends WordGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<WordGroupByOutputType, T['by']> &
       {

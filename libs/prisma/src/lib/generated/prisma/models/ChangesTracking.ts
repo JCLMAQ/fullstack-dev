@@ -251,7 +251,7 @@ export type ChangesTrackingGroupByOutputType = {
   _max: ChangesTrackingMaxAggregateOutputType | null
 }
 
-type GetChangesTrackingGroupByPayload<T extends ChangesTrackingGroupByArgs> = Prisma.PrismaPromise<
+export type GetChangesTrackingGroupByPayload<T extends ChangesTrackingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ChangesTrackingGroupByOutputType, T['by']> &
       {

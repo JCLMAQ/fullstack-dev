@@ -224,7 +224,7 @@ export type AppEmailDomainGroupByOutputType = {
   _max: AppEmailDomainMaxAggregateOutputType | null
 }
 
-type GetAppEmailDomainGroupByPayload<T extends AppEmailDomainGroupByArgs> = Prisma.PrismaPromise<
+export type GetAppEmailDomainGroupByPayload<T extends AppEmailDomainGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AppEmailDomainGroupByOutputType, T['by']> &
       {

@@ -151,7 +151,7 @@ export type UserFollowerLinkGroupByOutputType = {
   _max: UserFollowerLinkMaxAggregateOutputType | null
 }
 
-type GetUserFollowerLinkGroupByPayload<T extends UserFollowerLinkGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserFollowerLinkGroupByPayload<T extends UserFollowerLinkGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserFollowerLinkGroupByOutputType, T['by']> &
       {

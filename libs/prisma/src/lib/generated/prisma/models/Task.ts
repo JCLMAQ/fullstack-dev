@@ -277,7 +277,7 @@ export type TaskGroupByOutputType = {
   _max: TaskMaxAggregateOutputType | null
 }
 
-type GetTaskGroupByPayload<T extends TaskGroupByArgs> = Prisma.PrismaPromise<
+export type GetTaskGroupByPayload<T extends TaskGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TaskGroupByOutputType, T['by']> &
       {

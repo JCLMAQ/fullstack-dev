@@ -231,7 +231,7 @@ export type StoryGroupByOutputType = {
   _max: StoryMaxAggregateOutputType | null
 }
 
-type GetStoryGroupByPayload<T extends StoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetStoryGroupByPayload<T extends StoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<StoryGroupByOutputType, T['by']> &
       {

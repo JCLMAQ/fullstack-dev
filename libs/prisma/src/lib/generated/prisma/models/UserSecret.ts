@@ -206,7 +206,7 @@ export type UserSecretGroupByOutputType = {
   _max: UserSecretMaxAggregateOutputType | null
 }
 
-type GetUserSecretGroupByPayload<T extends UserSecretGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserSecretGroupByPayload<T extends UserSecretGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserSecretGroupByOutputType, T['by']> &
       {
