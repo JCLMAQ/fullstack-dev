@@ -1,1 +1,276 @@
-<p>post-detail works!</p>
+<div class="container">
+	@if (store.isLoading()) {
+		<div class="loading-spinner">
+			<mat-spinner></mat-spinner>
+		</div>
+	}
+
+	<div class="header">
+		<h1 class="mat-headline-4">{{ 'posts.posts' | translate }}</h1>
+		<div class="post-id-muted">{{ postForm().value().id }}</div>
+	</div>
+
+	<div class="content">
+		<mat-card class="form-card">
+			<mat-card-content>
+				<form class="form-container">
+					<mat-tab-group
+						[preserveContent]="true"
+						[selectedIndex]="store.selectedTabIndex()"
+						(selectedIndexChange)="onSelectedTabIndexChange($event)"
+					>
+						<mat-tab label="{{ 'posts.content' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									<div class="fields-row">
+										<mat-form-field appearance="outline">
+											<mat-label>{{ 'posts.title' | translate }}</mat-label>
+											<input matInput [formField]="postForm.title" placeholder="{{ 'posts.title' | translate }}" />
+											<mat-error>
+												<lib-field-error [fieldError]="postForm.title()" />
+											</mat-error>
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>{{ 'posts.orderPost' | translate }}</mat-label>
+											<input matInput type="number" [formField]="postForm.orderPost" placeholder="{{ 'posts.orderPost' | translate }}" />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>Org</mat-label>
+											@if (mode() === 'view') {
+												<input matInput [value]="orgDisplayName(postForm().value().orgId)" readonly />
+											} @else {
+												<mat-select [formField]="postForm.orgId">
+													<mat-option [value]="null">None</mat-option>
+													@for (org of orgIdOptions(); track org.id) {
+														<mat-option [value]="org.id">{{ org.name }}</mat-option>
+													}
+												</mat-select>
+											}
+										</mat-form-field>
+									</div>
+
+									<mat-form-field appearance="outline" class="full-width">
+										<mat-label>{{ 'posts.content' | translate }}</mat-label>
+										<textarea matInput rows="6" [formField]="postForm.content" placeholder="{{ 'posts.content' | translate }}"></textarea>
+										<mat-error>
+											<lib-field-error [fieldError]="postForm.content()" />
+										</mat-error>
+									</mat-form-field>
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'posts.visibility' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									<div class="fields-row">
+										<div class="checkbox-field">
+											@if (mode() === 'view') {
+												<mat-checkbox [checked]="postForm().value().isPublic" disabled>
+													Public
+												</mat-checkbox>
+											} @else {
+												<mat-checkbox [formField]="postForm.isPublic">Public</mat-checkbox>
+											}
+										</div>
+
+										<div class="checkbox-field">
+											@if (mode() === 'view') {
+												<mat-checkbox [checked]="postForm().value().published" disabled>
+													Published
+												</mat-checkbox>
+											} @else {
+												<mat-checkbox [formField]="postForm.published">Published</mat-checkbox>
+											}
+										</div>
+									</div>
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'posts.relations' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									<div class="relations-grid">
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Tags</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ tagsCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Categories</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ categoriesCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Comments</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ commentsCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Likes</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ likesCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Groups</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ groupsCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Images</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ imagesCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+
+										<mat-card>
+											<mat-card-header>
+												<mat-card-title>Files</mat-card-title>
+											</mat-card-header>
+											<mat-card-content>
+												<mat-chip-set>
+													<mat-chip>{{ filesCount() }}</mat-chip>
+												</mat-chip-set>
+											</mat-card-content>
+										</mat-card>
+									</div>
+								</div>
+							</section>
+						</mat-tab>
+
+						<mat-tab label="{{ 'posts.id' | translate }}">
+							<section class="form-section">
+								<div class="tab-content">
+									<div class="fields-row">
+										<mat-form-field appearance="outline">
+											<mat-label>{{ 'posts.id' | translate }}</mat-label>
+											<input matInput [value]="postForm().value().id" readonly />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>{{ 'posts.numSeq' | translate }}</mat-label>
+											<input matInput [value]="postForm().value().numSeq" readonly />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>Owner</mat-label>
+											<input matInput [value]="ownerDisplayName(currentPost())" readonly />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>Org</mat-label>
+											<input matInput [value]="postForm().value().orgId ?? ''" readonly />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>Created</mat-label>
+											<input matInput [value]="postForm().value().createdAt | date: 'short'" readonly />
+										</mat-form-field>
+
+										<mat-form-field appearance="outline">
+											<mat-label>Updated</mat-label>
+											<input matInput [value]="postForm().value().updatedAt | date: 'short'" readonly />
+										</mat-form-field>
+									</div>
+								</div>
+							</section>
+						</mat-tab>
+					</mat-tab-group>
+				</form>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<mat-toolbar class="bottom-toolbar">
+		<button mat-icon-button matTooltip="Hard Delete" type="button" [disabled]="mode() !== 'view'" (click)="hardDelete(postForm().value().id)">
+			<mat-icon>delete_forever</mat-icon>
+		</button>
+		<button mat-icon-button matTooltip="Delete" type="button" [disabled]="mode() !== 'view'" (click)="softDelete(postForm().value().id)">
+			<mat-icon [color]="mode() !== 'view' ? 'warn' : ''">delete</mat-icon>
+		</button>
+		<button mat-icon-button matTooltip="Add" type="button" [disabled]="mode() !== 'view'" (click)="add()">
+			<mat-icon>add</mat-icon>
+		</button>
+		<button mat-icon-button matTooltip="Duplicate" type="button" [disabled]="mode() !== 'view'" (click)="duplicate()">
+			<mat-icon>content_copy</mat-icon>
+		</button>
+		@if (mode() === 'add' || mode() === 'edit') {
+			<button mat-icon-button matTooltip="Reset" type="button" [disabled]="mode() === 'view'" (click)="reset()">
+				<mat-icon>autorenew</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Next invalid field" [disabled]="mode() === 'view'" (click)="nextInvalidField()">
+				<mat-icon>next_plan</mat-icon>
+			</button>
+			<mat-divider [vertical]="true"></mat-divider>
+			<button mat-icon-button matTooltip="Cancel" type="button" [disabled]="mode() === 'view'" (click)="cancel()">
+				<mat-icon>cancel</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Save" [disabled]="mode() === 'view'" (click)="save()" class="success-btn">
+				<mat-icon>check_circle</mat-icon>
+			</button>
+		}
+
+		<button mat-icon-button matTooltip="Edit" type="button" [disabled]="mode() !== 'view'" (click)="setMode('edit')">
+			<mat-icon>edit</mat-icon>
+		</button>
+		<mat-divider [vertical]="true"></mat-divider>
+		@if (store.selectedIds().length > 1) {
+			<button mat-icon-button matTooltip="First" type="button" [disabled]="mode() !== 'view' || store.navigation().isFirst" (click)="first()">
+				<mat-icon>first_page</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Previous" type="button" [disabled]="mode() !== 'view' || !store.navigation().hasPrevious" (click)="previous()">
+				<mat-icon>skip_previous</mat-icon>
+			</button>
+			<span class="navigation-indicator">
+				{{ store.currentPosition() + 1 }} / {{ store.selectedIds().length }}
+			</span>
+			<button mat-icon-button matTooltip="Next" type="button" [disabled]="mode() !== 'view' || !store.navigation().hasNext" (click)="next()">
+				<mat-icon>skip_next</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="Last" type="button" [disabled]="mode() !== 'view' || store.navigation().isLast" (click)="last()">
+				<mat-icon>last_page</mat-icon>
+			</button>
+		}
+		<mat-divider [vertical]="true"></mat-divider>
+		<button mat-icon-button matTooltip="Back" type="button" [disabled]="mode() !== 'view'" (click)="goBack()">
+			<mat-icon>exit_to_app</mat-icon>
+		</button>
+	</mat-toolbar>
+</div>
