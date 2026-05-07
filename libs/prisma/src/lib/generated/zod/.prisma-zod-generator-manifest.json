@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "generatorVersion": "0.0.0",
-  "generatedAt": "2026-05-07T20:17:55.302Z",
+  "generatedAt": "2026-05-07T20:21:35.556Z",
   "outputPath": "/Users/jcm/Programmation/Monorepo/fullstack-dev/libs/prisma/src/lib/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",
