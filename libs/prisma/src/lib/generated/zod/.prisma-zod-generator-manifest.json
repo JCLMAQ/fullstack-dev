@@ -1,8 +1,8 @@
 {
   "version": "1.0",
   "generatorVersion": "0.0.0",
-  "generatedAt": "2026-05-07T20:26:09.531Z",
-  "outputPath": "/Users/jcm/Programmation/Monorepo/fullstack-dev/libs/prisma/src/lib/generated/zod",
+  "generatedAt": "2026-06-02T15:07:42.766Z",
+  "outputPath": "/Users/jean-claudemaquinay/Programmation/Monorepo/fullstack-dev/libs/prisma/src/lib/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",
     "schemas/enums/OrganizationScalarFieldEnum.schema.ts",
