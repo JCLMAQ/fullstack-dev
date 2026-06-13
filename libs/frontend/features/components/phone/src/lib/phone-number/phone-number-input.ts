@@ -1,39 +1,39 @@
 import { NgClass } from '@angular/common';
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  ElementRef,
-  OnInit,
-  computed,
-  effect,
-  inject,
-  input,
-  model,
-  output,
-  signal,
-  viewChild
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    DestroyRef,
+    ElementRef,
+    OnInit,
+    computed,
+    effect,
+    inject,
+    input,
+    model,
+    output,
+    signal,
+    viewChild
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import {
-  MatFormFieldAppearance
+    MatFormFieldAppearance
 } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
-  MAT_SELECT_CONFIG,
-  MatSelect,
-  MatSelectModule
+    MAT_SELECT_CONFIG,
+    MatSelect,
+    MatSelectModule
 } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateService } from '@ngx-translate/core';
 import { IMaskModule } from 'angular-imask';
 import {
-  PhoneNumber,
-  PhoneNumberFormat,
-  PhoneNumberType,
-  PhoneNumberUtil
+    PhoneNumber,
+    PhoneNumberFormat,
+    PhoneNumberType,
+    PhoneNumberUtil
 } from 'google-libphonenumber';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CountryCode } from './data/country-code';
