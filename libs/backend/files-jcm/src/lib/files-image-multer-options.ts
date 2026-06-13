@@ -1,8 +1,7 @@
-import { extname } from 'path';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
-import { v4 as uuid } from 'uuid';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { extname } from 'path';
 
 const IMAGES_STORAGE_DEST = process.env.IMAGES_STORAGE_DEST ?? 'uploads/images';
 const IMAGES_MAX_SIZE = Number(process.env.IMAGES_MAX_SIZE ?? '5242880');
