@@ -118,19 +118,18 @@ export class FilesJcmService {
 
     async deleteSizedImages (fileName: string): Promise<void> {
       // Delete sized images if they exist
-      await this.sizes.forEach((size: string) => {
+      for (const size of this.sizes) {
         // Size format is ex 25X25
         const storagePath = process.env['IMAGES_STORAGE_DEST'];
         const fullPathDest = storagePath+path.sep+size+path.sep+fileName;
 console.log("path to delete : ", fullPathDest)
-        const isExist = fse.access(fullPathDest);
-        if(isExist) {  // Then delete it
-          fse.unlink(fullPathDest,(err) => {
-            if (err) {
-              console.error(err)
-          }})
+        try {
+          await fse.access(fullPathDest);
+          await fse.unlink(fullPathDest);
+        } catch {
+          // Ignore missing files
         }
-      });
+      }
     }
 
     async resizeImage (fileName: string, widthxheight: string ): Promise<string> {
@@ -179,6 +178,11 @@ console.log("path to delete : ", fullPathDest)
         console.log(newFileName)
         return newFileName
       }
+
+      throw new HttpException(
+        this.i18n.translate('files.FILE_EXTENSION_NO', { lang }),
+        400,
+      );
     }
 
     async deleteOneFolder(pathToDelete: string): Promise<any>{

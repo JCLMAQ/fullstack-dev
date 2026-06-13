@@ -15,8 +15,8 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 export class MailingService {
   private transporter: nodemailer.Transporter;
   private confirmationTemplate: handlebars.TemplateDelegate;
-  private passwordResetTemplate: handlebars.TemplateDelegate;
-  private groupInviteTemplate: handlebars.TemplateDelegate;
+  private passwordResetTemplate!: handlebars.TemplateDelegate;
+  private groupInviteTemplate!: handlebars.TemplateDelegate;
 
   constructor() {
     this.transporter = nodemailer.createTransport({

@@ -10,6 +10,10 @@ import { ClsMiddleware } from 'nestjs-cls';
 
 // !!! Nestjs use .developement.env by default ????
 
+const getRequiredString = (value: string | undefined, fallback: string): string => {
+  return value ?? fallback;
+};
+
 export function setup(app: INestApplication) {
 
       // app.enableShutdownHooks()
@@ -47,10 +51,12 @@ export function setup(app: INestApplication) {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle(process.env.SET_APP_TITLE)
-    .setDescription(process.env.SET_APP_DESCRIPTION)
-    .setVersion(process.env.SET_APP_VERSION)
-    .addTag(process.env.SET_APP_ADDTAG)
+    .setTitle(getRequiredString(process.env.SET_APP_TITLE, 'API'))
+    .setDescription(
+      getRequiredString(process.env.SET_APP_DESCRIPTION, 'API documentation')
+    )
+    .setVersion(getRequiredString(process.env.SET_APP_VERSION, '1.0.0'))
+    .addTag(getRequiredString(process.env.SET_APP_ADDTAG, 'default'))
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/doc', app, document);

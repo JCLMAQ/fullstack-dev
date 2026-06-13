@@ -4,6 +4,15 @@ import { PrismaClientService } from '@db/prisma-client';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 
+type CrudModel = {
+  findUnique: (args: unknown) => Promise<unknown>;
+  findMany: (args: unknown) => Promise<unknown[]>;
+  count: (args: unknown) => Promise<number>;
+  create: (args: unknown) => Promise<unknown>;
+  update: (args: unknown) => Promise<unknown>;
+  delete: (args: unknown) => Promise<unknown>;
+};
+
 @Injectable()
 export class CrudMiddleware implements NestMiddleware {
   constructor(private readonly prismaService: PrismaClientService) {}
@@ -41,7 +50,7 @@ export class CrudMiddleware implements NestMiddleware {
     user?: { id: string; role: string }
   ) {
     try {
-      const model = this.prismaService[modelName];
+      const model = (this.prismaService as unknown as Record<string, CrudModel | undefined>)[modelName];
       if (!model) {
         return res.status(404).json({ error: 'Model not found' });
       }

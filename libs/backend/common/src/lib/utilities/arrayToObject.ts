@@ -1,9 +1,26 @@
-export const convertArrYToObject = (array, keyName) => Object.fromEntries(
-  array.map(item => [item[keyName], item])
+type GenericRecord = Record<string, unknown>;
+
+export const convertArrYToObject = <
+  T extends GenericRecord,
+  K extends keyof T,
+>(
+  array: ReadonlyArray<T>,
+  keyName: K,
+): Record<string, T> => Object.fromEntries(
+  array.map((item: T) => [String(item[keyName]), item])
 );
 
-export const convertArrayToObjectWithOutKey = (array, keyName) => Object.fromEntries(
-  array.map(({ [keyName]: key, ...item }) => [key, item])
+export const convertArrayToObjectWithOutKey = <
+  T extends GenericRecord,
+  K extends keyof T,
+>(
+  array: ReadonlyArray<T>,
+  keyName: K,
+): Record<string, Omit<T, K>> => Object.fromEntries(
+  array.map((item: T) => {
+    const { [keyName]: key, ...rest } = item;
+    return [String(key), rest as Omit<T, K>];
+  })
 );
 
 // Type-friendly version
@@ -30,25 +47,43 @@ A extends T[] = T[]
 
 // Other versions
 
-export const convertArrayToObjectFirst= (array, key) => {
-  const initialValue = {};
-  return array.reduce((obj, item) => {
+export const convertArrayToObjectFirst = <
+  T extends GenericRecord,
+  K extends keyof T,
+>(
+  array: ReadonlyArray<T>,
+  key: K,
+): Record<string, T> => {
+  const initialValue: Record<string, T> = {};
+  return array.reduce((obj: Record<string, T>, item: T) => {
     return {
       ...obj,
-      [item[key]]: item,
+      [String(item[key])]: item,
     };
   }, initialValue);
 };
 
-export const convertArrayToObjectThird = (array, key) =>
-array.reduce((acc, curr) => {
-  acc[curr[key]] = curr;
+export const convertArrayToObjectThird = <
+  T extends GenericRecord,
+  K extends keyof T,
+>(
+  array: ReadonlyArray<T>,
+  key: K,
+): Record<string, T> =>
+array.reduce((acc: Record<string, T>, curr: T) => {
+  acc[String(curr[key])] = curr;
   return acc;
-}, {});
+}, {} as Record<string, T>);
 
 // Even concise
-export const convertArrayToObjectShort = (array, key) =>
-array.reduce((acc, curr) =>(acc[curr[key]] = curr, acc), {});
+export const convertArrayToObjectShort = <
+  T extends GenericRecord,
+  K extends keyof T,
+>(
+  array: ReadonlyArray<T>,
+  key: K,
+): Record<string, T> =>
+array.reduce((acc: Record<string, T>, curr: T) => (acc[String(curr[key])] = curr, acc), {} as Record<string, T>);
 // Basically everything inside parentheses will be evaluated, only the last value used will be only returned.
 
 

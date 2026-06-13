@@ -10,7 +10,7 @@ export class AvatarService {
    */
   async saveAvatarBase64(userId: string, base64Data: string, fileName: string): Promise<string> {
     // Extraire les métadonnées du base64
-    const matches = base64Data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    const matches = base64Data.match(/^data:([^;]+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {
       throw new Error('Format base64 invalide');
     }

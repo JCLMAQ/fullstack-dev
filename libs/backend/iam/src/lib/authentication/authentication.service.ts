@@ -19,6 +19,10 @@ import { OtpAuthenticationService } from './otp-authentication/otp-authenticatio
 import { InvalidatedRefreshTokenError } from './refresh-token-ids.storage/invalid-refresh-token.error';
 import { RefreshTokenIdsStorage } from './refresh-token-ids.storage/refresh-token-ids.storage';
 
+type PgError = {
+  code?: string;
+};
+
 @Injectable()
 export class AuthenticationService {
   constructor(
@@ -82,9 +86,9 @@ export class AuthenticationService {
       await this.prisma.user.create({ data });
       const apiUserKey = payload.apiKey;
       return { apiUserKey };
-    } catch (err) {
+    } catch (err: unknown) {
       const pgUniqueViolationErrorCode = '23505';
-      if (err.code === pgUniqueViolationErrorCode) {
+      if ((err as PgError).code === pgUniqueViolationErrorCode) {
         throw new ConflictException();
       }
       throw err;
@@ -177,9 +181,12 @@ export class AuthenticationService {
     if (!user) {
       throw new UnauthorizedException('User does not exists');
     }
+    if (!user.userSecret?.pwdHash) {
+      throw new UnauthorizedException('Password is not configured for this user');
+    }
     const isEqual = await this.hashingService.compare(
       signInDto.password,
-      user.userSecret?.pwdHash,
+      user.userSecret.pwdHash,
     );
 
     if (!isEqual) {
@@ -187,6 +194,9 @@ export class AuthenticationService {
     }
 
     if (user.isTfaEnable) {
+      if (!signInDto.tfaCode || !user.tfaSecret) {
+        throw new UnauthorizedException('2FA code is required');
+      }
       const isValid = this.otpAuthService.verifyCode(
         signInDto.tfaCode,
         user.tfaSecret,
@@ -209,9 +219,13 @@ export class AuthenticationService {
       console.log('❌ [AuthService] User does not exist for email:', signInDto.email);
       return false;
     }
+    if (!user.userSecret?.pwdHash) {
+      console.log('❌ [AuthService] User has no password hash for email:', signInDto.email);
+      return false;
+    }
     const isEqual = await this.hashingService.compare(
       signInDto.password,
-      user.userSecret?.pwdHash,
+      user.userSecret.pwdHash,
     );
 
     if (!isEqual) {

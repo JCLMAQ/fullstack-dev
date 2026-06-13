@@ -122,7 +122,8 @@ export class UploadsController {
           console.log(`✅ Image privée ${filename} accessible via token query param valide`);
           return;
         } catch (error) {
-          console.log(`⚠️ Token query param invalide pour l'image ${filename}:`, error.message);
+          const message = error instanceof Error ? error.message : String(error);
+          console.log(`⚠️ Token query param invalide pour l'image ${filename}:`, message);
           // Continue avec les autres méthodes d'authentification
         }
       }

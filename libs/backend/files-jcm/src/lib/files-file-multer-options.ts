@@ -4,22 +4,25 @@ import { diskStorage } from 'multer';
 import { v4 as uuid } from 'uuid';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
+const FILES_STORAGE_DEST = process.env.FILES_STORAGE_DEST ?? 'uploads/files';
+const FILES_MAX_SIZE = Number(process.env.FILES_MAX_SIZE ?? '5242880');
+const FILES_EXTENSIONS_REGEX = process.env.FILES_EXTENSIONS_REGEX ?? 'pdf|doc|docx|txt';
+
 // Multer configuration
 export const fileMulterConfig = {
-    dest: process.env.FILES_STORAGE_DEST,
+    dest: FILES_STORAGE_DEST,
 };
 
 // Multer upload options
 export const fileMulterOptions = {
     // Enable file size limits
     limits: {
-        fileSize: +process.env.FILES_MAX_SIZE,
+        fileSize: FILES_MAX_SIZE,
     },
     // Check the mimetypes to allow for upload
     fileFilter: (req: any, file: any, cb: any) => {
         // cb = callback
-        const listOfExtensions = process.env.FILES_EXTENSIONS_REGEX  
-        const exts = process.env.FILES_EXTENSIONS_REGEX.split("|");
+        const exts = FILES_EXTENSIONS_REGEX.split('|');
         const fileExtension = file.originalname.split('.')[1]
         if (exts.includes(fileExtension)){   
             // Allow storage of file
@@ -36,7 +39,7 @@ export const fileMulterOptions = {
             const uploadPath = fileMulterConfig.dest;
             // Create folder if doesn't exist
             if (!existsSync(uploadPath)) {
-                mkdirSync(uploadPath);
+                mkdirSync(uploadPath, { recursive: true });
             }
             cb(null, uploadPath);
         },

@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@db/prisma": ["libs/prisma/src/index.ts"],
       "@db/prisma/browser": ["libs/prisma/src/browserFrontend.ts"],

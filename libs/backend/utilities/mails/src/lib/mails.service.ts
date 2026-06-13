@@ -109,7 +109,7 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
   // Email structure vérification
   async emailValidation(email: string ): Promise<boolean> {
-    const expression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const expression = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     // Process with REGEX
     const okEmail: boolean = expression.test(email.toLowerCase());
     return okEmail;

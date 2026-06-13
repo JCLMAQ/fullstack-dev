@@ -1,4 +1,3 @@
-import { User } from '@db/prisma';
 import { PrismaClientService } from '@db/prisma-client';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -30,7 +29,7 @@ export class OtpAuthenticationService {
       where: { email },
       select: { id: true },
     });
-    const userbis: User = await this.prisma.user.update({
+    await this.prisma.user.update({
       where: {
         id: user.id,
       },
@@ -39,6 +38,5 @@ export class OtpAuthenticationService {
         isTfaEnable: true,
       },
     });
-    userbis;
   }
 }

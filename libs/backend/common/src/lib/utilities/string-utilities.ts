@@ -7,9 +7,7 @@ import { Injectable } from "@nestjs/common";
 
 // Compare one tring to another
 async compareStricklyString( stringOne: string | undefined , stringTwo: string | undefined): Promise<boolean> {
-  let answer = false
-  stringOne === stringTwo ? answer = true : answer= false
- return answer
+  return stringOne === stringTwo
 }
 
   }

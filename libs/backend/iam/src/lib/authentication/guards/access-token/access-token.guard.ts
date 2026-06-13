@@ -38,7 +38,8 @@ export class AccessTokenGuard implements CanActivate {
       request[REQUEST_USER_KEY] = payload;
       console.log('✅ AccessTokenGuard: Token verified successfully. Payload:', payload);
     } catch (error) {
-      console.error('❌ AccessTokenGuard: Token verification failed:', error.message);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('❌ AccessTokenGuard: Token verification failed:', message);
       throw new UnauthorizedException("Token management error");
     }
     return true;

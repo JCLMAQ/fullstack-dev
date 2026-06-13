@@ -4,9 +4,13 @@ import { diskStorage } from 'multer';
 import { v4 as uuid } from 'uuid';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
+const IMAGES_STORAGE_DEST = process.env.IMAGES_STORAGE_DEST ?? 'uploads/images';
+const IMAGES_MAX_SIZE = Number(process.env.IMAGES_MAX_SIZE ?? '5242880');
+const IMAGES_EXTENSIONS_REGEX = process.env.IMAGES_EXTENSIONS_REGEX ?? 'jpe?g|png|gif|tiff';
+
 // Multer configuration
 export const imageMulterConfig = {
-    dest: process.env.IMAGES_STORAGE_DEST,
+    dest: IMAGES_STORAGE_DEST,
 };
 
 // Multer upload options
@@ -14,12 +18,12 @@ export const imageMulterOptions = {
 
     // Enable file size limits
     limits: {
-        fileSize: +process.env.IMAGES_MAX_SIZE,
+        fileSize: IMAGES_MAX_SIZE,
     },
     // Check the mimetypes to allow for upload
     fileFilter: (req: any, file: any, cb: any) => {
         // cb = callback
-        const listOfExtensions = process.env.IMAGES_EXTENSIONS_REGEX
+        const listOfExtensions = IMAGES_EXTENSIONS_REGEX
         // if (file.mimetype.match(/\/(jpe?g|png|gif|tiff)$/)) {
         if (file.mimetype.match(`${listOfExtensions}`)) {
             // Allow storage of file
@@ -36,7 +40,7 @@ export const imageMulterOptions = {
             const uploadPath = imageMulterConfig.dest;
             // Create folder if doesn't exist
             if (!existsSync(uploadPath)) {
-                mkdirSync(uploadPath);
+                mkdirSync(uploadPath, { recursive: true });
             }
             cb(null, uploadPath);
         },

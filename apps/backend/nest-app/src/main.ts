@@ -12,6 +12,10 @@ import { ClsMiddleware } from 'nestjs-cls';
 import { AppModule } from './app/app.module';
 // import { PrismaClientService } from '@db/prisma-client';
 
+const getRequiredString = (value: string | undefined, fallback: string): string => {
+  return value ?? fallback;
+};
+
 
 async function bootstrap() {
 
@@ -35,8 +39,13 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, {
   // });
 
   // Configuration CORS pour permettre les requêtes depuis le frontend
+  const corsOrigins = [
+    process.env.API_FRONTEND_URL,
+    process.env.API_FRONTEND_URL_IP,
+  ].filter((origin): origin is string => Boolean(origin));
+
   app.enableCors({
-    origin: [process.env.API_FRONTEND_URL, process.env.API_FRONTEND_URL_IP],
+    origin: corsOrigins,
     // origin: ['http://localhost:4100', 'http://127.0.0.1:4100'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-custom-lang'],
@@ -77,10 +86,12 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, {
  // Utilisez .env (NEST_SERVER_SWAGGER_ENABLE) pour contrôler l'exposition en dev seulement.
   if (process.env.NEST_SERVER_SWAGGER_ENABLE === '1') {
     const config = new DocumentBuilder()
-      .setTitle(process.env.SET_APP_TITLE)
-      .setDescription(process.env.SET_APP_DESCRIPTION)
-      .setVersion(process.env.SET_APP_VERSION)
-      .addTag(process.env.SET_APP_ADDTAG)
+      .setTitle(getRequiredString(process.env.SET_APP_TITLE, 'API'))
+      .setDescription(
+        getRequiredString(process.env.SET_APP_DESCRIPTION, 'API documentation')
+      )
+      .setVersion(getRequiredString(process.env.SET_APP_VERSION, '1.0.0'))
+      .addTag(getRequiredString(process.env.SET_APP_ADDTAG, 'default'))
       .build();
     /*
     Bug avec circular dependency for Roles....
