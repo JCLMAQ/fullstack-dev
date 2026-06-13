@@ -3,11 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import type { Image } from '@db/prisma/frontend';
 import { Carousel, type ICarouselConfig } from '@fe/carousel';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-home',
-  imports: [Carousel, MatButtonModule, MatIconModule, TranslateModule],
+  imports: [Carousel, MatButtonModule, MatIconModule, TranslatePipe],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

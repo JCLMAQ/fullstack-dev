@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { IAM_AUTH_TOKEN } from '@fe/auth';
 import { FieldError, passwordDifferentFromEmail, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 // Register Credentials model
 export interface RegisterFormModel {
@@ -34,7 +34,7 @@ export interface RegisterFormModel {
     PasswordStrength,
     PasswordMatch,
     MatCardModule,
-    TranslateModule,
+    TranslatePipe,
     JsonPipe,
     // MatFormFieldStatusDirective
   ],

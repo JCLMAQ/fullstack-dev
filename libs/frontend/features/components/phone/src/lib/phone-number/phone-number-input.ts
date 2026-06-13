@@ -27,7 +27,7 @@ import {
   MatSelectModule
 } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { IMaskModule } from 'angular-imask';
 import {
   PhoneNumber,
@@ -65,8 +65,7 @@ interface TelFormState {
     MatInputModule,
     MatTooltipModule,
     PhoneIcon,
-    IMaskModule,
-    TranslateModule
+    IMaskModule
   ],
   providers: [
     CountryCode,

@@ -2,13 +2,13 @@ import { Component, computed, inject, input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AppStore } from '@fe/stores';
 import { UserAvatar, UserAvatarEditor } from '@fe/user-avatar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-sidenav-header',
   imports: [
     UserAvatar,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './sidenav-header.html',
   styleUrl: './sidenav-header.scss',

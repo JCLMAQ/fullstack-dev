@@ -24,7 +24,7 @@ import { ConfirmDialogService } from '@fe/messages';
 import { baseTextSchema, baseTextSchemRequired, FieldError } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { UserStore } from '@fe/user';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TodoService } from '../services/todo-service';
 import { TodoStore } from '../store/todo-store';
 
@@ -79,8 +79,7 @@ const defaultTodoData: TodoFormData = {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   providers: [UserStore],
   templateUrl: './todo-detail.html',
   styleUrl: './todo-detail.scss',

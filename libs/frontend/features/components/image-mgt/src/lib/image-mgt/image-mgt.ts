@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { Image } from '@db/prisma/frontend';
 import { TokenStorageService } from '@fe/core/auth';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ImageGalleryComponent } from '../image-gallery/image-gallery';
 import { ImageUploadManagerComponent } from '../image-upload-manager/image-upload-manager';
 import { ImageService, SearchImagesDto } from '../services/image.service';
@@ -37,7 +37,7 @@ import { ImageService, SearchImagesDto } from '../services/image.service';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    TranslateModule,
+    TranslatePipe,
     ImageGalleryComponent,
     ImageUploadManagerComponent
   ],

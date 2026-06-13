@@ -10,7 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UserWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
 @Component({
@@ -25,7 +25,7 @@ import { UserStore } from '../store/user-store';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    TranslateModule,
+    TranslatePipe,
     ...MATERIAL
   ],
   templateUrl: './user-list.html',

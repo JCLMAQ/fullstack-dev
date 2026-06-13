@@ -1,10 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-admin-banner',
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
   templateUrl: './admin-banner.html',
   styleUrl: './admin-banner.scss',
 })

@@ -18,7 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import type { File } from '@db/prisma/frontend';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FileService, SearchFilesDto } from '../services/file.service';
 
 @Component({
@@ -40,8 +40,7 @@ import { FileService, SearchFilesDto } from '../services/file.service';
     MatCheckboxModule,
     MatMenuModule,
     MatDividerModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   templateUrl: './file-mgt.html',
   styleUrl: './file-mgt.scss',
 })

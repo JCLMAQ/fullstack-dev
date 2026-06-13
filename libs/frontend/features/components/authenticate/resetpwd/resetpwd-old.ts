@@ -14,7 +14,7 @@ import { IAM_AUTH_TOKEN } from '@fe/auth';
 import { FieldError, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 interface ResetPasswordResponse {
@@ -50,7 +50,7 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<R
     MatProgressSpinner,
     FieldError,
     JsonPipe,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './resetpwd.html',
   styleUrl: './resetpwd.scss',

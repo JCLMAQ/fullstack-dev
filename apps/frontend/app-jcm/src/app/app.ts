@@ -2,14 +2,13 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IdleTimeoutService } from '@fe/auth/idle-timeout';
 import { AppStore } from '@fe/stores';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
 @Component({
   imports: [
-    RouterModule,
-    TranslateModule
+    RouterModule
   ],
   selector: 'app-root',
   templateUrl: './app.html',

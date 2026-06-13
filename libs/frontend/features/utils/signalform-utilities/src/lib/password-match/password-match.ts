@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { FieldState } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-password-match',
-  imports: [TranslateModule, MatIconModule],
+  imports: [TranslatePipe, MatIconModule],
   templateUrl: './password-match.html',
   styleUrl: './password-match.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

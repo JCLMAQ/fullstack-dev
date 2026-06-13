@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { FieldState } from '@angular/forms/signals';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface PasswordStrengthResult {
   score: number;
@@ -10,7 +10,7 @@ export interface PasswordStrengthResult {
 
 @Component({
   selector: 'lib-password-strength',
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
   templateUrl: './password-strength.html',
   styleUrl: './password-strength.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FieldState } from '@angular/forms/signals';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'lib-field-error',
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
   templateUrl: './field-error.html',
   styleUrl: './field-error.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

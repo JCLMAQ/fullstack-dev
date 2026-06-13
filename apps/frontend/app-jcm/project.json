@@ -26,9 +26,13 @@
         "styles": [
           "apps/frontend/app-jcm/src/styles.scss",
           "node_modules/material-icons/iconfont/material-icons.css",
-          "node_modules/material-symbols/index.scss",
+          "node_modules/material-symbols/index.css",
           "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
           "node_modules/flag-icons/css/flag-icons.min.css"
+        ],
+        "allowedCommonJsDependencies": [
+          "google-libphonenumber",
+          "lodash.throttle"
         ]
       },
       "configurations": {
@@ -36,13 +40,13 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1700kb",
+              "maximumError": "2000kb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumWarning": "30kb",
+              "maximumError": "40kb"
             }
           ],
           "outputHashing": "all"

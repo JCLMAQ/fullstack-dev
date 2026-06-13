@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 // According: "Custom File Uploader Angular 18"
 // https://medium.com/@paul.pietzko/custom-file-uploader-angular-18-ca566131f128
@@ -9,7 +9,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   selector: 'lib-image-uploader',
   imports: [
     MatIcon,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './image-uploader.html',
   styleUrl: './image-uploader.scss',

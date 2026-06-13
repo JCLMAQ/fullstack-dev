@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
 import { AdminBanner } from '@fe/admin-banner';
 import { IamAuth } from '@fe/auth';
 import { ImageMgt } from '@fe/image-mgt';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ResponsiveService } from '../services/responsive/responsive-service';
 import { CustomSidenav } from './custom-sidenav/custom-sidenav';
 import { Header } from './header/header';
@@ -23,9 +23,8 @@ import { Header } from './header/header';
     MatIconModule,
     MatTooltipModule,
     ImageMgt,
-    TranslateModule,
-    AdminBanner,
-  ],
+    TranslatePipe,
+    AdminBanner],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
 })

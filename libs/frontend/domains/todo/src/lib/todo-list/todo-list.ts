@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { TodoWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { ConfirmDialogService } from '@fe/messages';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TodoStore } from '../store/todo-store';
 import { TodoSubList } from '../todo-sub-list/todo-sub-list';
 
@@ -30,7 +30,7 @@ import { TodoSubList } from '../todo-sub-list/todo-sub-list';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatDialogModule,
-    TranslateModule,
+    TranslatePipe,
     TodoSubList,
     ...MATERIAL
   ],

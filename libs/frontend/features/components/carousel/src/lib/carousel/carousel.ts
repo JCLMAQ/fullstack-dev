@@ -19,7 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import type { Image } from '@db/prisma/frontend';
 import { ImageService, SearchImagesDto } from '@fe/image-mgt';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface ICarouselConfig {
   autoPlay?: boolean;
@@ -41,8 +41,7 @@ export interface ICarouselConfig {
     MatProgressSpinnerModule,
     MatCardModule,
     MatChipsModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   templateUrl: './carousel.html',
   styleUrl: './carousel.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

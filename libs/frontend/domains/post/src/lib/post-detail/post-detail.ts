@@ -24,7 +24,7 @@ import { ConfirmDialogService } from '@fe/messages';
 import { baseTextSchema, baseTextSchemRequired, FieldError } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
 import { UserStore } from '@fe/user';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { PostService } from '../services/post-service';
 import { PostStore } from '../store/post-store';
 
@@ -77,8 +77,7 @@ const defaultPostData: PostFormData = {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   providers: [UserStore],
   templateUrl: './post-detail.html',
   styleUrl: './post-detail.scss',

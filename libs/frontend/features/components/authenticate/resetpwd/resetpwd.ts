@@ -15,7 +15,7 @@ import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, PasswordMatch, PasswordStrength, passwordWithConfirmSchema } from '@fe/signalform-utilities';
 import type { Environment } from '@fe/tokens';
 import { ENVIRONMENT_TOKEN } from '@fe/tokens';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface ResetPasswordCredentials {
   password: string;
@@ -47,7 +47,7 @@ const resetPasswordSchema = schema<ResetPasswordCredentials>((path: SchemaPath<R
     PasswordStrength,
     PasswordMatch,
     JsonPipe,
-    TranslateModule,
+    TranslatePipe,
     MatFormFieldStatusDirective
 
   ],

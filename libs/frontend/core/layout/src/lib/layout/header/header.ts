@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { AppStore } from '@fe/stores';
 import { UserAvatar } from '@fe/user-avatar';
-import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ResponsiveService } from '../../services/responsive/responsive-service';
 import { ThemeService } from '../../services/themes/theme-service';
 // import { DictionaryStore } from '../../store/dictionary/dictionary.store';
@@ -25,7 +25,6 @@ import { ThemeService } from '../../services/themes/theme-service';
     MatDivider,
     // TitleCasePipe,
     TranslatePipe,
-    TranslateModule,
     // FlagComponent
     UserAvatar
   ],

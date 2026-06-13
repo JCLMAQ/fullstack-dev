@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import type { Image } from '@db/prisma/frontend';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ImageService } from '../services/image.service';
 
 interface FileData {
@@ -37,7 +37,7 @@ interface FileData {
     MatSlideToggleModule,
     MatProgressBarModule,
     DecimalPipe,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './image-upload-manager.html',
   styleUrl: './image-upload-manager.scss'

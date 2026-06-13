@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import type { Image } from '@db/prisma/frontend';
 import { UserStorageService } from '@fe/auth';
 import { ImageService } from '@fe/image-mgt';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-carousel-config',
@@ -21,8 +21,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   templateUrl: './carousel-config.html',
   styleUrl: './carousel-config.scss'
 })

@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Address } from '@db/prisma/frontend';
 import { ValidationErrors } from '@fe/signalform-utilities';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 // import { buildAddressSection, createAddressModel } from './address-form.model';
 
 @Component({
@@ -14,8 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormField,
     MatFormFieldModule,
     MatInputModule,
-    TranslateModule,
-  ],
+    TranslatePipe],
   templateUrl: './address-form.html',
   styleUrl: './address-form.scss',
 })

@@ -12,7 +12,7 @@ import { ChangePwdService } from '@fe/auth';
 import { MatFormFieldStatusDirective } from '@fe/directives';
 import { FieldError, PasswordMatch, PasswordStrength } from '@fe/signalform-utilities';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type ChangePasswordModel = {
   oldPassword: string;
@@ -34,7 +34,7 @@ export type ChangePasswordModel = {
     FieldError,
     PasswordStrength,
     PasswordMatch,
-    TranslateModule,
+    TranslatePipe,
     JsonPipe,
     MatFormFieldStatusDirective
   ],
@@ -161,8 +161,7 @@ urlForm = form(this.urlModel, (schemaPath) => {
           kind: 'verification-error',
           message: 'signalFormError.verificationError'
         }),
-    }),
-  ]);
+    })]);
 
   // Schéma étendu avec validation asynchrone
   protected readonly changepwdForm = form(

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { PostWithRelations } from '@db/prisma/frontend';
 import { DictionaryPaginatorIntl, MATERIAL } from '@fe/material';
 import { ConfirmDialogService } from '@fe/messages';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { PostStore } from '../store/post-store';
 
 @Component({
@@ -27,9 +27,8 @@ import { PostStore } from '../store/post-store';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatDialogModule,
-    TranslateModule,
-    ...MATERIAL,
-  ],
+    TranslatePipe,
+    ...MATERIAL],
   templateUrl: './post-list.html',
   styleUrl: './post-list.scss',
   providers: [{ provide: MatPaginatorIntl, useClass: DictionaryPaginatorIntl }],
@@ -60,8 +59,7 @@ export class PostList {
     'published',
     'isPublic',
     'comments',
-    'likes',
-  ];
+    'likes'];
   protected readonly columnsToDisplayWithExpand = [...this.displayedColumns, 'tools'];
   protected expandedElement: PostWithRelations | null = null;
 

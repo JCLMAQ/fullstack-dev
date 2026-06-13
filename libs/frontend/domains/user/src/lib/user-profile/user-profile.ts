@@ -16,7 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FieldError } from '@fe/signalform-utilities';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { PersonalInfo } from '../models/personal-info';
 
 const passwordSchema = schema<{ password: string; confirmPassword: string }>(
@@ -51,7 +51,7 @@ const passwordSchema = schema<{ password: string; confirmPassword: string }>(
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss',

@@ -12,7 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { IamAuth } from '@fe/auth';
 import { ApiConfig, AvatarBase64 } from '@fe/services';
 import { AppStore } from '@fe/stores';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UserAvatar } from '../user-avatar/user-avatar';
 
 @Component({
@@ -28,7 +28,7 @@ import { UserAvatar } from '../user-avatar/user-avatar';
     MatIconModule,
     MatProgressSpinnerModule,
     FormsModule,
-    TranslateModule
+    TranslatePipe
   ],
   templateUrl: './user-avatar-editor.html',
   styleUrl: './user-avatar-editor.scss',

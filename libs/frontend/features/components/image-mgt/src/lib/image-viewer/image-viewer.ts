@@ -8,7 +8,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Image } from '@db/prisma/frontend';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ImageService } from '../services/image.service';
 
 export interface ImageViewerData {
@@ -29,7 +29,7 @@ export interface ImageViewerData {
     MatChipSet,
     MatChip,
     DatePipe,
-    TranslateModule
+    TranslatePipe
   ],
   template: `
     <div class="image-viewer">

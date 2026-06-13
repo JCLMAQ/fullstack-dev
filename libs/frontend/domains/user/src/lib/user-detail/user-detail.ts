@@ -24,7 +24,7 @@ import { ConfirmDialogService } from '@fe/messages';
 import { Language, LanguageDataService } from '@fe/services';
 import { PreventReadonlyInteractionDirective } from '@fe/shared';
 import { baseTextSchemaMax50, DebugPanel, emailSchema, emergencyContactSchema, FieldError, personNameSchema } from '@fe/signalform-utilities';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UserStore } from '../store/user-store';
 
 type UserFormData = {
@@ -79,7 +79,7 @@ type UserFormData = {
     MatNativeDateModule,
     MatMenuModule,
     PreventReadonlyInteractionDirective,
-    TranslateModule,
+    TranslatePipe,
     // JsonPipe,
     DebugPanel,
     AddressForm,
