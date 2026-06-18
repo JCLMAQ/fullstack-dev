@@ -40,13 +40,15 @@ if (missing.length) {
 function generateEnvironmentContent(isProduction: boolean): string {
   // Utiliser la variable d'environnement API_FRONTEND_PORT
   const frontendPort = process.env.API_FRONTEND_PORT || '4200';
+  const backendUrl = process.env.PORTLESS_BACKEND_URL || `http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}`;
+  const frontendUrl = process.env.PORTLESS_FRONTEND_URL || `http://${process.env.API_FRONTEND}:${frontendPort}`;
 
   return `
     export const ENVIRONMENT_DATA = {
         production: ${isProduction},
-        API_BACKEND_URL: "http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}",
+        API_BACKEND_URL: "${backendUrl}",
         API_BACKEND_PREFIX: "${process.env.API_BACKEND_PREFIX}",
-        API_FRONTEND_URL: "http://${process.env.API_FRONTEND}:${frontendPort}",
+        API_FRONTEND_URL: "${frontendUrl}",
         API_FRONTEND: "${process.env.API_FRONTEND}",
         API_FRONTEND_PORT: "${frontendPort}",
         API_SECRET: "${process.env.API_SECRET}",
