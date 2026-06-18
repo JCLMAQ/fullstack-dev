@@ -23,7 +23,9 @@ if (
 const proxyconfPath = 'proxy.config.json';
 
 const proxyTarget = process.env.PORTLESS_BACKEND_URL || `http://${process.env.API_BACKEND}:${process.env.API_BACKEND_PORT}`;
-const proxySecure = process.env.PORTLESS_PROXY_SECURE ?? process.env.NEST_SERVER_SECURE;
+const proxySecure = isPortlessMode
+  ? (process.env.PORTLESS_PROXY_SECURE ?? 'false')
+  : process.env.NEST_SERVER_SECURE;
 
 // we have access to our proxy variables
 // in the process.env object thanks to dotenv
