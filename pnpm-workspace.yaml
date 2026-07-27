@@ -35,3 +35,4 @@ minimumReleaseAgeExclude:
   - eslint@10.5.0
   - '@dotenvx/dotenvx@1.73.1 || 2.6.0'
   - postcss@8.5.17
+  - prisma-zod-generator@3.0.1
