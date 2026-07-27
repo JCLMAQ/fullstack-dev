@@ -59,8 +59,8 @@
     "@ngrx/signals": "^21.1.1",
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
-    "@prisma/adapter-pg": "^7.9.0",
-    "@prisma/client": "^7.9.0",
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
     "angular-imask": "^7.6.1",
     "animate-css-grid": "^1.5.1",
     "autoprefixer": "^10.5.4",
@@ -108,7 +108,7 @@
     "@angular/cli": "^22.0.8",
     "@angular/compiler-cli": "^22.0.8",
     "@angular/language-service": "^22.0.8",
-    "@dotenvx/dotenvx": "^2.18.0",
+    "@dotenvx/dotenvx": "^2.19.0",
     "@eslint/js": "10.0.1",
     "@faker-js/faker": "^10.5.0",
     "@nestjs/schematics": "^11.1.0",
@@ -146,7 +146,7 @@
     "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/utils": "^8.65.0",
     "angular-eslint": "22.1.0",
-    "eslint": "10.5.0",
+    "eslint": "10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.10.5",
     "jest": "^30.4.2",
@@ -157,7 +157,7 @@
     "nx": "23.1.0",
     "portless": "^0.15.4",
     "prettier": "^3.9.6",
-    "prisma": "^7.9.0",
+    "prisma": "^7.9.1",
     "prisma-zod-generator": "^3.0.1",
     "roboto-fontface": "^0.10.0",
     "tailwindcss": "^4.3.3",
@@ -168,7 +168,7 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.65.0",
     "webpack-cli": "7.2.1",
-    "webpack-dev-server": "5.2.6"
+    "webpack-dev-server": "6.0.0"
   },
   "packageManager": "pnpm@11.17.0"
 }

@@ -33,6 +33,17 @@ minimumReleaseAgeExclude:
   - '@tailwindcss/postcss@4.3.1'
   - tailwindcss@4.3.1
   - eslint@10.5.0
-  - '@dotenvx/dotenvx@1.73.1 || 2.6.0'
+  - '@dotenvx/dotenvx@1.73.1 || 2.6.0 || 2.19.0'
   - postcss@8.5.17
   - prisma-zod-generator@3.0.1
+  - '@prisma/adapter-pg@7.9.1'
+  - '@prisma/client-runtime-utils@7.9.1'
+  - '@prisma/client@7.9.1'
+  - '@prisma/config@7.9.1'
+  - '@prisma/debug@7.9.1'
+  - '@prisma/dev@0.24.17'
+  - '@prisma/driver-adapter-utils@7.9.1'
+  - '@prisma/engines@7.9.1'
+  - '@prisma/fetch-engine@7.9.1'
+  - '@prisma/get-platform@7.9.1'
+  - prisma@7.9.1
