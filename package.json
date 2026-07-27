@@ -129,8 +129,8 @@
     "@nx/workspace": "23.1.0",
     "@playwright/test": "^1.62.0",
     "@schematics/angular": "^22.0.8",
-    "@swc-node/register": "1.11.1",
-    "@swc/core": "1.15.43",
+    "@swc-node/register": "1.12.1",
+    "@swc/core": "1.15.46",
     "@swc/helpers": "0.5.23",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
@@ -167,8 +167,8 @@
     "tsx": "^4.23.1",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.65.0",
-    "webpack-cli": "7.0.3",
-    "webpack-dev-server": "5.2.5"
+    "webpack-cli": "7.2.1",
+    "webpack-dev-server": "5.2.6"
   },
   "packageManager": "pnpm@11.17.0"
 }
