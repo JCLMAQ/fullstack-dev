@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { PhoneCreateManyInputObjectSchema as PhoneCreateManyInputObjectSchema } from './objects/PhoneCreateManyInput.schema';
 

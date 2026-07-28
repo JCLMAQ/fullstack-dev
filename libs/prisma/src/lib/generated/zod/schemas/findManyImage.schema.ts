@@ -1,10 +1,14 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ImageIncludeObjectSchema as ImageIncludeObjectSchema } from './objects/ImageInclude.schema';
 import { ImageOrderByWithRelationInputObjectSchema as ImageOrderByWithRelationInputObjectSchema } from './objects/ImageOrderByWithRelationInput.schema';
 import { ImageWhereInputObjectSchema as ImageWhereInputObjectSchema } from './objects/ImageWhereInput.schema';
 import { ImageWhereUniqueInputObjectSchema as ImageWhereUniqueInputObjectSchema } from './objects/ImageWhereUniqueInput.schema';
 import { ImageScalarFieldEnumSchema } from './enums/ImageScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
+import { OrganizationArgsObjectSchema as OrganizationArgsObjectSchema } from './objects/OrganizationArgs.schema';
+import { PostArgsObjectSchema as PostArgsObjectSchema } from './objects/PostArgs.schema';
+import { StoryArgsObjectSchema as StoryArgsObjectSchema } from './objects/StoryArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -34,18 +38,18 @@ export const ImageFindManySelectSchema: z.ZodType<Prisma.ImageSelect> = z.object
     tags: z.boolean().optional(),
     altText: z.boolean().optional(),
     description: z.boolean().optional(),
-    uploadedBy: z.boolean().optional(),
+    uploadedBy: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     uploadedById: z.boolean().optional(),
     associatedId: z.boolean().optional(),
     associationType: z.boolean().optional(),
     sequence: z.boolean().optional(),
-    org: z.boolean().optional(),
+    org: z.union([z.boolean(), z.lazy(() => OrganizationArgsObjectSchema)]).optional(),
     orgId: z.boolean().optional(),
-    post: z.boolean().optional(),
+    post: z.union([z.boolean(), z.lazy(() => PostArgsObjectSchema)]).optional(),
     postId: z.boolean().optional(),
-    profileUser: z.boolean().optional(),
+    profileUser: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     profileUserId: z.boolean().optional(),
-    story: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StoryArgsObjectSchema)]).optional(),
     storyId: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.ImageSelect>;
 
@@ -74,18 +78,18 @@ export const ImageFindManySelectZodSchema = z.object({
     tags: z.boolean().optional(),
     altText: z.boolean().optional(),
     description: z.boolean().optional(),
-    uploadedBy: z.boolean().optional(),
+    uploadedBy: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     uploadedById: z.boolean().optional(),
     associatedId: z.boolean().optional(),
     associationType: z.boolean().optional(),
     sequence: z.boolean().optional(),
-    org: z.boolean().optional(),
+    org: z.union([z.boolean(), z.lazy(() => OrganizationArgsObjectSchema)]).optional(),
     orgId: z.boolean().optional(),
-    post: z.boolean().optional(),
+    post: z.union([z.boolean(), z.lazy(() => PostArgsObjectSchema)]).optional(),
     postId: z.boolean().optional(),
-    profileUser: z.boolean().optional(),
+    profileUser: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     profileUserId: z.boolean().optional(),
-    story: z.boolean().optional(),
+    story: z.union([z.boolean(), z.lazy(() => StoryArgsObjectSchema)]).optional(),
     storyId: z.boolean().optional()
   }).strict();
 

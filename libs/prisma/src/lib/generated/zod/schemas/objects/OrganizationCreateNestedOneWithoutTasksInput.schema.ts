@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrganizationCreateWithoutTasksInputObjectSchema as OrganizationCreateWithoutTasksInputObjectSchema } from './OrganizationCreateWithoutTasksInput.schema';
 import { OrganizationUncheckedCreateWithoutTasksInputObjectSchema as OrganizationUncheckedCreateWithoutTasksInputObjectSchema } from './OrganizationUncheckedCreateWithoutTasksInput.schema';
 import { OrganizationCreateOrConnectWithoutTasksInputObjectSchema as OrganizationCreateOrConnectWithoutTasksInputObjectSchema } from './OrganizationCreateOrConnectWithoutTasksInput.schema';

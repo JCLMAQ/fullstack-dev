@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrganizationScalarWhereInputObjectSchema as OrganizationScalarWhereInputObjectSchema } from './OrganizationScalarWhereInput.schema';
 import { OrganizationUpdateManyMutationInputObjectSchema as OrganizationUpdateManyMutationInputObjectSchema } from './OrganizationUpdateManyMutationInput.schema';
 import { OrganizationUncheckedUpdateManyWithoutMainOrgInputObjectSchema as OrganizationUncheckedUpdateManyWithoutMainOrgInputObjectSchema } from './OrganizationUncheckedUpdateManyWithoutMainOrgInput.schema'

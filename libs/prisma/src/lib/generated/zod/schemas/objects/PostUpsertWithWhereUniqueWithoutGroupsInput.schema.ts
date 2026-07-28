@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { PostWhereUniqueInputObjectSchema as PostWhereUniqueInputObjectSchema } from './PostWhereUniqueInput.schema';
 import { PostUpdateWithoutGroupsInputObjectSchema as PostUpdateWithoutGroupsInputObjectSchema } from './PostUpdateWithoutGroupsInput.schema';
 import { PostUncheckedUpdateWithoutGroupsInputObjectSchema as PostUncheckedUpdateWithoutGroupsInputObjectSchema } from './PostUncheckedUpdateWithoutGroupsInput.schema';

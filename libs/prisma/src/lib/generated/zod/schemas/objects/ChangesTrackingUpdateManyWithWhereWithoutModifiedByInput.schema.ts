@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ChangesTrackingScalarWhereInputObjectSchema as ChangesTrackingScalarWhereInputObjectSchema } from './ChangesTrackingScalarWhereInput.schema';
 import { ChangesTrackingUpdateManyMutationInputObjectSchema as ChangesTrackingUpdateManyMutationInputObjectSchema } from './ChangesTrackingUpdateManyMutationInput.schema';
 import { ChangesTrackingUncheckedUpdateManyWithoutModifiedByInputObjectSchema as ChangesTrackingUncheckedUpdateManyWithoutModifiedByInputObjectSchema } from './ChangesTrackingUncheckedUpdateManyWithoutModifiedByInput.schema'

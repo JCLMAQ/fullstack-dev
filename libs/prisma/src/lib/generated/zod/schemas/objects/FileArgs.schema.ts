@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { FileSelectObjectSchema as FileSelectObjectSchema } from './FileSelect.schema';
 import { FileIncludeObjectSchema as FileIncludeObjectSchema } from './FileInclude.schema'
 

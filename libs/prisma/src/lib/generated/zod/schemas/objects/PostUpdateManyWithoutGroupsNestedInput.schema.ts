@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { PostCreateWithoutGroupsInputObjectSchema as PostCreateWithoutGroupsInputObjectSchema } from './PostCreateWithoutGroupsInput.schema';
 import { PostUncheckedCreateWithoutGroupsInputObjectSchema as PostUncheckedCreateWithoutGroupsInputObjectSchema } from './PostUncheckedCreateWithoutGroupsInput.schema';
 import { PostCreateOrConnectWithoutGroupsInputObjectSchema as PostCreateOrConnectWithoutGroupsInputObjectSchema } from './PostCreateOrConnectWithoutGroupsInput.schema';

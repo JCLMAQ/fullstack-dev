@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { PhoneWhereUniqueInputObjectSchema as PhoneWhereUniqueInputObjectSchema } from './PhoneWhereUniqueInput.schema';
 import { PhoneUpdateWithoutUserInputObjectSchema as PhoneUpdateWithoutUserInputObjectSchema } from './PhoneUpdateWithoutUserInput.schema';
 import { PhoneUncheckedUpdateWithoutUserInputObjectSchema as PhoneUncheckedUpdateWithoutUserInputObjectSchema } from './PhoneUncheckedUpdateWithoutUserInput.schema';

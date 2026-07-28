@@ -8,5 +8,5 @@ export const ScopeUpsertResultSchema = z.object({
   isDeleted: z.number().int(),
   isDeletedDT: z.date().optional(),
   scope: z.string(),
-  ApiKey: z.array(z.unknown())
+  ApiKey: z.array(z.unknown()).optional()
 });

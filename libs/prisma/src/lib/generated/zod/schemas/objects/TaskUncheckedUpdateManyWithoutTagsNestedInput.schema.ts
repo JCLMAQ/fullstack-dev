@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TaskCreateWithoutTagsInputObjectSchema as TaskCreateWithoutTagsInputObjectSchema } from './TaskCreateWithoutTagsInput.schema';
 import { TaskUncheckedCreateWithoutTagsInputObjectSchema as TaskUncheckedCreateWithoutTagsInputObjectSchema } from './TaskUncheckedCreateWithoutTagsInput.schema';
 import { TaskCreateOrConnectWithoutTagsInputObjectSchema as TaskCreateOrConnectWithoutTagsInputObjectSchema } from './TaskCreateOrConnectWithoutTagsInput.schema';

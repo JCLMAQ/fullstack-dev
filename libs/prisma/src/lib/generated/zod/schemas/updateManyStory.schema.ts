@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { StoryUpdateManyMutationInputObjectSchema as StoryUpdateManyMutationInputObjectSchema } from './objects/StoryUpdateManyMutationInput.schema';
 import { StoryWhereInputObjectSchema as StoryWhereInputObjectSchema } from './objects/StoryWhereInput.schema';

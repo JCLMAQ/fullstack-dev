@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { UserUpdateOneRequiredWithoutPosts_likedNestedInputObjectSchema as UserUpdateOneRequiredWithoutPosts_likedNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutPosts_likedNestedInput.schema'
 

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ImageSelectObjectSchema as ImageSelectObjectSchema } from './objects/ImageSelect.schema';
 import { ImageUpdateManyMutationInputObjectSchema as ImageUpdateManyMutationInputObjectSchema } from './objects/ImageUpdateManyMutationInput.schema';

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { OrgEmailUseToWhereInputObjectSchema as OrgEmailUseToWhereInputObjectSchema } from './objects/OrgEmailUseToWhereInput.schema';
 import { OrgEmailUseToOrderByWithAggregationInputObjectSchema as OrgEmailUseToOrderByWithAggregationInputObjectSchema } from './objects/OrgEmailUseToOrderByWithAggregationInput.schema';

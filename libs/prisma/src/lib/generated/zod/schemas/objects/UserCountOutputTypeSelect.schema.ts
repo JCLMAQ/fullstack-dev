@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCountOutputTypeCountAddressArgsObjectSchema as UserCountOutputTypeCountAddressArgsObjectSchema } from './UserCountOutputTypeCountAddressArgs.schema';
 import { UserCountOutputTypeCountPhonesArgsObjectSchema as UserCountOutputTypeCountPhonesArgsObjectSchema } from './UserCountOutputTypeCountPhonesArgs.schema';
 import { UserCountOutputTypeCountOrgsArgsObjectSchema as UserCountOutputTypeCountOrgsArgsObjectSchema } from './UserCountOutputTypeCountOrgsArgs.schema';

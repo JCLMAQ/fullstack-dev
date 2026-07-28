@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagValueWhereInputObjectSchema as TagValueWhereInputObjectSchema } from './objects/TagValueWhereInput.schema';
 import { TagValueOrderByWithAggregationInputObjectSchema as TagValueOrderByWithAggregationInputObjectSchema } from './objects/TagValueOrderByWithAggregationInput.schema';

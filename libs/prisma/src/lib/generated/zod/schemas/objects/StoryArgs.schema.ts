@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { StorySelectObjectSchema as StorySelectObjectSchema } from './StorySelect.schema';
 import { StoryIncludeObjectSchema as StoryIncludeObjectSchema } from './StoryInclude.schema'
 

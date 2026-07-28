@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserWhereUniqueInputObjectSchema as UserWhereUniqueInputObjectSchema } from './UserWhereUniqueInput.schema';
 import { UserCreateWithoutUploadedImagesInputObjectSchema as UserCreateWithoutUploadedImagesInputObjectSchema } from './UserCreateWithoutUploadedImagesInput.schema';
 import { UserUncheckedCreateWithoutUploadedImagesInputObjectSchema as UserUncheckedCreateWithoutUploadedImagesInputObjectSchema } from './UserUncheckedCreateWithoutUploadedImagesInput.schema'

@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { LanguageSelectObjectSchema as LanguageSelectObjectSchema } from './LanguageSelect.schema';
 import { LanguageIncludeObjectSchema as LanguageIncludeObjectSchema } from './LanguageInclude.schema'
 

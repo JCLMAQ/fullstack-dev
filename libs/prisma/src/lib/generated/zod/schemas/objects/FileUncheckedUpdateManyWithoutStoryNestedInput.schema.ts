@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { FileCreateWithoutStoryInputObjectSchema as FileCreateWithoutStoryInputObjectSchema } from './FileCreateWithoutStoryInput.schema';
 import { FileUncheckedCreateWithoutStoryInputObjectSchema as FileUncheckedCreateWithoutStoryInputObjectSchema } from './FileUncheckedCreateWithoutStoryInput.schema';
 import { FileCreateOrConnectWithoutStoryInputObjectSchema as FileCreateOrConnectWithoutStoryInputObjectSchema } from './FileCreateOrConnectWithoutStoryInput.schema';

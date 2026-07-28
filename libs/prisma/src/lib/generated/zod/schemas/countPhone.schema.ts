@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { PhoneOrderByWithRelationInputObjectSchema as PhoneOrderByWithRelationInputObjectSchema } from './objects/PhoneOrderByWithRelationInput.schema';
 import { PhoneWhereInputObjectSchema as PhoneWhereInputObjectSchema } from './objects/PhoneWhereInput.schema';

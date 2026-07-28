@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserFollowerLinkWhereUniqueInputObjectSchema as UserFollowerLinkWhereUniqueInputObjectSchema } from './UserFollowerLinkWhereUniqueInput.schema';
 import { UserFollowerLinkUpdateWithoutUserInputObjectSchema as UserFollowerLinkUpdateWithoutUserInputObjectSchema } from './UserFollowerLinkUpdateWithoutUserInput.schema';
 import { UserFollowerLinkUncheckedUpdateWithoutUserInputObjectSchema as UserFollowerLinkUncheckedUpdateWithoutUserInputObjectSchema } from './UserFollowerLinkUncheckedUpdateWithoutUserInput.schema'

@@ -7,8 +7,8 @@ export const UserTaskLinkInputSchema = z.object({
     taskId: z.string(),
     isAuthor: z.boolean(),
     isAssigned: z.boolean(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     comment: z.string()
 }).strict();
 

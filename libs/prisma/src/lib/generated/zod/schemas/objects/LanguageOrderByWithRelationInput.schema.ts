@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { TranslationOrderByRelationAggregateInputObjectSchema as TranslationOrderByRelationAggregateInputObjectSchema } from './TranslationOrderByRelationAggregateInput.schema';
 import { UserOrderByRelationAggregateInputObjectSchema as UserOrderByRelationAggregateInputObjectSchema } from './UserOrderByRelationAggregateInput.schema';

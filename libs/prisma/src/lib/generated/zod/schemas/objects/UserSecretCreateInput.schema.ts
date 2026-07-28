@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCreateNestedOneWithoutUserSecretInputObjectSchema as UserCreateNestedOneWithoutUserSecretInputObjectSchema } from './UserCreateNestedOneWithoutUserSecretInput.schema'
 
 const makeSchema = () => z.object({

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TranslationSelectObjectSchema as TranslationSelectObjectSchema } from './objects/TranslationSelect.schema';
 import { TranslationCreateManyInputObjectSchema as TranslationCreateManyInputObjectSchema } from './objects/TranslationCreateManyInput.schema';

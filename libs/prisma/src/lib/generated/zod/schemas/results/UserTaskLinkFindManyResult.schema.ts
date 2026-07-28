@@ -1,9 +1,9 @@
 import * as z from 'zod';
 export const UserTaskLinkFindManyResultSchema = z.object({
   data: z.array(z.object({
-  user: z.unknown(),
+  user: z.unknown().optional(),
   userId: z.string(),
-  task: z.unknown(),
+  task: z.unknown().optional(),
   taskId: z.string(),
   isAuthor: z.boolean(),
   isAssigned: z.boolean(),

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { DictioEntryTypeSchema } from '../enums/DictioEntryType.schema';
 import { NestedEnumDictioEntryTypeWithAggregatesFilterObjectSchema as NestedEnumDictioEntryTypeWithAggregatesFilterObjectSchema } from './NestedEnumDictioEntryTypeWithAggregatesFilter.schema';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema';

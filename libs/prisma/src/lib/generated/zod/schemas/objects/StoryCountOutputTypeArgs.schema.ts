@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { StoryCountOutputTypeSelectObjectSchema as StoryCountOutputTypeSelectObjectSchema } from './StoryCountOutputTypeSelect.schema'
 
 const makeSchema = () => z.object({

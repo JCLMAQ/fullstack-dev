@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TodoWhereUniqueInputObjectSchema as TodoWhereUniqueInputObjectSchema } from './TodoWhereUniqueInput.schema';
 import { TodoUpdateWithoutTagsInputObjectSchema as TodoUpdateWithoutTagsInputObjectSchema } from './TodoUpdateWithoutTagsInput.schema';
 import { TodoUncheckedUpdateWithoutTagsInputObjectSchema as TodoUncheckedUpdateWithoutTagsInputObjectSchema } from './TodoUncheckedUpdateWithoutTagsInput.schema';

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCreateNestedOneWithoutApiKeysInputObjectSchema as UserCreateNestedOneWithoutApiKeysInputObjectSchema } from './UserCreateNestedOneWithoutApiKeysInput.schema';
 import { ScopeCreateNestedManyWithoutApiKeyInputObjectSchema as ScopeCreateNestedManyWithoutApiKeyInputObjectSchema } from './ScopeCreateNestedManyWithoutApiKeyInput.schema'
 

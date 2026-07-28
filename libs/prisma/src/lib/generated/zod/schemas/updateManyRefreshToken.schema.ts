@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { RefreshTokenUpdateManyMutationInputObjectSchema as RefreshTokenUpdateManyMutationInputObjectSchema } from './objects/RefreshTokenUpdateManyMutationInput.schema';
 import { RefreshTokenWhereInputObjectSchema as RefreshTokenWhereInputObjectSchema } from './objects/RefreshTokenWhereInput.schema';

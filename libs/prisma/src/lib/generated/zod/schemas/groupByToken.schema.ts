@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TokenWhereInputObjectSchema as TokenWhereInputObjectSchema } from './objects/TokenWhereInput.schema';
 import { TokenOrderByWithAggregationInputObjectSchema as TokenOrderByWithAggregationInputObjectSchema } from './objects/TokenOrderByWithAggregationInput.schema';

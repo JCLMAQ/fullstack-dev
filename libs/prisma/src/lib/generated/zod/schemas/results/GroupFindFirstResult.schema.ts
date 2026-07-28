@@ -10,15 +10,15 @@ export const GroupFindFirstResultSchema = z.nullable(z.object({
   orderGroup: z.number().int(),
   name: z.string(),
   description: z.string().optional(),
-  owner: z.unknown(),
+  owner: z.unknown().optional(),
   ownerId: z.string(),
   isActiv: z.date().optional(),
-  Members: z.array(z.unknown()),
-  Tasks: z.array(z.unknown()),
-  Todos: z.array(z.unknown()),
-  Posts: z.array(z.unknown()),
-  Files: z.array(z.unknown()),
-  org: z.unknown(),
+  Members: z.array(z.unknown()).optional(),
+  Tasks: z.array(z.unknown()).optional(),
+  Todos: z.array(z.unknown()).optional(),
+  Posts: z.array(z.unknown()).optional(),
+  Files: z.array(z.unknown()).optional(),
+  org: z.unknown().optional(),
   orgId: z.string(),
-  Tags: z.array(z.unknown())
+  Tags: z.array(z.unknown()).optional()
 }));

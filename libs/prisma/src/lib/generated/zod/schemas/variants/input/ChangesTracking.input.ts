@@ -2,13 +2,13 @@ import * as z from 'zod';
 // prettier-ignore
 export const ChangesTrackingInputSchema = z.object({
     id: z.number().int(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     published: z.boolean(),
     isPublic: z.boolean(),
     isDeleted: z.number().int(),
-    isDeletedDT: z.date().optional().nullable(),
-    doneAt: z.date(),
+    isDeletedDT: z.coerce.date().optional().nullable(),
+    doneAt: z.coerce.date(),
     modifiedBy: z.unknown(),
     modifiedById: z.string(),
     modelName: z.string(),

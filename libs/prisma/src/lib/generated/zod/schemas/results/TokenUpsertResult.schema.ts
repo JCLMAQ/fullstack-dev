@@ -12,6 +12,6 @@ export const TokenUpsertResultSchema = z.object({
   emailToken: z.string().optional(),
   valid: z.boolean(),
   expiration: z.date(),
-  user: z.unknown(),
+  user: z.unknown().optional(),
   userId: z.string()
 });

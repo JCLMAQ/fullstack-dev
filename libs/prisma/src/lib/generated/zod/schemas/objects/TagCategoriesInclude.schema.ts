@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagValueFindManySchema as TagValueFindManySchema } from '../findManyTagValue.schema';
 import { TagCategoriesCountOutputTypeArgsObjectSchema as TagCategoriesCountOutputTypeArgsObjectSchema } from './TagCategoriesCountOutputTypeArgs.schema'
 

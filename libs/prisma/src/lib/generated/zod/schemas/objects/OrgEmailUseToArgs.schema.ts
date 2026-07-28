@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { OrgEmailUseToSelectObjectSchema as OrgEmailUseToSelectObjectSchema } from './OrgEmailUseToSelect.schema';
 import { OrgEmailUseToIncludeObjectSchema as OrgEmailUseToIncludeObjectSchema } from './OrgEmailUseToInclude.schema'
 

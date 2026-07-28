@@ -1,10 +1,11 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserSecretIncludeObjectSchema as UserSecretIncludeObjectSchema } from './objects/UserSecretInclude.schema';
 import { UserSecretOrderByWithRelationInputObjectSchema as UserSecretOrderByWithRelationInputObjectSchema } from './objects/UserSecretOrderByWithRelationInput.schema';
 import { UserSecretWhereInputObjectSchema as UserSecretWhereInputObjectSchema } from './objects/UserSecretWhereInput.schema';
 import { UserSecretWhereUniqueInputObjectSchema as UserSecretWhereUniqueInputObjectSchema } from './objects/UserSecretWhereUniqueInput.schema';
 import { UserSecretScalarFieldEnumSchema } from './enums/UserSecretScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -13,7 +14,7 @@ export const UserSecretFindFirstSelectSchema: z.ZodType<Prisma.UserSecretSelect>
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
     pwdHash: z.boolean().optional(),
     salt: z.boolean().optional(),
@@ -24,7 +25,7 @@ export const UserSecretFindFirstSelectZodSchema = z.object({
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
     pwdHash: z.boolean().optional(),
     salt: z.boolean().optional(),

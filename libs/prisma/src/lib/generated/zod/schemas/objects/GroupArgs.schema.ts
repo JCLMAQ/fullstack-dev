@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { GroupSelectObjectSchema as GroupSelectObjectSchema } from './GroupSelect.schema';
 import { GroupIncludeObjectSchema as GroupIncludeObjectSchema } from './GroupInclude.schema'
 

@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { ChangesTrackingSelectObjectSchema as ChangesTrackingSelectObjectSchema } from './ChangesTrackingSelect.schema';
 import { ChangesTrackingIncludeObjectSchema as ChangesTrackingIncludeObjectSchema } from './ChangesTrackingInclude.schema'
 

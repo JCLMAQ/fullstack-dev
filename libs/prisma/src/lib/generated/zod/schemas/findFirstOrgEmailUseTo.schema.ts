@@ -1,10 +1,11 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { OrgEmailUseToIncludeObjectSchema as OrgEmailUseToIncludeObjectSchema } from './objects/OrgEmailUseToInclude.schema';
 import { OrgEmailUseToOrderByWithRelationInputObjectSchema as OrgEmailUseToOrderByWithRelationInputObjectSchema } from './objects/OrgEmailUseToOrderByWithRelationInput.schema';
 import { OrgEmailUseToWhereInputObjectSchema as OrgEmailUseToWhereInputObjectSchema } from './objects/OrgEmailUseToWhereInput.schema';
 import { OrgEmailUseToWhereUniqueInputObjectSchema as OrgEmailUseToWhereUniqueInputObjectSchema } from './objects/OrgEmailUseToWhereUniqueInput.schema';
 import { OrgEmailUseToScalarFieldEnumSchema } from './enums/OrgEmailUseToScalarFieldEnum.schema';
+import { OrgEmailArgsObjectSchema as OrgEmailArgsObjectSchema } from './objects/OrgEmailArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -19,7 +20,7 @@ export const OrgEmailUseToFindFirstSelectSchema: z.ZodType<Prisma.OrgEmailUseToS
     isDeletedDT: z.boolean().optional(),
     useTo: z.boolean().optional(),
     isActiv: z.boolean().optional(),
-    emailOrg: z.boolean().optional(),
+    emailOrg: z.union([z.boolean(), z.lazy(() => OrgEmailArgsObjectSchema)]).optional(),
     emailOrgId: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.OrgEmailUseToSelect>;
 
@@ -33,7 +34,7 @@ export const OrgEmailUseToFindFirstSelectZodSchema = z.object({
     isDeletedDT: z.boolean().optional(),
     useTo: z.boolean().optional(),
     isActiv: z.boolean().optional(),
-    emailOrg: z.boolean().optional(),
+    emailOrg: z.union([z.boolean(), z.lazy(() => OrgEmailArgsObjectSchema)]).optional(),
     emailOrgId: z.boolean().optional()
   }).strict();
 

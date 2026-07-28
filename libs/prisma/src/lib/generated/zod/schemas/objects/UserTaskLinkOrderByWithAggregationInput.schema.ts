@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { UserTaskLinkCountOrderByAggregateInputObjectSchema as UserTaskLinkCountOrderByAggregateInputObjectSchema } from './UserTaskLinkCountOrderByAggregateInput.schema';
 import { UserTaskLinkMaxOrderByAggregateInputObjectSchema as UserTaskLinkMaxOrderByAggregateInputObjectSchema } from './UserTaskLinkMaxOrderByAggregateInput.schema';

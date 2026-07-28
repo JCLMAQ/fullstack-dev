@@ -4,11 +4,11 @@ export const TagTranslateFindManyResultSchema = z.object({
   id: z.number().int(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  language: z.unknown(),
+  language: z.unknown().optional(),
   languageId: z.number().int(),
   translation: z.string(),
   tagId: z.number().int(),
-  tagValue: z.unknown(),
+  tagValue: z.unknown().optional(),
   description: z.string().optional()
 })),
   pagination: z.object({

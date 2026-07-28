@@ -10,7 +10,7 @@ export const StoryUpsertResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   caption: z.string(),
   user_id: z.string(),
-  user: z.unknown(),
-  Images: z.array(z.unknown()),
-  Files: z.array(z.unknown())
+  user: z.unknown().optional(),
+  Images: z.array(z.unknown()).optional(),
+  Files: z.array(z.unknown()).optional()
 });

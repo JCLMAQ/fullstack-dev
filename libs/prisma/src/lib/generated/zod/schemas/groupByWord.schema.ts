@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { WordWhereInputObjectSchema as WordWhereInputObjectSchema } from './objects/WordWhereInput.schema';
 import { WordOrderByWithAggregationInputObjectSchema as WordOrderByWithAggregationInputObjectSchema } from './objects/WordOrderByWithAggregationInput.schema';

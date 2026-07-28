@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ImageUncheckedCreateNestedManyWithoutStoryInputObjectSchema as ImageUncheckedCreateNestedManyWithoutStoryInputObjectSchema } from './ImageUncheckedCreateNestedManyWithoutStoryInput.schema';
 import { FileUncheckedCreateNestedManyWithoutStoryInputObjectSchema as FileUncheckedCreateNestedManyWithoutStoryInputObjectSchema } from './FileUncheckedCreateNestedManyWithoutStoryInput.schema'
 

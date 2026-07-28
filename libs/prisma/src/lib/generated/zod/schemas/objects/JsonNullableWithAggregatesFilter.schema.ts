@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { QueryModeSchema } from '../enums/QueryMode.schema';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';
 import { NestedJsonNullableFilterObjectSchema as NestedJsonNullableFilterObjectSchema } from './NestedJsonNullableFilter.schema'

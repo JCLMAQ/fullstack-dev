@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TodoStateSchema } from '../enums/TodoState.schema';
 import { TodoUncheckedCreateNestedManyWithoutMainTodoInputObjectSchema as TodoUncheckedCreateNestedManyWithoutMainTodoInputObjectSchema } from './TodoUncheckedCreateNestedManyWithoutMainTodoInput.schema';
 import { UserTodoLinkUncheckedCreateNestedManyWithoutTodoInputObjectSchema as UserTodoLinkUncheckedCreateNestedManyWithoutTodoInputObjectSchema } from './UserTodoLinkUncheckedCreateNestedManyWithoutTodoInput.schema';

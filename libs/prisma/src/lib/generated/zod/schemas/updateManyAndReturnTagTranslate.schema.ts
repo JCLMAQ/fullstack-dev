@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagTranslateSelectObjectSchema as TagTranslateSelectObjectSchema } from './objects/TagTranslateSelect.schema';
 import { TagTranslateUpdateManyMutationInputObjectSchema as TagTranslateUpdateManyMutationInputObjectSchema } from './objects/TagTranslateUpdateManyMutationInput.schema';

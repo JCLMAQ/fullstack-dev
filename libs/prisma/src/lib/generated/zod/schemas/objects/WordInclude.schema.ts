@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TranslationFindManySchema as TranslationFindManySchema } from '../findManyTranslation.schema';
 import { WordCountOutputTypeArgsObjectSchema as WordCountOutputTypeArgsObjectSchema } from './WordCountOutputTypeArgs.schema'
 

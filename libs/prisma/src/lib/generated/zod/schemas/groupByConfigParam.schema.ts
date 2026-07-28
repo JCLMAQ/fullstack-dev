@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ConfigParamWhereInputObjectSchema as ConfigParamWhereInputObjectSchema } from './objects/ConfigParamWhereInput.schema';
 import { ConfigParamOrderByWithAggregationInputObjectSchema as ConfigParamOrderByWithAggregationInputObjectSchema } from './objects/ConfigParamOrderByWithAggregationInput.schema';

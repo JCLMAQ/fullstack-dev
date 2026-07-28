@@ -10,9 +10,9 @@ export const CommentFindUniqueResultSchema = z.nullable(z.object({
   isDeletedDT: z.date().optional(),
   orderComment: z.number().int(),
   content: z.string().optional(),
-  post: z.unknown(),
+  post: z.unknown().optional(),
   postId: z.string(),
-  author: z.unknown(),
+  author: z.unknown().optional(),
   authorId: z.string(),
-  Files: z.array(z.unknown())
+  Files: z.array(z.unknown()).optional()
 }));

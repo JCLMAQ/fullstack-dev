@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserFollowerLinkUpdateManyMutationInputObjectSchema as UserFollowerLinkUpdateManyMutationInputObjectSchema } from './objects/UserFollowerLinkUpdateManyMutationInput.schema';
 import { UserFollowerLinkWhereInputObjectSchema as UserFollowerLinkWhereInputObjectSchema } from './objects/UserFollowerLinkWhereInput.schema';

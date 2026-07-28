@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagCategoriesCreateWithoutTagValuesInputObjectSchema as TagCategoriesCreateWithoutTagValuesInputObjectSchema } from './TagCategoriesCreateWithoutTagValuesInput.schema';
 import { TagCategoriesUncheckedCreateWithoutTagValuesInputObjectSchema as TagCategoriesUncheckedCreateWithoutTagValuesInputObjectSchema } from './TagCategoriesUncheckedCreateWithoutTagValuesInput.schema';
 import { TagCategoriesCreateOrConnectWithoutTagValuesInputObjectSchema as TagCategoriesCreateOrConnectWithoutTagValuesInputObjectSchema } from './TagCategoriesCreateOrConnectWithoutTagValuesInput.schema';

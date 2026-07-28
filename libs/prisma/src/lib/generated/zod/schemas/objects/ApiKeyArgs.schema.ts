@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { ApiKeySelectObjectSchema as ApiKeySelectObjectSchema } from './ApiKeySelect.schema';
 import { ApiKeyIncludeObjectSchema as ApiKeyIncludeObjectSchema } from './ApiKeyInclude.schema'
 

@@ -1,9 +1,9 @@
 import * as z from 'zod';
 export const UserPostLikeLinkUpdateResultSchema = z.nullable(z.object({
   user_id: z.string(),
-  user: z.unknown(),
+  user: z.unknown().optional(),
   post_id: z.string(),
-  post: z.unknown(),
+  post: z.unknown().optional(),
   createdAt: z.date(),
   updatedAt: z.date()
 }));

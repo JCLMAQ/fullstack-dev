@@ -1,10 +1,11 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { PhoneIncludeObjectSchema as PhoneIncludeObjectSchema } from './objects/PhoneInclude.schema';
 import { PhoneOrderByWithRelationInputObjectSchema as PhoneOrderByWithRelationInputObjectSchema } from './objects/PhoneOrderByWithRelationInput.schema';
 import { PhoneWhereInputObjectSchema as PhoneWhereInputObjectSchema } from './objects/PhoneWhereInput.schema';
 import { PhoneWhereUniqueInputObjectSchema as PhoneWhereUniqueInputObjectSchema } from './objects/PhoneWhereUniqueInput.schema';
 import { PhoneScalarFieldEnumSchema } from './enums/PhoneScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -13,7 +14,7 @@ export const PhoneFindFirstOrThrowSelectSchema: z.ZodType<Prisma.PhoneSelect> = 
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
     countryCode: z.boolean().optional(),
     countryIso: z.boolean().optional(),
@@ -27,7 +28,7 @@ export const PhoneFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
     countryCode: z.boolean().optional(),
     countryIso: z.boolean().optional(),

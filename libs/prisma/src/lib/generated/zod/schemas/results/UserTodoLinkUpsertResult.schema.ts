@@ -1,8 +1,8 @@
 import * as z from 'zod';
 export const UserTodoLinkUpsertResultSchema = z.object({
-  user: z.unknown(),
+  user: z.unknown().optional(),
   userId: z.string(),
-  todo: z.unknown(),
+  todo: z.unknown().optional(),
   todoId: z.string(),
   isAuthor: z.boolean(),
   isAssigned: z.boolean(),

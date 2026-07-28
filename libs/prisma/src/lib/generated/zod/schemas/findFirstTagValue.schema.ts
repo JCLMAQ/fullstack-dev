@@ -1,10 +1,20 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagValueIncludeObjectSchema as TagValueIncludeObjectSchema } from './objects/TagValueInclude.schema';
 import { TagValueOrderByWithRelationInputObjectSchema as TagValueOrderByWithRelationInputObjectSchema } from './objects/TagValueOrderByWithRelationInput.schema';
 import { TagValueWhereInputObjectSchema as TagValueWhereInputObjectSchema } from './objects/TagValueWhereInput.schema';
 import { TagValueWhereUniqueInputObjectSchema as TagValueWhereUniqueInputObjectSchema } from './objects/TagValueWhereUniqueInput.schema';
 import { TagValueScalarFieldEnumSchema } from './enums/TagValueScalarFieldEnum.schema';
+import { TagCategoriesArgsObjectSchema as TagCategoriesArgsObjectSchema } from './objects/TagCategoriesArgs.schema';
+import { TagValueArgsObjectSchema as TagValueArgsObjectSchema } from './objects/TagValueArgs.schema';
+import { TagValueFindManySchema } from './findManyTagValue.schema';
+import { TagTranslateFindManySchema } from './findManyTagTranslate.schema';
+import { TodoFindManySchema } from './findManyTodo.schema';
+import { TaskFindManySchema } from './findManyTask.schema';
+import { GroupFindManySchema } from './findManyGroup.schema';
+import { PostFindManySchema } from './findManyPost.schema';
+import { FileFindManySchema } from './findManyFile.schema';
+import { TagValueCountOutputTypeArgsObjectSchema as TagValueCountOutputTypeArgsObjectSchema } from './objects/TagValueCountOutputTypeArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -20,18 +30,18 @@ export const TagValueFindFirstSelectSchema: z.ZodType<Prisma.TagValueSelect> = z
     name: z.boolean().optional(),
     position: z.boolean().optional(),
     color: z.boolean().optional(),
-    tagCategories: z.boolean().optional(),
+    tagCategories: z.union([z.boolean(), z.lazy(() => TagCategoriesArgsObjectSchema)]).optional(),
     tagCategoriesId: z.boolean().optional(),
-    mainTag: z.boolean().optional(),
+    mainTag: z.union([z.boolean(), z.lazy(() => TagValueArgsObjectSchema)]).optional(),
     mainTagId: z.boolean().optional(),
-    SubTags: z.boolean().optional(),
-    tagTranslates: z.boolean().optional(),
-    Todos: z.boolean().optional(),
-    Tasks: z.boolean().optional(),
-    Groups: z.boolean().optional(),
-    Posts: z.boolean().optional(),
-    Files: z.boolean().optional(),
-    _count: z.boolean().optional()
+    SubTags: z.union([z.boolean(), z.lazy(() => TagValueFindManySchema)]).optional(),
+    tagTranslates: z.union([z.boolean(), z.lazy(() => TagTranslateFindManySchema)]).optional(),
+    Todos: z.union([z.boolean(), z.lazy(() => TodoFindManySchema)]).optional(),
+    Tasks: z.union([z.boolean(), z.lazy(() => TaskFindManySchema)]).optional(),
+    Groups: z.union([z.boolean(), z.lazy(() => GroupFindManySchema)]).optional(),
+    Posts: z.union([z.boolean(), z.lazy(() => PostFindManySchema)]).optional(),
+    Files: z.union([z.boolean(), z.lazy(() => FileFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => TagValueCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.TagValueSelect>;
 
 export const TagValueFindFirstSelectZodSchema = z.object({
@@ -45,18 +55,18 @@ export const TagValueFindFirstSelectZodSchema = z.object({
     name: z.boolean().optional(),
     position: z.boolean().optional(),
     color: z.boolean().optional(),
-    tagCategories: z.boolean().optional(),
+    tagCategories: z.union([z.boolean(), z.lazy(() => TagCategoriesArgsObjectSchema)]).optional(),
     tagCategoriesId: z.boolean().optional(),
-    mainTag: z.boolean().optional(),
+    mainTag: z.union([z.boolean(), z.lazy(() => TagValueArgsObjectSchema)]).optional(),
     mainTagId: z.boolean().optional(),
-    SubTags: z.boolean().optional(),
-    tagTranslates: z.boolean().optional(),
-    Todos: z.boolean().optional(),
-    Tasks: z.boolean().optional(),
-    Groups: z.boolean().optional(),
-    Posts: z.boolean().optional(),
-    Files: z.boolean().optional(),
-    _count: z.boolean().optional()
+    SubTags: z.union([z.boolean(), z.lazy(() => TagValueFindManySchema)]).optional(),
+    tagTranslates: z.union([z.boolean(), z.lazy(() => TagTranslateFindManySchema)]).optional(),
+    Todos: z.union([z.boolean(), z.lazy(() => TodoFindManySchema)]).optional(),
+    Tasks: z.union([z.boolean(), z.lazy(() => TaskFindManySchema)]).optional(),
+    Groups: z.union([z.boolean(), z.lazy(() => GroupFindManySchema)]).optional(),
+    Posts: z.union([z.boolean(), z.lazy(() => PostFindManySchema)]).optional(),
+    Files: z.union([z.boolean(), z.lazy(() => FileFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => TagValueCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
 export const TagValueFindFirstSchema: z.ZodType<Prisma.TagValueFindFirstArgs> = z.object({ select: TagValueFindFirstSelectSchema.optional(), include: z.lazy(() => TagValueIncludeObjectSchema.optional()), orderBy: z.union([TagValueOrderByWithRelationInputObjectSchema, TagValueOrderByWithRelationInputObjectSchema.array()]).optional(), where: TagValueWhereInputObjectSchema.optional(), cursor: TagValueWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([TagValueScalarFieldEnumSchema, TagValueScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.TagValueFindFirstArgs>;

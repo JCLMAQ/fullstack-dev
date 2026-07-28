@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { OrgEmailUseToCreateManyInputObjectSchema as OrgEmailUseToCreateManyInputObjectSchema } from './objects/OrgEmailUseToCreateManyInput.schema';
 

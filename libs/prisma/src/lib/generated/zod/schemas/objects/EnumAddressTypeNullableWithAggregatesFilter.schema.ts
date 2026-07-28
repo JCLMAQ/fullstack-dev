@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { AddressTypeSchema } from '../enums/AddressType.schema';
 import { NestedEnumAddressTypeNullableWithAggregatesFilterObjectSchema as NestedEnumAddressTypeNullableWithAggregatesFilterObjectSchema } from './NestedEnumAddressTypeNullableWithAggregatesFilter.schema';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';

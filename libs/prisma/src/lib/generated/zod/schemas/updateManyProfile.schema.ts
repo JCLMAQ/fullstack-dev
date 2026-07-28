@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ProfileUpdateManyMutationInputObjectSchema as ProfileUpdateManyMutationInputObjectSchema } from './objects/ProfileUpdateManyMutationInput.schema';
 import { ProfileWhereInputObjectSchema as ProfileWhereInputObjectSchema } from './objects/ProfileWhereInput.schema';

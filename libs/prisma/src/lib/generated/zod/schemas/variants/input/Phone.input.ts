@@ -3,8 +3,8 @@ import { PhoneTypeSchema } from '../../enums/PhoneType.schema';
 // prettier-ignore
 export const PhoneInputSchema = z.object({
     id: z.number().int(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     user: z.unknown(),
     userId: z.string(),
     countryCode: z.string(),

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ConfigParamSelectObjectSchema as ConfigParamSelectObjectSchema } from './objects/ConfigParamSelect.schema';
 import { ConfigParamCreateManyInputObjectSchema as ConfigParamCreateManyInputObjectSchema } from './objects/ConfigParamCreateManyInput.schema';

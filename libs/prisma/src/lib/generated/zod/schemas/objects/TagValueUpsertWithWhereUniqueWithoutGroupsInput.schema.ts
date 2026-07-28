@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagValueWhereUniqueInputObjectSchema as TagValueWhereUniqueInputObjectSchema } from './TagValueWhereUniqueInput.schema';
 import { TagValueUpdateWithoutGroupsInputObjectSchema as TagValueUpdateWithoutGroupsInputObjectSchema } from './TagValueUpdateWithoutGroupsInput.schema';
 import { TagValueUncheckedUpdateWithoutGroupsInputObjectSchema as TagValueUncheckedUpdateWithoutGroupsInputObjectSchema } from './TagValueUncheckedUpdateWithoutGroupsInput.schema';

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrgEmailCreateWithoutOrgEmailUseTosInputObjectSchema as OrgEmailCreateWithoutOrgEmailUseTosInputObjectSchema } from './OrgEmailCreateWithoutOrgEmailUseTosInput.schema';
 import { OrgEmailUncheckedCreateWithoutOrgEmailUseTosInputObjectSchema as OrgEmailUncheckedCreateWithoutOrgEmailUseTosInputObjectSchema } from './OrgEmailUncheckedCreateWithoutOrgEmailUseTosInput.schema';
 import { OrgEmailCreateOrConnectWithoutOrgEmailUseTosInputObjectSchema as OrgEmailCreateOrConnectWithoutOrgEmailUseTosInputObjectSchema } from './OrgEmailCreateOrConnectWithoutOrgEmailUseTosInput.schema';

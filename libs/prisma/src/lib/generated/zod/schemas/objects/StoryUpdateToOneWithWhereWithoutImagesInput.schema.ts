@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { StoryWhereInputObjectSchema as StoryWhereInputObjectSchema } from './StoryWhereInput.schema';
 import { StoryUpdateWithoutImagesInputObjectSchema as StoryUpdateWithoutImagesInputObjectSchema } from './StoryUpdateWithoutImagesInput.schema';
 import { StoryUncheckedUpdateWithoutImagesInputObjectSchema as StoryUncheckedUpdateWithoutImagesInputObjectSchema } from './StoryUncheckedUpdateWithoutImagesInput.schema'

@@ -10,7 +10,7 @@ export const WordFindManyResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   slug: z.string(),
   type: z.unknown(),
-  translations: z.array(z.unknown())
+  translations: z.array(z.unknown()).optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { ImageSelectObjectSchema as ImageSelectObjectSchema } from './ImageSelect.schema';
 import { ImageIncludeObjectSchema as ImageIncludeObjectSchema } from './ImageInclude.schema'
 

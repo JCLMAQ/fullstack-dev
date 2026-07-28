@@ -5,8 +5,8 @@ export const UserPostLikeLinkInputSchema = z.object({
     user: z.unknown(),
     post_id: z.string(),
     post: z.unknown(),
-    createdAt: z.date(),
-    updatedAt: z.date()
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date()
 }).strict();
 
 export type UserPostLikeLinkInputType = z.infer<typeof UserPostLikeLinkInputSchema>;

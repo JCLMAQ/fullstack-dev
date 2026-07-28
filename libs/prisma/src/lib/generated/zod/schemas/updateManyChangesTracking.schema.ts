@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ChangesTrackingUpdateManyMutationInputObjectSchema as ChangesTrackingUpdateManyMutationInputObjectSchema } from './objects/ChangesTrackingUpdateManyMutationInput.schema';
 import { ChangesTrackingWhereInputObjectSchema as ChangesTrackingWhereInputObjectSchema } from './objects/ChangesTrackingWhereInput.schema';

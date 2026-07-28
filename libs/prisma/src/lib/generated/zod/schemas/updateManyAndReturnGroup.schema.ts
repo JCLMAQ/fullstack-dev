@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { GroupSelectObjectSchema as GroupSelectObjectSchema } from './objects/GroupSelect.schema';
 import { GroupUpdateManyMutationInputObjectSchema as GroupUpdateManyMutationInputObjectSchema } from './objects/GroupUpdateManyMutationInput.schema';

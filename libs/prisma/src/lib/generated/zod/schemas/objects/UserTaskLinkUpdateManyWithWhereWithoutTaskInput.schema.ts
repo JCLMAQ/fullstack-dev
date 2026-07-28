@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserTaskLinkScalarWhereInputObjectSchema as UserTaskLinkScalarWhereInputObjectSchema } from './UserTaskLinkScalarWhereInput.schema';
 import { UserTaskLinkUpdateManyMutationInputObjectSchema as UserTaskLinkUpdateManyMutationInputObjectSchema } from './UserTaskLinkUpdateManyMutationInput.schema';
 import { UserTaskLinkUncheckedUpdateManyWithoutTaskInputObjectSchema as UserTaskLinkUncheckedUpdateManyWithoutTaskInputObjectSchema } from './UserTaskLinkUncheckedUpdateManyWithoutTaskInput.schema'

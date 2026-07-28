@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { AppEmailDomainSelectObjectSchema as AppEmailDomainSelectObjectSchema } from './objects/AppEmailDomainSelect.schema';
 import { AppEmailDomainUpdateInputObjectSchema as AppEmailDomainUpdateInputObjectSchema } from './objects/AppEmailDomainUpdateInput.schema';

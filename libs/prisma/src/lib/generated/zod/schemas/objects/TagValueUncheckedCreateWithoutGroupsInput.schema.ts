@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagValueUncheckedCreateNestedManyWithoutMainTagInputObjectSchema as TagValueUncheckedCreateNestedManyWithoutMainTagInputObjectSchema } from './TagValueUncheckedCreateNestedManyWithoutMainTagInput.schema';
 import { TagTranslateUncheckedCreateNestedManyWithoutTagValueInputObjectSchema as TagTranslateUncheckedCreateNestedManyWithoutTagValueInputObjectSchema } from './TagTranslateUncheckedCreateNestedManyWithoutTagValueInput.schema';
 import { TodoUncheckedCreateNestedManyWithoutTagsInputObjectSchema as TodoUncheckedCreateNestedManyWithoutTagsInputObjectSchema } from './TodoUncheckedCreateNestedManyWithoutTagsInput.schema';

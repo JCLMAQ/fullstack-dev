@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserUpdateWithoutChangesLogsInputObjectSchema as UserUpdateWithoutChangesLogsInputObjectSchema } from './UserUpdateWithoutChangesLogsInput.schema';
 import { UserUncheckedUpdateWithoutChangesLogsInputObjectSchema as UserUncheckedUpdateWithoutChangesLogsInputObjectSchema } from './UserUncheckedUpdateWithoutChangesLogsInput.schema';
 import { UserCreateWithoutChangesLogsInputObjectSchema as UserCreateWithoutChangesLogsInputObjectSchema } from './UserCreateWithoutChangesLogsInput.schema';

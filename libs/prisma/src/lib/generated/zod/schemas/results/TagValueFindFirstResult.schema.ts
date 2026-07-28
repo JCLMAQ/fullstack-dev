@@ -10,15 +10,15 @@ export const TagValueFindFirstResultSchema = z.nullable(z.object({
   name: z.string(),
   position: z.number().int(),
   color: z.string().optional(),
-  tagCategories: z.unknown(),
+  tagCategories: z.unknown().optional(),
   tagCategoriesId: z.number().int(),
   mainTag: z.unknown().optional(),
   mainTagId: z.number().int().optional(),
-  SubTags: z.array(z.unknown()),
-  tagTranslates: z.array(z.unknown()),
-  Todos: z.array(z.unknown()),
-  Tasks: z.array(z.unknown()),
-  Groups: z.array(z.unknown()),
-  Posts: z.array(z.unknown()),
-  Files: z.array(z.unknown())
+  SubTags: z.array(z.unknown()).optional(),
+  tagTranslates: z.array(z.unknown()).optional(),
+  Todos: z.array(z.unknown()).optional(),
+  Tasks: z.array(z.unknown()).optional(),
+  Groups: z.array(z.unknown()).optional(),
+  Posts: z.array(z.unknown()).optional(),
+  Files: z.array(z.unknown()).optional()
 }));

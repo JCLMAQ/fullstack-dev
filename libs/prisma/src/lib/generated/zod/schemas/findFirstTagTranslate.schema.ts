@@ -1,10 +1,12 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagTranslateIncludeObjectSchema as TagTranslateIncludeObjectSchema } from './objects/TagTranslateInclude.schema';
 import { TagTranslateOrderByWithRelationInputObjectSchema as TagTranslateOrderByWithRelationInputObjectSchema } from './objects/TagTranslateOrderByWithRelationInput.schema';
 import { TagTranslateWhereInputObjectSchema as TagTranslateWhereInputObjectSchema } from './objects/TagTranslateWhereInput.schema';
 import { TagTranslateWhereUniqueInputObjectSchema as TagTranslateWhereUniqueInputObjectSchema } from './objects/TagTranslateWhereUniqueInput.schema';
 import { TagTranslateScalarFieldEnumSchema } from './enums/TagTranslateScalarFieldEnum.schema';
+import { LanguageArgsObjectSchema as LanguageArgsObjectSchema } from './objects/LanguageArgs.schema';
+import { TagValueArgsObjectSchema as TagValueArgsObjectSchema } from './objects/TagValueArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -13,11 +15,11 @@ export const TagTranslateFindFirstSelectSchema: z.ZodType<Prisma.TagTranslateSel
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    language: z.boolean().optional(),
+    language: z.union([z.boolean(), z.lazy(() => LanguageArgsObjectSchema)]).optional(),
     languageId: z.boolean().optional(),
     translation: z.boolean().optional(),
     tagId: z.boolean().optional(),
-    tagValue: z.boolean().optional(),
+    tagValue: z.union([z.boolean(), z.lazy(() => TagValueArgsObjectSchema)]).optional(),
     description: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.TagTranslateSelect>;
 
@@ -25,11 +27,11 @@ export const TagTranslateFindFirstSelectZodSchema = z.object({
     id: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
-    language: z.boolean().optional(),
+    language: z.union([z.boolean(), z.lazy(() => LanguageArgsObjectSchema)]).optional(),
     languageId: z.boolean().optional(),
     translation: z.boolean().optional(),
     tagId: z.boolean().optional(),
-    tagValue: z.boolean().optional(),
+    tagValue: z.union([z.boolean(), z.lazy(() => TagValueArgsObjectSchema)]).optional(),
     description: z.boolean().optional()
   }).strict();
 

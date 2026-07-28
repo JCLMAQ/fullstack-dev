@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { WordSelectObjectSchema as WordSelectObjectSchema } from './objects/WordSelect.schema';
 import { WordUpdateManyMutationInputObjectSchema as WordUpdateManyMutationInputObjectSchema } from './objects/WordUpdateManyMutationInput.schema';

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { PhoneCreateManyUserInputObjectSchema as PhoneCreateManyUserInputObjectSchema } from './PhoneCreateManyUserInput.schema'
 
 const makeSchema = () => z.object({

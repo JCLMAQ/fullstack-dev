@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { WordWhereUniqueInputObjectSchema as WordWhereUniqueInputObjectSchema } from './WordWhereUniqueInput.schema';
 import { WordCreateWithoutTranslationsInputObjectSchema as WordCreateWithoutTranslationsInputObjectSchema } from './WordCreateWithoutTranslationsInput.schema';
 import { WordUncheckedCreateWithoutTranslationsInputObjectSchema as WordUncheckedCreateWithoutTranslationsInputObjectSchema } from './WordUncheckedCreateWithoutTranslationsInput.schema'

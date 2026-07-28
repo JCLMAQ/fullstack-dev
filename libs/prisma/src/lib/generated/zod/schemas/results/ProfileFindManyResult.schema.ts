@@ -9,7 +9,7 @@ export const ProfileFindManyResultSchema = z.object({
   isDeleted: z.number().int(),
   isDeletedDT: z.date().optional(),
   orderProfile: z.number().int(),
-  Users: z.array(z.unknown()),
+  Users: z.array(z.unknown()).optional(),
   bio: z.string()
 })),
   pagination: z.object({

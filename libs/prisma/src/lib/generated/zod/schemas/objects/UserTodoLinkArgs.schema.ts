@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { UserTodoLinkSelectObjectSchema as UserTodoLinkSelectObjectSchema } from './UserTodoLinkSelect.schema';
 import { UserTodoLinkIncludeObjectSchema as UserTodoLinkIncludeObjectSchema } from './UserTodoLinkInclude.schema'
 

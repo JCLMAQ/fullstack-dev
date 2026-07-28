@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { NullableJsonNullValueInputSchema } from '../enums/NullableJsonNullValueInput.schema';
 import { OrgEmailUncheckedCreateNestedManyWithoutOrgInputObjectSchema as OrgEmailUncheckedCreateNestedManyWithoutOrgInputObjectSchema } from './OrgEmailUncheckedCreateNestedManyWithoutOrgInput.schema';
 import { OrganizationUncheckedCreateNestedManyWithoutMainOrgInputObjectSchema as OrganizationUncheckedCreateNestedManyWithoutMainOrgInputObjectSchema } from './OrganizationUncheckedCreateNestedManyWithoutMainOrgInput.schema';

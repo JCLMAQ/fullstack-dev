@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCreateNestedOneWithoutPostsInputObjectSchema as UserCreateNestedOneWithoutPostsInputObjectSchema } from './UserCreateNestedOneWithoutPostsInput.schema';
 import { OrganizationCreateNestedOneWithoutPostsInputObjectSchema as OrganizationCreateNestedOneWithoutPostsInputObjectSchema } from './OrganizationCreateNestedOneWithoutPostsInput.schema';
 import { CategoryCreateNestedManyWithoutPostsInputObjectSchema as CategoryCreateNestedManyWithoutPostsInputObjectSchema } from './CategoryCreateNestedManyWithoutPostsInput.schema';

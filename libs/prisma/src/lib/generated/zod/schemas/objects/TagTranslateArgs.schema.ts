@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { TagTranslateSelectObjectSchema as TagTranslateSelectObjectSchema } from './TagTranslateSelect.schema';
 import { TagTranslateIncludeObjectSchema as TagTranslateIncludeObjectSchema } from './TagTranslateInclude.schema'
 

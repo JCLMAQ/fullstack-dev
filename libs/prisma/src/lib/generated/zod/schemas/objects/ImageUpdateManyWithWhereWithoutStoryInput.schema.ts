@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ImageScalarWhereInputObjectSchema as ImageScalarWhereInputObjectSchema } from './ImageScalarWhereInput.schema';
 import { ImageUpdateManyMutationInputObjectSchema as ImageUpdateManyMutationInputObjectSchema } from './ImageUpdateManyMutationInput.schema';
 import { ImageUncheckedUpdateManyWithoutStoryInputObjectSchema as ImageUncheckedUpdateManyWithoutStoryInputObjectSchema } from './ImageUncheckedUpdateManyWithoutStoryInput.schema'

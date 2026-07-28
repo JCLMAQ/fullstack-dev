@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { StorySelectObjectSchema as StorySelectObjectSchema } from './objects/StorySelect.schema';
 import { StoryCreateManyInputObjectSchema as StoryCreateManyInputObjectSchema } from './objects/StoryCreateManyInput.schema';

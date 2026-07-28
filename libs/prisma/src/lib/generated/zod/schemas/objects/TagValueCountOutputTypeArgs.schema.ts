@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { TagValueCountOutputTypeSelectObjectSchema as TagValueCountOutputTypeSelectObjectSchema } from './TagValueCountOutputTypeSelect.schema'
 
 const makeSchema = () => z.object({

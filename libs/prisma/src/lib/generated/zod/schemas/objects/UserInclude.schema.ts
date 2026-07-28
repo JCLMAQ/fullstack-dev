@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { LanguageArgsObjectSchema as LanguageArgsObjectSchema } from './LanguageArgs.schema';
 import { AddressFindManySchema as AddressFindManySchema } from '../findManyAddress.schema';
 import { PhoneFindManySchema as PhoneFindManySchema } from '../findManyPhone.schema';

@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserFollowerLinkSelectObjectSchema as UserFollowerLinkSelectObjectSchema } from './objects/UserFollowerLinkSelect.schema';
 import { UserFollowerLinkCreateManyInputObjectSchema as UserFollowerLinkCreateManyInputObjectSchema } from './objects/UserFollowerLinkCreateManyInput.schema';

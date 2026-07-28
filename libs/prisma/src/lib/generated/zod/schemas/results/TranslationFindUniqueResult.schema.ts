@@ -4,7 +4,7 @@ export const TranslationFindUniqueResultSchema = z.nullable(z.object({
   text: z.string(),
   definition: z.string().optional(),
   wordId: z.number().int(),
-  word: z.unknown(),
+  word: z.unknown().optional(),
   languageId: z.number().int(),
-  language: z.unknown()
+  language: z.unknown().optional()
 }));

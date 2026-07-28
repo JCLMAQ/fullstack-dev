@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
 import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { TranslationUncheckedUpdateManyWithoutLanguageNestedInputObjectSchema as TranslationUncheckedUpdateManyWithoutLanguageNestedInputObjectSchema } from './TranslationUncheckedUpdateManyWithoutLanguageNestedInput.schema';

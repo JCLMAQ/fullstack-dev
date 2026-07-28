@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { FileCreateManyUploadedByInputObjectSchema as FileCreateManyUploadedByInputObjectSchema } from './FileCreateManyUploadedByInput.schema'
 
 const makeSchema = () => z.object({

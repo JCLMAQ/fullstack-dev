@@ -10,5 +10,5 @@ export const TagCategoriesDeleteResultSchema = z.nullable(z.object({
   modelName: z.string(),
   description: z.string().optional(),
   recordId: z.string(),
-  TagValues: z.array(z.unknown())
+  TagValues: z.array(z.unknown()).optional()
 }));

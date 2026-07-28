@@ -1,10 +1,11 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { OrgDomainIncludeObjectSchema as OrgDomainIncludeObjectSchema } from './objects/OrgDomainInclude.schema';
 import { OrgDomainOrderByWithRelationInputObjectSchema as OrgDomainOrderByWithRelationInputObjectSchema } from './objects/OrgDomainOrderByWithRelationInput.schema';
 import { OrgDomainWhereInputObjectSchema as OrgDomainWhereInputObjectSchema } from './objects/OrgDomainWhereInput.schema';
 import { OrgDomainWhereUniqueInputObjectSchema as OrgDomainWhereUniqueInputObjectSchema } from './objects/OrgDomainWhereUniqueInput.schema';
 import { OrgDomainScalarFieldEnumSchema } from './enums/OrgDomainScalarFieldEnum.schema';
+import { OrganizationArgsObjectSchema as OrganizationArgsObjectSchema } from './objects/OrganizationArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -19,7 +20,7 @@ export const OrgDomainFindFirstSelectSchema: z.ZodType<Prisma.OrgDomainSelect> =
     isDeletedDT: z.boolean().optional(),
     domainName: z.boolean().optional(),
     extension: z.boolean().optional(),
-    org: z.boolean().optional(),
+    org: z.union([z.boolean(), z.lazy(() => OrganizationArgsObjectSchema)]).optional(),
     orgId: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.OrgDomainSelect>;
 
@@ -33,7 +34,7 @@ export const OrgDomainFindFirstSelectZodSchema = z.object({
     isDeletedDT: z.boolean().optional(),
     domainName: z.boolean().optional(),
     extension: z.boolean().optional(),
-    org: z.boolean().optional(),
+    org: z.union([z.boolean(), z.lazy(() => OrganizationArgsObjectSchema)]).optional(),
     orgId: z.boolean().optional()
   }).strict();
 

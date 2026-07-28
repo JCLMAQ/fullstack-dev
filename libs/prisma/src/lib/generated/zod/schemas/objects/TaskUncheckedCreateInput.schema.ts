@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TaskStateSchema } from '../enums/TaskState.schema';
 import { GroupUncheckedCreateNestedManyWithoutTasksInputObjectSchema as GroupUncheckedCreateNestedManyWithoutTasksInputObjectSchema } from './GroupUncheckedCreateNestedManyWithoutTasksInput.schema';
 import { TaskUncheckedCreateNestedManyWithoutMainTaskInputObjectSchema as TaskUncheckedCreateNestedManyWithoutMainTaskInputObjectSchema } from './TaskUncheckedCreateNestedManyWithoutMainTaskInput.schema';

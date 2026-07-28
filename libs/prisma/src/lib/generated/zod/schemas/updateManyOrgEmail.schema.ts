@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { OrgEmailUpdateManyMutationInputObjectSchema as OrgEmailUpdateManyMutationInputObjectSchema } from './objects/OrgEmailUpdateManyMutationInput.schema';
 import { OrgEmailWhereInputObjectSchema as OrgEmailWhereInputObjectSchema } from './objects/OrgEmailWhereInput.schema';

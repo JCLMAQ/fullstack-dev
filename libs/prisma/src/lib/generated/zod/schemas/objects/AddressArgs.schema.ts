@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { AddressSelectObjectSchema as AddressSelectObjectSchema } from './AddressSelect.schema';
 import { AddressIncludeObjectSchema as AddressIncludeObjectSchema } from './AddressInclude.schema'
 

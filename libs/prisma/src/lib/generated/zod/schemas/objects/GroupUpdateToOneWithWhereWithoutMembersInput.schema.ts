@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { GroupWhereInputObjectSchema as GroupWhereInputObjectSchema } from './GroupWhereInput.schema';
 import { GroupUpdateWithoutMembersInputObjectSchema as GroupUpdateWithoutMembersInputObjectSchema } from './GroupUpdateWithoutMembersInput.schema';
 import { GroupUncheckedUpdateWithoutMembersInputObjectSchema as GroupUncheckedUpdateWithoutMembersInputObjectSchema } from './GroupUncheckedUpdateWithoutMembersInput.schema'

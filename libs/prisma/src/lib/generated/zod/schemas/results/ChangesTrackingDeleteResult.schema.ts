@@ -8,7 +8,7 @@ export const ChangesTrackingDeleteResultSchema = z.nullable(z.object({
   isDeleted: z.number().int(),
   isDeletedDT: z.date().optional(),
   doneAt: z.date(),
-  modifiedBy: z.unknown(),
+  modifiedBy: z.unknown().optional(),
   modifiedById: z.string(),
   modelName: z.string(),
   recordId: z.string(),

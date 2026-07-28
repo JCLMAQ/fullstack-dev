@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { FileSelectObjectSchema as FileSelectObjectSchema } from './objects/FileSelect.schema';
 import { FileIncludeObjectSchema as FileIncludeObjectSchema } from './objects/FileInclude.schema';

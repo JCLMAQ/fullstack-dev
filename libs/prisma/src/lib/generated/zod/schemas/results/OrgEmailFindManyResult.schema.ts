@@ -12,7 +12,7 @@ export const OrgEmailFindManyResultSchema = z.object({
   description: z.string().optional(),
   org: z.unknown().optional(),
   orgId: z.string(),
-  OrgEmailUseTos: z.array(z.unknown())
+  OrgEmailUseTos: z.array(z.unknown()).optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

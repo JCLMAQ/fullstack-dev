@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ScopeScalarWhereInputObjectSchema as ScopeScalarWhereInputObjectSchema } from './ScopeScalarWhereInput.schema';
 import { ScopeUpdateManyMutationInputObjectSchema as ScopeUpdateManyMutationInputObjectSchema } from './ScopeUpdateManyMutationInput.schema';
 import { ScopeUncheckedUpdateManyWithoutApiKeyInputObjectSchema as ScopeUncheckedUpdateManyWithoutApiKeyInputObjectSchema } from './ScopeUncheckedUpdateManyWithoutApiKeyInput.schema'

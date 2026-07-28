@@ -1,10 +1,11 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { ChangesTrackingIncludeObjectSchema as ChangesTrackingIncludeObjectSchema } from './objects/ChangesTrackingInclude.schema';
 import { ChangesTrackingOrderByWithRelationInputObjectSchema as ChangesTrackingOrderByWithRelationInputObjectSchema } from './objects/ChangesTrackingOrderByWithRelationInput.schema';
 import { ChangesTrackingWhereInputObjectSchema as ChangesTrackingWhereInputObjectSchema } from './objects/ChangesTrackingWhereInput.schema';
 import { ChangesTrackingWhereUniqueInputObjectSchema as ChangesTrackingWhereUniqueInputObjectSchema } from './objects/ChangesTrackingWhereUniqueInput.schema';
 import { ChangesTrackingScalarFieldEnumSchema } from './enums/ChangesTrackingScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -18,7 +19,7 @@ export const ChangesTrackingFindManySelectSchema: z.ZodType<Prisma.ChangesTracki
     isDeleted: z.boolean().optional(),
     isDeletedDT: z.boolean().optional(),
     doneAt: z.boolean().optional(),
-    modifiedBy: z.boolean().optional(),
+    modifiedBy: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     modifiedById: z.boolean().optional(),
     modelName: z.boolean().optional(),
     recordId: z.boolean().optional(),
@@ -36,7 +37,7 @@ export const ChangesTrackingFindManySelectZodSchema = z.object({
     isDeleted: z.boolean().optional(),
     isDeletedDT: z.boolean().optional(),
     doneAt: z.boolean().optional(),
-    modifiedBy: z.boolean().optional(),
+    modifiedBy: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     modifiedById: z.boolean().optional(),
     modelName: z.boolean().optional(),
     recordId: z.boolean().optional(),

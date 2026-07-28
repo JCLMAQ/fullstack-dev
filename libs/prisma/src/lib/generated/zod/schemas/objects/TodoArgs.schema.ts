@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { TodoSelectObjectSchema as TodoSelectObjectSchema } from './TodoSelect.schema';
 import { TodoIncludeObjectSchema as TodoIncludeObjectSchema } from './TodoInclude.schema'
 

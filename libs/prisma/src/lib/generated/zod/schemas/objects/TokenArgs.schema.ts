@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { TokenSelectObjectSchema as TokenSelectObjectSchema } from './TokenSelect.schema';
 import { TokenIncludeObjectSchema as TokenIncludeObjectSchema } from './TokenInclude.schema'
 

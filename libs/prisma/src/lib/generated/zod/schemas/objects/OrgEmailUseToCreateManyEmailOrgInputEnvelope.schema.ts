@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrgEmailUseToCreateManyEmailOrgInputObjectSchema as OrgEmailUseToCreateManyEmailOrgInputObjectSchema } from './OrgEmailUseToCreateManyEmailOrgInput.schema'
 
 const makeSchema = () => z.object({

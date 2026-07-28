@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { StoryScalarWhereInputObjectSchema as StoryScalarWhereInputObjectSchema } from './StoryScalarWhereInput.schema';
 import { StoryUpdateManyMutationInputObjectSchema as StoryUpdateManyMutationInputObjectSchema } from './StoryUpdateManyMutationInput.schema';
 import { StoryUncheckedUpdateManyWithoutUserInputObjectSchema as StoryUncheckedUpdateManyWithoutUserInputObjectSchema } from './StoryUncheckedUpdateManyWithoutUserInput.schema'

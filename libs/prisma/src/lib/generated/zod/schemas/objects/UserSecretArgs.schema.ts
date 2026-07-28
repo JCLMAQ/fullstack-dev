@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { UserSecretSelectObjectSchema as UserSecretSelectObjectSchema } from './UserSecretSelect.schema';
 import { UserSecretIncludeObjectSchema as UserSecretIncludeObjectSchema } from './UserSecretInclude.schema'
 

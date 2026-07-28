@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TokenWhereUniqueInputObjectSchema as TokenWhereUniqueInputObjectSchema } from './TokenWhereUniqueInput.schema';
 import { TokenCreateWithoutUserInputObjectSchema as TokenCreateWithoutUserInputObjectSchema } from './TokenCreateWithoutUserInput.schema';
 import { TokenUncheckedCreateWithoutUserInputObjectSchema as TokenUncheckedCreateWithoutUserInputObjectSchema } from './TokenUncheckedCreateWithoutUserInput.schema'

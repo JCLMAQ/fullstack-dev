@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { AddressSelectObjectSchema as AddressSelectObjectSchema } from './objects/AddressSelect.schema';
 import { AddressUpdateManyMutationInputObjectSchema as AddressUpdateManyMutationInputObjectSchema } from './objects/AddressUpdateManyMutationInput.schema';

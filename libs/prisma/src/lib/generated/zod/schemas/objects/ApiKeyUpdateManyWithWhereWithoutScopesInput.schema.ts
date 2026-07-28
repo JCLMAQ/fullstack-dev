@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ApiKeyScalarWhereInputObjectSchema as ApiKeyScalarWhereInputObjectSchema } from './ApiKeyScalarWhereInput.schema';
 import { ApiKeyUpdateManyMutationInputObjectSchema as ApiKeyUpdateManyMutationInputObjectSchema } from './ApiKeyUpdateManyMutationInput.schema';
 import { ApiKeyUncheckedUpdateManyWithoutScopesInputObjectSchema as ApiKeyUncheckedUpdateManyWithoutScopesInputObjectSchema } from './ApiKeyUncheckedUpdateManyWithoutScopesInput.schema'

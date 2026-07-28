@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagValueCountOutputTypeCountSubTagsArgsObjectSchema as TagValueCountOutputTypeCountSubTagsArgsObjectSchema } from './TagValueCountOutputTypeCountSubTagsArgs.schema';
 import { TagValueCountOutputTypeCountTagTranslatesArgsObjectSchema as TagValueCountOutputTypeCountTagTranslatesArgsObjectSchema } from './TagValueCountOutputTypeCountTagTranslatesArgs.schema';
 import { TagValueCountOutputTypeCountTodosArgsObjectSchema as TagValueCountOutputTypeCountTodosArgsObjectSchema } from './TagValueCountOutputTypeCountTodosArgs.schema';

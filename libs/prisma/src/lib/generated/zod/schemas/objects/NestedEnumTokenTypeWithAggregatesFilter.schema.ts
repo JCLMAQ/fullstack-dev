@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TokenTypeSchema } from '../enums/TokenType.schema';
 import { NestedIntFilterObjectSchema as NestedIntFilterObjectSchema } from './NestedIntFilter.schema';
 import { NestedEnumTokenTypeFilterObjectSchema as NestedEnumTokenTypeFilterObjectSchema } from './NestedEnumTokenTypeFilter.schema'

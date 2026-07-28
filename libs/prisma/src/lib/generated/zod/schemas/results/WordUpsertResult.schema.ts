@@ -9,5 +9,5 @@ export const WordUpsertResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   slug: z.string(),
   type: z.unknown(),
-  translations: z.array(z.unknown())
+  translations: z.array(z.unknown()).optional()
 });

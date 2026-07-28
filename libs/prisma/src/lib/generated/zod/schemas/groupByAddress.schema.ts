@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { AddressWhereInputObjectSchema as AddressWhereInputObjectSchema } from './objects/AddressWhereInput.schema';
 import { AddressOrderByWithAggregationInputObjectSchema as AddressOrderByWithAggregationInputObjectSchema } from './objects/AddressOrderByWithAggregationInput.schema';

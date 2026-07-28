@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { AccountValidationOrderByWithRelationInputObjectSchema as AccountValidationOrderByWithRelationInputObjectSchema } from './objects/AccountValidationOrderByWithRelationInput.schema';
 import { AccountValidationWhereInputObjectSchema as AccountValidationWhereInputObjectSchema } from './objects/AccountValidationWhereInput.schema';

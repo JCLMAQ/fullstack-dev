@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCreateNestedOneWithoutTasksInputObjectSchema as UserCreateNestedOneWithoutTasksInputObjectSchema } from './UserCreateNestedOneWithoutTasksInput.schema';
 import { TaskCreateNestedOneWithoutUsersInputObjectSchema as TaskCreateNestedOneWithoutUsersInputObjectSchema } from './TaskCreateNestedOneWithoutUsersInput.schema'
 

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrgEmailFindManySchema as OrgEmailFindManySchema } from '../findManyOrgEmail.schema';
 import { OrgDomainFindManySchema as OrgDomainFindManySchema } from '../findManyOrgDomain.schema';
 import { OrganizationArgsObjectSchema as OrganizationArgsObjectSchema } from './OrganizationArgs.schema';

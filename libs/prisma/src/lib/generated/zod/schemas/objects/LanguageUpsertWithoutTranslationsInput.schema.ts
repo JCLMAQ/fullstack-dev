@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { LanguageUpdateWithoutTranslationsInputObjectSchema as LanguageUpdateWithoutTranslationsInputObjectSchema } from './LanguageUpdateWithoutTranslationsInput.schema';
 import { LanguageUncheckedUpdateWithoutTranslationsInputObjectSchema as LanguageUncheckedUpdateWithoutTranslationsInputObjectSchema } from './LanguageUncheckedUpdateWithoutTranslationsInput.schema';
 import { LanguageCreateWithoutTranslationsInputObjectSchema as LanguageCreateWithoutTranslationsInputObjectSchema } from './LanguageCreateWithoutTranslationsInput.schema';

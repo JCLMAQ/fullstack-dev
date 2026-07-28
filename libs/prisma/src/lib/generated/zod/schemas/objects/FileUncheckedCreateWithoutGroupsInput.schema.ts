@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { FileCreatetagsInputObjectSchema as FileCreatetagsInputObjectSchema } from './FileCreatetagsInput.schema';
 import { TagValueUncheckedCreateNestedManyWithoutFilesInputObjectSchema as TagValueUncheckedCreateNestedManyWithoutFilesInputObjectSchema } from './TagValueUncheckedCreateNestedManyWithoutFilesInput.schema'
 

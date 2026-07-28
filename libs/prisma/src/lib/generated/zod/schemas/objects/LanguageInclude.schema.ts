@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TranslationFindManySchema as TranslationFindManySchema } from '../findManyTranslation.schema';
 import { UserFindManySchema as UserFindManySchema } from '../findManyUser.schema';
 import { TagTranslateFindManySchema as TagTranslateFindManySchema } from '../findManyTagTranslate.schema';

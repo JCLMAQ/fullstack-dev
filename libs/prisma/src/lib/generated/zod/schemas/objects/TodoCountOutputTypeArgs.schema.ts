@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { TodoCountOutputTypeSelectObjectSchema as TodoCountOutputTypeSelectObjectSchema } from './TodoCountOutputTypeSelect.schema'
 
 const makeSchema = () => z.object({

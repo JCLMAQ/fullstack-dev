@@ -1,10 +1,12 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { CategoryIncludeObjectSchema as CategoryIncludeObjectSchema } from './objects/CategoryInclude.schema';
 import { CategoryOrderByWithRelationInputObjectSchema as CategoryOrderByWithRelationInputObjectSchema } from './objects/CategoryOrderByWithRelationInput.schema';
 import { CategoryWhereInputObjectSchema as CategoryWhereInputObjectSchema } from './objects/CategoryWhereInput.schema';
 import { CategoryWhereUniqueInputObjectSchema as CategoryWhereUniqueInputObjectSchema } from './objects/CategoryWhereUniqueInput.schema';
 import { CategoryScalarFieldEnumSchema } from './enums/CategoryScalarFieldEnum.schema';
+import { PostFindManySchema } from './findManyPost.schema';
+import { CategoryCountOutputTypeArgsObjectSchema as CategoryCountOutputTypeArgsObjectSchema } from './objects/CategoryCountOutputTypeArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -20,8 +22,8 @@ export const CategoryFindFirstOrThrowSelectSchema: z.ZodType<Prisma.CategorySele
     isDeletedDT: z.boolean().optional(),
     orderCategory: z.boolean().optional(),
     name: z.boolean().optional(),
-    Posts: z.boolean().optional(),
-    _count: z.boolean().optional()
+    Posts: z.union([z.boolean(), z.lazy(() => PostFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => CategoryCountOutputTypeArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.CategorySelect>;
 
 export const CategoryFindFirstOrThrowSelectZodSchema = z.object({
@@ -35,8 +37,8 @@ export const CategoryFindFirstOrThrowSelectZodSchema = z.object({
     isDeletedDT: z.boolean().optional(),
     orderCategory: z.boolean().optional(),
     name: z.boolean().optional(),
-    Posts: z.boolean().optional(),
-    _count: z.boolean().optional()
+    Posts: z.union([z.boolean(), z.lazy(() => PostFindManySchema)]).optional(),
+    _count: z.union([z.boolean(), z.lazy(() => CategoryCountOutputTypeArgsObjectSchema)]).optional()
   }).strict();
 
 export const CategoryFindFirstOrThrowSchema: z.ZodType<Prisma.CategoryFindFirstOrThrowArgs> = z.object({ select: CategoryFindFirstOrThrowSelectSchema.optional(), include: z.lazy(() => CategoryIncludeObjectSchema.optional()), orderBy: z.union([CategoryOrderByWithRelationInputObjectSchema, CategoryOrderByWithRelationInputObjectSchema.array()]).optional(), where: CategoryWhereInputObjectSchema.optional(), cursor: CategoryWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([CategoryScalarFieldEnumSchema, CategoryScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.CategoryFindFirstOrThrowArgs>;

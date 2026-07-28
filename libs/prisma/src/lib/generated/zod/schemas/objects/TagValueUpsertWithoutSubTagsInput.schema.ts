@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagValueUpdateWithoutSubTagsInputObjectSchema as TagValueUpdateWithoutSubTagsInputObjectSchema } from './TagValueUpdateWithoutSubTagsInput.schema';
 import { TagValueUncheckedUpdateWithoutSubTagsInputObjectSchema as TagValueUncheckedUpdateWithoutSubTagsInputObjectSchema } from './TagValueUncheckedUpdateWithoutSubTagsInput.schema';
 import { TagValueCreateWithoutSubTagsInputObjectSchema as TagValueCreateWithoutSubTagsInputObjectSchema } from './TagValueCreateWithoutSubTagsInput.schema';

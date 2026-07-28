@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { NestedBytesNullableWithAggregatesFilterObjectSchema as NestedBytesNullableWithAggregatesFilterObjectSchema } from './NestedBytesNullableWithAggregatesFilter.schema';
 import { NestedIntNullableFilterObjectSchema as NestedIntNullableFilterObjectSchema } from './NestedIntNullableFilter.schema';
 import { NestedBytesNullableFilterObjectSchema as NestedBytesNullableFilterObjectSchema } from './NestedBytesNullableFilter.schema'

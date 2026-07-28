@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { ProfileSelectObjectSchema as ProfileSelectObjectSchema } from './ProfileSelect.schema';
 import { ProfileIncludeObjectSchema as ProfileIncludeObjectSchema } from './ProfileInclude.schema'
 

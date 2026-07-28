@@ -9,7 +9,7 @@ export const ScopeFindManyResultSchema = z.object({
   isDeleted: z.number().int(),
   isDeletedDT: z.date().optional(),
   scope: z.string(),
-  ApiKey: z.array(z.unknown())
+  ApiKey: z.array(z.unknown()).optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

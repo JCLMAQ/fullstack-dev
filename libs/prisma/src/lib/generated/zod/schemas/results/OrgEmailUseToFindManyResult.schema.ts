@@ -10,7 +10,7 @@ export const OrgEmailUseToFindManyResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   useTo: z.string(),
   isActiv: z.boolean(),
-  emailOrg: z.unknown(),
+  emailOrg: z.unknown().optional(),
   emailOrgId: z.number().int()
 })),
   pagination: z.object({

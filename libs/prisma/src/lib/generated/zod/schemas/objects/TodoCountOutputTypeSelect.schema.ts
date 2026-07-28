@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TodoCountOutputTypeCountGroupsArgsObjectSchema as TodoCountOutputTypeCountGroupsArgsObjectSchema } from './TodoCountOutputTypeCountGroupsArgs.schema';
 import { TodoCountOutputTypeCountSubTodosArgsObjectSchema as TodoCountOutputTypeCountSubTodosArgsObjectSchema } from './TodoCountOutputTypeCountSubTodosArgs.schema';
 import { TodoCountOutputTypeCountUsersArgsObjectSchema as TodoCountOutputTypeCountUsersArgsObjectSchema } from './TodoCountOutputTypeCountUsersArgs.schema';

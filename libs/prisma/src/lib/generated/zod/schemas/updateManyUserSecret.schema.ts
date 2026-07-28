@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserSecretUpdateManyMutationInputObjectSchema as UserSecretUpdateManyMutationInputObjectSchema } from './objects/UserSecretUpdateManyMutationInput.schema';
 import { UserSecretWhereInputObjectSchema as UserSecretWhereInputObjectSchema } from './objects/UserSecretWhereInput.schema';

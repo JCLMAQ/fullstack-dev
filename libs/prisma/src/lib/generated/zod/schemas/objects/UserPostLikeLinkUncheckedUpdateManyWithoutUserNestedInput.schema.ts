@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserPostLikeLinkCreateWithoutUserInputObjectSchema as UserPostLikeLinkCreateWithoutUserInputObjectSchema } from './UserPostLikeLinkCreateWithoutUserInput.schema';
 import { UserPostLikeLinkUncheckedCreateWithoutUserInputObjectSchema as UserPostLikeLinkUncheckedCreateWithoutUserInputObjectSchema } from './UserPostLikeLinkUncheckedCreateWithoutUserInput.schema';
 import { UserPostLikeLinkCreateOrConnectWithoutUserInputObjectSchema as UserPostLikeLinkCreateOrConnectWithoutUserInputObjectSchema } from './UserPostLikeLinkCreateOrConnectWithoutUserInput.schema';

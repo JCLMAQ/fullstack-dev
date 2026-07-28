@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserUpdateWithoutAddressInputObjectSchema as UserUpdateWithoutAddressInputObjectSchema } from './UserUpdateWithoutAddressInput.schema';
 import { UserUncheckedUpdateWithoutAddressInputObjectSchema as UserUncheckedUpdateWithoutAddressInputObjectSchema } from './UserUncheckedUpdateWithoutAddressInput.schema';
 import { UserCreateWithoutAddressInputObjectSchema as UserCreateWithoutAddressInputObjectSchema } from './UserCreateWithoutAddressInput.schema';

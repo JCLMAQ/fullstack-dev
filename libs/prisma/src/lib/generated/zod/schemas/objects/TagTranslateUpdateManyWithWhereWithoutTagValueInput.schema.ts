@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TagTranslateScalarWhereInputObjectSchema as TagTranslateScalarWhereInputObjectSchema } from './TagTranslateScalarWhereInput.schema';
 import { TagTranslateUpdateManyMutationInputObjectSchema as TagTranslateUpdateManyMutationInputObjectSchema } from './TagTranslateUpdateManyMutationInput.schema';
 import { TagTranslateUncheckedUpdateManyWithoutTagValueInputObjectSchema as TagTranslateUncheckedUpdateManyWithoutTagValueInputObjectSchema } from './TagTranslateUncheckedUpdateManyWithoutTagValueInput.schema'

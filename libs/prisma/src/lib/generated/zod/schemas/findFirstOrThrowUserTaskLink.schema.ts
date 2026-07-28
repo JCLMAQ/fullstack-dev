@@ -1,18 +1,20 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserTaskLinkIncludeObjectSchema as UserTaskLinkIncludeObjectSchema } from './objects/UserTaskLinkInclude.schema';
 import { UserTaskLinkOrderByWithRelationInputObjectSchema as UserTaskLinkOrderByWithRelationInputObjectSchema } from './objects/UserTaskLinkOrderByWithRelationInput.schema';
 import { UserTaskLinkWhereInputObjectSchema as UserTaskLinkWhereInputObjectSchema } from './objects/UserTaskLinkWhereInput.schema';
 import { UserTaskLinkWhereUniqueInputObjectSchema as UserTaskLinkWhereUniqueInputObjectSchema } from './objects/UserTaskLinkWhereUniqueInput.schema';
 import { UserTaskLinkScalarFieldEnumSchema } from './enums/UserTaskLinkScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
+import { TaskArgsObjectSchema as TaskArgsObjectSchema } from './objects/TaskArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
 
 export const UserTaskLinkFindFirstOrThrowSelectSchema: z.ZodType<Prisma.UserTaskLinkSelect> = z.object({
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
-    task: z.boolean().optional(),
+    task: z.union([z.boolean(), z.lazy(() => TaskArgsObjectSchema)]).optional(),
     taskId: z.boolean().optional(),
     isAuthor: z.boolean().optional(),
     isAssigned: z.boolean().optional(),
@@ -22,9 +24,9 @@ export const UserTaskLinkFindFirstOrThrowSelectSchema: z.ZodType<Prisma.UserTask
   }).strict() as unknown as z.ZodType<Prisma.UserTaskLinkSelect>;
 
 export const UserTaskLinkFindFirstOrThrowSelectZodSchema = z.object({
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
-    task: z.boolean().optional(),
+    task: z.union([z.boolean(), z.lazy(() => TaskArgsObjectSchema)]).optional(),
     taskId: z.boolean().optional(),
     isAuthor: z.boolean().optional(),
     isAssigned: z.boolean().optional(),

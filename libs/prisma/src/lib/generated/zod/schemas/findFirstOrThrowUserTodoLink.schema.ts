@@ -1,18 +1,20 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { UserTodoLinkIncludeObjectSchema as UserTodoLinkIncludeObjectSchema } from './objects/UserTodoLinkInclude.schema';
 import { UserTodoLinkOrderByWithRelationInputObjectSchema as UserTodoLinkOrderByWithRelationInputObjectSchema } from './objects/UserTodoLinkOrderByWithRelationInput.schema';
 import { UserTodoLinkWhereInputObjectSchema as UserTodoLinkWhereInputObjectSchema } from './objects/UserTodoLinkWhereInput.schema';
 import { UserTodoLinkWhereUniqueInputObjectSchema as UserTodoLinkWhereUniqueInputObjectSchema } from './objects/UserTodoLinkWhereUniqueInput.schema';
 import { UserTodoLinkScalarFieldEnumSchema } from './enums/UserTodoLinkScalarFieldEnum.schema';
+import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
+import { TodoArgsObjectSchema as TodoArgsObjectSchema } from './objects/TodoArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
 
 export const UserTodoLinkFindFirstOrThrowSelectSchema: z.ZodType<Prisma.UserTodoLinkSelect> = z.object({
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
-    todo: z.boolean().optional(),
+    todo: z.union([z.boolean(), z.lazy(() => TodoArgsObjectSchema)]).optional(),
     todoId: z.boolean().optional(),
     isAuthor: z.boolean().optional(),
     isAssigned: z.boolean().optional(),
@@ -22,9 +24,9 @@ export const UserTodoLinkFindFirstOrThrowSelectSchema: z.ZodType<Prisma.UserTodo
   }).strict() as unknown as z.ZodType<Prisma.UserTodoLinkSelect>;
 
 export const UserTodoLinkFindFirstOrThrowSelectZodSchema = z.object({
-    user: z.boolean().optional(),
+    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional(),
     userId: z.boolean().optional(),
-    todo: z.boolean().optional(),
+    todo: z.union([z.boolean(), z.lazy(() => TodoArgsObjectSchema)]).optional(),
     todoId: z.boolean().optional(),
     isAuthor: z.boolean().optional(),
     isAssigned: z.boolean().optional(),

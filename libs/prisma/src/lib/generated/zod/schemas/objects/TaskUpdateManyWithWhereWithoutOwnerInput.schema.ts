@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TaskScalarWhereInputObjectSchema as TaskScalarWhereInputObjectSchema } from './TaskScalarWhereInput.schema';
 import { TaskUpdateManyMutationInputObjectSchema as TaskUpdateManyMutationInputObjectSchema } from './TaskUpdateManyMutationInput.schema';
 import { TaskUncheckedUpdateManyWithoutOwnerInputObjectSchema as TaskUncheckedUpdateManyWithoutOwnerInputObjectSchema } from './TaskUncheckedUpdateManyWithoutOwnerInput.schema'

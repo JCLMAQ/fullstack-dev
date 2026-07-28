@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { TaskWhereInputObjectSchema as TaskWhereInputObjectSchema } from './TaskWhereInput.schema';
 import { TaskUpdateWithoutUsersInputObjectSchema as TaskUpdateWithoutUsersInputObjectSchema } from './TaskUpdateWithoutUsersInput.schema';
 import { TaskUncheckedUpdateWithoutUsersInputObjectSchema as TaskUncheckedUpdateWithoutUsersInputObjectSchema } from './TaskUncheckedUpdateWithoutUsersInput.schema'

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { OrgDomainWhereUniqueInputObjectSchema as OrgDomainWhereUniqueInputObjectSchema } from './OrgDomainWhereUniqueInput.schema';
 import { OrgDomainUpdateWithoutOrgInputObjectSchema as OrgDomainUpdateWithoutOrgInputObjectSchema } from './OrgDomainUpdateWithoutOrgInput.schema';
 import { OrgDomainUncheckedUpdateWithoutOrgInputObjectSchema as OrgDomainUncheckedUpdateWithoutOrgInputObjectSchema } from './OrgDomainUncheckedUpdateWithoutOrgInput.schema';

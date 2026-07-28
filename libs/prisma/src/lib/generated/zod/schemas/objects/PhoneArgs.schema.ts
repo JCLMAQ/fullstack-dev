@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { PhoneSelectObjectSchema as PhoneSelectObjectSchema } from './PhoneSelect.schema';
 import { PhoneIncludeObjectSchema as PhoneIncludeObjectSchema } from './PhoneInclude.schema'
 

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { FileCountOutputTypeCountTagsArgsObjectSchema as FileCountOutputTypeCountTagsArgsObjectSchema } from './FileCountOutputTypeCountTagsArgs.schema';
 import { FileCountOutputTypeCountGroupsArgsObjectSchema as FileCountOutputTypeCountGroupsArgsObjectSchema } from './FileCountOutputTypeCountGroupsArgs.schema'
 

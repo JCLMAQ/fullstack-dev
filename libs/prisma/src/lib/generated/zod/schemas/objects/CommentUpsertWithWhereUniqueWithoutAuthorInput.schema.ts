@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { CommentWhereUniqueInputObjectSchema as CommentWhereUniqueInputObjectSchema } from './CommentWhereUniqueInput.schema';
 import { CommentUpdateWithoutAuthorInputObjectSchema as CommentUpdateWithoutAuthorInputObjectSchema } from './CommentUpdateWithoutAuthorInput.schema';
 import { CommentUncheckedUpdateWithoutAuthorInputObjectSchema as CommentUncheckedUpdateWithoutAuthorInputObjectSchema } from './CommentUncheckedUpdateWithoutAuthorInput.schema';

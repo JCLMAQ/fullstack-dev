@@ -10,5 +10,5 @@ export const CategoryFindFirstResultSchema = z.nullable(z.object({
   isDeletedDT: z.date().optional(),
   orderCategory: z.number().int(),
   name: z.string(),
-  Posts: z.array(z.unknown())
+  Posts: z.array(z.unknown()).optional()
 }));

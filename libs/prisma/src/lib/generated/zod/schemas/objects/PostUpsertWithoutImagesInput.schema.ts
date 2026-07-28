@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { PostUpdateWithoutImagesInputObjectSchema as PostUpdateWithoutImagesInputObjectSchema } from './PostUpdateWithoutImagesInput.schema';
 import { PostUncheckedUpdateWithoutImagesInputObjectSchema as PostUncheckedUpdateWithoutImagesInputObjectSchema } from './PostUncheckedUpdateWithoutImagesInput.schema';
 import { PostCreateWithoutImagesInputObjectSchema as PostCreateWithoutImagesInputObjectSchema } from './PostCreateWithoutImagesInput.schema';

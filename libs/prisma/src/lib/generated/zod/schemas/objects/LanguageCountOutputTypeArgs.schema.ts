@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { LanguageCountOutputTypeSelectObjectSchema as LanguageCountOutputTypeSelectObjectSchema } from './LanguageCountOutputTypeSelect.schema'
 
 const makeSchema = () => z.object({

@@ -3,8 +3,8 @@ import { AddressTypeSchema } from '../../enums/AddressType.schema';
 // prettier-ignore
 export const AddressInputSchema = z.object({
     id: z.number().int(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
     user: z.unknown(),
     userId: z.string(),
     street: z.string(),

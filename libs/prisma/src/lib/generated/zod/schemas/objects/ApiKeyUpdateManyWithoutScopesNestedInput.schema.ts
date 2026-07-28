@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { ApiKeyCreateWithoutScopesInputObjectSchema as ApiKeyCreateWithoutScopesInputObjectSchema } from './ApiKeyCreateWithoutScopesInput.schema';
 import { ApiKeyUncheckedCreateWithoutScopesInputObjectSchema as ApiKeyUncheckedCreateWithoutScopesInputObjectSchema } from './ApiKeyUncheckedCreateWithoutScopesInput.schema';
 import { ApiKeyCreateOrConnectWithoutScopesInputObjectSchema as ApiKeyCreateOrConnectWithoutScopesInputObjectSchema } from './ApiKeyCreateOrConnectWithoutScopesInput.schema';

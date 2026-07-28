@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
 import { OrgDomainSelectObjectSchema as OrgDomainSelectObjectSchema } from './OrgDomainSelect.schema';
 import { OrgDomainIncludeObjectSchema as OrgDomainIncludeObjectSchema } from './OrgDomainInclude.schema'
 

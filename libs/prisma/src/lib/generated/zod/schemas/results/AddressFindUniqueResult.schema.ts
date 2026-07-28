@@ -3,7 +3,7 @@ export const AddressFindUniqueResultSchema = z.nullable(z.object({
   id: z.number().int(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  user: z.unknown(),
+  user: z.unknown().optional(),
   userId: z.string(),
   street: z.string(),
   buildingNum: z.string(),

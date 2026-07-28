@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagValueSelectObjectSchema as TagValueSelectObjectSchema } from './objects/TagValueSelect.schema';
 import { TagValueCreateManyInputObjectSchema as TagValueCreateManyInputObjectSchema } from './objects/TagValueCreateManyInput.schema';

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserCreateNestedManyWithoutGroupInputObjectSchema as UserCreateNestedManyWithoutGroupInputObjectSchema } from './UserCreateNestedManyWithoutGroupInput.schema';
 import { TaskCreateNestedManyWithoutGroupsInputObjectSchema as TaskCreateNestedManyWithoutGroupsInputObjectSchema } from './TaskCreateNestedManyWithoutGroupsInput.schema';
 import { TodoCreateNestedManyWithoutGroupsInputObjectSchema as TodoCreateNestedManyWithoutGroupsInputObjectSchema } from './TodoCreateNestedManyWithoutGroupsInput.schema';

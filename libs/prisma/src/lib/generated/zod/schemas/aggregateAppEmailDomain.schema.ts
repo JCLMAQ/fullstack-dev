@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { AppEmailDomainOrderByWithRelationInputObjectSchema as AppEmailDomainOrderByWithRelationInputObjectSchema } from './objects/AppEmailDomainOrderByWithRelationInput.schema';
 import { AppEmailDomainWhereInputObjectSchema as AppEmailDomainWhereInputObjectSchema } from './objects/AppEmailDomainWhereInput.schema';

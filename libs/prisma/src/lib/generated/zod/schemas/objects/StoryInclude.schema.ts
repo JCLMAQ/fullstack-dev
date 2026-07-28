@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserArgsObjectSchema as UserArgsObjectSchema } from './UserArgs.schema';
 import { ImageFindManySchema as ImageFindManySchema } from '../findManyImage.schema';
 import { FileFindManySchema as FileFindManySchema } from '../findManyFile.schema';

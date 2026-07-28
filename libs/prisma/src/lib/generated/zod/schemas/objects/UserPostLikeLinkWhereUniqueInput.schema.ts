@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { UserPostLikeLinkUser_idPost_idCompoundUniqueInputObjectSchema as UserPostLikeLinkUser_idPost_idCompoundUniqueInputObjectSchema } from './UserPostLikeLinkUser_idPost_idCompoundUniqueInput.schema'
 
 const makeSchema = () => z.object({

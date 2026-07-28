@@ -5,8 +5,8 @@ export const UserFollowerLinkInputSchema = z.object({
     user: z.unknown(),
     follower_id: z.string(),
     follower: z.unknown(),
-    createdAt: z.date(),
-    updatedAt: z.date()
+    createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date()
 }).strict();
 
 export type UserFollowerLinkInputType = z.infer<typeof UserFollowerLinkInputSchema>;

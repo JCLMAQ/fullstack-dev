@@ -1,4 +1,4 @@
-import type { Prisma } from '../../prisma/client';
+import type { Prisma } from '../../prisma/browser';
 import * as z from 'zod';
 import { TagTranslateOrderByWithRelationInputObjectSchema as TagTranslateOrderByWithRelationInputObjectSchema } from './objects/TagTranslateOrderByWithRelationInput.schema';
 import { TagTranslateWhereInputObjectSchema as TagTranslateWhereInputObjectSchema } from './objects/TagTranslateWhereInput.schema';

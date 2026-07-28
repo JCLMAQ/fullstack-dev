@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { AddressScalarWhereInputObjectSchema as AddressScalarWhereInputObjectSchema } from './AddressScalarWhereInput.schema';
 import { AddressUpdateManyMutationInputObjectSchema as AddressUpdateManyMutationInputObjectSchema } from './AddressUpdateManyMutationInput.schema';
 import { AddressUncheckedUpdateManyWithoutUserInputObjectSchema as AddressUncheckedUpdateManyWithoutUserInputObjectSchema } from './AddressUncheckedUpdateManyWithoutUserInput.schema'

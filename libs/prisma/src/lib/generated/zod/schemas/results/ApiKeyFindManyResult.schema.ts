@@ -10,9 +10,9 @@ export const ApiKeyFindManyResultSchema = z.object({
   isDeletedDT: z.date().optional(),
   key: z.string(),
   uuid: z.string(),
-  user: z.unknown(),
+  user: z.unknown().optional(),
   userId: z.string(),
-  Scopes: z.array(z.unknown())
+  Scopes: z.array(z.unknown()).optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

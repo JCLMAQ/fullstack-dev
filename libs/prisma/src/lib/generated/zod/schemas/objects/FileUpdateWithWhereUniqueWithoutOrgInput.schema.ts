@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { FileWhereUniqueInputObjectSchema as FileWhereUniqueInputObjectSchema } from './FileWhereUniqueInput.schema';
 import { FileUpdateWithoutOrgInputObjectSchema as FileUpdateWithoutOrgInputObjectSchema } from './FileUpdateWithoutOrgInput.schema';
 import { FileUncheckedUpdateWithoutOrgInputObjectSchema as FileUncheckedUpdateWithoutOrgInputObjectSchema } from './FileUncheckedUpdateWithoutOrgInput.schema'

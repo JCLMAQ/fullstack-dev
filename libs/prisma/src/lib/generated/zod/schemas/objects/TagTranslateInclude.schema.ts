@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Prisma } from '../../../prisma/client';
+import type { Prisma } from '../../../prisma/browser';
 import { LanguageArgsObjectSchema as LanguageArgsObjectSchema } from './LanguageArgs.schema';
 import { TagValueArgsObjectSchema as TagValueArgsObjectSchema } from './TagValueArgs.schema'
 
