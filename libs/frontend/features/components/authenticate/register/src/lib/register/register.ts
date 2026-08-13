@@ -1,6 +1,7 @@
 
 import { JsonPipe } from '@angular/common';
-import { Component, computed, effect, inject, resource, ResourceLoaderParams, Signal, signal, untracked } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, computed, effect, inject, resource, signal, untracked } from '@angular/core';
 import { apply, ChildFieldContext, debounce, email as emailValidator, form, FormField, required, schema, submit, validateAsync } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -61,38 +62,26 @@ export class Register {
     confirmPassword: ''
   });
 
-  // Email debounced signal pour le resource
   private emailForCheck = signal('');
 
-  // Resource créé dans le contexte d'injection
   private emailCheckResource = resource({
     loader: async ({ abortSignal }) => {
       const email = this.emailForCheck();
-      console.log('🔄 [EmailCheck Resource] Loader appelé avec email:', email);
 
       if (!email || !email.includes('@')) {
-        console.log('⏭️  [EmailCheck Resource] Email invalide ou vide, skip validation');
         return false;
       }
 
-      // Vérifier si la requête a été annulée
       if (abortSignal?.aborted) {
-        console.log('🚫 [EmailCheck Resource] Requête annulée');
         return false;
       }
 
       try {
-        console.log('🌐 [EmailCheck Resource] Appel API emailCheck...');
-        const exists = await this._authService.emailCheck(email);
-        console.log('✅ [EmailCheck Resource] Résultat API:', exists ? 'Email déjà utilisé' : 'Email disponible');
-        return exists;
+        return await this._authService.emailCheck(email);
       } catch (error) {
-        // Ignorer les erreurs d'annulation
         if (abortSignal?.aborted) {
-          console.log('🚫 [EmailCheck Resource] Requête annulée pendant l\'appel');
           return false;
         }
-        console.error('❌ [EmailCheck Resource] Erreur:', error);
         throw error;
       }
     }
@@ -112,24 +101,7 @@ export class Register {
 
     validateAsync(path.email, {
       params: (email: ChildFieldContext<string>) => email.value(),
-      factory: (params: Signal<string | undefined>) =>
-        resource({
-          params,
-          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) => {
-            if (!loaderParams.params || !loaderParams.params.includes('@')) {
-              return false;
-            }
-
-            try {
-              return await this._authService.emailCheck(loaderParams.params);
-            } catch (error) {
-              if (loaderParams.abortSignal?.aborted) {
-                return false;
-              }
-              throw error;
-            }
-          }
-        }),
+      factory: () => this.emailCheckResource,
         onSuccess: (isRegistered: boolean) =>
           isRegistered
             ? {
@@ -140,6 +112,13 @@ export class Register {
         onError: (error: unknown) => {
           if (error instanceof DOMException && error.name === 'AbortError') {
             return undefined;
+          }
+
+          if (error instanceof HttpErrorResponse && error.status === 0) {
+            const progressEvent = error.error as ProgressEvent | null;
+            if (progressEvent?.type === 'abort') {
+              return undefined;
+            }
           }
 
           return {
@@ -183,19 +162,10 @@ export class Register {
   constructor() {
     this.loadDraft();
 
-    // Met à jour emailForCheck quand l'email change
     effect(() => {
       const email = this.registerForm.email().value();
-      console.log('📝 [Effect] Email modifié:', email);
       this.emailForCheck.set(email);
-      console.log('🔄 [Effect] emailForCheck mis à jour, trigger du resource');
-    });
-
-    // Déclenche explicitement le rechargement du resource quand emailForCheck change
-    effect(() => {
-      const email = this.emailForCheck();
       if (email && email.includes('@')) {
-        console.log('🔁 [Effect] Reload resource pour email:', email);
         this.emailCheckResource.reload();
       }
     });

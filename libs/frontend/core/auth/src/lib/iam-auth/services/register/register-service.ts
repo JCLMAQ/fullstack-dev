@@ -48,7 +48,9 @@ export class RegisterService {
     confirmPassword: string,
     languageCode?: string,
   ): Promise<IRegisterResponse> {
-    const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+    const apiPrefix = `/${(this.environment.API_BACKEND_PREFIX ?? 'api')
+      .replace(/^\/+/, '')
+      .replace(/\/+$/, '')}`;
     const pathUrl = `${apiPrefix}/authentication/register-extended`;
 
     // Déterminer la langue: paramètre > navigateur > défaut 'en'
@@ -95,7 +97,9 @@ export class RegisterService {
     async emailCheck(email: string): Promise<boolean> {
       if (!email || typeof email !== 'string') return false;
 
-        const apiPrefix = this.environment.API_BACKEND_PREFIX?.replace(/^\//, '').replace(/\/$/, '');
+        const apiPrefix = `/${(this.environment.API_BACKEND_PREFIX ?? 'api')
+          .replace(/^\/+/, '')
+          .replace(/\/+$/, '')}`;
         const pathUrl = `${apiPrefix}/authentication/email-check`;
 
         const payload = { email};
