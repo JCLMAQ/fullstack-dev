@@ -48,3 +48,6 @@ minimumReleaseAgeExclude:
   - '@prisma/get-platform@7.9.1'
   - prisma@7.9.1
   - eslint-plugin-playwright@2.11.0
+  - '@angular/cdk@22.1.2'
+  - '@angular/material@22.1.2'
+  - '@angular/youtube-player@22.1.2'
