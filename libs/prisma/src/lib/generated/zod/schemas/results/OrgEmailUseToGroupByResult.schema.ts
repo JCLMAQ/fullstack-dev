@@ -1,54 +1,60 @@
 import * as z from 'zod';
 export const OrgEmailUseToGroupByResultSchema = z.array(z.object({
-  id: z.number().int(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  published: z.boolean(),
-  isPublic: z.boolean(),
-  isDeleted: z.number().int(),
-  isDeletedDT: z.date(),
-  useTo: z.string(),
-  isActiv: z.boolean(),
-  emailOrgId: z.number().int(),
-  _count: z.object({
-    id: z.number(),
-    createdAt: z.number(),
-    updatedAt: z.number(),
-    published: z.number(),
-    isPublic: z.number(),
-    isDeleted: z.number(),
-    isDeletedDT: z.number(),
-    useTo: z.number(),
-    isActiv: z.number(),
-    emailOrg: z.number(),
-    emailOrgId: z.number()
-  }).optional(),
+  id: z.number().int().optional(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+  published: z.boolean().optional(),
+  isPublic: z.boolean().optional(),
+  isDeleted: z.number().int().optional(),
+  isDeletedDT: z.date().nullable().optional(),
+  useTo: z.string().optional(),
+  isActiv: z.boolean().optional(),
+  emailOrgId: z.number().int().optional(),
+  _count: z.union([z.number(), z.object({
+    id: z.number().optional(),
+    createdAt: z.number().optional(),
+    updatedAt: z.number().optional(),
+    published: z.number().optional(),
+    isPublic: z.number().optional(),
+    isDeleted: z.number().optional(),
+    isDeletedDT: z.number().optional(),
+    useTo: z.number().optional(),
+    isActiv: z.number().optional(),
+    emailOrgId: z.number().optional(),
+    _all: z.number().optional()
+  })]).optional(),
   _sum: z.object({
-    id: z.number().nullable(),
-    isDeleted: z.number().nullable(),
-    emailOrgId: z.number().nullable()
+    id: z.number().nullable().optional(),
+    isDeleted: z.number().nullable().optional(),
+    emailOrgId: z.number().nullable().optional()
   }).nullable().optional(),
   _avg: z.object({
-    id: z.number().nullable(),
-    isDeleted: z.number().nullable(),
-    emailOrgId: z.number().nullable()
+    id: z.number().nullable().optional(),
+    isDeleted: z.number().nullable().optional(),
+    emailOrgId: z.number().nullable().optional()
   }).nullable().optional(),
   _min: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    isDeleted: z.number().int().nullable(),
-    isDeletedDT: z.date().nullable(),
-    useTo: z.string().nullable(),
-    emailOrgId: z.number().int().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    published: z.boolean().nullable().optional(),
+    isPublic: z.boolean().nullable().optional(),
+    isDeleted: z.number().int().nullable().optional(),
+    isDeletedDT: z.date().nullable().optional(),
+    useTo: z.string().nullable().optional(),
+    isActiv: z.boolean().nullable().optional(),
+    emailOrgId: z.number().int().nullable().optional()
   }).nullable().optional(),
   _max: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    isDeleted: z.number().int().nullable(),
-    isDeletedDT: z.date().nullable(),
-    useTo: z.string().nullable(),
-    emailOrgId: z.number().int().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    published: z.boolean().nullable().optional(),
+    isPublic: z.boolean().nullable().optional(),
+    isDeleted: z.number().int().nullable().optional(),
+    isDeletedDT: z.date().nullable().optional(),
+    useTo: z.string().nullable().optional(),
+    isActiv: z.boolean().nullable().optional(),
+    emailOrgId: z.number().int().nullable().optional()
   }).nullable().optional()
 }));

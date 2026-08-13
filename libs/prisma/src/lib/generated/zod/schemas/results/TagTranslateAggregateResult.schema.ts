@@ -1,40 +1,39 @@
 import * as z from 'zod';
-export const TagTranslateAggregateResultSchema = z.object({  _count: z.object({
-    id: z.number(),
-    createdAt: z.number(),
-    updatedAt: z.number(),
-    language: z.number(),
-    languageId: z.number(),
-    translation: z.number(),
-    tagId: z.number(),
-    tagValue: z.number(),
-    description: z.number()
-  }).optional(),
+export const TagTranslateAggregateResultSchema = z.object({  _count: z.union([z.number(), z.object({
+    id: z.number().optional(),
+    createdAt: z.number().optional(),
+    updatedAt: z.number().optional(),
+    languageId: z.number().optional(),
+    translation: z.number().optional(),
+    tagId: z.number().optional(),
+    description: z.number().optional(),
+    _all: z.number().optional()
+  })]).optional(),
   _sum: z.object({
-    id: z.number().nullable(),
-    languageId: z.number().nullable(),
-    tagId: z.number().nullable()
+    id: z.number().nullable().optional(),
+    languageId: z.number().nullable().optional(),
+    tagId: z.number().nullable().optional()
   }).nullable().optional(),
   _avg: z.object({
-    id: z.number().nullable(),
-    languageId: z.number().nullable(),
-    tagId: z.number().nullable()
+    id: z.number().nullable().optional(),
+    languageId: z.number().nullable().optional(),
+    tagId: z.number().nullable().optional()
   }).nullable().optional(),
   _min: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    languageId: z.number().int().nullable(),
-    translation: z.string().nullable(),
-    tagId: z.number().int().nullable(),
-    description: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    languageId: z.number().int().nullable().optional(),
+    translation: z.string().nullable().optional(),
+    tagId: z.number().int().nullable().optional(),
+    description: z.string().nullable().optional()
   }).nullable().optional(),
   _max: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    languageId: z.number().int().nullable(),
-    translation: z.string().nullable(),
-    tagId: z.number().int().nullable(),
-    description: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    languageId: z.number().int().nullable().optional(),
+    translation: z.string().nullable().optional(),
+    tagId: z.number().int().nullable().optional(),
+    description: z.string().nullable().optional()
   }).nullable().optional()});

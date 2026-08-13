@@ -7,7 +7,7 @@ export const ScopeFindManyResultSchema = z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   scope: z.string(),
   ApiKey: z.array(z.unknown()).optional()
 })),

@@ -1,42 +1,46 @@
 import * as z from 'zod';
-export const OrgDomainAggregateResultSchema = z.object({  _count: z.object({
-    id: z.number(),
-    createdAt: z.number(),
-    updatedAt: z.number(),
-    published: z.number(),
-    isPublic: z.number(),
-    isDeleted: z.number(),
-    isDeletedDT: z.number(),
-    domainName: z.number(),
-    extension: z.number(),
-    org: z.number(),
-    orgId: z.number()
-  }).optional(),
+export const OrgDomainAggregateResultSchema = z.object({  _count: z.union([z.number(), z.object({
+    id: z.number().optional(),
+    createdAt: z.number().optional(),
+    updatedAt: z.number().optional(),
+    published: z.number().optional(),
+    isPublic: z.number().optional(),
+    isDeleted: z.number().optional(),
+    isDeletedDT: z.number().optional(),
+    domainName: z.number().optional(),
+    extension: z.number().optional(),
+    orgId: z.number().optional(),
+    _all: z.number().optional()
+  })]).optional(),
   _sum: z.object({
-    id: z.number().nullable(),
-    isDeleted: z.number().nullable()
+    id: z.number().nullable().optional(),
+    isDeleted: z.number().nullable().optional()
   }).nullable().optional(),
   _avg: z.object({
-    id: z.number().nullable(),
-    isDeleted: z.number().nullable()
+    id: z.number().nullable().optional(),
+    isDeleted: z.number().nullable().optional()
   }).nullable().optional(),
   _min: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    isDeleted: z.number().int().nullable(),
-    isDeletedDT: z.date().nullable(),
-    domainName: z.string().nullable(),
-    extension: z.string().nullable(),
-    orgId: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    published: z.boolean().nullable().optional(),
+    isPublic: z.boolean().nullable().optional(),
+    isDeleted: z.number().int().nullable().optional(),
+    isDeletedDT: z.date().nullable().optional(),
+    domainName: z.string().nullable().optional(),
+    extension: z.string().nullable().optional(),
+    orgId: z.string().nullable().optional()
   }).nullable().optional(),
   _max: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    isDeleted: z.number().int().nullable(),
-    isDeletedDT: z.date().nullable(),
-    domainName: z.string().nullable(),
-    extension: z.string().nullable(),
-    orgId: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    published: z.boolean().nullable().optional(),
+    isPublic: z.boolean().nullable().optional(),
+    isDeleted: z.number().int().nullable().optional(),
+    isDeletedDT: z.date().nullable().optional(),
+    domainName: z.string().nullable().optional(),
+    extension: z.string().nullable().optional(),
+    orgId: z.string().nullable().optional()
   }).nullable().optional()});

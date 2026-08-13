@@ -6,7 +6,7 @@ export const ConfigParamFindUniqueResultSchema = z.nullable(z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   name: z.string(),
   value: z.string(),
   utility: z.string()

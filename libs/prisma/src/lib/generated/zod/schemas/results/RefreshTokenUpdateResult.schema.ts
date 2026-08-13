@@ -6,7 +6,7 @@ export const RefreshTokenUpdateResultSchema = z.nullable(z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   userId: z.string(),
   tokenId: z.string()
 }));

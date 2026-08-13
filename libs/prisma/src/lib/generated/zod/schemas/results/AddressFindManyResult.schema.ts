@@ -14,7 +14,7 @@ export const AddressFindManyResultSchema = z.object({
   zipCode: z.string(),
   country: z.string(),
   countryIso: z.string(),
-  addressType: z.unknown().optional(),
+  addressType: z.unknown().nullable().optional(),
   isPrimary: z.boolean()
 })),
   pagination: z.object({

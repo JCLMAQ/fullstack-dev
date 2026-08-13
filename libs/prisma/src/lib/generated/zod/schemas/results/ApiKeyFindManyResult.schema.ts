@@ -7,7 +7,7 @@ export const ApiKeyFindManyResultSchema = z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   key: z.string(),
   uuid: z.string(),
   user: z.unknown().optional(),

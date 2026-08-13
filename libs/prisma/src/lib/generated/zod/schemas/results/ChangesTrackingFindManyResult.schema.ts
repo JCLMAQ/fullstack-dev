@@ -7,7 +7,7 @@ export const ChangesTrackingFindManyResultSchema = z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   doneAt: z.date(),
   modifiedBy: z.unknown().optional(),
   modifiedById: z.string(),

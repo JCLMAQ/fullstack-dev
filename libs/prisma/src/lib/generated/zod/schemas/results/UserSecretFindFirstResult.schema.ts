@@ -5,7 +5,7 @@ export const UserSecretFindFirstResultSchema = z.nullable(z.object({
   updatedAt: z.date(),
   user: z.unknown().optional(),
   userId: z.string(),
-  pwdHash: z.string().optional(),
-  salt: z.string().optional(),
-  isAdmin: z.boolean().optional()
+  pwdHash: z.string().nullable().optional(),
+  salt: z.string().nullable().optional(),
+  isAdmin: z.boolean().nullable().optional()
 }));

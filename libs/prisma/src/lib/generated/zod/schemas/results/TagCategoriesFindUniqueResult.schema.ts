@@ -6,9 +6,9 @@ export const TagCategoriesFindUniqueResultSchema = z.nullable(z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   modelName: z.string(),
-  description: z.string().optional(),
+  description: z.string().nullable().optional(),
   recordId: z.string(),
   TagValues: z.array(z.unknown()).optional()
 }));

@@ -8,5 +8,5 @@ export const TagTranslateUpdateResultSchema = z.nullable(z.object({
   translation: z.string(),
   tagId: z.number().int(),
   tagValue: z.unknown().optional(),
-  description: z.string().optional()
+  description: z.string().nullable().optional()
 }));

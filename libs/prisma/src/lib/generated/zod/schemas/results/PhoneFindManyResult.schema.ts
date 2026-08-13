@@ -9,8 +9,8 @@ export const PhoneFindManyResultSchema = z.object({
   countryCode: z.string(),
   countryIso: z.string(),
   number: z.string(),
-  extension: z.string().optional(),
-  phoneType: z.unknown().optional(),
+  extension: z.string().nullable().optional(),
+  phoneType: z.unknown().nullable().optional(),
   isPrimary: z.boolean()
 })),
   pagination: z.object({

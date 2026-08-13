@@ -1,33 +1,35 @@
 import * as z from 'zod';
-export const UserSecretAggregateResultSchema = z.object({  _count: z.object({
-    id: z.number(),
-    createdAt: z.number(),
-    updatedAt: z.number(),
-    user: z.number(),
-    userId: z.number(),
-    pwdHash: z.number(),
-    salt: z.number(),
-    isAdmin: z.number()
-  }).optional(),
+export const UserSecretAggregateResultSchema = z.object({  _count: z.union([z.number(), z.object({
+    id: z.number().optional(),
+    createdAt: z.number().optional(),
+    updatedAt: z.number().optional(),
+    userId: z.number().optional(),
+    pwdHash: z.number().optional(),
+    salt: z.number().optional(),
+    isAdmin: z.number().optional(),
+    _all: z.number().optional()
+  })]).optional(),
   _sum: z.object({
-    id: z.number().nullable()
+    id: z.number().nullable().optional()
   }).nullable().optional(),
   _avg: z.object({
-    id: z.number().nullable()
+    id: z.number().nullable().optional()
   }).nullable().optional(),
   _min: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    userId: z.string().nullable(),
-    pwdHash: z.string().nullable(),
-    salt: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    userId: z.string().nullable().optional(),
+    pwdHash: z.string().nullable().optional(),
+    salt: z.string().nullable().optional(),
+    isAdmin: z.boolean().nullable().optional()
   }).nullable().optional(),
   _max: z.object({
-    id: z.number().int().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable(),
-    userId: z.string().nullable(),
-    pwdHash: z.string().nullable(),
-    salt: z.string().nullable()
+    id: z.number().int().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional(),
+    userId: z.string().nullable().optional(),
+    pwdHash: z.string().nullable().optional(),
+    salt: z.string().nullable().optional(),
+    isAdmin: z.boolean().nullable().optional()
   }).nullable().optional()});

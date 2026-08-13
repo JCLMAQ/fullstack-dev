@@ -6,7 +6,7 @@ export const OrgDomainFindFirstResultSchema = z.nullable(z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   domainName: z.string(),
   extension: z.string(),
   org: z.unknown().optional(),

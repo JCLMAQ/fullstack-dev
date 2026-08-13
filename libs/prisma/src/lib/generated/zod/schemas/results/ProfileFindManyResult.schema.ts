@@ -7,7 +7,7 @@ export const ProfileFindManyResultSchema = z.object({
   published: z.boolean(),
   isPublic: z.boolean(),
   isDeleted: z.number().int(),
-  isDeletedDT: z.date().optional(),
+  isDeletedDT: z.date().nullable().optional(),
   orderProfile: z.number().int(),
   Users: z.array(z.unknown()).optional(),
   bio: z.string()

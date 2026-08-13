@@ -1,21 +1,20 @@
 import * as z from 'zod';
-export const UserPostLikeLinkAggregateResultSchema = z.object({  _count: z.object({
-    user_id: z.number(),
-    user: z.number(),
-    post_id: z.number(),
-    post: z.number(),
-    createdAt: z.number(),
-    updatedAt: z.number()
-  }).optional(),
+export const UserPostLikeLinkAggregateResultSchema = z.object({  _count: z.union([z.number(), z.object({
+    user_id: z.number().optional(),
+    post_id: z.number().optional(),
+    createdAt: z.number().optional(),
+    updatedAt: z.number().optional(),
+    _all: z.number().optional()
+  })]).optional(),
   _min: z.object({
-    user_id: z.string().nullable(),
-    post_id: z.string().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable()
+    user_id: z.string().nullable().optional(),
+    post_id: z.string().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional()
   }).nullable().optional(),
   _max: z.object({
-    user_id: z.string().nullable(),
-    post_id: z.string().nullable(),
-    createdAt: z.date().nullable(),
-    updatedAt: z.date().nullable()
+    user_id: z.string().nullable().optional(),
+    post_id: z.string().nullable().optional(),
+    createdAt: z.date().nullable().optional(),
+    updatedAt: z.date().nullable().optional()
   }).nullable().optional()});

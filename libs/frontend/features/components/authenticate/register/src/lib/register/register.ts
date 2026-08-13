@@ -114,14 +114,22 @@ export class Register {
       params: (email: ChildFieldContext<string>) => email.value(),
       factory: (params: Signal<string | undefined>) =>
         resource({
-          // 👇 Params contains the `email` signal and is used to trigger the resource
           params,
-          // the loader makes an HTTP call to check if the email is already registered
-          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) =>
-            // returns true if the email is already registered
-            await this._authService.emailCheck(loaderParams.params)
+          loader: async (loaderParams: ResourceLoaderParams<string | undefined>) => {
+            if (!loaderParams.params || !loaderParams.params.includes('@')) {
+              return false;
+            }
+
+            try {
+              return await this._authService.emailCheck(loaderParams.params);
+            } catch (error) {
+              if (loaderParams.abortSignal?.aborted) {
+                return false;
+              }
+              throw error;
+            }
+          }
         }),
-        // 👇 This is called with the result of the resource
         onSuccess: (isRegistered: boolean) =>
           isRegistered
             ? {
@@ -129,12 +137,16 @@ export class Register {
                 message: 'REGISTER.emailAlreadyRegistered'
               }
             : undefined,
-        // 👇 This is called if the resource fails
-        onError: () =>
-          ({
+        onError: (error: unknown) => {
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            return undefined;
+          }
+
+          return {
             kind: 'email-check-failed',
             message: 'REGISTER.emailCheckFailed'
-          })
+          };
+        }
     });
   });
 

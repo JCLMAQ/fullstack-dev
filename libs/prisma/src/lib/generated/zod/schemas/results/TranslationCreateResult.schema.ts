@@ -2,7 +2,7 @@ import * as z from 'zod';
 export const TranslationCreateResultSchema = z.object({
   id: z.number().int(),
   text: z.string(),
-  definition: z.string().optional(),
+  definition: z.string().nullable().optional(),
   wordId: z.number().int(),
   word: z.unknown().optional(),
   languageId: z.number().int(),
