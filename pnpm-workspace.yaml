@@ -32,10 +32,10 @@ minimumReleaseAgeExclude:
   - '@tailwindcss/oxide@4.3.1'
   - '@tailwindcss/postcss@4.3.1'
   - tailwindcss@4.3.1
-  - eslint@10.5.0
+  - eslint@10.5.0 || 10.9.0
   - '@dotenvx/dotenvx@1.73.1 || 2.6.0 || 2.19.0'
   - postcss@8.5.17
-  - prisma-zod-generator@3.0.1
+  - prisma-zod-generator@3.0.1 || 3.3.1
   - '@prisma/adapter-pg@7.9.1'
   - '@prisma/client-runtime-utils@7.9.1'
   - '@prisma/client@7.9.1'
