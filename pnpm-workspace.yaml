@@ -51,3 +51,10 @@ minimumReleaseAgeExclude:
   - '@angular/cdk@22.1.2'
   - '@angular/material@22.1.2'
   - '@angular/youtube-player@22.1.2'
+  - '@otplib/core@13.5.0'
+  - '@otplib/hotp@13.5.0'
+  - '@otplib/plugin-base32-scure@13.5.0'
+  - '@otplib/plugin-crypto-noble@13.5.0'
+  - '@otplib/totp@13.5.0'
+  - '@otplib/uri@13.5.0'
+  - otplib@13.5.0

@@ -1,8 +1,8 @@
 
   {
     "/api": {
-    "target": "https://api.dev.localhost",
-    "secure": false,
+    "target": "http://localhost:3000",
+    "secure": true,
     "pathRewrite": {"^/api" : "/api"},
     "logLevel": "debug",
     "changeOrigin": true
