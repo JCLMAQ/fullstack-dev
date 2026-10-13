@@ -1,83 +1,28 @@
 allowBuilds:
-  '@nestjs/core': true
-  '@parcel/watcher': true
+  '@parcel/watcher': false
   '@prisma/engines': true
-  '@scarf/scarf': true
+  '@scarf/scarf': false
   '@swc/core': true
   bcrypt: true
   core-js-pure: true
-  esbuild: true
-  less: true
-  lmdb: true
-  msgpackr-extract: true
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
   nx: true
   prisma: true
   prisma-zod-generator: true
-  sharp: true
-  unrs-resolver: true
-overrides:
-  '@jridgewell/sourcemap-codec': 1.6.0
+  unrs-resolver: false
 minimumReleaseAgeExclude:
-  - '@tailwindcss/node@4.3.1'
-  - '@tailwindcss/oxide-android-arm64@4.3.1'
-  - '@tailwindcss/oxide-darwin-arm64@4.3.1'
-  - '@tailwindcss/oxide-darwin-x64@4.3.1'
-  - '@tailwindcss/oxide-freebsd-x64@4.3.1'
-  - '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.1'
-  - '@tailwindcss/oxide-linux-arm64-gnu@4.3.1'
-  - '@tailwindcss/oxide-linux-arm64-musl@4.3.1'
-  - '@tailwindcss/oxide-linux-x64-gnu@4.3.1'
-  - '@tailwindcss/oxide-linux-x64-musl@4.3.1'
-  - '@tailwindcss/oxide-wasm32-wasi@4.3.1'
-  - '@tailwindcss/oxide-win32-arm64-msvc@4.3.1'
-  - '@tailwindcss/oxide-win32-x64-msvc@4.3.1'
-  - '@tailwindcss/oxide@4.3.1'
-  - '@tailwindcss/postcss@4.3.1'
-  - tailwindcss@4.3.1
-  - eslint@10.5.0 || 10.9.0 || 10.9.1
-  - '@dotenvx/dotenvx@1.73.1 || 2.6.0 || 2.19.0'
-  - postcss@8.5.17 || 8.5.30
-  - prisma-zod-generator@3.0.1 || 3.3.1
-  - '@prisma/adapter-pg@7.9.1'
-  - '@prisma/client-runtime-utils@7.9.1'
-  - '@prisma/client@7.9.1'
-  - '@prisma/config@7.9.1'
-  - '@prisma/debug@7.9.1'
-  - '@prisma/dev@0.24.17'
-  - '@prisma/driver-adapter-utils@7.9.1'
-  - '@prisma/engines@7.9.1'
-  - '@prisma/fetch-engine@7.9.1'
-  - '@prisma/get-platform@7.9.1'
-  - prisma@7.9.1
-  - eslint-plugin-playwright@2.11.0
-  - '@angular/cdk@22.1.2'
-  - '@angular/material@22.1.2'
-  - '@angular/youtube-player@22.1.2'
-  - '@otplib/core@13.5.0'
-  - '@otplib/hotp@13.5.0'
-  - '@otplib/plugin-base32-scure@13.5.0'
-  - '@otplib/plugin-crypto-noble@13.5.0'
-  - '@otplib/totp@13.5.0'
-  - '@otplib/uri@13.5.0'
-  - otplib@13.5.0
-  - '@nestjs/common@11.2.3'
-  - '@nestjs/core@11.2.3'
-  - '@nestjs/platform-express@11.2.3'
-  - '@nestjs/testing@11.2.3'
-  - '@ngrx/eslint-plugin@22.0.0'
-  - '@ngrx/schematics@22.0.0'
-  - '@ngrx/signals@22.0.0'
-  - '@types/node@26.3.0'
-  - '@typescript-eslint/eslint-plugin@8.68.0 || 8.71.2'
-  - '@typescript-eslint/parser@8.68.0 || 8.71.2'
-  - '@typescript-eslint/project-service@8.68.0 || 8.71.2'
-  - '@typescript-eslint/scope-manager@8.68.0 || 8.71.2'
-  - '@typescript-eslint/tsconfig-utils@8.68.0 || 8.71.2'
-  - '@typescript-eslint/type-utils@8.68.0 || 8.71.2'
-  - '@typescript-eslint/types@8.68.0 || 8.71.2'
-  - '@typescript-eslint/typescript-estree@8.68.0 || 8.71.2'
-  - '@typescript-eslint/utils@8.68.0 || 8.71.2'
-  - '@typescript-eslint/visitor-keys@8.68.0 || 8.71.2'
-  - portless@0.15.6
-  - typescript-eslint@8.68.0 || 8.71.2
+  - '@typescript-eslint/eslint-plugin@8.71.2'
+  - '@typescript-eslint/parser@8.71.2'
+  - '@typescript-eslint/project-service@8.71.2'
+  - '@typescript-eslint/scope-manager@8.71.2'
+  - '@typescript-eslint/tsconfig-utils@8.71.2'
+  - '@typescript-eslint/type-utils@8.71.2'
+  - '@typescript-eslint/types@8.71.2'
+  - '@typescript-eslint/typescript-estree@8.71.2'
+  - '@typescript-eslint/utils@8.71.2'
+  - '@typescript-eslint/visitor-keys@8.71.2'
+  - postcss@8.5.30
+  - typescript-eslint@8.71.2
   - zod@4.6.7
