@@ -29,7 +29,7 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
   *** Sending Email
   */
 
-  async sendEmailToken(emailData: emailData): Promise<boolean> {
+  async sendEmailToken(emailData: emailData): Promise<nodemailer.SentMessageInfo> {
     console.log('\n📮 [SEND EMAIL TOKEN] ===== Building transporter =====');
     // Step 1: buildup the transporter - connexion to the SMTP
         // Connexion - transporter data: EMAIL_HOST, EMAIL_PORT, EMAIL_NOREPLY, EMAIL_NOREPLY_PWD
@@ -70,18 +70,15 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
     // Step 3: Sending email
         console.log('📮 [SEND EMAIL TOKEN] Sending email...');
-        const sendMail = await new Promise<boolean>(function (resolve, reject) {
-            return transporter.sendMail(mailDetails, function (err, info: nodemailer.SentMessageInfo) {
-                if (err) {
-                  console.error('❌ [SEND EMAIL TOKEN] Error:', err);
-                  return reject(false);
-                }
-                console.log('✅ [SEND EMAIL TOKEN] Success! Info:', info);
-                return resolve(info);
-            });
-        });
-        console.log('📮 [SEND EMAIL TOKEN] Final result:', sendMail);
-        return sendMail;
+        try {
+          const info = await transporter.sendMail(mailDetails);
+          console.log('✅ [SEND EMAIL TOKEN] Success! Info:', info);
+          console.log('📮 [SEND EMAIL TOKEN] Final result:', info);
+          return info;
+        } catch (error) {
+          console.error('❌ [SEND EMAIL TOKEN] Error:', error);
+          throw error;
+        }
   }
 
   /*

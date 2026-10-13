@@ -15,6 +15,8 @@ allowBuilds:
   prisma-zod-generator: true
   sharp: true
   unrs-resolver: true
+overrides:
+  '@jridgewell/sourcemap-codec': 1.6.0
 minimumReleaseAgeExclude:
   - '@tailwindcss/node@4.3.1'
   - '@tailwindcss/oxide-android-arm64@4.3.1'
@@ -34,7 +36,7 @@ minimumReleaseAgeExclude:
   - tailwindcss@4.3.1
   - eslint@10.5.0 || 10.9.0 || 10.9.1
   - '@dotenvx/dotenvx@1.73.1 || 2.6.0 || 2.19.0'
-  - postcss@8.5.17
+  - postcss@8.5.17 || 8.5.30
   - prisma-zod-generator@3.0.1 || 3.3.1
   - '@prisma/adapter-pg@7.9.1'
   - '@prisma/client-runtime-utils@7.9.1'
@@ -66,15 +68,16 @@ minimumReleaseAgeExclude:
   - '@ngrx/schematics@22.0.0'
   - '@ngrx/signals@22.0.0'
   - '@types/node@26.3.0'
-  - '@typescript-eslint/eslint-plugin@8.68.0'
-  - '@typescript-eslint/parser@8.68.0'
-  - '@typescript-eslint/project-service@8.68.0'
-  - '@typescript-eslint/scope-manager@8.68.0'
-  - '@typescript-eslint/tsconfig-utils@8.68.0'
-  - '@typescript-eslint/type-utils@8.68.0'
-  - '@typescript-eslint/types@8.68.0'
-  - '@typescript-eslint/typescript-estree@8.68.0'
-  - '@typescript-eslint/utils@8.68.0'
-  - '@typescript-eslint/visitor-keys@8.68.0'
+  - '@typescript-eslint/eslint-plugin@8.68.0 || 8.71.2'
+  - '@typescript-eslint/parser@8.68.0 || 8.71.2'
+  - '@typescript-eslint/project-service@8.68.0 || 8.71.2'
+  - '@typescript-eslint/scope-manager@8.68.0 || 8.71.2'
+  - '@typescript-eslint/tsconfig-utils@8.68.0 || 8.71.2'
+  - '@typescript-eslint/type-utils@8.68.0 || 8.71.2'
+  - '@typescript-eslint/types@8.68.0 || 8.71.2'
+  - '@typescript-eslint/typescript-estree@8.68.0 || 8.71.2'
+  - '@typescript-eslint/utils@8.68.0 || 8.71.2'
+  - '@typescript-eslint/visitor-keys@8.68.0 || 8.71.2'
   - portless@0.15.6
-  - typescript-eslint@8.68.0
+  - typescript-eslint@8.68.0 || 8.71.2
+  - zod@4.6.7
