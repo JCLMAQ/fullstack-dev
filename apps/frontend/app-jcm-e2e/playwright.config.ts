@@ -11,7 +11,7 @@ process.env.TS_NODE_COMPILER_OPTIONS = JSON.stringify({
   skipLibCheck: true,
 });
 
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+const baseURL = process.env['BASE_URL'] || 'http://localhost:4000';
 
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
@@ -23,7 +23,7 @@ export default defineConfig({
   },
 
   webServer: {
-    command: 'pnpm nx serve app-jcm',
+    command: 'pnpm nx serve frontend/app-jcm',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,

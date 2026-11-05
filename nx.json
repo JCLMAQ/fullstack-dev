@@ -32,50 +32,29 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "@nx/eslint:lint": {
-      "cache": true,
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ]
-    },
-    "@nx/jest:jest": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
+    "test": [
+      {
+        "filter": {
+          "plugin": "@nx/jest/plugin"
+        },
+        "configurations": {
+          "ci": {
+            "ci": true,
+            "coverage": true
+          }
+        },
+        "options": {
+          "passWithNoTests": true
         }
       }
-    },
-    "@nx/playwright:playwright": {
-      "cache": false,
-      "inputs": ["default", "^production"],
-      "options": {
-        "skipServe": false
-      }
-    }
+    ]
   },
   "plugins": [
     {
       "plugin": "@nx/playwright/plugin",
-      "exclude": ["apps/frontend/app-jcm-e2e/**/*"],
+      "include": ["apps/frontend/app-jcm-e2e/**/*"],
       "options": {
         "targetName": "e2e"
-      }
-    },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
       }
     },
     {
@@ -94,6 +73,79 @@
         "watchDepsTargetName": "watch-deps",
         "serveStaticTargetName": "serve-static"
       }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": [
+        "apps/backend/nest-app/**/*",
+        "apps/frontend/app-jcm/**/*",
+        "libs/backend/common/**/*",
+        "libs/backend/data-access/address/**/*",
+        "libs/backend/data-access/appEmailDomains/**/*",
+        "libs/backend/data-access/categories/**/*",
+        "libs/backend/data-access/comments/**/*",
+        "libs/backend/data-access/configParams/**/*",
+        "libs/backend/data-access/dictionaries/**/*",
+        "libs/backend/data-access/files/**/*",
+        "libs/backend/data-access/groups/**/*",
+        "libs/backend/data-access/images/**/*",
+        "libs/backend/data-access/languages/**/*",
+        "libs/backend/data-access/orgDomains/**/*",
+        "libs/backend/data-access/orgEmailUseTos/**/*",
+        "libs/backend/data-access/orgEmails/**/*",
+        "libs/backend/data-access/organizations/**/*",
+        "libs/backend/data-access/phones/**/*",
+        "libs/backend/data-access/postLikes/**/*",
+        "libs/backend/data-access/posts/**/*",
+        "libs/backend/data-access/profiles/**/*",
+        "libs/backend/data-access/stories/**/*",
+        "libs/backend/data-access/tags/**/*",
+        "libs/backend/data-access/tasks/**/*",
+        "libs/backend/data-access/todos/**/*",
+        "libs/backend/data-access/translations/**/*",
+        "libs/backend/data-access/userFollowers/**/*",
+        "libs/backend/data-access/users/**/*",
+        "libs/backend/data-access/words/**/*",
+        "libs/backend/files-jcm/**/*",
+        "libs/backend/iam/**/*",
+        "libs/backend/prisma-client/**/*",
+        "libs/backend/utilities/changestracking/**/*",
+        "libs/backend/utilities/db-config/**/*",
+        "libs/backend/utilities/exception-filter/**/*",
+        "libs/backend/utilities/files-utilities/**/*",
+        "libs/backend/utilities/mails/**/*",
+        "libs/backend/utilities/time-util/**/*",
+        "libs/frontend/core/auth/**/*",
+        "libs/frontend/core/layout/**/*",
+        "libs/frontend/core/pages/**/*",
+        "libs/frontend/core/services/**/*",
+        "libs/frontend/core/shared/**/*",
+        "libs/frontend/domains/comment/**/*",
+        "libs/frontend/domains/post/**/*",
+        "libs/frontend/domains/task/**/*",
+        "libs/frontend/domains/todo/**/*",
+        "libs/frontend/domains/user/**/*",
+        "libs/frontend/features/components/address/address-form/**/*",
+        "libs/frontend/features/components/dictionary/**/*",
+        "libs/frontend/features/components/phone/**/*",
+        "libs/frontend/features/components/star-rating/**/*",
+        "libs/frontend/features/components/tag/**/*",
+        "libs/frontend/features/components/toast-container/**/*",
+        "libs/frontend/features/utils/directives/**/*",
+        "libs/frontend/models/**/*",
+        "libs/frontend/stores/**/*",
+        "libs/frontend/token/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "e2e"
+      },
+      "include": ["apps/backend/nest-app-e2e/**/*"]
     }
   ],
   "generators": {
@@ -111,5 +163,8 @@
       "style": "scss"
     }
   },
-  "analytics": false
+  "analytics": false,
+  "affected": {
+    "legacy": true
+  }
 }

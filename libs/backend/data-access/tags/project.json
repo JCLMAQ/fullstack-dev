@@ -4,13 +4,6 @@
   "sourceRoot": "libs/backend/data-access/tags/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/backend/data-access/tags/jest.config.cts"
-      }
-    }
-  }
+  "// targets": "to see all targets run: nx show project tags --web",
+  "targets": {}
 }

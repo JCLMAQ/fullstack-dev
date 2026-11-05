@@ -5,13 +5,20 @@
   "implicitDependencies": ["nest-app"],
   "targets": {
     "e2e": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{e2eProjectRoot}",
+        "{workspaceRoot}/coverage/nest-app-e2e"
+      ],
+      "dependsOn": ["nest-app:build", "nest-app:serve"],
       "options": {
-        "jestConfig": "apps/backend/nest-app-e2e/jest.config.ts",
         "passWithNoTests": true
       },
-      "dependsOn": ["nest-app:build", "nest-app:serve"]
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        }
+      }
     }
   }
 }
