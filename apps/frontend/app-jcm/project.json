@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/frontend/app-jcm",
@@ -93,7 +95,9 @@
         "{workspaceRoot}/eslint.config.mjs",
         "{workspaceRoot}/tools/eslint-rules/**/*",
         {
-          "externalDependencies": ["eslint"]
+          "externalDependencies": [
+            "eslint"
+          ]
         }
       ]
     },
@@ -103,7 +107,9 @@
       "readyWhen": {
         "signal": true
       },
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "buildTarget": "frontend/app-jcm:build",
         "port": 4000,
