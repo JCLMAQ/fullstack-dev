@@ -7,6 +7,12 @@ export default [
   ...nx.configs['flat/angular-template'],
   {
     files: ['**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.lib.json', './tsconfig.spec.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
     rules: {
       '@angular-eslint/directive-selector': [
         'error',

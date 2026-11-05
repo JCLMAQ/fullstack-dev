@@ -2,6 +2,13 @@
 @use "tailwindcss";
 
 @theme {
+  --color-primary: var(--mat-sys-primary);
+  --color-primary-container: var(--mat-sys-primary-container);
+  --color-on-primary-container: var(--mat-sys-on-primary-container);
+  --color-on-surface-variant: var(--mat-sys-on-surface-variant);
+  --color-inverse-surface: var(--mat-sys-inverse-surface);
+  --color-surface-container: var(--mat-sys-surface-container);
+  --color-surface-container-high: var(--mat-sys-surface-container-high);
   --default-transition-duration: 150ms;
   --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

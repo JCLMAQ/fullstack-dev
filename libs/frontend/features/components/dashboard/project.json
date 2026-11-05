@@ -1,7 +1,7 @@
 {
   "name": "dashboard",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/shared/components/dashboard/src",
+  "sourceRoot": "libs/frontend/features/components/dashboard/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -12,7 +12,7 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "command": "jest --config ./libs/frontend/shared/components/dashboard/jest.config.ts",
+        "command": "jest --config ./libs/frontend/features/components/dashboard/jest.config.ts",
         "cwd": ".",
         "env": {
           "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node10\",\"module\":\"commonjs\",\"customConditions\":null}"
