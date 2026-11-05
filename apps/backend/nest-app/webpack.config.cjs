@@ -20,6 +20,10 @@ module.exports = {
       outputFileName: 'main.js',
       generatePackageJson: true,
       sourceMaps: true,
+
+  // Ne pas bundler les packages npm
+      externalDependencies: 'all',
+
     }),
   ],
   externals: {
