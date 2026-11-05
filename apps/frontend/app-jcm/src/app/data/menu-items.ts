@@ -48,6 +48,11 @@
     route: 'dictionary',
   },
   {
+    icon: 'storefront',
+    label: 'SideNavMenu.Shop',
+    route: 'shop',
+  },
+  {
     icon: 'dashboard',
     label: 'SideNavMenu.Dashboard',
     route: 'dashboard',

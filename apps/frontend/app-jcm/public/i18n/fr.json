@@ -65,6 +65,7 @@
       "text": "Ceci est une application simple de translation avec ngx-translate"
     },
     "SideNavMenu": {
+    "Shop": "Boutique",
       "About": "A propos de",
       "Dashboard": "Dashboard",
       "Home": "Acceuil",

@@ -44,6 +44,10 @@ children: [
         loadChildren: () => import('@fe/dictionary').then((m) => m.dictionaryRoutes),
       },
       {
+        path: 'shop',
+        loadChildren: () => import('@fe/shop').then(m => m.shopRoutes),
+      },
+      {
         path: 'dashboard',
         loadChildren: () =>
           import('@fe/dashboard').then((m) => m.dashboardRoutes),

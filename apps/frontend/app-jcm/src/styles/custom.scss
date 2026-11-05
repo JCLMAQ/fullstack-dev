@@ -10,3 +10,15 @@
 }
 
 
+
+// E-commerce styles scoped to the embedded feature.
+lib-shop {
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+    gap: 1rem;
+  }
+  .elevated { box-shadow: var(--mat-sys-level2); }
+  .danger { color: var(--mat-sys-error); }
+  mat-form-field { width: 100%; }
+}
