@@ -33,7 +33,7 @@ import { WordsModule } from '@be/words';
 import { PrismaClientModule } from '@db/prisma-client';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MulterModule } from '@nestjs/platform-express/multer';
+import { MulterModule } from '@nestjs/platform-express';
 import { ClsModule } from 'nestjs-cls';
 import { AcceptLanguageResolver, HeaderResolver, I18nJsonLoader, I18nModule, QueryResolver } from 'nestjs-i18n';
 import path from 'path';
