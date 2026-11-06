@@ -49,3 +49,6 @@ minimumReleaseAgeExclude:
   - '@swc/core-win32-ia32-msvc@1.16.22'
   - '@swc/core-win32-x64-msvc@1.16.22'
   - '@swc/core@1.16.22'
+  - '@playwright/test@1.65.0'
+  - playwright-core@1.65.0
+  - playwright@1.65.0
