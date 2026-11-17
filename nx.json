@@ -166,5 +166,8 @@
   "analytics": false,
   "affected": {
     "legacy": true
+  },
+  "migrate": {
+    "agentic": true
   }
 }
