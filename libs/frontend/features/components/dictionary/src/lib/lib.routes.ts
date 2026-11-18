@@ -1,7 +1,8 @@
 import { Route } from '@angular/router';
 import { isUserAuthenticated } from '@fe/core/auth';
-import { DictionaryTable } from './dictionary-table/dictionary-table';
-import { Dictionary } from './dictionary/dictionary';
+const loadDictionary = () => import('./dictionary/dictionary').then(({ Dictionary }) => Dictionary);
+const loadDictionaryTable = () =>
+  import('./dictionary-table/dictionary-table').then(({ DictionaryTable }) => DictionaryTable);
 
 
 
@@ -11,10 +12,10 @@ export const dictionaryRoutes: Route[] = [
     canActivate: [isUserAuthenticated],
    // Store partagé pour toutes les routes enfants
     children: [
-      { path: '', component: DictionaryTable },
-      { path: 'list', component: Dictionary },
-      { path: 'dictionary', component: Dictionary },
-      { path: 'dictionarytable', component: DictionaryTable },
+      { path: '', loadComponent: loadDictionaryTable },
+      { path: 'list', loadComponent: loadDictionary },
+      { path: 'dictionary', loadComponent: loadDictionary },
+      { path: 'dictionarytable', loadComponent: loadDictionaryTable },
 
     ]
   },

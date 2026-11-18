@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { TagWithRelations } from '@db/prisma';
 import { Test } from '@nestjs/testing';
 import { CreateTagDto } from './dto/tag.dto';

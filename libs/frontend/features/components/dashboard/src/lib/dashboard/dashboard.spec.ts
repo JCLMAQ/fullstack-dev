@@ -1,10 +1,11 @@
+import { jest } from '@jest/globals';
 import { TestBed } from '@angular/core/testing';
-import { Dashboard } from './dashboard';
 
-jest.mock('chart.js/auto', () => ({
-  __esModule: true,
+jest.unstable_mockModule('chart.js/auto', () => ({
   default: Object.assign(jest.fn(() => ({ destroy: jest.fn() })), { defaults: {} }),
 }));
+
+const { Dashboard } = await import('./dashboard');
 
 describe('Dashboard integration', () => {
   it('renders the persisted widgets and releases the grid observer on destroy', async () => {

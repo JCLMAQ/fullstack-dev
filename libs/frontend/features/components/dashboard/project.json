@@ -15,6 +15,7 @@
         "command": "jest --config ./libs/frontend/features/components/dashboard/jest.config.ts",
         "cwd": ".",
         "env": {
+          "NODE_OPTIONS": "--experimental-vm-modules",
           "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node10\",\"module\":\"commonjs\",\"customConditions\":null}"
         },
         "passWithNoTests": true

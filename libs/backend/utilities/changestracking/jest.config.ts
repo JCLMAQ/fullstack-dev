@@ -1,11 +1,10 @@
 export default {
   displayName: 'changestracking',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../jest.node.preset.js',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+    '^.+\\.[tj]s$': ['ts-jest', { useESM: true, tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory:
     '../../../../coverage/libs/backend/utilities/changestracking',
 };

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { TestBed } from '@angular/core/testing';
 import {
   PhoneNumberFormat,
@@ -5,7 +6,7 @@ import {
   PhoneNumberUtil
 } from 'google-libphonenumber';
 import { CountryCode, CountryData } from '../../../data/country-code';
-import { CountryISO } from '../../../enums/country-iso.enum';
+import { CountryISO } from '../../enums/country-iso.enum';
 import { Country } from '../../../types/country.model';
 import { CountryDataService } from './country-data.service';
 

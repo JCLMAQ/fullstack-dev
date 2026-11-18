@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { PhoneNumberType, PhoneNumberUtil } from 'google-libphonenumber';
 import {
   getMaxPhoneNumberLength,

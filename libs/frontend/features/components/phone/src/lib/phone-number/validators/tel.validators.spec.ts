@@ -1,14 +1,16 @@
+import { jest } from '@jest/globals';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PhoneNumberFormat } from 'google-libphonenumber';
-import { CountryISO } from '../../enums/country-iso.enum';
+import { CountryISO } from '../enums/country-iso.enum';
 import { Country } from '../types/country.model';
-import * as phoneNumberUtils from '../utils/phone-number.utils';
-import TelValidators from './tel.validators';
 
 // Mock the phone number utils
-jest.mock('../utils/phone-number.utils', () => ({
+jest.unstable_mockModule('../utils/phone-number.utils', () => ({
   isValidPhoneNumberLength: jest.fn()
 }));
+
+const phoneNumberUtils = await import('../utils/phone-number.utils');
+const { default: TelValidators } = await import('./tel.validators');
 
 describe('TelValidators', () => {
   let mockAllCountries: Country[];

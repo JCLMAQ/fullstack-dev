@@ -12,9 +12,10 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "command": "jest --config ./libs/frontend/shared-misc/components/carousel/jest.config.cts",
+        "command": "jest --config ./libs/frontend/features/components/carousel/jest.config.cts",
         "cwd": ".",
         "env": {
+          "NODE_OPTIONS": "--experimental-vm-modules",
           "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node10\",\"module\":\"commonjs\",\"customConditions\":null}"
         },
         "passWithNoTests": true
