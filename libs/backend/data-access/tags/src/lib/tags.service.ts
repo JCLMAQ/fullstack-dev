@@ -172,22 +172,21 @@ export class TagsService {
 	}
 
 	private async replaceTranslations(tagId: number, translations: TagTranslationDto[]): Promise<void> {
-		const operations: Prisma.PrismaPromise<unknown>[] = [
-			this.prisma.tagTranslate.deleteMany({ where: { tagId } }),
-		];
-
-		if (translations.length) {
-			operations.push(
-				this.prisma.tagTranslate.createMany({
-					data: translations.map((translation) => ({
-						...translation,
+		const db = await this.prisma.getPrisma8();
+		await db.transaction(async (tx) => {
+			const tagTranslations = tx.orm.public.TagTranslate;
+			await tagTranslations.where({ tagId }).deleteAndCount();
+			if (translations.length) {
+				await tagTranslations.createAndCount(
+					translations.map(({ languageId, translation, description }) => ({
 						tagId,
-					})),
-				})
-			);
-		}
-
-		await this.prisma.$transaction(operations);
+						languageId,
+						translation,
+						description,
+					}))
+				);
+			}
+		});
 	}
 
 	private buildTagListItem(tag: Prisma.TagValueGetPayload<{ include: typeof TAG_LIST_INCLUDE }>): TagListItem {

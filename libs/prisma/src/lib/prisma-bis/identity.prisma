@@ -1,0 +1,248 @@
+enum Gender {
+  MALE
+  FEMELE
+  UNKNOWN
+  NONE
+}
+
+enum Title {
+  Mr
+  Mme
+  Dct
+}
+
+enum Position {
+  Manager
+  Member
+  Individual
+  Secretary
+}
+
+enum PhoneType {
+  Mobile
+  Home
+  Work
+  Organisation
+  Other
+}
+
+enum AddressType {
+  Home
+  Work
+  Organisation
+  Other
+}
+
+enum Role {
+  GUEST
+  USER
+  ADMIN
+  SUPERADMIN
+  REGULAR
+}
+
+enum PermissionClaim {
+  CreateCoffee
+  UpdateCoffee
+  DeleteCoffee
+}
+
+enum TokenType {
+  EMAIL
+  API
+  FORGOT
+  ACCOUNT
+  REFREZH
+}
+
+model User {
+  id                    String    @id() @default(uuid(7))
+  numSeq                Int       @default(autoincrement())
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @default(now()) @updatedAt()
+  published             Boolean?  @default(false)
+  isPublic              Boolean?  @default(true)
+  deletedAt             DateTime? @map("isDeletedDT")
+  email                 String    @unique()
+  lastName              String?
+  firstName             String?
+  title                 Title?
+  nickName              String?
+  Gender                Gender?   @default(UNKNOWN)
+  social                Json?     @db.Json()
+  Language              Language? @relation(fields: [languageId], references: [id])
+  languageId            Int?
+  photoUrl              String?
+  dateOfBirth           DateTime?
+  hasEmergencyContact   Boolean   @default(false)
+  emergencyContactName  String?
+  emergencyContactPhone String?
+
+  position   Position? @default(Individual)
+  preference Json?     @db.Json()
+  jobTitle   String?
+
+  isValidated DateTime?
+  isSuspended DateTime?
+
+  Address     Address[]
+  Phones      Phone[]
+  Orgs        Organization[]
+  manager     User?          @relation("ManagerTeams", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  managerId   String?
+  Team        User[]         @relation("ManagerTeams")
+  Profiles    Profile[]      @relation("UsersProfiles")
+  Groups      Group[]        @relation("GroupOwner")
+  Posts       Post[]
+  Comments    Comment[]
+  Stories     Story[]
+  Todo        UserTodoLink[]
+  TodosAuthor Todo[]
+  Tasks       UserTaskLink[]
+  TasksAuthor Task[]
+
+  // File relations
+  ownedFiles    File[] @relation("FilesOwned")
+  uploadedFiles File[] @relation("FilesUploaded")
+  profileFiles  File[] @relation("UserProfileFiles")
+
+  ChangesLogs   ChangesTracking[]
+  Roles         Role[]
+  Permissions   PermissionClaim[]
+  Tokens        Token[]
+  ApiKeys       ApiKey[]
+  isTfaEnable   Boolean            @default(false)
+  tfaSecret     String?
+  userSecret    UserSecret?
+  Followers     UserFollowerLink[] @relation("followers")
+  Followings    UserFollowerLink[] @relation("followings")
+  posts_liked   UserPostLikeLink[]
+  passWordFaker String?
+
+  // Image relations
+  associatedImages Image[] @relation("UserAssociatedImages")
+  uploadedImages   Image[] @relation("ImageUploads")
+  profileImages    Image[] @relation("UserProfileImages")
+  group            Group?  @relation(fields: [groupId], references: [id])
+  groupId          Int?
+}
+
+model Phone {
+  id          Int        @id() @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now()) @updatedAt()
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  countryCode String
+  countryIso  String
+  number      String
+  extension   String?
+  phoneType   PhoneType? @default(Mobile)
+  isPrimary   Boolean    @default(false)
+}
+
+model Address {
+  id          Int          @id() @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt()
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  street      String
+  buildingNum String
+  aptNum      String
+  city        String
+  state       String
+  zipCode     String
+  country     String
+  countryIso  String
+  addressType AddressType? @default(Home)
+  isPrimary   Boolean      @default(false)
+}
+
+model UserSecret {
+  id        Int      @id() @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt()
+  user      User     @relation(fields: [userId], references: [email], onDelete: Cascade)
+  userId    String   @unique()
+  pwdHash   String?
+  salt      String?
+  isAdmin   Boolean? @default(false)
+}
+
+model Profile {
+  id           Int       @id() @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt()
+  published    Boolean   @default(true)
+  isPublic     Boolean   @default(true)
+  deletedAt    DateTime? @map("isDeletedDT")
+  orderProfile Int
+  Users        User[]    @relation("UsersProfiles")
+  bio          String
+}
+
+model RefreshToken {
+  id        Int       @id() @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+  userId    String    @unique()
+  tokenId   String    @unique()
+}
+
+model ApiKey {
+  id        Int       @id() @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+  key       String
+  uuid      String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  Scopes    Scope[]   @relation("apikeysscopes")
+}
+
+model Scope {
+  id        Int       @id() @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+  scope     String
+  ApiKey    ApiKey[]  @relation("apikeysscopes")
+}
+
+model Token {
+  id         Int       @id() @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt()
+  published  Boolean   @default(true)
+  isPublic   Boolean   @default(true)
+  deletedAt  DateTime? @map("isDeletedDT")
+  tokenId    String?   @unique()
+  type       TokenType
+  emailToken String?   @unique()
+  valid      Boolean   @default(true)
+  expiration DateTime
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+}
+
+model AccountValidation {
+  id          String    @id() @default(uuid(7))
+  numSeq      Int       @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt()
+  published   Boolean?  @default(false)
+  isPublic    Boolean?  @default(true)
+  deletedAt   DateTime? @map("isDeletedDT")
+  isValidated Boolean   @default(false)
+  emailToken  String    @unique()
+  timeStamp   DateTime
+}

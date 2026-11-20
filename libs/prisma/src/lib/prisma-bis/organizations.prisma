@@ -1,0 +1,129 @@
+model Organization {
+  id           String         @id() @default(uuid(7))
+  numSeq       Int            @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt()
+  published    Boolean?       @default(false)
+  isPublic     Boolean?       @default(true)
+  deletedAt    DateTime?      @map("isDeletedDT")
+  name         String         @unique()
+  description  String?
+  address      Json?          @db.Json()
+  emailITAdmin String
+  webSite      String?
+  OrgEmails    OrgEmail[]     @relation("OrgEmails")
+  OrgDomains   OrgDomain[]    @relation("OrgDomains")
+  mainOrg      Organization?  @relation("OrgSelfRelation", fields: [mainOrgId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  mainOrgId    String?
+  OrgEntity    Organization[] @relation("OrgSelfRelation")
+  Members      User[]
+  Posts        Post[]
+  Groups       Group[]
+  Files        File[]         @relation("OrganizationFiles")
+  Tasks        Task[]
+  Todos        Todo[]
+  Images       Image[]        @relation("OrgImages")
+}
+
+model OrgEmail {
+  id             Int             @id() @default(autoincrement())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now()) @updatedAt()
+  published      Boolean         @default(true)
+  isPublic       Boolean         @default(true)
+  deletedAt      DateTime?       @map("isDeletedDT")
+  email          String
+  description    String?
+  org            Organization?   @relation("OrgEmails", fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orgId          String
+  OrgEmailUseTos OrgEmailUseTo[]
+}
+
+model OrgDomain {
+  id         Int           @id() @default(autoincrement())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @default(now()) @updatedAt()
+  published  Boolean       @default(true)
+  isPublic   Boolean       @default(true)
+  deletedAt  DateTime?     @map("isDeletedDT")
+  domainName String
+  extension  String
+  org        Organization? @relation("OrgDomains", fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orgId      String
+}
+
+model Group {
+  id          Int          @id() @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt()
+  published   Boolean      @default(true)
+  isPublic    Boolean      @default(true)
+  deletedAt   DateTime?    @map("isDeletedDT")
+  orderGroup  Int
+  name        String
+  description String?
+  owner       User         @relation("GroupOwner", fields: [ownerId], references: [id])
+  ownerId     String
+  isActiv     DateTime?
+  Members     User[]
+  Tasks       Task[]
+  Todos       Todo[]
+  Posts       Post[]
+  Files       File[]
+  org         Organization @relation(fields: [orgId], references: [id])
+  orgId       String
+  Tags        TagValue[]   @relation("GroupTags")
+}
+
+model ConfigParam {
+  id        Int       @id() @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+  name      String    @unique()
+  value     String
+  utility   String
+}
+
+model OrgEmailUseTo {
+  id         Int       @id() @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt()
+  published  Boolean   @default(true)
+  isPublic   Boolean   @default(true)
+  deletedAt  DateTime? @map("isDeletedDT")
+  useTo      String
+  isActiv    Boolean
+  emailOrg   OrgEmail  @relation(fields: [emailOrgId], references: [id])
+  emailOrgId Int
+}
+
+model AppEmailDomain {
+  id        Int       @id() @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+  domain    String    @unique()
+  allowed   Boolean
+}
+
+model ChangesTracking {
+  id           Int       @id() @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt()
+  published    Boolean   @default(true)
+  isPublic     Boolean   @default(true)
+  deletedAt    DateTime? @map("isDeletedDT")
+  doneAt       DateTime  @default(now())
+  modifiedBy   User      @relation(fields: [modifiedById], references: [id])
+  modifiedById String
+  modelName    String
+  recordId     String
+  operation    String
+  newData      Json
+  oldData      Json
+}

@@ -1,0 +1,92 @@
+model Language {
+  id            Int            @id @default(autoincrement())
+  code          String         @unique // e.g., "en", "es", "fr"
+  name          String // e.g., "English", "Spanish"
+  translations  Translation[]
+  users         User[]
+  tagTranslates TagTranslate[]
+}
+
+model Word {
+  id           Int             @id @default(autoincrement())
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt()
+  published    Boolean?        @default(false)
+  isPublic     Boolean?        @default(true)
+  deletedAt    DateTime?       @map("isDeletedDT")
+  slug         String          @unique // A unique identifier like "apple-fruit"
+  type         DictioEntryType @default(WORD)
+  translations Translation[]
+}
+
+model Translation {
+  id         Int      @id @default(autoincrement())
+  text       String // The word in the specific language - Can be "Apple" or "The apple is on the table."
+  definition String? // Optional definition/description
+  // Relations
+  wordId     Int
+  word       Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  languageId Int
+  language   Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  // @@fulltext([text]) // Optimization: Allow searching for specific words within the sentence - not supported with Postgres
+
+  // Ensure one translation per word per language
+  @@unique([wordId, languageId])
+}
+
+enum DictioEntryType {
+  WORD
+  PHRASE
+  SENTENCE
+  IDIOM
+  TAG
+}
+
+model TagValue {
+  id              Int            @id() @default(autoincrement())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @default(now()) @updatedAt()
+  published       Boolean        @default(true)
+  isPublic        Boolean        @default(true)
+  deletedAt       DateTime?      @map("isDeletedDT")
+  name            String         @unique()
+  position        Int            @default(0) // Position in the list of tags  value for ordering
+  color           String? // Optional color code for UI representation
+  tagCategories   TagCategories  @relation(fields: [tagCategoriesId], references: [id])
+  tagCategoriesId Int
+  mainTag         TagValue?      @relation("MainSubTag", fields: [mainTagId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mainTagId       Int?           @map("mainTag")
+  SubTags         TagValue[]     @relation("MainSubTag")
+  tagTranslates   TagTranslate[]
+
+  Todos  Todo[]  @relation("TodoTags")
+  Tasks  Task[]  @relation("TaskTags")
+  Groups Group[] @relation("GroupTags")
+  Posts  Post[]  @relation("PostTags")
+  Files  File[]  @relation("FilesTags")
+}
+
+model TagCategories {
+  id          Int        @id() @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now()) @updatedAt()
+  published   Boolean    @default(true)
+  isPublic    Boolean    @default(true)
+  deletedAt   DateTime?  @map("isDeletedDT")
+  modelName   String
+  description String?
+  recordId    String
+  TagValues   TagValue[]
+}
+
+model TagTranslate {
+  id          Int      @id() @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt()
+  language    Language @relation(fields: [languageId], references: [id])
+  languageId  Int
+  translation String
+  tagId       Int
+  tagValue    TagValue @relation(fields: [tagId], references: [id])
+  description String?
+}

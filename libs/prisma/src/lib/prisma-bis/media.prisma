@@ -1,0 +1,159 @@
+model File {
+  id        String    @id @default(uuid())
+  numSeq    Int       @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(false)
+  deletedAt DateTime? @map("isDeletedDT")
+
+  // File identification and metadata
+  filename     String // Current filename in storage
+  originalName String // Original filename as uploaded
+  mimeType     String // MIME type (application/pdf, text/plain, etc.)
+  fileSize     Int // Size in bytes
+  extension    String? // File extension (.pdf, .doc, .txt, etc.)
+  encoding     String? // File encoding (UTF-8, etc.)
+
+  // Storage information
+  storageType String  @default("local") // 'local', 's3', 'azure', 'gcs', etc.
+  storagePath String? // Path where file is stored
+  storageUrl  String? // Public URL if available
+  bucketName  String? // Bucket/container name for cloud storage
+  storageName String? @unique // Unique storage identifier
+
+  // Binary data storage (for database storage mode)
+  binaryData Bytes? // File content stored as binary data in database
+
+  // File categorization and metadata
+  category String? // Document category (pdf, document, spreadsheet, etc.)
+  tags     String[]   @default([]) // Array of tags for categorization
+  Tags     TagValue[] @relation("FilesTags")
+
+  description String? // File description
+  version     String? @default("1.0") // File version
+
+  // File processing and validation
+  checksum         String? // File checksum for integrity
+  isProcessed      Boolean @default(false) // Whether file has been processed
+  processingStatus String? @default("pending") // processing, completed, failed
+  virusScanStatus  String? @default("pending") // clean, infected, scanning, failed
+  ocrText          String? // Extracted text content (for searchable documents)
+
+  // Access control and permissions
+  isPublicDownload Boolean   @default(false) // Whether file can be downloaded publicly
+  downloadCount    Int       @default(0) // Number of times file was downloaded
+  lastAccessedAt   DateTime? // Last time file was accessed
+  expiresAt        DateTime? // Expiration date for temporary files
+  isArchived       DateTime? // Archive timestamp
+
+  // Associations - owner and uploader
+  owner        User    @relation("FilesOwned", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId      String
+  uploadedBy   User?   @relation("FilesUploaded", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById String?
+
+  // Organization association
+  org   Organization? @relation("OrganizationFiles", fields: [orgId], references: [id], onDelete: Cascade)
+  orgId String?
+
+  // Groups association (many-to-many)
+  groups Group[]
+
+  // Post association (documents attached to posts)
+  post   Post?   @relation("PostFiles", fields: [postId], references: [id], onDelete: SetNull)
+  postId String?
+
+  // Story association (files attached to stories)
+  story   Story?  @relation("StoryFiles", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId String?
+
+  // User association (profile documents, CV, etc.)
+  profileUser   User?   @relation("UserProfileFiles", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUserId String?
+
+  // Comment association (files attached to comments)
+  comment   Comment? @relation("CommentFiles", fields: [commentId], references: [id], onDelete: SetNull)
+  commentId String?
+
+  // Indexing for performance
+  @@index([ownerId])
+  @@index([uploadedById])
+  @@index([orgId])
+  @@index([createdAt])
+  @@index([mimeType])
+  @@index([category])
+  @@index([deletedAt])
+  @@index([checksum])
+  @@index([processingStatus])
+  @@index([virusScanStatus])
+  @@index([tags])
+}
+
+model Image {
+  id        String    @id() @default(uuid(7))
+  numSeq    Int       @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt()
+  published Boolean   @default(true)
+  isPublic  Boolean   @default(true)
+  deletedAt DateTime? @map("isDeletedDT")
+
+  // Image metadata
+  filename     String
+  originalName String
+  mimeType     String
+  fileSize     Int // Size in bytes
+  width        Int? // Image width in pixels
+  height       Int? // Image height in pixels
+
+  // Storage information
+  storageType String  @default("local") // "local", "s3", "cloudinary", etc.
+  storagePath String? // Local file path or cloud storage path
+  storageUrl  String? // Public URL to access the image
+  bucketName  String? // For cloud storage (S3, GCS, etc.)
+
+  // Image processing
+  isProcessed  Boolean @default(false)
+  thumbnailUrl String? // URL for thumbnail version
+  variants     Json?   @db.Json() // Store different image variants (sizes, formats)
+
+  // Image classification and tagging
+  tags        String[] // Array of tags for categorization
+  altText     String? // Alt text for accessibility
+  description String? // Image description
+
+  // Relations and associations
+  uploadedBy   User?   @relation("ImageUploads", fields: [uploadedById], references: [id], onDelete: SetNull)
+  uploadedById String?
+
+  sequence Int @default(0) // Order in a collection
+
+  // Organization context
+  org   Organization? @relation("OrgImages", fields: [orgId], references: [id], onDelete: SetNull)
+  orgId String?
+
+  // Post association
+  post   Post?   @relation("PostImages", fields: [postId], references: [id], onDelete: SetNull)
+  postId String?
+
+  // User association independent of profile images
+  associatedUser   User?   @relation("UserAssociatedImages", fields: [associatedUserId], references: [id], onDelete: SetNull)
+  associatedUserId String?
+
+  // User profile association (for profile pictures, etc.)
+  profileUser   User?   @relation("UserProfileImages", fields: [profileUserId], references: [id], onDelete: SetNull)
+  profileUserId String?
+
+  // Story association
+  story   Story?  @relation("StoryImages", fields: [storyId], references: [id], onDelete: SetNull)
+  storyId String?
+
+  // Indexing for performance
+  @@index([uploadedById])
+  @@index([associatedUserId])
+  @@index([orgId])
+  @@index([createdAt])
+  @@index([mimeType])
+  @@index([deletedAt])
+}

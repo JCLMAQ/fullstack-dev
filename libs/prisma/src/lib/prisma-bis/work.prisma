@@ -1,0 +1,92 @@
+enum TaskState {
+  CREATION
+  STANDBY
+  RUNNING
+  DONE
+}
+
+enum TodoState {
+  CREATION
+  STANDBY
+  RUNNING
+  DONE
+}
+
+model Todo {
+  id         String         @id() @default(uuid(7))
+  numSeq     Int            @default(autoincrement())
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @default(now()) @updatedAt()
+  published  Boolean        @default(true)
+  deletedAt  DateTime?      @map("isDeletedDT")
+  isPublic   Boolean        @default(false)
+  owner      User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId    String
+  org        Organization?  @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId      String?
+  groups     Group[]
+  orderTodo  Int
+  title      String
+  content    String?
+  todoState  TodoState      @default(CREATION)
+  mainTodo   Todo?          @relation("MainSubTodo", fields: [mainTodoId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mainTodoId String?        @map("mainTodo")
+  SubTodos   Todo[]         @relation("MainSubTodo")
+  Users      UserTodoLink[]
+  Tasks      Task[]
+  Tags       TagValue[]     @relation("TodoTags")
+}
+
+model UserTodoLink {
+  user       User     @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId     String
+  todo       Todo     @relation(fields: [todoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  todoId     String
+  isAuthor   Boolean  @default(true)
+  isAssigned Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt()
+  comment    String
+
+  @@id([userId, todoId])
+}
+
+model Task {
+  id         String         @id() @default(uuid(7))
+  numSeq     Int            @default(autoincrement())
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @default(now()) @updatedAt()
+  published  Boolean        @default(true)
+  deletedAt  DateTime?      @map("isDeletedDT")
+  isPublic   Boolean        @default(false)
+  owner      User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId    String
+  org        Organization?  @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  orgId      String?
+  groups     Group[]
+  orderTask  Int
+  title      String
+  content    String?
+  taskState  TaskState      @default(CREATION)
+  mainTask   Task?          @relation("MainSubTask", fields: [mainTaskId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mainTaskId String?        @map("mainTask")
+  SubTasks   Task[]         @relation("MainSubTask")
+  Users      UserTaskLink[]
+  todo       Todo?          @relation(fields: [todoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  todoId     String?
+  Tags       TagValue[]     @relation("TaskTags")
+}
+
+model UserTaskLink {
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  task       Task     @relation(fields: [taskId], references: [id])
+  taskId     String
+  isAuthor   Boolean  @default(true)
+  isAssigned Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt()
+  comment    String
+
+  @@id([userId, taskId])
+}

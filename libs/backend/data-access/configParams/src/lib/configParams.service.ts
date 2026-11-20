@@ -15,8 +15,13 @@ export class ConfigParamsService {
   // Create a new config parameter
   async create(data: Prisma.ConfigParamCreateInput): Promise<ConfigParam> {
     try {
-      return await this.prisma.configParam.create({
-        data,
+      const db = await this.prisma.getPrisma8();
+      const { createdAt, updatedAt, isDeletedDT, ...fields } = data;
+      return await db.orm.public.ConfigParam.create({
+        ...fields,
+        createdAt: typeof createdAt === 'string' ? new Date(createdAt) : createdAt,
+        updatedAt: typeof updatedAt === 'string' ? new Date(updatedAt) : updatedAt,
+        isDeletedDT: typeof isDeletedDT === 'string' ? new Date(isDeletedDT) : isDeletedDT,
       });
     } catch (error) {
       throw new Error(`Failed to create config parameter: ${getErrorMessage(error)}`);
@@ -55,14 +60,11 @@ export class ConfigParamsService {
   // Find a config parameter by ID
   async findOne(id: number, includeDeleted = false): Promise<ConfigParam | null> {
     try {
-      const where: Prisma.ConfigParamWhereInput = { id };
-      if (!includeDeleted) {
-        where.isDeleted = 0;
-      }
-
-      return await this.prisma.configParam.findFirst({
-        where,
-      });
+      const db = await this.prisma.getPrisma8();
+      const parameter = await db.orm.public.ConfigParam
+        .where({ id, ...(includeDeleted ? {} : { isDeleted: 0 }) })
+        .first();
+      return parameter ?? null;
     } catch (error) {
       throw new Error(`Failed to fetch config parameter: ${getErrorMessage(error)}`);
     }
@@ -71,14 +73,11 @@ export class ConfigParamsService {
   // Find a config parameter by name (unique field)
   async findByName(name: string, includeDeleted = false): Promise<ConfigParam | null> {
     try {
-      const where: Prisma.ConfigParamWhereInput = { name };
-      if (!includeDeleted) {
-        where.isDeleted = 0;
-      }
-
-      return await this.prisma.configParam.findFirst({
-        where,
-      });
+      const db = await this.prisma.getPrisma8();
+      const parameter = await db.orm.public.ConfigParam
+        .where({ name, ...(includeDeleted ? {} : { isDeleted: 0 }) })
+        .first();
+      return parameter ?? null;
     } catch (error) {
       throw new Error(`Failed to fetch config parameter by name: ${getErrorMessage(error)}`);
     }
@@ -108,19 +107,15 @@ export class ConfigParamsService {
   // Soft delete a config parameter
   async remove(id: number): Promise<ConfigParam> {
     try {
-      const existing = await this.findOne(id);
-      if (!existing) {
+      const db = await this.prisma.getPrisma8();
+      const timestamp = new Date();
+      const parameter = await db.orm.public.ConfigParam
+        .where({ id, isDeleted: 0 })
+        .update({ isDeleted: 1, isDeletedDT: timestamp, updatedAt: timestamp });
+      if (!parameter) {
         throw new Error('Config parameter not found or already deleted');
       }
-
-      return await this.prisma.configParam.update({
-        where: { id },
-        data: {
-          isDeleted: 1,
-          isDeletedDT: new Date(),
-          updatedAt: new Date(),
-        },
-      });
+      return parameter;
     } catch (error) {
       throw new Error(`Failed to delete config parameter: ${getErrorMessage(error)}`);
     }
@@ -129,9 +124,12 @@ export class ConfigParamsService {
   // Hard delete a config parameter (permanent removal)
   async hardDelete(id: number): Promise<ConfigParam> {
     try {
-      return await this.prisma.configParam.delete({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const parameter = await db.orm.public.ConfigParam.where({ id }).delete();
+      if (!parameter) {
+        throw new Error('Config parameter not found');
+      }
+      return parameter;
     } catch (error) {
       throw new Error(`Failed to permanently delete config parameter: ${getErrorMessage(error)}`);
     }
@@ -149,14 +147,14 @@ export class ConfigParamsService {
         throw new Error('Config parameter is not deleted');
       }
 
-      return await this.prisma.configParam.update({
-        where: { id },
-        data: {
-          isDeleted: 0,
-          isDeletedDT: null,
-          updatedAt: new Date(),
-        },
-      });
+      const db = await this.prisma.getPrisma8();
+      const parameter = await db.orm.public.ConfigParam
+        .where({ id, isDeleted: existing.isDeleted })
+        .update({ isDeleted: 0, isDeletedDT: null, updatedAt: new Date() });
+      if (!parameter) {
+        throw new Error('Config parameter no longer has the expected deletion status');
+      }
+      return parameter;
     } catch (error) {
       throw new Error(`Failed to restore config parameter: ${getErrorMessage(error)}`);
     }
@@ -277,30 +275,30 @@ export class ConfigParamsService {
     utilities: { utility: string; count: number }[];
   }> {
     try {
-      const [total, published, publicParams, deleted, utilitiesResult] = await Promise.all([
-        this.prisma.configParam.count({ where: { isDeleted: 0 } }),
-        this.prisma.configParam.count({ where: { isDeleted: 0, published: true } }),
-        this.prisma.configParam.count({ where: { isDeleted: 0, isPublic: true } }),
-        this.prisma.configParam.count({ where: { isDeleted: 1 } }),
-        this.prisma.configParam.groupBy({
-          by: ['utility'],
-          where: { isDeleted: 0 },
-          _count: { utility: true },
-          orderBy: { _count: { utility: 'desc' } },
-        }),
-      ]);
-
-      const utilities = utilitiesResult.map(item => ({
-        utility: item.utility,
-        count: item._count.utility,
-      }));
+      const db = await this.prisma.getPrisma8();
+      const totalsQuery = db.raw.sql`
+        SELECT
+          COUNT(*) FILTER (WHERE "isDeleted" = 0) AS total,
+          COUNT(*) FILTER (WHERE "isDeleted" = 0 AND published) AS published,
+          COUNT(*) FILTER (WHERE "isDeleted" = 0 AND "isPublic") AS "public",
+          COUNT(*) FILTER (WHERE "isDeleted" = 1) AS deleted
+        FROM "public"."ConfigParam"
+      `.returnsRow({ total: 'pg/int8@1', published: 'pg/int8@1', public: 'pg/int8@1', deleted: 'pg/int8@1' }).build();
+      const utilitiesQuery = db.raw.sql`
+        SELECT utility, COUNT(*) AS count
+        FROM "public"."ConfigParam"
+        WHERE "isDeleted" = 0
+        GROUP BY utility
+        ORDER BY count DESC
+      `.returnsRow({ utility: 'pg/text@1', count: 'pg/int8@1' }).build();
+      const [[totals], utilities] = await Promise.all([db.query(totalsQuery), db.query(utilitiesQuery)]);
 
       return {
-        total,
-        published,
-        public: publicParams,
-        deleted,
-        utilities,
+        total: Number(totals.total),
+        published: Number(totals.published),
+        public: Number(totals.public),
+        deleted: Number(totals.deleted),
+        utilities: utilities.map(({ utility, count }) => ({ utility, count: Number(count) })),
       };
     } catch (error) {
       throw new Error(`Failed to get config parameters statistics: ${getErrorMessage(error)}`);
