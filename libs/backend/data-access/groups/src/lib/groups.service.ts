@@ -97,9 +97,8 @@ export class GroupsService {
   // Update group
   async update(id: number, data: Prisma.GroupUpdateInput): Promise<Group> {
     try {
-      const existingGroup = await this.prisma.group.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingGroup = await db.orm.public.Group.where({ id }).first();
 
       if (!existingGroup) {
         throw new NotFoundException(`Group with ID ${id} not found`);
@@ -128,9 +127,8 @@ export class GroupsService {
   // Delete group (soft delete)
   async remove(id: number): Promise<Group> {
     try {
-      const existingGroup = await this.prisma.group.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingGroup = await db.orm.public.Group.where({ id }).first();
 
       if (!existingGroup) {
         throw new NotFoundException(`Group with ID ${id} not found`);
@@ -228,9 +226,8 @@ export class GroupsService {
         throw new NotFoundException(`Group with ID ${groupId} not found`);
       }
 
-      const user = await this.prisma.user.findUnique({
-        where: { id: userId },
-      });
+      const db = await this.prisma.getPrisma8();
+      const user = await db.orm.public.User.where({ id: userId }).select('id').first();
 
       if (!user) {
         throw new NotFoundException(`User with ID ${userId} not found`);
@@ -346,9 +343,8 @@ export class GroupsService {
   // Update group order
   async updateGroupOrder(id: number, newOrder: number): Promise<Group> {
     try {
-      const existingGroup = await this.prisma.group.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingGroup = await db.orm.public.Group.where({ id }).first();
 
       if (!existingGroup) {
         throw new NotFoundException(`Group with ID ${id} not found`);

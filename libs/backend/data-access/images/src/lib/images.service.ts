@@ -297,9 +297,8 @@ export class ImagesService {
     } else {
       try {
         // Récupérer l'image avant de la supprimer pour obtenir le chemin du fichier
-        const image = await this.prisma.image.findUnique({
-          where: { id }
-        });
+        const db = await this.prisma.getPrisma8();
+        const image = await db.orm.public.Image.where({ id }).select('storagePath', 'thumbnailUrl').first();
 
         if (!image) {
           throw new Error(`Image with ID ${id} not found`);
@@ -318,7 +317,7 @@ export class ImagesService {
     }
   }
 
-  private async deletePhysicalFile(image: Image): Promise<void> {
+  private async deletePhysicalFile(image: Pick<Image, 'storagePath' | 'thumbnailUrl'>): Promise<void> {
     try {
       if (image.storagePath) {
         // Le storagePath peut être soit un chemin absolu complet, soit un chemin relatif

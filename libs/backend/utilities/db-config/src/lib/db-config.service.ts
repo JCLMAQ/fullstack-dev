@@ -20,9 +20,8 @@ async searchConfigParam(configItemName: string): Promise<string> {
   // Search for config parameter in the DB, and if not found use the one in the .env config file
   // Return "" if no value found
   try {
-    const configItem = await this.prisma.configParam.findUnique({
-      where: { name: configItemName }
-    });
+    const db = await this.prisma.getPrisma8();
+    const configItem = await db.orm.public.ConfigParam.where({ name: configItemName }).first();
 
     // If no config item in DB or value is null, use env file
     if (!configItem || configItem.value === null) {
@@ -48,9 +47,8 @@ async searchConfigParamEnvFirst(configItemName: string): Promise<string | undefi
     }
 
     // Otherwise, try to get from DB
-    const configItem = await this.prisma.configParam.findUnique({
-      where: { name: configItemName }
-    });
+    const db = await this.prisma.getPrisma8();
+    const configItem = await db.orm.public.ConfigParam.where({ name: configItemName }).first();
 
     return configItem?.value || undefined;
   } catch {

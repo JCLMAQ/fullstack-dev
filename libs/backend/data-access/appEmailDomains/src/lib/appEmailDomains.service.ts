@@ -375,12 +375,13 @@ async findOneUnique(emaildomainWhereUniqueInput: Prisma.AppEmailDomainWhereUniqu
    * Find app email domain by domain
    */
   async findByDomain(domain: string, includeDeleted = false): Promise<AppEmailDomain | null> {
-    return await this.prisma.appEmailDomain.findFirst({
-      where: {
+    const db = await this.prisma.getPrisma8();
+    return (await db.orm.public.AppEmailDomain
+      .where({
         domain: domain.toLowerCase(),
         ...(includeDeleted ? {} : { isDeleted: 0 }),
-      },
-    });
+      })
+      .first()) ?? null;
   }
 
   /**

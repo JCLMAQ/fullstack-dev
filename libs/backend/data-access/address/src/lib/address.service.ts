@@ -82,9 +82,8 @@ export class AddressService {
   // Update address
   async update(id: number, data: Prisma.AddressUpdateInput): Promise<Address> {
     try {
-      const existingAddress = await this.prisma.address.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingAddress = await db.orm.public.Address.where({ id }).first();
 
       if (!existingAddress) {
         throw new NotFoundException(`Address with ID ${id} not found`);
@@ -113,9 +112,8 @@ export class AddressService {
   // Delete address
   async remove(id: number): Promise<Address> {
     try {
-      const existingAddress = await this.prisma.address.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingAddress = await db.orm.public.Address.where({ id }).first();
 
       if (!existingAddress) {
         throw new NotFoundException(`Address with ID ${id} not found`);
@@ -185,9 +183,8 @@ export class AddressService {
   // Set address as primary
   async setPrimary(id: number): Promise<Address> {
     try {
-      const address = await this.prisma.address.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const address = await db.orm.public.Address.where({ id }).first();
 
       if (!address) {
         throw new NotFoundException(`Address with ID ${id} not found`);

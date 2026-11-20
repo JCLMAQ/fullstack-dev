@@ -42,9 +42,8 @@ export class LanguagesService {
 
   async findOne(id: number): Promise<Language> {
     try {
-      const language = await this.prisma.language.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const language = await db.orm.public.Language.where({ id }).first();
 
       if (!language) {
         throw new Error(`Language with ID ${id} not found`);
@@ -70,10 +69,12 @@ export class LanguagesService {
 
   async remove(id: number): Promise<Language> {
     try {
-      await this.findOne(id);
-      return await this.prisma.language.delete({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const language = await db.orm.public.Language.where({ id }).delete();
+      if (!language) {
+        throw new Error(`Failed to fetch language: Language with ID ${id} not found`);
+      }
+      return language;
     } catch (error) {
       throw new Error(`Failed to delete language: ${getErrorMessage(error)}`);
     }
@@ -81,9 +82,8 @@ export class LanguagesService {
 
   async findByCode(code: string): Promise<Language | null> {
     try {
-      return await this.prisma.language.findUnique({
-        where: { code },
-      });
+      const db = await this.prisma.getPrisma8();
+      return (await db.orm.public.Language.where({ code }).first()) ?? null;
     } catch (error) {
       throw new Error(`Failed to fetch language by code: ${getErrorMessage(error)}`);
     }

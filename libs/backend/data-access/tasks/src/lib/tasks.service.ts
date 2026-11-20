@@ -111,9 +111,8 @@ export class TasksService {
   // Update task
   async update(id: string, data: Prisma.TaskUpdateInput): Promise<Task> {
     try {
-      const existingTask = await this.prisma.task.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingTask = await db.orm.public.Task.where({ id }).first();
 
       if (!existingTask) {
         throw new NotFoundException(`Task with ID ${id} not found`);
@@ -147,9 +146,8 @@ export class TasksService {
   // Delete task (soft delete)
   async remove(id: string): Promise<Task> {
     try {
-      const existingTask = await this.prisma.task.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingTask = await db.orm.public.Task.where({ id }).first();
 
       if (!existingTask) {
         throw new NotFoundException(`Task with ID ${id} not found`);
@@ -283,9 +281,8 @@ export class TasksService {
   // Update task state
   async updateState(id: string, newState: TaskState): Promise<Task> {
     try {
-      const existingTask = await this.prisma.task.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingTask = await db.orm.public.Task.where({ id }).first();
 
       if (!existingTask) {
         throw new NotFoundException(`Task with ID ${id} not found`);
@@ -359,9 +356,8 @@ export class TasksService {
         throw new NotFoundException(`Task with ID ${taskId} not found`);
       }
 
-      const user = await this.prisma.user.findUnique({
-        where: { id: userId },
-      });
+      const db = await this.prisma.getPrisma8();
+      const user = await db.orm.public.User.where({ id: userId }).select('id').first();
 
       if (!user) {
         throw new NotFoundException(`User with ID ${userId} not found`);
@@ -507,9 +503,8 @@ export class TasksService {
   // Update task order
   async updateTaskOrder(id: string, newOrder: number): Promise<Task> {
     try {
-      const existingTask = await this.prisma.task.findUnique({
-        where: { id },
-      });
+      const db = await this.prisma.getPrisma8();
+      const existingTask = await db.orm.public.Task.where({ id }).first();
 
       if (!existingTask) {
         throw new NotFoundException(`Task with ID ${id} not found`);

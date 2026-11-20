@@ -61,9 +61,8 @@ export class DictionariesService {
    */
   async getDictionaryByLanguage(languageCode: string) {
     // Get language
-    const language = await this.prisma.language.findUnique({
-      where: { code: languageCode },
-    });
+    const db = await this.prisma.getPrisma8();
+    const language = await db.orm.public.Language.where({ code: languageCode }).first();
 
     if (!language) {
       throw new Error(`Language ${languageCode} not found`);
